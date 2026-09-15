@@ -14,11 +14,8 @@ const benefits = [
     text: 'escolhas especiais para quem valoriza o feito à mão.',
     icon: (
       <svg viewBox="0 0 48 48" aria-hidden="true">
-        <path d="M15 12h18l-2 25H17l-2-25Z" />
-        <path d="M13 12h22" />
-        <path d="M19 8h10" />
-        <path d="M19 18c2 2 8 2 10 0" />
-        <path d="M18 32h12" />
+        <path d="M17 11h14l-1.5 7c-.2 1-.9 1.8-1.8 2.4v10.2c0 2.1 1.4 3.8 3.4 4.5v2.1H16.9v-2.1c2-.7 3.4-2.4 3.4-4.5V20.4c-.9-.6-1.6-1.4-1.8-2.4L17 11Z" />
+        <path d="M15 11h18M20 18c2.2 1.2 5.8 1.2 8 0M19 32h10" />
       </svg>
     ),
   },
