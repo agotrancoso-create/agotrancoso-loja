@@ -1,0 +1,102 @@
+/* Agô Trancoso — acabamento cromático final
+   Direção: marfim, areia quente, barro e café.
+   As fotografias permanecem originais; apenas o suporte visual recebe marfim. */
+
+:root {
+  --ago-ivory: #F3E9DA;
+  --ago-ivory-soft: #EDE0CE;
+  --ago-sand: #D2BFA4;
+  --ago-sand-deep: #BDA789;
+  --ago-clay: #A45634;
+  --ago-brown: #4B2D21;
+  --ago-brown-deep: #352118;
+  --ago-ink: #3A281F;
+  --ago-line: rgba(75,45,33,.18);
+}
+
+body { background: var(--ago-ivory) !important; color: var(--ago-ink) !important; }
+
+/* Cabeçalho */
+.site-header { background: var(--ago-ivory) !important; border-bottom-color: rgba(75,45,33,.12) !important; }
+.header-link { color: rgba(58,40,31,.78) !important; }
+.header-link:first-child { color: var(--ago-clay) !important; }
+.header-link:first-child::after { background: var(--ago-clay) !important; }
+.header-search { border-bottom-color: rgba(75,45,33,.28) !important; }
+
+/* Fundos principais: uma única família quente, sem verde/cinza. */
+.collection-showcase,
+.collection-more,
+.benefits-strip,
+.bg-areia { background: var(--ago-ivory) !important; }
+
+.category-row { background: var(--ago-ivory) !important; }
+.category-row > div { border-color: var(--ago-line) !important; }
+.category-pill { color: rgba(58,40,31,.64) !important; }
+.category-pill.active,
+.category-pill:hover { color: var(--ago-clay) !important; border-bottom-color: var(--ago-clay) !important; }
+
+/* Faixas de transição */
+.trust-strip { background: var(--ago-sand) !important; color: var(--ago-brown) !important; }
+
+/* Hero */
+.hero-section { background: var(--ago-brown) !important; }
+
+/* Fotos de produtos: suporte marfim e foto ocupando todo o quadro. */
+.product-image-wrap,
+.featured-products-grid .product-image-wrap { background: var(--ago-ivory) !important; }
+.product-image { width: 100% !important; height: 100% !important; padding: 0 !important; object-fit: cover !important; object-position: center !important; }
+
+.product-name { color: var(--ago-ink) !important; }
+.current-price { color: var(--ago-clay) !important; }
+.product-add { border-color: rgba(75,45,33,.25) !important; color: var(--ago-brown) !important; }
+.product-add:hover { background: var(--ago-brown) !important; border-color: var(--ago-brown) !important; color: var(--ago-ivory) !important; }
+
+/* Benefícios */
+.benefits-strip { background: var(--ago-ivory-soft) !important; border-color: var(--ago-line) !important; }
+.feature-icon svg { stroke: var(--ago-clay) !important; }
+.feature-title { color: var(--ago-brown) !important; }
+.feature-description { color: rgba(58,40,31,.62) !important; }
+
+/* Editorial */
+.editorial-section { background: var(--ago-sand) !important; }
+.editorial-image,
+.editorial-image img,
+.bg-areia > .max-w-content > .editorial-image,
+.bg-areia > .max-w-content > .editorial-image img { border-radius: 20px !important; }
+.editorial-image { background: var(--ago-ivory) !important; }
+.editorial-copy { color: rgba(58,40,31,.72) !important; }
+.editorial-link { color: var(--ago-clay) !important; }
+
+/* Para a casa */
+.bg-areia { background: var(--ago-ivory) !important; }
+
+/* Como comprar */
+.how-section { background: var(--ago-ivory-soft) !important; border-color: var(--ago-line) !important; }
+.step-number { color: var(--ago-clay) !important; }
+.how-section strong { color: var(--ago-brown) !important; }
+
+/* Visite */
+.visit-section { background: var(--ago-brown) !important; }
+
+/* Rodapé */
+footer { background: var(--ago-brown-deep) !important; }
+
+/* Apenas fotografias têm cantos arredondados. */
+.product-image-wrap,
+.product-image,
+.hero-image,
+.hero-overlay,
+.editorial-image,
+.editorial-image img { border-radius: 20px !important; }
+
+/* Botões e controles permanecem retos. */
+button, input, select, textarea,
+.header-link, .collection-link, .editorial-link,
+.product-add, .product-badge, .product-view, .category-pill,
+.visit-section a, .hero-section a, footer { border-radius: 0 !important; }
+
+@media (max-width: 767px) {
+  .product-image-wrap, .product-image { border-radius: 14px !important; }
+  .hero-image, .hero-overlay { border-radius: 14px !important; }
+  .editorial-image, .editorial-image img { border-radius: 14px !important; }
+}
