@@ -1,0 +1,331 @@
+{
+  "_leiaMe": "Catálogo oficial com os 19 produtos reais da Agô Trancoso, enviados por texto em 12/09/2026. Nomes, preços e descrições são exatamente os fornecidos — nada foi inventado. As categorias foram atribuídas apenas para organizar os filtros do site (não alteram nenhuma informação do produto em si). As fotos ainda são placeholders em /public/produtos/ com o nome de arquivo já definido — quando a foto real de cada peça chegar, basta substituir o arquivo mantendo o mesmo nome (veja o README). As galerias marcadas _fotoMetaConfirmada foram associadas diretamente às capturas disponíveis do Gerenciador de Comércio e aos arquivos originais correspondentes; as demais mantêm a melhor imagem original já presente no projeto para não inventar correspondências.",
+  "categories": [
+    {
+      "id": "trancoso",
+      "name": "Trancoso"
+    },
+    {
+      "id": "igrejinhas",
+      "name": "Igrejinhas"
+    },
+    {
+      "id": "decoracao",
+      "name": "Decoração"
+    },
+    {
+      "id": "fe-devocao",
+      "name": "Fé e devoção"
+    },
+    {
+      "id": "presentes",
+      "name": "Presentes"
+    }
+  ],
+  "products": [
+    {
+      "id": "igreja-quadrado-p",
+      "name": "Igreja do Quadrado (P)",
+      "description": "Versão miniatura da Igreja do Quadrado em cerâmica. Peça delicada, ideal para lembrança ou coleção, pintada à mão com detalhes realistas.",
+      "price": 250,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "igrejinhas",
+      "images": [
+        "/produtos/igreja-quadrado-p.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Igreja do Quadrado (P)"
+    },
+    {
+      "id": "igreja-quadrado-m",
+      "name": "Igreja do Quadrado (M)",
+      "description": "Inspirada na tradicional Igrejinha do Quadrado, esta peça em cerâmica leva para a decoração um dos símbolos mais marcantes de Trancoso. Em tamanho M, é uma representação delicada da arquitetura que tornam esse lugar tão especial.",
+      "price": 460,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "igrejinhas",
+      "images": [
+        "/produtos/igreja-quadrado-m.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Igreja do Quadrado (M)"
+    },
+    {
+      "id": "igreja-quadrado-gg",
+      "name": "Igreja do Quadrado (GG)",
+      "description": "Escultura em cerâmica inspirada na Igreja de São João Batista, no Quadrado de Trancoso. Modelada à mão, reproduz com fidelidade a arquitetura e os detalhes que tornam esse cartão-postal um dos símbolos mais conhecidos da Bahia.",
+      "price": 8500,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "igrejinhas",
+      "images": [
+        "/produtos/igreja-quadrado-gg.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Igreja do Quadrado (GG)"
+    },
+    {
+      "id": "igrejinha-luminaria-trancoso",
+      "name": "Igrejinha Luminária de Trancoso",
+      "description": "Peça em cerâmica, modelada à mão, que reproduz a Igrejinha do Quadrado. Pode ser utilizada com vela eletrônica (LED) ou vela pequena em seu interior, criando uma agradável luz ambiente. Ideal para decorar e iluminar.",
+      "price": 680,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "igrejinhas",
+      "images": [
+        "/produtos/igrejinha-luminaria-trancoso.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Igrejinha Luminária de Trancoso"
+    },
+    {
+      "id": "casinha-luminaria",
+      "name": "Casinha Luminária",
+      "description": "Inspirada nas casinhas de Trancoso, esta peça em cerâmica pode ser usada com vela rechaud ou vela LED. Quando iluminada, cria um efeito de luz delicado através das janelas e portas, tornando o ambiente ainda mais aconchegante.",
+      "price": 450,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "decoracao",
+      "images": [
+        "/produtos/casinha-luminaria.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Casinha Luminária"
+    },
+    {
+      "id": "miniatura-quadrado-trancoso",
+      "name": "Miniatura do Quadrado de Trancoso",
+      "description": "Representação do charmoso Quadrado de Trancoso. Escultura em cerâmica com acabamento colorido. Realça qualquer decoração com toque regional.",
+      "price": 480,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "trancoso",
+      "images": [
+        "/produtos/miniatura-quadrado-trancoso.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Miniatura do Quadrado de Trancoso"
+    },
+    {
+      "id": "cruzeiro-do-quadrado",
+      "name": "Cruzeiro do Quadrado",
+      "description": "Miniatura do cruzeiro de pedra que existe no Centro Histórico de Trancoso. Feita em cerâmica. Inspira fé e história. Enaltece a origem baiana da coleção.",
+      "price": 430,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "trancoso",
+      "images": [
+        "/produtos/cruzeiro-do-quadrado.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Cruzeiro do Quadrado"
+    },
+    {
+      "id": "mobile-trancoso",
+      "name": "Móbile Trancoso em Cerâmica",
+      "description": "Móbile feito à mão, de cerâmica com casinhas penduradas em fio resistente. Cria movimento suave com a brisa. Traz charme rústico e regional ao ambiente.",
+      "price": 1400,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "decoracao",
+      "images": [
+        "/produtos/mobile-trancoso.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Móbile Trancoso em Cerâmica"
+    },
+    {
+      "id": "estatueta-iemanja",
+      "name": "Estatueta Iemanjá em Cerâmica",
+      "description": "Escultura artesanal de Iemanjá, padroeira das águas na Umbanda. Feita em cerâmica, com detalhes delicados. Ideal para altar ou decoração temática.",
+      "price": 480,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "fe-devocao",
+      "images": [
+        "/produtos/estatueta-iemanja.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Estatueta Iemanjá em Cerâmica"
+    },
+    {
+      "id": "nossa-senhora-grande",
+      "name": "Nossa Senhora Grande",
+      "description": "Imagem de Nossa Senhora em cerâmica. Design tradicional, com detalhes delicados nas vestes, ideal para capelas domésticas ou para compor ambientes de devoção e fé.",
+      "price": 3000,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "fe-devocao",
+      "images": [
+        "/produtos/nossa-senhora-grande.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Nossa Senhora Grande"
+    },
+    {
+      "id": "presepio-em-ceramica",
+      "name": "Presépio em Cerâmica",
+      "description": "Presépio artesanal composto por cinco peças em cerâmica: Sagrada Família (Jesus, Maria e José), anjo e Estrela de Belém. Cada peça é modelada e pintada à mão, celebrando o Natal com elegância.",
+      "price": 950,
+      "promotionalPrice": 600,
+      "currency": "BRL",
+      "category": "fe-devocao",
+      "images": [
+        "/produtos/presepio-em-ceramica.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Presépio em Cerâmica"
+    },
+    {
+      "id": "casal-pretos-velhos",
+      "name": "Casal de Pretos-Velhos em Cerâmica",
+      "description": "Dupla de estatuetas em cerâmica marrom-escuro: homem e mulher Pretos-Velhos. Cada detalhe, como as vestimentas, o banco e o cachimbo, é esculpido à mão. Símbolo de sabedoria e proteção.",
+      "price": 280,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "fe-devocao",
+      "images": [
+        "/produtos/casal-pretos-velhos.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Casal de Pretos-Velhos em Cerâmica"
+    },
+    {
+      "id": "nossa-senhora-aparecida",
+      "name": "Nossa Senhora Aparecida",
+      "description": "Miniatura de Nossa Senhora Aparecida em cerâmica. Feita e pintada à mão, com manto azul e detalhes dourados. Ideal para altares pessoais ou como presente para quem deseja expressar a fé.",
+      "price": 280,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "fe-devocao",
+      "images": [
+        "/produtos/nossa-senhora-aparecida.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Nossa Senhora Aparecida"
+    },
+    {
+      "id": "divino-espirito-santo",
+      "name": "Divino Espírito Santo para Pendurar",
+      "description": "Placa circular de cerâmica com pomba do Divino Espírito Santo em relevo. Pode ser pendurada em paredes internas. Ideal para salas de oração ou como elemento clássico na decoração.",
+      "price": 270,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "fe-devocao",
+      "images": [
+        "/produtos/divino-espirito-santo.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Divino Espírito Santo para Pendurar"
+    },
+    {
+      "id": "terco-em-ceramica",
+      "name": "Terço em Cerâmica",
+      "description": "Terço artesanal com contas de cerâmica branca enfileiradas e cruz no final. Design clássico e resistente, ideal para devotos ou como peça decorativa religiosa.",
+      "price": 290,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "fe-devocao",
+      "images": [
+        "/produtos/terco-em-ceramica.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Terço em Cerâmica"
+    },
+    {
+      "id": "rosario-trancoso",
+      "name": "Rosário Trancoso em Cerâmica",
+      "description": "Rosário feito à mão com contas de cerâmica e pequeno medalhão com imagem da Igreja do Quadrado. Combina fé e arte. Ideal para altar pessoal ou presente.",
+      "price": 1500,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "fe-devocao",
+      "images": [
+        "/produtos/rosario-trancoso.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Rosário Trancoso em Cerâmica"
+    },
+    {
+      "id": "esfera-decorativa",
+      "name": "Esfera Decorativa",
+      "description": "Bola decorativa de cerâmica, com design minimalista. Pode ser usada sobre suportes ou mesas. Trazendo simplicidade sofisticada à decoração de sala, escritório ou quarto.",
+      "price": 120,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "decoracao",
+      "images": [
+        "/produtos/esfera-decorativa.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Esfera Decorativa"
+    },
+    {
+      "id": "colar-igreja-quadrado",
+      "name": "Colar da Igreja do Quadrado",
+      "description": "Colar em cerâmica inspirado na Igreja do Quadrado. Modelado à mão, transforma um dos cenários mais emblemáticos de Trancoso em um acessório delicado para acompanhar diferentes momentos.",
+      "price": 130,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "presentes",
+      "images": [
+        "/produtos/colar-igreja-quadrado.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Colar da Igreja do Quadrado"
+    },
+    {
+      "id": "ima-igrejinha-trancoso",
+      "name": "Ímã da Igrejinha de Trancoso",
+      "description": "Imã artesanal em cerâmica, representando a Igreja de São João Batista. Detalhes pintados à mão. Leve lembrança de Trancoso para uso no dia a dia ou coleção.",
+      "price": 50,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "presentes",
+      "images": [
+        "/produtos/ima-igrejinha-trancoso.jpg"
+      ],
+      "dimensions": "",
+      "available": true,
+      "stock": null,
+      "imageAlt": "Ímã da Igrejinha de Trancoso"
+    }
+  ]
+}
