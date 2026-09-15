@@ -1,177 +1,47 @@
-/* Agô Trancoso — direção visual: artesanal, quente, contemporânea e arredondada. */
-:root {
-  --ago-ink: #34231b;
-  --ago-clay: #a65330;
-  --ago-sand: #eee2d2;
-  --ago-paper: #fbf8f3;
-  --ago-olive: #77715f;
-  --ago-radius: 24px;
-  --ago-radius-sm: 16px;
+/* Agô Trancoso — ajuste visual mínimo.
+   O layout original permanece intacto; somente as fotografias recebem cantos arredondados. */
+
+.hero-image,
+.product-image,
+.editorial-image img,
+.product-gallery-image,
+.product-gallery-thumb img {
+  border-radius: 18px;
 }
 
-body { background: var(--ago-paper); }
+/* A moldura da Hero continua sem arredondamento: somente a fotografia é arredondada. */
+.hero-section {
+  border-radius: 0 !important;
+}
 
-/* Sistema de cantos: nenhum bloco importante fica com canto seco. */
+/* Nenhum outro elemento do site recebe radius por esta camada. */
 .site-header,
 .product-card,
 .product-image-wrap,
-.hero-section,
-.editorial-image,
+.trust-strip,
+.benefits-strip,
+.editorial-section,
 .how-section,
 .visit-section,
-.cart-drawer,
-.cart-item,
 .category-pill,
 .product-badge,
 .product-view,
 .product-add,
-.hero-section a,
-.visit-section a,
-.collection-more a:not(.collection-link),
-.editorial-section a,
+.collection-more,
+button,
 input,
 select,
 textarea,
-button {
-  border-radius: var(--ago-radius) !important;
+a {
+  border-radius: revert;
 }
 
-.site-header {
-  margin: 10px 14px 0;
-  background: rgba(251,248,243,.96) !important;
-  border: 1px solid rgba(52,35,27,.10) !important;
-  box-shadow: 0 8px 28px rgba(52,35,27,.07) !important;
-}
-.site-header > div { max-width: 1240px; }
-.header-logo { position:absolute; left:50%; transform:translateX(-50%); }
-.header-link { padding: 21px 0 !important; }
-.header-link:first-child::after { bottom: 14px !important; border-radius:999px; }
-.header-search { border-radius:999px !important; border:1px solid rgba(52,35,27,.14) !important; padding:9px 14px !important; }
-.header-icon { border-radius:999px !important; }
-
-.collection-showcase {
-  max-width:1240px !important;
-  padding-top:72px !important;
-  padding-bottom:62px !important;
-  grid-template-columns:minmax(250px,.78fr) minmax(0,2.22fr) !important;
-  gap:44px !important;
-}
-.collection-showcase::before { display:none !important; }
-.collection-intro { align-self:center !important; padding:0 8px 12px 0 !important; }
-.collection-intro .eyebrow { color:var(--ago-clay); }
-.collection-intro .section-title { max-width:410px; font-size:clamp(3rem,4.8vw,4.9rem); line-height:.88; }
-.collection-intro .section-intro { max-width:370px; font-size:13px; line-height:1.85; }
-.collection-link-large { margin-top:28px !important; }
-
-.featured-products-grid { grid-template-columns:repeat(4,minmax(0,1fr)) !important; gap:18px !important; align-items:start; }
-.featured-products-grid .product-card:first-child { grid-column:span 2; }
-.featured-products-grid .product-card:first-child .product-image-wrap { aspect-ratio:1.14/1 !important; }
-.featured-products-grid .product-card:first-child .product-name { font-size:25px !important; }
-
-.product-card {
-  overflow:hidden;
-  background:transparent;
-  transition:transform .25s ease, filter .25s ease;
-}
-.product-card:hover { transform:translateY(-3px); }
-.product-image-wrap {
-  background:#efe4d5 !important;
-  border:1px solid rgba(52,35,27,.07) !important;
-  box-shadow:0 8px 24px rgba(52,35,27,.055) !important;
-}
-.product-image { padding:12px !important; }
-.product-name { color:var(--ago-ink) !important; font-size:20px !important; }
-.current-price { color:var(--ago-clay) !important; }
-.product-badge { top:10px !important; left:10px !important; padding:7px 11px !important; }
-.product-view { right:10px !important; bottom:10px !important; }
-.product-add { border:1px solid rgba(52,35,27,.18) !important; background:var(--ago-paper) !important; }
-.product-add:hover { background:var(--ago-ink) !important; color:var(--ago-paper) !important; }
-
-.category-row { max-width:1240px !important; padding-bottom:54px !important; }
-.category-row > div { border-top:0 !important; padding:0 !important; gap:8px !important; }
-.category-pill { border-color:rgba(52,35,27,.17) !important; background:#f7f1e9 !important; color:rgba(52,35,27,.72) !important; padding:10px 17px !important; }
-.category-pill.active { background:var(--ago-ink) !important; border-color:var(--ago-ink) !important; color:#fffaf3 !important; }
-
-.hero-section {
-  min-height:560px !important;
-  margin:0 14px !important;
-  width:calc(100% - 28px) !important;
-  box-shadow:0 14px 38px rgba(52,35,27,.12);
-}
-.hero-image { filter:saturate(.9) contrast(.98) !important; }
-.hero-overlay { background:linear-gradient(90deg,rgba(39,25,18,.72),rgba(39,25,18,.34) 55%,rgba(39,25,18,.08)) !important; }
-.hero-section h1 { max-width:760px; letter-spacing:-.055em !important; }
-.hero-section > div:last-child { padding-bottom:56px !important; }
-.hero-section a { padding-left:24px !important; padding-right:24px !important; }
-
-.trust-strip {
-  margin:12px 14px 0;
-  border-radius:999px !important;
-  background:#e8ddce !important;
-  min-height:50px;
-}
-
-.benefits-strip {
-  margin:12px 14px;
-  border-radius:var(--ago-radius) !important;
-  background:#f7f2ea !important;
-  border:1px solid rgba(52,35,27,.07) !important;
-  padding-top:62px !important;
-  padding-bottom:64px !important;
-}
-.feature-item { border-radius:var(--ago-radius-sm); }
-.feature-item:not(:last-child)::after { opacity:.07 !important; }
-.feature-icon { border-radius:999px !important; background:#eee2d2; }
-
-.collection-more { background:var(--ago-paper) !important; }
-.collection-more > div { padding-top:76px !important; padding-bottom:78px !important; }
-.section-heading { border-bottom:0 !important; padding-bottom:12px !important; margin-bottom:30px !important; }
-
-.editorial-section {
-  margin:0 14px 12px;
-  border-radius:var(--ago-radius) !important;
-  background:#eee4d7 !important;
-  overflow:hidden;
-}
-.editorial-section::after { display:none !important; }
-.editorial-image { overflow:hidden; box-shadow:0 12px 32px rgba(52,35,27,.08); }
-.editorial-image img { display:block; width:100%; height:auto; }
-
-.how-section {
-  margin:12px 14px;
-  background:#e7dbcc !important;
-  overflow:hidden;
-}
-.step-number { border-radius:999px !important; }
-
-.visit-section {
-  margin:12px 14px 14px;
-  background:var(--ago-ink) !important;
-  overflow:hidden;
-}
-.visit-section .bg-terracota { background:var(--ago-clay) !important; }
-.visit-section > div > div:last-child { border-radius:var(--ago-radius) !important; background:rgba(255,255,255,.035); padding:18px !important; }
-
-@media (max-width:1000px) {
-  .collection-showcase { grid-template-columns:1fr !important; gap:30px !important; }
-  .collection-intro .section-title { max-width:650px; }
-}
-
-@media (max-width:767px) {
-  .site-header { margin:7px 8px 0; }
-  .collection-showcase { padding-top:50px !important; padding-bottom:42px !important; }
-  .collection-intro { padding-right:0 !important; }
-  .collection-intro .section-title { font-size:3.15rem !important; }
-  .featured-products-grid { gap:18px 10px !important; }
-  .featured-products-grid .product-card:first-child .product-image-wrap { aspect-ratio:1.16/1 !important; }
-  .featured-products-grid .product-card:first-child .product-name { font-size:21px !important; }
-  .product-name { font-size:18px !important; }
-  .category-row { padding-bottom:40px !important; }
-  .hero-section { min-height:470px !important; margin:0 8px !important; width:calc(100% - 16px) !important; }
-  .hero-section > div:last-child { padding-top:100px !important; padding-bottom:34px !important; }
-  .hero-section h1 { font-size:clamp(3rem,14vw,4.5rem) !important; }
-  .trust-strip { margin:8px 8px 0; padding:11px 14px !important; }
-  .benefits-strip,.editorial-section,.how-section,.visit-section { margin-left:8px; margin-right:8px; }
-  .benefits-strip { padding-top:48px !important; padding-bottom:50px !important; }
-  .collection-more > div { padding-top:54px !important; padding-bottom:58px !important; }
+@media (max-width: 767px) {
+  .hero-image,
+  .product-image,
+  .editorial-image img,
+  .product-gallery-image,
+  .product-gallery-thumb img {
+    border-radius: 14px;
+  }
 }
