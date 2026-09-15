@@ -1,31 +1,31 @@
 /* Agô Trancoso — direção visual principal
-   Brasil contemporâneo: calor, matéria, silêncio e sofisticação.
+   Paleta unificada: areia, papel, barro e café.
    As fotografias são protagonistas: preenchidas, grandes e sem folgas internas. */
 
 :root {
   --ago-ink: #34231b;
-  --ago-brown: #4a2c1f;
-  --ago-terra: #a4511f;
-  --ago-sand: #e9dfd1;
-  --ago-paper: #fcfaf6;
-  --ago-olive: #817963;
+  --ago-brown: #43291f;
+  --ago-terra: #9a4d2e;
+  --ago-sand: #e7d8c5;
+  --ago-paper: #f8f4ec;
+  --ago-olive: #766f5d;
   --ago-blue: #294d55;
-  --ago-line: rgba(74, 44, 31, .15);
-  --ago-soft-line: rgba(74, 44, 31, .08);
+  --ago-line: rgba(67, 41, 31, .15);
+  --ago-soft-line: rgba(67, 41, 31, .08);
 }
 
 body { background: var(--ago-paper); color: var(--ago-ink); }
 main, section { scroll-margin-top: 88px; }
 
 .site-header {
-  background: rgba(252,250,246,.96) !important;
+  background: rgba(248,244,236,.97) !important;
   border-bottom: 1px solid var(--ago-soft-line) !important;
   box-shadow: none !important;
 }
 .header-link { padding: 25px 0 !important; color: rgba(52,35,27,.72) !important; }
 .header-link:first-child { color: var(--ago-terra) !important; }
 .header-link:first-child::after { bottom: 17px !important; height: 1px !important; background: var(--ago-terra) !important; }
-.header-search { border: 0 !important; border-bottom: 1px solid rgba(74,44,31,.28) !important; border-radius: 0 !important; padding: 7px 0 !important; }
+.header-search { border: 0 !important; border-bottom: 1px solid rgba(67,41,31,.28) !important; border-radius: 0 !important; padding: 7px 0 !important; }
 .header-icon { border-radius: 0 !important; }
 
 .collection-showcase {
@@ -62,7 +62,6 @@ main, section { scroll-margin-top: 88px; }
   overflow: hidden !important;
   aspect-ratio: 1 / 1 !important;
 }
-/* A imagem ocupa toda a área da fotografia; sem “margem de produto” dentro do quadrado. */
 .product-image {
   display: block !important;
   width: 100% !important;
@@ -78,12 +77,12 @@ main, section { scroll-margin-top: 88px; }
 .product-view { right: 12px !important; bottom: 12px !important; }
 .product-name { margin-top: 14px !important; color: var(--ago-ink) !important; font-size: 19px !important; line-height: 1.05 !important; }
 .current-price { color: var(--ago-terra) !important; font-size: 12px !important; }
-.product-add { margin-top: 12px !important; border: 1px solid rgba(74,44,31,.24) !important; border-radius: 0 !important; background: transparent !important; color: var(--ago-ink) !important; padding: 12px 10px !important; }
+.product-add { margin-top: 12px !important; border: 1px solid rgba(67,41,31,.24) !important; border-radius: 0 !important; background: transparent !important; color: var(--ago-ink) !important; padding: 12px 10px !important; }
 .product-add:hover { background: var(--ago-brown) !important; border-color: var(--ago-brown) !important; color: var(--ago-paper) !important; }
 
 .category-row { max-width: 1240px !important; padding-bottom: clamp(54px, 7vw, 82px) !important; }
 .category-row > div { border-top: 1px solid var(--ago-line) !important; padding-top: 16px !important; gap: clamp(20px, 3vw, 34px) !important; }
-.category-pill { border: 0 !important; border-bottom: 1px solid transparent !important; border-radius: 0 !important; padding: 7px 0 !important; background: transparent !important; color: rgba(74,44,31,.58) !important; }
+.category-pill { border: 0 !important; border-bottom: 1px solid transparent !important; border-radius: 0 !important; padding: 7px 0 !important; background: transparent !important; color: rgba(67,41,31,.58) !important; }
 .category-pill.active { background: transparent !important; color: var(--ago-terra) !important; border-bottom-color: var(--ago-terra) !important; }
 .category-pill:hover { background: transparent !important; color: var(--ago-terra) !important; }
 
@@ -102,12 +101,13 @@ main, section { scroll-margin-top: 88px; }
 .feature-title { color: var(--ago-brown) !important; font-size: 1.7rem !important; }
 .feature-description { color: rgba(52,35,27,.58) !important; }
 
-.collection-more { background: #f4eee6 !important; border-radius: 0 !important; }
+/* A mesma família cromática, sem “faixas” de bege diferentes. */
+.collection-more { background: var(--ago-paper) !important; border-radius: 0 !important; }
 .collection-more > div { padding-top: clamp(72px, 8vw, 102px) !important; padding-bottom: clamp(78px, 9vw, 110px) !important; }
 .section-heading { border-bottom: 1px solid var(--ago-line) !important; padding-bottom: 20px !important; margin-bottom: 40px !important; }
 .collection-more .grid { gap: 42px 16px !important; }
 
-.editorial-section { background: #e8ddce !important; border-radius: 0 !important; }
+.editorial-section { background: var(--ago-sand) !important; border-radius: 0 !important; }
 .editorial-section > div { padding-top: clamp(76px, 9vw, 110px) !important; padding-bottom: clamp(76px, 9vw, 110px) !important; }
 .editorial-image { overflow: hidden !important; border-radius: 20px !important; background: transparent !important; }
 .editorial-image img { display: block !important; width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 20px !important; }
@@ -115,12 +115,13 @@ main, section { scroll-margin-top: 88px; }
 .editorial-copy { max-width: 500px; color: rgba(52,35,27,.68) !important; }
 .editorial-link { border-radius: 0 !important; }
 
+/* Retorna a área clara principal: o destaque de cor fica concentrado na seção editorial. */
 .bg-areia > .max-w-content { padding-top: clamp(76px, 9vw, 110px) !important; padding-bottom: clamp(76px, 9vw, 110px) !important; }
 .bg-areia > .max-w-content > .editorial-image { border-radius: 20px !important; }
 .bg-areia > .max-w-content > .editorial-image img { border-radius: 20px !important; }
 .bg-areia .inline-flex { border-radius: 0 !important; }
 
-.how-section { background: #eee6da !important; border-radius: 0 !important; }
+.how-section { background: var(--ago-paper) !important; border-top: 1px solid var(--ago-line) !important; border-radius: 0 !important; }
 .how-section > div { padding-top: clamp(68px, 8vw, 96px) !important; padding-bottom: clamp(68px, 8vw, 96px) !important; }
 .step-number { border-radius: 0 !important; }
 
