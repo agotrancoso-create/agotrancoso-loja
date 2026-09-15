@@ -93,7 +93,7 @@ export default function HomePage() {
           </h1>
 
           <p className="mt-5 text-base md:text-xl text-areia/90 max-w-xl leading-relaxed">
-            Cerâmicas, velas e decoração com alma brasileira.
+            Cerâmicas e decoração com alma brasileira.
           </p>
 
           <p className="mt-2 text-sm md:text-base text-areia/70 max-w-lg leading-7">
