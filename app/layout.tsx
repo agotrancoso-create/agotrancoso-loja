@@ -5,7 +5,6 @@ import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
-import WhatsAppButton from '@/components/WhatsAppButton';
 import { SITE_DOMAIN } from '@/lib/config';
 
 export const metadata: Metadata = {
@@ -43,7 +42,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="min-h-[60vh]">{children}</main>
           <Footer />
           <CartDrawer />
-          <WhatsAppButton />
         </CartProvider>
       </body>
     </html>
