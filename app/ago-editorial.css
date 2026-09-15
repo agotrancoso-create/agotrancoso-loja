@@ -163,3 +163,67 @@ button, input, select, textarea, .header-link, .collection-link, .editorial-link
   .collection-more .grid { gap: 34px 10px !important; }
   .editorial-image, .editorial-image img, .bg-areia > .max-w-content > .editorial-image, .bg-areia > .max-w-content > .editorial-image img { border-radius: 14px !important; }
 }
+
+/* PALETA TERROSA — ajuste final baseado na referência visual enviada */
+:root {
+  --ago-ink: #33241c;
+  --ago-brown: #4a2c1f;
+  --ago-terra: #9b4a2f;
+  --ago-sand: #d8c1a5;
+  --ago-paper: #f4ede2;
+  --ago-olive: #76624f;
+  --ago-blue: #294d55;
+  --ago-line: rgba(74,44,31,.20);
+  --ago-soft-line: rgba(74,44,31,.10);
+}
+
+body { background: var(--ago-paper) !important; color: var(--ago-ink) !important; }
+.site-header { background: #f4ede2 !important; border-bottom-color: rgba(74,44,31,.12) !important; }
+.header-link { color: rgba(51,36,28,.78) !important; }
+.header-link:first-child { color: var(--ago-terra) !important; }
+.header-search { border-bottom-color: rgba(74,44,31,.30) !important; }
+
+.collection-showcase,
+.collection-more,
+.benefits-strip,
+.how-section,
+.bg-areia { background: var(--ago-paper) !important; }
+
+.category-row { background: transparent !important; }
+.category-pill { color: rgba(51,36,28,.64) !important; }
+.category-pill.active,
+.category-pill:hover { color: var(--ago-terra) !important; border-bottom-color: var(--ago-terra) !important; }
+
+.trust-strip { background: var(--ago-sand) !important; color: var(--ago-brown) !important; }
+
+.editorial-section { background: #d1b596 !important; }
+
+.how-section { background: #eadfce !important; }
+
+.visit-section,
+.hero-section { background: var(--ago-brown) !important; }
+
+.product-name { color: var(--ago-ink) !important; }
+.current-price { color: var(--ago-terra) !important; }
+.product-add { border-color: rgba(74,44,31,.26) !important; color: var(--ago-brown) !important; }
+.product-add:hover { background: var(--ago-terra) !important; border-color: var(--ago-terra) !important; color: #f4ede2 !important; }
+
+.feature-title { color: var(--ago-brown) !important; }
+.feature-description,
+.collection-intro .section-intro,
+.editorial-copy { color: rgba(51,36,28,.68) !important; }
+.feature-icon svg { stroke: var(--ago-terra) !important; }
+
+.section-heading,
+.category-row > div { border-color: var(--ago-line) !important; }
+
+footer { background: var(--ago-brown) !important; }
+
+/* Não usar verde-oliva como fundo: ele destoava das cerâmicas e deixava a página acinzentada. */
+.bg-marrom { background-color: var(--ago-brown) !important; }
+.bg-areia2 { background-color: #eadfce !important; }
+
+@media (max-width: 767px) {
+  .editorial-section { background: #d1b596 !important; }
+  .how-section { background: #eadfce !important; }
+}
