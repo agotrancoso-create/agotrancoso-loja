@@ -1,4 +1,11 @@
-import { whatsappLink, INSTAGRAM_URL, INSTAGRAM_HANDLE } from '@/lib/config';
+import {
+  whatsappLink,
+  INSTAGRAM_URL,
+  INSTAGRAM_HANDLE,
+} from '@/lib/config';
+
+const mapsUrl =
+  'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5894988,-39.0957282,21z';
 
 export const metadata = {
   title: 'Contato | Agô Trancoso',
@@ -6,30 +13,75 @@ export const metadata = {
 
 export default function ContatoPage() {
   return (
-    <div className="max-w-content mx-auto px-5 md:px-8 py-16 max-w-xl">
-      <h1 className="font-serif text-3xl text-marrom mb-6">Contato</h1>
-      <p className="font-sans text-marrom/80 leading-relaxed mb-8">
-        Dúvidas sobre uma peça, entrega ou pagamento? Fale com a gente. Para comprar, não é
-        necessário enviar mensagem — você pode finalizar o pedido diretamente pelo site.
-      </p>
+    <div className="max-w-content mx-auto px-5 md:px-8 py-16">
+      <div className="max-w-2xl">
+        <p className="eyebrow mb-4">Fale com a Agô</p>
 
-      <div className="space-y-4 font-sans">
-        <a
-          href={whatsappLink('Olá! Vim pelo site da Agô Trancoso.')}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block border border-oliva/30 hover:border-terracota px-5 py-4 text-marrom"
-        >
-          Falar no WhatsApp
-        </a>
-        <a
-          href={INSTAGRAM_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block border border-oliva/30 hover:border-terracota px-5 py-4 text-marrom"
-        >
-          @{INSTAGRAM_HANDLE} no Instagram
-        </a>
+        <h1 className="font-serif text-4xl md:text-5xl text-marrom mb-6">
+          Contato
+        </h1>
+
+        <p className="font-sans text-marrom/80 leading-relaxed mb-10">
+          Dúvidas sobre uma peça, entrega ou pagamento? Fale com a gente.
+          Para comprar, não é necessário enviar mensagem — você pode finalizar
+          o pedido diretamente pelo site.
+        </p>
+
+        <div className="space-y-4 font-sans">
+          <a
+            href={whatsappLink(
+              'Olá! Vim pelo site da Agô Trancoso.',
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block border border-oliva/30 hover:border-terracota px-5 py-4 text-marrom transition-colors"
+          >
+            Falar no WhatsApp
+          </a>
+
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block border border-oliva/30 hover:border-terracota px-5 py-4 text-marrom transition-colors"
+          >
+            @{INSTAGRAM_HANDLE} no Instagram
+          </a>
+
+          <a
+            href={mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block border border-oliva/30 hover:border-terracota px-5 py-4 text-marrom transition-colors"
+          >
+            Abrir no Google Maps
+          </a>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-oliva/20">
+          <p className="eyebrow mb-3">
+            Onde encontrar
+          </p>
+
+          <h2 className="font-serif text-2xl text-marrom mb-3">
+            Quadrado de Trancoso
+          </h2>
+
+          <p className="font-sans text-sm text-marrom/70 leading-relaxed">
+            Praça São João Batista — Trancoso,
+            <br />
+            Porto Seguro — BA, 45818-000.
+          </p>
+
+          <a
+            href={mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex mt-5 bg-marrom text-areia px-6 py-4 text-[10px] font-bold uppercase tracking-[.16em]"
+          >
+            Ver localização
+          </a>
+        </div>
       </div>
     </div>
   );
