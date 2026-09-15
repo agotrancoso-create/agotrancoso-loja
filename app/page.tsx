@@ -26,7 +26,7 @@ export default function HomePage() {
       <section id="colecao" className="max-w-content mx-auto px-5 md:px-10 pt-14 pb-16 md:pt-20 md:pb-24">
         <div className="section-heading"><div><p className="eyebrow mb-3">A coleção</p><h2 className="section-title">Peças que contam uma história.</h2><p className="section-intro">Escolhas especiais para trazer um pouco de Trancoso para dentro de casa.</p></div><Link href="/produtos" className="collection-link">Ver coleção completa <span>↗</span></Link></div>
         <div className="flex gap-2 overflow-x-auto pb-2 mb-9 scrollbar-none"><Link href="#colecao" className="category-pill active">Todos</Link><Link href="/produtos?categoria=trancoso" className="category-pill">Trancoso</Link><Link href="/produtos?categoria=igrejinhas" className="category-pill">Igrejinhas</Link><Link href="/produtos?categoria=decoracao" className="category-pill">Decoração</Link><Link href="/produtos?categoria=fe-devocao" className="category-pill">Fé e devoção</Link><Link href="/produtos?categoria=presentes" className="category-pill">Presentes</Link></div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 md:gap-x-7 gap-y-10 md:gap-y-14">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-5 md:gap-x-8 gap-y-12 md:gap-y-16">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
         <div className="catalog-cta"><p>Mais peças, formas e histórias para descobrir.</p><Link href="/produtos">Explorar toda a coleção</Link></div>
       </section>
 
