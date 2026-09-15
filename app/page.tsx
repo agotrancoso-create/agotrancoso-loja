@@ -23,13 +23,20 @@ export default function HomePage() {
 
   return (
     <div className="bg-areia">
+      <section id="colecao" className="max-w-content mx-auto px-5 md:px-10 pt-14 pb-16 md:pt-20 md:pb-24">
+        <div className="section-heading"><div><p className="eyebrow mb-3">A coleção</p><h2 className="section-title">Peças que contam uma história.</h2><p className="section-intro">Escolhas especiais para trazer um pouco de Trancoso para dentro de casa.</p></div><Link href="/produtos" className="collection-link">Ver coleção completa <span>↗</span></Link></div>
+        <div className="flex gap-2 overflow-x-auto pb-2 mb-9 scrollbar-none"><Link href="#colecao" className="category-pill active">Todos</Link><Link href="/produtos?categoria=trancoso" className="category-pill">Trancoso</Link><Link href="/produtos?categoria=igrejinhas" className="category-pill">Igrejinhas</Link><Link href="/produtos?categoria=decoracao" className="category-pill">Decoração</Link><Link href="/produtos?categoria=fe-devocao" className="category-pill">Fé e devoção</Link><Link href="/produtos?categoria=presentes" className="category-pill">Presentes</Link></div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 md:gap-x-7 gap-y-10 md:gap-y-14">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
+        <div className="catalog-cta"><p>Mais peças, formas e histórias para descobrir.</p><Link href="/produtos">Explorar toda a coleção</Link></div>
+      </section>
+
       <section className="hero-section relative flex items-end overflow-hidden bg-marrom text-areia">
         <Image src="/hero.jpg" alt="Peças de cerâmica da Agô Trancoso" fill priority sizes="100vw" className="object-cover hero-image" unoptimized />
         <div className="absolute inset-0 hero-overlay" />
         <div className="relative z-10 w-full max-w-content mx-auto px-5 md:px-10 pb-10 md:pb-12">
           <p className="eyebrow text-areia/75 mb-4">Agô Trancoso · cerâmica e memória</p>
           <h1 className="font-serif text-[3rem] sm:text-6xl md:text-[6.5rem] leading-[.84] tracking-[-.035em]">FEITO À MÃO.<br />FEITO PARA DURAR.</h1>
-          <p className="mt-5 text-base md:text-xl text-areia/90 max-w-xl leading-relaxed">Cerâmicas, velas e decoração com alma brasileira.</p>
+          <p className="mt-5 text-base md:text-xl text-areia/90 max-w-xl leading-relaxed">Cerâmicas e decoração com alma brasileira.</p>
           <p className="mt-2 text-sm md:text-base text-areia/70 max-w-lg leading-7">Peças artesanais inspiradas no charme de Trancoso, feitas para decorar, presentear e guardar na memória.</p>
           <div className="flex flex-wrap gap-3 mt-7">
             <Link href="#colecao" className="inline-flex items-center justify-center bg-areia text-marrom px-8 py-4 text-[10px] font-bold tracking-[.2em] uppercase">Ver produtos</Link>
@@ -37,13 +44,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
       <div className="trust-strip"><span>Feito à mão</span><i /><span>Envio para todo o Brasil</span><i /><strong>Frete grátis acima de R$ 500</strong><i /><span>Pagamento seguro</span></div>
-      <section id="colecao" className="max-w-content mx-auto px-5 md:px-10 pt-14 pb-16 md:pt-20 md:pb-24">
-        <div className="section-heading"><div><p className="eyebrow mb-3">A coleção</p><h2 className="section-title">Peças que contam uma história.</h2><p className="section-intro">Escolhas especiais para trazer um pouco de Trancoso para dentro de casa.</p></div><Link href="/produtos" className="collection-link">Ver coleção completa <span>↗</span></Link></div>
-        <div className="flex gap-2 overflow-x-auto pb-2 mb-9 scrollbar-none"><Link href="#colecao" className="category-pill active">Todos</Link><Link href="/produtos?categoria=trancoso" className="category-pill">Trancoso</Link><Link href="/produtos?categoria=igrejinhas" className="category-pill">Igrejinhas</Link><Link href="/produtos?categoria=decoracao" className="category-pill">Decoração</Link><Link href="/produtos?categoria=fe-devocao" className="category-pill">Fé e devoção</Link><Link href="/produtos?categoria=presentes" className="category-pill">Presentes</Link></div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 md:gap-x-7 gap-y-10 md:gap-y-14">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
-        <div className="catalog-cta"><p>Mais peças, formas e histórias para descobrir.</p><Link href="/produtos">Explorar toda a coleção</Link></div>
-      </section>
       <Benefits />
       <section className="editorial-section bg-areia2"><div className="max-w-content mx-auto px-5 md:px-10 py-16 md:py-24 grid md:grid-cols-2 gap-10 md:gap-20 items-center"><div className="editorial-image"><img src="/nossa-essencia.jpg" alt="Cerâmica da Agô Trancoso" loading="lazy" /></div><div className="max-w-xl"><p className="eyebrow mb-4">Nossa essência</p><h2 className="section-title editorial-title mb-7">O encanto de Trancoso, em cada detalhe.</h2><p className="editorial-copy">Cada peça é feita à mão, inspirada nas formas, histórias e elementos que fazem parte de Trancoso.</p><p className="editorial-copy mt-4">São objetos para viver a casa, presentear alguém especial e guardar uma memória boa.</p><Link href="/nossa-essencia" className="editorial-link">Conheça nossa história <span>→</span></Link></div></div></section>
       <section className="bg-areia"><div className="max-w-content mx-auto px-5 md:px-10 py-16 md:py-24 grid md:grid-cols-2 gap-10 md:gap-20 items-center"><div className="max-w-lg"><p className="eyebrow mb-4">Para a casa</p><h2 className="section-title mb-6">Um pouco de Trancoso para dentro de casa.</h2><p className="editorial-copy">Detalhes que mudam o ambiente e carregam consigo a beleza de uma história brasileira.</p><Link href="/produtos" className="inline-flex mt-8 bg-marrom text-areia px-7 py-4 text-[10px] font-bold uppercase tracking-[.18em]">Escolher uma peça</Link></div><div className="editorial-image"><img src="/complementar.jpg" alt="Igrejinhas luminárias em cerâmica" loading="lazy" /></div></div></section>
