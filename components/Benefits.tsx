@@ -14,8 +14,11 @@ const benefits = [
     text: 'escolhas especiais para quem valoriza o feito à mão.',
     icon: (
       <svg viewBox="0 0 48 48" aria-hidden="true">
-        <path d="M24 7.5 27.6 20 40 24l-12.4 4L24 40.5 20.4 28 8 24l12.4-4L24 7.5Z" />
-        <path d="M36 9v6M33 12h6" />
+        <path d="M15 12h18l-2 25H17l-2-25Z" />
+        <path d="M13 12h22" />
+        <path d="M19 8h10" />
+        <path d="M19 18c2 2 8 2 10 0" />
+        <path d="M18 32h12" />
       </svg>
     ),
   },
@@ -45,14 +48,25 @@ const benefits = [
 
 export default function Benefits() {
   return (
-    <section className="benefits-strip" aria-label="Diferenciais da Agô Trancoso">
+    <section
+      className="benefits-strip"
+      aria-label="Diferenciais da Agô Trancoso"
+    >
       <div className="max-w-content mx-auto">
         <div className="features-container">
           {benefits.map((item) => (
             <div className="feature-item" key={item.title}>
-              <div className="feature-icon" aria-hidden="true">{item.icon}</div>
-              <h3 className="feature-title">{item.title}</h3>
-              <p className="feature-description">{item.text}</p>
+              <div className="feature-icon" aria-hidden="true">
+                {item.icon}
+              </div>
+
+              <h3 className="feature-title">
+                {item.title}
+              </h3>
+
+              <p className="feature-description">
+                {item.text}
+              </p>
             </div>
           ))}
         </div>
