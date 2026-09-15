@@ -33,12 +33,12 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:text-areia/70 transition-colors">@{INSTAGRAM_HANDLE}</a></li>
               <li><a href={whatsappLink('Olá! Vim pelo site da Agô Trancoso.')} target="_blank" rel="noopener noreferrer" className="hover:text-areia/70 transition-colors">WhatsApp</a></li>
-              <li className="text-areia/60">{SITE_DOMAIN_LABEL}</li>
+              <li className="text-areia/60">www.agotrancoso.com.br</li>
             </ul>
           </div>
         </div>
       </div>
-      <div className="border-t border-areia/10 text-center text-xs text-areia/50 py-5 font-sans">© {new Date().getFullYear()} Agô Trancoso. Todos os direitos reservados.</div>
+      <div className="border-t border-areia/10 text-center text-xs text-areia/50 py-5 font-sans">© 2026 Agô Trancoso. Todos os direitos reservados.</div>
     </footer>
   );
 }
