@@ -6,10 +6,38 @@
   --ago-sand: #f1e8dc;
   --ago-paper: #fbfaf7;
   --ago-blue: #234c55;
+  --ago-radius: 20px;
+  --ago-radius-sm: 14px;
 }
 
 body {
   background: var(--ago-paper);
+}
+
+/* Linguagem única: cantos arredondados em toda a interface. */
+.site-header,
+.collection-showcase,
+.category-row,
+.hero-section,
+.trust-strip,
+.benefits-strip,
+.collection-more,
+.editorial-section,
+.how-section,
+.visit-section,
+.product-card,
+.product-image-wrap,
+.editorial-image,
+.editorial-image img,
+button,
+a:not(.collection-link):not(.editorial-link),
+.category-pill,
+.cart-drawer,
+.cart-item,
+input,
+select,
+textarea {
+  border-radius: var(--ago-radius) !important;
 }
 
 .site-header {
@@ -35,6 +63,7 @@ body {
   height: 2px;
   background: var(--ago-clay);
   opacity: .65;
+  border-radius: 999px;
 }
 
 .collection-intro {
@@ -81,9 +110,15 @@ body {
   font-size: 25px !important;
 }
 
+.product-card {
+  overflow: hidden;
+  padding: 0 !important;
+}
+
 .product-image-wrap {
   background: #f0e7da !important;
   box-shadow: inset 0 0 0 1px rgba(51,35,28,.045) !important;
+  overflow: hidden;
 }
 
 .product-image {
@@ -110,9 +145,10 @@ body {
 }
 
 .category-pill {
-  border-radius: 0 !important;
+  border-radius: 999px !important;
   border-color: rgba(51,35,28,.20) !important;
   background: transparent;
+  padding: 10px 17px !important;
 }
 
 .category-pill.active {
@@ -122,6 +158,10 @@ body {
 
 .hero-section {
   min-height: 520px !important;
+  overflow: hidden;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: calc(100% - 40px);
 }
 
 .hero-image {
@@ -143,6 +183,14 @@ body {
   letter-spacing: -.05em !important;
 }
 
+.hero-section a,
+.visit-section a,
+.collection-more a:not(.collection-link),
+.editorial-section a,
+button {
+  border-radius: 999px !important;
+}
+
 .trust-strip {
   background: #e8dfd3 !important;
   min-height: 48px;
@@ -154,8 +202,16 @@ body {
   padding-bottom: 70px !important;
 }
 
+.feature-item {
+  border-radius: var(--ago-radius-sm);
+}
+
 .feature-item:not(:last-child)::after {
   opacity: .08 !important;
+}
+
+.feature-icon {
+  border-radius: 999px !important;
 }
 
 .feature-icon svg {
@@ -175,9 +231,17 @@ body {
   height: 2px;
   background: var(--ago-clay);
   opacity: .22;
+  border-radius: 999px;
+}
+
+.editorial-image {
+  overflow: hidden;
 }
 
 .editorial-image img {
+  display: block;
+  width: 100%;
+  height: auto;
   filter: saturate(.88) !important;
 }
 
@@ -185,12 +249,32 @@ body {
   background: #e6dbcd !important;
 }
 
+.step-number {
+  border-radius: 999px !important;
+}
+
 .visit-section {
   background: var(--ago-ink) !important;
+  overflow: hidden;
 }
 
 .visit-section .bg-terracota {
   background: var(--ago-clay) !important;
+}
+
+.visit-section > div > div:last-child {
+  border-top-left-radius: var(--ago-radius) !important;
+  border-top-right-radius: var(--ago-radius) !important;
+}
+
+.cart-drawer {
+  overflow: hidden;
+}
+
+input,
+select,
+textarea {
+  border-radius: var(--ago-radius-sm) !important;
 }
 
 @media (max-width: 1000px) {
@@ -234,6 +318,9 @@ body {
   }
   .hero-section {
     min-height: 450px !important;
+    margin-left: 12px;
+    margin-right: 12px;
+    width: calc(100% - 24px);
   }
   .hero-section > div:last-child {
     padding-top: 90px !important;
