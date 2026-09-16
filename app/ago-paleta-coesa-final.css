@@ -1,58 +1,96 @@
-/* Camada final de harmonia cromática e composição desktop. */
+/* Camada final de harmonia cromática e centralização responsiva da Agô. */
 
 :root {
-  --ago-paper: #f8f4ee;
-  --ago-sand: #eee5d8;
-  --ago-sand-deep: #e4d8c8;
+  --ago-paper: #f5efe6;
+  --ago-sand: #e9dccb;
+  --ago-sand-deep: #d9c7b2;
+  --ago-terra-soft: #c9a78d;
   --ago-brown: #4b2b1e;
-  --ago-terracotta: #9a5436;
+  --ago-terracotta: #8d4b32;
   --ago-olive: #817963;
-  --ago-cream: #fbf9f5;
+  --ago-cream: #faf7f1;
 }
 
-/* A primeira vitrine da Home ocupa a largura inteira no computador. */
+/* ESTRUTURA: tudo centralizado conforme a largura real do aparelho. */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.ago-container,
+.max-w-content {
+  margin-inline: auto !important;
+}
+
+/* Primeira vitrine: largura total no desktop, conteúdo interno centralizado. */
 @media (min-width: 1201px) {
   .collection-showcase {
     width: 100vw !important;
     max-width: none !important;
     margin-left: calc(50% - 50vw) !important;
     margin-right: calc(50% - 50vw) !important;
-    padding: 78px clamp(36px, 4.2vw, 78px) 42px !important;
+    padding: 76px clamp(32px, 4vw, 72px) 44px !important;
     background: var(--ago-paper) !important;
   }
 
+  .collection-showcase .collection-intro,
+  .collection-showcase .featured-products-grid,
+  .collection-showcase .collection-after {
+    width: min(1450px, 100%) !important;
+    margin-inline: auto !important;
+  }
+
   .collection-showcase .featured-products-grid {
-    width: 100% !important;
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    gap: 54px clamp(28px, 2.6vw, 48px) !important;
+    gap: 52px clamp(26px, 2.5vw, 46px) !important;
     margin-top: 48px !important;
   }
 
   .collection-showcase .product-image-wrap {
     width: 100% !important;
-    height: clamp(330px, 27vw, 430px) !important;
-    border-radius: 20px !important;
-  }
-
-  .collection-showcase .product-image-wrap img,
-  .collection-showcase .product-image {
-    border-radius: 20px !important;
-  }
-
-  .collection-showcase .collection-intro {
-    width: min(1400px, 100%) !important;
-    margin-inline: auto !important;
+    height: clamp(330px, 26vw, 430px) !important;
+    border-radius: 22px !important;
   }
 }
 
-/* Todas as fotos de produto: cantos arredondados, sem moldura lateral, sem sombra. */
+/* TABLET: centro visual preservado sem tentar comprimir o desktop. */
+@media (min-width: 768px) and (max-width: 1200px) {
+  .ago-container,
+  .max-w-content {
+    width: min(100% - 48px, 1040px) !important;
+  }
+
+  .featured-products-grid,
+  .remaining-products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 34px 24px !important;
+  }
+}
+
+/* MOBILE: uma composição própria e centralizada. */
+@media (max-width: 767px) {
+  .ago-container,
+  .max-w-content {
+    width: calc(100% - 32px) !important;
+    margin-inline: auto !important;
+  }
+
+  .featured-products-grid,
+  .remaining-products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 34px 16px !important;
+  }
+}
+
+/* TODAS AS FOTOS DE PEÇAS: arredondadas, sem moldura lateral, sem sombra. */
 .product-image-wrap,
 .product-image-wrap img,
 .product-card .product-image-wrap,
 .product-card .product-image-wrap img,
 .product-image,
 .product-image img {
-  border-radius: 20px !important;
+  border-radius: 22px !important;
   border: 0 !important;
   outline: 0 !important;
   box-shadow: none !important;
@@ -63,7 +101,7 @@
   overflow: hidden !important;
 }
 
-/* Paleta: base clara + areia + marrom profundo + terracota pontual. */
+/* Fundo geral: família terrosa contínua, sem cores brigando. */
 .ago-home,
 .info-page,
 .contact-page {
@@ -79,15 +117,15 @@
 }
 
 .how-section {
-  background: var(--ago-paper) !important;
-  border-top: 1px solid rgba(75,43,30,.08);
+  background: var(--ago-sand-deep) !important;
+  border-top: 1px solid rgba(75,43,30,.08) !important;
 }
 
-/* Visite a Agô: fundo areia aquecido, mais leve e conectado ao restante do site. */
+/* VISITE A AGÔ: terracota terroso suave, conectado à paleta. */
 .visit-section {
-  background: var(--ago-sand) !important;
+  background: var(--ago-terra-soft) !important;
   color: var(--ago-brown) !important;
-  border-top: 1px solid rgba(75,43,30,.08);
+  border-top: 1px solid rgba(75,43,30,.08) !important;
 }
 
 .visit-section .eyebrow,
@@ -99,7 +137,7 @@
 }
 
 .visit-copy {
-  color: rgba(75,43,30,.70) !important;
+  color: rgba(75,43,30,.72) !important;
 }
 
 .info-list {
@@ -111,7 +149,7 @@
 }
 
 .visit-actions a {
-  border-color: rgba(75,43,30,.28) !important;
+  border-color: rgba(75,43,30,.30) !important;
   color: var(--ago-brown) !important;
 }
 
@@ -127,16 +165,21 @@
 
 footer.bg-marrom,
 .ago-home ~ footer {
-  background: #382018 !important;
+  background: var(--ago-brown) !important;
 }
 
-/* A Agô e Contato mantêm a mesma família cromática da Home. */
+/* A AGÔ e CONTATO: mesma linguagem terrosa, com bastante respiro no desktop. */
 .info-page .editorial-image {
   background: var(--ago-sand-deep) !important;
+  border-radius: 22px !important;
+}
+
+.info-page .editorial-image img {
+  border-radius: 22px !important;
 }
 
 .contact-page .info-link {
-  border-color: rgba(75,43,30,.15) !important;
+  border-color: rgba(75,43,30,.16) !important;
 }
 
 .contact-page .info-link:hover {
@@ -145,23 +188,30 @@ footer.bg-marrom,
 
 .contact-page .info-panel {
   background: var(--ago-sand) !important;
+  border-radius: 22px !important;
 }
 
-@media (max-width: 1200px) {
-  .visit-section {
-    background: var(--ago-sand) !important;
-    color: var(--ago-brown) !important;
+/* Centralização adicional das páginas internas em telas grandes. */
+@media (min-width: 1201px) {
+  .info-page > .max-w-content,
+  .contact-page > .max-w-content {
+    width: min(1240px, calc(100% - 96px)) !important;
+    margin-inline: auto !important;
   }
 
-  .visit-section .eyebrow,
-  .visit-section h2,
-  .visit-section .visit-copy,
-  .visit-section .info-list strong,
-  .visit-section .info-list span {
-    color: var(--ago-brown) !important;
+  .info-page > .max-w-content > .grid,
+  .contact-page > .max-w-content > .grid {
+    margin-inline: auto !important;
   }
+}
 
-  .visit-actions a {
-    color: var(--ago-brown) !important;
-  }
+/* Contraste dos botões sem sair da família de terras. */
+.dark-button,
+.contact-page .info-panel a {
+  background: var(--ago-brown) !important;
+}
+
+.dark-button:hover,
+.contact-page .info-panel a:hover {
+  background: var(--ago-terracotta) !important;
 }
