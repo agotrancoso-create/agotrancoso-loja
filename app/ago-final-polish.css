@@ -1,1 +1,358 @@
-/* Final visual layer is already consolidated in this file. */
+/* AGÔ TRANCOSO — POLIMENTO FINAL
+   Praia + Nordeste + Trancoso, sem caricatura.
+   Centralização, proporção, fotografia e continuidade visual. */
+
+:root {
+  --ago-white: #fffdf9;
+  --ago-cal: #f8f1e7;
+  --ago-sand: #efe0cc;
+  --ago-sand-light: #fbf6ee;
+  --ago-clay: #a65332;
+  --ago-clay-dark: #874126;
+  --ago-coffee: #4a2c1f;
+  --ago-coffee-deep: #2f1b14;
+  --ago-ink: #3c2921;
+  --ago-sea-soft: #e8f0ed;
+  --ago-line: rgba(74,44,31,.14);
+}
+
+html, body { background: var(--ago-white) !important; color: var(--ago-ink) !important; }
+body { font-family: 'Manrope', Arial, sans-serif !important; }
+
+/* Remove visual debris / inherited ribbons / decorative bars. */
+body::before, body::after,
+main::before, main::after,
+main > *::before, main > *::after,
+footer::before, footer::after,
+.visit-section::before, .visit-section::after,
+.how-section::before, .how-section::after { content: none !important; display: none !important; }
+footer { margin-top: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+
+/* The header stays light and warm. */
+.site-header {
+  background: rgba(255,253,249,.97) !important;
+  border-bottom: 1px solid var(--ago-line) !important;
+  box-shadow: none !important;
+}
+.site-header .header-link,
+.site-header .header-icon,
+.site-header .header-search,
+.site-header button { color: var(--ago-coffee) !important; }
+.site-header .header-link:first-child { color: var(--ago-clay-dark) !important; }
+.site-header .header-link:first-child::after { background: var(--ago-clay) !important; }
+
+/* Shipping notice: discreet information, not a colored ribbon. */
+.bg-marrom.text-areia.text-center {
+  background: var(--ago-coffee) !important;
+  color: var(--ago-white) !important;
+  font-size: 11px !important;
+  letter-spacing: .03em !important;
+  padding: 9px 14px !important;
+}
+
+/* Universal centered rhythm on the public home. */
+.collection-showcase,
+.category-row,
+.collection-more,
+.editorial-section,
+.how-section,
+.visit-section { text-align: center !important; }
+.collection-showcase > *,
+.category-row > *,
+.collection-more > div,
+.editorial-section > div,
+.bg-areia > .max-w-content,
+.how-section > div,
+.visit-section > div,
+footer > div { margin-left: auto !important; margin-right: auto !important; }
+
+/* Product-first opening: one balanced centered composition. */
+.collection-showcase {
+  max-width: 1180px !important;
+  display: block !important;
+  padding: 62px 22px 50px !important;
+}
+.collection-intro {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  padding: 0 0 42px !important;
+}
+.collection-intro .eyebrow { margin-bottom: 12px !important; }
+.collection-intro .section-title {
+  max-width: 780px !important;
+  margin: 0 auto !important;
+  font-size: clamp(3rem,5.3vw,5.25rem) !important;
+  line-height: .91 !important;
+  letter-spacing: -.04em !important;
+}
+.collection-intro .section-intro {
+  max-width: 620px !important;
+  margin: 19px auto 0 !important;
+  font-size: 16px !important;
+  line-height: 1.65 !important;
+}
+.collection-link-large { margin-top: 24px !important; }
+
+/* Product grid: same visual weight in every card. */
+.featured-products-grid,
+.collection-more .grid {
+  max-width: 1120px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  justify-items: stretch !important;
+  align-items: start !important;
+}
+.product-card { text-align: center !important; }
+.product-card > a { display: block !important; }
+.product-image-wrap {
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  background: var(--ago-sand-light) !important;
+  border: 1px solid rgba(74,44,31,.06) !important;
+}
+.product-image {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 10px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  border-radius: 18px !important;
+}
+.product-name {
+  min-height: 2.3em !important;
+  margin: 14px auto 0 !important;
+  color: var(--ago-coffee) !important;
+  font-size: clamp(18px,1.5vw,21px) !important;
+  line-height: 1.12 !important;
+}
+.price-row { justify-content: center !important; }
+.current-price { color: var(--ago-clay-dark) !important; font-size: 15px !important; }
+.old-price { font-size: 12px !important; }
+.product-add {
+  width: 100% !important;
+  min-height: 44px !important;
+  margin-top: 11px !important;
+  border: 1px solid rgba(74,44,31,.20) !important;
+  background: transparent !important;
+  color: var(--ago-coffee) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+.product-add:hover { background: var(--ago-coffee) !important; color: var(--ago-white) !important; }
+
+/* Categories centered like a quiet editorial filter. */
+.category-row { padding: 0 22px 54px !important; }
+.category-row > div {
+  max-width: 1120px !important;
+  justify-content: center !important;
+  border-top: 1px solid var(--ago-line) !important;
+  padding-top: 17px !important;
+}
+.category-pill {
+  border: 0 !important;
+  border-bottom: 1px solid transparent !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: rgba(60,41,33,.66) !important;
+  font-size: 11px !important;
+  padding: 8px 0 !important;
+}
+.category-pill.active { color: var(--ago-clay-dark) !important; border-bottom-color: var(--ago-clay) !important; background: transparent !important; }
+
+/* Hero: full-width, straight edges, warm evening light. */
+.hero-section {
+  min-height: clamp(500px,55vw,680px) !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  background: var(--ago-coffee-deep) !important;
+}
+.hero-section .hero-image,
+.hero-section .hero-overlay { inset: 0 !important; width: 100% !important; height: 100% !important; border-radius: 0 !important; }
+.hero-image { filter: saturate(.96) contrast(.98) sepia(.02) !important; }
+.hero-overlay {
+  background:
+    linear-gradient(90deg, rgba(47,27,20,.76), rgba(47,27,20,.38) 52%, rgba(47,27,20,.10)),
+    linear-gradient(0deg, rgba(47,27,20,.48), rgba(47,27,20,.02) 65%) !important;
+}
+.hero-section > div:last-child {
+  max-width: 900px !important;
+  text-align: center !important;
+  padding: 0 24px clamp(46px,6vw,74px) !important;
+}
+.hero-section .eyebrow { color: rgba(255,253,249,.82) !important; }
+.hero-section h1 {
+  max-width: 780px !important;
+  margin: 0 auto !important;
+  color: var(--ago-white) !important;
+  font-size: clamp(3rem,6.2vw,6.3rem) !important;
+  line-height: .87 !important;
+  letter-spacing: -.045em !important;
+}
+.hero-section h1 + p {
+  max-width: 600px !important;
+  margin: 20px auto 0 !important;
+  color: rgba(255,253,249,.91) !important;
+  font-size: clamp(15px,1.25vw,18px) !important;
+  line-height: 1.6 !important;
+}
+.hero-section .flex.flex-wrap { justify-content: center !important; margin-top: 25px !important; }
+.hero-section a { min-height: 46px !important; padding: 13px 22px !important; font-size: 11px !important; }
+
+/* Benefits: centered equal columns + reference-like delicate line art. */
+.benefits-strip {
+  background: var(--ago-cal) !important;
+  border-top: 0 !important;
+  border-bottom: 1px solid var(--ago-line) !important;
+  padding: 68px 20px 74px !important;
+}
+.features-container { max-width: 1120px !important; margin: 0 auto !important; }
+.feature-item {
+  min-height: 185px !important;
+  padding: 0 26px !important;
+  text-align: center !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+.feature-item:not(:last-child)::after { background: var(--ago-coffee) !important; opacity: .25 !important; height: 154px !important; top: 7px !important; }
+.feature-icon { width: 94px !important; height: 88px !important; margin: 0 auto 15px !important; }
+.feature-icon svg { width: 76px !important; height: 76px !important; stroke: var(--ago-coffee) !important; stroke-width: 1.05 !important; }
+.feature-title { color: var(--ago-coffee) !important; font-size: 1.9rem !important; line-height: 1.05 !important; }
+.feature-description { max-width: 250px !important; color: rgba(60,41,33,.76) !important; font-size: 13px !important; line-height: 1.55 !important; }
+
+/* Center the remaining sections and reduce asymmetrical visual weight. */
+.collection-more > div,
+.editorial-section > div,
+.bg-areia > .max-w-content,
+.how-section > div,
+.visit-section > div {
+  max-width: 1180px !important;
+  padding-top: clamp(62px,7vw,86px) !important;
+  padding-bottom: clamp(64px,7vw,88px) !important;
+}
+.section-heading {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 18px !important;
+  border-bottom: 0 !important;
+  text-align: center !important;
+}
+.section-heading > div { max-width: 780px !important; margin: 0 auto !important; }
+.collection-more .section-title,
+.editorial-title,
+.bg-areia .section-title { max-width: 760px !important; margin: 0 auto !important; }
+.collection-more .grid { margin-top: 34px !important; }
+
+/* Editorial: centered image first, then centered text. */
+.editorial-section > div,
+.bg-areia > .max-w-content {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  justify-items: center !important;
+  gap: 34px !important;
+}
+.editorial-image {
+  width: min(100%, 720px) !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  background: var(--ago-sand-light) !important;
+}
+.editorial-image img { width: 100% !important; height: auto !important; display: block !important; border-radius: 18px !important; }
+.editorial-copy { max-width: 650px !important; margin-left: auto !important; margin-right: auto !important; }
+.editorial-link { margin: 24px auto 0 !important; }
+
+/* Make the home backgrounds a single calm material family. */
+.collection-more, .bg-areia { background: var(--ago-white) !important; }
+.editorial-section { background: var(--ago-sand-light) !important; }
+.how-section { background: var(--ago-cal) !important; }
+
+/* HOW TO BUY — centered three-step rhythm. */
+.how-section > div { grid-template-columns: 1fr !important; justify-items: center !important; }
+.how-section h2 { max-width: 680px !important; margin: 0 auto !important; }
+.how-section .grid { width: min(100%, 860px) !important; margin: 30px auto 0 !important; text-align: center !important; }
+.how-section .grid > div { color: rgba(60,41,33,.70) !important; font-size: 14px !important; line-height: 1.7 !important; }
+.how-section strong { color: var(--ago-coffee) !important; font-size: 13px !important; }
+.step-number { color: var(--ago-clay-dark) !important; font-size: 11px !important; }
+
+/* VISIT — one coherent dark anchor, centered and proportional. */
+.visit-section { background: var(--ago-coffee) !important; }
+.visit-section > div { grid-template-columns: 1fr !important; justify-items: center !important; }
+.visit-section > div > div { width: min(100%, 820px) !important; margin: 0 auto !important; text-align: center !important; }
+.visit-section h2 { max-width: 720px !important; margin: 0 auto 20px !important; color: var(--ago-white) !important; }
+.visit-section p:not(.eyebrow) { max-width: 680px !important; margin-left: auto !important; margin-right: auto !important; color: rgba(255,253,249,.76) !important; font-size: 16px !important; line-height: 1.72 !important; }
+.visit-section .flex { justify-content: center !important; }
+.visit-section a { font-size: 11px !important; }
+.visit-section > div > div:last-child { border-top: 1px solid rgba(255,253,249,.14) !important; padding-top: 26px !important; margin-top: 10px !important; }
+.visit-section .divide-y > div { border-color: rgba(255,253,249,.10) !important; }
+.visit-section strong { color: var(--ago-white) !important; }
+.visit-section span { color: rgba(255,253,249,.62) !important; }
+
+/* Footer: no extra strip before it. */
+footer { background: var(--ago-coffee-deep) !important; color: var(--ago-white) !important; }
+footer > div { max-width: 1180px !important; text-align: center !important; }
+footer .grid { text-align: center !important; }
+footer .grid > div { align-items: center !important; }
+footer ul { padding: 0 !important; list-style: none !important; }
+
+/* Floating WhatsApp follows the brand palette, not generic green. */
+.fixed.bg-\[\#3d7a4f\] {
+  background: var(--ago-clay) !important;
+}
+.fixed.bg-\[\#3d7a4f\]:hover { background: var(--ago-clay-dark) !important; }
+
+/* Product detail / cart / checkout image continuity. */
+.product-gallery-main,
+.product-gallery-image,
+.product-gallery-thumb,
+.cart-drawer .cart-product-image,
+.cart-drawer .cart-product-image img,
+.checkout-summary-item .checkout-product-image,
+.checkout-summary-item .checkout-product-image img {
+  border-radius: 14px !important;
+  overflow: hidden !important;
+}
+.product-gallery-main,
+.checkout-summary-item .checkout-product-image { background: var(--ago-sand-light) !important; }
+
+@media (max-width: 900px) {
+  .featured-products-grid,
+  .collection-more .grid { gap: 34px 12px !important; }
+  .features-container { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+}
+
+@media (max-width: 767px) {
+  .collection-showcase { padding: 48px 18px 40px !important; }
+  .collection-intro .section-title { font-size: clamp(2.7rem,11.5vw,3.8rem) !important; }
+  .collection-intro .section-intro { font-size: 15px !important; }
+  .featured-products-grid,
+  .collection-more .grid { gap: 28px 10px !important; }
+  .product-image-wrap,.product-image { border-radius: 14px !important; }
+  .product-name { font-size: 18px !important; }
+  .hero-section { min-height: 500px !important; }
+  .hero-section > div:last-child { padding: 0 20px 46px !important; }
+  .hero-section h1 { font-size: clamp(2.8rem,12.6vw,4rem) !important; }
+  .hero-section h1 + p { font-size: 15px !important; }
+  .benefits-strip { padding: 52px 18px 58px !important; }
+  .features-container { grid-template-columns: 1fr !important; row-gap: 38px !important; }
+  .feature-item { min-height: 0 !important; padding: 0 10px !important; }
+  .feature-item::after { display: none !important; }
+  .feature-icon { width: 84px !important; height: 82px !important; }
+  .feature-icon svg { width: 72px !important; height: 72px !important; }
+  .feature-title { font-size: 1.75rem !important; }
+  .feature-description { font-size: 13px !important; }
+  .category-row > div { justify-content: flex-start !important; }
+  .collection-more > div,
+  .editorial-section > div,
+  .bg-areia > .max-w-content,
+  .how-section > div,
+  .visit-section > div { padding-top: 52px !important; padding-bottom: 58px !important; }
+  .editorial-image { width: 100% !important; max-width: 540px !important; }
+  footer .grid { gap: 30px !important; }
+}
