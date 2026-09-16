@@ -1,0 +1,41 @@
+:root{--ago-logo-bg:#F5F0E8;--ago-logo-bg-soft:#FAF7F1;--ago-coffee:#4A2C1F;--ago-clay:#A95635;--ago-ink:#3E2C23;}
+html,body{background:var(--ago-logo-bg)!important;color:var(--ago-ink)!important;overflow-x:hidden!important}
+.bg-areia,.collection-showcase,.collection-more,.editorial-section,.how-section{background:var(--ago-logo-bg)!important}
+.editorial-section,.how-section{background:var(--ago-logo-bg-soft)!important}
+.product-image-wrap{aspect-ratio:1/1!important;border-radius:16px!important;overflow:hidden!important;background:#FAF7F1!important}
+.product-image{width:100%!important;height:100%!important;padding:10px!important;object-fit:contain!important;object-position:center!important;border-radius:16px!important}
+.ago-social-floaters{bottom:max(18px,env(safe-area-inset-bottom))!important;right:max(18px,env(safe-area-inset-right))!important}
+@media(min-width:1024px){
+ .collection-showcase{max-width:1240px!important;padding:72px 40px 62px!important}
+ .featured-products-grid,.collection-more .grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:42px 30px!important}
+ .editorial-section>div,.bg-areia>.max-w-content{display:grid!important;grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr)!important;align-items:center!important;gap:72px!important;text-align:left!important;max-width:1240px!important}
+ .bg-areia>.max-w-content{grid-template-columns:minmax(320px,.82fr) minmax(0,1.18fr)!important}
+ .editorial-section>div>div:last-child,.bg-areia>.max-w-content>div:first-child{max-width:560px!important;margin:0!important;text-align:left!important}
+ .editorial-image{width:100%!important;max-width:none!important;margin:0!important}
+ .how-section>div{display:grid!important;grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr)!important;align-items:center!important;gap:72px!important;max-width:1240px!important;text-align:left!important}
+ .how-section>div>div:first-child{max-width:430px!important;margin:0!important;text-align:left!important}
+ .how-section .grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:28px!important;width:100%!important;margin:0!important;text-align:center!important}
+ .visit-section>div{display:grid!important;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr)!important;align-items:center!important;gap:72px!important;max-width:1240px!important;text-align:left!important}
+ .visit-section>div>div{width:100%!important;margin:0!important;text-align:left!important}
+ .visit-section>div>div:last-child{border-top:0!important;border-left:1px solid rgba(255,253,249,.14)!important;padding:0 0 0 46px!important;margin:0!important}
+ .category-row>div{justify-content:center!important;gap:34px!important;overflow:visible!important}
+ .hero-section{min-height:clamp(500px,55vw,680px)!important}
+ .hero-section>div:last-child{max-width:900px!important;margin:0 auto!important;text-align:center!important}
+}
+@media(max-width:767px){
+ .collection-showcase{padding:46px 18px 42px!important}
+ .featured-products-grid,.collection-more .grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:34px 14px!important}
+ .editorial-section>div,.bg-areia>.max-w-content,.how-section>div,.visit-section>div{display:flex!important;flex-direction:column!important;align-items:center!important;gap:30px!important;text-align:center!important}
+ .editorial-section>div>div,.bg-areia>.max-w-content>div,.how-section>div>div,.visit-section>div>div{width:min(100%,680px)!important;margin-left:auto!important;margin-right:auto!important;text-align:center!important}
+ .how-section .grid{width:100%!important;display:grid!important;grid-template-columns:1fr!important;gap:28px!important;margin:0!important;text-align:center!important}
+ .visit-section>div>div:last-child{border-left:0!important;border-top:1px solid rgba(255,253,249,.14)!important;padding:26px 0 0!important;margin-top:4px!important}
+ .category-row>div{justify-content:flex-start!important;gap:24px!important;overflow-x:auto!important}
+ .hero-section{min-height:min(78svh,640px)!important}
+ .hero-section h1{font-size:clamp(2.65rem,12.5vw,4rem)!important}
+ .hero-section h1+ p{font-size:16px!important}
+ .hero-section .flex.flex-wrap a{flex:1 1 100%!important;width:100%!important}
+ footer .grid{grid-template-columns:1fr!important;gap:34px!important}
+}
+/* No decorative ribbon between the visit section and footer. */
+.visit-section+*{margin-top:0!important}
+body::before,body::after,main::before,main::after,footer::before,footer::after,.visit-section::before,.visit-section::after,.how-section::before,.how-section::after{content:none!important;display:none!important}
