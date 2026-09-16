@@ -9,6 +9,7 @@ import './ago-proporcao-final.css';
 import './ago-ajuste-mestre.css';
 import './ago-direcao-estrategica-final.css';
 import './ago-final-polish.css';
+import './ago-composicao-final.css';
 import './ago-social-mobile.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
