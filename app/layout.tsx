@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import './ago-editorial.css';
 import './ago-terrosa-final.css';
+import './ago-paleta-final.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
