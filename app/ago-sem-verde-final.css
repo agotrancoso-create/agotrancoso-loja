@@ -1,0 +1,108 @@
+/* Agô Trancoso — override final de identidade cromática e fotos. */
+:root {
+  --ago-olive: #8E4B32 !important;
+  --ago-green: #8E4B32 !important;
+  --ago-accent: #8E4B32 !important;
+  --olive: #8E4B32 !important;
+}
+
+html, body, main {
+  background: #F5EEE5 !important;
+  color: #3F261C !important;
+}
+
+.site-header { background: #FAF6EF !important; }
+.ago-home, .info-page, .contact-page, .collection-more, .home-house { background: #F5EEE5 !important; }
+.benefits-strip { background: #FAF6EF !important; }
+.editorial-section { background: #EADDCB !important; }
+.how-section { background: #DCC9B4 !important; }
+.visit-section { background: #EADDCB !important; }
+footer, footer.bg-marrom { background: #4B2B1E !important; }
+
+.eyebrow, .collection-link, .editorial-link, .current-price, .step-number,
+.header-link:first-child { color: #8E4B32 !important; }
+.section-title, .feature-title, .feature-description, .info-page h1, .info-page h2,
+.contact-page h1, .contact-page h2, .header-link, .header-icon, .header-search {
+  color: #3F261C !important;
+}
+
+/* Fotos: cantos arredondados, sem moldura, sombra ou fundo artificial. */
+.product-image-wrap,
+.product-image-wrap img,
+.product-card .product-image-wrap,
+.product-card .product-image-wrap img,
+.product-image,
+.product-image img,
+.product-gallery,
+.product-gallery img,
+.product-gallery-main,
+.product-gallery-main img,
+.product-gallery-thumb,
+.product-gallery-thumb img,
+.cart-item-image,
+.cart-item-image img,
+.cart-product-image,
+.cart-product-image img,
+.checkout-product-image,
+.checkout-product-image img,
+.editorial-image,
+.editorial-image img {
+  border-radius: 20px !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.product-image-wrap,
+.product-card .product-image-wrap,
+.product-gallery,
+.product-gallery-main,
+.cart-item-image,
+.cart-product-image,
+.checkout-product-image {
+  overflow: hidden !important;
+  background: transparent !important;
+}
+
+.product-image-wrap img,
+.product-card img,
+.product-gallery img,
+.cart-item-image img,
+.cart-product-image img,
+.checkout-product-image img {
+  display: block !important;
+}
+
+/* Impede classes utilitárias verdes de aparecerem na interface. */
+[class*="text-green"], [class*="bg-green"], [class*="border-green"],
+[class*="text-emerald"], [class*="bg-emerald"], [class*="border-emerald"],
+[class*="text-lime"], [class*="bg-lime"], [class*="border-lime"] {
+  color: #8E4B32 !important;
+  background-color: transparent !important;
+  border-color: rgba(63,38,28,.14) !important;
+}
+
+@media (max-width: 767px) {
+  .product-image-wrap,
+  .product-image-wrap img,
+  .product-card .product-image-wrap,
+  .product-card .product-image-wrap img,
+  .product-image,
+  .product-image img,
+  .product-gallery,
+  .product-gallery img,
+  .product-gallery-main,
+  .product-gallery-main img,
+  .product-gallery-thumb,
+  .product-gallery-thumb img,
+  .cart-item-image,
+  .cart-item-image img,
+  .cart-product-image,
+  .cart-product-image img,
+  .checkout-product-image,
+  .checkout-product-image img,
+  .editorial-image,
+  .editorial-image img {
+    border-radius: 16px !important;
+  }
+}
