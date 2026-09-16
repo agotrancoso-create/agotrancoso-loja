@@ -23,6 +23,7 @@ import './ago-sem-verde-final.css';
 import './ago-prompt-mestre-final.css';
 import './ago-direcao-artesanal-2026.css';
 import './ago-redesign-2026.css';
+import './ago-centralizado-terra-final.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
