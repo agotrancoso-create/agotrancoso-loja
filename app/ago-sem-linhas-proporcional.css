@@ -1,0 +1,211 @@
+/* AGÔ TRANCOSO — COMPOSIÇÃO PROPORCIONAL, SEM LINHAS */
+:root {
+  --ago-cream:#FBF7F1 !important;
+  --ago-paper:#F4ECE2 !important;
+  --ago-sand:#E3CFBA !important;
+  --ago-sand-light:#EEE2D4 !important;
+  --ago-terra:#91462F !important;
+  --ago-terra-deep:#713421 !important;
+  --ago-brown:#4D2A20 !important;
+  --ago-brown-deep:#2D1813 !important;
+  --ago-ink:#352019 !important;
+}
+
+/* ZERO linhas / bordas / contornos / divisórias decorativas */
+*, *::before, *::after {
+  border-color: transparent !important;
+  outline-color: transparent !important;
+}
+hr,
+[class*="border"],
+[class*="divide"],
+[class*="separator"],
+.collection-after,
+.section-heading,
+.feature-item + .feature-item,
+.catalog-toolbar,
+.info-list > div + div,
+.steps-grid > div + div {
+  border: 0 !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* composição: largura e respiro proporcionais ao desktop */
+.ago-container,
+.collection-more-inner,
+.features-container,
+.editorial-grid,
+.house-grid,
+.how-grid,
+.visit-grid,
+.contact-page > div,
+.info-page > div,
+.catalog-page > div,
+footer > div:first-child {
+  width: min(1180px, calc(100% - 96px)) !important;
+  max-width: 1180px !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+
+.collection-showcase {
+  width:100% !important;
+  max-width:none !important;
+  padding: clamp(64px,7vw,104px) clamp(32px,6vw,96px) clamp(64px,7vw,96px) !important;
+}
+
+.collection-intro,
+.section-heading,
+.editorial-grid,
+.house-grid,
+.how-grid,
+.visit-grid {
+  text-align:left !important;
+}
+
+.featured-products-grid,
+.remaining-products-grid {
+  width:100% !important;
+  max-width:1180px !important;
+  margin:0 auto !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:clamp(20px,2vw,34px) !important;
+}
+
+.product-card { min-width:0 !important; text-align:left !important; }
+.product-image-wrap {
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+  border-radius:20px !important;
+  aspect-ratio:1/1 !important;
+  background:var(--ago-sand-light) !important;
+}
+.product-image,
+.product-image img { border:0 !important; outline:0 !important; box-shadow:none !important; border-radius:20px !important; }
+.product-add {
+  width:100% !important;
+  min-height:46px !important;
+  margin-top:12px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background:var(--ago-brown-deep) !important;
+  color:var(--ago-cream) !important;
+  border:0 !important;
+  border-radius:10px !important;
+}
+
+/* categorias: bloco inteiro, sem riscas */
+.category-row {
+  border:0 !important;
+  box-shadow:none !important;
+  background:var(--ago-sand) !important;
+  padding:18px clamp(32px,6vw,96px) 20px !important;
+}
+.category-pill {
+  border:0 !important;
+  box-shadow:none !important;
+  border-radius:999px !important;
+  background:rgba(251,247,241,.64) !important;
+  color:var(--ago-brown) !important;
+}
+.category-pill.active,
+.category-pill:hover { background:var(--ago-brown) !important; color:var(--ago-cream) !important; }
+
+/* hero e seções — blocos sólidos, sem divisórias */
+.hero-section,
+.editorial-section,
+.home-house,
+.how-section,
+.visit-section,
+.benefits-strip,
+.collection-more,
+.contact-page,
+.info-page,
+.catalog-page,
+.site-header,
+footer { border:0 !important; box-shadow:none !important; }
+
+.hero-section { min-height:680px !important; }
+.hero-content { padding:clamp(90px,9vw,140px) 0 !important; }
+
+.benefits-strip { background:var(--ago-paper) !important; }
+.feature-item { border:0 !important; padding:52px 28px 58px !important; }
+
+.editorial-section { background:#E2D0BC !important; }
+.home-house { background:#EFE3D6 !important; }
+.how-section { background:#E7D7C5 !important; }
+.visit-section { background:var(--ago-brown) !important; }
+
+/* Como comprar: três colunas proporcionais, sem qualquer linha */
+.steps-grid {
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:clamp(28px,4vw,64px) !important;
+}
+.steps-grid > div,
+.how-section .steps-grid > div {
+  border:0 !important;
+  box-shadow:none !important;
+  padding:0 !important;
+}
+.step-number { display:none !important; }
+
+/* Como chegar: duas colunas equilibradas */
+.visit-grid { grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr) !important; gap:clamp(44px,8vw,110px) !important; }
+.info-list > div { padding:14px 0 !important; border:0 !important; }
+
+/* footer acompanha a mesma geometria, sem linhas */
+footer .grid { grid-template-columns:1.2fr .8fr 1fr !important; gap:clamp(30px,5vw,70px) !important; }
+footer { border:0 !important; }
+footer .border-t,
+footer [class*="border-t"] { border-top:0 !important; }
+
+/* sacolinha / carrinho proporcional ao header */
+.header-actions { gap:16px !important; }
+.header-icon {
+  width:44px !important;
+  height:44px !important;
+  min-width:44px !important;
+  padding:7px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  border:0 !important;
+  background:transparent !important;
+  color:var(--ago-brown) !important;
+  position:relative !important;
+}
+.header-icon svg { width:30px !important; height:30px !important; }
+.cart-count {
+  min-width:18px !important;
+  height:18px !important;
+  padding:0 5px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  position:absolute !important;
+  top:1px !important;
+  right:0 !important;
+  border-radius:999px !important;
+  background:var(--ago-terra) !important;
+  color:var(--ago-cream) !important;
+  font-size:10px !important;
+  line-height:1 !important;
+  border:0 !important;
+}
+
+/* mobile: mantém proporção sem apertar */
+@media (max-width:1100px){
+  .featured-products-grid,.remaining-products-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  .visit-grid { grid-template-columns:1fr !important; }
+}
+@media (max-width:767px){
+  .ago-container,.collection-more-inner,.features-container,.editorial-grid,.house-grid,.how-grid,.visit-grid,.contact-page > div,.info-page > div,.catalog-page > div,footer > div:first-child {
+    width:min(100% - 36px, 680px) !important;
+  }
+  .featured-products-grid,.remaining-products-grid { gap:18px !important; }
+  .steps-grid { grid-template-columns:1fr !important; gap:30px !important; }
+  .hero-section { min-height:600px !important; }
+}
