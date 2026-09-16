@@ -6,8 +6,31 @@ import { Product, Category, CartItem } from './types';
 // Isso garante que exista UMA ÚNICA fonte de preços (data/products.json).
 // -----------------------------------------------------------------------
 
+/**
+ * Correções de associação das fotos reais da vitrine.
+ * Os arquivos existentes no catálogo ficaram cruzados durante a montagem
+ * das imagens; corrigimos a referência por produto sem mexer nos arquivos
+ * originais nem no preço/checkout.
+ */
+const PRODUCT_IMAGE_FIXES: Record<string, string> = {
+  'igreja-quadrado-p': '/produtos/igrejinha-luminaria-trancoso.jpg',
+  'igrejinha-luminaria-trancoso': '/produtos/igreja-quadrado-p.jpg',
+  'igreja-quadrado-m': '/produtos/estatueta-iemanja.jpg',
+  'estatueta-iemanja': '/produtos/igreja-quadrado-m.jpg',
+};
+
+function applyProductImageFix(product: Product): Product {
+  const correctedImage = PRODUCT_IMAGE_FIXES[product.id];
+  if (!correctedImage) return product;
+
+  return {
+    ...product,
+    images: [correctedImage, ...product.images.filter((image) => image !== correctedImage)],
+  };
+}
+
 export function getAllProducts(): Product[] {
-  return productsData.products as Product[];
+  return (productsData.products as Product[]).map(applyProductImageFix);
 }
 
 export function getAllCategories(): Category[] {
@@ -77,4 +100,4 @@ export function calculateCartTotals(items: CartItem[]) {
   const total = Number(lines.reduce((sum, l) => sum + l.subtotal, 0).toFixed(2));
 
   return { lines, total, errors, valid: errors.length === 0 && lines.length > 0 };
-}
+} 
