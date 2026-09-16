@@ -75,7 +75,7 @@ export default function HomePage() {
 
       <section className="how-section"><div className="ago-container how-grid">
         <div><p className="eyebrow">Como comprar</p><h2 className="section-title">Escolha sua peça, com calma.</h2></div>
-        <div className="steps-grid"><div><span className="step-number">01</span><strong>Escolha</strong><p>Conheça a coleção e escolha a peça que deseja.</p></div><div><span className="step-number">02</span><strong>Carrinho</strong><p>Adicione ao carrinho e informe seus dados de entrega.</p></div><div><span className="step-number">03</span><strong>Pagamento</strong><p>Confira o pedido e siga para o pagamento seguro.</p></div></div>
+        <div className="steps-grid"><div><strong>Escolha</strong><p>Conheça a coleção e escolha a peça que deseja.</p></div><div><strong>Carrinho</strong><p>Adicione ao carrinho e informe seus dados de entrega.</p></div><div><strong>Pagamento</strong><p>Confira o pedido e siga para o pagamento seguro.</p></div></div>
       </div></section>
 
       <section className="visit-section text-areia"><div className="ago-container visit-grid">
