@@ -26,7 +26,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         <div className="product-image-wrap">
           <Image
             src={image}
-            alt={product.imageAlt || product.name}
+            alt={product.name}
             fill
             priority={priority}
             sizes="(max-width: 599px) 46vw, (max-width: 900px) 46vw, (max-width: 1200px) 30vw, 22vw"
