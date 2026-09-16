@@ -4,6 +4,7 @@ import './ago-editorial.css';
 import './ago-terrosa-final.css';
 import './ago-paleta-final.css';
 import './ago-beneficios-referencia.css';
+import './ago-hero-sem-borda.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
