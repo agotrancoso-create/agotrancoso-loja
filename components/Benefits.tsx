@@ -1,43 +1,47 @@
 const benefits = [
   {
     title: 'feito à mão',
-    text: 'Cada peça é única e artesanal.',
+    text: 'cuidado e tradição em cada detalhe',
     icon: (
       <svg viewBox="0 0 48 48" aria-hidden="true">
-        <path d="M17 37c-2.5-2.7-4-6.2-4-10V15.5c0-1.7 1.1-3 2.5-3s2.5 1.3 2.5 3V24" />
-        <path d="M18 24V10.5c0-1.7 1.1-3 2.5-3s2.5 1.3 2.5 3V24" />
-        <path d="M23 24V9.5c0-1.7 1.1-3 2.5-3S28 7.8 28 9.5V24" />
-        <path d="M28 24V12c0-1.7 1.1-3 2.5-3S33 10.3 33 12v15c0 7-3.8 12-10.5 12H20c-4.2 0-7.5-2.1-9.1-5.8L9 28.8c-.6-1.5.1-3.1 1.5-3.7 1.4-.6 3 .1 3.7 1.5l1.5 3.2" />
+        <path d="M7.5 30.5c2.2-5.2 5.1-9.8 8.4-12.1 1.8-1.2 3.6-.2 3.1 1.8l-1.2 4.2" />
+        <path d="M40.5 30.5c-2.2-5.2-5.1-9.8-8.4-12.1-1.8-1.2-3.6-.2-3.1 1.8l1.2 4.2" />
+        <path d="M8 30.5c.9 5.1 4.5 9.1 9.7 9.1h2.8c2.2 0 3.8-1.4 3.8-3.4 0-2-1.6-3.3-3.8-3.3h-3.2" />
+        <path d="M40 30.5c-.9 5.1-4.5 9.1-9.7 9.1h-2.8c-2.2 0-3.8-1.4-3.8-3.4 0-2 1.6-3.3 3.8-3.3h3.2" />
+        <path d="M24 33.2c-1.2-1.2-6.2-5.3-6.2-9.1 0-2.5 1.7-4.1 4-4.1 1.3 0 2.5.7 3.2 1.8.7-1.1 1.9-1.8 3.2-1.8 2.3 0 4 1.6 4 4.1 0 3.8-5 7.9-6.2 9.1L24 35l-.1-1.8Z" />
       </svg>
     ),
   },
   {
     title: 'peças exclusivas',
-    text: 'Design autoral inspirado na cultura brasileira.',
+    text: 'escolhas especiais para quem valoriza o feito à mão.',
     icon: (
       <svg viewBox="0 0 48 48" aria-hidden="true">
-        <path d="M24 39S9 29.2 9 18.6C9 13.2 12.7 10 17.2 10c2.9 0 5.4 1.6 6.8 4 1.4-2.4 3.9-4 6.8-4C35.3 10 39 13.2 39 18.6 39 29.2 24 39 24 39Z" />
+        <path d="M17 10h14l-1.8 7.6c-.3 1.3-1.1 2.2-2.2 2.8v10.2c0 2.6 1.4 4.6 3.8 5.4v2.2H17.2V36c2.4-.8 3.8-2.8 3.8-5.4V20.4c-1.1-.6-1.9-1.5-2.2-2.8L17 10Z" />
+        <path d="M14.5 10h19M19 17.2c2.7 1.5 7.3 1.5 10 0M18 31.5h12" />
+        <path d="M21 13.5h6" />
       </svg>
     ),
   },
   {
     title: 'inspiração brasileira',
-    text: 'Cores, formas e símbolos da nossa terra.',
+    text: 'cores, formas e símbolos da nossa terra.',
     icon: (
       <svg viewBox="0 0 48 48" aria-hidden="true">
-        <path d="M20 7 29 9l3 6 7 2-3 7 2 7-7 3-4 7-6-4-6-1 1-7-4-5 5-5-1-6 7-1Z" />
-        <path d="M21 13c3 5 4 9 3 13-1 5-1 10 1 15" />
+        <path d="M21.2 5.8 28.4 8l4.4 4.2 6.5 1.3-.8 5.8 3 5.2-3.8 4.5.2 6.2-5.8 1.3-3.6 5.1-5.5-3.1-5.9.8-1.2-5.7-4.5-4.1 2.1-5.5-1.8-5.6 5.1-2.8 2.4-5.6Z" />
+        <path d="M21.3 13.5c2.7 3.9 3.8 7.2 3.2 10.5-.8 4.4-1.1 8.7.8 14.2" />
+        <path d="M24.2 24.1c2.4-1.7 4.6-2.1 6.8-1.9" />
       </svg>
     ),
   },
   {
     title: 'envio para todo brasil',
-    text: 'Receba com segurança na sua casa.',
+    text: 'receba com segurança na sua casa.',
     icon: (
       <svg viewBox="0 0 48 48" aria-hidden="true">
-        <path d="M6 13h24v21H6zM30 20h7l5 7v7H30z" />
-        <path d="M13 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM36 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
-        <path d="M30 27h12" />
+        <path d="M5.5 14h25v20h-25zM30.5 20h7.2l5 6.7V34h-12.2z" />
+        <path d="M12.5 39a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4ZM35.8 39a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4Z" />
+        <path d="M30.5 27h11.8M2.5 21h7M1 26h5M3.5 31h4" />
       </svg>
     ),
   },
