@@ -1,1 +1,0 @@
-Design refresh trigger for production deployment. No application behavior change.
