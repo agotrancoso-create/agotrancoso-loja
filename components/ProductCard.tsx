@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
+import type { CSSProperties } from 'react';
 import { Product } from '@/lib/types';
 import { getEffectivePrice } from '@/lib/products';
 import { useCart } from '@/context/CartContext';
@@ -14,11 +15,6 @@ type ProductCardProps = {
   priority?: boolean;
 };
 
-/*
- * Escala individual baseada no enquadramento das fotografias reais.
- * A escala só aproxima a fotografia dentro do próprio card; nunca troca a peça
- * nem usa crop destrutivo. O CSS final usa object-fit: contain.
- */
 const photoScales: Record<string, number> = {
   'igreja-quadrado-p': 1.05,
   'igreja-quadrado-m': 1.06,
@@ -54,12 +50,12 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         <div className="product-image-wrap">
           <Image
             src={image}
-            alt={product.imageAlt || product.name}
+            alt={product.name}
             fill
             priority={priority}
             sizes="(max-width: 767px) 92vw, (max-width: 1100px) 44vw, (max-width: 1440px) 23vw, 330px"
             className="product-image"
-            style={{ '--product-photo-scale': photoScale } as React.CSSProperties}
+            style={{ '--product-photo-scale': photoScale } as CSSProperties}
           />
           {hasPromo && <span className="product-badge">Oferta</span>}
           {!product.available && <span className="product-badge">Indisponível</span>}
