@@ -14,6 +14,7 @@ import './ago-checkout-premium.css';
 import './ago-social-mobile.css';
 import './ago-professional-final.css';
 import './ago-composicao-definitiva.css';
+import './ago-responsive-final.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
