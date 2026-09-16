@@ -1,0 +1,186 @@
+/* AGÔ TRANCOSO — CONVERSÃO VISUAL FINAL 2026 */
+/* Botões e checkout pensados para clareza, contraste, previsibilidade e toque confortável. */
+
+/* BOTÃO ADICIONAR AO CARRINHO */
+.product-add{
+  position:relative !important;
+  isolation:isolate !important;
+  min-height:48px !important;
+  width:100% !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  padding:0 18px !important;
+  margin-top:12px !important;
+  border:0 !important;
+  border-radius:999px !important;
+  background:#2D1813 !important;
+  color:#FBF7F1 !important;
+  font-family:"DM Sans",Arial,sans-serif !important;
+  font-size:12px !important;
+  font-weight:700 !important;
+  letter-spacing:.055em !important;
+  line-height:1 !important;
+  text-align:center !important;
+  cursor:pointer !important;
+  box-shadow:0 7px 18px rgba(45,24,19,.14) !important;
+  transition:transform .16s ease,background-color .16s ease,box-shadow .16s ease !important;
+}
+.product-add::after{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  border-radius:inherit !important;
+  background:rgba(255,255,255,.07) !important;
+  opacity:0 !important;
+  transition:opacity .16s ease !important;
+  pointer-events:none !important;
+}
+.product-add:hover{
+  background:#713421 !important;
+  color:#FBF7F1 !important;
+  transform:translateY(-1px) !important;
+  box-shadow:0 10px 22px rgba(45,24,19,.18) !important;
+}
+.product-add:hover::after{opacity:1 !important}
+.product-add:active{transform:translateY(0) scale(.985) !important;box-shadow:0 5px 13px rgba(45,24,19,.12) !important}
+.product-add:focus-visible{outline:3px solid rgba(180,106,75,.32) !important;outline-offset:3px !important}
+
+/* CHECKOUT — REFAZER A HIERARQUIA VISUAL SEM MUDAR A FUNCIONALIDADE */
+.checkout-page-text{
+  width:min(1220px,calc(100% - 96px)) !important;
+  max-width:1220px !important;
+  margin:0 auto !important;
+  padding:72px 0 90px !important;
+}
+.checkout-page-text > .grid{
+  display:grid !important;
+  grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr) !important;
+  gap:clamp(64px,7vw,108px) !important;
+  align-items:start !important;
+}
+.checkout-page-text h1.section-title{
+  margin:4px 0 34px !important;
+  max-width:720px !important;
+  font-family:"Cormorant Garamond",Georgia,serif !important;
+  font-size:clamp(52px,5.2vw,76px) !important;
+  font-weight:500 !important;
+  letter-spacing:-.025em !important;
+  line-height:.88 !important;
+  color:#2D1813 !important;
+}
+.checkout-page-text h2,
+.checkout-page-text .font-serif.text-2xl,
+.checkout-summary h2{
+  margin-bottom:18px !important;
+  font-family:"Cormorant Garamond",Georgia,serif !important;
+  font-size:32px !important;
+  font-weight:500 !important;
+  letter-spacing:-.01em !important;
+  line-height:1 !important;
+  color:#2D1813 !important;
+}
+.checkout-page-text form{display:block !important;color:#352019 !important}
+.checkout-page-text form > div{margin-bottom:0 !important}
+.checkout-page-text form .checkout-field{margin:0 !important}
+.checkout-page-text .checkout-label,
+.checkout-page-text form label{
+  display:block !important;
+  margin-bottom:7px !important;
+  color:#6C5A50 !important;
+  font-family:"DM Sans",Arial,sans-serif !important;
+  font-size:11px !important;
+  font-weight:700 !important;
+  letter-spacing:.075em !important;
+  line-height:1.2 !important;
+}
+.checkout-page-text .checkout-input,
+.checkout-page-text form input{
+  width:100% !important;
+  min-height:54px !important;
+  padding:14px 16px !important;
+  border:0 !important;
+  border-radius:12px !important;
+  background:#FBF7F1 !important;
+  color:#2D1813 !important;
+  font-family:"DM Sans",Arial,sans-serif !important;
+  font-size:16px !important;
+  line-height:1.3 !important;
+  box-shadow:inset 0 0 0 1px rgba(77,42,32,.07) !important;
+}
+.checkout-page-text form input:focus{box-shadow:inset 0 0 0 2px rgba(145,70,47,.34) !important;outline:0 !important}
+.checkout-page-text form input::placeholder{color:#9A8D84 !important;font-size:14px !important}
+.checkout-shipping-note{
+  margin:14px 0 0 !important;
+  padding:14px 16px !important;
+  border-radius:12px !important;
+  background:#EFE2D5 !important;
+  color:#5A4337 !important;
+  font-size:13px !important;
+  line-height:1.55 !important;
+}
+.checkout-shipping-note .text-xs{font-size:12px !important;color:#7A685D !important}
+.checkout-page-text form button{
+  width:100% !important;
+  min-height:58px !important;
+  margin-top:10px !important;
+  border:0 !important;
+  border-radius:999px !important;
+  background:#2D1813 !important;
+  color:#FBF7F1 !important;
+  font-family:"DM Sans",Arial,sans-serif !important;
+  font-size:12px !important;
+  font-weight:700 !important;
+  letter-spacing:.10em !important;
+  box-shadow:0 9px 22px rgba(45,24,19,.13) !important;
+}
+.checkout-page-text form button:hover:not(:disabled){background:#713421 !important;transform:translateY(-1px) !important}
+.checkout-page-text form button:active:not(:disabled){transform:scale(.99) !important}
+.checkout-page-text form > p:last-child{margin-top:13px !important;color:#77685E !important;font-size:12px !important;line-height:1.6 !important}
+
+/* RESUMO — MAIS PESO VISUAL, MENOS APARÊNCIA DE CAIXA GENÉRICA */
+.checkout-page-text aside.checkout-summary,
+.checkout-page-text aside{
+  padding:32px !important;
+  border:0 !important;
+  border-radius:22px !important;
+  background:#E8DDD2 !important;
+  box-shadow:none !important;
+}
+.checkout-summary .eyebrow{margin-bottom:8px !important;color:#7B6A60 !important}
+.checkout-summary h2{font-size:34px !important;margin-bottom:22px !important}
+.checkout-summary-item{padding:0 0 16px !important;margin:0 0 16px !important;border:0 !important}
+.checkout-product-image{width:84px !important;height:84px !important;flex:0 0 84px !important;border:0 !important;border-radius:16px !important;background:#FBF7F1 !important;overflow:hidden !important}
+.checkout-product-image img{width:100% !important;height:100% !important;padding:5px !important;object-fit:contain !important;border-radius:16px !important}
+.checkout-product-name{font-size:14px !important;line-height:1.35 !important;color:#2D1813 !important}
+.checkout-product-price{font-size:12px !important;color:#786960 !important}
+.checkout-summary-item > span{font-size:14px !important;color:#2D1813 !important;font-weight:700 !important}
+.checkout-page-text aside .font-serif{font-size:30px !important;line-height:1 !important}
+.checkout-page-text aside .text-sm{font-size:13px !important}
+.checkout-page-text aside .text-xs{font-size:12px !important;line-height:1.55 !important}
+
+/* ETAPAS EXISTENTES FICAM FORA DA HIERARQUIA — não usar no visual */
+.checkout-stepbar{display:none !important}
+
+@media(max-width:900px){
+  .checkout-page-text{width:calc(100% - 40px) !important;padding:54px 0 64px !important}
+  .checkout-page-text > .grid{grid-template-columns:1fr !important;gap:38px !important}
+  .checkout-page-text aside{order:-1 !important}
+  .checkout-page-text h1.section-title{font-size:clamp(48px,10vw,66px) !important}
+}
+
+@media(max-width:600px){
+  .product-add{min-height:46px !important;font-size:11px !important;letter-spacing:.045em !important}
+  .checkout-page-text{width:calc(100% - 32px) !important;padding:36px 0 48px !important}
+  .checkout-page-text > .grid{gap:30px !important}
+  .checkout-page-text h1.section-title{font-size:clamp(43px,13vw,58px) !important;line-height:.9 !important;margin-bottom:28px !important}
+  .checkout-page-text h2,.checkout-summary h2{font-size:28px !important}
+  .checkout-page-text form label,.checkout-page-text .checkout-label{font-size:10px !important}
+  .checkout-page-text .checkout-input,.checkout-page-text form input{min-height:54px !important;font-size:16px !important;padding:14px 15px !important}
+  .checkout-page-text form button{min-height:56px !important;font-size:11px !important}
+  .checkout-page-text aside{padding:21px !important;border-radius:18px !important}
+  .checkout-product-image{width:66px !important;height:66px !important;flex-basis:66px !important;border-radius:14px !important}
+  .checkout-product-image img{border-radius:14px !important}
+  .checkout-product-name{font-size:13px !important}
+  .checkout-product-price{font-size:11px !important}
+}
