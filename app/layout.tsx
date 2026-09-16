@@ -34,6 +34,7 @@ import './ago-mobile-preenchido-final.css';
 import './ago-unificacao-total.css';
 import './ago-force-final.css';
 import './ago-auditoria-visual-final.css';
+import './ago-rodape-tipografia-final.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
