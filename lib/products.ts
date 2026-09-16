@@ -7,30 +7,53 @@ import { Product, Category, CartItem } from './types';
 // -----------------------------------------------------------------------
 
 /**
- * Correções de associação das fotos reais da vitrine.
- * Os arquivos existentes no catálogo ficaram cruzados durante a montagem
- * das imagens; corrigimos a referência por produto sem mexer nos arquivos
- * originais nem no preço/checkout.
+ * Fonte de verdade para a foto principal de cada peça.
+ * Evita que galerias antigas/crossadas façam uma peça aparecer com a foto
+ * de outro produto. Fotos adicionais, quando existirem, permanecem depois
+ * da foto principal.
  */
-const PRODUCT_IMAGE_FIXES: Record<string, string> = {
-  'igreja-quadrado-p': '/produtos/igrejinha-luminaria-trancoso.jpg',
-  'igrejinha-luminaria-trancoso': '/produtos/igreja-quadrado-p.jpg',
-  'igreja-quadrado-m': '/produtos/estatueta-iemanja.jpg',
-  'estatueta-iemanja': '/produtos/igreja-quadrado-m.jpg',
+const PRODUCT_PRIMARY_IMAGES: Record<string, string> = {
+  'igreja-quadrado-p': '/produtos/igreja-quadrado-p.jpg',
+  'igreja-quadrado-m': '/produtos/igreja-quadrado-m.jpg',
+  'igreja-quadrado-gg': '/produtos/igreja-quadrado-gg.jpg',
+  'igrejinha-luminaria-trancoso': '/produtos/igrejinha-luminaria-trancoso.jpg',
+  'casinha-luminaria': '/produtos/casinha-luminaria.jpg',
+  'miniatura-quadrado-trancoso': '/produtos/miniatura-quadrado-trancoso.jpg',
+  'cruzeiro-do-quadrado': '/produtos/cruzeiro-do-quadrado.jpg',
+  'mobile-trancoso': '/produtos/mobile-trancoso.jpg',
+  'estatueta-iemanja': '/produtos/estatueta-iemanja.jpg',
+  'nossa-senhora-grande': '/produtos/nossa-senhora-grande.jpg',
+  'presepio-em-ceramica': '/produtos/presepio-em-ceramica.jpg',
+  'casal-pretos-velhos': '/produtos/casal-pretos-velhos.jpg',
+  'nossa-senhora-aparecida': '/produtos/nossa-senhora-aparecida.jpg',
+  'divino-espirito-santo': '/produtos/divino-espirito-santo.jpg',
+  'terco-em-ceramica': '/produtos/terco-em-ceramica.jpg',
+  'rosario-trancoso': '/produtos/rosario-trancoso.jpg',
+  'esfera-decorativa': '/produtos/esfera-decorativa.jpg',
+  'colar-igreja-quadrado': '/produtos/colar-igreja-quadrado.jpg',
+  'ima-igrejinha-trancoso': '/produtos/ima-igrejinha-trancoso.jpg',
 };
 
-function applyProductImageFix(product: Product): Product {
-  const correctedImage = PRODUCT_IMAGE_FIXES[product.id];
-  if (!correctedImage) return product;
+function normalizeProductImages(product: Product): Product {
+  const primary = PRODUCT_PRIMARY_IMAGES[product.id];
+  const existing = product.images ?? [];
+  if (!primary) {
+    return {
+      ...product,
+      images: existing.length > 0 ? existing : ['/images/placeholder.svg'],
+      imageAlt: product.imageAlt || product.name,
+    };
+  }
 
   return {
     ...product,
-    images: [correctedImage, ...product.images.filter((image) => image !== correctedImage)],
+    images: [primary, ...existing.filter((image) => image !== primary)],
+    imageAlt: product.imageAlt || product.name,
   };
 }
 
 export function getAllProducts(): Product[] {
-  return (productsData.products as Product[]).map(applyProductImageFix);
+  return (productsData.products as Product[]).map(normalizeProductImages);
 }
 
 export function getAllCategories(): Category[] {
@@ -100,4 +123,4 @@ export function calculateCartTotals(items: CartItem[]) {
   const total = Number(lines.reduce((sum, l) => sum + l.subtotal, 0).toFixed(2));
 
   return { lines, total, errors, valid: errors.length === 0 && lines.length > 0 };
-} 
+}
