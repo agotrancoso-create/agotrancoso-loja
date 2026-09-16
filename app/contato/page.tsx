@@ -5,7 +5,7 @@ import {
 } from '@/lib/config';
 
 const mapsUrl =
-  'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5894988,-39.0957282,21z';
+  'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu&g_ep=EgoyMDI2MDkxMy4wIKXMDSoASAFQAw%3D%3D';
 
 export const metadata = {
   title: 'Contato | Agô Trancoso',
@@ -23,7 +23,7 @@ export default function ContatoPage() {
 
         <p className="font-sans text-marrom/80 leading-relaxed mb-10">
           Dúvidas sobre uma peça, entrega ou pagamento? Fale com a gente.
-          Para comprar, não é necessário enviar mensagem — você pode finalizar
+          Para comprar, não é necessário enviar mensagem, você pode finalizar
           o pedido diretamente pelo site.
         </p>
 
@@ -68,9 +68,9 @@ export default function ContatoPage() {
           </h2>
 
           <p className="font-sans text-sm text-marrom/70 leading-relaxed">
-            Praça São João Batista — Trancoso,
+            Praça São João Batista, Trancoso,
             <br />
-            Porto Seguro — BA, 46098-000.
+            Porto Seguro, BA, 46098-000.
           </p>
 
           <a
