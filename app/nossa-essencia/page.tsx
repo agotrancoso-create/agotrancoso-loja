@@ -23,7 +23,7 @@ export default function NossaEssenciaPage() {
         </div>
       </div>
       <div className="relative aspect-video max-w-2xl mt-10 bg-areia border border-oliva/20 overflow-hidden">
-        <Image src="/nossa-essencia.jpg" alt="A Agô — Agô Trancoso" fill className="object-contain" quality={100} unoptimized />
+        <Image src="/nossa-essencia.jpg" alt="A Agô, Agô Trancoso" fill className="object-contain" quality={100} unoptimized />
       </div>
     </div>
   );
