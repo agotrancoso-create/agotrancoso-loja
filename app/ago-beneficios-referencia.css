@@ -1,0 +1,95 @@
+/* Agô Trancoso — benefícios/diferenciais conforme referência enviada */
+
+.benefits-strip {
+  padding: 72px 24px 76px !important;
+  background: #f5f2eb !important;
+  border: 0 !important;
+}
+
+.features-container {
+  width: 100% !important;
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+.feature-item {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  min-height: 178px !important;
+  padding: 0 34px !important;
+  text-align: center !important;
+}
+
+.feature-item:not(:last-child)::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 4px !important;
+  right: 0 !important;
+  width: 1px !important;
+  height: 154px !important;
+  background: #4a2c1f !important;
+  opacity: .42 !important;
+}
+
+.feature-icon {
+  width: 92px !important;
+  height: 92px !important;
+  margin: 0 0 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+}
+
+.feature-icon svg {
+  width: 76px !important;
+  height: 76px !important;
+  fill: none !important;
+  stroke: #4a2c1f !important;
+  stroke-width: 1.15 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+.feature-title {
+  margin: 0 0 8px !important;
+  color: #4a2c1f !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 1.8rem !important;
+  line-height: 1 !important;
+  font-weight: 500 !important;
+  text-transform: lowercase !important;
+}
+
+.feature-description {
+  max-width: 220px !important;
+  margin: 0 !important;
+  color: rgba(74,44,31,.82) !important;
+  font-family: 'DM Sans', Arial, sans-serif !important;
+  font-size: 11px !important;
+  line-height: 1.55 !important;
+  text-align: center !important;
+}
+
+@media (max-width: 1000px) {
+  .benefits-strip { padding: 62px 20px 68px !important; }
+  .features-container { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; row-gap: 48px !important; }
+  .feature-item:nth-child(2)::after { display: none !important; }
+  .feature-item:nth-child(3)::after { display: block !important; }
+}
+
+@media (max-width: 767px) {
+  .benefits-strip { padding: 56px 18px 60px !important; }
+  .features-container { grid-template-columns: 1fr !important; row-gap: 42px !important; }
+  .feature-item { min-height: 0 !important; padding: 0 14px !important; }
+  .feature-item::after { display: none !important; }
+  .feature-icon { width: 82px !important; height: 82px !important; margin-bottom: 13px !important; }
+  .feature-icon svg { width: 68px !important; height: 68px !important; }
+  .feature-title { font-size: 1.7rem !important; }
+  .feature-description { max-width: 270px !important; font-size: 11px !important; }
+}
