@@ -70,7 +70,7 @@ export default function ContatoPage() {
           <p className="font-sans text-sm text-marrom/70 leading-relaxed">
             Praça São João Batista — Trancoso,
             <br />
-            Porto Seguro — BA, 45818-000.
+            Porto Seguro — BA, 46098-000.
           </p>
 
           <a
