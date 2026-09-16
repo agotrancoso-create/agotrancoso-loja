@@ -1,0 +1,244 @@
+/* AGÔ TRANCOSO — PALETA RODAPÉ + VISITE A AGÔ
+   Direção cromática global: creme, areia, barro, terracota e os marrons
+   já usados no rodapé e na seção "Como chegar até a Agô".
+   Proibição visual: verde, oliva, esmeralda, lima e ciano.
+*/
+
+:root {
+  --ago-global-cream: #FBF7F1 !important;
+  --ago-global-paper: #F2E7DB !important;
+  --ago-global-sand: #E3CFBA !important;
+  --ago-global-sand-2: #D7BEA8 !important;
+  --ago-global-terra: #91462F !important;
+  --ago-global-terra-2: #713421 !important;
+  --ago-global-brown: #4D2A20 !important;
+  --ago-global-brown-deep: #2D1813 !important;
+  --ago-global-ink: #352019 !important;
+}
+
+html,
+body {
+  background: var(--ago-global-paper) !important;
+  color: var(--ago-global-ink) !important;
+}
+
+/* Neutraliza qualquer token/cor legada que ainda possa aparecer. */
+.text-oliva,
+.text-olive,
+.text-verde,
+.text-green,
+.text-emerald,
+.text-lime,
+[class*="text-green"],
+[class*="text-emerald"],
+[class*="text-lime"],
+[class*="text-olive"],
+[class*="text-oliva"] {
+  color: var(--ago-global-terra) !important;
+}
+
+.border-oliva,
+.border-olive,
+[class*="border-green"],
+[class*="border-emerald"],
+[class*="border-lime"],
+[class*="border-olive"],
+[class*="border-oliva"] {
+  border-color: rgba(77,42,32,.16) !important;
+}
+
+.bg-oliva,
+.bg-olive,
+.bg-green,
+.bg-emerald,
+.bg-lime,
+[class*="bg-green"],
+[class*="bg-emerald"],
+[class*="bg-lime"],
+[class*="bg-olive"],
+[class*="bg-oliva"] {
+  background-color: var(--ago-global-paper) !important;
+  color: var(--ago-global-ink) !important;
+}
+
+/* Mesma família cromática do rodapé / Visite a Agô. */
+.ago-topbar,
+.visit-section,
+footer {
+  background: var(--ago-global-brown-deep) !important;
+}
+
+.site-header {
+  background: var(--ago-global-cream) !important;
+  border-color: rgba(77,42,32,.14) !important;
+}
+
+.collection-showcase,
+.collection-more,
+.benefits-strip {
+  background: var(--ago-global-cream) !important;
+}
+
+.category-row,
+.catalog-toolbar {
+  background: var(--ago-global-sand) !important;
+}
+
+.editorial-section {
+  background: #E1CCB7 !important;
+}
+
+.home-house {
+  background: #EBDCCE !important;
+}
+
+.how-section {
+  background: #DEC9B4 !important;
+}
+
+.contact-page,
+.info-page,
+.catalog-page {
+  background: var(--ago-global-paper) !important;
+}
+
+/* Tipografia e detalhes em marrom, barro e terracota. */
+.section-title,
+.product-name,
+.feature-title,
+.header-link,
+footer h3,
+footer h4,
+.visit-section h2,
+.how-section strong {
+  color: var(--ago-global-brown-deep) !important;
+}
+
+.eyebrow,
+.collection-link,
+.editorial-link,
+.current-price,
+.feature-icon {
+  color: var(--ago-global-terra-2) !important;
+}
+
+.header-link:hover,
+.header-link:first-child {
+  color: var(--ago-global-terra) !important;
+}
+
+.header-link:first-child::after {
+  background: var(--ago-global-terra) !important;
+}
+
+.product-image-wrap {
+  background: #E9DCCD !important;
+}
+
+/* Harmoniza discretamente as fotografias com a identidade terrosa,
+   preservando a peça e evitando aparência de filtro pesado. */
+.product-image,
+.editorial-image img,
+.hero-image,
+.product-gallery-image {
+  filter: saturate(.90) sepia(.055) contrast(.98) !important;
+}
+
+.category-pill {
+  background: rgba(251,247,241,.68) !important;
+  border-color: rgba(77,42,32,.22) !important;
+  color: var(--ago-global-brown) !important;
+}
+
+.category-pill:hover,
+.category-pill.active {
+  background: var(--ago-global-brown) !important;
+  border-color: var(--ago-global-brown) !important;
+  color: var(--ago-global-cream) !important;
+}
+
+.product-add {
+  border-color: rgba(77,42,32,.23) !important;
+  background: transparent !important;
+  color: var(--ago-global-brown-deep) !important;
+}
+
+.product-add:hover {
+  background: var(--ago-global-brown-deep) !important;
+  border-color: var(--ago-global-brown-deep) !important;
+  color: var(--ago-global-cream) !important;
+}
+
+.hero-section {
+  background: var(--ago-global-brown-deep) !important;
+}
+
+.hero-overlay {
+  background:
+    linear-gradient(90deg, rgba(45,24,19,.80) 0%, rgba(45,24,19,.46) 52%, rgba(45,24,19,.18) 100%),
+    linear-gradient(0deg, rgba(45,24,19,.52), rgba(45,24,19,.03) 64%) !important;
+}
+
+/* Visite a Agô: mesma base do rodapé, com contraste suave. */
+.visit-section .eyebrow {
+  color: rgba(251,247,241,.62) !important;
+}
+
+.visit-section strong {
+  color: var(--ago-global-cream) !important;
+}
+
+.visit-section span,
+.visit-section .visit-copy {
+  color: rgba(251,247,241,.70) !important;
+}
+
+.visit-actions a {
+  border-color: rgba(251,247,241,.26) !important;
+  color: var(--ago-global-cream) !important;
+}
+
+/* Rodapé com a mesma linguagem visual da seção Visite. */
+footer {
+  color: var(--ago-global-cream) !important;
+}
+
+footer p,
+footer a,
+footer li,
+footer span {
+  color: rgba(251,247,241,.78) !important;
+}
+
+footer h3,
+footer h4 {
+  color: var(--ago-global-cream) !important;
+}
+
+footer .border-t {
+  border-color: rgba(251,247,241,.14) !important;
+}
+
+/* Campos / links nunca devem puxar para verde. */
+input,
+select,
+textarea {
+  accent-color: var(--ago-global-terra) !important;
+  border-color: rgba(77,42,32,.18) !important;
+  background: var(--ago-global-cream) !important;
+  color: var(--ago-global-brown) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: rgba(145,70,47,.52) !important;
+  box-shadow: 0 0 0 3px rgba(145,70,47,.08) !important;
+}
+
+@media (max-width: 767px) {
+  .editorial-section { background: #E1CCB7 !important; }
+  .home-house { background: #EBDCCE !important; }
+  .how-section { background: #DEC9B4 !important; }
+  .category-row { background: var(--ago-global-sand) !important; }
+}
