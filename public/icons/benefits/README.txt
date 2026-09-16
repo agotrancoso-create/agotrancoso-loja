@@ -1,0 +1,1 @@
+Os quatro ícones visuais da seção de diferenciais devem seguir as referências fornecidas pelo cliente.
