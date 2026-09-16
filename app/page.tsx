@@ -42,7 +42,7 @@ export default function HomePage() {
       </section>
 
       <section className="hero-section relative flex items-end overflow-hidden bg-marrom text-areia">
-        <Image src="/hero.jpg" alt="Peças de cerâmica da Agô Trancoso" fill priority sizes="100vw" className="object-cover hero-image" unoptimized />
+        <Image src="/hero.jpg" alt="Peças de cerâmica da Agô Trancoso" fill priority sizes="100vw" className="object-cover hero-image" />
         <div className="absolute inset-0 hero-overlay" />
         <div className="relative z-10 w-full ago-container hero-content">
           <p className="eyebrow mb-4 text-areia">Agô Trancoso · cerâmica e memória</p>
