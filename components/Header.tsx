@@ -30,7 +30,7 @@ export default function Header() {
             <nav className="hidden md:flex items-center gap-7 font-sans text-[10px] tracking-[.08em] uppercase text-marrom">
               <Link href="/" className="header-link">Início</Link>
               <Link href="/produtos" className="header-link">Coleção</Link>
-              <Link href="/nossa-essencia" className="header-link">Nossa essência</Link>
+              <Link href="/nossa-essencia" className="header-link">A Agô</Link>
               <Link href="/contato" className="header-link">Contato</Link>
             </nav>
 
@@ -59,7 +59,7 @@ export default function Header() {
               </form>
               <Link href="/" onClick={() => setMenuOpen(false)}>Início</Link>
               <Link href="/produtos" onClick={() => setMenuOpen(false)}>Coleção</Link>
-              <Link href="/nossa-essencia" onClick={() => setMenuOpen(false)}>Nossa essência</Link>
+              <Link href="/nossa-essencia" onClick={() => setMenuOpen(false)}>A Agô</Link>
               <Link href="/contato" onClick={() => setMenuOpen(false)}>Contato</Link>
             </div>
           )}
