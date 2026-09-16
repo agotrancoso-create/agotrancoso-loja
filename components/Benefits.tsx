@@ -32,12 +32,11 @@ const benefits = [
     title: 'inspiração brasileira',
     text: 'cores, formas e símbolos da nossa terra.',
     icon: (
-      <img
-        src="https://www.simplemaplab.com/maps/blank/brazil.svg"
-        alt="Contorno do mapa do Brasil"
-        className="brazil-map-icon"
-        loading="lazy"
-      />
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M23 6c4 1 6 3 8 2l4 3 5-1 3 4 5 2-1 5 4 4-2 5 1 5-4 4-1 6-6 1-4 5-5-2-5 3-4-3-5 1-2-5-4-3 1-5-3-5 3-4-1-5 4-3 1-5 6-1 4-4Z" />
+        <path d="M23 7c1 5 0 8-2 12-2 4-1 7 1 10 2 3 1 6-1 9-2 3-1 7 2 10" />
+        <path d="M39 11c-2 4-2 7 1 10 2 2 2 5 0 8-2 3-1 6 2 8 3 2 3 5 1 8" />
+      </svg>
     ),
   },
   {
