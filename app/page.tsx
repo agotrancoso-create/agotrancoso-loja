@@ -19,7 +19,7 @@ export default function HomePage() {
   const remainingProducts = products.slice(8);
 
   return (
-    <div className="ago-home">
+    <div className="ago-home" data-design-audit="2026-09-16">
       <section id="colecao" className="collection-showcase ago-container">
         <div className="collection-intro">
           <p className="eyebrow">Escolha sua peça</p>
