@@ -20,6 +20,7 @@ import './ago-ajuste-final-sessoes.css';
 import './ago-paleta-coesa-final.css';
 import './ago-direcao-final.css';
 import './ago-sem-verde-final.css';
+import './ago-prompt-mestre-final.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
