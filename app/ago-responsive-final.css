@@ -1,0 +1,278 @@
+/* Agô Trancoso — composição responsiva por dispositivo.
+   Última camada visual: não muda regras de negócio ou pagamento. */
+
+:root {
+  --ago-gutter: 32px;
+  --ago-content: 1240px;
+  --ago-content-wide: 1320px;
+  --ago-text: #211914;
+  --ago-brown: #3f261c;
+  --ago-terra: #8d4327;
+  --ago-paper: #fbfaf7;
+}
+
+html, body { max-width: 100%; overflow-x: clip; }
+body { min-width: 320px; }
+
+.ago-container {
+  width: min(var(--ago-content), calc(100% - (var(--ago-gutter) * 2))) !important;
+  margin-inline: auto !important;
+}
+
+/* =========================
+   COMPUTADORES / NOTEBOOKS
+   ========================= */
+@media (min-width: 1201px) {
+  :root { --ago-gutter: 40px; --ago-content: 1240px; }
+
+  .header-inner { min-height: 82px; }
+  .header-nav { gap: 30px; }
+  .header-actions { gap: 22px; }
+
+  .collection-showcase { padding-top: 76px; }
+  .featured-products-grid,
+  .remaining-products-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 32px; row-gap: 52px; }
+
+  .product-image-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+
+  .hero-section { min-height: 620px !important; }
+  .hero-content { padding-bottom: 72px; }
+  .hero-section h1 { max-width: 920px; }
+
+  .editorial-grid,
+  .house-grid,
+  .how-grid,
+  .visit-grid { width: min(var(--ago-content), calc(100% - 80px)); margin-inline: auto; }
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  :root { --ago-gutter: 28px; --ago-content: 1080px; }
+
+  .header-inner { min-height: 76px; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); }
+  .header-nav { gap: 18px; }
+  .header-link { font-size: 8px !important; letter-spacing: .09em !important; }
+  .header-search { width: 132px !important; }
+  .header-actions { gap: 14px; }
+
+  .collection-showcase { padding-top: 58px; }
+  .collection-intro { grid-template-columns: 1fr auto; }
+  .section-title { font-size: clamp(2.35rem, 4.2vw, 4rem) !important; }
+  .featured-products-grid,
+  .remaining-products-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px; }
+  .product-name, .featured-products-grid .product-name { font-size: 20px !important; }
+
+  .hero-section { min-height: 560px !important; }
+  .hero-section h1 { font-size: clamp(3.2rem, 7vw, 6rem); }
+
+  .editorial-grid, .house-grid { gap: 54px; }
+  .how-grid { gap: 48px; }
+  .visit-grid { gap: 50px; }
+}
+
+/* Laptop estreito ainda é computador: mantém navegação usável, sem esmagar 4 colunas. */
+@media (min-width: 901px) and (max-width: 1040px) {
+  .header-nav { gap: 13px; }
+  .header-actions { gap: 11px; }
+  .header-search { width: 112px !important; }
+}
+
+/* =========================
+   TABLETS / CELULARES
+   ========================= */
+@media (max-width: 900px) {
+  :root { --ago-gutter: 20px; }
+
+  .ago-container { width: min(760px, calc(100% - 40px)) !important; }
+  .site-header { position: sticky; }
+  .header-inner { min-height: 68px; }
+
+  .collection-showcase { padding-top: 48px; }
+  .collection-intro { display: block; }
+  .collection-intro .section-title { margin-top: 10px; max-width: 650px; }
+  .collection-link-large { margin-top: 18px; }
+  .featured-products-grid,
+  .remaining-products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 38px 18px; }
+
+  .product-image-wrap,
+  .product-image { width: 100%; max-width: 100%; }
+  .product-image-wrap { aspect-ratio: 1 / 1; }
+
+  .hero-section { min-height: 540px !important; }
+  .hero-content { padding-bottom: 38px; }
+
+  .editorial-grid,
+  .house-grid,
+  .how-grid,
+  .visit-grid { grid-template-columns: 1fr; gap: 38px; }
+
+  .steps-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 767px) {
+  :root { --ago-gutter: 16px; }
+  .ago-container { width: calc(100% - 32px) !important; }
+
+  .ago-topbar { min-height: 32px; padding-inline: 12px; text-align: center; }
+  .header-inner { height: 68px; min-height: 68px; }
+
+  /* No mouse-only affordances on touch devices. */
+  .product-card:hover .product-image { transform: none !important; }
+  .product-view { display: none !important; }
+
+  .collection-showcase { padding-top: 43px; }
+  .featured-products-grid,
+  .remaining-products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 14px; }
+
+  .product-name,
+  .featured-products-grid .product-name { font-size: 18px !important; line-height: 1.02 !important; margin-top: 12px !important; }
+  .current-price { font-size: 11px !important; }
+  .product-add { min-height: 44px; margin-top: 10px !important; font-size: 8px !important; }
+
+  .category-row { overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; padding-bottom: 38px; }
+  .category-row::-webkit-scrollbar { display: none; }
+  .category-pill { flex: 0 0 auto; }
+
+  .hero-section { min-height: 560px !important; }
+  .hero-section h1 { font-size: clamp(3rem, 15vw, 5rem); line-height: .84; }
+  .hero-copy { max-width: 420px; font-size: 13px; }
+  .hero-actions { align-items: stretch; flex-wrap: wrap; gap: 13px; }
+  .hero-primary, .hero-secondary { min-height: 44px; }
+
+  .benefits-strip { padding-block: 46px !important; }
+  .features-container { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 36px; }
+  .feature-item { min-width: 0; padding-inline: 10px !important; }
+  .feature-icon { width: 50px !important; height: 50px !important; }
+  .feature-title { font-size: 1.35rem !important; }
+  .feature-description { font-size: 9px; max-width: 150px; }
+
+  .collection-more-inner,
+  .editorial-grid,
+  .house-grid,
+  .how-grid,
+  .visit-grid { padding-block: 62px; }
+
+  .editorial-grid .editorial-copy-column { order: 2; }
+  .house-grid .house-copy { order: 1; }
+  .house-grid .editorial-image { order: 2; }
+
+  .visit-actions { flex-direction: column; align-items: stretch; }
+  .visit-actions a { justify-content: center; min-height: 46px; }
+}
+
+@media (max-width: 420px) {
+  .ago-container { width: calc(100% - 28px) !important; }
+  .header-inner { grid-template-columns: auto 1fr auto; }
+  .header-logo { justify-self: center; }
+  .header-logo img { width: 44px !important; height: 44px !important; }
+  .header-actions { gap: 12px; }
+
+  .featured-products-grid,
+  .remaining-products-grid { column-gap: 12px; row-gap: 30px; }
+  .product-name,
+  .featured-products-grid .product-name { font-size: 17px !important; }
+
+  .hero-section { min-height: 520px !important; }
+  .hero-section h1 { font-size: clamp(2.75rem, 14.2vw, 4.25rem); }
+  .hero-actions { display: grid; grid-template-columns: 1fr; }
+  .hero-primary, .hero-secondary { width: 100%; }
+
+  .features-container { column-gap: 4px; }
+  .feature-item { padding-inline: 5px !important; }
+  .feature-title { font-size: 1.25rem !important; }
+  .feature-description { max-width: 132px; }
+}
+
+/* =========================
+   CHECKOUT — desktop e touch
+   ========================= */
+.checkout-page-text {
+  width: min(1180px, calc(100% - 64px));
+  margin-inline: auto;
+  padding-top: 54px;
+  padding-bottom: 90px;
+}
+.checkout-page-text > .grid { align-items: start; }
+.checkout-stepbar {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  margin-bottom: 56px;
+  border-bottom: 1px solid rgba(63,38,28,.12);
+  padding-bottom: 16px;
+}
+.checkout-step { color: rgba(63,38,28,.48); font-size: 9px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
+.checkout-step span { margin-right: 7px; color: var(--ago-terra); }
+.checkout-step.is-active { color: var(--ago-brown); }
+.checkout-field + .checkout-field { margin-top: 0; }
+.checkout-input {
+  width: 100%;
+  min-height: 46px;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(63,38,28,.22) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 9px 0 !important;
+  color: var(--ago-text) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.checkout-input:focus { border-bottom-color: var(--ago-brown) !important; }
+.checkout-label { display: block; margin-bottom: 7px; color: rgba(63,38,28,.72); font-size: 9px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
+.checkout-summary {
+  border: 0 !important;
+  border-left: 1px solid rgba(63,38,28,.12) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 0 0 36px !important;
+}
+.checkout-product-image {
+  width: 64px; height: 64px; flex: 0 0 64px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; background: transparent !important; border: 0 !important; box-shadow: none !important;
+}
+.checkout-product-image img { width: 100%; height: 100%; object-fit: contain; border: 0 !important; box-shadow: none !important; }
+.checkout-page-text button[type='submit'] {
+  min-height: 52px;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--ago-brown) !important;
+  color: var(--ago-paper) !important;
+}
+.checkout-page-text button[type='submit']:hover { background: var(--ago-terra) !important; }
+.checkout-summary-item { padding-bottom: 4px; }
+
+@media (max-width: 767px) {
+  .checkout-page-text {
+    width: calc(100% - 32px);
+    padding-top: 34px;
+    padding-bottom: 64px;
+  }
+  .checkout-stepbar { gap: 16px; margin-bottom: 38px; overflow-x: auto; }
+  .checkout-step { white-space: nowrap; font-size: 8px; }
+  .checkout-summary {
+    margin-top: 18px;
+    border-left: 0 !important;
+    border-top: 1px solid rgba(63,38,28,.12) !important;
+    padding: 28px 0 0 !important;
+  }
+  .checkout-product-image { width: 58px; height: 58px; flex-basis: 58px; }
+  .checkout-page-text .grid-cols-\[1fr_110px\] { grid-template-columns: minmax(0, 1fr) 88px !important; }
+  .checkout-page-text .grid-cols-\[1fr_80px\] { grid-template-columns: minmax(0, 1fr) 68px !important; }
+}
+
+/* Regra absoluta do catálogo: fotos de produtos nunca recebem moldura. */
+.product-image-wrap,
+.product-image-wrap::before,
+.product-image-wrap::after,
+.product-image,
+.product-image img,
+.product-card .product-image-wrap {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
