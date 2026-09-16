@@ -15,6 +15,7 @@ import './ago-social-mobile.css';
 import './ago-professional-final.css';
 import './ago-composicao-definitiva.css';
 import './ago-responsive-final.css';
+import './ago-final-device-audit.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -25,7 +26,7 @@ import { SITE_DOMAIN } from '@/lib/config';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
   title: { default: 'Agô Trancoso | Cerâmicas e peças artesanais', template: '%s | Agô Trancoso' },
-  description: 'Cerâmicas e peças artesanais inspiradas na arquitetura, nas formas e na identidade de Trancoso.',
+  description: 'Cerâmicas, lembranças e detalhes especiais para decorar, presentear e guardar memórias. Conheça a coleção da Agô Trancoso.',
   keywords: ['artesanato em Trancoso','cerâmica em Trancoso','artesanato de Trancoso','cerâmica artesanal','decoração artesanal','peças artesanais','presentes de Trancoso'],
   alternates: { canonical: SITE_DOMAIN },
   openGraph: { title: 'Agô Trancoso', description: 'Trancoso em forma de cerâmica.', url: SITE_DOMAIN, type: 'website' },
