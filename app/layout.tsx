@@ -37,6 +37,7 @@ import './ago-auditoria-visual-final.css';
 import './ago-rodape-tipografia-final.css';
 import './ago-neuro-conversao-final.css';
 import './ago-mestre-final-2026.css';
+import './ago-visita-editorial.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
