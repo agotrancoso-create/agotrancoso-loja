@@ -1,0 +1,126 @@
+/* Agô Trancoso — acabamento final por dispositivo.
+   Esta camada fecha diferenças entre desktop, tablet e toque sem alterar regras comerciais. */
+
+/* Base: evitar qualquer overflow acidental e manter leitura confortável. */
+html, body { max-width: 100%; overflow-x: clip; }
+*, *::before, *::after { min-width: 0; }
+
+/* Produto: a fotografia é a protagonista, sem molduras, fundos de card ou sombras. */
+.product-card .product-image-wrap,
+.product-card .product-image-wrap::before,
+.product-card .product-image-wrap::after,
+.product-card .product-image,
+.product-card .product-image-wrap img,
+.cart-product-image,
+.cart-product-image::before,
+.cart-product-image::after,
+.cart-product-image img,
+.checkout-product-image,
+.checkout-product-image::before,
+.checkout-product-image::after,
+.checkout-product-image img,
+.product-gallery-main,
+.product-gallery-main::before,
+.product-gallery-main::after,
+.product-gallery-image {
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+.product-card .product-image { padding: 0 !important; object-fit: contain !important; }
+.cart-product-image img, .checkout-product-image img { padding: 0 !important; object-fit: contain !important; }
+
+/* Desktop grande: composição editorial centralizada. */
+@media (min-width: 1201px) {
+  .ago-container { max-width: 1240px !important; }
+  .collection-showcase,
+  .category-row,
+  .collection-more-inner,
+  .editorial-grid,
+  .house-grid,
+  .how-grid,
+  .visit-grid { margin-inline: auto !important; }
+
+  .featured-products-grid,
+  .remaining-products-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 46px 30px !important; }
+  .product-name, .featured-products-grid .product-name { max-width: 100%; }
+
+  .hero-section { min-height: 540px !important; }
+  .hero-content { padding-bottom: 62px !important; }
+
+  .checkout-page-text { width: min(1180px, calc(100% - 64px)) !important; }
+  .checkout-page-text > .grid { grid-template-columns: minmax(0, 1.15fr) minmax(360px, .85fr) !important; gap: 72px !important; }
+}
+
+/* Desktop compacto / notebook: 3 colunas de produtos preservam tamanho da peça. */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .ago-container { max-width: 1080px !important; }
+  .featured-products-grid,
+  .remaining-products-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 40px 24px !important; }
+  .product-name, .featured-products-grid .product-name { font-size: 19px !important; }
+  .hero-section { min-height: 500px !important; }
+  .hero-content { padding-bottom: 52px !important; }
+  .checkout-page-text > .grid { gap: 44px !important; }
+}
+
+/* Tablet e touch: uma única coluna de conteúdo institucional; coleção em dois cards. */
+@media (max-width: 900px) {
+  .ago-container { width: min(760px, calc(100% - 40px)) !important; }
+  .featured-products-grid,
+  .remaining-products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 36px 18px !important; }
+  .editorial-grid,
+  .house-grid,
+  .how-grid,
+  .visit-grid { grid-template-columns: 1fr !important; }
+
+  .product-card .product-add { min-height: 46px; }
+  .product-card .product-image-wrap { aspect-ratio: 1 / 1; }
+
+  .checkout-page-text > .grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+  .checkout-summary { order: 0 !important; position: static !important; }
+}
+
+/* Celular: prioridade absoluta para legibilidade e toque. */
+@media (max-width: 767px) {
+  .ago-container { width: calc(100% - 32px) !important; }
+  .featured-products-grid,
+  .remaining-products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 34px 14px !important; }
+  .product-card .product-image-wrap { min-height: 0; }
+  .product-card .product-name { font-size: 17px !important; line-height: 1.04 !important; }
+  .product-card .product-add { width: 100%; min-height: 44px; }
+
+  .benefits-strip .features-container { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .benefits-strip .feature-item { padding-inline: 8px !important; }
+
+  .checkout-page-text { width: calc(100% - 32px) !important; padding-bottom: 56px !important; }
+  .checkout-stepbar { gap: 16px !important; overflow-x: auto; }
+  .checkout-page-text form .grid.grid-cols-\[1fr_110px\] { grid-template-columns: minmax(0, 1fr) 88px !important; }
+  .checkout-page-text form .grid.grid-cols-\[1fr_80px\] { grid-template-columns: minmax(0, 1fr) 68px !important; }
+  .checkout-page-text button[type='submit'] { min-height: 54px !important; }
+
+  .cart-drawer { width: min(100%, 420px) !important; }
+  .cart-product-image { width: 64px !important; height: 64px !important; flex-basis: 64px !important; }
+  .cart-drawer li { gap: 12px !important; }
+  .cart-drawer li > div:last-child { font-size: 11px !important; }
+}
+
+@media (max-width: 420px) {
+  .ago-container { width: calc(100% - 28px) !important; }
+  .featured-products-grid,
+  .remaining-products-grid { column-gap: 12px !important; row-gap: 30px !important; }
+  .product-card .product-name { font-size: 16px !important; }
+  .product-card .product-add { font-size: 8px !important; letter-spacing: .11em; }
+
+  .hero-section { min-height: 500px !important; }
+  .hero-section h1 { font-size: clamp(2.55rem, 13.8vw, 4rem) !important; }
+
+  .checkout-page-text { width: calc(100% - 28px) !important; }
+  .checkout-product-image { width: 54px !important; height: 54px !important; flex-basis: 54px !important; }
+}
+
+/* Preferências de movimento: nada indispensável depende de animação. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
