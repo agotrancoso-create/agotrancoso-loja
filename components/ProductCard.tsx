@@ -14,23 +14,52 @@ type ProductCardProps = {
   priority?: boolean;
 };
 
+/*
+ * Escala individual baseada no enquadramento das fotografias reais.
+ * A escala só aproxima a fotografia dentro do próprio card; nunca troca a peça
+ * nem usa crop destrutivo. O CSS final usa object-fit: contain.
+ */
+const photoScales: Record<string, number> = {
+  'igreja-quadrado-p': 1.05,
+  'igreja-quadrado-m': 1.06,
+  'igreja-quadrado-gg': 1.04,
+  'igrejinha-luminaria-trancoso': 1.08,
+  'casinha-luminaria': 1.07,
+  'miniatura-quadrado-trancoso': 1.06,
+  'cruzeiro-do-quadrado': 1.08,
+  'mobile-trancoso': 1.05,
+  'estatueta-iemanja': 1.06,
+  'nossa-senhora-grande': 1.05,
+  'presepio-em-ceramica': 1.05,
+  'casal-pretos-velhos': 1.06,
+  'nossa-senhora-aparecida': 1.06,
+  'divino-espirito-santo': 1.07,
+  'terco-em-ceramica': 1.07,
+  'rosario-trancoso': 1.06,
+  'esfera-decorativa': 1.07,
+  'colar-igreja-quadrado': 1.06,
+  'ima-igrejinha-trancoso': 1.07,
+};
+
 export default function ProductCard({ product, priority = false }: ProductCardProps) {
   const { addItem } = useCart();
   const image = product.images?.[0] || '/images/placeholder.svg';
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
+  const photoScale = photoScales[product.id] ?? 1.05;
 
   return (
-    <article className="product-card group">
+    <article className="product-card group" data-product-id={product.id}>
       <Link href={`/produtos/${product.id}`} className="block">
         <div className="product-image-wrap">
           <Image
             src={image}
-            alt={product.name}
+            alt={product.imageAlt || product.name}
             fill
             priority={priority}
-            sizes="(max-width: 599px) 46vw, (max-width: 900px) 46vw, (max-width: 1200px) 30vw, 22vw"
+            sizes="(max-width: 767px) 92vw, (max-width: 1100px) 44vw, (max-width: 1440px) 23vw, 330px"
             className="product-image"
+            style={{ '--product-photo-scale': photoScale } as React.CSSProperties}
           />
           {hasPromo && <span className="product-badge">Oferta</span>}
           {!product.available && <span className="product-badge">Indisponível</span>}
