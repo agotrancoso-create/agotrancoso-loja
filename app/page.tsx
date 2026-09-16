@@ -27,7 +27,7 @@ export default function HomePage() {
           <Link href="/produtos" className="collection-link collection-link-large">Ver coleção <span>↗</span></Link>
         </div>
         <div className="featured-products-grid">
-          {firstProducts.map((product) => <ProductCard key={product.id} product={product} />)}
+          {firstProducts.map((product, index) => <ProductCard key={product.id} product={product} priority={index < 4} />)}
         </div>
         <div className="collection-after"><p>Peças artesanais para decorar, presentear e guardar memórias.</p><Link href="/produtos" className="collection-link">Conheça todas as peças <span>↗</span></Link></div>
       </section>
