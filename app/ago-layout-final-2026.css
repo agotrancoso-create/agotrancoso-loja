@@ -127,9 +127,10 @@ body { overflow-x: hidden !important; }
 
 /* ---------- CATEGORIAS: FAIXA CHEIA E MODERNA ---------- */
 .category-row {
-  width: 100% !important;
+  width: 100vw !important;
   max-width: none !important;
-  margin: 0 !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
   padding: 24px clamp(20px, 5vw, 72px) 28px !important;
   display: flex !important;
   align-items: center !important;
@@ -278,6 +279,54 @@ body { overflow-x: hidden !important; }
   border-radius: 22px !important;
 }
 
+/* ---------- PÁGINA DE COLEÇÃO / FILTROS ---------- */
+.catalog-page { background: var(--ago-paper) !important; }
+.catalog-page > div {
+  width: min(1360px, calc(100% - 56px)) !important;
+  max-width: 1360px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+.catalog-page > div > .max-w-2xl {
+  max-width: 900px !important;
+  margin: 0 auto 42px !important;
+  text-align: center !important;
+}
+.catalog-toolbar {
+  width: 100% !important;
+  margin: 0 auto 42px !important;
+  padding: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  background: var(--ago-sand) !important;
+  border: 1px solid rgba(74,40,29,.12) !important;
+  border-radius: 24px !important;
+}
+.catalog-toolbar input[type="text"],
+.catalog-toolbar input[type="number"],
+.catalog-toolbar select {
+  height: 44px !important;
+  min-width: 180px !important;
+  border: 1px solid rgba(74,40,29,.20) !important;
+  border-radius: 999px !important;
+  background: var(--ago-ivory) !important;
+  color: var(--ago-brown) !important;
+  padding: 0 16px !important;
+  outline: none !important;
+  font-size: 12px !important;
+}
+.catalog-toolbar input:focus,
+.catalog-toolbar select:focus {
+  border-color: rgba(145,72,47,.55) !important;
+  box-shadow: 0 0 0 3px rgba(145,72,47,.08) !important;
+}
+.catalog-toolbar label { color: var(--ago-brown) !important; }
+.catalog-grid { justify-content: center !important; }
+
 /* ---------- RODAPÉ: mesma família tipográfica e mesma linguagem ---------- */
 footer {
   width: 100% !important;
@@ -345,4 +394,9 @@ footer .border-t { border-color: rgba(251,247,240,.14) !important; }
   .contact-page > div,
   .info-page > div { width: calc(100% - 32px) !important; }
   .contact-page .info-link { text-align: left !important; }
+  .catalog-page > div { width: calc(100% - 32px) !important; }
+  .catalog-toolbar { border-radius: 18px !important; }
+  .catalog-toolbar input[type="text"],
+  .catalog-toolbar input[type="number"],
+  .catalog-toolbar select { min-width: 100% !important; }
 }
