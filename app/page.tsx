@@ -72,7 +72,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="trust-strip"><span>Feito à mão</span><i /><span>Envio para todo o Brasil</span><i /><strong>Frete grátis acima de R$ 500</strong><i /><span>Pagamento seguro</span></div>
       <Benefits />
 
       {remainingProducts.length > 0 && (
