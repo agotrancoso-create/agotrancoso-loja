@@ -1,0 +1,212 @@
+/* Agô Trancoso — direção estratégica final
+   Hierarquia visual, percepção de valor e atmosfera brasileira quente.
+   Última camada: corrige os fundos excessivamente variados sem alterar a lógica do site. */
+
+:root {
+  --ago-paper-final: #FFFCF7;
+  --ago-ivory-final: #F7F1E8;
+  --ago-sand-final: #EFE2D1;
+  --ago-sand-light-final: #F9F5EE;
+  --ago-clay-final: #A95332;
+  --ago-clay-dark-final: #8B4329;
+  --ago-coffee-final: #4A2C1F;
+  --ago-coffee-deep-final: #321E17;
+  --ago-text-final: #3D2A21;
+  --ago-line-final: rgba(74,44,31,.14);
+}
+
+/* Base: branco quente contínuo. */
+body,
+.bg-areia,
+.collection-showcase,
+.collection-more,
+.category-row {
+  background: var(--ago-paper-final) !important;
+  color: var(--ago-text-final) !important;
+}
+
+/* Evita o efeito de cada seção ter uma cor diferente. */
+.editorial-section,
+.bg-areia2,
+.how-section,
+.benefits-strip {
+  background: var(--ago-ivory-final) !important;
+  color: var(--ago-text-final) !important;
+}
+
+/* A seção institucional recebe apenas um nível sutil de areia. */
+.editorial-section {
+  background: var(--ago-sand-light-final) !important;
+}
+
+/* O bloco final escuro funciona como âncora visual. */
+.visit-section,
+footer {
+  background: var(--ago-coffee-deep-final) !important;
+  color: var(--ago-paper-final) !important;
+}
+
+/* Hero sem bordas e com atmosfera quente. */
+.hero-section {
+  background: var(--ago-coffee-deep-final) !important;
+  border-radius: 0 !important;
+}
+.hero-image { filter: saturate(.94) sepia(.035) contrast(.97) !important; }
+.hero-overlay {
+  background:
+    linear-gradient(90deg, rgba(50,30,23,.76) 0%, rgba(50,30,23,.43) 48%, rgba(50,30,23,.08) 100%),
+    linear-gradient(0deg, rgba(50,30,23,.48), rgba(50,30,23,.03) 68%) !important;
+}
+
+/* Header: café profundo, sensação de marca e não de template. */
+.site-header {
+  background: rgba(255,252,247,.97) !important;
+  border-bottom-color: rgba(74,44,31,.12) !important;
+}
+.site-header .header-link,
+.site-header .header-search,
+.site-header .header-icon,
+.site-header button {
+  color: var(--ago-coffee-final) !important;
+}
+.site-header .header-link:first-child { color: var(--ago-clay-dark-final) !important; }
+.site-header .header-link:first-child::after { background: var(--ago-clay-final) !important; }
+.site-header input { border-color: rgba(74,44,31,.25) !important; }
+.site-header input::placeholder { color: rgba(74,44,31,.58) !important; }
+
+/* Barra de frete: informação comercial sem parecer anúncio agressivo. */
+.site-header ~ * { scroll-margin-top: 80px; }
+.bg-marrom.text-areia.text-center {
+  background: var(--ago-coffee-final) !important;
+  color: var(--ago-paper-final) !important;
+}
+
+/* Terracota apenas como acento de ação. */
+.current-price,
+.collection-link,
+.editorial-link,
+.step-number,
+.eyebrow {
+  color: var(--ago-clay-dark-final) !important;
+}
+
+/* Categorias: discretas para não competir com os produtos. */
+.category-row > div { border-top-color: var(--ago-line-final) !important; }
+.category-pill {
+  border-color: rgba(74,44,31,.20) !important;
+  color: rgba(74,44,31,.78) !important;
+  background: transparent !important;
+}
+.category-pill:hover {
+  border-color: var(--ago-clay-final) !important;
+  color: var(--ago-clay-dark-final) !important;
+  background: rgba(169,83,50,.045) !important;
+}
+.category-pill.active {
+  background: var(--ago-coffee-final) !important;
+  border-color: var(--ago-coffee-final) !important;
+  color: var(--ago-paper-final) !important;
+}
+
+/* Produtos: foco visual máximo. */
+.product-image-wrap,
+.featured-products-grid .product-image-wrap,
+.product-gallery-main {
+  background: var(--ago-sand-light-final) !important;
+  border-radius: 18px !important;
+}
+.product-image,
+.product-gallery-image { border-radius: 18px !important; }
+.product-name { color: var(--ago-coffee-final) !important; }
+.current-price { color: var(--ago-clay-dark-final) !important; }
+.product-add {
+  border-color: rgba(74,44,31,.22) !important;
+  color: var(--ago-coffee-final) !important;
+  background: transparent !important;
+}
+.product-add:hover {
+  background: var(--ago-coffee-final) !important;
+  border-color: var(--ago-coffee-final) !important;
+  color: var(--ago-paper-final) !important;
+}
+.product-badge {
+  background: var(--ago-coffee-final) !important;
+  color: var(--ago-paper-final) !important;
+}
+.product-view {
+  background: rgba(255,252,247,.96) !important;
+  color: var(--ago-coffee-final) !important;
+}
+
+/* Diferenciais: referência de composição + fundo neutro quente. */
+.benefits-strip {
+  padding-top: 68px !important;
+  padding-bottom: 72px !important;
+  border-top: 1px solid rgba(74,44,31,.08) !important;
+  border-bottom: 1px solid rgba(74,44,31,.08) !important;
+}
+.feature-item:not(:last-child)::after {
+  background: var(--ago-coffee-final) !important;
+  opacity: .24 !important;
+}
+.feature-icon svg {
+  stroke: var(--ago-coffee-final) !important;
+  stroke-width: 1.1 !important;
+}
+.feature-title { color: var(--ago-coffee-final) !important; }
+.feature-description { color: rgba(61,42,33,.74) !important; }
+
+/* Tipografia: reforça textos que antes estavam pequenos. */
+.eyebrow { font-size: 11px !important; letter-spacing: .16em !important; }
+.section-intro,
+.editorial-copy { font-size: 16px !important; line-height: 1.72 !important; }
+.collection-link,
+.editorial-link { font-size: 12px !important; }
+.category-pill { font-size: 11px !important; }
+.product-name,
+.featured-products-grid .product-name { font-size: 20px !important; }
+.current-price { font-size: 15px !important; }
+.product-add { font-size: 11px !important; min-height: 44px !important; }
+.feature-title { font-size: 1.9rem !important; }
+.feature-description { font-size: 13px !important; }
+.how-section .grid > div { font-size: 14px !important; line-height: 1.7 !important; }
+.how-section strong { font-size: 13px !important; }
+.visit-section span { font-size: 13px !important; }
+.visit-section strong { font-size: 12px !important; }
+
+/* Ritmo vertical: seções importantes respiram sem ficarem gigantes. */
+.collection-showcase { padding-top: clamp(48px,5vw,68px) !important; padding-bottom: clamp(38px,4vw,56px) !important; }
+.collection-more > div,
+.editorial-section > div,
+.bg-areia > .max-w-content,
+.how-section > div,
+.visit-section > div {
+  padding-top: clamp(58px,6vw,78px) !important;
+  padding-bottom: clamp(60px,6vw,80px) !important;
+}
+
+/* Mobile: leitura confortável e menos sensação de blocos empilhados. */
+@media (max-width: 767px) {
+  .benefits-strip { padding: 52px 18px 58px !important; }
+  .feature-item { padding-left: 10px !important; padding-right: 10px !important; }
+  .feature-description { max-width: 280px !important; font-size: 13px !important; }
+  .section-intro,
+  .editorial-copy { font-size: 15px !important; line-height: 1.65 !important; }
+  .product-name,
+  .featured-products-grid .product-name { font-size: 18px !important; }
+  .current-price { font-size: 14px !important; }
+  .product-image-wrap,
+  .product-image,
+  .product-gallery-main,
+  .product-gallery-image { border-radius: 15px !important; }
+  .hero-section h1 { font-size: clamp(2.9rem,12.5vw,4.25rem) !important; }
+  .hero-section p:not(.eyebrow) { font-size: 16px !important; }
+  .collection-more > div,
+  .editorial-section > div,
+  .bg-areia > .max-w-content,
+  .how-section > div,
+  .visit-section > div {
+    padding-top: 52px !important;
+    padding-bottom: 56px !important;
+  }
+}
