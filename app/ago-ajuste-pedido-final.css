@@ -1,0 +1,32 @@
+:root{--ago-terra-final:#A95635;--ago-terra-dark:#874126;--ago-coffee-final:#4A2C1F;--ago-cream-final:#F5F0E8}
+/* Final visual correction: terracotta iconography, left-aligned visit, balanced product cards. */
+.feature-icon,.feature-icon svg{color:var(--ago-terra-final)!important;stroke:var(--ago-terra-final)!important;fill:none!important}
+.features-container .feature-item:nth-child(1) .feature-icon svg,.features-container .feature-item:nth-child(2) .feature-icon svg,.features-container .feature-item:nth-child(3) .feature-icon svg,.features-container .feature-item:nth-child(4) .feature-icon svg{stroke:var(--ago-terra-final)!important}
+.visit-section{text-align:left!important}
+.visit-section>div{display:grid!important;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr)!important;align-items:center!important;gap:68px!important;text-align:left!important}
+.visit-section>div>div{width:100%!important;max-width:none!important;margin:0!important;text-align:left!important}
+.visit-section h2{margin:0 0 18px!important;text-align:left!important}
+.visit-section p:not(.eyebrow){margin-left:0!important;margin-right:0!important;text-align:left!important;max-width:600px!important}
+.visit-section .flex,.visit-section .visit-actions{justify-content:flex-start!important;text-align:left!important}
+.visit-section>div>div:last-child{border-top:0!important;border-left:1px solid rgba(255,253,249,.14)!important;padding:0 0 0 42px!important;margin:0!important;text-align:left!important}
+.visit-section .info-list>div{text-align:left!important}
+.product-card{display:flex!important;flex-direction:column!important;align-items:stretch!important}
+.product-card>.block{display:block!important}
+.product-add{width:auto!important;max-width:220px!important;align-self:flex-start!important;margin-top:12px!important;padding:10px 16px!important;min-height:40px!important;border:0!important;border-radius:999px!important;background:var(--ago-coffee-final)!important;color:#fffdf9!important;font-size:10px!important;letter-spacing:.12em!important;line-height:1!important}
+.product-add:hover{background:var(--ago-terra-dark)!important;color:#fffdf9!important}
+.product-card .mt-4{padding-right:0!important;text-align:left!important}
+.product-name{min-height:0!important;margin:12px 0 0!important;text-align:left!important}
+.price-row{justify-content:flex-start!important;margin-top:6px!important}
+.current-price{font-size:13px!important;font-weight:600!important;color:var(--ago-terra-dark)!important}
+.old-price{font-size:11px!important}
+.collection-showcase .product-card,.collection-more .product-card{text-align:left!important}
+@media(max-width:767px){
+ .visit-section>div{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:34px!important}
+ .visit-section>div>div{width:100%!important;text-align:left!important}
+ .visit-section>div>div:last-child{border-left:0!important;border-top:1px solid rgba(255,253,249,.14)!important;padding:26px 0 0!important}
+ .product-add{max-width:190px!important;width:auto!important;font-size:9px!important;padding:10px 14px!important}
+ .product-name{font-size:18px!important;line-height:1.12!important}
+ .current-price{font-size:12px!important}
+}
+@media(min-width:1024px){.visit-section>div{min-height:420px!important}}
+html,body{overflow-x:hidden!important}
