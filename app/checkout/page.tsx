@@ -67,7 +67,7 @@ export default function CheckoutPage() {
   if (!lines.length) return <div className="max-w-content mx-auto px-5 py-24 text-center"><h1 className="font-serif text-3xl text-marrom">Seu carrinho está vazio.</h1></div>;
 
   return (
-    <div className="max-w-content mx-auto px-5 md:px-8 py-10 md:py-20 grid md:grid-cols-[1.1fr_.9fr] gap-10 md:gap-16">
+    <div className="checkout-page-text max-w-content mx-auto px-5 md:px-8 py-10 md:py-20 grid md:grid-cols-[1.1fr_.9fr] gap-10 md:gap-16">
       <div>
         <p className="eyebrow mb-3">Pedido</p>
         <h1 className="section-title mb-9">Finalizar compra</h1>
@@ -106,8 +106,21 @@ export default function CheckoutPage() {
       <aside className="md:pl-10 md:border-l border-oliva/20 md:sticky md:top-28 self-start">
         <p className="eyebrow mb-3">Resumo</p>
         <h2 className="font-serif text-2xl text-marrom mb-7">Seu pedido</h2>
-        <div className="space-y-4">
-          {lines.map(({item,product}) => <div key={item.productId} className="flex justify-between gap-5 text-sm"><span className="text-marrom/80">{product.name} × {item.quantity}</span><span className="text-marrom whitespace-nowrap">{formatBRL(getEffectivePrice(product)*item.quantity)}</span></div>)}
+        <div className="space-y-5">
+          {lines.map(({item,product}) => (
+            <div key={item.productId} className="checkout-summary-item flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="checkout-product-image">
+                  <img src={product.images?.[0] || '/images/placeholder.svg'} alt={product.name} />
+                </div>
+                <div className="min-w-0">
+                  <span className="checkout-product-name block text-marrom/80">{product.name} × {item.quantity}</span>
+                  <span className="checkout-product-price block text-marrom mt-1">{formatBRL(getEffectivePrice(product))} / un.</span>
+                </div>
+              </div>
+              <span className="text-marrom whitespace-nowrap">{formatBRL(getEffectivePrice(product)*item.quantity)}</span>
+            </div>
+          ))}
         </div>
         <div className="border-t border-oliva/20 mt-8 pt-4 flex justify-between text-sm text-marrom"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
         <div className="pt-2 flex justify-between text-sm text-marrom"><span>Frete</span><span>{shippingValue === 0 ? 'Grátis' : formatBRL(shippingValue)}</span></div>
