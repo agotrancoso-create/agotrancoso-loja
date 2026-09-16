@@ -1,0 +1,45 @@
+PROMPT MESTRE FINAL — AGÔ TRANCOSO 2026
+
+OBJETIVO
+Aprimorar o e-commerce Agô Trancoso existente, sem reconstruir a arquitetura, sem trocar gateway, sem remover conteúdo, produtos ou fotos. Priorizar acabamento premium, clareza de compra, coerência visual e responsividade real.
+
+DIREÇÃO DE MARCA
+A Agô deve parecer uma marca de cerâmica e artesanato premium de Trancoso: brasileira, natural, contemporânea, elegante e acolhedora. Evitar aparência de template genérico.
+
+PALETA OBRIGATÓRIA
+Somente creme, areia, barro, terracota e marrom. PROIBIDO qualquer verde, oliva, esmeralda, lima, menta ou tom esverdeado, inclusive estados hover/foco e componentes herdados.
+
+BORDAS
+Nenhuma seção deve ter borda, filete, divisor ou moldura decorativa. Fotos podem ter cantos arredondados, mas sem contorno. Remover sombras duras e efeitos que criem caixas pesadas.
+
+DESKTOP E MOBILE
+O site precisa ter a mesma identidade em qualquer aparelho, mas com composição responsiva real. Desktop deve usar a largura da tela de forma proporcional; mobile deve preencher a tela útil sem ficar esmagado. Não criar grandes áreas vazias e não reduzir fontes a ponto de prejudicar leitura.
+
+CATEGORIAS
+Manter todos os grupos: Todos, Trancoso, Igrejinhas, Decoração, Fé e devoção, Presentes. A faixa deve ser visualmente uniforme, elegante e fácil de tocar no celular. Sem verde e sem bordas.
+
+DIFERENCIAIS
+Manter: feito à mão; peças exclusivas; inspiração brasileira; envio para todo Brasil. Os quatro itens devem usar a mesma linguagem visual. Corrigir qualquer item que apareça com cor diferente.
+
+FOTOS
+Todas as fotos das peças com cantos arredondados no desktop e no celular, sem moldura. Não alterar a fotografia de origem.
+
+SEÇÃO PARA CASA
+A imagem com as duas igrejas em “Um pouco de Trancoso para dentro de casa” deve ser exibida inteira, preservando a proporção original. Nunca usar object-fit: cover nessa fotografia.
+
+ADICIONAR AO CARRINHO
+O botão deve ter aparência premium, convidativa e extremamente clara: alto contraste, formato arredondado, área confortável para toque, texto legível, peso tipográfico consistente com a marca e microinteração discreta. Usar princípios de hierarquia visual, contraste, proximidade e previsibilidade; não alegar efeitos científicos não demonstrados.
+
+CHECKOUT
+Redesenhar apenas a apresentação, sem quebrar a lógica do pagamento. Desktop: duas colunas proporcionais, formulário + resumo. Título grande e elegante. Labels legíveis. Campos grandes e confortáveis. Resumo visualmente forte, com foto, produto, quantidade, subtotal, frete e total. Botão principal claramente dominante.
+
+No mobile: largura útil total, fontes legíveis, espaçamento equilibrado, nada microscópico ou espremido. O resumo deve continuar fácil de entender.
+
+RODAPÉ
+Manter todas as informações atuais. Melhorar tipografia, hierarquia e espaçamento. Títulos em Cormorant Garamond; corpo e links em DM Sans. “A Agô” é o texto correto do item de navegação que aponta para /nossa-essencia. No mobile, manter todas as informações sem formar um paredão visual.
+
+IMPLEMENTAÇÃO
+Existe histórico de muitas camadas CSS. Antes de alterar, considerar a cascata existente. A camada final deve ser carregada por último. Não remover funcionalidades, produtos, checkout, carrinho, links ou conteúdo. Depois da alteração, verificar os arquivos no branch main e o diff.
+
+DEPLOY
+Nunca declarar que uma mudança está em produção sem confirmar um novo deployment da Vercel.
