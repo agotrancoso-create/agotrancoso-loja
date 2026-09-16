@@ -1,0 +1,194 @@
+/* AGÔ TRANCOSO — Prompt Mestre Definitivo — camada visual final. */
+:root {
+  --ago-bg: #F5EEE5;
+  --ago-cream: #FAF6EF;
+  --ago-sand: #EADDCB;
+  --ago-sand-dark: #DCC9B4;
+  --ago-terra: #8E4B32;
+  --ago-terra-dark: #6F3927;
+  --ago-brown: #4B2B1E;
+  --ago-text: #3F261C;
+  --ago-line: rgba(63,38,28,.14);
+  --ago-content: 1360px;
+}
+
+html, body { background: var(--ago-bg) !important; color: var(--ago-text) !important; }
+body { overflow-x: hidden !important; }
+
+/* Neutraliza a sensação esverdeada sem tocar na lógica do projeto. */
+.eyebrow, .collection-link, .editorial-link, .current-price, .step-number,
+.header-link:first-child { color: var(--ago-terra) !important; }
+[class*="text-green"], [class*="text-emerald"], [class*="text-lime"],
+.text-olive, .text-oliva { color: var(--ago-terra) !important; }
+[class*="bg-green"], [class*="bg-emerald"], [class*="bg-lime"],
+.bg-olive, .bg-oliva { background-color: var(--ago-terra) !important; }
+[class*="border-green"], [class*="border-emerald"], [class*="border-lime"],
+.border-olive, .border-oliva { border-color: var(--ago-line) !important; }
+
+.site-header { background: rgba(250,246,239,.97) !important; color: var(--ago-brown) !important; }
+main, .ago-home { background: var(--ago-bg) !important; }
+
+/* Container amplo e centralizado. */
+.ago-container,
+.collection-showcase,
+.category-row,
+.collection-more-inner,
+.editorial-grid,
+.house-grid,
+.how-grid,
+.visit-grid,
+.features-container {
+  width: min(var(--ago-content), calc(100% - 64px)) !important;
+  max-width: var(--ago-content) !important;
+  margin-inline: auto !important;
+}
+
+/* A coleção é uma vitrine de largura total; produtos vêm antes do Hero. */
+.collection-showcase {
+  display: block !important;
+  padding-block: clamp(48px, 6vw, 84px) !important;
+}
+.collection-intro {
+  width: 100% !important;
+  max-width: 760px !important;
+  margin: 0 auto clamp(30px, 4vw, 48px) !important;
+  padding: 0 !important;
+  text-align: center !important;
+}
+.collection-intro .collection-link-large { justify-content: center !important; margin-top: 24px !important; }
+.featured-products-grid, .remaining-products-grid {
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+  gap: clamp(24px, 2.2vw, 36px) !important;
+}
+
+.category-row {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  padding-bottom: 40px !important;
+}
+
+/* Fotografia: cantos arredondados na própria imagem, sem moldura. */
+.product-image-wrap,
+.product-card .product-image-wrap,
+.product-gallery-main,
+.product-gallery-thumb,
+.cart-item-image,
+.cart-product-image,
+.checkout-product-image,
+.editorial-image {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  border-radius: 20px !important;
+}
+.product-image-wrap { background: var(--ago-cream) !important; aspect-ratio: 1 / 1.02 !important; }
+.product-image,
+.product-image-wrap img,
+.product-card .product-image-wrap img,
+.product-gallery-main img,
+.product-gallery-thumb img,
+.cart-item-image img,
+.cart-product-image img,
+.checkout-product-image img {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: 20px !important;
+  background: transparent !important;
+}
+.product-image { padding: 10px !important; }
+
+.product-card { background: transparent !important; border: 0 !important; box-shadow: none !important; min-width: 0 !important; }
+.product-card .product-name { color: var(--ago-brown) !important; }
+.product-card .current-price { color: var(--ago-terra) !important; }
+.product-add { border-radius: 2px !important; }
+
+/* Hero amplo, quente e editorial. */
+.hero-section { background: var(--ago-brown) !important; }
+.hero-overlay {
+  background:
+    linear-gradient(90deg, rgba(35,20,14,.76) 0%, rgba(35,20,14,.43) 52%, rgba(35,20,14,.10) 100%),
+    linear-gradient(0deg, rgba(25,18,14,.48), rgba(25,18,14,.04) 62%) !important;
+}
+.hero-content { margin-inline: auto !important; }
+
+/* Benefícios: 4 ícones da mesma família, com divisórias delicadas. */
+.benefits-strip { background: var(--ago-cream) !important; }
+.features-container { grid-template-columns: repeat(4,minmax(0,1fr)) !important; }
+.feature-item { min-width: 0 !important; text-align: center !important; }
+.feature-item + .feature-item { border-left: 1px solid var(--ago-line) !important; }
+.feature-icon { color: var(--ago-terra) !important; }
+.feature-icon svg { stroke: currentColor !important; }
+.feature-title { color: var(--ago-brown) !important; }
+.feature-description { color: rgba(63,38,28,.68) !important; }
+
+.editorial-section { background: var(--ago-sand) !important; }
+.home-house { background: var(--ago-bg) !important; }
+.how-section { background: var(--ago-sand-dark) !important; }
+.visit-section { background: #A85F43 !important; }
+.visit-section .eyebrow { color: rgba(250,246,239,.76) !important; }
+footer, footer.bg-marrom { background: var(--ago-brown) !important; }
+
+/* Não permite seções institucionais estreitas ou deslocadas. */
+.editorial-grid, .house-grid, .how-grid, .visit-grid { width: min(var(--ago-content), calc(100% - 64px)) !important; margin-inline: auto !important; }
+
+/* A seção Como comprar usa exatamente 3 colunas no desktop. */
+.steps-grid { display: grid !important; grid-template-columns: repeat(3,minmax(0,1fr)) !important; gap: 36px !important; }
+
+@media (min-width: 1200px) {
+  .featured-products-grid, .remaining-products-grid { grid-template-columns: repeat(4,minmax(0,1fr)) !important; }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .ago-container, .collection-showcase, .category-row, .collection-more-inner,
+  .editorial-grid, .house-grid, .how-grid, .visit-grid, .features-container {
+    width: min(960px, calc(100% - 48px)) !important;
+  }
+  .featured-products-grid, .remaining-products-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+  .features-container { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+  .feature-item:nth-child(3), .feature-item:nth-child(4) { border-top: 1px solid var(--ago-line) !important; }
+  .feature-item:nth-child(3) { border-left: 0 !important; }
+  .steps-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+}
+
+@media (max-width: 767px) {
+  .ago-container, .collection-showcase, .category-row, .collection-more-inner,
+  .editorial-grid, .house-grid, .how-grid, .visit-grid, .features-container {
+    width: calc(100% - 32px) !important;
+  }
+  .collection-showcase { padding-block: 40px !important; }
+  .featured-products-grid, .remaining-products-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 26px 14px !important; }
+  .product-image-wrap { border-radius: 16px !important; aspect-ratio: 1 / 1.04 !important; }
+  .product-image, .product-image-wrap img, .product-card .product-image-wrap img,
+  .product-gallery-main img, .product-gallery-thumb img, .cart-item-image img,
+  .cart-product-image img, .checkout-product-image img { border-radius: 16px !important; }
+  .product-image { padding: 7px !important; }
+  .product-card .product-name { font-size: 18px !important; }
+  .product-add { font-size: 7px !important; padding: 10px 6px !important; }
+  .features-container { grid-template-columns: 1fr !important; }
+  .feature-item, .feature-item:nth-child(n) { border-left: 0 !important; border-top: 0 !important; border-bottom: 1px solid var(--ago-line) !important; padding: 18px 12px !important; }
+  .feature-item:last-child { border-bottom: 0 !important; }
+  .steps-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .category-row { justify-content: flex-start !important; overflow-x: auto !important; flex-wrap: nowrap !important; padding-bottom: 28px !important; scrollbar-width: none !important; }
+  .category-row::-webkit-scrollbar { display: none !important; }
+}
+
+@media (max-width: 420px) {
+  .ago-container, .collection-showcase, .category-row, .collection-more-inner,
+  .editorial-grid, .house-grid, .how-grid, .visit-grid, .features-container { width: calc(100% - 24px) !important; }
+  .featured-products-grid, .remaining-products-grid { gap: 24px 10px !important; }
+  .product-card .product-name { font-size: 16px !important; }
+  .product-card .current-price { font-size: 11px !important; }
+}
+
+@media (max-width: 360px) {
+  .featured-products-grid, .remaining-products-grid { grid-template-columns: 1fr !important; }
+}
