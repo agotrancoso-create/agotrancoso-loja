@@ -9,10 +9,12 @@ import './ago-proporcao-final.css';
 import './ago-ajuste-mestre.css';
 import './ago-direcao-estrategica-final.css';
 import './ago-final-polish.css';
+import './ago-social-mobile.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
+import SocialFloaters from '@/components/SocialFloaters';
 import { SITE_DOMAIN } from '@/lib/config';
 
 export const metadata: Metadata = {
@@ -50,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="min-h-[60vh]">{children}</main>
           <Footer />
           <CartDrawer />
+          <SocialFloaters />
         </CartProvider>
       </body>
     </html>
