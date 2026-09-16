@@ -50,10 +50,10 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         <div className="product-image-wrap">
           <Image
             src={image}
-            alt={product.name}
+            alt={product.imageAlt || product.name}
             fill
             priority={priority}
-            sizes="(max-width: 767px) 92vw, (max-width: 1100px) 44vw, (max-width: 1440px) 23vw, 330px"
+            sizes="(max-width: 420px) 44vw, (max-width: 767px) 45vw, (max-width: 1100px) 44vw, (max-width: 1440px) 23vw, 330px"
             className="product-image"
             style={{ '--product-photo-scale': photoScale } as CSSProperties}
           />
