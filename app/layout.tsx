@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: '%s | Agô Trancoso',
   },
   description:
-    'Cerâmicas, lembranças e detalhes especiais para decorar, presentear e guardar memórias. Conheça a coleção da Agô Trancoso.',
+    'Cerâmicas, decoração e peças feitas à mão, inspiradas na atmosfera de Trancoso. Conheça a coleção da Agô Trancoso.',
   keywords: [
     'artesanato em Trancoso',
     'cerâmica em Trancoso',
