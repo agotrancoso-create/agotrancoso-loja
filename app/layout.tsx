@@ -12,6 +12,7 @@ import './ago-final-polish.css';
 import './ago-composicao-final.css';
 import './ago-checkout-premium.css';
 import './ago-social-mobile.css';
+import './ago-professional-final.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     template: '%s | Agô Trancoso',
   },
   description:
-    'Cerâmicas, lembranças e detalhes especiais para decorar, presentear e guardar memórias. Conheça a coleção da Agô Trancoso.',
+    'Cerâmicas e peças artesanais inspiradas na arquitetura, nas formas e na identidade de Trancoso.',
   keywords: [
     'artesanato em Trancoso',
     'cerâmica em Trancoso',
