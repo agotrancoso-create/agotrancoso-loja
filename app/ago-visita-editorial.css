@@ -1,0 +1,54 @@
+/* Agô Trancoso — visita: composição editorial, não centralizada */
+.visit-section { text-align: left !important; }
+.visit-section > div { 
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.18fr) minmax(280px, .82fr) !important;
+  align-items: center !important;
+  gap: clamp(42px, 7vw, 92px) !important;
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+  padding-top: clamp(64px, 7vw, 88px) !important;
+  padding-bottom: clamp(64px, 7vw, 88px) !important;
+  text-align: left !important;
+}
+.visit-section > div > div { width: auto !important; margin: 0 !important; text-align: left !important; }
+.visit-section > div > div:first-child { max-width: 660px !important; }
+.visit-section > div > div:last-child { 
+  max-width: 390px !important;
+  justify-self: end !important;
+  border-top: 0 !important;
+  border-left: 1px solid rgba(255,253,249,.14) !important;
+  padding: 2px 0 2px clamp(28px, 3vw, 46px) !important;
+  margin: 0 !important;
+}
+.visit-section h2 { max-width: 650px !important; margin: 0 0 18px !important; text-align: left !important; }
+.visit-section p:not(.eyebrow) { max-width: 620px !important; margin: 0 !important; text-align: left !important; }
+.visit-section .visit-actions,
+.visit-section .flex { justify-content: flex-start !important; }
+.visit-section .info-list,
+.visit-section .divide-y { text-align: left !important; }
+.visit-section .info-list > div,
+.visit-section .divide-y > div { text-align: left !important; }
+@media (max-width: 767px) {
+  .visit-section > div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 34px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    text-align: left !important;
+  }
+  .visit-section > div > div,
+  .visit-section > div > div:first-child,
+  .visit-section > div > div:last-child { width: 100% !important; max-width: none !important; margin: 0 !important; text-align: left !important; }
+  .visit-section > div > div:last-child {
+    border-left: 0 !important;
+    border-top: 1px solid rgba(255,253,249,.14) !important;
+    padding: 26px 0 0 !important;
+  }
+  .visit-section h2,
+  .visit-section p:not(.eyebrow) { text-align: left !important; }
+  .visit-section .visit-actions,
+  .visit-section .flex { justify-content: flex-start !important; }
+}
