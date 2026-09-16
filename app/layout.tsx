@@ -30,6 +30,7 @@ import './ago-paleta-rodape-final.css';
 import './ago-direcao-mestre-2026.css';
 import './ago-sem-linhas-proporcional.css';
 import './ago-ajuste-proporcao-final.css';
+import './ago-mobile-preenchido-final.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
