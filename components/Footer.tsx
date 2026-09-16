@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="bg-marrom text-areia mt-24">
       <div className="max-w-content mx-auto px-5 md:px-8 pt-14 pb-12">
         <div className="flex justify-center mb-10 md:mb-12">
-          <Link href="/" aria-label="Agô Trancoso — início" className="inline-flex">
+          <Link href="/" aria-label="Agô Trancoso, início" className="inline-flex">
             <Image src="/logo.png" alt="Agô Trancoso" width={360} height={360} className="h-24 w-24 md:h-28 md:w-28 object-contain" quality={100} unoptimized />
           </Link>
         </div>
@@ -30,10 +30,11 @@ export default function Footer() {
 
           <div className="font-sans text-sm">
             <h4 className="uppercase tracking-wide text-xs text-areia/60 mb-3">Fale com a gente</h4>
+            <p className="text-sm text-areia/70 leading-relaxed mb-3">Atendimento pelo Instagram, WhatsApp e presencialmente no Quadrado de Trancoso.</p>
             <ul className="space-y-2">
               <li><a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:text-areia/70 transition-colors">@{INSTAGRAM_HANDLE}</a></li>
               <li><a href={whatsappLink('Olá! Vim pelo site da Agô Trancoso.')} target="_blank" rel="noopener noreferrer" className="hover:text-areia/70 transition-colors">WhatsApp</a></li>
-              <li className="text-areia/60">www.agotrancoso.com.br</li>
+              <li className="text-areia/60">{SITE_DOMAIN_LABEL}</li>
             </ul>
           </div>
         </div>
