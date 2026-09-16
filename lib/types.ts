@@ -7,6 +7,7 @@ export type Product = {
   currency: 'BRL';
   category: string;
   images: string[];
+  imageAlt?: string;
   dimensions?: string;
   available: boolean;
   stock?: number | null;
