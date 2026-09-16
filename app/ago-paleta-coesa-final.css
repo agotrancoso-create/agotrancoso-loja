@@ -1,0 +1,134 @@
+/* Camada final de harmonia cromática e composição desktop. */
+
+:root {
+  --ago-paper: #f8f4ee;
+  --ago-sand: #eee5d8;
+  --ago-sand-deep: #e4d8c8;
+  --ago-brown: #4b2b1e;
+  --ago-terracotta: #9a5436;
+  --ago-olive: #817963;
+  --ago-cream: #fbf9f5;
+}
+
+/* A primeira vitrine da Home deve ocupar a largura útil inteira no computador. */
+@media (min-width: 1201px) {
+  .collection-showcase {
+    width: 100vw !important;
+    max-width: none !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    padding: 78px clamp(36px, 4.2vw, 78px) 42px !important;
+    background: var(--ago-paper) !important;
+  }
+
+  .collection-showcase .featured-products-grid {
+    width: 100% !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 54px clamp(28px, 2.6vw, 48px) !important;
+    margin-top: 48px !important;
+  }
+
+  .collection-showcase .product-image-wrap {
+    width: 100% !important;
+    height: clamp(330px, 27vw, 430px) !important;
+    border-radius: 20px !important;
+  }
+
+  .collection-showcase .product-image-wrap img,
+  .collection-showcase .product-image {
+    border-radius: 20px !important;
+  }
+
+  .collection-showcase .collection-intro {
+    width: min(1400px, 100%) !important;
+    margin-inline: auto !important;
+  }
+}
+
+/* Todas as fotos de produto: cantos arredondados, sem moldura lateral, sem sombra. */
+.product-image-wrap,
+.product-image-wrap img,
+.product-card .product-image-wrap,
+.product-card .product-image-wrap img,
+.product-image,
+.product-image img {
+  border-radius: 20px !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.product-image-wrap {
+  overflow: hidden !important;
+}
+
+/* Paleta: alternância suave, sem cores brigando entre si. */
+.ago-home,
+.info-page,
+.contact-page {
+  background: var(--ago-paper) !important;
+}
+
+.editorial-section {
+  background: var(--ago-sand) !important;
+}
+
+.home-house {
+  background: var(--ago-cream) !important;
+}
+
+.how-section {
+  background: var(--ago-paper) !important;
+  border-top: 1px solid rgba(75,43,30,.08);
+}
+
+.visit-section {
+  background: var(--ago-brown) !important;
+  color: var(--ago-paper) !important;
+}
+
+.visit-section .eyebrow,
+.visit-section h2,
+.visit-section .visit-copy,
+.visit-section .info-list strong,
+.visit-section .info-list span {
+  color: var(--ago-paper) !important;
+}
+
+.visit-actions a {
+  border-color: rgba(248,244,238,.48) !important;
+}
+
+.visit-actions a:nth-child(2) {
+  background: var(--ago-terracotta) !important;
+  border-color: var(--ago-terracotta) !important;
+}
+
+footer.bg-marrom,
+.ago-home ~ footer {
+  background: #382018 !important;
+}
+
+/* A Agô e Contato: mantém a mesma família cromática da Home. */
+.info-page .editorial-image {
+  background: var(--ago-sand-deep) !important;
+}
+
+.contact-page .info-link {
+  border-color: rgba(75,43,30,.15) !important;
+}
+
+.contact-page .info-link:hover {
+  color: var(--ago-terracotta) !important;
+}
+
+.contact-page .info-panel {
+  background: var(--ago-sand) !important;
+}
+
+@media (max-width: 1200px) {
+  .visit-section {
+    background: var(--ago-brown) !important;
+  }
+}
