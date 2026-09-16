@@ -26,6 +26,7 @@ import './ago-redesign-2026.css';
 import './ago-centralizado-terra-final.css';
 import './ago-layout-final-2026.css';
 import './ago-direcao-proporcional-terra-2026.css';
+import './ago-paleta-rodape-final.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
