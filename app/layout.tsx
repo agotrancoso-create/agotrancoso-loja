@@ -16,6 +16,7 @@ import './ago-professional-final.css';
 import './ago-composicao-definitiva.css';
 import './ago-responsive-final.css';
 import './ago-final-device-audit.css';
+import './ago-ajuste-final-sessoes.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
