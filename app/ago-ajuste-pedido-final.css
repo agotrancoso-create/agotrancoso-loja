@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Lato:wght@400;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
 :root{
   --ago-terra-final:#A95635;
   --ago-terra-dark:#874126;
@@ -10,22 +12,17 @@
 
 /* AGÔ TRANCOSO — direção visual final: editorial, proporcional e sem ruído. */
 
-/* Base */
 html,body{overflow-x:hidden!important;background:var(--ago-cream-final)!important;color:var(--ago-ink-final)!important}
 *,*::before,*::after{box-sizing:border-box}
 
-/* Remove ornamentos herdados sem remover estrutura. */
 .benefits-strip,.category-row,.collection-showcase,.collection-more,.editorial-section,.home-house,.how-section,.visit-section,.checkout-page-text{border-left:0!important;border-right:0!important}
 
-/* Ícones: exclusivamente terrosos. */
 .feature-icon,.feature-icon svg{color:var(--ago-terra-final)!important;stroke:var(--ago-terra-final)!important;fill:none!important}
 .feature-icon svg *{stroke:currentColor!important}
 
-/* Categorias */
 .category-pill{color:var(--ago-coffee-final)!important;background:transparent!important;border:0!important;box-shadow:none!important}
 .category-pill.active{color:var(--ago-terra-dark)!important;font-weight:700!important}
 
-/* Produtos */
 .product-card{display:flex!important;flex-direction:column!important;align-items:stretch!important;text-align:left!important;min-width:0!important}
 .product-card>.block{display:block!important;min-width:0!important}
 .product-image-wrap{aspect-ratio:1/1!important;border:0!important;border-radius:18px!important;overflow:hidden!important;background:var(--ago-cream-soft)!important;box-shadow:none!important}
@@ -42,7 +39,6 @@ html,body{overflow-x:hidden!important;background:var(--ago-cream-final)!importan
 .product-badge{border:0!important;box-shadow:none!important}
 .product-view{background:var(--ago-coffee-final)!important;color:#fffdf9!important;border:0!important;box-shadow:none!important}
 
-/* Visita: conteúdo editorial alinhado à esquerda. */
 .visit-section{text-align:left!important}
 .visit-section>div{display:grid!important;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr)!important;align-items:center!important;gap:72px!important;max-width:1240px!important;text-align:left!important}
 .visit-section>div>div{width:100%!important;max-width:none!important;margin:0!important;text-align:left!important}
@@ -52,7 +48,6 @@ html,body{overflow-x:hidden!important;background:var(--ago-cream-final)!importan
 .visit-section>div>div:last-child{border:0!important;padding:0 0 0 42px!important;margin:0!important;text-align:left!important}
 .visit-section .info-list>div{border:0!important;text-align:left!important}
 
-/* Checkout: acabamento premium, sem linhas decorativas. */
 .checkout-page-text{max-width:1240px!important;padding-top:34px!important;padding-bottom:72px!important}
 .checkout-stepbar{border:0!important;box-shadow:none!important;background:transparent!important}
 .checkout-field{border:0!important}
@@ -69,7 +64,6 @@ html,body{overflow-x:hidden!important;background:var(--ago-cream-final)!importan
 .checkout-summary button:hover,.checkout-page-text form>button:hover{background:var(--ago-terra-dark)!important}
 .checkout-page-text .text-oliva{color:rgba(62,44,35,.65)!important}
 
-/* Desktop: proporção e respiro. */
 @media(min-width:1024px){
   .featured-products-grid,.remaining-products-grid,.collection-more .grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:44px 30px!important}
   .features-container{grid-template-columns:repeat(4,minmax(0,1fr))!important}
@@ -79,7 +73,6 @@ html,body{overflow-x:hidden!important;background:var(--ago-cream-final)!importan
   .visit-section>div{min-height:360px!important}
 }
 
-/* Mobile: duas colunas de produtos e rolagem exclusivamente vertical. */
 @media(max-width:767px){
   html,body{width:100%!important;max-width:100%!important;overflow-x:hidden!important}
   .ago-home,main,footer{width:100%!important;max-width:100%!important;overflow-x:clip!important}
@@ -90,9 +83,9 @@ html,body{overflow-x:hidden!important;background:var(--ago-cream-final)!importan
   .product-name{font-size:15px!important;line-height:1.18!important}
   .current-price{font-size:13px!important}
   .product-add{max-width:100%!important;width:auto!important;margin-top:10px!important;padding:9px 12px!important;min-height:37px!important;font-size:8px!important;letter-spacing:.09em!important}
-  .category-row{max-width:100%!important;overflow-x:auto!important;overscroll-behavior-x:contain!important;scrollbar-width:none!important}
-  .category-row::-webkit-scrollbar{display:none!important}
-  .category-pill{flex:0 0 auto!important}
+  .category-row{max-width:100%!important;overflow:visible!important}
+  .category-row>div{display:flex!important;flex-wrap:wrap!important;gap:8px!important;justify-content:flex-start!important}
+  .category-pill{flex:0 0 auto!important;padding:8px 12px!important;font-size:9px!important;letter-spacing:.06em!important}
   .visit-section>div{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:34px!important;text-align:left!important}
   .visit-section>div>div{width:100%!important;text-align:left!important}
   .visit-section>div>div:last-child{border:0!important;padding:0!important;margin:0!important}
@@ -105,9 +98,67 @@ html,body{overflow-x:hidden!important;background:var(--ago-cream-final)!importan
   .checkout-page-text form>button{width:100%!important}
 }
 
-/* Acessibilidade e interação. */
-button,a,input{ -webkit-tap-highlight-color:transparent }
+button,a,input{-webkit-tap-highlight-color:transparent}
 a:focus-visible,button:focus-visible{outline:2px solid var(--ago-terra-final)!important;outline-offset:3px!important}
-
-/* Imagem da seção Para a casa: nunca cortar as duas igrejas. */
 .house-image img,.home-house .house-image img{object-fit:contain!important;object-position:center!important;width:100%!important;height:100%!important;border-radius:18px!important}
+
+/* TIPOGRAFIA FINAL — mais sofisticada, legível e menos "template". */
+body,.ago-home,main,footer{font-family:'Lato',Arial,sans-serif!important}
+
+h1,h2,h3,.section-title,.product-name,.feature-title,.visit-section h2,.editorial-section h2,.home-house h2,.how-section h2{
+  font-family:'Playfair Display',Georgia,serif!important;
+  font-weight:500!important;
+  letter-spacing:-.025em!important;
+  text-wrap:balance;
+}
+
+h1{font-weight:600!important;letter-spacing:-.035em!important}
+.section-title{font-size:clamp(2.35rem,4vw,3.75rem)!important;line-height:1.02!important}
+
+p,li,label,input,select,textarea,.section-intro,.editorial-copy,.feature-description,.how-section .grid>div,.visit-section span{
+  font-family:'Lato',Arial,sans-serif!important;
+}
+
+p,.section-intro,.editorial-copy{font-size:15px!important;line-height:1.72!important}
+.eyebrow{font-family:'Lato',Arial,sans-serif!important;font-size:10px!important;font-weight:700!important;letter-spacing:.19em!important}
+
+.header-link{font-family:'Lato',Arial,sans-serif!important;font-size:10px!important;font-weight:700!important;letter-spacing:.08em!important}
+.header-search input{font-family:'Lato',Arial,sans-serif!important;font-size:13px!important}
+
+.product-name{font-size:clamp(16px,1.25vw,19px)!important;line-height:1.18!important;font-weight:500!important}
+.current-price{font-family:'Lato',Arial,sans-serif!important;font-size:15px!important;font-weight:700!important}
+.old-price{font-family:'Lato',Arial,sans-serif!important;font-size:11px!important}
+.product-add{font-family:'Lato',Arial,sans-serif!important;font-size:10px!important;font-weight:700!important;letter-spacing:.08em!important}
+
+.feature-title{font-family:'Playfair Display',Georgia,serif!important;font-size:1.45rem!important;line-height:1.08!important}
+.feature-description{font-family:'Lato',Arial,sans-serif!important;font-size:11px!important;line-height:1.6!important}
+
+.collection-link,.editorial-link,.catalog-cta a,.trust-strip,.category-pill,.step-number{
+  font-family:'Lato',Arial,sans-serif!important;
+}
+.collection-link,.editorial-link{font-size:10px!important;letter-spacing:.12em!important}
+.catalog-cta p{font-size:13px!important}
+.category-pill{font-size:10px!important;letter-spacing:.06em!important;font-weight:700!important}
+.trust-strip{font-size:9px!important;letter-spacing:.09em!important}
+
+.checkout-page-text,.checkout-page-text *{font-family:'Lato',Arial,sans-serif!important}
+.checkout-page-text h1,.checkout-page-text h2,.checkout-summary h2{font-family:'Playfair Display',Georgia,serif!important;font-weight:500!important;letter-spacing:-.02em!important}
+.checkout-label{font-size:12px!important;letter-spacing:.01em!important}
+.checkout-input{font-size:14px!important}
+.checkout-summary button,.checkout-page-text form>button{font-family:'Lato',Arial,sans-serif!important;font-size:10px!important;letter-spacing:.1em!important}
+
+footer h3,footer h4{font-family:'Cormorant Garamond',Georgia,serif!important}
+footer h3{font-size:2rem!important;font-weight:500!important}
+footer h4{font-size:1.15rem!important;font-weight:500!important;letter-spacing:.01em!important;text-transform:none!important}
+footer p,footer li,footer a,footer div{font-family:'DM Sans',Arial,sans-serif!important}
+
+@media(max-width:767px){
+  h1{font-size:clamp(2.65rem,12vw,4rem)!important;line-height:.98!important}
+  .section-title{font-size:clamp(2.2rem,10vw,3rem)!important;line-height:1.02!important}
+  p,.section-intro,.editorial-copy{font-size:14px!important;line-height:1.68!important}
+  .product-name{font-size:15px!important;line-height:1.18!important}
+  .current-price{font-size:14px!important}
+  .product-add{font-size:9px!important;letter-spacing:.065em!important}
+  .feature-title{font-size:1.4rem!important}
+  footer h3{font-size:1.8rem!important}
+}
