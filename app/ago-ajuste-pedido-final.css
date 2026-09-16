@@ -1,32 +1,113 @@
-:root{--ago-terra-final:#A95635;--ago-terra-dark:#874126;--ago-coffee-final:#4A2C1F;--ago-cream-final:#F5F0E8}
-/* Final visual correction: terracotta iconography, left-aligned visit, balanced product cards. */
+:root{
+  --ago-terra-final:#A95635;
+  --ago-terra-dark:#874126;
+  --ago-coffee-final:#4A2C1F;
+  --ago-coffee-deep:#2F1B14;
+  --ago-cream-final:#F5F0E8;
+  --ago-cream-soft:#FAF7F1;
+  --ago-ink-final:#3E2C23;
+}
+
+/* AGÔ TRANCOSO — direção visual final: editorial, proporcional e sem ruído. */
+
+/* Base */
+html,body{overflow-x:hidden!important;background:var(--ago-cream-final)!important;color:var(--ago-ink-final)!important}
+*,*::before,*::after{box-sizing:border-box}
+
+/* Remove ornamentos herdados sem remover estrutura. */
+.benefits-strip,.category-row,.collection-showcase,.collection-more,.editorial-section,.home-house,.how-section,.visit-section,.checkout-page-text{border-left:0!important;border-right:0!important}
+
+/* Ícones: exclusivamente terrosos. */
 .feature-icon,.feature-icon svg{color:var(--ago-terra-final)!important;stroke:var(--ago-terra-final)!important;fill:none!important}
-.features-container .feature-item:nth-child(1) .feature-icon svg,.features-container .feature-item:nth-child(2) .feature-icon svg,.features-container .feature-item:nth-child(3) .feature-icon svg,.features-container .feature-item:nth-child(4) .feature-icon svg{stroke:var(--ago-terra-final)!important}
+.feature-icon svg *{stroke:currentColor!important}
+
+/* Categorias */
+.category-pill{color:var(--ago-coffee-final)!important;background:transparent!important;border:0!important;box-shadow:none!important}
+.category-pill.active{color:var(--ago-terra-dark)!important;font-weight:700!important}
+
+/* Produtos */
+.product-card{display:flex!important;flex-direction:column!important;align-items:stretch!important;text-align:left!important;min-width:0!important}
+.product-card>.block{display:block!important;min-width:0!important}
+.product-image-wrap{aspect-ratio:1/1!important;border:0!important;border-radius:18px!important;overflow:hidden!important;background:var(--ago-cream-soft)!important;box-shadow:none!important}
+.product-image{width:100%!important;height:100%!important;padding:12px!important;object-fit:contain!important;object-position:center!important;border-radius:18px!important}
+.product-card .mt-4{margin-top:13px!important;padding-right:0!important;text-align:left!important}
+.product-name{margin:0!important;min-height:0!important;color:var(--ago-coffee-final)!important;font-size:clamp(15px,1.15vw,18px)!important;font-weight:500!important;line-height:1.22!important;letter-spacing:-.01em!important}
+.price-row{display:flex!important;align-items:baseline!important;gap:8px!important;margin-top:6px!important}
+.current-price{display:block!important;margin:0!important;color:var(--ago-terra-dark)!important;font-size:14px!important;font-weight:650!important;line-height:1.2!important}
+.old-price{color:rgba(62,44,35,.52)!important;font-size:11px!important;text-decoration:line-through!important}
+.product-add{align-self:flex-start!important;width:auto!important;max-width:190px!important;margin-top:11px!important;padding:9px 15px!important;min-height:38px!important;border:0!important;border-radius:999px!important;background:var(--ago-coffee-final)!important;color:#fffdf9!important;font-size:9px!important;font-weight:650!important;letter-spacing:.105em!important;line-height:1.1!important;text-transform:uppercase!important;box-shadow:none!important;transition:background-color .2s ease,transform .2s ease!important}
+.product-add span{font-size:13px!important;line-height:0!important}
+.product-add:hover{background:var(--ago-terra-dark)!important;transform:translateY(-1px)!important}
+.product-add:focus-visible{outline:2px solid var(--ago-terra-final)!important;outline-offset:3px!important}
+.product-badge{border:0!important;box-shadow:none!important}
+.product-view{background:var(--ago-coffee-final)!important;color:#fffdf9!important;border:0!important;box-shadow:none!important}
+
+/* Visita: conteúdo editorial alinhado à esquerda. */
 .visit-section{text-align:left!important}
-.visit-section>div{display:grid!important;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr)!important;align-items:center!important;gap:68px!important;text-align:left!important}
+.visit-section>div{display:grid!important;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr)!important;align-items:center!important;gap:72px!important;max-width:1240px!important;text-align:left!important}
 .visit-section>div>div{width:100%!important;max-width:none!important;margin:0!important;text-align:left!important}
 .visit-section h2{margin:0 0 18px!important;text-align:left!important}
 .visit-section p:not(.eyebrow){margin-left:0!important;margin-right:0!important;text-align:left!important;max-width:600px!important}
-.visit-section .flex,.visit-section .visit-actions{justify-content:flex-start!important;text-align:left!important}
-.visit-section>div>div:last-child{border-top:0!important;border-left:1px solid rgba(255,253,249,.14)!important;padding:0 0 0 42px!important;margin:0!important;text-align:left!important}
-.visit-section .info-list>div{text-align:left!important}
-.product-card{display:flex!important;flex-direction:column!important;align-items:stretch!important}
-.product-card>.block{display:block!important}
-.product-add{width:auto!important;max-width:220px!important;align-self:flex-start!important;margin-top:12px!important;padding:10px 16px!important;min-height:40px!important;border:0!important;border-radius:999px!important;background:var(--ago-coffee-final)!important;color:#fffdf9!important;font-size:10px!important;letter-spacing:.12em!important;line-height:1!important}
-.product-add:hover{background:var(--ago-terra-dark)!important;color:#fffdf9!important}
-.product-card .mt-4{padding-right:0!important;text-align:left!important}
-.product-name{min-height:0!important;margin:12px 0 0!important;text-align:left!important}
-.price-row{justify-content:flex-start!important;margin-top:6px!important}
-.current-price{font-size:13px!important;font-weight:600!important;color:var(--ago-terra-dark)!important}
-.old-price{font-size:11px!important}
-.collection-showcase .product-card,.collection-more .product-card{text-align:left!important}
-@media(max-width:767px){
- .visit-section>div{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:34px!important}
- .visit-section>div>div{width:100%!important;text-align:left!important}
- .visit-section>div>div:last-child{border-left:0!important;border-top:1px solid rgba(255,253,249,.14)!important;padding:26px 0 0!important}
- .product-add{max-width:190px!important;width:auto!important;font-size:9px!important;padding:10px 14px!important}
- .product-name{font-size:18px!important;line-height:1.12!important}
- .current-price{font-size:12px!important}
+.visit-section .visit-actions{justify-content:flex-start!important;text-align:left!important}
+.visit-section>div>div:last-child{border:0!important;padding:0 0 0 42px!important;margin:0!important;text-align:left!important}
+.visit-section .info-list>div{border:0!important;text-align:left!important}
+
+/* Checkout: acabamento premium, sem linhas decorativas. */
+.checkout-page-text{max-width:1240px!important;padding-top:34px!important;padding-bottom:72px!important}
+.checkout-stepbar{border:0!important;box-shadow:none!important;background:transparent!important}
+.checkout-field{border:0!important}
+.checkout-label{color:var(--ago-coffee-final)!important;font-weight:600!important}
+.checkout-input{width:100%!important;border:1px solid rgba(74,44,31,.16)!important;border-radius:10px!important;background:#fffdf9!important;color:var(--ago-ink-final)!important;box-shadow:none!important;min-height:48px!important;padding:12px 14px!important}
+.checkout-input:focus{border-color:var(--ago-terra-final)!important;outline:0!important;box-shadow:0 0 0 3px rgba(169,86,53,.10)!important}
+.checkout-shipping-note{border:0!important;border-radius:10px!important;background:var(--ago-cream-soft)!important;color:var(--ago-coffee-final)!important;padding:13px 15px!important}
+.checkout-summary{border:0!important;border-radius:18px!important;background:var(--ago-cream-soft)!important;box-shadow:none!important;padding:28px!important}
+.checkout-summary-item{border:0!important}
+.checkout-product-image{border:0!important;border-radius:10px!important;overflow:hidden!important;background:#fffdf9!important}
+.checkout-product-image img{width:100%!important;height:100%!important;object-fit:contain!important;border-radius:10px!important}
+.checkout-summary .border-t{border-top:0!important}
+.checkout-summary button,.checkout-page-text form>button{border:0!important;border-radius:999px!important;background:var(--ago-coffee-final)!important;color:#fffdf9!important;min-height:50px!important;font-weight:650!important;letter-spacing:.14em!important;box-shadow:none!important}
+.checkout-summary button:hover,.checkout-page-text form>button:hover{background:var(--ago-terra-dark)!important}
+.checkout-page-text .text-oliva{color:rgba(62,44,35,.65)!important}
+
+/* Desktop: proporção e respiro. */
+@media(min-width:1024px){
+  .featured-products-grid,.remaining-products-grid,.collection-more .grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:44px 30px!important}
+  .features-container{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+  .collection-showcase{max-width:1240px!important;padding-left:40px!important;padding-right:40px!important}
+  .editorial-section>div,.home-house>div{max-width:1240px!important}
+  .how-section>div{max-width:1240px!important}
+  .visit-section>div{min-height:360px!important}
 }
-@media(min-width:1024px){.visit-section>div{min-height:420px!important}}
-html,body{overflow-x:hidden!important}
+
+/* Mobile: duas colunas de produtos e rolagem exclusivamente vertical. */
+@media(max-width:767px){
+  html,body{width:100%!important;max-width:100%!important;overflow-x:hidden!important}
+  .ago-home,main,footer{width:100%!important;max-width:100%!important;overflow-x:clip!important}
+  .featured-products-grid,.remaining-products-grid,.collection-more .grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:31px 13px!important;width:100%!important}
+  .product-card{min-width:0!important}
+  .product-image-wrap{width:100%!important;border-radius:14px!important}
+  .product-image{padding:8px!important;border-radius:14px!important}
+  .product-name{font-size:15px!important;line-height:1.18!important}
+  .current-price{font-size:13px!important}
+  .product-add{max-width:100%!important;width:auto!important;margin-top:10px!important;padding:9px 12px!important;min-height:37px!important;font-size:8px!important;letter-spacing:.09em!important}
+  .category-row{max-width:100%!important;overflow-x:auto!important;overscroll-behavior-x:contain!important;scrollbar-width:none!important}
+  .category-row::-webkit-scrollbar{display:none!important}
+  .category-pill{flex:0 0 auto!important}
+  .visit-section>div{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:34px!important;text-align:left!important}
+  .visit-section>div>div{width:100%!important;text-align:left!important}
+  .visit-section>div>div:last-child{border:0!important;padding:0!important;margin:0!important}
+  .visit-section h2{font-size:clamp(2rem,9vw,2.7rem)!important;line-height:1.02!important}
+  .visit-section .visit-actions{align-items:stretch!important}
+  .visit-section .visit-actions a{width:100%!important}
+  .checkout-page-text{padding-left:18px!important;padding-right:18px!important}
+  .checkout-summary{padding:21px!important;border-radius:15px!important}
+  .checkout-stepbar{gap:10px!important}
+  .checkout-page-text form>button{width:100%!important}
+}
+
+/* Acessibilidade e interação. */
+button,a,input{ -webkit-tap-highlight-color:transparent }
+a:focus-visible,button:focus-visible{outline:2px solid var(--ago-terra-final)!important;outline-offset:3px!important}
+
+/* Imagem da seção Para a casa: nunca cortar as duas igrejas. */
+.house-image img,.home-house .house-image img{object-fit:contain!important;object-position:center!important;width:100%!important;height:100%!important;border-radius:18px!important}
