@@ -1,0 +1,404 @@
+/* Agô Trancoso — direção visual final.
+   Última camada de apresentação: harmoniza cores, centraliza o layout e arredonda fotografias.
+   Não altera lógica, conteúdo ou integrações. */
+
+:root {
+  --ago-fundo-1: #F5EEE5;
+  --ago-fundo-2: #EADDCB;
+  --ago-fundo-3: #DCC9B4;
+  --ago-fundo-4: #CBA58A;
+  --ago-terra: #8E4B32;
+  --ago-terra-escura: #6F3927;
+  --ago-marrom: #4B2B1E;
+  --ago-creme: #FAF6EF;
+  --ago-texto: #3F261C;
+  --ago-linha: rgba(63,38,28,.14);
+}
+
+/* BASE: um único sistema de alinhamento e sem overflow horizontal. */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  background: var(--ago-fundo-1) !important;
+  color: var(--ago-texto);
+}
+
+.ago-container,
+.max-w-content {
+  width: min(1240px, calc(100% - 48px)) !important;
+  margin-inline: auto !important;
+}
+
+/* Nenhuma cor esverdeada domina a interface. */
+.ago-home,
+.info-page,
+.contact-page,
+.collection-more,
+.home-house {
+  color: var(--ago-texto) !important;
+  background: var(--ago-fundo-1) !important;
+}
+
+.eyebrow {
+  color: var(--ago-terra) !important;
+}
+
+.section-title,
+.info-page h1,
+.contact-page h1,
+.info-page h2,
+.contact-page h2 {
+  color: var(--ago-marrom) !important;
+}
+
+/* HEADER */
+.site-header {
+  background: rgba(250,246,239,.97) !important;
+  border-bottom: 1px solid rgba(75,43,30,.08) !important;
+}
+
+.header-link,
+.header-icon,
+.header-search {
+  color: var(--ago-marrom) !important;
+}
+
+.header-link:first-child,
+.collection-link,
+.editorial-link,
+.current-price,
+.step-number {
+  color: var(--ago-terra) !important;
+}
+
+/* =========================================================
+   PRIMEIRA VITRINE — largura integral no desktop, conteúdo centralizado
+   ========================================================= */
+.collection-showcase {
+  background: var(--ago-fundo-2) !important;
+}
+
+@media (min-width: 1201px) {
+  .collection-showcase {
+    width: 100vw !important;
+    max-width: none !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    padding: 76px 32px 48px !important;
+  }
+
+  .collection-showcase .collection-intro,
+  .collection-showcase .featured-products-grid,
+  .collection-showcase .collection-after {
+    width: min(1420px, calc(100% - 24px)) !important;
+    margin-inline: auto !important;
+  }
+
+  .collection-showcase .featured-products-grid {
+    grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+    gap: 48px clamp(28px, 2.5vw, 46px) !important;
+    margin-top: 46px !important;
+  }
+
+  .collection-showcase .product-image-wrap {
+    width: 100% !important;
+    height: clamp(320px, 25vw, 420px) !important;
+  }
+}
+
+/* =========================================================
+   FOTOS DE PEÇAS — SEMPRE arredondadas, sem moldura artificial
+   ========================================================= */
+.product-image-wrap,
+.product-image-wrap::before,
+.product-image-wrap::after,
+.product-image-wrap img,
+.product-card .product-image-wrap,
+.product-card .product-image-wrap img,
+.product-image,
+.product-image img,
+.cart-product-image,
+.cart-product-image img,
+.checkout-product-image,
+.checkout-product-image img,
+.product-gallery-main,
+.product-gallery-main img,
+.product-gallery-image,
+.product-gallery-thumb,
+.product-gallery-thumb img {
+  border-radius: 20px !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.product-image-wrap,
+.cart-product-image,
+.checkout-product-image,
+.product-gallery-main,
+.product-gallery-thumb {
+  overflow: hidden !important;
+  background: transparent !important;
+}
+
+.product-card .product-image-wrap,
+.product-card .product-image {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+/* =========================================================
+   SEÇÕES DA HOME — TERROSOS QUE CONVERSAM ENTRE SI
+   ========================================================= */
+.benefits-strip {
+  background: var(--ago-creme) !important;
+  border-color: var(--ago-linha) !important;
+}
+
+.editorial-section {
+  background: var(--ago-fundo-2) !important;
+}
+
+.home-house {
+  background: var(--ago-fundo-1) !important;
+}
+
+.how-section {
+  background: var(--ago-fundo-3) !important;
+  border-top: 1px solid rgba(75,43,30,.08) !important;
+}
+
+.visit-section {
+  background: var(--ago-fundo-2) !important;
+  color: var(--ago-marrom) !important;
+  border-top: 1px solid rgba(75,43,30,.10) !important;
+}
+
+.visit-section .eyebrow,
+.visit-section h2,
+.visit-section .visit-copy,
+.visit-section .info-list strong,
+.visit-section .info-list span {
+  color: var(--ago-marrom) !important;
+}
+
+.visit-actions a {
+  border-color: rgba(75,43,30,.30) !important;
+  color: var(--ago-marrom) !important;
+}
+
+.visit-actions a:nth-child(2) {
+  background: var(--ago-terra) !important;
+  border-color: var(--ago-terra) !important;
+  color: var(--ago-creme) !important;
+}
+
+footer.bg-marrom,
+footer {
+  background: var(--ago-marrom) !important;
+}
+
+/* =========================================================
+   A AGÔ — REVISÃO COMPLETA
+   ========================================================= */
+.info-page > .max-w-content {
+  width: min(1240px, calc(100% - 96px)) !important;
+  margin-inline: auto !important;
+  padding-top: 88px !important;
+  padding-bottom: 104px !important;
+}
+
+.info-page > .max-w-content > .grid {
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr) !important;
+  gap: clamp(64px, 7vw, 110px) !important;
+  align-items: center !important;
+}
+
+.info-page .max-w-xl {
+  max-width: 560px !important;
+}
+
+.info-page h1 {
+  font-size: clamp(4rem, 6vw, 6.5rem) !important;
+  line-height: .88 !important;
+  letter-spacing: -.04em !important;
+  margin-bottom: 28px !important;
+}
+
+.info-page .editorial-image {
+  min-height: 0 !important;
+  aspect-ratio: 4 / 3 !important;
+  border-radius: 22px !important;
+  background: var(--ago-fundo-3) !important;
+  overflow: hidden !important;
+}
+
+.info-page .editorial-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 22px !important;
+}
+
+/* =========================================================
+   CONTATO — REVISÃO COMPLETA
+   ========================================================= */
+.contact-page > .max-w-content {
+  width: min(1180px, calc(100% - 96px)) !important;
+  margin-inline: auto !important;
+  padding-top: 88px !important;
+  padding-bottom: 104px !important;
+}
+
+.contact-page > .max-w-content > .grid {
+  grid-template-columns: minmax(0, 1fr) minmax(360px, .82fr) !important;
+  gap: clamp(64px, 8vw, 116px) !important;
+  align-items: start !important;
+}
+
+.contact-page > .max-w-content > .grid > .max-w-xl {
+  max-width: 560px !important;
+  padding-top: 8px !important;
+}
+
+.contact-page h1 {
+  font-size: clamp(4rem, 6vw, 6.5rem) !important;
+  line-height: .88 !important;
+  margin-bottom: 25px !important;
+}
+
+.contact-page .info-link {
+  min-height: 60px !important;
+  padding: 0 !important;
+  border-top: 1px solid var(--ago-linha) !important;
+  color: var(--ago-marrom) !important;
+}
+
+.contact-page .info-link:last-child {
+  border-bottom: 1px solid var(--ago-linha) !important;
+}
+
+.contact-page .info-link:hover {
+  color: var(--ago-terra) !important;
+}
+
+.contact-page .info-panel {
+  margin-top: 46px !important;
+  padding: 30px 32px 32px !important;
+  background: var(--ago-fundo-3) !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+  box-shadow: none !important;
+}
+
+/* =========================================================
+   CENTRALIZAÇÃO POR DISPOSITIVO
+   ========================================================= */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .ago-container,
+  .max-w-content {
+    width: min(100% - 48px, 1040px) !important;
+  }
+
+  .featured-products-grid,
+  .remaining-products-grid {
+    grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+    gap: 34px 24px !important;
+  }
+
+  .info-page > .max-w-content,
+  .contact-page > .max-w-content {
+    width: min(100% - 56px, 1040px) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .ago-container,
+  .max-w-content {
+    width: min(760px, calc(100% - 40px)) !important;
+  }
+
+  .info-page > .max-w-content,
+  .contact-page > .max-w-content {
+    width: min(760px, calc(100% - 40px)) !important;
+  }
+
+  .info-page > .max-w-content > .grid,
+  .contact-page > .max-w-content > .grid {
+    grid-template-columns: 1fr !important;
+    gap: 42px !important;
+  }
+
+  .info-page .editorial-image {
+    aspect-ratio: 4 / 3 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .ago-container,
+  .max-w-content,
+  .info-page > .max-w-content,
+  .contact-page > .max-w-content {
+    width: calc(100% - 32px) !important;
+  }
+
+  .featured-products-grid,
+  .remaining-products-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    gap: 32px 15px !important;
+  }
+
+  .collection-showcase {
+    padding-top: 48px !important;
+  }
+
+  .collection-showcase .product-image-wrap,
+  .product-image-wrap,
+  .product-image-wrap img,
+  .product-image,
+  .product-card .product-image-wrap,
+  .product-card .product-image-wrap img,
+  .cart-product-image,
+  .cart-product-image img,
+  .checkout-product-image,
+  .checkout-product-image img,
+  .product-gallery-main,
+  .product-gallery-main img {
+    border-radius: 16px !important;
+  }
+
+  .info-page > .max-w-content,
+  .contact-page > .max-w-content {
+    padding-top: 62px !important;
+    padding-bottom: 70px !important;
+  }
+
+  .info-page h1,
+  .contact-page h1 {
+    font-size: clamp(3.15rem, 13vw, 4.5rem) !important;
+  }
+
+  .contact-page .info-panel {
+    padding: 24px !important;
+    border-radius: 18px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .ago-container,
+  .max-w-content,
+  .info-page > .max-w-content,
+  .contact-page > .max-w-content {
+    width: calc(100% - 28px) !important;
+  }
+
+  .featured-products-grid,
+  .remaining-products-grid {
+    column-gap: 12px !important;
+    row-gap: 28px !important;
+  }
+}
