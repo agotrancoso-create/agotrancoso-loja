@@ -1,0 +1,423 @@
+/* AGÔ TRANCOSO — DIREÇÃO PROPORCIONAL TERRA 2026
+   Última camada visual.
+   Regra: proporção e hierarquia, não centralização de tudo.
+   Paleta: areia, creme, barro, terracota e marrom.
+*/
+
+:root {
+  --ago-ivory-2026: #FCF8F2 !important;
+  --ago-paper-2026: #F4ECE2 !important;
+  --ago-sand-2026: #E7D5C1 !important;
+  --ago-sand-2-2026: #D7BDA6 !important;
+  --ago-clay-2026: #A65332 !important;
+  --ago-terra-2026: #91482F !important;
+  --ago-terra-dark-2026: #6B3426 !important;
+  --ago-brown-2026: #4B2B20 !important;
+  --ago-brown-dark-2026: #2B1812 !important;
+  --ago-ink-2026: #35231B !important;
+  --ago-line-2026: rgba(75,43,32,.15) !important;
+}
+
+html, body,
+.bg-green-50, .bg-green-100, .bg-green-200, .bg-green-300, .bg-green-400, .bg-green-500, .bg-green-600, .bg-green-700, .bg-green-800, .bg-green-900,
+.bg-emerald-50, .bg-emerald-100, .bg-emerald-200, .bg-emerald-300, .bg-emerald-400, .bg-emerald-500, .bg-emerald-600, .bg-emerald-700, .bg-emerald-800, .bg-emerald-900,
+.bg-olive, .bg-oliva {
+  background-color: var(--ago-paper-2026) !important;
+  color: var(--ago-ink-2026) !important;
+}
+
+.text-green-400, .text-green-500, .text-green-600, .text-green-700, .text-green-800, .text-emerald-400, .text-emerald-500, .text-emerald-600, .text-emerald-700, .text-emerald-800, .text-olive, .text-oliva, .text-verde,
+[class*="text-green"], [class*="text-emerald"], [class*="text-olive"], [class*="text-verde"] {
+  color: var(--ago-terra-2026) !important;
+}
+
+.border-green-100, .border-green-200, .border-green-300, .border-green-400, .border-green-500, .border-green-600, .border-emerald-100, .border-emerald-200, .border-emerald-300, .border-emerald-400, .border-emerald-500, .border-emerald-600, .border-olive, .border-oliva,
+[class*="border-green"], [class*="border-emerald"], [class*="border-olive"] {
+  border-color: var(--ago-line-2026) !important;
+}
+
+/* Qualquer utilitário verde que sobreviva recebe barro/terra. */
+[class*="green"], [class*="emerald"], [class*="olive"], [class*="oliva"] {
+  --tw-ring-color: rgba(145,72,47,.18) !important;
+  --tw-border-opacity: 1 !important;
+}
+
+/* -------- BASE PROPORCIONAL -------- */
+.ago-container,
+.collection-showcase,
+.collection-more-inner,
+.editorial-grid,
+.house-grid,
+.how-grid,
+.visit-grid {
+  width: min(1280px, calc(100% - 80px)) !important;
+  max-width: 1280px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* -------- COLEÇÃO: TÍTULO À ESQUERDA, PRODUTOS ABAIXO -------- */
+.collection-showcase {
+  display: block !important;
+  padding: 92px 0 74px !important;
+  background: var(--ago-ivory-2026) !important;
+}
+.collection-intro {
+  width: 100% !important;
+  max-width: 920px !important;
+  margin: 0 0 48px !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
+.collection-intro .eyebrow,
+.collection-intro .section-title,
+.collection-intro .collection-link,
+.collection-intro p,
+.collection-intro h2 {
+  text-align: left !important;
+}
+.collection-intro .section-title { margin-top: 10px !important; }
+.collection-link-large { margin-top: 20px !important; }
+
+.featured-products-grid,
+.remaining-products-grid {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  column-gap: 26px !important;
+  row-gap: 44px !important;
+  align-items: start !important;
+}
+.product-card { text-align: left !important; min-width: 0 !important; }
+.product-card > a { display: block !important; width: 100% !important; }
+.product-card .mt-4 { padding: 0 !important; }
+.product-name,
+.current-price,
+.old-price { text-align: left !important; }
+.product-add {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin-top: 12px !important;
+  padding: 12px 10px !important;
+  text-align: center !important;
+  border-color: rgba(75,43,32,.22) !important;
+  background: transparent !important;
+  color: var(--ago-brown-2026) !important;
+}
+.product-add:hover {
+  border-color: var(--ago-brown-dark-2026) !important;
+  background: var(--ago-brown-dark-2026) !important;
+  color: var(--ago-ivory-2026) !important;
+}
+
+/* -------- FOTOS: QUENTES, SEM VERDE, SEM MOLDURA -------- */
+.product-image-wrap,
+.product-image-wrap::after,
+.product-image,
+.product-image img,
+.editorial-image,
+.editorial-image img,
+.product-gallery-main,
+.product-gallery-image,
+.product-gallery-thumb,
+.product-gallery-thumb img {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+.product-image-wrap {
+  overflow: hidden !important;
+  border-radius: 22px !important;
+  background: #EEE0D0 !important;
+}
+.product-image {
+  border-radius: 22px !important;
+  filter: sepia(.075) saturate(.91) contrast(.985) !important;
+}
+.product-image-wrap::after { display: none !important; }
+.editorial-image,
+.editorial-image img { border-radius: 24px !important; }
+.editorial-image img { filter: sepia(.045) saturate(.95) contrast(.99) !important; }
+.hero-image { filter: saturate(.86) sepia(.055) contrast(.97) !important; }
+
+/* -------- CATEGORIAS: FAIXA COMPLETA, MAS CONTEÚDO PROPORCIONAL -------- */
+.category-row {
+  width: 100vw !important;
+  max-width: none !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  padding: 22px max(40px, calc((100vw - 1280px) / 2)) 24px !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  background: var(--ago-sand-2026) !important;
+  border-top: 1px solid rgba(75,43,32,.10) !important;
+  border-bottom: 1px solid rgba(75,43,32,.10) !important;
+}
+.category-pill {
+  min-height: 42px !important;
+  padding: 0 18px !important;
+  border: 1px solid rgba(75,43,32,.20) !important;
+  border-radius: 999px !important;
+  background: rgba(252,248,242,.70) !important;
+  color: var(--ago-brown-2026) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: .025em !important;
+  text-transform: none !important;
+}
+.category-pill:hover,
+.category-pill.active {
+  border-color: var(--ago-brown-2026) !important;
+  background: var(--ago-brown-2026) !important;
+  color: var(--ago-ivory-2026) !important;
+}
+
+/* -------- HERO: HIERARQUIA À ESQUERDA, NÃO CENTRALIZADA -------- */
+.hero-section {
+  width: 100% !important;
+  min-height: 650px !important;
+  background: var(--ago-brown-dark-2026) !important;
+}
+.hero-content {
+  width: min(1280px, calc(100% - 80px)) !important;
+  max-width: 1280px !important;
+  margin: 0 auto !important;
+  padding: 130px 0 104px !important;
+  text-align: left !important;
+}
+.hero-content .eyebrow,
+.hero-content h1,
+.hero-content .hero-copy {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: left !important;
+}
+.hero-content h1 { max-width: 860px !important; }
+.hero-copy { max-width: 620px !important; }
+.hero-actions { justify-content: flex-start !important; }
+.hero-primary,
+.hero-secondary {
+  border-radius: 0 !important;
+}
+
+/* -------- BENEFÍCIOS: 4 BLOCOS PROPORCIONAIS -------- */
+.benefits-strip {
+  background: var(--ago-ivory-2026) !important;
+  border-top: 1px solid var(--ago-line-2026) !important;
+  border-bottom: 1px solid var(--ago-line-2026) !important;
+}
+.features-container {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  width: min(1180px, calc(100% - 80px)) !important;
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+}
+.feature-item { text-align: left !important; align-items: flex-start !important; padding: 0 30px !important; }
+.feature-item:first-child { padding-left: 0 !important; }
+.feature-item:last-child { padding-right: 0 !important; }
+.feature-item + .feature-item,
+.feature-item:not(:last-child)::after { border-left-color: var(--ago-line-2026) !important; background: var(--ago-line-2026) !important; }
+.feature-icon { color: var(--ago-terra-2026) !important; }
+.feature-title,
+.feature-description { text-align: left !important; }
+.feature-description { max-width: 220px !important; }
+
+/* -------- TODAS AS PEÇAS -------- */
+.collection-more {
+  width: 100% !important;
+  background: #F0E5D8 !important;
+}
+.collection-more-inner { padding-top: 86px !important; padding-bottom: 84px !important; }
+.section-heading {
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  gap: 30px !important;
+  margin-bottom: 36px !important;
+  padding-bottom: 20px !important;
+  border-bottom: 1px solid var(--ago-line-2026) !important;
+}
+.section-heading > div,
+.section-heading .section-title { text-align: left !important; }
+.section-heading .collection-link { margin-left: auto !important; }
+
+/* -------- A AGÔ / CASA / COMO COMPRAR -------- */
+.editorial-section { width: 100% !important; background: #E4D1BF !important; }
+.editorial-grid,
+.house-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr) !important;
+  gap: 74px !important;
+  align-items: center !important;
+  padding-top: 90px !important;
+  padding-bottom: 90px !important;
+  text-align: left !important;
+}
+.editorial-copy-column,
+.house-copy { text-align: left !important; margin: 0 !important; }
+.editorial-copy,
+.house-copy .editorial-copy,
+.editorial-link { text-align: left !important; margin-left: 0 !important; margin-right: 0 !important; }
+.home-house { width: 100% !important; background: #EFE3D6 !important; }
+.house-grid { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr) !important; }
+
+.how-section { width: 100% !important; background: #E7D7C6 !important; }
+.how-grid {
+  display: block !important;
+  padding-top: 86px !important;
+  padding-bottom: 86px !important;
+  text-align: left !important;
+}
+.how-grid > div:first-child { text-align: left !important; margin: 0 0 42px !important; }
+.how-grid .section-title,
+.how-grid .eyebrow { text-align: left !important; }
+.steps-grid {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+  gap: 42px !important;
+}
+.steps-grid > div,
+.how-section .steps-grid > div {
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  text-align: left !important;
+}
+.steps-grid > div::before,
+.steps-grid > div::after { display: none !important; content: none !important; }
+.step-number { display: none !important; }
+.steps-grid strong { text-align: left !important; font-size: 14px !important; margin-bottom: 10px !important; color: var(--ago-brown-dark-2026) !important; }
+.steps-grid p { text-align: left !important; max-width: 270px !important; }
+
+/* -------- VISITE A AGÔ -------- */
+.visit-section { width: 100% !important; background: var(--ago-brown-2026) !important; }
+.visit-grid {
+  display: grid !important;
+  grid-template-columns: 1.1fr .9fr !important;
+  gap: 76px !important;
+  padding-top: 86px !important;
+  padding-bottom: 86px !important;
+  text-align: left !important;
+}
+.visit-grid > div { margin: 0 !important; text-align: left !important; }
+.visit-grid h2,
+.visit-grid .eyebrow,
+.visit-grid .visit-copy,
+.visit-grid .info-list,
+.visit-grid .visit-actions { text-align: left !important; }
+.visit-actions { justify-content: flex-start !important; margin-left: 0 !important; }
+.info-list { margin-left: 0 !important; }
+
+/* -------- CONTATO / ESSÊNCIA: CENTRALIZAR A PÁGINA, NÃO O TEXTO -------- */
+.contact-page,
+.info-page { width: 100% !important; background: var(--ago-paper-2026) !important; }
+.contact-page > div,
+.info-page > div {
+  width: min(1180px, calc(100% - 80px)) !important;
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+  text-align: left !important;
+}
+.contact-page > div > div,
+.info-page > div > div { justify-items: stretch !important; }
+.contact-page .max-w-xl,
+.info-page .max-w-xl,
+.contact-page .info-panel { margin-left: 0 !important; margin-right: 0 !important; }
+.contact-page .info-link {
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: left !important;
+}
+.contact-page .info-panel {
+  width: min(760px,100%) !important;
+  background: var(--ago-sand-2026) !important;
+  border-radius: 22px !important;
+  text-align: left !important;
+}
+
+/* -------- RODAPÉ: PROPORCIONAL, 3 COLUNAS BEM DISTRIBUÍDAS -------- */
+footer {
+  width: 100% !important;
+  background: var(--ago-brown-dark-2026) !important;
+  color: var(--ago-ivory-2026) !important;
+  text-align: left !important;
+}
+footer > div {
+  width: min(1280px, calc(100% - 80px)) !important;
+  max-width: 1280px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+footer > div > .flex.justify-center {
+  justify-content: flex-start !important;
+  margin-bottom: 44px !important;
+}
+footer .grid {
+  grid-template-columns: 1.35fr .8fr .85fr !important;
+  gap: 70px !important;
+  justify-items: stretch !important;
+}
+footer .grid > div {
+  width: 100% !important;
+  text-align: left !important;
+}
+footer h3 { font-family: 'Cormorant Garamond', Georgia, serif !important; font-size: 30px !important; }
+footer h4 { font-family: 'Cormorant Garamond', Georgia, serif !important; font-size: 17px !important; text-transform: none !important; letter-spacing: .03em !important; }
+footer p, footer a, footer li, footer span, footer div { font-family: 'DM Sans', Arial, sans-serif !important; }
+footer ul { padding-left: 0 !important; list-style: none !important; }
+footer .border-t { border-color: rgba(252,248,242,.13) !important; }
+
+/* -------- RESPONSIVO -------- */
+@media (max-width: 1100px) {
+  .ago-container,
+  .collection-showcase,
+  .collection-more-inner,
+  .editorial-grid,
+  .house-grid,
+  .how-grid,
+  .visit-grid { width: min(920px, calc(100% - 48px)) !important; }
+  .featured-products-grid,
+  .remaining-products-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+  .features-container { width: min(920px, calc(100% - 48px)) !important; grid-template-columns: repeat(2,minmax(0,1fr)) !important; row-gap: 42px !important; }
+  .feature-item:nth-child(2n) { border-left: 1px solid var(--ago-line-2026) !important; }
+  .feature-item:nth-child(odd) { padding-left: 0 !important; }
+  .editorial-grid,
+  .house-grid,
+  .visit-grid { grid-template-columns: 1fr !important; gap: 42px !important; }
+  .hero-content { width: min(920px, calc(100% - 48px)) !important; }
+  footer > div { width: min(920px, calc(100% - 48px)) !important; }
+  footer .grid { grid-template-columns: 1fr 1fr !important; gap: 44px !important; }
+}
+
+@media (max-width: 767px) {
+  .ago-container,
+  .collection-showcase,
+  .collection-more-inner,
+  .editorial-grid,
+  .house-grid,
+  .how-grid,
+  .visit-grid,
+  .features-container,
+  footer > div { width: calc(100% - 32px) !important; }
+  .collection-showcase { padding-top: 58px !important; padding-bottom: 56px !important; }
+  .collection-intro { margin-bottom: 34px !important; }
+  .featured-products-grid,
+  .remaining-products-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; column-gap: 14px !important; row-gap: 30px !important; }
+  .category-row { padding-left: 16px !important; padding-right: 16px !important; justify-content: center !important; }
+  .hero-content { width: calc(100% - 32px) !important; padding: 86px 0 76px !important; }
+  .features-container { grid-template-columns: 1fr 1fr !important; }
+  .feature-item { padding: 0 10px !important; }
+  .feature-item:nth-child(2n) { padding-right: 0 !important; }
+  .feature-title { font-size: 1.35rem !important; }
+  .steps-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .section-heading { align-items: flex-start !important; flex-direction: column !important; gap: 14px !important; }
+  footer .grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  footer > div > .flex.justify-center { justify-content: flex-start !important; }
+}
