@@ -34,7 +34,7 @@ export default function HomePage() {
         <div className="collection-intro">
           <p className="eyebrow mb-4">Peças em destaque</p>
           <h2 className="section-title">Trancoso em forma de cerâmica.</h2>
-          <p className="section-intro">Peças feitas à mão para levar para casa um pouco da luz, da areia e das memórias de Trancoso.</p>
+          <p className="section-intro">Peças feitas à mão para levar para casa a identidade, as formas e as memórias de Trancoso.</p>
           <Link href="/produtos" className="collection-link collection-link-large">Ver coleção <span>↗</span></Link>
         </div>
         <div className="featured-products-grid">
@@ -60,7 +60,7 @@ export default function HomePage() {
         <div className="relative z-10 w-full max-w-content mx-auto px-5 md:px-10">
           <p className="eyebrow mb-4">Agô Trancoso · cerâmica e memória</p>
           <h1>FEITO À MÃO.<br />FEITO PARA DURAR.</h1>
-          <p className="mt-5 text-base md:text-xl max-w-xl leading-relaxed">Cerâmicas e peças artesanais inspiradas no charme do litoral baiano e na arquitetura de Trancoso.</p>
+          <p className="mt-5 text-base md:text-xl max-w-xl leading-relaxed">Cerâmicas e peças artesanais inspiradas na arquitetura, nos detalhes e na atmosfera de Trancoso.</p>
           <div className="flex flex-wrap gap-3 mt-7">
             <Link href="#colecao" className="inline-flex items-center justify-center bg-areia text-marrom px-8 py-4 font-bold tracking-[.16em] uppercase">Ver produtos</Link>
             <Link href="/nossa-essencia" className="inline-flex items-center justify-center border border-areia/60 text-areia px-8 py-4 font-bold tracking-[.16em] uppercase">Conheça a Agô</Link>
@@ -88,8 +88,8 @@ export default function HomePage() {
           <div className="max-w-xl">
             <p className="eyebrow mb-4">A Agô</p>
             <h2 className="section-title editorial-title mb-7">O encanto de Trancoso</h2>
-            <p className="editorial-copy">Peças feitas à mão para levar para casa um pouco da atmosfera de Trancoso, entre a luz do litoral, a arquitetura e o barro.</p>
-            <p className="editorial-copy mt-4">Cada peça nasce de referências que fazem parte desse lugar e ganha forma como objeto para decorar, presentear e guardar.</p>
+            <p className="editorial-copy">Na Agô, transformamos referências de Trancoso em peças para a casa. A arquitetura do Quadrado, os símbolos, as formas e as cores que fazem parte desse lugar aparecem em cada criação.</p>
+            <p className="editorial-copy mt-4">Feitas à mão, nossas peças unem beleza, memória e presença para decorar, presentear e guardar.</p>
             <Link href="/nossa-essencia" className="editorial-link">Conheça a Agô <span>→</span></Link>
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function HomePage() {
           <div>
             <p className="eyebrow mb-4">Visite a Agô</p>
             <h2>Como chegar até a Agô</h2>
-            <p>Nossa banca fica no Quadrado de Trancoso, entre o casario branco, a luz do litoral e a vida da praça.</p>
+            <p>Nossa banca fica no Quadrado de Trancoso, entre o casario histórico, a igreja e a praça.</p>
             <div className="flex flex-wrap gap-3 mt-8">
               <a href={mapsUrl} target="_blank" rel="noreferrer" className="border border-areia/30 px-6 py-4 font-bold uppercase tracking-[.14em]">Abrir no Google Maps</a>
               <a href={whatsappUrl} target="_blank" rel="noreferrer" className="bg-terracota text-areia px-6 py-4 font-bold uppercase tracking-[.14em]">Falar no WhatsApp</a>
