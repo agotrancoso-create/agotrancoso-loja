@@ -1,0 +1,151 @@
+/* Ajuste final de composição — A AGÔ, contato e fotos de produto. */
+
+/* Produto: cantos arredondados pedidos pela marca, sem qualquer moldura. */
+.product-image-wrap,
+.product-image-wrap img,
+.product-image,
+.product-card .product-image-wrap {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: 18px !important;
+  background: transparent !important;
+}
+.product-image-wrap {
+  overflow: hidden !important;
+}
+
+/* A AGÔ — página própria: composição editorial mais forte no desktop. */
+.info-page > .max-w-content {
+  width: min(1240px, calc(100% - 80px)) !important;
+  margin-inline: auto !important;
+  padding-top: 92px !important;
+  padding-bottom: 110px !important;
+}
+.info-page > .max-w-content > .grid {
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr) !important;
+  gap: clamp(72px, 8vw, 120px) !important;
+  align-items: center !important;
+}
+.info-page .max-w-xl {
+  max-width: 560px !important;
+}
+.info-page h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: clamp(4rem, 5.8vw, 6.8rem) !important;
+  line-height: .88 !important;
+  letter-spacing: -.04em !important;
+  font-weight: 500 !important;
+  margin-bottom: 30px !important;
+}
+.info-page .eyebrow {
+  margin-bottom: 15px !important;
+}
+.info-page .text-marrom\/75 {
+  color: rgba(63,38,28,.72) !important;
+  font-size: 15px !important;
+  line-height: 1.85 !important;
+}
+.info-page .editorial-image {
+  min-height: 620px;
+  aspect-ratio: 1 / 1 !important;
+  background: #f1ebe2 !important;
+  border-radius: 22px !important;
+  overflow: hidden !important;
+}
+.info-page .editorial-image img {
+  border-radius: 22px !important;
+}
+
+/* Contato — desktop com duas áreas bem definidas e espaço respirado. */
+.contact-page > .max-w-content,
+.contact-page .max-w-content {
+  width: min(1180px, calc(100% - 80px)) !important;
+  margin-inline: auto !important;
+}
+.contact-page > .max-w-content {
+  padding-top: 88px !important;
+  padding-bottom: 104px !important;
+}
+.contact-page .contact-intro {
+  max-width: 760px !important;
+  margin-bottom: 64px !important;
+}
+.contact-page h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: clamp(4rem, 6vw, 7rem) !important;
+  line-height: .88 !important;
+  letter-spacing: -.04em !important;
+  font-weight: 500 !important;
+}
+.contact-page .contact-grid,
+.contact-page > .max-w-content > .grid {
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr) !important;
+  gap: 84px !important;
+  align-items: start !important;
+}
+.contact-page .contact-card,
+.contact-page .contact-grid > div:last-child {
+  background: #f1ebe2 !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+  box-shadow: none !important;
+  padding: 34px !important;
+}
+.contact-page .contact-grid > div:first-child {
+  padding-top: 5px !important;
+}
+.contact-page .contact-action {
+  min-height: 48px !important;
+  border-radius: 0 !important;
+}
+
+@media (max-width: 900px) {
+  .info-page > .max-w-content,
+  .contact-page > .max-w-content,
+  .contact-page .max-w-content {
+    width: calc(100% - 40px) !important;
+  }
+  .info-page > .max-w-content {
+    padding-top: 64px !important;
+    padding-bottom: 72px !important;
+  }
+  .info-page > .max-w-content > .grid,
+  .contact-page .contact-grid,
+  .contact-page > .max-w-content > .grid {
+    grid-template-columns: 1fr !important;
+    gap: 44px !important;
+  }
+  .info-page h1,
+  .contact-page h1 {
+    font-size: clamp(3.5rem, 12vw, 5rem) !important;
+  }
+  .info-page .editorial-image {
+    min-height: 0;
+    aspect-ratio: 4 / 3 !important;
+    border-radius: 18px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .product-image-wrap,
+  .product-image-wrap img,
+  .product-image,
+  .product-card .product-image-wrap {
+    border-radius: 14px !important;
+  }
+  .info-page > .max-w-content,
+  .contact-page > .max-w-content,
+  .contact-page .max-w-content {
+    width: calc(100% - 32px) !important;
+  }
+  .info-page h1,
+  .contact-page h1 {
+    font-size: clamp(3rem, 14vw, 4.5rem) !important;
+  }
+  .contact-page .contact-grid > div:last-child,
+  .contact-page .contact-card {
+    padding: 25px !important;
+    border-radius: 18px !important;
+  }
+}
