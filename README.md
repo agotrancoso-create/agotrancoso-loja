@@ -5,7 +5,7 @@ Loja virtual da Agô Trancoso com catálogo, sacola, checkout e integração pre
 ## Publicação no Vercel
 
 1. Envie este projeto ao Vercel.
-2. Use `ago-trancoos` como nome do projeto, se estiver disponível.
+2. Use `ago-trancoso` como nome do projeto, se estiver disponível.
 3. Configure `NEXT_PUBLIC_SITE_URL` com a URL pública do site.
 4. Configure as variáveis de frete somente quando houver uma API real contratada.
 
