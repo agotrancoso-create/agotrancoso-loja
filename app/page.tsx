@@ -4,8 +4,9 @@ import ProductCard from '@/components/ProductCard';
 import Benefits from '@/components/Benefits';
 import { getAvailableProducts, getProductById } from '@/lib/products';
 
-const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5894988,-39.0957282,21z';
+const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu&g_ep=EgoyMDI2MDkxMy4wIKXMDSoASAFQAw%3D%3D';
 const whatsappUrl = 'https://wa.me/557398558124?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ag%C3%B4%20Trancoso.';
+const instagramUrl = 'https://www.instagram.com/agotrancoso';
 
 const featuredOrder = [
   'igreja-quadrado-p',
@@ -87,7 +88,7 @@ export default function HomePage() {
           <div className="max-w-xl">
             <p className="eyebrow mb-4">A Agô</p>
             <h2 className="section-title editorial-title mb-7">O encanto de Trancoso</h2>
-            <p className="editorial-copy">Peças feitas à mão para levar para casa um pouco da atmosfera de Trancoso — entre a luz do litoral, a arquitetura e o barro.</p>
+            <p className="editorial-copy">Peças feitas à mão para levar para casa um pouco da atmosfera de Trancoso, entre a luz do litoral, a arquitetura e o barro.</p>
             <p className="editorial-copy mt-4">Cada peça nasce de referências que fazem parte desse lugar e ganha forma como objeto para decorar, presentear e guardar.</p>
             <Link href="/nossa-essencia" className="editorial-link">Conheça a Agô <span>→</span></Link>
           </div>
@@ -123,11 +124,19 @@ export default function HomePage() {
             <p className="eyebrow mb-4">Visite a Agô</p>
             <h2>Como chegar até a Agô</h2>
             <p>Nossa banca fica no Quadrado de Trancoso, entre o casario branco, a luz do litoral e a vida da praça.</p>
-            <div className="flex flex-wrap gap-3 mt-8"><a href={mapsUrl} target="_blank" rel="noreferrer" className="border border-areia/30 px-6 py-4 font-bold uppercase tracking-[.14em]">Abrir no Google Maps</a><a href={whatsappUrl} target="_blank" rel="noreferrer" className="bg-terracota text-areia px-6 py-4 font-bold uppercase tracking-[.14em]">Falar no WhatsApp</a></div>
+            <div className="flex flex-wrap gap-3 mt-8">
+              <a href={mapsUrl} target="_blank" rel="noreferrer" className="border border-areia/30 px-6 py-4 font-bold uppercase tracking-[.14em]">Abrir no Google Maps</a>
+              <a href={whatsappUrl} target="_blank" rel="noreferrer" className="bg-terracota text-areia px-6 py-4 font-bold uppercase tracking-[.14em]">Falar no WhatsApp</a>
+              <a href={instagramUrl} target="_blank" rel="noreferrer" className="border border-areia/30 px-6 py-4 font-bold uppercase tracking-[.14em]">Falar pelo Instagram</a>
+            </div>
           </div>
           <div>
             <p className="eyebrow mb-4">Informações úteis</p>
-            <div className="divide-y divide-areia/10"><div className="py-4"><strong>Banca</strong><span>Quadrado de Trancoso</span></div><div className="py-4"><strong>Atendimento</strong><span>WhatsApp e presencialmente no Quadrado</span></div><div className="py-4"><strong>Envios</strong><span>Frete fixo de R$ 39,90; grátis acima de R$ 500.</span></div></div>
+            <div className="divide-y divide-areia/10">
+              <div className="py-4"><strong>Banca</strong><span>Quadrado de Trancoso</span></div>
+              <div className="py-4"><strong>Atendimento</strong><span>WhatsApp, Instagram e presencialmente no Quadrado</span></div>
+              <div className="py-4"><strong>Envios</strong><span>Frete fixo de R$ 39,90; grátis acima de R$ 500.</span></div>
+            </div>
           </div>
         </div>
       </section>
