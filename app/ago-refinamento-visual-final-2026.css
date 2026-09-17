@@ -129,3 +129,21 @@ body { background:#fbfaf7; color:#2b1d17; }
 @media (min-width:1200px) { .featured-products-grid { gap:26px; } .product-name { font-size:22px; } }
 
 /* Trigger de verificação/deploy — manter esta camada como última referência visual. */
+/* Correção definitiva: o copyright ocupa toda a largura do rodapé e nunca fica preso à primeira coluna do grid. */
+.site-footer .footer-shell > .footer-copyright {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  justify-self: stretch !important;
+  align-self: stretch !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: center !important;
+}
+@media (max-width:767px) {
+  .site-footer .footer-shell > .footer-copyright {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    justify-self: stretch !important;
+    text-align: center !important;
+  }
+}
