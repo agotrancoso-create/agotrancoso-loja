@@ -1,6 +1,7 @@
 export const metadata = {
   title: 'Termos de Uso',
   description: 'Termos de uso do site Agô Trancoso.',
+  alternates: { canonical: '/termos' },
 };
 
 export default function TermsPage() {
