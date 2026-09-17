@@ -558,3 +558,435 @@ body{background:var(--ago-bg);color:var(--ago-ink);-webkit-font-smoothing:antial
   .house-image{order:-1}
   .site-footer .footer-shell{padding-left:16px;padding-right:16px}
 }
+
+
+/* Agô — alinhamento editorial, benefícios e responsividade final */
+.collection-intro,
+.collection-more .section-heading,
+.house-copy,
+.how-grid > div:first-child,
+.visit-grid > div{
+  text-align:left;
+}
+
+.section-intro,
+.editorial-copy,
+.hero-copy,
+.collection-after p,
+.how-section .steps-grid > div > p,
+.visit-copy,
+.info-list span,
+.benefits-reference .benefit-desc{
+  text-align:justify;
+  text-justify:inter-word;
+  hyphens:auto;
+}
+
+.collection-intro{
+  grid-template-columns:130px minmax(0,720px) 1fr;
+  column-gap:36px;
+  align-items:start;
+  margin-bottom:40px;
+}
+.collection-intro .eyebrow{
+  padding-top:8px;
+}
+.collection-intro .section-title,
+.collection-more .section-title,
+.house-copy .section-title,
+.how-section .section-title{
+  font-size:clamp(2.8rem,4.15vw,4.35rem);
+  line-height:.92;
+  letter-spacing:-.038em;
+  text-wrap:balance;
+}
+.collection-intro .section-intro{
+  margin-top:16px;
+  max-width:610px;
+  font-size:13px;
+  line-height:1.75;
+}
+.collection-link-large{
+  align-self:end;
+  margin:0 0 2px;
+}
+
+.featured-products-grid,
+.remaining-products-grid{
+  align-items:start;
+}
+.product-name{
+  max-width:100%;
+  text-wrap:balance;
+}
+.product-add{
+  border-top-color:rgba(32,23,19,.16);
+}
+
+.home-categories{
+  padding-bottom:32px;
+  align-items:flex-start;
+}
+.home-categories .category-pill{
+  padding-bottom:0;
+}
+.home-categories .category-pill.active::after{
+  display:none!important;
+}
+.home-categories .category-pill.active,
+.home-categories .category-pill:hover{
+  text-decoration:none!important;
+}
+
+.brasilidade-ribbon-inner{
+  justify-content:flex-start;
+  gap:56px;
+  padding-inline:30px;
+}
+
+.hero-section{
+  min-height:540px;
+}
+.hero-content{
+  max-width:1320px;
+  margin-inline:auto;
+}
+.hero-content h1{
+  max-width:700px;
+  font-size:clamp(3.8rem,5.5vw,5.9rem);
+  line-height:.85;
+}
+.hero-copy{
+  max-width:500px;
+}
+
+.benefits-reference{
+  padding:50px 30px 54px;
+  background:#f0ebe4;
+}
+.benefits-reference .benefits-container{
+  width:min(100%,1240px);
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  align-items:stretch;
+}
+.benefits-reference .benefit-card{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  min-height:176px;
+  padding:0 34px;
+  text-align:left;
+}
+.benefits-reference .benefit-card:not(:last-child)::after{
+  top:0;
+  height:100%;
+}
+.benefits-reference .benefit-icon{
+  display:flex!important;
+  width:42px;
+  height:42px;
+  margin:0 0 20px;
+  align-items:center;
+  justify-content:flex-start;
+  color:var(--ago-terra);
+}
+.benefits-reference .benefit-icon svg{
+  width:34px;
+  height:34px;
+  display:block;
+  stroke-width:1.5;
+}
+.benefits-reference .benefit-card::before{
+  display:none!important;
+}
+.benefits-reference .benefit-title{
+  margin:0;
+  max-width:210px;
+  font-size:1.35rem;
+  line-height:1.02;
+  letter-spacing:-.012em;
+  text-wrap:balance;
+}
+.benefits-reference .benefit-desc{
+  margin-top:10px;
+  max-width:235px;
+  font-size:10px;
+  line-height:1.7;
+}
+
+.collection-more{
+  padding-top:88px;
+  padding-bottom:96px;
+}
+.collection-more .section-heading{
+  align-items:end;
+  padding-bottom:0;
+  margin-bottom:36px;
+}
+.collection-more .section-heading .collection-link{
+  margin-bottom:4px;
+}
+
+.home-house{
+  padding-top:90px;
+  padding-bottom:90px;
+}
+.house-grid{
+  grid-template-columns:.9fr 1.1fr;
+  gap:72px;
+}
+.house-copy .section-title{
+  max-width:500px;
+}
+.house-copy .editorial-copy{
+  max-width:430px;
+}
+
+.how-section{
+  padding-top:84px;
+  padding-bottom:84px;
+}
+.how-grid{
+  grid-template-columns:.72fr 1.28fr;
+  gap:76px;
+}
+.how-section .steps-grid{
+  gap:28px;
+}
+.how-section .steps-grid > div > strong{
+  display:block;
+  font-family:'DM Sans',Arial,sans-serif;
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--ago-terra);
+}
+
+.visit-section{
+  padding-top:84px;
+  padding-bottom:84px;
+}
+.visit-grid{
+  gap:76px;
+}
+.visit-section-title{
+  max-width:560px;
+  font-size:clamp(2.9rem,4.2vw,4.5rem);
+}
+.visit-actions{
+  display:flex;
+  flex-wrap:wrap;
+}
+.visit-actions a{
+  justify-content:center;
+}
+
+@media (min-width:1200px){
+  .home-collection{
+    padding-top:68px;
+    padding-bottom:52px;
+  }
+  .featured-products-grid,
+  .remaining-products-grid{
+    column-gap:28px;
+  }
+}
+
+@media (max-width:1120px) and (min-width:901px){
+  .collection-intro{
+    grid-template-columns:105px minmax(0,1fr) auto;
+    gap:24px;
+  }
+  .benefits-reference .benefit-card{
+    padding-inline:22px;
+  }
+  .benefits-reference .benefit-title{
+    font-size:1.2rem;
+  }
+  .benefits-reference .benefit-desc{
+    max-width:200px;
+  }
+  .house-grid,
+  .how-grid,
+  .visit-grid{
+    gap:48px;
+  }
+  .brasiliadade-ribbon-inner{}
+}
+
+@media (max-width:900px){
+  .home-collection{
+    padding:52px 16px 40px;
+  }
+  .home-collection-grid{
+    width:100%;
+  }
+  .collection-intro{
+    display:block;
+    margin-bottom:28px;
+  }
+  .collection-intro .section-title,
+  .collection-more .section-title,
+  .house-copy .section-title,
+  .how-section .section-title,
+  .visit-section-title{
+    font-size:clamp(2.35rem,9.5vw,3.25rem);
+    line-height:.96;
+    letter-spacing:-.03em;
+  }
+  .collection-intro .section-intro{
+    max-width:none;
+    margin-top:14px;
+    font-size:12.5px;
+    line-height:1.72;
+  }
+  .collection-link-large{
+    margin-top:18px;
+  }
+  .featured-products-grid,
+  .remaining-products-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:30px 14px;
+  }
+  .product-name{
+    font-size:18px;
+  }
+  .product-add{
+    margin-top:11px;
+  }
+  .home-categories{
+    width:100%;
+    padding:0 16px 30px;
+    gap:22px;
+  }
+  .home-categories .category-pill{
+    font-size:7.5px;
+    letter-spacing:.14em;
+  }
+  .brasilidade-ribbon-inner{
+    min-height:38px;
+    gap:28px;
+    padding-inline:16px;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+  .hero-section{
+    min-height:520px;
+  }
+  .hero-content{
+    width:100%;
+    padding:76px 16px 52px!important;
+  }
+  .hero-content h1{
+    max-width:100%;
+    font-size:clamp(3rem,12vw,4.5rem);
+    line-height:.88;
+  }
+  .hero-copy{
+    font-size:12.5px;
+    line-height:1.7;
+  }
+  .benefits-reference{
+    padding:42px 16px 46px;
+  }
+  .benefits-reference .benefits-container{
+    grid-template-columns:1fr;
+    gap:0;
+  }
+  .benefits-reference .benefit-card{
+    min-height:0;
+    padding:26px 6px;
+    border-bottom:1px solid rgba(63,38,28,.12);
+  }
+  .benefits-reference .benefit-card:last-child{
+    border-bottom:0;
+  }
+  .benefits-reference .benefit-card:not(:last-child)::after{
+    display:none;
+  }
+  .benefits-reference .benefit-icon{
+    margin-bottom:14px;
+  }
+  .benefits-reference .benefit-title{
+    font-size:1.32rem;
+  }
+  .benefits-reference .benefit-desc{
+    max-width:100%;
+    font-size:10px;
+    line-height:1.72;
+  }
+  .collection-more{
+    padding-top:64px;
+    padding-bottom:72px;
+  }
+  .collection-more .section-heading{
+    display:block;
+    margin-bottom:30px;
+  }
+  .collection-more .collection-link{
+    display:inline-flex;
+    margin-top:18px;
+  }
+  .house-grid,
+  .how-grid,
+  .visit-grid{
+    grid-template-columns:1fr;
+    gap:34px;
+  }
+  .house-copy{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .house-copy .editorial-copy{
+    max-width:100%;
+  }
+  .how-section{
+    padding-top:68px;
+    padding-bottom:68px;
+  }
+  .how-section .steps-grid{
+    gap:0;
+  }
+  .how-section .steps-grid>div{
+    padding:18px 0 20px;
+    border-top:1px solid var(--ago-rule);
+  }
+  .how-section .steps-grid>div:last-child{
+    border-bottom:1px solid var(--ago-rule);
+  }
+  .visit-section{
+    padding-top:68px;
+    padding-bottom:68px;
+  }
+  .visit-copy{
+    max-width:none;
+  }
+  .info-list>div{
+    padding:16px 0;
+  }
+}
+
+@media (max-width:430px){
+  .featured-products-grid,
+  .remaining-products-grid{
+    gap:26px 11px;
+  }
+  .product-name{
+    font-size:17px;
+  }
+  .current-price,.product-price{
+    font-size:10.5px;
+  }
+  .product-add{
+    font-size:7px;
+    letter-spacing:.11em;
+  }
+  .hero-content h1{
+    font-size:clamp(2.75rem,12.5vw,4rem);
+  }
+  .benefits-reference .benefit-card{
+    padding-inline:2px;
+  }
+}
