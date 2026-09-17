@@ -1,0 +1,394 @@
+/* AGÔ TRANCOSO — BRASILIDADE 2026
+   Direção inspirada em referências de varejo brasileiro contemporâneo:
+   cores vivas, espaços amplos, descoberta por categorias e narrativa visual.
+   Não altera catálogo, preços ou checkout.
+*/
+
+:root{
+  --br-creme:#FBF5EC;
+  --br-papel:#FFFDF8;
+  --br-azul:#1E5068;
+  --br-azul-claro:#DCEBF0;
+  --br-sol:#E5A51D;
+  --br-sol-claro:#F7E8BE;
+  --br-barro:#A64024;
+  --br-tijolo:#C85D2C;
+  --br-barro-claro:#EED4C8;
+  --br-cacau:#39221C;
+  --br-cacau-2:#5A3024;
+  --br-linha:rgba(57,34,28,.11);
+}
+
+body{
+  background:var(--br-creme)!important;
+  color:var(--br-cacau)!important;
+}
+
+/* Faixa superior: simples, utilitária e com mais personalidade */
+.ago-topbar{
+  min-height:38px!important;
+  padding:8px 18px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:13px!important;
+  background:var(--br-azul)!important;
+  color:#fff!important;
+  font-size:11px!important;
+  line-height:1.2!important;
+  letter-spacing:.075em!important;
+  text-transform:uppercase!important;
+  font-weight:700!important;
+}
+.ago-topbar i{
+  width:4px!important;
+  height:4px!important;
+  flex:none!important;
+  border-radius:50%!important;
+  background:var(--br-sol)!important;
+}
+
+/* Header mais próximo de uma marca brasileira de varejo: leve, muito branco e funcional */
+.site-header{
+  background:rgba(255,253,248,.97)!important;
+  box-shadow:0 1px 0 rgba(57,34,28,.08)!important;
+}
+.header-inner{
+  min-height:86px!important;
+}
+.header-link{
+  color:var(--br-cacau)!important;
+  font-size:11px!important;
+  letter-spacing:.055em!important;
+}
+.header-link:first-child{
+  color:var(--br-barro)!important;
+}
+.header-link:first-child::after{
+  background:var(--br-barro)!important;
+}
+.header-link:hover{color:var(--br-tijolo)!important}
+.header-search{
+  background:#F4EEE6!important;
+  border:0!important;
+  border-radius:999px!important;
+  min-height:42px!important;
+  padding:10px 15px!important;
+}
+.header-search:focus{
+  background:#fff!important;
+  box-shadow:0 0 0 2px rgba(30,80,104,.16)!important;
+}
+.header-icon{color:var(--br-cacau)!important}
+
+/* Coleção vem antes da hero, mantendo a decisão comercial já definida */
+.home-collection{
+  width:100%!important;
+  max-width:none!important;
+  background:var(--br-papel)!important;
+  padding:72px 28px 64px!important;
+}
+.home-collection-grid{
+  width:100%!important;
+  max-width:1280px!important;
+  margin:0 auto!important;
+}
+.collection-intro{
+  position:relative!important;
+  padding:6px 0 34px!important;
+  max-width:830px!important;
+}
+.collection-intro::after{
+  content:''!important;
+  position:absolute!important;
+  width:86px!important;
+  height:8px!important;
+  left:0!important;
+  bottom:10px!important;
+  border-radius:99px!important;
+  background:linear-gradient(90deg,var(--br-barro) 0 34%,var(--br-sol) 34% 67%,var(--br-azul) 67% 100%)!important;
+}
+.collection-intro .section-title{
+  max-width:780px!important;
+  color:var(--br-cacau)!important;
+  font-size:clamp(42px,4.7vw,68px)!important;
+  line-height:.94!important;
+}
+.collection-intro .section-intro{
+  color:rgba(57,34,28,.70)!important;
+  font-size:16px!important;
+  line-height:1.7!important;
+  max-width:650px!important;
+}
+.collection-link{
+  color:var(--br-barro)!important;
+  font-size:11px!important;
+  letter-spacing:.10em!important;
+}
+.collection-link:hover{color:var(--br-azul)!important}
+
+/* Catálogo com energia cromática, sem bordas e sem aparência de template antigo */
+.featured-products-grid,.remaining-products-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:26px 20px!important;
+}
+.product-card{
+  background:transparent!important;
+  text-align:left!important;
+}
+.product-image-wrap{
+  border:0!important;
+  border-radius:18px!important;
+  box-shadow:none!important;
+  background:var(--br-barro-claro)!important;
+}
+.featured-products-grid .product-card:nth-child(4n+1) .product-image-wrap,
+.remaining-products-grid .product-card:nth-child(4n+1) .product-image-wrap{background:var(--br-barro-claro)!important}
+.featured-products-grid .product-card:nth-child(4n+2) .product-image-wrap,
+.remaining-products-grid .product-card:nth-child(4n+2) .product-image-wrap{background:var(--br-azul-claro)!important}
+.featured-products-grid .product-card:nth-child(4n+3) .product-image-wrap,
+.remaining-products-grid .product-card:nth-child(4n+3) .product-image-wrap{background:var(--br-sol-claro)!important}
+.featured-products-grid .product-card:nth-child(4n+4) .product-image-wrap,
+.remaining-products-grid .product-card:nth-child(4n+4) .product-image-wrap{background:#F2DFD4!important}
+.product-image-wrap .product-image{padding:12px!important}
+.product-card:hover .product-image-wrap{transform:translateY(-2px)!important}
+.product-card:hover .product-image-wrap .product-image{transform:scale(1.03)!important}
+.product-name{
+  margin-top:14px!important;
+  text-align:left!important;
+  color:var(--br-cacau)!important;
+  font-size:17px!important;
+  line-height:1.25!important;
+  font-weight:700!important;
+}
+.price-row{justify-content:flex-start!important}
+.current-price{color:var(--br-barro)!important;font-size:20px!important;font-weight:800!important}
+.product-add{
+  width:auto!important;
+  min-width:165px!important;
+  min-height:46px!important;
+  margin:13px 0 0!important;
+  padding:10px 18px!important;
+  border:0!important;
+  border-radius:999px!important;
+  background:var(--br-cacau)!important;
+  color:#fff!important;
+  font-size:12px!important;
+  letter-spacing:.02em!important;
+  text-transform:none!important;
+}
+.product-add:hover{background:var(--br-barro)!important}
+.collection-after{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:24px!important;
+  margin-top:44px!important;
+  padding-top:0!important;
+  border:0!important;
+}
+.collection-after p{
+  margin:0!important;
+  color:var(--br-azul)!important;
+  font-size:14px!important;
+  font-weight:700!important;
+}
+
+/* Categorias em formato de descoberta, sem linha separadora */
+.home-categories{
+  width:100%!important;
+  max-width:none!important;
+  padding:20px 28px 24px!important;
+  background:var(--br-papel)!important;
+  gap:9px!important;
+  border:0!important;
+}
+.home-categories .category-pill{
+  min-height:43px!important;
+  padding:10px 18px!important;
+  border:0!important;
+  background:#EFE8DF!important;
+  color:var(--br-cacau)!important;
+  font-size:12px!important;
+  letter-spacing:.01em!important;
+  text-transform:none!important;
+  font-weight:700!important;
+}
+.home-categories .category-pill:nth-child(2){background:var(--br-azul-claro)!important;color:var(--br-azul)!important}
+.home-categories .category-pill:nth-child(3){background:var(--br-sol-claro)!important}
+.home-categories .category-pill:nth-child(4){background:var(--br-barro-claro)!important}
+.home-categories .category-pill:nth-child(5){background:#E5DED7!important}
+.home-categories .category-pill:nth-child(6){background:#EFE4D0!important}
+.home-categories .category-pill.active{background:var(--br-barro)!important;color:#fff!important}
+.home-categories .category-pill:hover{transform:translateY(-1px)!important}
+
+/* Faixa de identidade: pequena, forte e brasileira */
+.brasilidade-ribbon{
+  width:100%!important;
+  background:var(--br-sol)!important;
+  color:var(--br-cacau)!important;
+  overflow:hidden!important;
+}
+.brasilidade-ribbon-inner{
+  min-height:58px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:22px!important;
+  white-space:nowrap!important;
+  font-family:'DM Sans',Arial,sans-serif!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  letter-spacing:.11em!important;
+  text-transform:uppercase!important;
+}
+.brasilidade-ribbon-inner b{font-size:16px!important;font-weight:900!important}
+
+/* Hero mais viva: fotografia + cor, sem perder a sofisticação */
+.hero-section{
+  min-height:620px!important;
+  background:var(--br-cacau)!important;
+}
+.hero-image{
+  filter:saturate(1.04) contrast(.98)!important;
+}
+.hero-overlay{
+  background:
+    linear-gradient(90deg,rgba(45,26,20,.86) 0%,rgba(45,26,20,.55) 43%,rgba(45,26,20,.08) 82%),
+    linear-gradient(0deg,rgba(45,26,20,.55),rgba(45,26,20,.02) 68%)!important;
+}
+.hero-content{padding-bottom:68px!important}
+.hero-content .eyebrow{color:#fff!important;opacity:.86!important}
+.hero-section h1{
+  max-width:850px!important;
+  color:#fff!important;
+  font-size:clamp(50px,6.4vw,94px)!important;
+  line-height:.88!important;
+  letter-spacing:-.035em!important;
+}
+.hero-copy{
+  max-width:700px!important;
+  color:rgba(255,255,255,.92)!important;
+  font-size:18px!important;
+  line-height:1.58!important;
+}
+.hero-primary{
+  background:var(--br-sol)!important;
+  color:var(--br-cacau)!important;
+  border:0!important;
+  min-height:52px!important;
+  padding:0 24px!important;
+}
+.hero-primary:hover{background:#F2B52A!important}
+.hero-secondary{
+  min-height:52px!important;
+  padding:0 24px!important;
+  border:1px solid rgba(255,255,255,.6)!important;
+  border-radius:999px!important;
+  color:#fff!important;
+  background:rgba(255,255,255,.05)!important;
+}
+.hero-brazil-shape{position:absolute!important;z-index:1!important;pointer-events:none!important}
+.hero-brazil-shape-one{right:7%;top:12%;width:170px;height:170px;border-radius:50%;background:rgba(229,165,29,.23)!important}
+.hero-brazil-shape-two{right:4%;top:31%;width:80px;height:320px;border-radius:60px;background:rgba(30,80,104,.27)!important;transform:rotate(-16deg)!important}
+
+/* Benefícios: mesma estrutura, com um toque cromático */
+.benefits-strip{
+  background:var(--br-papel)!important;
+  border:0!important;
+  padding:66px 28px!important;
+}
+.feature-item{background:transparent!important;border:0!important;border-radius:0!important}
+.feature-item:nth-child(1) .feature-icon{color:var(--br-barro)!important}
+.feature-item:nth-child(2) .feature-icon{color:var(--br-azul)!important}
+.feature-item:nth-child(3) .feature-icon{color:var(--br-sol)!important}
+.feature-item:nth-child(4) .feature-icon{color:var(--br-tijolo)!important}
+.feature-icon svg{stroke:currentColor!important}
+.feature-title{color:var(--br-cacau)!important}
+.feature-description{color:rgba(57,34,28,.66)!important}
+
+/* Mais desejados */
+.collection-more{background:#F5EDE4!important;padding-top:76px!important;padding-bottom:76px!important}
+.collection-more .section-heading{border:0!important;padding-bottom:24px!important;margin-bottom:8px!important}
+.collection-more .section-heading .section-title{color:var(--br-cacau)!important}
+
+/* Editorial */
+.editorial-section{background:var(--br-azul)!important;color:#fff!important}
+.editorial-section .section-title,.editorial-section .eyebrow{color:#fff!important}
+.editorial-copy{color:rgba(255,255,255,.82)!important}
+.editorial-link{color:var(--br-sol)!important}
+.editorial-image{background:#D5E5E9!important}
+
+/* Da Bahia para sua casa */
+.home-house{background:var(--br-sol-claro)!important}
+.home-house .section-title{color:var(--br-cacau)!important}
+.home-house .editorial-copy{color:rgba(57,34,28,.76)!important}
+.house-image{background:var(--br-papel)!important}
+.house-image img{object-fit:contain!important;object-position:center!important}
+.dark-button{background:var(--br-cacau)!important;color:#fff!important;border:0!important;padding:0 22px!important}
+.dark-button:hover{background:var(--br-barro)!important}
+
+/* Como comprar */
+.how-section{background:var(--br-papel)!important}
+.how-section .steps-grid > div{background:transparent!important;border:0!important}
+.how-section strong{color:var(--br-barro)!important;font-size:18px!important}
+.how-section p{color:rgba(57,34,28,.70)!important}
+
+/* Visite: azul profundo que conversa com o mar sem usar verde */
+.visit-section{background:var(--br-azul)!important}
+.visit-section h2,.visit-section .eyebrow{color:#fff!important}
+.visit-section .visit-copy,.visit-section span{color:rgba(255,255,255,.80)!important}
+.visit-actions a{background:var(--br-sol)!important;color:var(--br-cacau)!important;border:0!important}
+.visit-actions a:hover{background:#F2B52A!important}
+
+/* Rodapé mantém conteúdo e ganha acabamento brasileiro */
+footer{background:var(--br-cacau)!important}
+footer a:hover{color:var(--br-sol)!important}
+
+/* Nunca alterar preços por estilo */
+.current-price,.old-price{font-variant-numeric:tabular-nums}
+
+@media(max-width:1100px){
+  .featured-products-grid,.remaining-products-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .header-nav-desktop{gap:18px!important}
+  .header-link{font-size:10px!important}
+}
+
+@media(max-width:800px){
+  .ago-topbar{font-size:10px!important;gap:9px!important}
+  .ago-topbar span:nth-of-type(3),.ago-topbar i:nth-of-type(2){display:none!important}
+  .home-collection{padding:54px 16px 48px!important}
+  .featured-products-grid,.remaining-products-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:24px 12px!important}
+  .product-name{font-size:15px!important}
+  .current-price{font-size:18px!important}
+  .product-add{width:100%!important;min-width:0!important}
+  .collection-after{align-items:flex-start!important;flex-direction:column!important;gap:13px!important;margin-top:30px!important}
+  .home-categories{justify-content:flex-start!important;overflow-x:auto!important;flex-wrap:nowrap!important;padding-left:16px!important;padding-right:16px!important}
+  .home-categories .category-pill{flex:0 0 auto!important}
+  .brasilidade-ribbon-inner{justify-content:flex-start!important;overflow:hidden!important;gap:15px!important;font-size:10px!important;min-height:50px!important;padding:0 16px!important}
+  .hero-section{min-height:580px!important}
+  .hero-content{padding-bottom:46px!important}
+  .hero-section h1{font-size:clamp(44px,13vw,68px)!important}
+  .hero-copy{font-size:16px!important;max-width:600px!important}
+  .hero-actions{display:flex!important;flex-wrap:wrap!important;gap:10px!important}
+  .hero-primary,.hero-secondary{min-height:50px!important}
+  .hero-brazil-shape-one{right:-26px!important;top:16%!important;width:130px!important;height:130px!important}
+  .hero-brazil-shape-two{right:-8px!important;top:34%!important;width:60px!important;height:230px!important}
+  .benefits-strip{padding:48px 16px!important}
+}
+
+@media(max-width:600px){
+  .header-inner{min-height:72px!important}
+  .header-logo img{width:48px!important;height:48px!important}
+  .collection-intro .section-title{font-size:clamp(38px,11vw,52px)!important}
+  .collection-intro .section-intro{font-size:15px!important}
+  .featured-products-grid,.remaining-products-grid{gap:22px 10px!important}
+  .product-image-wrap{border-radius:14px!important}
+  .product-image-wrap .product-image{padding:8px!important}
+  .product-add{font-size:11px!important}
+  .hero-section{min-height:540px!important}
+  .hero-secondary{background:rgba(255,255,255,.08)!important}
+  .visit-actions{align-items:stretch!important}
+  .visit-actions a{width:100%!important}
+}
