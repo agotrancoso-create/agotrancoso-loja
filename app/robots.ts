@@ -7,3 +7,5 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: `${SITE_DOMAIN}/sitemap.xml`,
   };
 }
+
+// Deploy marker: SEO e experiencia comercial refinados em 2026-09-17.
