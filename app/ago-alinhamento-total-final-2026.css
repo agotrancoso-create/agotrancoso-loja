@@ -1,70 +1,60 @@
-/* AGÔ — ALINHAMENTO TOTAL FINAL 2026
-   Última camada de responsividade e composição.
-   Objetivo: mesma identidade e alinhamento real em desktop, tablet e celular.
+/* AGÔ — DIREÇÃO VISUAL FINAL 2026
+   Camada final de composição e responsividade.
+   Objetivo: uma interface editorial, brasileira, premium e coerente.
 */
 
 :root{--ago-content:1280px;--ago-gutter:clamp(20px,4vw,64px)}
-
 *,*::before,*::after{box-sizing:border-box}
 html,body{width:100%;overflow-x:hidden}
 body{margin:0}
-
 .ago-home{width:100%;overflow:clip}
-.ago-home .ago-container,
-.ago-home .home-collection-grid,
-.ago-home .features-container,
-.site-header .header-inner,
-.site-footer .footer-shell,
-.site-footer .footer-inner{
-  width:min(var(--ago-content),calc(100% - (var(--ago-gutter) * 2)))!important;
-  max-width:var(--ago-content)!important;
-  margin-left:auto!important;
-  margin-right:auto!important;
-}
+.ago-home .ago-container,.ago-home .home-collection-grid,.ago-home .features-container,.site-header .header-inner,.site-footer .footer-shell,.site-footer .footer-inner{width:min(var(--ago-content),calc(100% - (var(--ago-gutter) * 2)))!important;max-width:var(--ago-content)!important;margin-left:auto!important;margin-right:auto!important}
 
-/* Alinhamento global de blocos: títulos e textos seguem a mesma coluna visual. */
+/* Grade editorial consistente */
 .collection-intro,.section-heading,.editorial-grid,.house-grid,.how-grid,.visit-grid{align-items:start!important}
 .collection-intro,.section-heading{margin-left:0!important;margin-right:0!important}
 .section-intro,.editorial-copy,.visit-copy,.house-copy,.steps-grid p,.info-list span{max-width:68ch}
-
-/* Visite: primeiro o título "Visite a Agô", abaixo dele "Como chegar até a Agô". */
-.visit-section .visit-grid>div:first-child{display:flex!important;flex-direction:column!important;align-items:flex-start!important}
-.visit-section .visit-grid>div:first-child .eyebrow{order:0!important;margin-bottom:8px!important}
-.visit-section .visit-grid>div:first-child h2{order:1!important;margin:0!important}
-.visit-section .visit-section-title{order:1!important;margin:0 0 12px!important;font-family:'Cormorant Garamond',Georgia,serif!important;font-size:clamp(1.8rem,3vw,3rem)!important;line-height:.98!important;color:#FFF9F1!important}
-.visit-section .visit-copy{order:2!important}
-.visit-section .visit-actions{order:3!important}
-
-/* Mantém composição ampla e previsível. */
-.collection-more-inner,.how-grid,.visit-grid,.house-grid,.editorial-grid{width:100%!important}
-.visit-grid{grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr)!important;gap:clamp(40px,7vw,110px)!important}
-.editorial-grid,.house-grid{gap:clamp(36px,7vw,100px)!important}
-
-/* Não permitir que textos sejam esticados ou esmagados pelos grids. */
 .hero-content,.collection-intro,.editorial-copy-column,.house-copy,.visit-grid>div{min-width:0!important}
-.hero-content h1{max-width:900px!important}
+.collection-more-inner,.how-grid,.visit-grid,.house-grid,.editorial-grid{width:100%!important}
 
-/* Botões sempre com caixa previsível e texto centralizado. */
+/* Visite: um único título e, abaixo, Como chegar */
+.visit-section .visit-grid>div:first-child{display:flex!important;flex-direction:column!important;align-items:flex-start!important}
+.visit-section .visit-grid>div:first-child .eyebrow{margin-bottom:10px!important}
+.visit-section .visit-grid>div:first-child h2{margin:0 0 8px!important}
+.visit-section .visit-section-title{margin:0 0 16px!important;font-family:'Cormorant Garamond',Georgia,serif!important;font-size:clamp(1.9rem,3vw,3.05rem)!important;line-height:.98!important;color:#FFF9F1!important}
+.visit-section .visit-copy{margin-top:0!important}
+
+/* Composição ampla */
+.visit-grid{grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr)!important;gap:clamp(48px,7vw,110px)!important}
+.editorial-grid,.house-grid{gap:clamp(40px,7vw,96px)!important}
+
+/* Botões */
 .hero-actions,.visit-actions{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:12px!important}
 .hero-primary,.hero-secondary,.visit-actions a,.dark-button,.collection-link{white-space:normal!important}
 
-/* Catálogo: mesma geometria em todos os devices. */
+/* Produtos: geometria uniforme */
 .featured-products-grid,.remaining-products-grid{width:100%!important;align-items:start!important}
 .product-card{display:flex!important;flex-direction:column!important;min-width:0!important}
 .product-name{min-height:2.2em!important}
 .product-image-wrap{width:100%!important;max-width:none!important}
-.product-add{margin-top:auto!important}
+.product-add{margin-top:auto!important;display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important}
 
-/* Primeiro impacto: benefícios com estrutura realmente uniforme. */
-.features-container{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;align-items:stretch!important}
-.feature-item{min-width:0!important;justify-content:flex-start!important}
+/* BENEFÍCIOS — quatro módulos rigorosamente iguais */
+.features-container{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;align-items:stretch!important;gap:0!important}
+.feature-item{min-width:0!important;height:100%!important;min-height:188px!important;display:grid!important;grid-template-rows:58px 42px minmax(42px,auto)!important;align-content:start!important;justify-items:center!important;text-align:center!important;padding:4px 28px 0!important;margin:0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important}
 .feature-item>div{width:100%!important}
+.feature-item:not(:last-child)::after{display:none!important}
+.feature-icon{width:58px!important;height:58px!important;margin:0 auto!important;display:flex!important;align-items:center!important;justify-content:center!important}
+.feature-icon svg{width:48px!important;height:48px!important;display:block!important;stroke:var(--ago-earth)!important;fill:none!important;stroke-width:1.55!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+.feature-title{width:100%!important;min-height:42px!important;margin:0!important;display:flex!important;align-items:center!important;justify-content:center!important;font-size:24px!important;line-height:.95!important}
+.feature-description{width:100%!important;max-width:225px!important;min-height:42px!important;margin:0!important;display:flex!important;align-items:flex-start!important;justify-content:center!important;font-size:11.5px!important;line-height:1.55!important;color:var(--ago-muted)!important}
 
 /* Tablet */
 @media (max-width:1100px){
   :root{--ago-gutter:32px}
   .featured-products-grid,.remaining-products-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
-  .features-container{grid-template-columns:repeat(2,minmax(0,1fr))!important;row-gap:44px!important}
+  .features-container{grid-template-columns:repeat(2,minmax(0,1fr))!important;column-gap:20px!important;row-gap:44px!important}
+  .feature-item{min-height:180px!important}
   .visit-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:48px!important}
   .hero-section{min-height:580px!important}
 }
@@ -72,20 +62,13 @@ body{margin:0}
 @media (max-width:760px){
   :root{--ago-gutter:18px}
   body{font-size:15px!important;line-height:1.55!important}
-  .ago-home .ago-container,
-  .ago-home .home-collection-grid,
-  .ago-home .features-container,
-  .site-header .header-inner,
-  .site-footer .footer-shell,
-  .site-footer .footer-inner{width:calc(100% - 36px)!important}
+  .ago-home .ago-container,.ago-home .home-collection-grid,.ago-home .features-container,.site-header .header-inner,.site-footer .footer-shell,.site-footer .footer-inner{width:calc(100% - 36px)!important}
 
-  /* Uma única coluna de leitura para todas as seções editoriais. */
   .collection-intro,.section-heading,.editorial-grid,.house-grid,.how-grid,.visit-grid{width:100%!important}
   .collection-intro{padding-top:0!important}
   .section-title{font-size:clamp(2.2rem,11vw,3.3rem)!important;line-height:.94!important}
   .section-intro,.editorial-copy,.visit-copy,.steps-grid p,.info-list span{font-size:14px!important;line-height:1.65!important}
 
-  /* Catálogo compacto, mas sem esmagar tipografia. */
   .featured-products-grid,.remaining-products-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:26px 12px!important}
   .product-name{font-size:17px!important;min-height:2.25em!important;line-height:1.06!important}
   .current-price{font-size:18px!important}
@@ -102,15 +85,17 @@ body{margin:0}
   .hero-actions{display:grid!important;grid-template-columns:1fr!important;width:min(100%,340px)!important}
   .hero-primary,.hero-secondary{width:100%!important;min-height:50px!important}
 
-  .features-container{grid-template-columns:1fr 1fr!important;gap:34px 10px!important}
-  .feature-item{padding:0 7px!important}
-  .feature-title{font-size:21px!important}
-  .feature-description{font-size:10.5px!important}
+  /* Benefícios: mesma largura, mesma altura e mesma posição interna */
+  .features-container{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:32px 12px!important}
+  .feature-item{min-height:172px!important;height:172px!important;grid-template-rows:54px 42px 60px!important;padding:0 5px!important}
+  .feature-icon{width:54px!important;height:54px!important}
+  .feature-icon svg{width:44px!important;height:44px!important}
+  .feature-title{font-size:20px!important;line-height:.98!important}
+  .feature-description{font-size:10.5px!important;line-height:1.52!important;min-height:60px!important}
 
   .editorial-grid,.house-grid,.how-grid,.visit-grid{grid-template-columns:1fr!important;display:grid!important;gap:34px!important}
   .editorial-image,.house-image{width:100%!important}
   .editorial-copy-column,.house-copy{width:100%!important;max-width:none!important}
-
   .how-grid .steps-grid{grid-template-columns:1fr!important;gap:22px!important}
   .visit-grid{gap:40px!important}
   .visit-section .visit-grid>div:first-child h2{font-size:clamp(2.8rem,14vw,4.6rem)!important;line-height:.88!important}
@@ -120,7 +105,6 @@ body{margin:0}
 
   .collection-more .section-heading{display:flex!important;flex-direction:column!important;gap:16px!important}
   .collection-more .section-heading .collection-link{align-self:flex-start!important}
-
   .site-footer .footer-inner,.site-footer .footer-shell{display:block!important}
 }
 
@@ -129,7 +113,8 @@ body{margin:0}
   .product-name{font-size:16px!important}
   .product-add{font-size:10.5px!important;padding-inline:5px!important}
   .features-container{gap:28px 6px!important}
-  .feature-item{padding-inline:2px!important}
+  .feature-item{padding-inline:2px!important;height:168px!important;min-height:168px!important}
+  .feature-title{font-size:18.5px!important}
 }
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
