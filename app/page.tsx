@@ -24,15 +24,15 @@ export default function HomePage() {
       <section id="colecao" className="collection-showcase home-collection">
         <div className="home-collection-grid">
           <div className="collection-intro">
-            <p className="eyebrow">Brasil em forma de barro</p>
-            <h2 className="section-title">Trancoso na memória. Brasil dentro de casa.</h2>
-            <p className="section-intro">Peças feitas à mão que levam a Bahia, a cerâmica e a beleza dos detalhes para perto de você.</p>
+            <p className="eyebrow">Feito à mão, com história</p>
+            <h2 className="section-title">Peças que levam o jeito da Bahia para dentro de casa.</h2>
+            <p className="section-intro">Cerâmicas e objetos inspirados nas formas, na arquitetura, na fé e nas memórias que fazem parte de Trancoso.</p>
             <Link href="/produtos" className="collection-link collection-link-large">Ver coleção <span>↗</span></Link>
           </div>
           <div className="featured-products-grid">
             {firstProducts.map((product, index) => <ProductCard key={product.id} product={product} priority={index < 4} />)}
           </div>
-          <div className="collection-after"><p>Da banca no Quadrado para casas de todo o Brasil.</p><Link href="/produtos" className="collection-link">Conheça todas as peças <span>↗</span></Link></div>
+          <div className="collection-after"><p>Peças feitas para atravessar o tempo e continuar contando histórias.</p><Link href="/produtos" className="collection-link">Ver todas as peças <span>↗</span></Link></div>
         </div>
       </section>
 
@@ -59,7 +59,7 @@ export default function HomePage() {
         <div className="relative z-10 w-full ago-container hero-content">
           <p className="eyebrow mb-4 text-areia">Bahia · Trancoso · feito à mão</p>
           <h1>FEITO À MÃO.<br />FEITO PARA DURAR.</h1>
-          <p className="hero-copy">Cerâmicas, decoração e peças artesanais inspiradas na arquitetura, nas formas e no jeito brasileiro de viver.</p>
+          <p className="hero-copy">Cerâmicas, objetos e peças artesanais inspirados no que a gente vê, vive e guarda da Bahia.</p>
           <div className="hero-actions"><Link href="#colecao" className="hero-primary">Ver produtos</Link><Link href="/nossa-essencia" className="hero-secondary">Conheça a Agô</Link></div>
         </div>
       </section>
@@ -67,27 +67,27 @@ export default function HomePage() {
       <Benefits />
 
       {remainingProducts.length > 0 && <section className="collection-more"><div className="ago-container collection-more-inner">
-        <div className="section-heading"><div><p className="eyebrow">Mais desejados</p><h2 className="section-title">Peças para decorar, presentear e guardar.</h2></div><Link href="/produtos" className="collection-link">Conheça todas as peças <span>↗</span></Link></div>
+        <div className="section-heading"><div><p className="eyebrow">Mais da coleção</p><h2 className="section-title">Para decorar, presentear ou guardar por muitos anos.</h2></div><Link href="/produtos" className="collection-link">Ver coleção completa <span>↗</span></Link></div>
         <div className="remaining-products-grid">{remainingProducts.map((product) => <ProductCard key={product.id} product={product} />)}</div>
       </div></section>}
 
       <section className="editorial-section"><div className="ago-container editorial-grid">
         <div className="editorial-image"><img src="/nossa-essencia.jpg" alt="Cerâmica da Agô Trancoso" loading="lazy" /></div>
         <div className="editorial-copy-column"><p className="eyebrow">Nossa essência</p><h2 className="section-title">O Brasil mora nos detalhes.</h2>
-          <p className="editorial-copy">A Agô nasce em Trancoso e transforma referências da Bahia em objetos para decorar, presentear e guardar.</p>
-          <p className="editorial-copy">Barro, cor, arquitetura, fé e memória se encontram em peças que levam um pedaço desse lugar para dentro de casa.</p>
+          <p className="editorial-copy">A Agô nasce da vivência em Trancoso e transforma referências da Bahia em objetos para decorar, presentear e guardar.</p>
+          <p className="editorial-copy">Barro, cor, arquitetura, fé e memória aparecem nas formas e nos detalhes de cada peça.</p>
           <Link href="/nossa-essencia" className="editorial-link">Conheça a Agô →</Link>
         </div>
       </div></section>
 
       <section className="home-house"><div className="ago-container house-grid">
-        <div className="house-copy"><p className="eyebrow">Da Bahia para sua casa</p><h2 className="section-title">Um pouco do Quadrado para viver todos os dias.</h2><p className="editorial-copy">Objetos artesanais para criar ambientes com calor, memória e personalidade.</p><Link href="/produtos" className="dark-button">Escolher uma peça</Link></div>
+        <div className="house-copy"><p className="eyebrow">Da Bahia para sua casa</p><h2 className="section-title">Um pouco do Quadrado para fazer parte da sua história.</h2><p className="editorial-copy">Objetos artesanais para trazer calor, memória e personalidade para os espaços onde você vive.</p><Link href="/produtos" className="dark-button">Escolher uma peça</Link></div>
         <div className="editorial-image house-image"><img src="/complementar.jpg" alt="Duas igrejas em cerâmica da Agô Trancoso" loading="lazy" /></div>
       </div></section>
 
       <section className="how-section"><div className="ago-container how-grid">
-        <div><p className="eyebrow">Como comprar</p><h2 className="section-title">Escolha sua peça,<br />com calma.</h2></div>
-        <div className="steps-grid"><div><strong>Escolha</strong><p>Conheça a coleção e escolha a peça que deseja.</p></div><div><strong>Carrinho</strong><p>Adicione ao carrinho e informe seus dados de entrega.</p></div><div><strong>Pagamento</strong><p>Confira o pedido e siga para o pagamento seguro.</p></div></div>
+        <div><p className="eyebrow">Como comprar</p><h2 className="section-title">Escolha o que faz sentido para você.</h2></div>
+        <div className="steps-grid"><div><strong>Escolha</strong><p>Conheça a coleção, veja os detalhes e encontre a peça que procura.</p></div><div><strong>Seu pedido</strong><p>Adicione ao carrinho e informe os dados para receber em casa.</p></div><div><strong>Pagamento</strong><p>Confira tudo com atenção e finalize pelo pagamento seguro.</p></div></div>
       </div></section>
 
       <section className="visit-section text-areia">
@@ -95,7 +95,7 @@ export default function HomePage() {
           <div>
             <p className="eyebrow">Visite a Agô</p>
             <h3 className="visit-section-title">Como chegar<br className="visit-title-break" /> até a Agô</h3>
-            <p className="visit-copy">Nossa banca fica no Quadrado de Trancoso. Para localização e atendimento, fale conosco pelo WhatsApp.</p>
+            <p className="visit-copy">Nossa banca fica no Quadrado de Trancoso. Para localizar a Agô ou conversar sobre uma peça, fale com a gente pelo WhatsApp ou Instagram.</p>
             <div className="visit-actions"><a href={mapsUrl} target="_blank" rel="noreferrer">Abrir no Google Maps</a><a href={whatsappUrl} target="_blank" rel="noreferrer">Falar no WhatsApp</a><a href={instagramUrl} target="_blank" rel="noreferrer">Falar pelo Instagram</a></div>
           </div>
           <div><p className="eyebrow">Informações úteis</p><div className="info-list"><div><strong>Banca</strong><span>Quadrado de Trancoso</span></div><div><strong>Atendimento</strong><span>WhatsApp, Instagram e presencialmente no Quadrado</span></div><div><strong>Envios</strong><span>Frete fixo de R$ 39,90; grátis acima de R$ 500.</span></div></div></div>
