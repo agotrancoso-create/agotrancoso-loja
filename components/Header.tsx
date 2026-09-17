@@ -3,14 +3,22 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import CartIcon from './CartIcon';
+
+const navItems = [
+  { href: '/', label: 'Início' },
+  { href: '/produtos', label: 'Coleção' },
+  { href: '/nossa-essencia', label: 'Agô' },
+  { href: '/contato', label: 'Contato' },
+];
 
 export default function Header() {
   const [query, setQuery] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   const { totalItems, openDrawer } = useCart();
 
   function handleSearch(e: React.FormEvent) {
@@ -18,6 +26,8 @@ export default function Header() {
     router.push(query.trim() ? `/produtos?busca=${encodeURIComponent(query.trim())}` : '/produtos');
     setMenuOpen(false);
   }
+
+  const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
 
   return (
     <>
@@ -37,10 +47,16 @@ export default function Header() {
           </Link>
 
           <nav className="header-nav header-nav-desktop" aria-label="Navegação principal">
-            <Link href="/" className="header-link">Início</Link>
-            <Link href="/produtos" className="header-link">Coleção</Link>
-            <Link href="/nossa-essencia" className="header-link">Agô</Link>
-            <Link href="/contato" className="header-link">Contato</Link>
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`header-link${isActive(item.href) ? ' is-active' : ''}`}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </Link>
+            ))}
           </nav>
 
           <div className="header-actions">
@@ -71,10 +87,17 @@ export default function Header() {
             <form onSubmit={handleSearch}>
               <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Buscar peça..." aria-label="Buscar peça" />
             </form>
-            <Link href="/" onClick={() => setMenuOpen(false)}>Início</Link>
-            <Link href="/produtos" onClick={() => setMenuOpen(false)}>Coleção</Link>
-            <Link href="/nossa-essencia" onClick={() => setMenuOpen(false)}>Agô</Link>
-            <Link href="/contato" onClick={() => setMenuOpen(false)}>Contato</Link>
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                className={isActive(item.href) ? 'is-active' : undefined}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
         )}
       </header>
