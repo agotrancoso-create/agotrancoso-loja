@@ -1,0 +1,72 @@
+/* AGÔ TRANCOSO — PROMPT MESTRE VISUAL FINAL 2026
+   Camada final: brasilidade contemporânea + acessibilidade + consistência.
+   Não altera catálogo, preços, checkout ou gateway.
+*/
+
+:root{
+  --ago-br-creme:#FBF5EC;
+  --ago-br-papel:#FFFDF8;
+  --ago-br-barro:#A64024;
+  --ago-br-tijolo:#C85D2C;
+  --ago-br-cacau:#39221C;
+  --ago-br-azul:#1E5068;
+  --ago-br-sol:#E5A51D;
+  --ago-br-azul-claro:#DCEBF0;
+  --ago-br-areia:#F7E8BE;
+}
+
+html{background:var(--ago-br-creme)!important}
+body{background:var(--ago-br-creme)!important;color:var(--ago-br-cacau)!important}
+
+/* Direção: site amplo, editorial e brasileiro. */
+.site-header,.home-collection,.home-categories,.benefits-strip{width:100%!important}
+.home-collection-grid,.section-inner,.visit-inner,.footer-inner{width:min(1280px,calc(100% - 56px))!important;margin-inline:auto!important}
+
+/* Categorias: descoberta moderna, sem aparência de filtro antigo. */
+.home-categories{border:0!important;box-shadow:none!important}
+.home-categories .category-pill{border:0!important;box-shadow:none!important;border-radius:999px!important}
+
+/* Produto: fotografia protagonista, sem moldura/halo. */
+.product-card,.product-image-wrap{border:0!important;outline:0!important;box-shadow:none!important}
+.product-image-wrap{overflow:hidden!important;border-radius:18px!important}
+.product-image-wrap .product-image{display:block!important;width:100%!important;height:auto!important;object-fit:contain!important}
+.product-add{display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;border:0!important}
+
+/* Brasilidade: cor forte sem cair em verde/oliva/ocre/caqui. */
+.hero-primary,.visit-actions a{background:var(--ago-br-sol)!important;color:var(--ago-br-cacau)!important}
+.product-add,.dark-button{background:var(--ago-br-cacau)!important;color:#fff!important}
+.current-price{color:var(--ago-br-barro)!important}
+
+/* Como comprar: limpo, sem 01/02/03 e sem linhas decorativas. */
+.how-section .steps-grid>div{border:0!important;box-shadow:none!important;background:transparent!important}
+
+/* Quatro benefícios com estrutura visual idêntica. */
+.benefits-strip .feature-item{border:0!important;box-shadow:none!important;border-radius:0!important;background:transparent!important}
+
+/* Visite: composição ampla em duas colunas. */
+.visit-section .visit-grid,.visit-section .visit-content{width:100%!important}
+@media(min-width:901px){
+  .visit-section .visit-grid{display:grid!important;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)!important;gap:clamp(48px,6vw,88px)!important;align-items:center!important}
+}
+
+/* Copyright: somente texto, sem caixa própria. */
+.footer-copyright{background:transparent!important;border:0!important;box-shadow:none!important;outline:0!important;text-align:center!important}
+
+/* Legibilidade e toque. */
+button,a{touch-action:manipulation}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--ago-br-sol)!important;outline-offset:3px!important}
+
+/* Não permitir paletas verdes/oliva introduzidas por camadas antigas. */
+[class*="green"],[class*="green"] *,[class*="verde"],[class*="verde"] *,[class*="olive"],[class*="olive"] *,[class*="oliva"],[class*="oliva"] *,[class*="emerald"],[class*="emerald"] *,[class*="lime"],[class*="lime"] *{--tw-text-opacity:1!important}
+
+@media(max-width:900px){
+  .home-collection-grid,.section-inner,.visit-inner,.footer-inner{width:min(100% - 32px,720px)!important}
+  .product-image-wrap{border-radius:14px!important}
+}
+
+@media(max-width:600px){
+  .home-collection-grid,.section-inner,.visit-inner,.footer-inner{width:calc(100% - 32px)!important}
+  .product-add{min-height:48px!important}
+}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
