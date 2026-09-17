@@ -20,7 +20,6 @@ import './ago-ajuste-final-sessoes.css';
 import './ago-paleta-coesa-final.css';
 import './ago-direcao-final.css';
 import './ago-sem-verde-final.css';
-import './ago-prompt-mestre-final-2026.css';
 import './ago-direcao-artesanal-2026.css';
 import './ago-redesign-2026.css';
 import './ago-centralizado-terra-final.css';
