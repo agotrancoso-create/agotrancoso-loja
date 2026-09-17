@@ -57,9 +57,9 @@ export default function HomePage() {
         <div className="hero-brazil-shape hero-brazil-shape-one" aria-hidden="true" />
         <div className="hero-brazil-shape hero-brazil-shape-two" aria-hidden="true" />
         <div className="relative z-10 w-full ago-container hero-content">
-          <p className="eyebrow mb-4 text-areia">Bahia · Trancoso · feito à mão</p>
+          <p className="eyebrow mb-4 text-areia">Feitas à mão.</p>
           <h1>FEITO À MÃO.<br />FEITO PARA DURAR.</h1>
-          <p className="hero-copy">Cerâmicas e objetos inspirados na Bahia, nas formas de Trancoso e no jeito brasileiro de viver.</p>
+          <p className="hero-copy">Peças para levar a Bahia para dentro de casa.<br />Um jeito brasileiro de morar.</p>
           <div className="hero-actions"><Link href="#colecao" className="hero-primary">Ver coleção</Link><Link href="/nossa-essencia" className="hero-secondary">Conheça a Agô</Link></div>
         </div>
       </section>
@@ -78,7 +78,7 @@ export default function HomePage() {
 
       <section className="how-section"><div className="ago-container how-grid">
         <div><p className="eyebrow">Como comprar</p><h2 className="section-title">Escolha o que faz sentido para você.</h2></div>
-        <div className="steps-grid"><div><strong>Escolha</strong><p>Conheça a coleção, veja os detalhes e encontre a peça que procura.</p></div><div><strong>Seu pedido</strong><p>Adicione ao carrinho e informe os dados para receber em casa.</p></div><div><strong>Pagamento</strong><p>Confira tudo com atenção e finalize pelo pagamento seguro.</p></div></div>
+        <div className="steps-grid"><div><strong>01 Escolha</strong><p>Conheça a coleção, veja os detalhes e encontre a peça que procura.</p></div><div><strong>02 Seu pedido</strong><p>Adicione ao carrinho e informe os dados para receber em casa.</p></div><div><strong>03 Pagamento</strong><p>Confira tudo com atenção e finalize pelo pagamento seguro.</p></div></div>
       </div></section>
 
       <section className="visit-section text-areia">
