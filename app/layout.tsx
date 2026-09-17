@@ -61,6 +61,7 @@ import './ago-direcao-designer-final-2026.css';
 import './ago-brasilidade-2026.css';
 import './ago-prompt-mestre-final-2026.css';
 import './ago-experiencia-total-2026.css';
+import './ago-oferta-checkout-legal-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
