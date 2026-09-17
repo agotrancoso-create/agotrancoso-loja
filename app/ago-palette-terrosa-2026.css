@@ -1,0 +1,188 @@
+/* AGÔ TRANCOSO — PALETA TERROSA DA REFERÊNCIA 2026 */
+/* Substitui o ocre/caqui por terras quentes, ferrugem, castanho e creme. */
+
+:root{
+  --ago-ref-cream:#F6F1EB !important;
+  --ago-ref-paper:#EFE4DB !important;
+  --ago-ref-light:#D9C3B4 !important;
+  --ago-ref-caramel:#AC7449 !important;
+  --ago-ref-terra:#9C5D36 !important;
+  --ago-ref-clay:#874B31 !important;
+  --ago-ref-brown:#775243 !important;
+  --ago-ref-mauve:#6A433C !important;
+  --ago-ref-deep:#4A2C24 !important;
+  --ago-ref-ink:#38251F !important;
+}
+
+/* BASE — elimina o aspecto oliva/caqui do fundo geral. */
+html,body,main,
+.ago-home,
+.catalog-page,
+.info-page,
+.contact-page,
+.product-page,
+.checkout-page{
+  background:var(--ago-ref-cream) !important;
+  color:var(--ago-ref-ink) !important;
+}
+
+/* CLASSES LEGADAS DE COR: nenhum fundo verde, oliva ou caqui. */
+.bg-areia{background:var(--ago-ref-cream) !important;color:var(--ago-ref-ink) !important}
+.bg-marrom{background:var(--ago-ref-deep) !important;color:var(--ago-ref-cream) !important}
+.bg-terracota{background:var(--ago-ref-terra) !important;color:var(--ago-ref-cream) !important}
+.bg-oliva,.bg-oliva2,.bg-green,.bg-emerald,.bg-olive,.bg-verde{
+  background:var(--ago-ref-terra) !important;
+  color:var(--ago-ref-cream) !important;
+}
+.text-oliva,.text-oliva2,.text-green,.text-emerald,.text-olive,.text-verde{
+  color:var(--ago-ref-brown) !important;
+}
+
+/* SEÇÕES — usar somente terras da referência, sem aparência amarelada. */
+.collection-showcase{background:#F2E8E0 !important}
+.category-row{background:#D9C3B4 !important;color:var(--ago-ref-deep) !important}
+.hero-section{background:var(--ago-ref-deep) !important}
+.benefits-strip{background:#EFE4DB !important}
+.collection-more{background:#E8D9CE !important}
+.editorial-section{background:#D0B09E !important}
+.home-house{background:#E9DCD3 !important}
+.how-section{background:#DDC8BA !important}
+.visit-section{background:var(--ago-ref-brown) !important}
+footer{background:var(--ago-ref-deep) !important}
+
+/* TOPO E NAVEGAÇÃO */
+.site-header{background:rgba(246,241,235,.97) !important;color:var(--ago-ref-deep) !important;box-shadow:none !important;border:0 !important}
+.header-link,.header-icon,.header-search,.site-header button{color:var(--ago-ref-deep) !important}
+.header-link:first-child{color:var(--ago-ref-terra) !important}
+
+/* TIPOGRAFIA — volta à combinação premium definida para a marca. */
+html,body,* ,*::before,*::after{font-family:'DM Sans',Arial,sans-serif !important}
+h1,h2,h3,h4,h5,h6,
+.section-title,.hero-content h1,.product-name,.feature-title,
+.editorial-section h2,.home-house h2,.how-section h2,.visit-section h2,
+.checkout-page-text h1,.checkout-page-text h2,.checkout-summary h2,
+footer h3,footer h4{
+  font-family:'Cormorant Garamond',Georgia,serif !important;
+  font-weight:500 !important;
+  letter-spacing:-.025em !important;
+}
+
+/* TEXTOS */
+body,p,li,label,input,select,textarea,button,a,span,strong,small{
+  font-family:'DM Sans',Arial,sans-serif !important;
+}
+.eyebrow{font-family:'DM Sans',Arial,sans-serif !important;color:rgba(74,44,36,.62) !important}
+.section-intro,.editorial-copy{color:rgba(56,37,31,.72) !important}
+
+/* CATEGORIAS */
+.category-pill{
+  border:0 !important;
+  background:rgba(246,241,235,.66) !important;
+  color:var(--ago-ref-deep) !important;
+  box-shadow:none !important;
+}
+.category-pill.active,.category-pill:hover{
+  background:var(--ago-ref-deep) !important;
+  color:var(--ago-ref-cream) !important;
+  border:0 !important;
+}
+
+/* PRODUTOS — imagem creme e CTA em marrom/ferrugem. */
+.product-image-wrap{
+  background:#E7D9CF !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+.product-image,.product-image img{
+  border:0 !important;
+  box-shadow:none !important;
+}
+.product-name{color:var(--ago-ref-deep) !important}
+.current-price{color:var(--ago-ref-terra) !important}
+.old-price{color:rgba(56,37,31,.48) !important}
+.product-add{
+  background:var(--ago-ref-deep) !important;
+  color:var(--ago-ref-cream) !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+.product-add:hover{background:var(--ago-ref-clay) !important}
+.product-view{background:var(--ago-ref-cream) !important;color:var(--ago-ref-deep) !important}
+.product-badge{background:var(--ago-ref-deep) !important;color:var(--ago-ref-cream) !important}
+
+/* BOTÕES GERAIS */
+.dark-button,
+.hero-primary,
+.visit-actions a,
+.checkout-page-text form button,
+.checkout-summary button{
+  background:var(--ago-ref-deep) !important;
+  color:var(--ago-ref-cream) !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+.hero-primary:hover,.dark-button:hover,
+.checkout-page-text form button:hover,
+.checkout-summary button:hover{background:var(--ago-ref-clay) !important}
+.hero-secondary{border-color:rgba(246,241,235,.55) !important;color:var(--ago-ref-cream) !important}
+
+/* DIFERENCIAIS */
+.feature-icon,.feature-icon svg,.feature-title{color:var(--ago-ref-terra) !important;stroke:var(--ago-ref-terra) !important}
+.feature-description{color:rgba(56,37,31,.68) !important}
+
+/* EDITORIAIS */
+.editorial-link{color:var(--ago-ref-terra) !important}
+.visit-section h2,.visit-section strong{color:var(--ago-ref-cream) !important}
+.visit-copy,.visit-section span{color:rgba(246,241,235,.78) !important}
+
+/* CHECKOUT — fundo claro quente, não caqui. */
+.checkout-page-text{background:transparent !important;color:var(--ago-ref-ink) !important}
+.checkout-page-text h1,.checkout-page-text h2,.checkout-summary h2{color:var(--ago-ref-deep) !important}
+.checkout-input,.checkout-page-text input{
+  background:#FFFDF9 !important;
+  color:var(--ago-ref-deep) !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+.checkout-input:focus,.checkout-page-text input:focus{box-shadow:0 0 0 3px rgba(156,93,54,.13) !important}
+.checkout-shipping-note{background:#E8D9CE !important;color:var(--ago-ref-deep) !important;border:0 !important}
+.checkout-page-text aside,.checkout-summary{background:#E7D9CF !important;border:0 !important;box-shadow:none !important}
+.checkout-product-image{background:#FFFDF9 !important;border:0 !important}
+.checkout-product-name{color:var(--ago-ref-deep) !important}
+.checkout-product-price{color:rgba(56,37,31,.58) !important}
+
+/* CONTATO + A AGÔ — sem o fundo caqui atual. */
+.contact-page,.info-page{background:#F2E8E0 !important}
+.info-link{color:var(--ago-ref-deep) !important;border-color:transparent !important;background:rgba(232,217,206,.58) !important}
+.info-panel{background:#D8C1B2 !important;border:0 !important;box-shadow:none !important}
+.contact-page h1,.info-page h1,.contact-page h2,.info-page h2{color:var(--ago-ref-deep) !important}
+.contact-page p,.info-page p{color:rgba(56,37,31,.72) !important}
+
+/* RODAPÉ */
+footer,footer *{border-color:transparent !important;box-shadow:none !important}
+footer h3,footer h4{color:var(--ago-ref-cream) !important}
+footer p,footer a,footer li{color:rgba(246,241,235,.82) !important}
+footer > div:last-child{border-top:0 !important;color:rgba(246,241,235,.5) !important}
+
+/* NENHUMA LINHA OU MOLDURA DECORATIVA */
+.collection-showcase,.category-row,.hero-section,.benefits-strip,.collection-more,
+.editorial-section,.home-house,.how-section,.visit-section,footer,
+.product-card,.product-image-wrap,.editorial-image,
+.checkout-page-text,.checkout-page-text aside,.checkout-summary,
+.contact-page,.info-page{
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+}
+
+@media(max-width:767px){
+  html,body,main{background:var(--ago-ref-cream) !important}
+  .collection-showcase{background:#F2E8E0 !important}
+  .category-row{background:#D9C3B4 !important}
+  .collection-more{background:#E8D9CE !important}
+  .editorial-section{background:#D0B09E !important}
+  .home-house{background:#E9DCD3 !important}
+  .how-section{background:#DDC8BA !important}
+  .visit-section{background:var(--ago-ref-brown) !important}
+  footer{background:var(--ago-ref-deep) !important}
+}
