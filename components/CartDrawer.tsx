@@ -22,35 +22,44 @@ export default function CartDrawer() {
 
   return (
     <>
-      {isDrawerOpen && <div className="fixed inset-0 bg-marrom/40 z-50 backdrop-blur-[1px]" onClick={closeDrawer} aria-hidden="true" />}
-      <aside className={`cart-drawer fixed top-0 right-0 h-full w-full sm:w-[420px] bg-areia z-50 shadow-2xl transform transition-transform duration-300 flex flex-col ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`} aria-hidden={!isDrawerOpen}>
-        <div className="flex items-center justify-between px-6 py-5 border-b border-oliva/15">
-          <div className="flex items-center gap-2 text-marrom"><CartIcon size={20} /><h2 className="font-serif text-lg">Seu carrinho</h2></div>
-          <button onClick={closeDrawer} aria-label="Fechar carrinho" className="text-marrom hover:text-terracota"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg></button>
+      {isDrawerOpen && <div className="cart-backdrop fixed inset-0 z-50" onClick={closeDrawer} aria-hidden="true" />}
+      <aside className={`cart-drawer fixed top-0 right-0 h-full w-full sm:w-[460px] z-50 transform transition-transform duration-300 flex flex-col ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`} aria-hidden={!isDrawerOpen}>
+        <div className="cart-header">
+          <div className="cart-header-title"><CartIcon size={22} /><h2>Seu carrinho</h2></div>
+          <button onClick={closeDrawer} aria-label="Fechar carrinho" className="cart-close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg></button>
         </div>
-        <div className="flex-1 overflow-y-auto px-6 py-4">
+        <div className="cart-body">
           {lines.length === 0 ? (
-            <div className="text-center mt-14"><p className="font-serif text-lg text-marrom mb-2">Seu carrinho está vazio.</p><p className="font-sans text-sm text-oliva mb-6">Explore nossa coleção e encontre uma peça para levar um pouco de Trancoso para sua casa.</p><Link href="/produtos" onClick={closeDrawer} className="inline-block border border-marrom/30 hover:border-terracota hover:text-terracota transition-colors text-marrom font-sans text-xs tracking-widest uppercase px-6 py-3">Ver coleção</Link></div>
+            <div className="cart-empty"><p>Seu carrinho está vazio.</p><span>Explore a coleção e encontre uma peça para levar um pouco de Trancoso para sua casa.</span><Link href="/produtos" onClick={closeDrawer}>Ver coleção</Link></div>
           ) : (
-            <ul className="space-y-5">{lines.map(({ item, product }) => (
-              <li key={item.productId} className="flex gap-4">
-                <div className="cart-product-image relative w-20 h-20 flex-shrink-0 bg-[#FCFBF8] rounded-[12px] overflow-hidden"><Image src={product.images?.[0] || '/images/placeholder.svg'} alt={product.name} fill sizes="80px" className="object-contain" /></div>
-                <div className="flex-1"><h4 className="font-serif text-sm text-marrom">{product.name}</h4><p className="font-sans text-xs text-oliva mt-0.5">{formatBRL(getEffectivePrice(product))} / un.</p>
-                  <div className="flex items-center gap-3 mt-2"><button onClick={() => updateQuantity(item.productId, item.quantity - 1)} aria-label="Diminuir quantidade" className="w-7 h-7 border border-oliva/30 text-marrom flex items-center justify-center text-sm hover:border-terracota hover:text-terracota">−</button><span className="font-sans text-sm text-marrom w-4 text-center">{item.quantity}</span><button onClick={() => updateQuantity(item.productId, item.quantity + 1)} aria-label="Aumentar quantidade" className="w-7 h-7 border border-oliva/30 text-marrom flex items-center justify-center text-sm hover:border-terracota hover:text-terracota">+</button><button onClick={() => removeItem(item.productId)} aria-label="Remover item" className="ml-auto text-xs text-oliva hover:text-terracota underline">remover</button></div>
-                </div>
-                <div className="font-sans text-sm text-marrom self-start">{formatBRL(getEffectivePrice(product) * item.quantity)}</div>
-              </li>
-            ))}</ul>
+            <ul className="cart-items">
+              {lines.map(({ item, product }) => (
+                <li key={item.productId} className="cart-item">
+                  <div className="cart-product-image"><Image src={product.images?.[0] || '/images/placeholder.svg'} alt={product.name} fill sizes="82px" className="object-contain" /></div>
+                  <div className="cart-item-info">
+                    <h4>{product.name}</h4>
+                    <p>{formatBRL(getEffectivePrice(product))} / un.</p>
+                    <div className="cart-item-controls">
+                      <button type="button" onClick={() => updateQuantity(item.productId, item.quantity - 1)} aria-label="Diminuir quantidade">−</button>
+                      <span>{item.quantity}</span>
+                      <button type="button" onClick={() => updateQuantity(item.productId, item.quantity + 1)} aria-label="Aumentar quantidade">+</button>
+                      <button type="button" onClick={() => removeItem(item.productId)} aria-label="Remover item" className="cart-remove">Remover</button>
+                    </div>
+                  </div>
+                  <div className="cart-item-total">{formatBRL(getEffectivePrice(product) * item.quantity)}</div>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
         {lines.length > 0 && (
-          <div className="border-t border-oliva/15 px-6 py-5 space-y-2">
-            {!freeShipping ? <p className="text-xs text-oliva leading-5">Faltam <strong className="text-marrom">{formatBRL(remaining)}</strong> para o frete grátis.</p> : <p className="text-xs text-terracota leading-5">Você ganhou frete grátis neste pedido.</p>}
-            <div className="flex justify-between font-sans text-sm text-marrom/80"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
-            <div className="flex justify-between font-sans text-sm text-marrom/80"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
-            <div className="flex justify-between font-serif text-xl text-marrom pt-2 pb-4"><span>Total</span><span className="cart-total">{formatBRL(total)}</span></div>
-            <Link href="/checkout" onClick={closeDrawer} className="block w-full text-center bg-terracota hover:bg-marrom transition-colors text-areia font-sans text-xs tracking-widest uppercase py-3">Finalizar compra</Link>
-            <button onClick={closeDrawer} className="block w-full text-center border border-marrom/20 hover:border-terracota hover:text-terracota transition-colors text-marrom font-sans text-xs tracking-widest uppercase py-3 mt-2">Continuar comprando</button>
+          <div className="cart-summary">
+            {!freeShipping ? <p className="cart-shipping-message">Faltam <strong>{formatBRL(remaining)}</strong> para o frete grátis.</p> : <p className="cart-shipping-message is-free">Você ganhou frete grátis neste pedido.</p>}
+            <div className="cart-summary-row"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
+            <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
+            <div className="cart-total-row"><span>Total</span><strong>{formatBRL(total)}</strong></div>
+            <Link href="/checkout" onClick={closeDrawer} className="cart-checkout">Finalizar compra</Link>
+            <button onClick={closeDrawer} className="cart-continue">Continuar comprando</button>
           </div>
         )}
       </aside>
