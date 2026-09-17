@@ -51,6 +51,7 @@ import './ago-salvador-sertao-final.css';
 import './ago-alinhamento-textual-final-2026.css';
 import './ago-force-alinhamento-visual-2026.css';
 import './ago-catalogo-editorial-final-2026.css';
+import './ago-identidade-bahia-final-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
