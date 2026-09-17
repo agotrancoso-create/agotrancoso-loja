@@ -24,9 +24,9 @@ export default function HomePage() {
       <section id="colecao" className="collection-showcase home-collection">
         <div className="home-collection-grid">
           <div className="collection-intro">
-            <p className="eyebrow">Escolha a sua</p>
-            <h2 className="section-title">Tem peça que muda a casa.</h2>
-            <p className="section-intro">Cerâmicas e objetos com formas, texturas e símbolos que trazem personalidade para a casa sem pedir licença.</p>
+            <p className="eyebrow">A coleção</p>
+            <h2 className="section-title">Peças para levar a Bahia para dentro de casa.</h2>
+            <p className="section-intro">Cerâmicas e objetos inspirados nas formas, na arquitetura, na fé e nas memórias que fazem parte da nossa paisagem brasileira.</p>
             <Link href="/produtos" className="collection-link collection-link-large">Ver coleção</Link>
           </div>
 
@@ -94,9 +94,9 @@ export default function HomePage() {
       <section className="home-house">
         <div className="ago-container house-grid">
           <div className="house-copy">
-            <p className="eyebrow">Da Bahia para sua casa</p>
-            <h2 className="section-title">Um pedaço de paisagem dentro de casa.</h2>
-            <p className="editorial-copy">Objetos com presença, cor e memória para conviver com a casa — não apenas decorar.</p>
+            <p className="eyebrow">A casa</p>
+            <h2 className="section-title">Da Bahia para sua casa.</h2>
+            <p className="editorial-copy">Objetos com presença, feitos à mão e pensados para viver junto com você.</p>
             <Link href="/produtos" className="dark-button">Escolher uma peça</Link>
           </div>
           <div className="editorial-image house-image">
@@ -112,9 +112,9 @@ export default function HomePage() {
             <h2 className="section-title">Gostou? O próximo passo é simples.</h2>
           </div>
           <div className="steps-grid">
-            <div><strong>Escolha</strong><p>Veja as peças, os detalhes e encontre aquela que fez você parar para olhar.</p></div>
-            <div><strong>Seu pedido</strong><p>Adicione ao carrinho e informe os dados para receber tudo em casa.</p></div>
-            <div><strong>Pagamento</strong><p>Confira o pedido e finalize pelo pagamento seguro.</p></div>
+            <div><strong>Escolha</strong><p>Conheça a coleção, veja os detalhes e encontre a peça que procura.</p></div>
+            <div><strong>Seu pedido</strong><p>Adicione ao carrinho e informe os dados para receber em casa.</p></div>
+            <div><strong>Pagamento</strong><p>Confira tudo com atenção e finalize pelo pagamento seguro.</p></div>
           </div>
         </div>
       </section>
