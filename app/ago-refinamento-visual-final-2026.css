@@ -11,58 +11,78 @@
   color: var(--ago-castanho);
 }
 
-/* Direção cromática: sertão sofisticado, sem ocre/caqui */
 body {
   background: #fbfaf7;
   color: #2b1d17;
 }
 
-.ago-home .eyebrow { color: var(--ago-terra); }
-.visit-section .eyebrow { color: rgba(251,250,247,.72); }
-
-/* Tipografia: contraste editorial + leitura confortável */
+/* Tipografia: editorial, legível e sem ruído */
 .ago-home h1,
 .ago-home h2,
 .ago-home h3,
 .visit-section-title,
 .how-section strong,
-.feature-title {
+.feature-title,
+.essencia-page h1,
+.essencia-page h2,
+.contact-page h1,
+.contact-page h2 {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  color: #38231b;
 }
 
 .ago-home h1 { font-size: clamp(3.2rem, 6.4vw, 6.2rem); line-height: .94; letter-spacing: -.025em; }
 .ago-home h2 { font-size: clamp(2.45rem, 4vw, 4.2rem); line-height: .98; letter-spacing: -.018em; }
-.ago-home p { line-height: 1.72; }
-.ago-home .hero-copy p,
-.ago-home .section-copy p,
-.ago-home .visit-copy p,
-.ago-home .story-copy p { text-align: justify; text-justify: inter-word; }
+.ago-home p,
+.essencia-text p,
+.contact-copy > p,
+.info-panel > p { line-height: 1.72; }
 
-/* Links e botões com variações de terra/ferrugem, sem aparência corporativa */
-.ago-home a[class*="btn"],
-.ago-home button[class*="btn"],
-.ago-home .cta-primary,
-.ago-home .cta-secondary,
-.ago-home .product-add {
-  transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+.ago-home .eyebrow { color: #8d4327; }
+.essencia-page .eyebrow,
+.contact-page .eyebrow { color: #8d4327; }
+.visit-section .eyebrow { color: rgba(251,250,247,.72); }
+
+/* Texto corrido com blocos confortáveis; títulos, preços, menus e CTAs permanecem alinhados naturalmente. */
+.ago-home .section-intro,
+.ago-home .hero-copy,
+.ago-home .editorial-copy,
+.ago-home .house-copy .editorial-copy,
+.ago-home .how-section .steps-grid p,
+.ago-home .visit-copy,
+.ago-home .collection-after p,
+.ago-home .feature-description,
+.site-footer p,
+.essencia-text p,
+.contact-copy > p,
+.info-panel > p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
-.ago-home .cta-primary,
-.ago-home .btn-primary {
+
+/* Variação real de terra/ferrugem nos CTAs */
+.ago-home .hero-primary {
   background: #8d4327;
   border-color: #8d4327;
   color: #fffaf5;
 }
-.ago-home .cta-primary:hover,
-.ago-home .btn-primary:hover { background: #6f321f; border-color: #6f321f; transform: translateY(-1px); }
-.ago-home .cta-secondary,
-.ago-home .btn-secondary {
+.ago-home .hero-primary:hover { background: #6f321f; border-color: #6f321f; transform: translateY(-1px); }
+.ago-home .hero-secondary {
   background: #ad5a32;
   border-color: #ad5a32;
   color: #fffaf5;
 }
-.ago-home .cta-secondary:hover,
-.ago-home .btn-secondary:hover { background: #8f4428; border-color: #8f4428; }
+.ago-home .hero-secondary:hover { background: #8f4428; border-color: #8f4428; transform: translateY(-1px); }
+.ago-home .dark-button {
+  background: #3f261c;
+  border-color: #3f261c;
+  color: #fffaf5;
+}
+.ago-home .dark-button:hover { background: #211914; border-color: #211914; transform: translateY(-1px); }
+.ago-home .collection-link,
+.ago-home .editorial-link { color: #8d4327; }
+.ago-home .collection-link:hover,
+.ago-home .editorial-link:hover { color: #ad5a32; }
 .ago-home .product-add {
   background: #3f261c;
   border-color: #3f261c;
@@ -76,7 +96,8 @@ body {
 .product-image-wrap { width: 100%; border-radius: 14px; background: #f1e9de; }
 .product-image { padding: 12px; }
 .product-name { color: #3f261c; }
-.product-price { color: #8d4327; font-weight: 650; }
+.product-price,
+.current-price { color: #8d4327; }
 .product-add {
   display: inline-flex;
   align-items: center;
@@ -114,13 +135,15 @@ body {
   justify-content: center;
   line-height: 1;
   font-size: 1.55rem;
+  color: #3f261c;
 }
 .feature-description {
-  width: min(100%, 230px);
-  max-width: 230px;
+  width: min(100%, 240px);
+  max-width: 240px;
   margin: 0;
   align-self: start;
   line-height: 1.65;
+  color: rgba(63,38,28,.72);
 }
 .feature-item:not(:last-child)::after { top: 0; height: 100%; background: rgba(141,67,39,.18); }
 
@@ -134,8 +157,7 @@ body {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(28px, 5vw, 72px);
 }
-.how-section strong { font-size: 1.65rem; font-weight: 500; }
-.how-section p { text-align: justify; text-justify: inter-word; }
+.how-section strong { font-size: 1.65rem; font-weight: 500; color: #3f261c; }
 
 .visit-grid {
   display: grid;
@@ -152,7 +174,6 @@ body {
   letter-spacing: -.025em;
   color: #fffaf5;
 }
-.visit-copy p { text-align: justify; text-justify: inter-word; }
 .visit-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
 .visit-actions a {
   display: inline-flex;
@@ -170,7 +191,7 @@ body {
 }
 .visit-actions a:hover { border-color: #d47a4c; background: #ad5a32; color: #fff; }
 
-/* Rodapé mais editorial, com profundidade de terra em vez de bloco marrom chapado */
+/* Rodapé: mais editorial e com profundidade, sem bloco marrom chapado */
 .site-footer,
 footer {
   background: #2d1b15;
@@ -190,7 +211,6 @@ footer {
 }
 .site-footer p,
 .site-footer li { color: rgba(247,238,229,.76); line-height: 1.7; }
-.site-footer p { text-align: justify; text-justify: inter-word; }
 .site-footer a { color: #e0a078; transition: color .2s ease; }
 .site-footer a:hover { color: #fff7ef; }
 .site-footer .footer-copyright {
@@ -200,6 +220,15 @@ footer {
   text-align: center;
   color: rgba(247,238,229,.55);
 }
+
+/* Páginas internas seguem a mesma voz visual da home. */
+.essencia-page,
+.contact-page { background: #fbfaf7; color: #2b1d17; }
+.essencia-page h1,
+.contact-page h1 { color: #3f261c; font-size: clamp(3rem, 6vw, 5.8rem); line-height: .92; letter-spacing: -.025em; font-weight: 500; }
+.essencia-page .essencia-text,
+.contact-page .contact-copy { color: rgba(63,38,28,.72); }
+.contact-page .info-panel h2 { color: #3f261c; font-size: clamp(2rem, 3vw, 3rem); line-height: 1; font-weight: 500; }
 
 @media (max-width: 1000px) {
   .features-container { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -241,6 +270,8 @@ footer {
   .visit-actions a { width: 100%; }
   .site-footer .footer-shell { padding-top: 52px; }
   .site-footer .footer-brand { margin-bottom: 30px; }
+  .essencia-page h1,
+  .contact-page h1 { font-size: clamp(2.9rem, 14vw, 4.4rem); }
 }
 
 @media (min-width: 1200px) {
