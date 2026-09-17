@@ -68,6 +68,7 @@ body { background:#fbfaf7; color:#2b1d17; }
 .site-footer a { color:#e0a078; transition:color .2s ease; }
 .site-footer a:hover { color:#fff7ef; }
 .site-footer .footer-copyright { border-top:1px solid rgba(247,238,229,.14); margin-top:48px; padding-top:20px; text-align:center; color:rgba(247,238,229,.55); }
+.site-footer .footer-shell > .footer-copyright { display:block; width:100%; margin-left:auto; margin-right:auto; text-align:center !important; justify-self:center; align-self:center; }
 .essencia-page,.contact-page { background:#fbfaf7; color:#2b1d17; }
 .essencia-page h1,.contact-page h1 { color:#3f261c; font-size:clamp(3rem,6vw,5.8rem); line-height:.92; letter-spacing:-.025em; font-weight:500; }
 .essencia-page .essencia-text,.contact-page .contact-copy { color:rgba(63,38,28,.72); }
@@ -122,6 +123,7 @@ body { background:#fbfaf7; color:#2b1d17; }
   .visit-actions a { width:100%; }
   .site-footer .footer-shell { padding-top:52px; }
   .site-footer .footer-brand { margin-bottom:30px; }
+  .site-footer .footer-shell > .footer-copyright { width:100%; text-align:center !important; margin-left:auto; margin-right:auto; }
   .essencia-page h1,.contact-page h1 { font-size:clamp(2.9rem,14vw,4.4rem); }
 }
 @media (min-width:1200px) { .featured-products-grid { gap:26px; } .product-name { font-size:22px; } }
