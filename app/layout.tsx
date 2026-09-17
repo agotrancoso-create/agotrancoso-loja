@@ -66,6 +66,7 @@ import './ago-alinhamento-total-final-2026.css';
 import './ago-refinamento-visual-final-2026.css';
 import './ago-redesign-forca-2026.css';
 import './ago-catalog-controls-2026.css';
+// Camada final do sistema visual/UX da Agô Trancoso.
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
