@@ -43,21 +43,27 @@ export default function CheckoutPage() {
     } catch (err) { setError(err instanceof Error ? err.message : 'Não foi possível concluir esta etapa. Tente novamente.'); setLoading(false); }
   }
 
-  if (!lines.length) return <div className="checkout-page checkout-empty"><div className="checkout-shell"><h1>Seu carrinho está vazio.</h1></div></div>;
+  if (!lines.length) return <div className="checkout-page checkout-empty"><div className="checkout-shell"><h1 className="checkout-title">Seu carrinho está vazio.</h1></div></div>;
 
   return (
     <div className="checkout-page">
       <div className="checkout-shell">
         <div className="checkout-layout">
           <div className="checkout-form-panel">
-            <p className="eyebrow mb-3">Pedido</p><h1 className="checkout-title">Finalizar compra</h1>
+            <p className="eyebrow">Pedido</p>
+            <h1 className="checkout-title">Finalizar compra</h1>
             <form onSubmit={submit} className="checkout-form">
-              <section className="checkout-section"><h2>Seus dados</h2>
+              <section className="checkout-section">
+                <h2>Seus dados</h2>
                 <div className="checkout-field"><label htmlFor="name" className="checkout-label">Nome completo</label><input id="name" required name="name" placeholder="Como devemos chamar você?" value={form.name} onChange={change} className="checkout-input" /></div>
-                <div className="checkout-fields-two"><div className="checkout-field"><label htmlFor="email" className="checkout-label">E-mail</label><input id="email" required type="email" name="email" placeholder="seu@email.com" value={form.email} onChange={change} className="checkout-input" /></div><div className="checkout-field"><label htmlFor="phone" className="checkout-label">Telefone / WhatsApp</label><input id="phone" required name="phone" inputMode="tel" placeholder="(00) 00000-0000" value={form.phone} onChange={change} className="checkout-input" /></div></div>
+                <div className="checkout-fields-two">
+                  <div className="checkout-field"><label htmlFor="email" className="checkout-label">E-mail</label><input id="email" required type="email" name="email" placeholder="seu@email.com" value={form.email} onChange={change} className="checkout-input" /></div>
+                  <div className="checkout-field"><label htmlFor="phone" className="checkout-label">Telefone / WhatsApp</label><input id="phone" required name="phone" inputMode="tel" placeholder="(00) 00000-0000" value={form.phone} onChange={change} className="checkout-input" /></div>
+                </div>
               </section>
 
-              <section className="checkout-section"><h2>Entrega</h2>
+              <section className="checkout-section">
+                <h2>Entrega</h2>
                 <div className="checkout-field"><label htmlFor="zip" className="checkout-label">CEP</label><input id="zip" required name="zip" inputMode="numeric" autoComplete="postal-code" placeholder="00000-000" value={form.zip} onChange={change} className="checkout-input" /></div>
                 <div className="checkout-shipping-note">{freeShipping ? 'Frete grátis neste pedido.' : <>Frete fixo de <strong>R$ 39,90</strong>.</>}<span>Compras acima de R$ 500 têm frete grátis.</span></div>
                 {shippingError && <p className="checkout-error" role="alert">{shippingError}</p>}
