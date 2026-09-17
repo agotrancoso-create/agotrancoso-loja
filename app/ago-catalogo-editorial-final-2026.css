@@ -1,0 +1,310 @@
+/* AGÔ TRANCOSO — CATÁLOGO EDITORIAL / 2026
+   Direção visual: creme, barro queimado, ferrugem, tijolo e cacau.
+   Remove o aspecto acinzentado/oliva e os controles nativos antigos.
+*/
+
+:root{
+  --ago-cat-bg:#F3E9DE;
+  --ago-cat-paper:#FFF9F3;
+  --ago-cat-field:#EEE0D2;
+  --ago-cat-line:rgba(58,36,29,.11);
+  --ago-cat-ink:#3A241D;
+  --ago-cat-cacao:#4A281F;
+  --ago-cat-terra:#8E3F27;
+  --ago-cat-brick:#A84F2E;
+  --ago-cat-soft:#CFAE95;
+}
+
+/* =====================================================
+   PÁGINA DE COLEÇÃO — SEM OLIVA / SEM CINZA
+   ===================================================== */
+.catalog-page{
+  width:100%!important;
+  min-height:100vh!important;
+  background:var(--ago-cat-bg)!important;
+  color:var(--ago-cat-ink)!important;
+}
+.catalog-shell{
+  width:min(1380px,calc(100% - 96px))!important;
+  max-width:1380px!important;
+  margin:0 auto!important;
+  padding:84px 0 120px!important;
+}
+.catalog-intro{
+  max-width:920px!important;
+  margin:0 0 48px!important;
+  padding:0!important;
+  background:transparent!important;
+}
+.catalog-intro .eyebrow{
+  margin:0 0 15px!important;
+  color:var(--ago-cat-terra)!important;
+  font-size:10px!important;
+  letter-spacing:.24em!important;
+}
+.catalog-intro h1{
+  margin:0!important;
+  max-width:900px!important;
+  color:var(--ago-cat-cacao)!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(58px,6vw,94px)!important;
+  font-weight:500!important;
+  line-height:.88!important;
+  letter-spacing:-.035em!important;
+  text-align:left!important;
+}
+.catalog-intro>p:last-child{
+  margin:20px 0 0!important;
+  color:rgba(58,36,29,.65)!important;
+  font-family:'DM Sans',Arial,sans-serif!important;
+  font-size:14px!important;
+  line-height:1.7!important;
+  text-align:left!important;
+}
+
+/* =====================================================
+   BARRA DE FILTROS — EDITORIAL E NÃO NATIVA
+   ===================================================== */
+.catalog-toolbar{
+  position:relative!important;
+  z-index:20!important;
+  display:grid!important;
+  grid-template-columns:minmax(260px,1.35fr) 250px 205px auto!important;
+  align-items:center!important;
+  gap:10px!important;
+  width:100%!important;
+  margin:0 0 32px!important;
+  padding:14px!important;
+  background:rgba(255,249,243,.88)!important;
+  border:1px solid var(--ago-cat-line)!important;
+  border-radius:22px!important;
+  box-shadow:0 18px 45px rgba(58,36,29,.08)!important;
+  backdrop-filter:blur(10px)!important;
+}
+.catalog-toolbar>input,
+.catalog-toolbar .catalog-category-trigger,
+.catalog-toolbar .catalog-availability{
+  min-height:52px!important;
+  border:1px solid rgba(58,36,29,.08)!important;
+  outline:0!important;
+  border-radius:14px!important;
+  background:var(--ago-cat-field)!important;
+  color:var(--ago-cat-ink)!important;
+  font-family:'DM Sans',Arial,sans-serif!important;
+}
+.catalog-toolbar>input{
+  width:100%!important;
+  padding:0 17px!important;
+  font-size:12px!important;
+}
+.catalog-toolbar>input::placeholder{color:rgba(58,36,29,.52)!important}
+.catalog-toolbar>input:focus{
+  border-color:rgba(142,63,39,.38)!important;
+  box-shadow:0 0 0 3px rgba(142,63,39,.08)!important;
+}
+
+/* Categoria customizada: substitui totalmente o <select> nativo */
+.catalog-category-select{
+  position:relative!important;
+  min-width:0!important;
+}
+.catalog-category-trigger{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:16px!important;
+  width:100%!important;
+  padding:0 16px!important;
+  cursor:pointer!important;
+  text-align:left!important;
+  transition:background .2s ease,border-color .2s ease,transform .2s ease!important;
+}
+.catalog-category-trigger:hover{
+  background:#E7D4C2!important;
+  border-color:rgba(142,63,39,.22)!important;
+}
+.catalog-category-trigger>span{
+  display:flex!important;
+  align-items:center!important;
+  gap:9px!important;
+  min-width:0!important;
+  color:var(--ago-cat-ink)!important;
+  font-size:11px!important;
+  font-weight:600!important;
+}
+.catalog-category-kicker{
+  color:rgba(58,36,29,.48)!important;
+  font-size:8px!important;
+  font-weight:600!important;
+  letter-spacing:.16em!important;
+  text-transform:uppercase!important;
+}
+.catalog-category-dot{
+  width:7px!important;
+  height:7px!important;
+  flex:none!important;
+  border-radius:50%!important;
+  background:var(--ago-cat-terra)!important;
+}
+.catalog-category-chevron{
+  flex:none!important;
+  width:8px!important;
+  height:8px!important;
+  border-right:1.5px solid var(--ago-cat-cacao)!important;
+  border-bottom:1.5px solid var(--ago-cat-cacao)!important;
+  transform:rotate(45deg) translateY(-2px)!important;
+  transition:transform .18s ease!important;
+}
+.catalog-category-trigger[aria-expanded="true"] .catalog-category-chevron{
+  transform:rotate(225deg) translateY(-1px)!important;
+}
+.catalog-category-menu{
+  position:absolute!important;
+  top:calc(100% + 9px)!important;
+  right:0!important;
+  left:0!important;
+  overflow:hidden!important;
+  padding:7px!important;
+  background:var(--ago-cat-paper)!important;
+  border:1px solid var(--ago-cat-line)!important;
+  border-radius:17px!important;
+  box-shadow:0 22px 55px rgba(58,36,29,.17)!important;
+}
+.catalog-category-option{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  width:100%!important;
+  min-height:43px!important;
+  padding:0 12px!important;
+  border:0!important;
+  border-radius:11px!important;
+  background:transparent!important;
+  color:var(--ago-cat-ink)!important;
+  font-family:'DM Sans',Arial,sans-serif!important;
+  font-size:10px!important;
+  font-weight:500!important;
+  cursor:pointer!important;
+  text-align:left!important;
+  transition:background .16s ease,color .16s ease!important;
+}
+.catalog-category-option:hover{
+  background:#F0E2D4!important;
+}
+.catalog-category-option[aria-selected="true"]{
+  background:var(--ago-cat-terra)!important;
+  color:var(--ago-cat-paper)!important;
+}
+.catalog-category-option-mark{
+  width:5px!important;
+  height:5px!important;
+  border-radius:50%!important;
+  background:currentColor!important;
+  opacity:.72!important;
+}
+
+.catalog-availability{
+  display:flex!important;
+  align-items:center!important;
+  gap:9px!important;
+  padding:0 13px!important;
+  border:0!important;
+  background:transparent!important;
+  color:rgba(58,36,29,.72)!important;
+  cursor:pointer!important;
+  font-size:10px!important;
+  text-align:left!important;
+}
+.catalog-availability input{
+  width:15px!important;
+  height:15px!important;
+  margin:0!important;
+  accent-color:var(--ago-cat-terra)!important;
+}
+
+/* =====================================================
+   GRADE — RESPIRO E PROPORÇÃO
+   ===================================================== */
+.catalog-grid{
+  width:100%!important;
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  column-gap:26px!important;
+  row-gap:58px!important;
+  margin:0!important;
+}
+.catalog-grid .product-card{
+  min-width:0!important;
+  color:var(--ago-cat-ink)!important;
+}
+.catalog-grid .product-image-wrap{
+  background:var(--ago-cat-paper)!important;
+  border:0!important;
+  border-radius:22px!important;
+  overflow:hidden!important;
+  box-shadow:none!important;
+}
+.catalog-grid .product-name{
+  margin-top:14px!important;
+  color:var(--ago-cat-cacao)!important;
+  font-size:22px!important;
+  line-height:.98!important;
+  text-align:left!important;
+}
+.catalog-grid .current-price{
+  color:var(--ago-cat-terra)!important;
+  font-size:12px!important;
+  font-weight:600!important;
+}
+.catalog-grid .product-add{
+  width:148px!important;
+  min-height:42px!important;
+  margin-top:12px!important;
+  padding:0 14px!important;
+  background:var(--ago-cat-brick)!important;
+  color:var(--ago-cat-paper)!important;
+  border:0!important;
+  border-radius:999px!important;
+  font-size:8px!important;
+  letter-spacing:.13em!important;
+  text-align:center!important;
+}
+.catalog-grid .product-add:hover{background:var(--ago-cat-terra)!important}
+
+.catalog-page .text-oliva{
+  color:var(--ago-cat-terra)!important;
+}
+
+/* Remove qualquer borda visual antiga do catálogo */
+.catalog-page *,
+.catalog-page *::before,
+.catalog-page *::after{
+  outline-color:transparent;
+}
+
+@media(max-width:1100px){
+  .catalog-shell{width:min(100% - 48px,980px)!important}
+  .catalog-toolbar{grid-template-columns:1fr 210px 180px!important}
+  .catalog-availability{grid-column:1 / -1!important;padding:4px 4px 2px!important}
+  .catalog-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+
+@media(max-width:767px){
+  .catalog-shell{width:calc(100% - 28px)!important;padding:48px 0 76px!important}
+  .catalog-intro{margin-bottom:30px!important}
+  .catalog-intro h1{font-size:clamp(48px,14vw,66px)!important;line-height:.9!important}
+  .catalog-intro>p:last-child{font-size:13px!important}
+  .catalog-toolbar{
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+    margin-bottom:24px!important;
+    padding:10px!important;
+    border-radius:18px!important;
+  }
+  .catalog-category-select{width:100%!important}
+  .catalog-availability{grid-column:auto!important;min-height:44px!important;padding:0 4px!important}
+  .catalog-category-menu{position:absolute!important;max-height:280px!important;overflow-y:auto!important}
+  .catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;column-gap:14px!important;row-gap:40px!important}
+  .catalog-grid .product-name{font-size:18px!important}
+  .catalog-grid .product-add{width:100%!important;min-height:40px!important;font-size:7px!important}
+}
