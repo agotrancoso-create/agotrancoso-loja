@@ -1,10 +1,12 @@
+import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { getAllProducts, getAllCategories } from '@/lib/products';
 import ProdutosClient from './ProdutosClient';
 
-export const metadata = {
-  title: 'Coleção | Agô Trancoso',
+export const metadata: Metadata = {
+  title: 'Coleção',
   description: 'Conheça a coleção de cerâmicas e objetos feitos à mão da Agô Trancoso, inspirados na Bahia, em Trancoso e no jeito brasileiro de viver.',
+  alternates: { canonical: '/produtos' },
 };
 
 export default function ProdutosPage() {
