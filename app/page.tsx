@@ -64,16 +64,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="encanto-section" aria-labelledby="encanto-title">
-        <div className="ago-container encanto-inner">
-          <div className="encanto-copy encanto-copy-only-title">
-            <h2 id="encanto-title">A Agô</h2>
-            <p className="encanto-subtitle">Detalhes para decorar, presentear e guardar memórias.</p>
-            <p className="encanto-text">Na Agô Trancoso, você encontra cerâmicas, lembranças e peças especiais inspiradas na beleza, nas cores e no charme de Trancoso.</p>
-          </div>
-        </div>
-      </section>
-
       <Benefits />
 
       {remainingProducts.length > 0 && <section className="collection-more"><div className="ago-container collection-more-inner">
