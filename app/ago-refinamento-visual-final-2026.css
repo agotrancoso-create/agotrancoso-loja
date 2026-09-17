@@ -3,29 +3,89 @@
 .ago-home {
   --ago-terra: #8d4327;
   --ago-ferrugem: #ad5a32;
+  --ago-tijolo: #9b4930;
   --ago-cacau: #3f261c;
   --ago-castanho: #211914;
   --ago-creme: #fbfaf7;
+  --ago-papel: #f5efe7;
   color: var(--ago-castanho);
 }
 
+/* Direção cromática: sertão sofisticado, sem ocre/caqui */
+body {
+  background: #fbfaf7;
+  color: #2b1d17;
+}
+
 .ago-home .eyebrow { color: var(--ago-terra); }
-.visit-section .eyebrow { color: rgba(251,250,247,.62); }
+.visit-section .eyebrow { color: rgba(251,250,247,.72); }
+
+/* Tipografia: contraste editorial + leitura confortável */
+.ago-home h1,
+.ago-home h2,
+.ago-home h3,
+.visit-section-title,
+.how-section strong,
+.feature-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  color: #38231b;
+}
+
+.ago-home h1 { font-size: clamp(3.2rem, 6.4vw, 6.2rem); line-height: .94; letter-spacing: -.025em; }
+.ago-home h2 { font-size: clamp(2.45rem, 4vw, 4.2rem); line-height: .98; letter-spacing: -.018em; }
+.ago-home p { line-height: 1.72; }
+.ago-home .hero-copy p,
+.ago-home .section-copy p,
+.ago-home .visit-copy p,
+.ago-home .story-copy p { text-align: justify; text-justify: inter-word; }
+
+/* Links e botões com variações de terra/ferrugem, sem aparência corporativa */
+.ago-home a[class*="btn"],
+.ago-home button[class*="btn"],
+.ago-home .cta-primary,
+.ago-home .cta-secondary,
+.ago-home .product-add {
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+}
+.ago-home .cta-primary,
+.ago-home .btn-primary {
+  background: #8d4327;
+  border-color: #8d4327;
+  color: #fffaf5;
+}
+.ago-home .cta-primary:hover,
+.ago-home .btn-primary:hover { background: #6f321f; border-color: #6f321f; transform: translateY(-1px); }
+.ago-home .cta-secondary,
+.ago-home .btn-secondary {
+  background: #ad5a32;
+  border-color: #ad5a32;
+  color: #fffaf5;
+}
+.ago-home .cta-secondary:hover,
+.ago-home .btn-secondary:hover { background: #8f4428; border-color: #8f4428; }
+.ago-home .product-add {
+  background: #3f261c;
+  border-color: #3f261c;
+  color: #fffaf5;
+}
+.ago-home .product-add:hover { background: #8d4327; border-color: #8d4327; transform: translateY(-1px); }
 
 .featured-products-grid,
 .remaining-products-grid { align-items: start; }
 .product-card { display: flex; min-width: 0; flex-direction: column; }
 .product-image-wrap { width: 100%; border-radius: 14px; background: #f1e9de; }
 .product-image { padding: 12px; }
+.product-name { color: #3f261c; }
+.product-price { color: #8d4327; font-weight: 650; }
 .product-add {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  min-height: 44px;
+  min-height: 46px;
   text-align: center;
   line-height: 1.2;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 .product-add span { margin-left: 0; }
 
@@ -45,7 +105,7 @@
   justify-items: center;
   text-align: center;
 }
-.feature-icon { width: 64px; height: 58px; margin: 0; }
+.feature-icon { width: 64px; height: 58px; margin: 0; color: #8d4327; }
 .feature-title {
   width: 100%;
   margin: 0;
@@ -53,6 +113,7 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+  font-size: 1.55rem;
 }
 .feature-description {
   width: min(100%, 230px);
@@ -61,7 +122,7 @@
   align-self: start;
   line-height: 1.65;
 }
-.feature-item:not(:last-child)::after { top: 0; height: 100%; }
+.feature-item:not(:last-child)::after { top: 0; height: 100%; background: rgba(141,67,39,.18); }
 
 .how-section .steps-grid,
 .how-section .grid { border: 0; }
@@ -73,11 +134,8 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(28px, 5vw, 72px);
 }
-.how-section strong {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.55rem;
-  font-weight: 500;
-}
+.how-section strong { font-size: 1.65rem; font-weight: 500; }
+.how-section p { text-align: justify; text-justify: inter-word; }
 
 .visit-grid {
   display: grid;
@@ -88,29 +146,60 @@
 .visit-section-title {
   margin: 14px 0 20px;
   max-width: 560px;
-  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(3rem, 5.5vw, 5.2rem);
   line-height: .9;
   font-weight: 500;
   letter-spacing: -.025em;
+  color: #fffaf5;
 }
+.visit-copy p { text-align: justify; text-justify: inter-word; }
 .visit-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
 .visit-actions a {
   display: inline-flex;
-  min-height: 44px;
+  min-height: 46px;
   align-items: center;
   justify-content: center;
-  padding: 0 15px;
-  border: 1px solid rgba(251,250,247,.22);
+  padding: 0 17px;
+  border: 1px solid rgba(251,250,247,.28);
   color: var(--ago-creme);
-  font-size: 9px;
+  background: rgba(173,90,50,.14);
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: .1em;
+  letter-spacing: .08em;
   text-transform: uppercase;
 }
-.visit-actions a:hover { border-color: var(--ago-ferrugem); color: #fff; }
+.visit-actions a:hover { border-color: #d47a4c; background: #ad5a32; color: #fff; }
 
-footer { background: var(--ago-castanho); }
+/* Rodapé mais editorial, com profundidade de terra em vez de bloco marrom chapado */
+.site-footer,
+footer {
+  background: #2d1b15;
+  color: #f5eee6;
+  border-top: 1px solid rgba(173,90,50,.28);
+}
+.site-footer .footer-shell { padding-top: 70px; padding-bottom: 28px; }
+.site-footer .footer-brand { margin-bottom: 38px; }
+.site-footer .footer-brand img { width: 104px; height: 104px; }
+.site-footer h3,
+.site-footer h4 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  color: #f7eee5;
+  font-size: 1.65rem;
+  font-weight: 500;
+  letter-spacing: -.01em;
+}
+.site-footer p,
+.site-footer li { color: rgba(247,238,229,.76); line-height: 1.7; }
+.site-footer p { text-align: justify; text-justify: inter-word; }
+.site-footer a { color: #e0a078; transition: color .2s ease; }
+.site-footer a:hover { color: #fff7ef; }
+.site-footer .footer-copyright {
+  border-top: 1px solid rgba(247,238,229,.14);
+  margin-top: 48px;
+  padding-top: 20px;
+  text-align: center;
+  color: rgba(247,238,229,.55);
+}
 
 @media (max-width: 1000px) {
   .features-container { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -122,6 +211,9 @@ footer { background: var(--ago-castanho); }
 
 @media (max-width: 767px) {
   .ago-home .section-title { font-size: clamp(2.35rem, 10vw, 3.15rem); }
+  .ago-home h1 { font-size: clamp(2.9rem, 14vw, 4.6rem); }
+  .ago-home h2 { font-size: clamp(2.25rem, 10vw, 3.2rem); }
+  .ago-home p { line-height: 1.68; }
   .featured-products-grid,
   .remaining-products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 12px; }
   .product-image-wrap { border-radius: 10px; }
@@ -135,7 +227,7 @@ footer { background: var(--ago-castanho); }
   .feature-item:nth-child(3)::after { display: none; }
   .feature-icon { width: 58px; }
   .feature-title { font-size: 1.38rem; }
-  .feature-description { max-width: 150px; font-size: 10px; line-height: 1.6; }
+  .feature-description { max-width: 150px; font-size: 11px; line-height: 1.6; }
 
   .how-section .steps-grid,
   .how-section .grid { grid-template-columns: 1fr; gap: 30px; }
@@ -147,6 +239,8 @@ footer { background: var(--ago-castanho); }
   .visit-copy { max-width: 34rem; }
   .visit-actions { display: grid; grid-template-columns: 1fr; }
   .visit-actions a { width: 100%; }
+  .site-footer .footer-shell { padding-top: 52px; }
+  .site-footer .footer-brand { margin-bottom: 30px; }
 }
 
 @media (min-width: 1200px) {
