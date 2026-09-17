@@ -8,4 +8,4 @@ export default function robots(): MetadataRoute.Robots {
   };
 }
 
-// Deploy marker: SEO e experiencia comercial refinados em 2026-09-17.
+// Deploy marker: publicar versao refinada da Agô em 2026-09-17.
