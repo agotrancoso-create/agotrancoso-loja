@@ -66,9 +66,8 @@ export default function HomePage() {
 
       <section className="encanto-section" aria-labelledby="encanto-title">
         <div className="ago-container encanto-inner">
-          <p className="eyebrow">Trancoso</p>
-          <div className="encanto-copy">
-            <h2 id="encanto-title">O encanto de Trancoso</h2>
+          <div className="encanto-copy encanto-copy-only-title">
+            <h2 id="encanto-title">A Agô</h2>
             <p className="encanto-subtitle">Detalhes para decorar, presentear e guardar memórias.</p>
             <p className="encanto-text">Na Agô Trancoso, você encontra cerâmicas, lembranças e peças especiais inspiradas na beleza, nas cores e no charme de Trancoso.</p>
           </div>
@@ -81,14 +80,6 @@ export default function HomePage() {
         <div className="section-heading"><div><p className="eyebrow">Mais da coleção</p><h2 className="section-title">Para decorar, presentear ou guardar por muitos anos.</h2></div><Link href="/produtos" className="collection-link">Ver coleção completa <span>↗</span></Link></div>
         <div className="remaining-products-grid">{remainingProducts.map((product) => <ProductCard key={product.id} product={product} />)}</div>
       </div></section>}
-
-      <section className="editorial-section"><div className="ago-container editorial-grid">
-        <div className="editorial-image"><img src="/nossa-essencia.jpg" alt="Cerâmica da Agô Trancoso" loading="lazy" /></div>
-        <div className="editorial-copy-column"><p className="eyebrow">Nossa essência</p><h2 className="section-title">Um jeito brasileiro de morar.</h2>
-          <p className="editorial-copy">A Agô transforma referências da Bahia em peças para decorar, presentear e guardar. Barro, arquitetura, fé, cor e memória aparecem nas formas e nos detalhes de cada objeto.</p>
-          <Link href="/nossa-essencia" className="editorial-link">Conheça a Agô →</Link>
-        </div>
-      </div></section>
 
       <section className="home-house"><div className="ago-container house-grid">
         <div className="house-copy"><p className="eyebrow">Da Bahia para sua casa</p><h2 className="section-title">Da Bahia para sua casa.</h2><p className="editorial-copy">Objetos com presença, feitos à mão e pensados para viver junto com você.</p><Link href="/produtos" className="dark-button">Escolher uma peça</Link></div>
