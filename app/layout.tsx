@@ -74,11 +74,11 @@ import { SITE_DOMAIN } from '@/lib/config';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
-  title: { default: 'Agô Trancoso | Cerâmicas e peças artesanais', template: '%s | Agô Trancoso' },
-  description: 'Cerâmicas, lembranças e detalhes especiais para decorar, presentear e guardar memórias. Conheça a coleção da Agô Trancoso.',
-  keywords: ['artesanato em Trancoso','cerâmica em Trancoso','artesanato de Trancoso','cerâmica artesanal','decoração artesanal','peças artesanais','presentes de Trancoso'],
+  title: { default: 'Agô Trancoso | Cerâmicas e peças feitas à mão', template: '%s | Agô Trancoso' },
+  description: 'Cerâmicas e peças feitas à mão, inspiradas na Bahia, em Trancoso e nos detalhes que fazem parte da nossa memória. Conheça a coleção da Agô.',
+  keywords: ['Agô Trancoso','cerâmica artesanal','peças feitas à mão','decoração artesanal','presentes artesanais','Trancoso','Bahia'],
   alternates: { canonical: SITE_DOMAIN },
-  openGraph: { title: 'Agô Trancoso', description: 'Trancoso em forma de cerâmica.', url: SITE_DOMAIN, type: 'website' },
+  openGraph: { title: 'Agô Trancoso', description: 'Peças feitas à mão, inspiradas na Bahia e pensadas para fazer parte da sua história.', url: SITE_DOMAIN, type: 'website' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
