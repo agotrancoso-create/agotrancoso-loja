@@ -1,158 +1,340 @@
 # PROMPT MESTRE FINAL — AGÔ TRANCOSO 2026
 
-Aprimorar o e-commerce Agô Trancoso existente sem reconstruir a arquitetura, sem trocar gateway, sem remover conteúdo ou produtos. Trabalhar sobre o projeto atual, preservando funcionalidades e fotos originais.
+Aprimorar o e-commerce Agô Trancoso existente sem reconstruir a arquitetura, sem trocar o gateway InfinitePay, sem remover produtos, conteúdo ou fotografias originais.
 
-## Direção visual
+## Direção visual aprovada
 
-Criar uma experiência de marca premium, artesanal, brasileira e contemporânea, inspirada em Trancoso. A página deve parecer uma loja de design/cerâmica de alto padrão, nunca um template genérico.
+A Agô deve transmitir Trancoso, Nordeste e sertão por meio de uma paleta quente, viva e sofisticada: barro queimado, terracota, ferrugem suave, coral-terra, vinho-terra, castanho e creme quente.
 
-### Paleta obrigatória — referência terrosa
+NÃO usar:
+- verde;
+- oliva;
+- esmeralda;
+- lima;
+- menta;
+- ocre amarelado;
+- caqui;
+- mostarda;
+- fundos visualmente amarelados/acinzentados que pareçam caqui.
 
-NÃO usar ocre, caqui, mostarda, verde, oliva, esmeralda, lima, menta ou qualquer tom visualmente amarelado/verdeado que destoe da referência terrosa aprovada.
-
-Usar principalmente a família:
-- Creme: `#F6F1EB`
-- Papel rosado: `#EFE4DB`
-- Areia rosada: `#D9C3B4`
-- Caramelo terroso: `#AC7449`
-- Terra: `#9C5D36`
-- Barro queimado: `#874B31`
-- Castanho terroso: `#775243`
-- Vinho-terra: `#6A433C`
-- Marrom: `#4A2C24`
-- Marrom profundo: `#322018`
-- Texto: `#38251F`
+Paleta principal aprovada:
+- Creme quente: `#FFF8F1`
+- Papel rosado: `#F3E2D7`
+- Areia rosada: `#D8B6A2`
+- Pêssego-terra: `#E6C0AB`
+- Coral-terra: `#D06B49`
+- Terracota viva: `#B84F2D`
+- Ferrugem: `#9E3F28`
+- Barro queimado: `#833521`
+- Vinho-terra: `#6D3934`
+- Castanho: `#492820`
+- Marrom profundo: `#301915`
+- Texto: `#38221E`
 - Branco quente: `#FFFDF9`
 
-A sensação visual desejada é barro, terracota, ferrugem suave, castanho, vinho-terra e creme. Evitar aparência cáqui/ocre.
+A cor deve ser MAIS VIVA que as versões anteriores, mas continuar elegante. O objetivo é sair do aspecto apagado, oliva, ocre ou caqui e chegar a uma combinação inspirada no Nordeste e sertão sem ficar berrante.
 
-Não usar bordas decorativas, filetes, divisores ou molduras nas seções. Cards e fotos podem usar cantos arredondados, mas sem outlines, sombras duras ou molduras.
+## Regras de composição
 
-## Desktop + celular
+Desktop e mobile devem parecer o mesmo site, com proporções próprias para cada largura.
 
-A composição deve ser responsiva de verdade, mantendo a mesma linguagem visual nos dois formatos. Desktop não pode parecer uma versão esticada do mobile; mobile não pode parecer uma versão esmagada do desktop.
+Nenhuma página pode ficar espremida numa coluna estreita.
 
-No celular, todas as seções devem parecer completas e intencionais, evitando grandes áreas vazias. No desktop, usar largura de página proporcional e aproveitar a tela sem transformar tudo em conteúdo centralizado estreito.
+Nenhuma seção deve parecer vazia por erro de largura, altura ou grid.
 
-Nenhuma página pode colapsar em uma coluna estreita por causa de regras globais herdadas.
+Usar largura útil aproximada de 1180–1280px no desktop e 18–20px de margem lateral no celular.
 
-## Estrutura das páginas
+## Bordas
 
-Auditar CSS histórico antes de criar novas regras. Priorizar classes específicas por página e remover/neutralizar regras globais conflitantes.
+NÃO usar border-top, border-bottom, border-left, border-right, filetes, divisores, outlines ou molduras decorativas nas seções.
 
-Criar wrappers explícitos quando necessário:
-- `.catalog-shell`
-- `.product-page-shell`
-- `.checkout-shell`
-- `.contact-shell`
-- `.essencia-shell`
-
-Usar aproximadamente 1180–1280px de largura útil no desktop e 16–20px de margem interna no celular.
-
-## Categorias
-
-A faixa de categorias deve ser visualmente uniforme e alinhada com a identidade da marca. Usar: Todos, Trancoso, Igrejinhas, Decoração, Fé e devoção, Presentes. Sem verde, sem ocre/caqui, sem bordas decorativas e sem aparência de controles antigos.
-
-## Diferenciais
-
-Os quatro diferenciais devem compartilhar exatamente a mesma linguagem cromática e tipográfica: feito à mão; peças exclusivas; inspiração brasileira; envio para todo Brasil. Nenhum deles pode ficar com cor destoante.
-
-## Fotos
-
-Todas as fotos das peças devem ter cantos arredondados no desktop e no celular, sem borda. Não alterar artificialmente o conteúdo das fotografias.
-
-A foto da seção “Um pouco de Trancoso para dentro de casa” precisa mostrar as duas igrejas inteiras. Não usar `object-fit: cover` nessa imagem. Preservar a proporção original e evitar qualquer corte.
-
-## Botão Adicionar ao carrinho
-
-Criar um CTA visualmente elegante, confortável para toque e coerente com uma marca premium: marrom profundo, texto claro, formato arredondado, altura confortável, excelente contraste, sem excesso de efeitos. Preferir largura total do card em produtos e largura total do bloco de compra no detalhe do produto.
-
-O botão deve chamar atenção de maneira natural por hierarquia visual, contraste, consistência e affordance clara, sem alegações de “truques de neurociência”.
-
-## Checkout / Finalizar compra
-
-Refazer a composição visual do checkout sem alterar o funcionamento do pagamento. Desktop deve ter duas colunas proporcionais: formulário e resumo. Títulos, labels, campos, textos e resumo devem ter hierarquia clara e tamanhos legíveis.
-
-Os campos precisam parecer parte da mesma identidade do site. O botão principal deve ter forte hierarquia visual. O resumo deve ter boa leitura de produtos, quantidades, subtotal, frete e total.
-
-No mobile, tudo deve ocupar a largura útil, sem fontes microscópicas, sem elementos espremidos e sem excesso de vazio.
-
-Não exibir visualmente 01/02/03 como etapas numeradas.
-
-## Rodapé
-
-Manter TODAS as informações atuais. Melhorar somente composição, tipografia, espaçamento e hierarquia. Usar Cormorant Garamond para títulos/display e DM Sans para corpo e links. No mobile, organizar em blocos respirados e proporcionais, sem parecer um paredão de informação.
-
-O item de navegação deve aparecer como “A Agô”, não “Nossa essência”, embora o link continue apontando para `/nossa-essencia`.
-
-Não remover Instagram, WhatsApp, site, política de frete, descrição ou copyright.
+Fotos podem ter cantos arredondados, mas SEM moldura ou faixa lateral produzida pelo container.
 
 ## Tipografia
 
 Títulos/display: `Cormorant Garamond`.
+
 Corpo/interface: `DM Sans`.
 
-NÃO criar regra global tardia que force uma única fonte para todos os elementos.
+NÃO criar um reset global tardio que transforme tudo em uma única fonte.
 
-Os títulos precisam ter largura suficiente para não quebrar palavra por palavra.
+Nunca deixar títulos quebrando palavra por palavra por falta de largura.
 
-## Catálogo
+## HOME
 
-Desktop: 4 colunas proporcionais.
+### Coleção inicial
+
+A seção “Trancoso em forma de cerâmica.” deve ocupar a largura da página e conter uma composição equilibrada entre introdução e produtos.
+
+Desktop: introdução em uma coluna lateral + grid de produtos em 4 colunas.
+
+Mobile: introdução em cima + produtos em 2 colunas.
+
+### Categorias
+
+Usar exatamente:
+- Todos
+- Trancoso
+- Igrejinhas
+- Decoração
+- Fé e devoção
+- Presentes
+
+A faixa deve ter aparência editorial, sem bordas e sem verde/ocre/caqui.
+
+### HERO
+
+A hero “FEITO À MÃO. FEITO PARA DURAR.” deve ter presença visual.
+
+Não deixar o texto apagado pela imagem.
+
+Usar overlay escuro suficiente para garantir contraste.
+
+Desktop: composição forte e proporcional, texto alinhado de forma editorial e com largura confortável.
+
+Mobile: título grande, porém sem ocupar a tela inteira de forma desproporcional; descrição e CTAs devem permanecer legíveis.
+
+### BENEFÍCIOS
+
+Os quatro benefícios devem ter exatamente a mesma estrutura visual.
+
+Não pode haver 3 quadrados e 1 item sem fundo.
+
+Os quatro devem compartilhar:
+- mesma altura;
+- mesmo raio;
+- mesmo fundo;
+- mesma hierarquia;
+- mesma distância interna.
+
+Conteúdo:
+- Feito à mão
+- Peças exclusivas
+- Inspiração brasileira
+- Envio para todo Brasil
+
+### MAIS DA COLEÇÃO
+
+Não deixar a seção com grande vazio ao redor do título.
+
+Os produtos devem ocupar a largura disponível.
+
+### PARA A CASA
+
+A imagem `complementar.jpg` mostra duas igrejas.
+
+É obrigatório mostrar as duas igrejas inteiras.
+
+NÃO usar `object-fit: cover`.
+
+Usar largura proporcional, altura automática e `object-fit: contain` quando necessário.
+
+A foto deve ter cantos arredondados, mas NÃO pode ganhar uma faixa/moldura lateral do container.
+
+### COMO COMPRAR
+
+Não exibir 01/02/03.
+
+Não usar linhas verticais/horizontais como divisores.
+
+Manter os três conceitos:
+- Escolha
+- Carrinho
+- Pagamento
+
+A seção precisa ficar preenchida, proporcional e visualmente equilibrada em desktop e mobile.
+
+### COMO CHEGAR
+
+A seção está atualmente desproporcional e com conteúdo pequeno no meio de uma área muito alta.
+
+Reduzir o vazio vertical.
+
+Usar duas colunas proporcionais no desktop:
+- mensagem/título/CTAs;
+- informações úteis.
+
+Mobile: uma coluna, com todas as informações visíveis e espaçadas.
+
+Aumentar a presença do título e do texto sem exagerar.
+
+## BOTÃO ADICIONAR AO CARRINHO
+
+O botão precisa parecer um CTA premium, confiável e obviamente clicável.
+
+Usar:
+- terracota viva ou barro queimado;
+- texto branco quente;
+- formato arredondado;
+- altura aproximada de 48–58px;
+- largura adequada ao contexto;
+- contraste forte;
+- tipografia legível.
+
+Não usar efeitos exagerados.
+
+A intenção é favorecer clareza, contraste, consistência e affordance familiar, sem alegações de truques de neurociência.
+
+## DETALHE DO PRODUTO
+
+Desktop:
+- galeria grande à esquerda;
+- informações e compra à direita.
+
+Mobile:
+- galeria primeiro;
+- conteúdo depois.
+
+A imagem principal não pode ter faixa lateral produzida pelo wrapper.
+
+Ela deve ser grande, proporcional, arredondada e sem borda.
+
+Quantidade e botão devem formar um conjunto visual coeso.
+
+## FRETE GRÁTIS
+
+A caixa de frete grátis precisa ser claramente legível.
+
+Usar fundo de contraste real, de preferência areia rosada/papel ou terracota clara, e texto em marrom/castanho.
+
+Não usar texto claro sobre fundo caqui/oliva.
+
+## CHECKOUT
+
+Desktop: duas colunas proporcionais.
+
+Formulário aproximadamente 55–60% da largura útil.
+
+Resumo aproximadamente 40–45%.
+
+Título “Finalizar compra” grande e legível.
+
+Labels e campos não podem parecer minúsculos.
+
+Inputs aproximadamente 56–60px de altura e fonte de 16px.
+
+Resumo com fotos de aproximadamente 76–84px.
+
+Total com destaque visual.
+
+Não exibir 01/02/03.
+
+Mobile: uma coluna, largura útil completa, sem conteúdo espremido.
+
+Não usar fundo oliva/caqui.
+
+## CARRINHO
+
+O carrinho deve parecer parte da mesma marca.
+
+Usar:
+- fundo creme quente;
+- cabeçalho papel rosado;
+- cartões de itens em papel/areia;
+- terracota viva para “Finalizar compra”;
+- quantidade em controles arredondados;
+- fotos arredondadas.
+
+Nenhuma borda estrutural.
+
+No mobile, largura total com margens internas confortáveis.
+
+## CATÁLOGO
+
+Desktop: 4 colunas.
 Tablet: 2–3 colunas.
 Mobile: 2 colunas.
 
-Título, filtros e grid devem pertencer ao mesmo fluxo de largura.
+Título, filtros e grid no mesmo fluxo de largura.
 
-## Detalhe do produto
+Nada pode ficar deslocado para a direita deixando metade da tela vazia.
 
-Desktop: galeria grande à esquerda e informações/compra à direita.
-Mobile: galeria primeiro, informações depois.
+## CONTATO
 
-A foto principal deve ser grande, preservada e arredondada.
+Desktop: texto à esquerda e canais/localização à direita.
 
-## Contato
-
-Desktop: texto à esquerda + canais/localização à direita.
 Mobile: uma coluna.
 
-Nunca permitir texto estreito que quebre palavra por palavra.
+Nunca permitir texto quebrando palavra por palavra.
 
-## A Agô
+## A AGÔ
 
-Desktop: composição aproximadamente 50/50 entre texto e imagem.
+Desktop: aproximadamente 50/50 entre texto e imagem.
+
 Mobile: uma coluna.
 
-O título “O encanto de Trancoso” deve ter largura saudável.
+O título “O encanto de Trancoso” deve ter largura suficiente para formar linhas naturais.
 
-## Bordas
+## RODAPÉ
 
-Nenhuma seção deve possuir border-top/bottom/left/right, filete, divisor ou moldura.
+Manter todas as informações atuais:
+- Agô Trancoso;
+- descrição;
+- política de frete;
+- Navegação;
+- Coleção;
+- A Agô;
+- Contato;
+- Fale com a gente;
+- Instagram;
+- WhatsApp;
+- site;
+- copyright.
 
-Fotos: apenas cantos arredondados.
+Desktop: três zonas proporcionais.
 
-## Texto e marca
+Mobile: marca em largura total e duas áreas menores lado a lado para navegação/contato quando houver espaço.
 
-Preservar a linguagem: “Feitas à mão”, “Envio para todo o Brasil”, “A Agô”, “Trancoso em forma de cerâmica.” e “Um pouco de Trancoso para dentro de casa.”
+Não transformar o rodapé em um paredão de texto.
 
-Não usar “made in Trancoso” e não usar “autoral”.
+Tipografia:
+- títulos: Cormorant Garamond;
+- corpo: DM Sans.
 
-## Regra de implementação
+O item deve aparecer como “A Agô”, nunca “Nossa essência” no menu do rodapé.
 
-Antes de editar, auditar os estilos existentes porque existem várias camadas CSS históricas. Não continuar acumulando arquivos `final2`, `force2`, `ultimate`, `really-final` etc.
+Sem linha acima do copyright.
 
-Quando possível, centralizar a correção em uma folha final organizada por:
-- base/paleta
-- header
-- catálogo
-- cards
-- produto
-- benefícios
-- editoriais
-- checkout
-- contato
-- A Agô
-- footer
-- responsive
+## IMPLEMENTAÇÃO
 
-Depois de implementar, verificar o diff e confirmar que os arquivos alterados estão no branch `main`. Não afirmar que está publicado em produção sem confirmar um novo deployment da Vercel.
+O projeto possui muitas camadas CSS históricas.
+
+Antes de alterar:
+1. auditar as regras globais;
+2. identificar seletores cruzados;
+3. priorizar wrappers explícitos por página;
+4. neutralizar regras contraditórias;
+5. usar uma camada final organizada, sem continuar criando arquivos “final2”, “force2”, “ultimate” etc.
+
+Wrappers esperados:
+- `.home-collection-grid`
+- `.product-page-shell`
+- `.checkout-shell`
+- `.contact-shell`
+- `.essencia-shell`
+- `.footer-shell`
+
+## CRITÉRIO DE ACEITAÇÃO
+
+Só considerar concluído quando:
+
+- o site não tiver verde;
+- o site não tiver ocre ou caqui;
+- as cores estiverem mais vivas e coerentes com Nordeste/sertão;
+- nenhuma seção possuir bordas decorativas;
+- nenhum texto estiver espremido em coluna estreita;
+- nenhuma seção tiver vazio causado por grid incorreto;
+- os 4 benefícios forem visualmente equivalentes;
+- “Como chegar” estiver proporcional;
+- “Como comprar” estiver proporcional e sem números;
+- hero estiver forte e legível;
+- categorias estiverem uniformes;
+- frete grátis estiver legível;
+- fotos estiverem arredondadas e sem faixa lateral artificial;
+- as duas igrejas da seção “Para a casa” estiverem inteiras;
+- checkout estiver proporcional e legível;
+- carrinho estiver visualmente refinado;
+- rodapé estiver proporcional mantendo todo o conteúdo;
+- desktop e mobile funcionarem como versões completas do mesmo site.
+
+Depois da implementação, verificar diff, build, branch `main` e deployment. Nunca afirmar produção pronta sem deployment confirmado como READY.
