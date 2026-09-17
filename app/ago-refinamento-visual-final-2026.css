@@ -133,6 +133,7 @@ body { background:#fbfaf7; color:#2b1d17; }
 .site-footer .footer-shell > .footer-copyright {
   grid-column: 1 / -1 !important;
   width: 100% !important;
+  max-width: none !important;
   justify-self: stretch !important;
   align-self: stretch !important;
   margin-left: 0 !important;
@@ -147,3 +148,4 @@ body { background:#fbfaf7; color:#2b1d17; }
     text-align: center !important;
   }
 }
+/* Audit trigger: force full main branch after HYPD validation. */
