@@ -20,7 +20,7 @@ export default function HomePage() {
   const remainingProducts = products.slice(8);
 
   return (
-    <div className="ago-home" data-design-audit="2026-09-17-brasilidade">
+    <div className="ago-home" data-design-audit="2026-09-17-human-attention">
       <section id="colecao" className="collection-showcase home-collection">
         <div className="home-collection-grid">
           <div className="collection-intro">
@@ -32,7 +32,7 @@ export default function HomePage() {
           <div className="featured-products-grid">
             {firstProducts.map((product, index) => <ProductCard key={product.id} product={product} priority={index < 4} />)}
           </div>
-          <div className="collection-after"><p>Peças feitas para atravessar o tempo e continuar contando histórias.</p><Link href="/produtos" className="collection-link">Ver todas as peças <span>↗</span></Link></div>
+          <div className="collection-after"><p>Peças feitas para atravessar o tempo e continuar fazendo parte da casa.</p><Link href="/produtos" className="collection-link">Ver todas as peças <span>↗</span></Link></div>
         </div>
       </section>
 
@@ -61,6 +61,17 @@ export default function HomePage() {
           <h1>FEITO À MÃO.<br />FEITO PARA DURAR.</h1>
           <p className="hero-copy">Cerâmicas e objetos inspirados na Bahia, nas formas de Trancoso e no jeito brasileiro de viver.</p>
           <div className="hero-actions"><Link href="#colecao" className="hero-primary">Ver coleção</Link><Link href="/nossa-essencia" className="hero-secondary">Conheça a Agô</Link></div>
+        </div>
+      </section>
+
+      <section className="encanto-section" aria-labelledby="encanto-title">
+        <div className="ago-container encanto-inner">
+          <p className="eyebrow">Trancoso</p>
+          <div className="encanto-copy">
+            <h2 id="encanto-title">O encanto de Trancoso</h2>
+            <p className="encanto-subtitle">Detalhes para decorar, presentear e guardar memórias.</p>
+            <p className="encanto-text">Na Agô Trancoso, você encontra cerâmicas, lembranças e peças especiais inspiradas na beleza, nas cores e no charme de Trancoso.</p>
+          </div>
         </div>
       </section>
 
