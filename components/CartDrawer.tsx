@@ -54,7 +54,13 @@ export default function CartDrawer() {
         </div>
         {lines.length > 0 && (
           <div className="cart-summary">
-            {!freeShipping ? <p className="cart-shipping-message">Faltam <strong>{formatBRL(remaining)}</strong> para o frete grátis.</p> : <p className="cart-shipping-message is-free">Você ganhou frete grátis neste pedido.</p>}
+            <div className="cart-shipping-progress-block">
+              {!freeShipping ? <p className="cart-shipping-message">Faltam <strong>{formatBRL(remaining)}</strong> para o frete grátis.</p> : <p className="cart-shipping-message is-free">Você ganhou frete grátis neste pedido.</p>}
+              <div className="cart-shipping-progress" aria-hidden="true">
+                <span style={{ width: Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100) + '%' }} />
+              </div>
+              <div className="cart-shipping-progress-labels"><span>Frete fixo R$ 39,90</span><span>Grátis acima de R$ 500</span></div>
+            </div>
             <div className="cart-summary-row"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
             <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
             <div className="cart-total-row"><span>Total</span><strong>{formatBRL(total)}</strong></div>
