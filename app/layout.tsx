@@ -69,6 +69,7 @@ import './ago-catalog-controls-2026.css';
 import './ago-polimento-editorial-2026.css';
 import './ago-direcao-arte-final-2026.css';
 import './ago-direcao-desktop-radical-2026.css';
+import './ago-desktop-final-clean-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
