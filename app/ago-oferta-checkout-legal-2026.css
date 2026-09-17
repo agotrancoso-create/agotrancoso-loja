@@ -25,6 +25,14 @@
 .checkout-coupon-message.success { color: #7E3925 !important; }
 .checkout-coupon-message.error { color: #9A3F24 !important; }
 .checkout-discount-row strong { color: #7E3925 !important; }
+.first-purchase-close {
+  background: #F1E6DA !important;
+  color: #321E17 !important;
+  box-shadow: 0 3px 12px rgba(50,30,23,.12) !important;
+  border: 1px solid rgba(74,44,31,.08) !important;
+}
+.first-purchase-close:hover,
+.first-purchase-close:focus-visible { background: #E9D7C5 !important; color: #321E17 !important; }
 
 .legal-content { max-width: 900px !important; padding: 76px 0 96px !important; }
 .legal-content h1 { margin: 8px 0 18px !important; font: 600 clamp(48px, 6vw, 76px)/.9 'Cormorant Garamond', Georgia, serif !important; color: #321E17 !important; }
