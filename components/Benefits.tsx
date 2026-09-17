@@ -1,7 +1,7 @@
 const benefits = [
   {
     title: 'feito à mão',
-    text: 'cuidado e tradição em cada detalhe.',
+    text: 'Cada peça passa pelas mãos de quem conhece o ofício e cuida dos detalhes.',
     icon: (
       <svg viewBox="0 0 48 48" aria-hidden="true">
         <path d="M24 39.5 9.7 25.2C4.4 20 5.2 11.9 11.1 8.2c4.8-3 9.7-1.5 12.9 2.4 3.2-3.9 8.1-5.4 12.9-2.4 5.9 3.7 6.7 11.8 1.4 17L24 39.5Z" />
@@ -10,8 +10,8 @@ const benefits = [
     ),
   },
   {
-    title: 'peças exclusivas',
-    text: 'escolhas especiais para quem valoriza o feito à mão.',
+    title: 'peças para guardar',
+    text: 'Objetos com presença, feitos para continuar fazendo parte da sua casa.',
     icon: (
       <svg viewBox="0 0 48 48" aria-hidden="true">
         <path d="M17 9h14" />
@@ -21,8 +21,8 @@ const benefits = [
     ),
   },
   {
-    title: 'inspiração brasileira',
-    text: 'cores, formas e símbolos da nossa terra.',
+    title: 'olhar brasileiro',
+    text: 'Referências da Bahia aparecem nas formas, nas cores e nos pequenos detalhes.',
     icon: (
       <svg viewBox="0 0 48 48" aria-hidden="true">
         <path d="M24 7v12M24 29v12M7 24h12M29 24h12" />
@@ -32,8 +32,8 @@ const benefits = [
     ),
   },
   {
-    title: 'envio para todo brasil',
-    text: 'receba com segurança na sua casa.',
+    title: 'envio para todo o brasil',
+    text: 'Você escolhe daqui e recebe com segurança onde estiver.',
     icon: (
       <svg viewBox="0 0 48 48" aria-hidden="true">
         <path d="M6 15h25v20H6z" />
