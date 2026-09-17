@@ -20,19 +20,26 @@ export default function HomePage() {
   const remainingProducts = products.slice(8);
 
   return (
-    <div className="ago-home" data-design-audit="2026-09-17-master">
+    <div className="ago-home" data-design-audit="2026-09-17-desktop-clean">
       <section id="colecao" className="collection-showcase home-collection">
         <div className="home-collection-grid">
           <div className="collection-intro">
             <p className="eyebrow">A coleção</p>
             <h2 className="section-title">Peças para levar a Bahia para dentro de casa.</h2>
             <p className="section-intro">Cerâmicas e objetos inspirados nas formas, na arquitetura, na fé e nas memórias que fazem parte da nossa paisagem brasileira.</p>
-            <Link href="/produtos" className="collection-link collection-link-large">Ver coleção <span>↗</span></Link>
+            <Link href="/produtos" className="collection-link collection-link-large">Ver coleção</Link>
           </div>
+
           <div className="featured-products-grid">
-            {firstProducts.map((product, index) => <ProductCard key={product.id} product={product} priority={index < 4} />)}
+            {firstProducts.map((product, index) => (
+              <ProductCard key={product.id} product={product} priority={index < 4} />
+            ))}
           </div>
-          <div className="collection-after"><p>Peças feitas para atravessar o tempo e continuar fazendo parte da casa.</p><Link href="/produtos" className="collection-link">Ver todas as peças <span>↗</span></Link></div>
+
+          <div className="collection-after">
+            <p>Peças feitas para atravessar o tempo e continuar fazendo parte da casa.</p>
+            <Link href="/produtos" className="collection-link">Ver todas as peças</Link>
+          </div>
         </div>
       </section>
 
@@ -47,39 +54,70 @@ export default function HomePage() {
 
       <section className="brasilidade-ribbon" aria-label="Identidade da Agô">
         <div className="ago-container brasilidade-ribbon-inner">
-          <span>Bahia</span><b>•</b><span>Trancoso</span><b>•</b><span>Barro</span><b>•</b><span>Sol</span><b>•</b><span>Memória</span><b>•</b><span>Brasil</span>
+          <span>Bahia</span><span>Trancoso</span><span>Barro</span><span>Sol</span><span>Memória</span><span>Brasil</span>
         </div>
       </section>
 
       <section className="hero-section relative flex items-end overflow-hidden bg-marrom text-areia">
         <Image src="/hero.jpg" alt="Peças de cerâmica da Agô Trancoso" fill sizes="100vw" className="object-cover hero-image" />
         <div className="absolute inset-0 hero-overlay" />
-        <div className="hero-brazil-shape hero-brazil-shape-one" aria-hidden="true" />
-        <div className="hero-brazil-shape hero-brazil-shape-two" aria-hidden="true" />
         <div className="relative z-10 w-full ago-container hero-content">
           <p className="eyebrow mb-4 text-areia">Feitas à mão.</p>
           <h1>FEITO À MÃO.<br />FEITO PARA DURAR.</h1>
           <p className="hero-copy">Peças para levar a Bahia para dentro de casa.<br />Um jeito brasileiro de morar.</p>
-          <div className="hero-actions"><Link href="#colecao" className="hero-primary">Ver coleção</Link><Link href="/nossa-essencia" className="hero-secondary">Conheça a Agô</Link></div>
+          <div className="hero-actions">
+            <Link href="#colecao" className="hero-primary">Ver coleção</Link>
+            <Link href="/nossa-essencia" className="hero-secondary">Conheça a Agô</Link>
+          </div>
         </div>
       </section>
 
       <Benefits />
 
-      {remainingProducts.length > 0 && <section className="collection-more"><div className="ago-container collection-more-inner">
-        <div className="section-heading"><div><p className="eyebrow">Mais da coleção</p><h2 className="section-title">Para decorar, presentear ou guardar por muitos anos.</h2></div><Link href="/produtos" className="collection-link">Ver coleção completa <span>↗</span></Link></div>
-        <div className="remaining-products-grid">{remainingProducts.map((product) => <ProductCard key={product.id} product={product} />)}</div>
-      </div></section>}
+      {remainingProducts.length > 0 && (
+        <section className="collection-more">
+          <div className="ago-container collection-more-inner">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">Mais da coleção</p>
+                <h2 className="section-title">Para decorar, presentear ou guardar por muitos anos.</h2>
+              </div>
+              <Link href="/produtos" className="collection-link">Ver coleção completa</Link>
+            </div>
+            <div className="remaining-products-grid">
+              {remainingProducts.map((product) => <ProductCard key={product.id} product={product} />)}
+            </div>
+          </div>
+        </section>
+      )}
 
-      <section className="home-house"><div className="ago-container house-grid">
-        <div className="house-copy"><p className="eyebrow">Da Bahia para sua casa</p><h2 className="section-title">Da Bahia para sua casa.</h2><p className="editorial-copy">Objetos com presença, feitos à mão e pensados para viver junto com você.</p><Link href="/produtos" className="dark-button">Escolher uma peça</Link></div>
-        <div className="editorial-image house-image"><img src="/complementar.jpg" alt="Duas igrejas em cerâmica da Agô Trancoso" loading="lazy" /></div>
-      </div></section>
+      <section className="home-house">
+        <div className="ago-container house-grid">
+          <div className="house-copy">
+            <p className="eyebrow">Da Bahia para sua casa</p>
+            <h2 className="section-title">Da Bahia para sua casa.</h2>
+            <p className="editorial-copy">Objetos com presença, feitos à mão e pensados para viver junto com você.</p>
+            <Link href="/produtos" className="dark-button">Escolher uma peça</Link>
+          </div>
+          <div className="editorial-image house-image">
+            <img src="/complementar.jpg" alt="Duas igrejas em cerâmica da Agô Trancoso" loading="lazy" />
+          </div>
+        </div>
+      </section>
 
-      <section className="how-section"><div className="ago-container how-grid">
-        <div><p className="eyebrow">Como comprar</p><h2 className="section-title">Escolha o que faz sentido para você.</h2></div>
-        <div className="steps-grid"><div><strong>01 Escolha</strong><p>Conheça a coleção, veja os detalhes e encontre a peça que procura.</p></div><div><strong>02 Seu pedido</strong><p>Adicione ao carrinho e informe os dados para receber em casa.</p></div><div><strong>03 Pagamento</strong><p>Confira tudo com atenção e finalize pelo pagamento seguro.</p></div></div>
-      </div></section>
+      <section className="how-section">
+        <div className="ago-container how-grid">
+          <div>
+            <p className="eyebrow">Como comprar</p>
+            <h2 className="section-title">Escolha o que faz sentido para você.</h2>
+          </div>
+          <div className="steps-grid">
+            <div><strong>01 Escolha</strong><p>Conheça a coleção, veja os detalhes e encontre a peça que procura.</p></div>
+            <div><strong>02 Seu pedido</strong><p>Adicione ao carrinho e informe os dados para receber em casa.</p></div>
+            <div><strong>03 Pagamento</strong><p>Confira tudo com atenção e finalize pelo pagamento seguro.</p></div>
+          </div>
+        </div>
+      </section>
 
       <section className="visit-section text-areia">
         <div className="ago-container visit-grid">
@@ -87,9 +125,20 @@ export default function HomePage() {
             <p className="eyebrow">Visite a Agô</p>
             <h3 className="visit-section-title">Como chegar<br className="visit-title-break" /> até a Agô</h3>
             <p className="visit-copy">Nossa banca fica no Quadrado de Trancoso. Para localizar a Agô ou conversar sobre uma peça, fale com a gente pelo WhatsApp ou Instagram.</p>
-            <div className="visit-actions"><a href={mapsUrl} target="_blank" rel="noreferrer">Abrir no Google Maps</a><a href={whatsappUrl} target="_blank" rel="noreferrer">Falar no WhatsApp</a><a href={instagramUrl} target="_blank" rel="noreferrer">Falar pelo Instagram</a></div>
+            <div className="visit-actions">
+              <a href={mapsUrl} target="_blank" rel="noreferrer">Abrir no Google Maps</a>
+              <a href={whatsappUrl} target="_blank" rel="noreferrer">Falar no WhatsApp</a>
+              <a href={instagramUrl} target="_blank" rel="noreferrer">Falar pelo Instagram</a>
+            </div>
           </div>
-          <div><p className="eyebrow">Informações úteis</p><div className="info-list"><div><strong>Banca</strong><span>Quadrado de Trancoso</span></div><div><strong>Atendimento</strong><span>WhatsApp, Instagram e presencialmente no Quadrado</span></div><div><strong>Envios</strong><span>Frete fixo de R$ 39,90; grátis acima de R$ 500.</span></div></div></div>
+          <div>
+            <p className="eyebrow">Informações úteis</p>
+            <div className="info-list">
+              <div><strong>Banca</strong><span>Quadrado de Trancoso</span></div>
+              <div><strong>Atendimento</strong><span>WhatsApp, Instagram e presencialmente no Quadrado</span></div>
+              <div><strong>Envios</strong><span>Frete fixo de R$ 39,90; grátis acima de R$ 500.</span></div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
