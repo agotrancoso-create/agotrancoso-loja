@@ -1,6 +1,10 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 
-export const metadata = { title: 'A Agô | Agô Trancoso' };
+export const metadata: Metadata = {
+  title: 'A Agô',
+  alternates: { canonical: '/nossa-essencia' },
+};
 
 export default function NossaEssenciaPage() {
   return (
@@ -17,7 +21,7 @@ export default function NossaEssenciaPage() {
             </div>
           </section>
           <div className="essencia-image">
-            <Image src="/nossa-essencia.jpg" alt="Peças de cerâmica da Agô Trancoso" fill className="essencia-image-img" quality={100} unoptimized />
+            <Image src="/nossa-essencia.jpg" alt="Peças de cerâmica da Agô Trancoso" fill className="essencia-image-img" sizes="(max-width: 900px) 100vw, 50vw" quality={82} />
           </div>
         </div>
       </div>
