@@ -721,3 +721,15 @@ footer p{
 }
 
 /* Final sync marker: loaded after all legacy layers. */
+
+/* Rodapé: textos corridos também justificados */
+.site-footer p,
+.site-footer li,
+.site-footer .footer-description,
+.site-footer .footer-copy,
+footer p,
+footer li{
+  text-align: justify !important;
+  text-justify: inter-word;
+  hyphens: auto;
+}
