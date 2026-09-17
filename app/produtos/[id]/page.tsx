@@ -35,28 +35,23 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       <div className="product-page-shell">
         <Link href="/produtos" className="product-back">← Voltar à coleção</Link>
         <div className="product-page-grid">
-          <div className="product-gallery-column"><ProductGallery name={product.name} images={images} /></div>
-
+          <div className="product-gallery-column">
+            <ProductGallery name={product.name} images={images} />
+          </div>
           <div className="product-info-column">
             <p className="eyebrow">Agô Trancoso</p>
             <h1 className="product-detail-title">{product.name}</h1>
-
             {hasPromo ? (
               <div className="price-detail-row"><span className="product-old-price">{formatBRL(product.price)}</span><span className="product-current-price">{formatBRL(price)}</span></div>
             ) : (<p className="product-current-price">{formatBRL(price)}</p>)}
-
             <p className="product-description">{product.description}</p>
             {product.dimensions && <p className="product-dimensions">Dimensões: {product.dimensions}</p>}
-
             <div className="product-shipping-note">
               {freeShippingAtProductQuantity ? 'Frete grátis nesta peça.' : <>Frete fixo de <strong>{formatBRL(FIXED_SHIPPING_PRICE)}</strong>.</>}
               <span>Compras acima de R$ 500 têm frete grátis.</span>
             </div>
-
             <div className="product-purchase"><AddToCart product={product} /></div>
-
             <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="product-whatsapp">Comprar pelo WhatsApp</a>
-
             <div className="product-trust-grid">
               <div><span>Feito à mão</span></div>
               <div><span>Peça especial</span></div>
