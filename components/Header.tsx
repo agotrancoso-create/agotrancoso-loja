@@ -21,7 +21,9 @@ export default function Header() {
 
   return (
     <>
-      <div className="ago-topbar">
+      <div className="ago-topbar" aria-label="Informações comerciais">
+        <span className="ago-topbar-offer">3% OFF na 1ª compra</span>
+        <i aria-hidden="true" />
         <span>Frete grátis acima de R$ 500</span>
         <i aria-hidden="true" />
         <span>Envio para todo o Brasil</span>
@@ -53,12 +55,12 @@ export default function Header() {
                 className="header-search"
               />
             </form>
-            <button aria-label="Abrir carrinho" onClick={openDrawer} className="header-icon">
+            <button type="button" aria-label={totalItems > 0 ? `Abrir carrinho com ${totalItems} ${totalItems === 1 ? 'item' : 'itens'}` : 'Abrir carrinho'} onClick={openDrawer} className="header-icon">
               <CartIcon />
               {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
             </button>
-            <button aria-label="Abrir menu" className="mobile-menu-button" onClick={() => setMenuOpen((v) => !v)}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <button type="button" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menuOpen} className="mobile-menu-button" onClick={() => setMenuOpen((v) => !v)}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
               </svg>
             </button>
