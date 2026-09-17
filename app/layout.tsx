@@ -60,11 +60,13 @@ import './ago-copyright-centralizado-final.css';
 import './ago-direcao-designer-final-2026.css';
 import './ago-brasilidade-2026.css';
 import './ago-prompt-mestre-final-2026.css';
+import './ago-experiencia-total-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
 import SocialFloaters from '@/components/SocialFloaters';
+import FirstPurchaseOffer from '@/components/FirstPurchaseOffer';
 import { SITE_DOMAIN } from '@/lib/config';
 
 export const metadata: Metadata = {
@@ -77,5 +79,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="pt-BR"><body className="font-sans"><CartProvider><Header /><main className="min-h-[60vh]">{children}</main><Footer /><CartDrawer /><SocialFloaters /></CartProvider></body></html>;
+  return <html lang="pt-BR"><body className="font-sans"><CartProvider><Header /><main className="min-h-[60vh]">{children}</main><Footer /><CartDrawer /><SocialFloaters /><FirstPurchaseOffer /></CartProvider></body></html>;
 }
