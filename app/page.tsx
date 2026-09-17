@@ -84,7 +84,7 @@ export default function HomePage() {
       <section className="visit-section text-areia">
         <div className="ago-container visit-grid">
           <div>
-            <h2 className="visit-main-title">Visite a Agô</h2>
+            <p className="eyebrow">Visite a Agô</p>
             <h3 className="visit-section-title">Como chegar<br className="visit-title-break" /> até a Agô</h3>
             <p className="visit-copy">Nossa banca fica no Quadrado de Trancoso. Para localizar a Agô ou conversar sobre uma peça, fale com a gente pelo WhatsApp ou Instagram.</p>
             <div className="visit-actions"><a href={mapsUrl} target="_blank" rel="noreferrer">Abrir no Google Maps</a><a href={whatsappUrl} target="_blank" rel="noreferrer">Falar no WhatsApp</a><a href={instagramUrl} target="_blank" rel="noreferrer">Falar pelo Instagram</a></div>
