@@ -36,3 +36,6 @@ A camada final de direção de arte foi revisada para remover o verde/oliva da i
 
 ## Sincronização de deploy
 Última verificação de sincronização GitHub/Vercel em 17/09/2026.
+
+## Trigger de deploy
+Push de verificação para confirmar o disparo automático GitHub → Vercel.
