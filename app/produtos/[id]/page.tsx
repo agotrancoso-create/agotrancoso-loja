@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getAllProducts, getEffectivePrice, getProductById } from '@/lib/products';
@@ -14,10 +15,14 @@ export function generateStaticParams() {
   return getAllProducts().map((p) => ({ id: p.id }));
 }
 
-export function generateMetadata({ params }: { params: { id: string } }) {
+export function generateMetadata({ params }: { params: { id: string } }): Metadata {
   const product = getProductById(params.id);
   if (!product) return {};
-  return { title: `${product.name} | Agô Trancoso`, description: product.description };
+  return {
+    title: product.name,
+    description: product.description,
+    alternates: { canonical: `/produtos/${product.id}` },
+  };
 }
 
 export default function ProductPage({ params }: { params: { id: string } }) {
