@@ -143,9 +143,9 @@ body { background:#fbfaf7; color:#2b1d17; }
 @media (max-width:767px) {
   .site-footer .footer-shell > .footer-copyright {
     grid-column: 1 / -1 !important;
-    width: 100% !important;
-    justify-self: stretch !important;
-    text-align: center !important;
+    width:100% !important;
+    justify-self:stretch !important;
+    text-align:center !important;
   }
 }
-/* Audit trigger: force full main branch after HYPD validation. */
+/* Audit trigger: força publicação da árvore main após auditoria integrada. */
