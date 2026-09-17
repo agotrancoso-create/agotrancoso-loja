@@ -4,7 +4,7 @@ import ProdutosClient from './ProdutosClient';
 
 export const metadata = {
   title: 'Coleção | Agô Trancoso',
-  description: 'Conheça as peças de cerâmica e artesanato da Agô Trancoso.',
+  description: 'Conheça a coleção de cerâmicas e objetos feitos à mão da Agô Trancoso, inspirados na Bahia, em Trancoso e no jeito brasileiro de viver.',
 };
 
 export default function ProdutosPage() {
@@ -17,7 +17,7 @@ export default function ProdutosPage() {
         <div className="catalog-intro">
           <p className="eyebrow">A coleção</p>
           <h1>Peças para decorar, presentear e guardar.</h1>
-          <p>Cerâmicas e objetos artesanais da Agô Trancoso.</p>
+          <p>Cerâmicas e objetos feitos à mão, inspirados na Bahia e nas formas de Trancoso.</p>
         </div>
         <Suspense fallback={null}>
           <ProdutosClient products={products} categories={categories} />

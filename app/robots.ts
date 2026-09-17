@@ -1,8 +1,9 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
+import { SITE_DOMAIN } from '@/lib/config';
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: '*', allow: '/' },
-    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.agotrancoso.com.br'}/sitemap.xml`,
+    rules: [{ userAgent: '*', allow: '/', disallow: ['/checkout', '/confirmacao', '/api/'] }],
+    sitemap: `${SITE_DOMAIN}/sitemap.xml`,
   };
 }

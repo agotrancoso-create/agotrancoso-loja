@@ -1,18 +1,21 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
 import { getAllProducts } from '@/lib/products';
+import { SITE_DOMAIN } from '@/lib/config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.agotrancoso.com.br';
+  const now = new Date();
+  const staticRoutes = ['', '/produtos', '/nossa-essencia'];
+  const productRoutes = getAllProducts().map((product) => `/produtos/${product.id}`);
 
-  const staticRoutes = ['', '/produtos', '/nossa-essencia', '/contato'].map((path) => ({
-    url: `${base}${path}`,
-    lastModified: new Date(),
-  }));
-
-  const productRoutes = getAllProducts().map((p) => ({
-    url: `${base}/produtos/${p.id}`,
-    lastModified: new Date(),
-  }));
-
-  return [...staticRoutes, ...productRoutes];
+  return [...staticRoutes.map((path) => ({
+    url: `${SITE_DOMAIN}${path}`,
+    lastModified: now,
+    changeFrequency: 'weekly' as const,
+    priority: path === '' ? 1 : 0.8,
+  })), ...productRoutes.map((path) => ({
+    url: `${SITE_DOMAIN}${path}`,
+    lastModified: now,
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }))];
 }

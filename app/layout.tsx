@@ -75,12 +75,60 @@ import { SITE_DOMAIN } from '@/lib/config';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
   title: { default: 'Agô Trancoso | Cerâmicas e peças feitas à mão', template: '%s | Agô Trancoso' },
-  description: 'Cerâmicas e peças feitas à mão, inspiradas na Bahia, em Trancoso e nos detalhes que fazem parte da nossa memória. Conheça a coleção da Agô.',
-  keywords: ['Agô Trancoso','cerâmica artesanal','peças feitas à mão','decoração artesanal','presentes artesanais','Trancoso','Bahia'],
+  description: 'Cerâmicas e objetos feitos à mão, inspirados na Bahia, nas formas de Trancoso e no jeito brasileiro de viver. Conheça a coleção da Agô Trancoso.',
+  keywords: ['Agô Trancoso', 'cerâmica artesanal', 'peças feitas à mão', 'decoração artesanal', 'presentes artesanais', 'Trancoso', 'Bahia'],
   alternates: { canonical: SITE_DOMAIN },
-  openGraph: { title: 'Agô Trancoso', description: 'Peças feitas à mão, inspiradas na Bahia e pensadas para fazer parte da sua história.', url: SITE_DOMAIN, type: 'website' },
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: 'Agô Trancoso | Cerâmicas e peças feitas à mão',
+    description: 'Peças feitas à mão, inspiradas na Bahia, nas formas de Trancoso e no jeito brasileiro de viver.',
+    url: SITE_DOMAIN,
+    siteName: 'Agô Trancoso',
+    locale: 'pt_BR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Agô Trancoso | Cerâmicas e peças feitas à mão',
+    description: 'Peças feitas à mão, inspiradas na Bahia e nas formas de Trancoso.',
+  },
+};
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_DOMAIN}#organization`,
+      name: 'Agô Trancoso',
+      url: SITE_DOMAIN,
+      sameAs: ['https://www.instagram.com/agotrancoso'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_DOMAIN}#website`,
+      name: 'Agô Trancoso',
+      url: SITE_DOMAIN,
+      inLanguage: 'pt-BR',
+      publisher: { '@id': `${SITE_DOMAIN}#organization` },
+    },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="pt-BR"><body className="font-sans"><CartProvider><Header /><main className="min-h-[60vh]">{children}</main><Footer /><CartDrawer /><SocialFloaters /><FirstPurchaseOffer /></CartProvider></body></html>;
+  return (
+    <html lang="pt-BR">
+      <body className="font-sans">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+        <CartProvider>
+          <Header />
+          <main className="min-h-[60vh]">{children}</main>
+          <Footer />
+          <CartDrawer />
+          <SocialFloaters />
+          <FirstPurchaseOffer />
+        </CartProvider>
+      </body>
+    </html>
+  );
 }
