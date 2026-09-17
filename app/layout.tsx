@@ -45,6 +45,7 @@ import './ago-direcao-definitiva-viva-2026.css';
 import './ago-viva-ajuste-final-2026.css';
 import './ago-rodape-restaurado-2026.css';
 import './ago-design-system-2026.css';
+import './ago-ajuste-terroso-elegante-final-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
