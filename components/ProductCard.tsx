@@ -74,8 +74,8 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         </div>
       </Link>
       {product.available && (
-        <button type="button" onClick={() => addItem(product.id)} className="product-add">
-          Adicionar ao carrinho <span>+</span>
+        <button type="button" onClick={() => addItem(product.id)} className="product-add" aria-label={`Adicionar ${product.name} ao carrinho`}>
+          Adicionar ao carrinho
         </button>
       )}
     </article>
