@@ -58,6 +58,7 @@ import './ago-alinhamento-global-2026.css';
 import './ago-acessibilidade-proporcao-final-2026.css';
 import './ago-ux-acessibilidade-final-2026.css';
 import './ago-copyright-centralizado-final.css';
+import './ago-precos-pagamento-final-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
