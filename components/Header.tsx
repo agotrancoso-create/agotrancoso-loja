@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
-import CartIcon from './CartIcon';
 
 const navItems = [
   { href: '/', label: 'Início' },
@@ -40,6 +39,7 @@ export default function Header() {
         <i aria-hidden="true" />
         <span>Atendimento pelo WhatsApp</span>
       </div>
+
       <header className="site-header sticky top-0 z-40">
         <div className="ago-container header-inner">
           <Link href="/" className="header-logo" aria-label="Agô Trancoso">
@@ -70,11 +70,26 @@ export default function Header() {
                 className="header-search"
               />
             </form>
-            <button type="button" aria-label={totalItems > 0 ? `Abrir carrinho com ${totalItems} ${totalItems === 1 ? 'item' : 'itens'}` : 'Abrir carrinho'} onClick={openDrawer} className="header-icon">
-              <CartIcon />
-              {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
+
+            <button
+              type="button"
+              aria-label={totalItems > 0 ? `Abrir carrinho com ${totalItems} ${totalItems === 1 ? 'item' : 'itens'}` : 'Abrir carrinho'}
+              onClick={openDrawer}
+              className="header-icon"
+            >
+              <span className="header-cart-label">
+                <span>Sacola</span>
+                {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
+              </span>
             </button>
-            <button type="button" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menuOpen} className="mobile-menu-button" onClick={() => setMenuOpen((v) => !v)}>
+
+            <button
+              type="button"
+              aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+              aria-expanded={menuOpen}
+              className="mobile-menu-button"
+              onClick={() => setMenuOpen((v) => !v)}
+            >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
               </svg>
