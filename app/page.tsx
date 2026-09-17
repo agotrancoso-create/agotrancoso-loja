@@ -20,13 +20,13 @@ export default function HomePage() {
   const remainingProducts = products.slice(8);
 
   return (
-    <div className="ago-home" data-design-audit="2026-09-17-desktop-clean">
+    <div className="ago-home" data-design-audit="2026-09-17-editorial-aligned">
       <section id="colecao" className="collection-showcase home-collection">
         <div className="home-collection-grid">
           <div className="collection-intro">
-            <p className="eyebrow">A coleção</p>
-            <h2 className="section-title">Peças para levar a Bahia para dentro de casa.</h2>
-            <p className="section-intro">Cerâmicas e objetos inspirados nas formas, na arquitetura, na fé e nas memórias que fazem parte da nossa paisagem brasileira.</p>
+            <p className="eyebrow">Escolha a sua</p>
+            <h2 className="section-title">Tem peça que muda a casa.</h2>
+            <p className="section-intro">Cerâmicas e objetos com formas, texturas e símbolos que trazem personalidade para a casa sem pedir licença.</p>
             <Link href="/produtos" className="collection-link collection-link-large">Ver coleção</Link>
           </div>
 
@@ -37,7 +37,7 @@ export default function HomePage() {
           </div>
 
           <div className="collection-after">
-            <p>Peças feitas para atravessar o tempo e continuar fazendo parte da casa.</p>
+            <p>Escolha pela peça. Leve para casa o que fez você parar para olhar.</p>
             <Link href="/produtos" className="collection-link">Ver todas as peças</Link>
           </div>
         </div>
@@ -79,8 +79,8 @@ export default function HomePage() {
           <div className="ago-container collection-more-inner">
             <div className="section-heading">
               <div>
-                <p className="eyebrow">Mais da coleção</p>
-                <h2 className="section-title">Para decorar, presentear ou guardar por muitos anos.</h2>
+                <p className="eyebrow">Mais para olhar</p>
+                <h2 className="section-title">Uma peça boa não precisa disputar espaço.</h2>
               </div>
               <Link href="/produtos" className="collection-link">Ver coleção completa</Link>
             </div>
@@ -95,8 +95,8 @@ export default function HomePage() {
         <div className="ago-container house-grid">
           <div className="house-copy">
             <p className="eyebrow">Da Bahia para sua casa</p>
-            <h2 className="section-title">Da Bahia para sua casa.</h2>
-            <p className="editorial-copy">Objetos com presença, feitos à mão e pensados para viver junto com você.</p>
+            <h2 className="section-title">Um pedaço de paisagem dentro de casa.</h2>
+            <p className="editorial-copy">Objetos com presença, cor e memória para conviver com a casa — não apenas decorar.</p>
             <Link href="/produtos" className="dark-button">Escolher uma peça</Link>
           </div>
           <div className="editorial-image house-image">
@@ -109,12 +109,12 @@ export default function HomePage() {
         <div className="ago-container how-grid">
           <div>
             <p className="eyebrow">Como comprar</p>
-            <h2 className="section-title">Escolha o que faz sentido para você.</h2>
+            <h2 className="section-title">Gostou? O próximo passo é simples.</h2>
           </div>
           <div className="steps-grid">
-            <div><strong>01 Escolha</strong><p>Conheça a coleção, veja os detalhes e encontre a peça que procura.</p></div>
-            <div><strong>02 Seu pedido</strong><p>Adicione ao carrinho e informe os dados para receber em casa.</p></div>
-            <div><strong>03 Pagamento</strong><p>Confira tudo com atenção e finalize pelo pagamento seguro.</p></div>
+            <div><strong>Escolha</strong><p>Veja as peças, os detalhes e encontre aquela que fez você parar para olhar.</p></div>
+            <div><strong>Seu pedido</strong><p>Adicione ao carrinho e informe os dados para receber tudo em casa.</p></div>
+            <div><strong>Pagamento</strong><p>Confira o pedido e finalize pelo pagamento seguro.</p></div>
           </div>
         </div>
       </section>
@@ -123,7 +123,7 @@ export default function HomePage() {
         <div className="ago-container visit-grid">
           <div>
             <p className="eyebrow">Visite a Agô</p>
-            <h3 className="visit-section-title">Como chegar<br className="visit-title-break" /> até a Agô</h3>
+            <h3 className="visit-section-title">Chegou ao Quadrado?<br className="visit-title-break" /> Procure a Agô.</h3>
             <p className="visit-copy">Nossa banca fica no Quadrado de Trancoso. Para localizar a Agô ou conversar sobre uma peça, fale com a gente pelo WhatsApp ou Instagram.</p>
             <div className="visit-actions">
               <a href={mapsUrl} target="_blank" rel="noreferrer">Abrir no Google Maps</a>
