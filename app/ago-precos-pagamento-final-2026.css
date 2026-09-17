@@ -2,7 +2,8 @@
    Faixa de preço limpa, centralizada e legível.
 */
 
-.product-price-info{
+.product-price-info,
+.product-price-detail{
   width:100%;
   display:flex;
   flex-direction:column;
@@ -57,7 +58,17 @@
   display:none!important;
 }
 
+.product-detail-reference-price{
+  display:block;
+  font-size:10px;
+  line-height:1.35;
+  color:rgba(63,38,28,.48);
+  text-decoration:line-through;
+  text-align:center;
+}
+
 @media(max-width:767px){
   .product-price-pix{font-size:14px}
   .product-price-card{font-size:11px}
+  .product-detail-reference-price{font-size:9px}
 }
