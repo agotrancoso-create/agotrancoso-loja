@@ -1,0 +1,193 @@
+/* AGÔ TRANCOSO — DIREÇÃO DE DESIGN FINAL 2026
+   Camada única de acabamento visual.
+   Não altera catálogo, preços, checkout ou conteúdo.
+*/
+
+:root{
+  --designer-cream:#F8F3ED;
+  --designer-paper:#EFE4D8;
+  --designer-terra:#8E3F2B;
+  --designer-brick:#713326;
+  --designer-cacao:#3B2520;
+  --designer-ink:#30231F;
+  --designer-white:#FFFDF9;
+  --designer-line:rgba(59,37,32,.13);
+}
+
+html{scroll-behavior:smooth}
+body{
+  margin:0!important;
+  background:var(--designer-cream)!important;
+  color:var(--designer-ink)!important;
+  font-family:'DM Sans',Arial,sans-serif!important;
+  font-size:16px!important;
+  line-height:1.55!important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* Sistema tipográfico consistente: uma hierarquia, sem tamanhos aleatórios */
+h1,h2,h3,h4,h5,h6{
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  color:var(--designer-cacao)!important;
+  letter-spacing:-.025em!important;
+  text-wrap:balance;
+}
+h1{font-size:clamp(46px,5vw,76px)!important;line-height:.96!important;font-weight:500!important}
+h2{font-size:clamp(38px,4vw,58px)!important;line-height:1!important;font-weight:500!important}
+h3{font-size:clamp(24px,2.1vw,32px)!important;line-height:1.05!important;font-weight:500!important}
+p,li,label,input,textarea,select,button{font-family:'DM Sans',Arial,sans-serif!important}
+p{font-size:16px!important;line-height:1.65!important}
+small,.eyebrow,.section-eyebrow{font-size:12px!important;line-height:1.35!important;letter-spacing:.12em!important;text-transform:uppercase}
+
+/* Um mesmo eixo visual para as seções */
+.collection-showcase>*,.benefits-strip>*,.collection-more>*,.editorial-section>*,.home-house>*,.how-section>*,.visit-section>*,.contact-page>*,.essencia-page>*{
+  max-width:1280px;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+.section-heading,.collection-after,.editorial-copy-column,.house-copy,.visit-copy{max-width:1280px!important}
+
+/* Nada de linhas decorativas involuntárias */
+.category-row,.category-row::before,.category-row::after,
+.category-pill,.category-pill::before,.category-pill::after,
+.product-card,.product-card::before,.product-card::after,
+.section-heading::before,.section-heading::after{
+  border-top:0!important;border-right:0!important;border-bottom:0!important;border-left:0!important;
+  box-shadow:none!important;
+}
+
+/* Categorias: limpas, contemporâneas, sem linha superior */
+.category-row{
+  border:0!important;
+  background:var(--designer-cream)!important;
+  padding:22px 24px!important;
+  display:flex!important;
+  justify-content:center!important;
+  gap:10px!important;
+  flex-wrap:wrap!important;
+}
+.category-pill{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:44px!important;
+  padding:10px 19px!important;
+  border-radius:999px!important;
+  background:var(--designer-paper)!important;
+  color:var(--designer-cacao)!important;
+  font-size:13px!important;
+  font-weight:600!important;
+  letter-spacing:.01em!important;
+  transition:transform .2s ease,background-color .2s ease,color .2s ease!important;
+}
+.category-pill:hover{transform:translateY(-2px)!important}
+.category-pill.active{background:var(--designer-terra)!important;color:var(--designer-white)!important}
+
+/* Cards de produto: leitura comercial clara e preço centralizado */
+.product-card{text-align:center!important;background:transparent!important}
+.product-card .mt-4{padding:0 4px!important}
+.product-name{text-align:center!important;font-family:'DM Sans',Arial,sans-serif!important;font-size:16px!important;line-height:1.35!important;font-weight:600!important;letter-spacing:0!important;color:var(--designer-cacao)!important}
+.current-price{text-align:center!important;font-size:19px!important;line-height:1.25!important;font-weight:700!important;color:var(--designer-cacao)!important;margin:8px 0 0!important}
+.old-price{font-size:13px!important;color:rgba(48,35,31,.52)!important;text-decoration:line-through!important}
+.price-row{display:flex!important;justify-content:center!important;align-items:baseline!important;gap:9px!important;margin-top:8px!important}
+.product-add{display:flex!important;align-items:center!important;justify-content:center!important;margin:14px auto 0!important;min-height:48px!important;padding:11px 20px!important;border:0!important;border-radius:999px!important;background:var(--designer-brick)!important;color:#fff!important;font-size:13px!important;font-weight:700!important;transition:transform .2s ease,background-color .2s ease!important}
+.product-add:hover{transform:translateY(-2px)!important;background:var(--designer-terra)!important}
+
+/* Fotos: acabamento editorial, sem moldura */
+.product-image-wrap{overflow:hidden!important;border:0!important;border-radius:20px!important;background:var(--designer-paper)!important}
+.product-image-wrap .product-image{transition:transform .45s cubic-bezier(.2,.7,.2,1)!important}
+.product-card:hover .product-image-wrap .product-image{transform:scale(1.025)!important}
+
+/* CTAs: contraste acessível e área de toque confortável */
+a.hero-primary,.hero-primary,.dark-button,.visit-actions a,.product-primary-cta,.checkout-submit,.cart-checkout{
+  min-height:48px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:999px!important;
+  font-size:14px!important;
+  font-weight:700!important;
+  text-decoration:none!important;
+  transition:transform .2s ease,filter .2s ease!important;
+}
+a.hero-primary:hover,.hero-primary:hover,.dark-button:hover,.visit-actions a:hover,.product-primary-cta:hover,.checkout-submit:hover,.cart-checkout:hover{transform:translateY(-2px)!important;filter:brightness(1.04)!important}
+
+/* A Agô / Visite: proporção de página profissional */
+.visit-section,.home-house,.editorial-section,.how-section{overflow:hidden!important}
+.visit-grid{max-width:1280px!important;grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr)!important;gap:72px!important}
+.visit-copy{max-width:680px!important}
+
+/* Benefícios: mesmo desenho para os quatro */
+.features-container{max-width:1280px!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:16px!important}
+.feature-item,.feature-item:first-child,.feature-item:last-child{
+  min-height:175px!important;
+  border:0!important;
+  border-radius:18px!important;
+  padding:24px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  align-items:flex-start!important;
+  box-sizing:border-box!important;
+}
+.feature-title{font-size:23px!important;line-height:1.05!important}
+.feature-description{font-size:14px!important;line-height:1.55!important}
+
+/* Micro movimento: só onde ajuda a percepção, sem poluir */
+@media (prefers-reduced-motion:no-preference){
+  .hero-primary,.hero-secondary{transition:transform .25s ease,background-color .25s ease!important}
+  .hero-primary:hover,.hero-secondary:hover{transform:translateY(-2px)!important}
+  .product-card{animation:ago-card-enter .55s ease both}
+  @keyframes ago-card-enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* Flutuantes proporcionais: grandes o suficiente para visão e toque, sem dominar */
+.ago-social-floaters{right:20px!important;bottom:20px!important;gap:10px!important}
+.ago-social-button{width:56px!important;height:56px!important;min-width:56px!important;min-height:56px!important;border:0!important;box-shadow:0 8px 20px rgba(47,30,25,.18)!important}
+.ago-social-button svg{width:27px!important;height:27px!important}
+
+/* Copyright: somente o texto, centralizado, sem fundo e sem borda */
+footer .copyright,
+footer [class*="copyright"],
+footer .footer-copyright{
+  width:100%!important;
+  margin:24px 0 0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  text-align:center!important;
+  font-size:13px!important;
+  line-height:1.5!important;
+}
+
+/* Acessibilidade: foco visível e campos legíveis */
+:focus-visible{outline:3px solid rgba(142,63,43,.65)!important;outline-offset:3px!important}
+input,textarea,select{min-height:46px!important;font-size:16px!important}
+button,a{touch-action:manipulation}
+
+@media(max-width:900px){
+  body{font-size:16px!important}
+  p{font-size:15.5px!important;line-height:1.6!important}
+  .features-container{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .visit-grid{grid-template-columns:1fr!important;gap:44px!important}
+}
+
+@media(max-width:600px){
+  h1{font-size:clamp(38px,11vw,54px)!important}
+  h2{font-size:clamp(34px,9.5vw,46px)!important}
+  h3{font-size:25px!important}
+  .category-row{justify-content:flex-start!important;overflow-x:auto!important;flex-wrap:nowrap!important;scrollbar-width:none!important}
+  .category-row::-webkit-scrollbar{display:none}
+  .category-pill{flex:0 0 auto!important;min-height:44px!important}
+  .features-container{width:calc(100% - 32px)!important;grid-template-columns:1fr!important;gap:12px!important}
+  .feature-item,.feature-item:first-child,.feature-item:last-child{min-height:136px!important}
+  .feature-title{font-size:21px!important}
+  .feature-description{font-size:13.5px!important}
+  .ago-social-floaters{right:14px!important;bottom:14px!important;gap:9px!important}
+  .ago-social-button{width:52px!important;height:52px!important;min-width:52px!important;min-height:52px!important}
+  .ago-social-button svg{width:25px!important;height:25px!important}
+  footer .copyright,footer [class*="copyright"],footer .footer-copyright{font-size:12px!important}
+}
