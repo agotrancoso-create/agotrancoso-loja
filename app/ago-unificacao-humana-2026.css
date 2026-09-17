@@ -687,3 +687,5 @@ footer p{
     font-size: clamp(2.2rem, 5.5vw, 3.2rem) !important;
   }
 }
+
+/* Final sync marker: loaded after all legacy layers. */
