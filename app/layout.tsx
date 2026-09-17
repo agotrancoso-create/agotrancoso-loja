@@ -68,6 +68,7 @@ import './ago-redesign-forca-2026.css';
 import './ago-catalog-controls-2026.css';
 import './ago-polimento-editorial-2026.css';
 import './ago-direcao-arte-final-2026.css';
+import './ago-direcao-desktop-radical-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -88,45 +89,17 @@ export const metadata: Metadata = {
     description: 'Peças feitas à mão, inspiradas na Bahia, nas formas de Trancoso e no jeito brasileiro de viver.',
     url: SITE_DOMAIN,
     siteName: 'Agô Trancoso',
-    locale: 'pt_BR',
     type: 'website',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Agô Trancoso | Cerâmicas e peças feitas à mão',
-    description: 'Peças feitas à mão, inspiradas na Bahia e nas formas de Trancoso.',
-  },
 };
 
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': `${SITE_DOMAIN}#organization`,
-      name: 'Agô Trancoso',
-      url: SITE_DOMAIN,
-      sameAs: ['https://www.instagram.com/agotrancoso'],
-    },
-    {
-      '@type': 'WebSite',
-      '@id': `${SITE_DOMAIN}#website`,
-      name: 'Agô Trancoso',
-      url: SITE_DOMAIN,
-      inLanguage: 'pt-BR',
-      publisher: { '@id': `${SITE_DOMAIN}#organization` },
-    },
-  ],
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR">
-      <body className="font-sans">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <body>
         <CartProvider>
           <Header />
-          <main className="min-h-[60vh]">{children}</main>
+          <main>{children}</main>
           <Footer />
           <CartDrawer />
           <SocialFloaters />
