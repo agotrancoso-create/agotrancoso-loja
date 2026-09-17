@@ -21,7 +21,8 @@ body { background:#fbfaf7; color:#2b1d17; }
 .ago-home .product-add:hover { background:#8d4327; border-color:#8d4327; transform:translateY(-1px); }
 .featured-products-grid,.remaining-products-grid { align-items:start; }
 .product-card { display:flex; min-width:0; flex-direction:column; }
-.product-image-wrap { width:100%; border-radius:14px; background:#f1e9de; }
+.product-image-wrap { width:100%; border-radius:14px; background:#f1e9de; overflow:hidden; transition:transform .28s ease, box-shadow .28s ease; }
+.product-card:hover .product-image-wrap { transform:translateY(-3px); box-shadow:0 14px 32px rgba(63,38,28,.10); }
 .product-image { padding:12px; }
 .product-name { color:#3f261c; }
 .product-price,.current-price { color:#8d4327; }
@@ -37,6 +38,15 @@ body { background:#fbfaf7; color:#2b1d17; }
 .benefits-reference .benefit-icon svg { width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
 .benefits-reference .benefit-title { margin:0 0 8px; color:#3b3026; font-size:1.35rem; line-height:1.15; font-weight:600; }
 .benefits-reference .benefit-desc { max-width:260px; margin:0; color:#666; font-family:'DM Sans',Arial,sans-serif; font-size:.88rem; font-weight:300; line-height:1.5; text-align:center; hyphens:none; }
+
+/* O encanto de Trancoso — pausa editorial entre desejo e confiança. */
+.encanto-section { background:#f5efe7; padding:clamp(72px,9vw,128px) 20px; }
+.encanto-inner { display:grid; grid-template-columns:minmax(180px,.55fr) minmax(0,1.45fr); gap:clamp(40px,8vw,120px); align-items:start; }
+.encanto-section .eyebrow { margin:6px 0 0; }
+.encanto-copy { max-width:820px; }
+.encanto-copy h2 { margin:0; color:#3f261c; font-size:clamp(3rem,6vw,6rem); line-height:.9; font-weight:500; }
+.encanto-subtitle { margin:24px 0 14px; color:#8d4327; font-family:'Cormorant Garamond',Georgia,serif; font-size:clamp(1.45rem,2.2vw,2rem); line-height:1.15; }
+.encanto-text { max-width:690px; margin:0; color:rgba(63,38,28,.72); font-size:1rem; line-height:1.75; }
 
 .how-section .steps-grid,.how-section .grid { border:0; }
 .how-section .steps-grid>div,.how-section .grid>div { border:0!important; margin:0; padding:0; }
@@ -70,6 +80,7 @@ body { background:#fbfaf7; color:#2b1d17; }
   .feature-item { height:184px; min-height:184px; }
   .how-section .steps-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; }
   .visit-grid { grid-template-columns:1fr 1fr; gap:48px; }
+  .encanto-inner { grid-template-columns:1fr; gap:20px; }
 }
 @media (max-width:767px) {
   .ago-home .section-title { font-size:clamp(2.35rem,10vw,3.15rem); }
@@ -80,6 +91,11 @@ body { background:#fbfaf7; color:#2b1d17; }
   .product-image-wrap { border-radius:10px; }
   .product-image { padding:7px; }
   .product-add { min-height:46px; padding:10px 6px; }
+  .encanto-section { padding:64px 18px 70px; }
+  .encanto-inner { gap:18px; }
+  .encanto-copy h2 { font-size:clamp(2.8rem,13vw,4rem); }
+  .encanto-subtitle { margin-top:20px; font-size:1.4rem; }
+  .encanto-text { font-size:.94rem; }
   .benefits-reference { padding:40px 12px; }
   .benefits-reference .benefits-container { grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px 0; }
   .benefits-reference .benefit-card { padding:14px 12px; }
