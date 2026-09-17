@@ -65,6 +65,7 @@ import './ago-oferta-checkout-legal-2026.css';
 import './ago-alinhamento-total-final-2026.css';
 import './ago-refinamento-visual-final-2026.css';
 import './ago-redesign-forca-2026.css';
+import './ago-catalog-controls-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
