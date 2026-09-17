@@ -1,21 +1,52 @@
 import { NextResponse } from 'next/server';
 import { getProductById, getEffectivePrice, calculateCartTotals } from '@/lib/products';
+import { calculateCouponDiscount, isFirstPurchaseCoupon, normalizeCoupon } from '@/lib/coupons';
 import { getShippingPrice, shouldOfferFreeShipping, FIXED_SHIPPING_PRICE } from '@/lib/shipping';
 import { SITE_DOMAIN } from '@/lib/config';
 import type { CartItem } from '@/lib/types';
 
 const INFINITEPAY_HANDLE = process.env.INFINITEPAY_HANDLE || 'ago-trancoso';
 
-type CheckoutItem = { id: string; name: string; price: number; quantity: number };
+type CheckoutUnit = { id: string; name: string; price: number; quantity: number };
 
 function cleanCep(value: unknown) {
   return String(value ?? '').replace(/\D/g, '').slice(0, 8);
+}
+
+/**
+ * Distribui o desconto em centavos entre as unidades do carrinho.
+ * Assim o valor enviado para a InfinitePay fecha exatamente com o total
+ * mostrado no checkout, sem depender de uma linha negativa de desconto.
+ */
+function buildDiscountedUnits(lines: { id: string; name: string; unitPrice: number; quantity: number; subtotal: number }[], discount: number) {
+  const units: { id: string; name: string; originalCents: number; exactDiscount: number; discountCents: number }[] = [];
+  const totalCents = Math.round(lines.reduce((sum, line) => sum + line.subtotal, 0) * 100);
+  const discountCents = Math.round(discount * 100);
+
+  for (const line of lines) {
+    const unitCents = Math.round(line.unitPrice * 100);
+    for (let i = 0; i < line.quantity; i += 1) {
+      const exactDiscount = totalCents > 0 ? (discountCents * unitCents) / totalCents : 0;
+      const base = Math.floor(exactDiscount);
+      units.push({ id: line.id, name: line.name, originalCents: unitCents, exactDiscount, discountCents: base });
+    }
+  }
+
+  let assigned = units.reduce((sum, unit) => sum + unit.discountCents, 0);
+  const remaining = Math.max(0, discountCents - assigned);
+  units
+    .sort((a, b) => (b.exactDiscount - Math.floor(b.exactDiscount)) - (a.exactDiscount - Math.floor(a.exactDiscount)))
+    .slice(0, remaining)
+    .forEach((unit) => { unit.discountCents += 1; assigned += 1; });
+
+  return units.map((unit) => ({ id: unit.id, name: unit.name, price: Math.max(1, unit.originalCents - unit.discountCents), quantity: 1 }));
 }
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const items = (Array.isArray(body.items) ? body.items : []) as CartItem[];
+    const coupon = normalizeCoupon(body.coupon);
     const customer = body.customer ?? {};
     const address = customer.address ?? {};
 
@@ -26,16 +57,23 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: totals.errors[0] || 'Não foi possível validar o carrinho.' }, { status: 400 });
     }
 
-    const checkoutItems: CheckoutItem[] = items.map((item) => {
+    const checkoutLines = items.map((item) => {
       const product = getProductById(item.productId);
       const quantity = Number(item.quantity);
       if (!product || !product.available) throw new Error(`Produto indisponível: ${item.productId}`);
-      return { id: product.id, name: product.name, price: getEffectivePrice(product), quantity };
+      return { id: product.id, name: product.name, unitPrice: getEffectivePrice(product), quantity, subtotal: Number((getEffectivePrice(product) * quantity).toFixed(2)) };
     });
 
-    const subtotal = totals.total;
-    const shippingValue = shouldOfferFreeShipping(subtotal) ? 0 : FIXED_SHIPPING_PRICE;
-    const shippingName = shippingValue === 0 ? 'Frete grátis' : 'Frete fixo';
+    const subtotal = Number(totals.total.toFixed(2));
+    const discount = calculateCouponDiscount(subtotal, coupon);
+    if (coupon && !isFirstPurchaseCoupon(coupon)) {
+      return NextResponse.json({ error: 'Cupom não encontrado. Confira o código e tente novamente.' }, { status: 400 });
+    }
+
+    const discountedUnits = buildDiscountedUnits(checkoutLines, discount);
+    const discountedSubtotal = Number((subtotal - discount).toFixed(2));
+    const freeShipping = shouldOfferFreeShipping(subtotal);
+    const shippingValue = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
 
     if (shippingValue !== getShippingPrice(subtotal)) {
       return NextResponse.json({ error: 'Não foi possível validar o frete. Tente novamente.' }, { status: 422 });
@@ -46,8 +84,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Informe um CEP válido para a entrega.' }, { status: 400 });
     }
 
+    const checkoutItems: CheckoutUnit[] = discountedUnits;
     if (shippingValue > 0) {
-      checkoutItems.push({ id: 'frete', name: `${shippingName} R$ ${shippingValue.toFixed(2).replace('.', ',')}`, price: shippingValue, quantity: 1 });
+      checkoutItems.push({ id: 'frete', name: `Frete fixo R$ ${shippingValue.toFixed(2).replace('.', ',')}`, price: Math.round(shippingValue * 100), quantity: 1 });
     }
 
     const orderNsu = `AGO-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
@@ -55,28 +94,12 @@ export async function POST(req: Request) {
 
     const payload = {
       handle: INFINITEPAY_HANDLE,
-      items: checkoutItems.map((item) => ({
-        quantity: item.quantity,
-        price: Math.round(item.price * 100),
-        description: item.name,
-      })),
+      items: checkoutItems.map((item) => ({ quantity: item.quantity, price: item.price, description: item.name })),
       order_nsu: orderNsu,
       redirect_url: `${siteUrl}/confirmacao?pedido=${encodeURIComponent(orderNsu)}`,
       webhook_url: `${siteUrl}/api/webhooks/infinitepay`,
-      customer: {
-        name: customer.name || undefined,
-        email: customer.email || undefined,
-        phone_number: customer.phone || undefined,
-      },
-      address: {
-        street: address.street,
-        number: address.number,
-        complement: address.complement || undefined,
-        neighborhood: address.neighborhood,
-        city: address.city,
-        state: address.state,
-        cep: destinationCep,
-      },
+      customer: { name: customer.name || undefined, email: customer.email || undefined, phone_number: customer.phone || undefined },
+      address: { street: address.street, number: address.number, complement: address.complement || undefined, neighborhood: address.neighborhood, city: address.city, state: address.state, cep: destinationCep },
     };
 
     const response = await fetch('https://api.checkout.infinitepay.io/links', {
@@ -97,7 +120,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: detail ? `A InfinitePay recusou a criação do pagamento: ${detail}` : 'Não foi possível iniciar o pagamento pela InfinitePay. Tente novamente.' }, { status: 502 });
     }
 
-    return NextResponse.json({ orderId: orderNsu, checkoutUrl: data.url });
+    return NextResponse.json({ orderId: orderNsu, checkoutUrl: data.url, subtotal, discount, discountedSubtotal, shippingValue, total: Number((discountedSubtotal + shippingValue).toFixed(2)) });
   } catch (error) {
     console.error('Checkout preparation error:', error);
     const message = error instanceof Error ? error.message : '';
