@@ -9,3 +9,5 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+// Publicar a versao refinada — 2026-09-17
