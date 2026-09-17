@@ -94,7 +94,6 @@ export default function HomePage() {
         <div className="ago-container visit-grid">
           <div>
             <p className="eyebrow">Visite a Agô</p>
-            <h2>Visite a Agô</h2>
             <h3 className="visit-section-title">Como chegar<br className="visit-title-break" /> até a Agô</h3>
             <p className="visit-copy">Nossa banca fica no Quadrado de Trancoso. Para localização e atendimento, fale conosco pelo WhatsApp.</p>
             <div className="visit-actions"><a href={mapsUrl} target="_blank" rel="noreferrer">Abrir no Google Maps</a><a href={whatsappUrl} target="_blank" rel="noreferrer">Falar no WhatsApp</a><a href={instagramUrl} target="_blank" rel="noreferrer">Falar pelo Instagram</a></div>
