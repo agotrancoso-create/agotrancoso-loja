@@ -33,3 +33,6 @@ Esta versão prioriza produtos na primeira seção da home, usa fundos claros em
 
 ## Auditoria de 16/09/2026
 A camada final de direção de arte foi revisada para remover o verde/oliva da interface, manter a grade da vitrine preenchida no desktop e aplicar cantos arredondados somente nas fotografias, sem molduras, halos ou sombras.
+
+## Sincronização de deploy
+Última verificação de sincronização GitHub/Vercel em 17/09/2026.
