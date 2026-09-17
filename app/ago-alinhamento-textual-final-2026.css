@@ -1,0 +1,160 @@
+/* AGÔ TRANCOSO — ALINHAMENTO TEXTUAL FINAL 2026
+   Regra visual: usar esquerda, centro, direita e justificado com intenção.
+   Desktop e mobile seguem a mesma hierarquia, sem comprimir textos.
+*/
+
+/* BASE: remover alinhamento herdado que esteja deixando o texto sem hierarquia */
+.collection-showcase h1,.collection-showcase h2,.collection-showcase h3,
+.collection-more h1,.collection-more h2,.collection-more h3,
+.editorial-section h1,.editorial-section h2,.editorial-section h3,
+.home-house h1,.home-house h2,.home-house h3,
+.how-section h1,.how-section h2,.how-section h3,
+.visit-section h1,.visit-section h2,.visit-section h3,
+.product-page h1,.product-page h2,.product-page h3,
+.checkout-page h1,.checkout-page h2,.checkout-page h3,
+.contact-page h1,.contact-page h2,.contact-page h3,
+.essencia-page h1,.essencia-page h2,.essencia-page h3,
+footer h3,footer h4,
+.cart-drawer h2,.cart-drawer h3,.cart-drawer h4{
+  text-align:left!important;
+}
+
+/* 1) ALINHAR À ESQUERDA — linguagem principal da marca */
+.hero-content,.hero-content h1,.hero-content .eyebrow,.hero-copy,
+.collection-showcase>.collection-intro,.collection-showcase>.collection-intro h1,
+.collection-showcase>.collection-intro p,
+.collection-more .section-heading,.collection-more .section-heading h2,
+.editorial-copy-column,.editorial-copy-column h2,.editorial-copy-column p,
+.house-copy,.house-copy h2,.house-copy p,
+.how-grid,.how-grid h2,
+.visit-grid,.visit-grid h2,.visit-copy,
+.product-detail-copy,.product-detail-copy h1,.product-detail-copy h2,.product-detail-copy p,
+.checkout-main,.checkout-main h1,.checkout-main h2,.checkout-main p,
+.contact-copy,.contact-copy h1,.contact-copy p,
+.essencia-copy,.essencia-copy h1,.essencia-copy p,
+.product-card,.product-card h3,.product-card p,
+footer,.footer-brand,footer .footer-column,footer a,footer p,footer li,
+.cart-drawer,.cart-drawer h2,.cart-drawer h3,.cart-drawer h4,.cart-drawer p{
+  text-align:left!important;
+}
+
+/* 2) CENTRALIZAR — somente onde a leitura pede um eixo central */
+.category-pill{text-align:center!important}
+.category-pill span{text-align:center!important}
+.benefits-strip>.section-heading,
+.benefits-strip>.section-heading h2,
+.benefits-strip>.section-heading p,
+.collection-showcase .section-eyebrow,
+.collection-more .section-eyebrow,
+.how-section>.eyebrow,
+footer .footer-brand-mark{
+  text-align:center!important;
+}
+
+/* Ícones e chamadas curtas podem ficar centralizados dentro dos próprios blocos,
+   sem centralizar a página inteira. */
+.feature-item .feature-icon,
+.feature-item .feature-title-short,
+.steps-grid .step-icon{
+  text-align:center!important;
+  align-self:center!important;
+}
+
+/* 3) ALINHAR À DIREITA — informação numérica e valores */
+.current-price,.old-price,.price-row,
+.product-price,.product-detail-price,
+.cart-item-total,.cart-total-row strong,
+.checkout-summary .price,.checkout-summary .amount,
+.checkout-summary .total,.checkout-total,.checkout-total strong,
+.checkout-order-total,.checkout-order-total strong{
+  text-align:right!important;
+}
+
+/* Mantém nome/preço em linha coerente no card */
+.price-row{
+  display:flex!important;
+  align-items:baseline!important;
+  justify-content:flex-start!important;
+  gap:8px!important;
+}
+.price-row .old-price,.price-row .current-price{ text-align:left!important }
+
+/* 4) JUSTIFICAR — textos editoriais longos, criando margens visuais retas.
+   Não aplicar em labels, botões, navegação ou textos curtos. */
+.editorial-copy p,
+.editorial-copy-column p,
+.house-copy p,
+.contact-copy .contact-description,
+.essencia-copy p,
+.product-description,
+.product-detail-copy .product-description,
+.visit-copy p.long-copy,
+footer .footer-description{
+  text-align:justify!important;
+  text-justify:inter-word!important;
+  hyphens:auto!important;
+}
+
+/* Textos curtos permanecem alinhados à esquerda */
+.hero-copy,.section-intro,.feature-description,
+.product-shipping-note,.checkout-shipping-note,
+.info-list span,.info-list strong,
+.product-add,.product-primary-cta,.product-whatsapp,
+.checkout-submit,.cart-checkout,.cart-continue,
+.visit-actions a,.hero-primary,.hero-secondary,
+button,a,input,select,textarea,label{
+  text-align:left!important;
+}
+
+/* Os botões precisam ter texto centralizado dentro do botão */
+.product-add,.product-primary-cta,.product-whatsapp,
+.checkout-submit,.cart-checkout,.cart-continue,
+.visit-actions a,.hero-primary,.hero-secondary{
+  text-align:center!important;
+}
+
+/* Labels de formulário: esquerda; valores monetários: direita */
+.checkout-label,.checkout-section label,
+.checkout-input::placeholder,.checkout-input{text-align:left!important}
+
+/* Navegação de categorias: o texto fica central dentro de cada pill */
+.category-row .category-pill{text-align:center!important}
+
+/* Rodapé: títulos à esquerda, marca pode ter eixo próprio */
+footer h3,footer h4,footer p,footer li,footer a{text-align:left!important}
+
+/* Mobile: evitar espaçamento irregular do justificado; manter a leitura natural */
+@media(max-width:767px){
+  .editorial-copy p,
+  .editorial-copy-column p,
+  .house-copy p,
+  .contact-copy .contact-description,
+  .essencia-copy p,
+  .product-description,
+  .product-detail-copy .product-description,
+  .visit-copy p.long-copy,
+  footer .footer-description{
+    text-align:left!important;
+    hyphens:none!important;
+  }
+
+  .benefits-strip>.section-heading,
+  .benefits-strip>.section-heading h2,
+  .benefits-strip>.section-heading p{
+    text-align:left!important;
+  }
+
+  .current-price,.old-price,.cart-item-total,
+  .checkout-summary .price,.checkout-summary .amount,
+  .checkout-summary .total,.checkout-total,.checkout-total strong{
+    text-align:right!important;
+  }
+}
+
+/* Tablets: manter a mesma lógica sem linhas quebradas artificialmente */
+@media(min-width:768px) and (max-width:1100px){
+  .editorial-copy p,.editorial-copy-column p,.house-copy p,
+  .contact-copy .contact-description,.essencia-copy p,.product-description{
+    text-align:left!important;
+  }
+}
