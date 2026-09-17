@@ -21,9 +21,7 @@ export default function FirstPurchaseOffer() {
     if (!pathname || ['/checkout', '/confirmacao', '/termos', '/privacidade'].some((route) => pathname.startsWith(route))) return;
     try {
       if (window.localStorage.getItem(STORAGE_SEEN) || window.localStorage.getItem(STORAGE_REGISTERED)) return;
-    } catch {
-      // continua sem persistência quando o navegador bloqueia localStorage
-    }
+    } catch {}
 
     const timer = window.setTimeout(() => setOpen(true), 5200);
     return () => window.clearTimeout(timer);
@@ -50,9 +48,7 @@ export default function FirstPurchaseOffer() {
         body: JSON.stringify({ name: form.name, email: form.email, phone: form.phone, source: 'primeira-compra' }),
         keepalive: true,
       });
-    } catch {
-      // O cupom continua disponível mesmo sem resposta da captura do lead.
-    }
+    } catch {}
 
     setSubmitted(true);
   }
@@ -78,12 +74,12 @@ export default function FirstPurchaseOffer() {
           <div className="first-purchase-layout">
             <div className="first-purchase-brand-panel">
               <p className="eyebrow">Primeira vez por aqui?</p>
-              <h2 id="first-purchase-title">Ganhe 3% OFF na 1ª compra.</h2>
-              <p>Cadastre-se para receber novidades da Agô e usar seu cupom de boas-vindas na primeira compra.</p>
+              <h2 id="first-purchase-title">3% OFF na sua primeira compra.</h2>
+              <p>Deixe seu contato para receber novidades da Agô e o cupom de boas-vindas.</p>
               <div className="first-purchase-promise">
                 <span>3% de desconto</span>
-                <span>Novidades e lançamentos</span>
-                <span>Promoções da Agô</span>
+                <span>Novidades da Agô</span>
+                <span>Novos produtos e ofertas</span>
               </div>
             </div>
 
@@ -104,15 +100,15 @@ export default function FirstPurchaseOffer() {
                 <input type="checkbox" required checked={form.consent} onChange={(e) => setForm((f) => ({ ...f, consent: e.target.checked }))} />
                 <span>Declaro que li e aceito os <a href="/termos" target="_blank" rel="noreferrer">Termos de Uso</a> e a <a href="/privacidade" target="_blank" rel="noreferrer">Política de Privacidade</a>.</span>
               </label>
-              <button type="submit" className="first-purchase-submit">cadastrar</button>
-              <small>O cadastro é usado para comunicar novidades da Agô e disponibilizar o benefício da primeira compra.</small>
+              <button type="submit" className="first-purchase-submit">receber desconto</button>
+              <small>Usaremos seus dados para enviar novidades da Agô e disponibilizar o benefício.</small>
             </form>
           </div>
         ) : (
           <div className="first-purchase-success">
             <p className="eyebrow">Pronto</p>
-            <h2>Seu desconto está reservado.</h2>
-            <p>Use o cupom abaixo no checkout para receber 3% OFF na primeira compra.</p>
+            <h2>Seu cupom está aqui.</h2>
+            <p>Use o código abaixo no checkout para receber 3% OFF na primeira compra.</p>
             <button type="button" className="first-purchase-coupon" onClick={copyCoupon} aria-label="Copiar cupom AGO3">
               <strong>{FIRST_PURCHASE_COUPON}</strong>
               <span>{copied ? 'Copiado' : 'copiar'}</span>
