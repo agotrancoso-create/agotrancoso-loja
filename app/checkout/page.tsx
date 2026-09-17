@@ -1,8 +1,9 @@
 'use client';
 
-import { useMemo, useState, type ChangeEvent, type FormEvent } from 'react';
+import { useEffect, useMemo, useState, type ChangeEvent, type FormEvent } from 'react';
 import { useCart } from '@/context/CartContext';
 import { getProductById, getEffectivePrice } from '@/lib/products';
+import { calculateCouponDiscount, FIRST_PURCHASE_COUPON, isFirstPurchaseCoupon, normalizeCoupon } from '@/lib/coupons';
 import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping } from '@/lib/shipping';
 import type { CartItem, Product } from '@/lib/types';
 
@@ -15,14 +16,25 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [shippingError, setShippingError] = useState<string | null>(null);
+  const [coupon, setCoupon] = useState('');
+  const [couponMessage, setCouponMessage] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>({ name:'', email:'', phone:'', street:'', number:'', complement:'', neighborhood:'', city:'', state:'', zip:'' });
 
   type Line = { item: CartItem; product: Product };
   const lines = useMemo<Line[]>(() => items.flatMap((item): Line[] => { const product = getProductById(item.productId); return product ? [{ item, product }] : []; }), [items]);
   const subtotal = lines.reduce((sum, line) => sum + getEffectivePrice(line.product) * line.item.quantity, 0);
+  const discount = calculateCouponDiscount(subtotal, coupon);
+  const discountedSubtotal = Math.max(0, subtotal - discount);
   const freeShipping = shouldOfferFreeShipping(subtotal);
   const shippingValue = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
-  const total = subtotal + shippingValue;
+  const total = discountedSubtotal + shippingValue;
+
+  useEffect(() => {
+    try {
+      const savedCoupon = window.localStorage.getItem('ago_primeira_compra_v2_cupom');
+      if (savedCoupon && isFirstPurchaseCoupon(savedCoupon)) setCoupon(normalizeCoupon(savedCoupon));
+    } catch {}
+  }, []);
 
   function change(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -30,13 +42,25 @@ export default function CheckoutPage() {
     if (name === 'zip') setShippingError(null);
   }
 
+  function applyCoupon() {
+    const normalized = normalizeCoupon(coupon);
+    setCoupon(normalized);
+    if (!normalized) { setCouponMessage(null); return; }
+    if (!isFirstPurchaseCoupon(normalized)) {
+      setCouponMessage('Cupom não encontrado. Confira o código e tente novamente.');
+      return;
+    }
+    setCouponMessage(`Cupom ${FIRST_PURCHASE_COUPON} aplicado: 3% OFF.`);
+  }
+
   async function submit(e: FormEvent) {
     e.preventDefault(); setError(null);
     if (!lines.length) { setError('Seu carrinho está vazio.'); return; }
     if (form.zip.replace(/\D/g, '').length !== 8) { setShippingError('Informe um CEP válido com 8 dígitos.'); return; }
+    if (coupon && !isFirstPurchaseCoupon(coupon)) { setCouponMessage('Confira o código do cupom antes de continuar.'); return; }
     setLoading(true);
     try {
-      const res = await fetch('/api/create-checkout', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ items, shippingValue, shippingName: freeShipping ? 'Frete grátis' : 'Frete fixo', customer: { name:form.name, email:form.email, phone:form.phone, address:{ street:form.street, number:form.number, complement:form.complement, neighborhood:form.neighborhood, city:form.city, state:form.state, zip:form.zip } } }) });
+      const res = await fetch('/api/create-checkout', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ items, coupon: normalizeCoupon(coupon), shippingValue, shippingName: freeShipping ? 'Frete grátis' : 'Frete fixo', customer: { name:form.name, email:form.email, phone:form.phone, address:{ street:form.street, number:form.number, complement:form.complement, neighborhood:form.neighborhood, city:form.city, state:form.state, zip:form.zip } } }) });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Não foi possível iniciar o pagamento.');
       window.location.href = data.checkoutUrl;
@@ -52,13 +76,14 @@ export default function CheckoutPage() {
           <div className="checkout-form-panel">
             <p className="eyebrow">Pedido</p>
             <h1 className="checkout-title">Finalizar compra</h1>
+            <div className="checkout-first-purchase"><strong>3% OFF na 1ª compra</strong><span>Digite o cupom <b>{FIRST_PURCHASE_COUPON}</b> para aplicar seu benefício.</span></div>
             <form onSubmit={submit} className="checkout-form">
               <section className="checkout-section">
                 <h2>Seus dados</h2>
-                <div className="checkout-field"><label htmlFor="name" className="checkout-label">Nome completo</label><input id="name" required name="name" placeholder="Como devemos chamar você?" value={form.name} onChange={change} className="checkout-input" /></div>
+                <div className="checkout-field"><label htmlFor="name" className="checkout-label">Nome completo</label><input id="name" required name="name" placeholder="Como devemos chamar você?" value={form.name} onChange={change} className="checkout-input" autoComplete="name" /></div>
                 <div className="checkout-fields-two">
-                  <div className="checkout-field"><label htmlFor="email" className="checkout-label">E-mail</label><input id="email" required type="email" name="email" placeholder="seu@email.com" value={form.email} onChange={change} className="checkout-input" /></div>
-                  <div className="checkout-field"><label htmlFor="phone" className="checkout-label">Telefone / WhatsApp</label><input id="phone" required name="phone" inputMode="tel" placeholder="(00) 00000-0000" value={form.phone} onChange={change} className="checkout-input" /></div>
+                  <div className="checkout-field"><label htmlFor="email" className="checkout-label">E-mail</label><input id="email" required type="email" name="email" placeholder="seu@email.com" value={form.email} onChange={change} className="checkout-input" autoComplete="email" /></div>
+                  <div className="checkout-field"><label htmlFor="phone" className="checkout-label">Telefone / WhatsApp</label><input id="phone" required name="phone" inputMode="tel" placeholder="(00) 00000-0000" value={form.phone} onChange={change} className="checkout-input" autoComplete="tel" /></div>
                 </div>
               </section>
 
@@ -69,8 +94,14 @@ export default function CheckoutPage() {
                 {shippingError && <p className="checkout-error" role="alert">{shippingError}</p>}
                 <div className="checkout-fields-address"><div className="checkout-field"><label htmlFor="street" className="checkout-label">Rua</label><input id="street" required name="street" autoComplete="street-address" placeholder="Rua / avenida" value={form.street} onChange={change} className="checkout-input" /></div><div className="checkout-field checkout-number"><label htmlFor="number" className="checkout-label">Número</label><input id="number" required name="number" placeholder="Nº" value={form.number} onChange={change} className="checkout-input" /></div></div>
                 <div className="checkout-field"><label htmlFor="complement" className="checkout-label">Complemento <span>(opcional)</span></label><input id="complement" name="complement" placeholder="Apartamento, casa, etc." value={form.complement} onChange={change} className="checkout-input" /></div>
-                <div className="checkout-field"><label htmlFor="neighborhood" className="checkout-label">Bairro</label><input id="neighborhood" required name="neighborhood" value={form.neighborhood} onChange={change} className="checkout-input" /></div>
-                <div className="checkout-fields-address"><div className="checkout-field"><label htmlFor="city" className="checkout-label">Cidade</label><input id="city" required name="city" value={form.city} onChange={change} className="checkout-input" /></div><div className="checkout-field checkout-uf"><label htmlFor="state" className="checkout-label">UF</label><input id="state" required name="state" maxLength={2} placeholder="UF" value={form.state} onChange={change} className="checkout-input" /></div></div>
+                <div className="checkout-field"><label htmlFor="neighborhood" className="checkout-label">Bairro</label><input id="neighborhood" required name="neighborhood" value={form.neighborhood} onChange={change} className="checkout-input" autoComplete="address-level3" /></div>
+                <div className="checkout-fields-address"><div className="checkout-field"><label htmlFor="city" className="checkout-label">Cidade</label><input id="city" required name="city" value={form.city} onChange={change} className="checkout-input" autoComplete="address-level2" /></div><div className="checkout-field checkout-uf"><label htmlFor="state" className="checkout-label">UF</label><input id="state" required name="state" maxLength={2} placeholder="UF" value={form.state} onChange={change} className="checkout-input" autoComplete="address-level1" /></div></div>
+              </section>
+
+              <section className="checkout-section checkout-coupon-section">
+                <h2>Seu benefício</h2>
+                <div className="checkout-coupon-row"><input aria-label="Cupom de desconto" value={coupon} onChange={(e) => { setCoupon(e.target.value.toUpperCase().replace(/\s/g, '').slice(0, 20)); setCouponMessage(null); }} placeholder="Digite seu cupom" className="checkout-input" /><button type="button" onClick={applyCoupon} className="checkout-coupon-button">aplicar</button></div>
+                {couponMessage && <p className={`checkout-coupon-message ${isFirstPurchaseCoupon(coupon) ? 'success' : 'error'}`} role="status">{couponMessage}</p>}
               </section>
 
               {error && <p className="checkout-error" role="alert">{error}</p>}
@@ -85,6 +116,7 @@ export default function CheckoutPage() {
               {lines.map(({item,product}) => <div key={item.productId} className="checkout-summary-item"><div className="checkout-product-main"><div className="checkout-product-image"><img src={product.images?.[0] || '/images/placeholder.svg'} alt={product.name} /></div><div><span className="checkout-product-name">{product.name} × {item.quantity}</span><span className="checkout-product-price">{formatBRL(getEffectivePrice(product))} / un.</span></div></div><span className="checkout-line-total">{formatBRL(getEffectivePrice(product)*item.quantity)}</span></div>)}
             </div>
             <div className="checkout-summary-row"><span>Subtotal</span><strong>{formatBRL(subtotal)}</strong></div>
+            {discount > 0 && <div className="checkout-summary-row checkout-discount-row"><span>1ª compra · 3% OFF</span><strong>- {formatBRL(discount)}</strong></div>}
             <div className="checkout-summary-row"><span>Frete</span><strong>{shippingValue === 0 ? 'Grátis' : formatBRL(shippingValue)}</strong></div>
             <div className="checkout-total"><span>Total</span><strong>{formatBRL(total)}</strong></div>
             <p className="checkout-privacy">Seus dados são enviados somente para processar o pedido e o pagamento.</p>
