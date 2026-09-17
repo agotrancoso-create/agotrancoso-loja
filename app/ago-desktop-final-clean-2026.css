@@ -245,7 +245,7 @@ body{background:var(--ago-bg);color:var(--ago-ink);-webkit-font-smoothing:antial
   height:1px;background:transparent;
 }
 .home-categories .category-pill.active{color:var(--ago-terra);background:transparent}
-.home-categories .category-pill.active::after{background:var(--ago-terra)}
+.home-categories .category-pill.active::after{display:none}
 .home-categories .category-pill:hover{color:var(--ago-terra);background:transparent}
 
 /* Brand line */
