@@ -1,0 +1,161 @@
+/* AGÔ TRANCOSO — AJUSTE TERROSO + ELEGANTE 2026
+   Última camada visual.
+   Direção: marrom, terra, barro queimado, ferrugem e creme.
+   Remove o excesso rosado e as linhas das categorias.
+*/
+
+:root{
+  --ago-te-cream:#FBF7F1 !important;
+  --ago-te-paper:#EFE4D8 !important;
+  --ago-te-sand:#D2B79F !important;
+  --ago-te-tan:#B28B6C !important;
+  --ago-te-clay:#98502F !important;
+  --ago-te-rust:#7F4029 !important;
+  --ago-te-brown:#5A3428 !important;
+  --ago-te-deep:#341F19 !important;
+  --ago-te-ink:#3A2822 !important;
+  --ago-te-white:#FFFDF9 !important;
+}
+
+/* BASE: retirar lavagem rosa e manter terrosos mais densos */
+html,body{background:var(--ago-te-cream)!important;color:var(--ago-te-ink)!important}
+.collection-showcase{background:var(--ago-te-cream)!important}
+.benefits-strip{background:var(--ago-te-paper)!important}
+.collection-more{background:#E9DCCE!important}
+.editorial-section{background:#D7BBA5!important}
+.home-house{background:#E9D7C7!important}
+.how-section{background:#D8C0AA!important}
+.visit-section{background:var(--ago-te-brown)!important}
+footer{background:var(--ago-te-deep)!important}
+
+/* Qualquer rosa antigo / magenta presente nas camadas anteriores fica terroso */
+[class*="pink"],[class*="rose"],[class*="fuchsia"],[class*="magenta"]{
+  background-color:var(--ago-te-paper)!important;
+  color:var(--ago-te-brown)!important;
+  border-color:transparent!important;
+}
+
+/* CATEGORIAS: nenhuma linha acima/abaixo dos pills */
+.category-row{
+  border:0!important;
+  border-top:0!important;
+  border-bottom:0!important;
+  box-shadow:none!important;
+  background:var(--ago-te-sand)!important;
+  padding:18px max(18px,calc((100% - 1280px)/2)) 22px!important;
+}
+.category-pill{
+  border:0!important;
+  border-top:0!important;
+  border-bottom:0!important;
+  box-shadow:none!important;
+  background:rgba(251,247,241,.78)!important;
+  color:var(--ago-te-brown)!important;
+  border-radius:999px!important;
+}
+.category-pill.active,.category-pill:hover{
+  background:var(--ago-te-clay)!important;
+  color:var(--ago-te-white)!important;
+}
+
+/* BENEFÍCIOS: todos os quatro com exatamente a mesma caixa */
+.benefits-strip{padding:34px 0 42px!important}
+.features-container{gap:14px!important}
+.feature-item{
+  background:#CBA98F!important;
+  border:0!important;
+  border-radius:18px!important;
+  min-height:178px!important;
+  box-shadow:none!important;
+  padding:24px 22px!important;
+}
+.feature-item + .feature-item,
+.feature-item:not(:last-child)::after{border-left:0!important;background:transparent!important}
+.feature-icon{color:var(--ago-te-clay)!important}
+.feature-icon svg{stroke:var(--ago-te-clay)!important}
+.feature-title{font-size:25px!important;line-height:.98!important;color:var(--ago-te-brown)!important}
+.feature-description{font-size:13px!important;line-height:1.55!important;color:rgba(58,40,34,.76)!important}
+
+/* TODAS AS FOTOS: arredondadas, sem faixa/moldura lateral */
+.product-image-wrap,.product-image,.product-image img,
+.editorial-image,.editorial-image img,
+.house-image,.house-image img,
+.product-gallery-main,.product-gallery-image,
+.product-gallery-thumb,.product-gallery-thumb img,
+.checkout-product-image,.checkout-product-image img{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+.product-image-wrap,.product-image,.product-image img{border-radius:18px!important}
+.editorial-image,.editorial-image img,.house-image,.house-image img{border-radius:20px!important}
+.product-gallery-main,.product-gallery-image{border-radius:20px!important}
+.product-gallery-thumb,.product-gallery-thumb img{border-radius:14px!important}
+.checkout-product-image,.checkout-product-image img{border-radius:14px!important}
+
+/* HERO: marrom mais rico e título proporcional */
+.hero-section{background:var(--ago-te-deep)!important}
+.hero-overlay{background:linear-gradient(90deg,rgba(52,31,25,.84),rgba(52,31,25,.55) 48%,rgba(52,31,25,.18))!important}
+.hero-content h1{color:var(--ago-te-white)!important}
+.hero-content .eyebrow{color:rgba(255,253,249,.82)!important}
+.hero-primary{background:var(--ago-te-clay)!important;color:var(--ago-te-white)!important;border:0!important;border-radius:999px!important}
+.hero-secondary{background:rgba(251,247,241,.14)!important;color:var(--ago-te-white)!important;border:0!important;border-radius:999px!important}
+
+/* CTA de compra: marrom, sem aparência rosada */
+.product-add,.product-primary-cta,.checkout-submit,.cart-checkout{
+  background:var(--ago-te-brown)!important;
+  color:var(--ago-te-white)!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.product-add:hover,.product-primary-cta:hover,.checkout-submit:hover,.cart-checkout:hover{background:var(--ago-te-rust)!important}
+
+/* FRETE: texto escuro suficiente para leitura */
+.product-shipping-note,.checkout-shipping-note,.cart-shipping-message{
+  background:var(--ago-te-sand)!important;
+  color:var(--ago-te-brown)!important;
+  border:0!important;
+}
+.product-shipping-note span,.checkout-shipping-note span{color:rgba(58,40,34,.72)!important}
+
+/* CARRINHO — mais elegante e maior */
+.cart-drawer{background:var(--ago-te-cream)!important;color:var(--ago-te-brown)!important}
+.cart-header{background:var(--ago-te-brown)!important;color:var(--ago-te-white)!important;padding:22px 22px!important}
+.cart-header-title h2{font-family:'Cormorant Garamond',Georgia,serif!important;font-size:30px!important;font-weight:500!important}
+.cart-close{width:42px!important;height:42px!important;border-radius:999px!important;background:rgba(255,253,249,.14)!important;color:var(--ago-te-white)!important;border:0!important}
+.cart-item{background:#E9DCCE!important;border:0!important;border-radius:18px!important;padding:14px!important}
+.cart-product-image{width:82px!important;height:82px!important;border-radius:14px!important;background:var(--ago-te-cream)!important;overflow:hidden!important}
+.cart-item-info h4{font-family:'Cormorant Garamond',Georgia,serif!important;font-size:20px!important;line-height:1.02!important;color:var(--ago-te-brown)!important}
+.cart-item-info p{color:rgba(58,40,34,.60)!important}
+.cart-item-controls button{background:var(--ago-te-tan)!important;color:var(--ago-te-white)!important;border:0!important;border-radius:999px!important;min-width:34px!important;height:34px!important}
+.cart-remove{background:transparent!important;color:var(--ago-te-rust)!important;min-width:auto!important}
+.cart-item-total{color:var(--ago-te-brown)!important;font-weight:700!important}
+.cart-summary{background:var(--ago-te-cream)!important;border:0!important}
+.cart-summary-row{color:rgba(58,40,34,.62)!important}
+.cart-total-row{color:var(--ago-te-brown)!important}
+.cart-total-row strong{font-family:'Cormorant Garamond',Georgia,serif!important;font-size:29px!important;color:var(--ago-te-brown)!important}
+.cart-continue{background:var(--ago-te-paper)!important;color:var(--ago-te-brown)!important;border:0!important}
+
+/* COMO CHEGAR: preencher a área sem parecer solto */
+.visit-section{padding:82px 0 88px!important}
+.visit-grid{align-items:center!important}
+.visit-section h2{color:var(--ago-te-white)!important}
+.visit-copy{color:rgba(255,253,249,.82)!important}
+.info-list strong{color:var(--ago-te-white)!important}
+.info-list span{color:rgba(255,253,249,.76)!important}
+
+/* MOBILE — manter todas as seções preenchidas e sem esmagar tipografia */
+@media(max-width:767px){
+  .category-row{padding:12px 18px 18px!important}
+  .benefits-strip{padding:24px 0 28px!important}
+  .features-container{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;width:calc(100% - 32px)!important}
+  .feature-item{min-height:154px!important;padding:18px 16px!important}
+  .feature-title{font-size:21px!important}
+  .feature-description{font-size:12px!important}
+  .cart-drawer{width:100%!important}
+  .cart-header{padding:18px 16px!important}
+  .cart-item{padding:12px!important}
+  .cart-product-image{width:72px!important;height:72px!important}
+  .cart-item-info h4{font-size:18px!important}
+  .cart-total-row strong{font-size:27px!important}
+}
