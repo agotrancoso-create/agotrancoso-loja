@@ -1,0 +1,156 @@
+/* AGÔ TRANCOSO — FORÇA FINAL DE ALINHAMENTO 2026
+   Aplicar depois de todas as folhas legadas.
+   Regra: alinhamento por função, nunca por acaso.
+*/
+
+/* EIXO PRINCIPAL: títulos e textos informativos */
+.hero-content,.hero-content h1,.hero-content .eyebrow,.hero-copy,
+.collection-showcase>.collection-intro,.collection-showcase>.collection-intro h1,.collection-showcase>.collection-intro p,
+.collection-more .section-heading,.collection-more .section-heading h2,
+.editorial-copy-column,.editorial-copy-column h2,.editorial-copy-column p,
+.house-copy,.house-copy h2,.house-copy p,
+.how-grid,.how-grid h2,.how-grid p,
+.visit-grid,.visit-grid h2,.visit-copy,
+.product-detail-copy,.product-detail-copy h1,.product-detail-copy h2,.product-detail-copy p,
+.checkout-main,.checkout-main h1,.checkout-main h2,.checkout-main p,
+.contact-copy,.contact-copy h1,.contact-copy p,
+.essencia-copy,.essencia-copy h1,.essencia-copy p,
+.product-card,.product-card h3,.product-card p,
+footer .footer-column,footer .footer-column h3,footer .footer-column h4,footer .footer-column p,footer .footer-column a,footer .footer-column li,
+.cart-drawer,.cart-drawer h2,.cart-drawer h3,.cart-drawer h4,.cart-drawer p{
+  text-align:left!important;
+}
+
+/* TÍTULOS DE SEÇÃO: esquerda */
+.collection-showcase .section-title,.collection-more .section-title,
+.editorial-section .section-title,.home-house .section-title,
+.how-section .section-title,.visit-section .section-title,
+.checkout-title,.contact-copy h1,.essencia-copy h1{
+  text-align:left!important;
+}
+
+/* CENTRO: apenas controles que naturalmente têm eixo próprio */
+.category-pill,.category-pill span,
+.hero-primary,.hero-secondary,
+.product-add,.product-primary-cta,.product-whatsapp,
+.checkout-submit,.cart-checkout,.cart-continue,
+.visit-actions a,
+.feature-icon,.feature-icon svg,
+.footer-brand-mark{
+  text-align:center!important;
+}
+
+/* PREÇOS/TOTAIS: direita; nome continua esquerda */
+.current-price,.old-price,.product-price,.product-detail-price,
+.cart-item-total,.cart-total-row strong,
+.checkout-summary .price,.checkout-summary .amount,.checkout-summary .total,
+.checkout-total,.checkout-total strong,.checkout-order-total,.checkout-order-total strong{
+  text-align:right!important;
+}
+
+.price-row{display:flex!important;justify-content:flex-start!important;align-items:baseline!important;gap:8px!important}
+.price-row .old-price,.price-row .current-price{text-align:left!important}
+
+/* EDITORIAL: justificado somente em desktop, quando o bloco é largo o suficiente */
+@media(min-width:1101px){
+  .editorial-copy p,.editorial-copy-column p,
+  .house-copy p,
+  .contact-copy .contact-description,
+  .essencia-copy p,
+  .product-detail-copy .product-description,
+  .footer-description{
+    text-align:justify!important;
+    text-justify:inter-word!important;
+    hyphens:auto!important;
+  }
+}
+
+/* MOBILE: leitura mais natural à esquerda; jamais justificar palavras em coluna estreita */
+@media(max-width:1100px){
+  .editorial-copy p,.editorial-copy-column p,
+  .house-copy p,.contact-copy .contact-description,
+  .essencia-copy p,.product-description,.product-detail-copy .product-description,
+  .footer-description{
+    text-align:left!important;
+    hyphens:none!important;
+  }
+}
+
+/* FORMULÁRIOS: labels e valores textuais à esquerda */
+.checkout-label,.checkout-section label,
+.checkout-input,.checkout-input::placeholder,
+.checkout-section textarea,
+input,select,textarea{
+  text-align:left!important;
+}
+
+/* BOTÕES: conteúdo centralizado */
+.product-add,.product-primary-cta,.product-whatsapp,
+.checkout-submit,.cart-checkout,.cart-continue,
+.visit-actions a,.hero-primary,.hero-secondary{
+  text-align:center!important;
+}
+
+/* BENEFÍCIOS: mesma estrutura e texto alinhado */
+.feature-item{display:flex!important;flex-direction:column!important;align-items:flex-start!important;text-align:left!important}
+.feature-title,.feature-description{text-align:left!important}
+.feature-icon{align-self:flex-start!important;text-align:left!important}
+
+/* CATEGORIAS: pills alinhados pelo centro de cada controle, faixa sem linhas */
+.category-row{border:0!important;border-top:0!important;border-bottom:0!important;box-shadow:none!important}
+.category-pill{border:0!important;box-shadow:none!important}
+
+/* FOTOS DOS CARDS: bloco realmente arredondado também no desktop */
+.product-image-wrap{
+  position:relative!important;
+  overflow:hidden!important;
+  border-radius:20px!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+.product-image-wrap .product-image,
+.product-image-wrap img{
+  border-radius:inherit!important;
+  overflow:hidden!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+
+/* OUTROS BLOCOS DE FOTO */
+.editorial-image,.editorial-image img,
+.house-image,.house-image img,
+.product-gallery-main,.product-gallery-image,
+.product-gallery-thumb,.product-gallery-thumb img,
+.checkout-product-image,.checkout-product-image img{
+  overflow:hidden!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+.product-gallery-main,.product-gallery-image,.editorial-image,.editorial-image img,.house-image,.house-image img{border-radius:20px!important}
+.product-gallery-thumb,.product-gallery-thumb img,.checkout-product-image,.checkout-product-image img{border-radius:14px!important}
+
+/* NUNCA cortar a foto editorial das duas igrejas */
+.house-image img{height:auto!important;width:100%!important;object-fit:contain!important}
+
+/* CARRINHO FLUTUANTE: maior e visualmente integrado */
+.ago-social-floaters{right:22px!important;bottom:22px!important;gap:12px!important}
+.ago-social-button{width:62px!important;height:62px!important;min-width:62px!important;min-height:62px!important;border-radius:50%!important}
+.ago-social-button svg{width:30px!important;height:30px!important}
+
+/* NÃO alterar rodapé estruturalmente nesta camada */
+footer{border:0!important;box-shadow:none!important}
+
+/* MOBILE: preencher a largura útil sem esmagar */
+@media(max-width:767px){
+  .collection-showcase,.collection-more,.editorial-section,.home-house,.how-section,.visit-section,.catalog-page,.product-page,.checkout-page,.contact-page,.essencia-page{width:100%!important}
+  .hero-content,.collection-showcase>.collection-intro,.collection-showcase>.featured-products-grid,
+  .collection-more-inner,.editorial-grid,.house-grid,.how-grid,.visit-grid,
+  .product-page-shell,.checkout-shell,.contact-shell,.essencia-shell{width:calc(100% - 36px)!important;max-width:none!important;margin-left:auto!important;margin-right:auto!important}
+  .section-title{max-width:100%!important}
+  .product-card{min-width:0!important}
+  .product-name{font-size:20px!important;line-height:1.05!important}
+  .current-price{font-size:17px!important}
+}
