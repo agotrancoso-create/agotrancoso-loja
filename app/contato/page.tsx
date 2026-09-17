@@ -6,27 +6,27 @@ export const metadata = { title: 'Contato | Agô Trancoso' };
 
 export default function ContatoPage() {
   return (
-    <div className="contact-page bg-areia">
-      <div className="max-w-content mx-auto px-5 md:px-8 py-16 md:py-24">
-        <div className="grid md:grid-cols-[.8fr_1.2fr] gap-12 md:gap-24 items-start">
-          <div className="max-w-xl">
-            <p className="eyebrow mb-4">Fale com a Agô</p>
-            <h1 className="text-5xl md:text-7xl leading-none mb-7">Contato</h1>
-            <p className="text-marrom/75 leading-8 text-[15px]">Dúvidas sobre uma peça, entrega ou pagamento? Fale com a gente. Para comprar, não é necessário enviar mensagem: você pode finalizar o pedido diretamente pelo site.</p>
-          </div>
-          <div>
-            <div className="space-y-3">
+    <div className="contact-page">
+      <div className="contact-shell">
+        <div className="contact-grid">
+          <section className="contact-copy">
+            <p className="eyebrow">Fale com a Agô</p>
+            <h1>Contato</h1>
+            <p>Dúvidas sobre uma peça, entrega ou pagamento? Fale com a gente. Para comprar, não é necessário enviar mensagem: você pode finalizar o pedido diretamente pelo site.</p>
+          </section>
+          <section className="contact-actions" aria-label="Canais de contato">
+            <div className="contact-links">
               <a href={whatsappLink('Olá! Vim pelo site da Agô Trancoso.')} target="_blank" rel="noopener noreferrer" className="info-link" aria-label="Falar com a Agô Trancoso pelo WhatsApp"><span>Falar no WhatsApp</span><span aria-hidden="true">↗</span></a>
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="info-link" aria-label="Abrir Instagram da Agô Trancoso"><span>@{INSTAGRAM_HANDLE} no Instagram</span><span aria-hidden="true">↗</span></a>
               <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="info-link" aria-label="Abrir localização no Google Maps"><span>Abrir no Google Maps</span><span aria-hidden="true">↗</span></a>
             </div>
-            <div className="info-panel mt-12">
-              <p className="eyebrow mb-3">Onde encontrar</p>
-              <h2 className="font-serif text-3xl text-marrom mb-3">Quadrado de Trancoso</h2>
-              <p className="text-sm text-marrom/70 leading-7">Praça São João Batista, Trancoso,<br />Porto Seguro, BA, 46098-000.</p>
-              <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex mt-6 bg-marrom text-areia px-6 py-4 text-[10px] font-bold uppercase tracking-[.16em] rounded-sm">Ver localização</a>
+            <div className="info-panel">
+              <p className="eyebrow">Onde encontrar</p>
+              <h2>Quadrado de Trancoso</h2>
+              <p>Praça São João Batista, Trancoso,<br />Porto Seguro, BA, 46098-000.</p>
+              <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="contact-location-button">Ver localização</a>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </div>
