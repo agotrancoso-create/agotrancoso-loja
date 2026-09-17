@@ -20,21 +20,23 @@ export default function HomePage() {
   const remainingProducts = products.slice(8);
 
   return (
-    <div className="ago-home" data-design-audit="2026-09-16">
-      <section id="colecao" className="collection-showcase ago-container">
-        <div className="collection-intro">
-          <p className="eyebrow">Peças em destaque</p>
-          <h2 className="section-title">Trancoso em forma de cerâmica.</h2>
-          <p className="section-intro">Peças feitas à mão para decorar, presentear e guardar.</p>
-          <Link href="/produtos" className="collection-link collection-link-large">Ver coleção <span>↗</span></Link>
+    <div className="ago-home" data-design-audit="2026-09-17">
+      <section id="colecao" className="collection-showcase home-collection">
+        <div className="home-collection-grid">
+          <div className="collection-intro">
+            <p className="eyebrow">Peças em destaque</p>
+            <h2 className="section-title">Trancoso em forma de cerâmica.</h2>
+            <p className="section-intro">Peças feitas à mão para decorar, presentear e guardar.</p>
+            <Link href="/produtos" className="collection-link collection-link-large">Ver coleção <span>↗</span></Link>
+          </div>
+          <div className="featured-products-grid">
+            {firstProducts.map((product, index) => <ProductCard key={product.id} product={product} priority={index < 4} />)}
+          </div>
+          <div className="collection-after"><p>Peças artesanais para decorar, presentear e guardar memórias.</p><Link href="/produtos" className="collection-link">Conheça todas as peças <span>↗</span></Link></div>
         </div>
-        <div className="featured-products-grid">
-          {firstProducts.map((product, index) => <ProductCard key={product.id} product={product} priority={index < 4} />)}
-        </div>
-        <div className="collection-after"><p>Peças artesanais para decorar, presentear e guardar memórias.</p><Link href="/produtos" className="collection-link">Conheça todas as peças <span>↗</span></Link></div>
       </section>
 
-      <section className="category-row ago-container" aria-label="Categorias">
+      <section className="category-row home-categories" aria-label="Categorias">
         <Link href="#colecao" className="category-pill active">Todos</Link>
         <Link href="/produtos?categoria=trancoso" className="category-pill">Trancoso</Link>
         <Link href="/produtos?categoria=igrejinhas" className="category-pill">Igrejinhas</Link>
@@ -77,7 +79,7 @@ export default function HomePage() {
 
       <section className="how-section"><div className="ago-container how-grid">
         <div><p className="eyebrow">Como comprar</p><h2 className="section-title">Escolha sua peça,<br />com calma.</h2></div>
-        <div className="steps-grid"><div><span className="step-number">01</span><strong>Escolha</strong><p>Conheça a coleção e escolha a peça que deseja.</p></div><div><span className="step-number">02</span><strong>Carrinho</strong><p>Adicione ao carrinho e informe seus dados de entrega.</p></div><div><span className="step-number">03</span><strong>Pagamento</strong><p>Confira o pedido e siga para o pagamento seguro.</p></div></div>
+        <div className="steps-grid"><div><strong>Escolha</strong><p>Conheça a coleção e escolha a peça que deseja.</p></div><div><strong>Carrinho</strong><p>Adicione ao carrinho e informe seus dados de entrega.</p></div><div><strong>Pagamento</strong><p>Confira o pedido e siga para o pagamento seguro.</p></div></div>
       </div></section>
 
       <section className="visit-section text-areia"><div className="ago-container visit-grid">
