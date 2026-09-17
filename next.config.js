@@ -9,5 +9,3 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
-
-// Deploy trigger: no runtime or visual change.
