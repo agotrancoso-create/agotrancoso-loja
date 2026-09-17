@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="site-footer bg-marrom text-areia">
       <div className="footer-shell">
-        <div className="footer-brand"><Link href="/" aria-label="Agô Trancoso, início" className="inline-flex"><Image src="/logo.png" alt="Agô Trancoso" width={360} height={360} className="object-contain" quality={100} unoptimized /></Link></div>
+        <div className="footer-brand"><Link href="/" aria-label="Agô Trancoso, início" className="inline-flex"><Image src="/logo.png" alt="Agô Trancoso" width={360} height={360} className="object-contain" sizes="104px" quality={82} /></Link></div>
         <div className="footer-grid">
           <div><h3>Agô Trancoso</h3><p>Peças feitas à mão, inspiradas na Bahia e pensadas para decorar, presentear e guardar.</p><p>Frete fixo de R$ 39,90. Nas compras acima de R$ 500, o envio é por nossa conta.</p></div>
           <div><h4>Por aqui</h4><ul><li><Link href="/produtos">Coleção</Link></li><li><Link href="/nossa-essencia">A Agô</Link></li><li><Link href="/contato">Contato</Link></li></ul></div>
