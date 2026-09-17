@@ -1,41 +1,48 @@
 const benefits = [
   {
-    title: 'Feito à Mão',
+    title: 'Feito à mão',
     text: 'Afeto, calma e a riqueza do trabalho artesanal em cada detalhe.',
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M24 37.5C18.2 32.7 10.2 27.8 10.2 20.1c0-4.5 3.2-7.7 7.3-7.7 2.9 0 5.3 1.7 6.5 4.2 1.2-2.5 3.6-4.2 6.5-4.2 4.1 0 7.3 3.2 7.3 7.7 0 7.7-8 12.6-13.8 17.4Z" />
+        <path d="M24 16.7c-1.7-5.2-5.3-8.1-9.1-8.5M24 16.7c1.7-5.2 5.3-8.1 9.1-8.5" />
+        <path d="M14.9 8.2c-2.1-.5-4.1.2-5.4 1.8M33.1 8.2c2.1-.5 4.1.2 5.4 1.8" />
       </svg>
     ),
   },
   {
-    title: 'Design Único',
-    text: 'Criações autênticas para quem valoriza a beleza da singularidade.',
+    title: 'Peças exclusivas',
+    text: 'Cerâmicas e objetos com formas marcantes e presença própria.',
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 11h14l-2.2 5.2c-.8 1.8-1.2 3.8-1.2 5.8v2.4c0 2.4 1.1 4.4 3.1 6.1 2.2 1.8 3.3 4.2 3.3 7.1H13c0-2.9 1.1-5.3 3.3-7.1 2-1.7 3.1-3.7 3.1-6.1V22c0-2-.4-4-1.2-5.8L17 11Z" />
+        <path d="M16 11h-3.5c-2.5 0-4.5 2-4.5 4.5S10 20 12.5 20H16M32 11h3.5c2.5 0 4.5 2 4.5 4.5S38 20 35.5 20H32" />
+        <path d="M15 37.5h18M18 27h12" />
       </svg>
     ),
   },
   {
-    title: 'Alma Brasileira',
+    title: 'Inspiração brasileira',
     text: 'Cores, formas e símbolos inspirados na cultura e energia do nosso país.',
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M25.8 6.8 29 11l5.3.2 1.7 4.5 4.1 2.8-2 4.9 1.5 4.9-4.3 2.5-2 4.9-5.2-.2-3.7 3.8-4.2-2.7-5.2.7-1.7-4.5-4.3-2.8 1.5-4.9-2-4.7 4.1-2.8 1.7-4.6 5.3-.1 3.7-4.2Z" />
+        <path d="M21 30c-1.5-3.2-1.2-7 1-9.8 2.1-2.7 5.3-4.1 8.5-3.7-1 3.1-2.9 5.9-5.4 8.2-2.1 1.9-4.4 3.3-7 4.2" />
+        <path d="M18.3 31.5c3.1-1.1 5.9-2.9 8.3-5.3" />
       </svg>
     ),
   },
   {
-    title: 'Entrega Segura',
+    title: 'Envio para todo o Brasil',
     text: 'Embalagem reforçada para sua peça chegar impecável em todo o Brasil.',
     icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <rect x="1" y="3" width="15" height="13" />
-        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
-        <circle cx="5.5" cy="18.5" r="2.5" />
-        <circle cx="18.5" cy="18.5" r="2.5" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M6 12.5h23v18H6z" />
+        <path d="M29 19h6.2l6.8 6.4v5.1H29z" />
+        <path d="M35.2 19v6.4H42" />
+        <circle cx="13" cy="34.5" r="3.5" />
+        <circle cx="35.5" cy="34.5" r="3.5" />
+        <path d="M6 30.5h3M29 30.5h-3M39 15.5c-2.1-2.1-4.5-3.4-7.3-4.1M39 15.5l-.7-4.2M39 15.5l-4.2-.7" />
       </svg>
     ),
   },
