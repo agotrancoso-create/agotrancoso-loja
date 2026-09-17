@@ -1,48 +1,48 @@
+import React from 'react';
+
 const benefits = [
   {
-    title: 'Feito à mão',
-    text: 'Afeto, calma e a riqueza do trabalho artesanal em cada detalhe.',
+    title: 'Feito com tempo',
+    text: 'O toque artesanal aparece na forma, na textura e no acabamento de cada peça.',
     icon: (
-      <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M24 37.5C18.2 32.7 10.2 27.8 10.2 20.1c0-4.5 3.2-7.7 7.3-7.7 2.9 0 5.3 1.7 6.5 4.2 1.2-2.5 3.6-4.2 6.5-4.2 4.1 0 7.3 3.2 7.3 7.7 0 7.7-8 12.6-13.8 17.4Z" />
-        <path d="M24 16.7c-1.7-5.2-5.3-8.1-9.1-8.5M24 16.7c1.7-5.2 5.3-8.1 9.1-8.5" />
-        <path d="M14.9 8.2c-2.1-.5-4.1.2-5.4 1.8M33.1 8.2c2.1-.5 4.1.2 5.4 1.8" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 31c3.2-5.2 7.2-8.1 12-8.1S32.8 25.8 36 31" />
+        <path d="M17 31c-2.2 2.4-3.5 4.7-4 7M31 31c2.2 2.4 3.5 4.7 4 7" />
+        <path d="M18 21.5c1.5-2.7 3.5-4 6-4s4.5 1.3 6 4" />
+        <path d="M21 11.5c0 2.3 1.1 4.1 3 5.5 1.9-1.4 3-3.2 3-5.5" />
       </svg>
     ),
   },
   {
-    title: 'Peças exclusivas',
-    text: 'Cerâmicas e objetos com formas marcantes e presença própria.',
+    title: 'Presença na medida',
+    text: 'Objetos que não somem na decoração — ocupam seu lugar e chamam o olhar.',
     icon: (
-      <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 11h14l-2.2 5.2c-.8 1.8-1.2 3.8-1.2 5.8v2.4c0 2.4 1.1 4.4 3.1 6.1 2.2 1.8 3.3 4.2 3.3 7.1H13c0-2.9 1.1-5.3 3.3-7.1 2-1.7 3.1-3.7 3.1-6.1V22c0-2-.4-4-1.2-5.8L17 11Z" />
-        <path d="M16 11h-3.5c-2.5 0-4.5 2-4.5 4.5S10 20 12.5 20H16M32 11h3.5c2.5 0 4.5 2 4.5 4.5S38 20 35.5 20H32" />
-        <path d="M15 37.5h18M18 27h12" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m24 8 2.7 8.2L35 19l-8.3 2.8L24 30l-2.7-8.2L13 19l8.3-2.8L24 8Z" />
+        <path d="m35.5 8 .9 2.8 2.8.9-2.8.9-.9 2.8-.9-2.8-2.8-.9 2.8-.9.9-2.8Z" />
+        <path d="m12 29 .8 2.4 2.4.8-2.4.8-.8 2.4-.8-2.4-2.4-.8 2.4-.8.8-2.4Z" />
       </svg>
     ),
   },
   {
-    title: 'Inspiração brasileira',
-    text: 'Cores, formas e símbolos inspirados na cultura e energia do nosso país.',
+    title: 'Brasil sem clichê',
+    text: 'Arquitetura, fé, paisagem e cor aparecem de um jeito atual, sem excesso de tema.',
     icon: (
-      <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M25.8 6.8 29 11l5.3.2 1.7 4.5 4.1 2.8-2 4.9 1.5 4.9-4.3 2.5-2 4.9-5.2-.2-3.7 3.8-4.2-2.7-5.2.7-1.7-4.5-4.3-2.8 1.5-4.9-2-4.7 4.1-2.8 1.7-4.6 5.3-.1 3.7-4.2Z" />
-        <path d="M21 30c-1.5-3.2-1.2-7 1-9.8 2.1-2.7 5.3-4.1 8.5-3.7-1 3.1-2.9 5.9-5.4 8.2-2.1 1.9-4.4 3.3-7 4.2" />
-        <path d="M18.3 31.5c3.1-1.1 5.9-2.9 8.3-5.3" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="24" cy="24" r="8.5" />
+        <path d="M24 6v6M24 36v6M6 24h6M36 24h6M11.3 11.3l4.2 4.2M32.5 32.5l4.2 4.2M36.7 11.3l-4.2 4.2M15.5 32.5l-4.2 4.2" />
+        <path d="m20.5 24 2.2 2.2 5-5" />
       </svg>
     ),
   },
   {
-    title: 'Envio para todo o Brasil',
-    text: 'Embalagem reforçada para sua peça chegar impecável em todo o Brasil.',
+    title: 'Chega inteiro',
+    text: 'Embalagem reforçada e envio para todo o Brasil, com cuidado do começo ao fim.',
     icon: (
-      <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M6 12.5h23v18H6z" />
-        <path d="M29 19h6.2l6.8 6.4v5.1H29z" />
-        <path d="M35.2 19v6.4H42" />
-        <circle cx="13" cy="34.5" r="3.5" />
-        <circle cx="35.5" cy="34.5" r="3.5" />
-        <path d="M6 30.5h3M29 30.5h-3M39 15.5c-2.1-2.1-4.5-3.4-7.3-4.1M39 15.5l-.7-4.2M39 15.5l-4.2-.7" />
+      <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m9 15 15-7 15 7-15 7-15-7Z" />
+        <path d="M9 15v17l15 7 15-7V15M24 22v17" />
+        <path d="m16.5 11.5 15 7" />
       </svg>
     ),
   },
