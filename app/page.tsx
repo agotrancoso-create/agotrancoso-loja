@@ -91,7 +91,7 @@ export default function HomePage() {
       </div></section>
 
       <section className="visit-section text-areia"><div className="ago-container visit-grid">
-        <div><p className="eyebrow">Visite a Agô</p><h2>Como chegar até a Agô</h2><p className="visit-copy">Nossa banca fica no Quadrado de Trancoso. Para localização e atendimento, fale conosco pelo WhatsApp.</p><div className="visit-actions"><a href={mapsUrl} target="_blank" rel="noreferrer">Abrir no Google Maps</a><a href={whatsappUrl} target="_blank" rel="noreferrer">Falar no WhatsApp</a><a href={instagramUrl} target="_blank" rel="noreferrer">Falar pelo Instagram</a></div></div>
+        <div><p className="eyebrow">Visite a Agô</p><h2>Como chegar<br />até a Agô</h2><p className="visit-copy">Nossa banca fica no Quadrado de Trancoso. Para localização e atendimento, fale conosco pelo WhatsApp.</p><div className="visit-actions"><a href={mapsUrl} target="_blank" rel="noreferrer">Abrir no Google Maps</a><a href={whatsappUrl} target="_blank" rel="noreferrer">Falar no WhatsApp</a><a href={instagramUrl} target="_blank" rel="noreferrer">Falar pelo Instagram</a></div></div>
         <div><p className="eyebrow">Informações úteis</p><div className="info-list"><div><strong>Banca</strong><span>Quadrado de Trancoso</span></div><div><strong>Atendimento</strong><span>WhatsApp, Instagram e presencialmente no Quadrado</span></div><div><strong>Envios</strong><span>Frete fixo de R$ 39,90; grátis acima de R$ 500.</span></div></div></div>
       </div></section>
     </div>
