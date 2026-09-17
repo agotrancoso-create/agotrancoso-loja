@@ -1,0 +1,63 @@
+/* AGÔ — PREÇOS E CONDIÇÕES DE PAGAMENTO
+   Faixa de preço limpa, centralizada e legível.
+*/
+
+.product-price-info{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  margin-top:9px;
+  text-align:center;
+}
+
+.product-price-pix,
+.product-price-card{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  width:100%;
+  text-align:center;
+}
+
+.product-price-pix{
+  font-size:15px;
+  line-height:1.25;
+  font-weight:700;
+  color:var(--brown-deep,#3f261c);
+}
+
+.product-price-pix strong{
+  font-weight:700;
+}
+
+.product-price-card{
+  font-size:12px;
+  line-height:1.45;
+  font-weight:500;
+  color:rgba(63,38,28,.78);
+}
+
+.product-price-card strong{
+  font-weight:600;
+}
+
+.product-payment-icon{
+  width:17px;
+  height:17px;
+  flex:0 0 17px;
+  display:block;
+}
+
+.product-card .current-price,
+.product-card .price-row{
+  display:none!important;
+}
+
+@media(max-width:767px){
+  .product-price-pix{font-size:14px}
+  .product-price-card{font-size:11px}
+}
