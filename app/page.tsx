@@ -24,9 +24,9 @@ export default function HomePage() {
       <section id="colecao" className="collection-showcase home-collection">
         <div className="home-collection-grid">
           <div className="collection-intro">
-            <p className="eyebrow">Feito à mão, com história</p>
-            <h2 className="section-title">Peças que levam o jeito da Bahia para dentro de casa.</h2>
-            <p className="section-intro">Cerâmicas e objetos inspirados nas formas, na arquitetura, na fé e nas memórias que fazem parte de Trancoso.</p>
+            <p className="eyebrow">A coleção</p>
+            <h2 className="section-title">Peças para levar a Bahia para dentro de casa.</h2>
+            <p className="section-intro">Cerâmicas e objetos inspirados nas formas, na arquitetura, na fé e nas memórias que fazem parte da nossa paisagem brasileira.</p>
             <Link href="/produtos" className="collection-link collection-link-large">Ver coleção <span>↗</span></Link>
           </div>
           <div className="featured-products-grid">
@@ -59,8 +59,8 @@ export default function HomePage() {
         <div className="relative z-10 w-full ago-container hero-content">
           <p className="eyebrow mb-4 text-areia">Bahia · Trancoso · feito à mão</p>
           <h1>FEITO À MÃO.<br />FEITO PARA DURAR.</h1>
-          <p className="hero-copy">Cerâmicas, objetos e peças artesanais inspirados no que a gente vê, vive e guarda da Bahia.</p>
-          <div className="hero-actions"><Link href="#colecao" className="hero-primary">Ver produtos</Link><Link href="/nossa-essencia" className="hero-secondary">Conheça a Agô</Link></div>
+          <p className="hero-copy">Cerâmicas e objetos inspirados na Bahia, nas formas de Trancoso e no jeito brasileiro de viver.</p>
+          <div className="hero-actions"><Link href="#colecao" className="hero-primary">Ver coleção</Link><Link href="/nossa-essencia" className="hero-secondary">Conheça a Agô</Link></div>
         </div>
       </section>
 
@@ -73,15 +73,14 @@ export default function HomePage() {
 
       <section className="editorial-section"><div className="ago-container editorial-grid">
         <div className="editorial-image"><img src="/nossa-essencia.jpg" alt="Cerâmica da Agô Trancoso" loading="lazy" /></div>
-        <div className="editorial-copy-column"><p className="eyebrow">Nossa essência</p><h2 className="section-title">O Brasil mora nos detalhes.</h2>
-          <p className="editorial-copy">A Agô nasce da vivência em Trancoso e transforma referências da Bahia em objetos para decorar, presentear e guardar.</p>
-          <p className="editorial-copy">Barro, cor, arquitetura, fé e memória aparecem nas formas e nos detalhes de cada peça.</p>
+        <div className="editorial-copy-column"><p className="eyebrow">Nossa essência</p><h2 className="section-title">Um jeito brasileiro de morar.</h2>
+          <p className="editorial-copy">A Agô transforma referências da Bahia em peças para decorar, presentear e guardar. Barro, arquitetura, fé, cor e memória aparecem nas formas e nos detalhes de cada objeto.</p>
           <Link href="/nossa-essencia" className="editorial-link">Conheça a Agô →</Link>
         </div>
       </div></section>
 
       <section className="home-house"><div className="ago-container house-grid">
-        <div className="house-copy"><p className="eyebrow">Da Bahia para sua casa</p><h2 className="section-title">Um pouco do Quadrado para fazer parte da sua história.</h2><p className="editorial-copy">Objetos artesanais para trazer calor, memória e personalidade para os espaços onde você vive.</p><Link href="/produtos" className="dark-button">Escolher uma peça</Link></div>
+        <div className="house-copy"><p className="eyebrow">Da Bahia para sua casa</p><h2 className="section-title">Da Bahia para sua casa.</h2><p className="editorial-copy">Objetos com presença, feitos à mão e pensados para viver junto com você.</p><Link href="/produtos" className="dark-button">Escolher uma peça</Link></div>
         <div className="editorial-image house-image"><img src="/complementar.jpg" alt="Duas igrejas em cerâmica da Agô Trancoso" loading="lazy" /></div>
       </div></section>
 
