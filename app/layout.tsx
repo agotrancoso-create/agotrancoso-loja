@@ -89,17 +89,45 @@ export const metadata: Metadata = {
     description: 'Peças feitas à mão, inspiradas na Bahia, nas formas de Trancoso e no jeito brasileiro de viver.',
     url: SITE_DOMAIN,
     siteName: 'Agô Trancoso',
+    locale: 'pt_BR',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Agô Trancoso | Cerâmicas e peças feitas à mão',
+    description: 'Peças feitas à mão, inspiradas na Bahia e nas formas de Trancoso.',
   },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_DOMAIN}#organization`,
+      name: 'Agô Trancoso',
+      url: SITE_DOMAIN,
+      sameAs: ['https://www.instagram.com/agotrancoso'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_DOMAIN}#website`,
+      name: 'Agô Trancoso',
+      url: SITE_DOMAIN,
+      inLanguage: 'pt-BR',
+      publisher: { '@id': `${SITE_DOMAIN}#organization` },
+    },
+  ],
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body>
+      <body className="font-sans">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <CartProvider>
           <Header />
-          <main>{children}</main>
+          <main className="min-h-[60vh]">{children}</main>
           <Footer />
           <CartDrawer />
           <SocialFloaters />
