@@ -1,0 +1,580 @@
+/* AGÔ TRANCOSO — EXPERIÊNCIA TOTAL 2026
+   Uma única camada final para unificar desktop, tablet e celular.
+   Direção: Nordeste/sertão brasileiro contemporâneo, cerâmica, terra, cacau e creme.
+*/
+
+:root {
+  --ago-cream: #F7F0E7;
+  --ago-paper: #FFFDF9;
+  --ago-sand: #E9D7C5;
+  --ago-soft: #F1E6DA;
+  --ago-brown: #4A2C1F;
+  --ago-cacao: #321E17;
+  --ago-earth: #7E3925;
+  --ago-terra: #A94D2F;
+  --ago-brick: #C2603A;
+  --ago-rust: #9A3F24;
+  --ago-gold: #C38A2E;
+  --ago-ink: #2B1B16;
+  --ago-muted: #76645A;
+  --ago-white: #FFF9F1;
+}
+
+html,
+body {
+  overflow-x: hidden !important;
+}
+
+body {
+  background: var(--ago-cream) !important;
+  color: var(--ago-ink) !important;
+  font-family: 'DM Sans', Arial, sans-serif !important;
+}
+
+/* ---------- faixa comercial ---------- */
+.ago-topbar {
+  min-height: 34px !important;
+  padding: 7px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+  background: var(--ago-cacao) !important;
+  color: #FFF6EC !important;
+  font: 700 10px/1.2 'DM Sans', Arial, sans-serif !important;
+  letter-spacing: .07em !important;
+  text-transform: uppercase !important;
+}
+.ago-topbar i { width: 3px !important; height: 3px !important; border-radius: 50% !important; background: #F0C675 !important; }
+.ago-topbar-offer {
+  color: #F7D18E !important;
+}
+
+/* ---------- header ---------- */
+.site-header {
+  background: rgba(255,253,249,.97) !important;
+  box-shadow: 0 1px 0 rgba(74,44,31,.09) !important;
+  backdrop-filter: blur(12px) !important;
+}
+.header-inner {
+  width: min(1320px, calc(100% - 48px)) !important;
+  min-height: 80px !important;
+  gap: 22px !important;
+}
+.header-logo img { width: 58px !important; height: 58px !important; }
+.header-nav { gap: 25px !important; }
+.header-link {
+  color: rgba(50,30,23,.76) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: .065em !important;
+}
+.header-link:hover { color: var(--ago-terra) !important; }
+.header-actions { gap: 12px !important; }
+.header-search-form { width: min(245px, 22vw) !important; }
+.header-search {
+  width: 100% !important;
+  min-height: 44px !important;
+  padding: 0 15px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #F0E5DA !important;
+  color: var(--ago-ink) !important;
+  font-size: 13px !important;
+}
+.header-icon,
+.mobile-menu-button {
+  width: 44px !important;
+  height: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--ago-cacao) !important;
+}
+.cart-count { background: var(--ago-terra) !important; color: white !important; }
+
+/* ---------- base de conteúdo ---------- */
+.ago-container {
+  width: min(1280px, calc(100% - 56px)) !important;
+  margin-inline: auto !important;
+}
+.section-title {
+  color: var(--ago-cacao) !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-weight: 600 !important;
+  letter-spacing: -.025em !important;
+}
+.eyebrow {
+  color: var(--ago-earth) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: .18em !important;
+  text-transform: uppercase !important;
+}
+
+/* ---------- home: descoberta primeiro, sem esconder produto ---------- */
+.home-collection {
+  padding: clamp(48px, 6vw, 82px) 0 58px !important;
+  background: var(--ago-paper) !important;
+}
+.home-collection-grid { width: min(1280px, calc(100% - 56px)) !important; }
+.collection-intro { max-width: 860px !important; padding-bottom: 32px !important; }
+.collection-intro .section-title { max-width: 900px !important; font-size: clamp(44px, 5.3vw, 76px) !important; line-height: .94 !important; }
+.collection-intro .section-intro { max-width: 640px !important; font-size: 16px !important; line-height: 1.7 !important; }
+
+.featured-products-grid,
+.remaining-products-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 34px 22px !important;
+}
+.product-card { min-width: 0 !important; }
+.product-image-wrap {
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: 20px !important;
+}
+.product-image-wrap .product-image { padding: 10px !important; object-fit: contain !important; }
+.product-name {
+  color: var(--ago-cacao) !important;
+  font-size: 22px !important;
+  line-height: 1.04 !important;
+}
+.current-price { color: var(--ago-earth) !important; font-size: 20px !important; font-weight: 800 !important; }
+.product-add {
+  min-height: 50px !important;
+  margin-top: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--ago-cacao) !important;
+  color: white !important;
+  font-weight: 700 !important;
+  letter-spacing: .01em !important;
+}
+.product-add:hover,
+.product-add:focus-visible { background: var(--ago-earth) !important; }
+
+/* ---------- categorias ---------- */
+.home-categories {
+  width: 100% !important;
+  padding: 18px 24px 24px !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+  background: var(--ago-paper) !important;
+  border: 0 !important;
+}
+.category-pill {
+  min-height: 44px !important;
+  padding: 11px 19px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #EEE2D6 !important;
+  color: var(--ago-brown) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+.category-pill.active { background: var(--ago-earth) !important; color: white !important; }
+
+/* ---------- hero ---------- */
+.hero-section { min-height: clamp(560px, 66vh, 760px) !important; background: var(--ago-cacao) !important; }
+.hero-image { object-fit: cover !important; }
+.hero-overlay {
+  background:
+    linear-gradient(90deg, rgba(50,30,23,.93) 0%, rgba(50,30,23,.68) 50%, rgba(50,30,23,.12) 92%),
+    linear-gradient(0deg, rgba(50,30,23,.62), rgba(50,30,23,.06) 70%) !important;
+}
+.hero-content {
+  padding-top: 80px !important;
+  padding-bottom: 70px !important;
+}
+.hero-section h1 {
+  max-width: 950px !important;
+  color: var(--ago-white) !important;
+  font-size: clamp(54px, 7vw, 105px) !important;
+  line-height: .86 !important;
+}
+.hero-copy { max-width: 690px !important; font-size: 18px !important; line-height: 1.65 !important; color: rgba(255,249,241,.9) !important; }
+.hero-actions { gap: 12px !important; }
+.hero-primary,
+.hero-secondary {
+  min-height: 54px !important;
+  padding-inline: 24px !important;
+  border-radius: 999px !important;
+  font-weight: 800 !important;
+}
+.hero-primary { background: var(--ago-gold) !important; color: var(--ago-cacao) !important; }
+.hero-secondary { background: rgba(255,255,255,.06) !important; color: var(--ago-white) !important; border: 1px solid rgba(255,249,241,.4) !important; }
+
+/* ---------- benefícios: quatro iguais ---------- */
+.benefits-strip { padding: 64px 0 !important; background: var(--ago-paper) !important; }
+.features-container { width: min(1180px, calc(100% - 56px)) !important; }
+.feature-item {
+  min-width: 0 !important;
+  padding: 6px 26px !important;
+  display: flex !important;
+  align-items: center !important;
+  text-align: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.feature-item::after { display: none !important; }
+.feature-title { color: var(--ago-cacao) !important; font-size: 25px !important; line-height: 1 !important; }
+.feature-description { color: var(--ago-muted) !important; max-width: 230px !important; font-size: 12px !important; line-height: 1.55 !important; }
+.feature-icon svg { stroke: var(--ago-earth) !important; }
+
+/* ---------- seções editoriais ---------- */
+.collection-more { padding: 88px 0 !important; background: var(--ago-cream) !important; }
+.section-heading { gap: 35px !important; align-items: end !important; }
+.section-heading .section-title { max-width: 780px !important; }
+.editorial-section { background: var(--ago-earth) !important; }
+.editorial-grid,
+.house-grid,
+.how-grid,
+.visit-grid {
+  width: min(1280px, calc(100% - 56px)) !important;
+}
+.editorial-grid { gap: clamp(42px, 6vw, 92px) !important; }
+.editorial-image,
+.house-image { border: 0 !important; box-shadow: none !important; border-radius: 24px !important; overflow: hidden !important; }
+.editorial-copy-column { max-width: 620px !important; }
+.editorial-section .section-title,
+.editorial-section .eyebrow { color: var(--ago-white) !important; }
+.editorial-section .editorial-copy { color: rgba(255,249,241,.84) !important; }
+.home-house { background: #ECD8C7 !important; }
+.home-house .section-title { max-width: 720px !important; }
+
+/* ---------- como comprar ---------- */
+.how-section { background: var(--ago-paper) !important; padding: 88px 0 !important; }
+.how-grid { align-items: start !important; gap: clamp(44px, 7vw, 110px) !important; }
+.steps-grid { display: grid !important; grid-template-columns: repeat(3, minmax(0,1fr)) !important; gap: 24px !important; }
+.steps-grid > div { padding: 0 !important; border: 0 !important; }
+.steps-grid strong { color: var(--ago-cacao) !important; font-family: 'Cormorant Garamond', Georgia, serif !important; font-size: 29px !important; }
+.steps-grid p { color: var(--ago-muted) !important; font-size: 14px !important; line-height: 1.6 !important; }
+
+/* ---------- visita ---------- */
+.visit-section {
+  background: var(--ago-brown) !important;
+  padding: 88px 0 !important;
+}
+.visit-section h2 {
+  color: var(--ago-white) !important;
+  font: 600 clamp(55px, 6.5vw, 92px)/.88 'Cormorant Garamond', Georgia, serif !important;
+  letter-spacing: -.03em !important;
+}
+.visit-section .eyebrow { color: #F4CC93 !important; }
+.visit-copy { color: rgba(255,249,241,.78) !important; max-width: 620px !important; }
+.visit-actions { display: flex !important; flex-wrap: wrap !important; gap: 10px !important; }
+.visit-actions a { border-radius: 999px !important; padding: 11px 17px !important; background: rgba(255,255,255,.09) !important; color: white !important; border: 1px solid rgba(255,255,255,.16) !important; }
+.info-list > div { border: 0 !important; padding: 0 0 24px !important; }
+.info-list strong { color: #F6CE9E !important; }
+.info-list span { color: rgba(255,249,241,.78) !important; }
+
+/* ---------- footer ---------- */
+.site-footer,
+footer.site-footer { background: var(--ago-cacao) !important; color: var(--ago-white) !important; padding-top: 70px !important; }
+.footer-shell { width: min(1280px, calc(100% - 56px)) !important; }
+.footer-grid { grid-template-columns: 1.2fr .7fr .9fr !important; gap: 52px !important; }
+.site-footer h3,
+.site-footer h4 { color: var(--ago-white) !important; font-family: 'Cormorant Garamond', Georgia, serif !important; }
+.site-footer p,
+.site-footer li,
+.site-footer a { color: rgba(255,249,241,.72) !important; }
+.site-footer a:hover { color: #F2C975 !important; }
+.footer-copyright {
+  width: 100% !important;
+  margin: 48px 0 0 !important;
+  padding: 22px 0 26px !important;
+  border-top: 1px solid rgba(255,255,255,.12) !important;
+  background: transparent !important;
+  text-align: center !important;
+  color: rgba(255,249,241,.64) !important;
+  font-size: 12px !important;
+}
+
+/* ---------- oferta de primeira compra ---------- */
+.first-purchase-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100 !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 24px !important;
+  background: rgba(34,20,15,.68) !important;
+  backdrop-filter: blur(6px) !important;
+}
+.first-purchase-modal {
+  position: relative !important;
+  width: min(920px, 100%) !important;
+  max-height: min(760px, calc(100dvh - 48px)) !important;
+  overflow: auto !important;
+  border-radius: 28px !important;
+  background: var(--ago-paper) !important;
+  color: var(--ago-ink) !important;
+  box-shadow: 0 28px 90px rgba(34,20,15,.28) !important;
+}
+.first-purchase-layout { display: grid !important; grid-template-columns: .95fr 1.05fr !important; }
+.first-purchase-brand-panel {
+  padding: clamp(30px, 5vw, 58px) !important;
+  background: var(--ago-earth) !important;
+  color: var(--ago-white) !important;
+}
+.first-purchase-brand-panel h2,
+.first-purchase-success h2 {
+  margin: 7px 0 17px !important;
+  font: 600 clamp(42px, 5vw, 64px)/.9 'Cormorant Garamond', Georgia, serif !important;
+  letter-spacing: -.03em !important;
+}
+.first-purchase-brand-panel .eyebrow { color: #F4D19D !important; }
+.first-purchase-brand-panel > p:not(.eyebrow) { color: rgba(255,249,241,.84) !important; line-height: 1.65 !important; }
+.first-purchase-promise { display: grid !important; gap: 10px !important; margin-top: 28px !important; }
+.first-purchase-promise span { padding-left: 14px !important; border-left: 2px solid #F2C978 !important; color: #FFF7EE !important; font-weight: 700 !important; }
+.first-purchase-form { display: grid !important; gap: 16px !important; padding: clamp(28px, 4vw, 48px) !important; }
+.first-purchase-field { display: grid !important; gap: 7px !important; }
+.first-purchase-field label { font-size: 12px !important; font-weight: 700 !important; color: var(--ago-brown) !important; }
+.first-purchase-field input {
+  min-height: 50px !important;
+  width: 100% !important;
+  border: 1px solid rgba(74,44,31,.15) !important;
+  border-radius: 12px !important;
+  padding: 0 14px !important;
+  background: #FFFDFC !important;
+  color: var(--ago-ink) !important;
+  outline: none !important;
+}
+.first-purchase-field input:focus { border-color: var(--ago-earth) !important; box-shadow: 0 0 0 3px rgba(164,81,31,.1) !important; }
+.first-purchase-consent { display: grid !important; grid-template-columns: 18px 1fr !important; gap: 9px !important; align-items: start !important; font-size: 11px !important; line-height: 1.55 !important; color: var(--ago-muted) !important; }
+.first-purchase-consent a { color: var(--ago-earth) !important; font-weight: 700 !important; text-decoration: underline !important; }
+.first-purchase-submit,
+.first-purchase-continue {
+  min-height: 52px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--ago-cacao) !important;
+  color: white !important;
+  font-weight: 800 !important;
+  text-transform: lowercase !important;
+}
+.first-purchase-form small { color: var(--ago-muted) !important; font-size: 10px !important; line-height: 1.45 !important; }
+.first-purchase-close {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  z-index: 3 !important;
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 50% !important;
+  border: 0 !important;
+  background: rgba(255,255,255,.18) !important;
+  color: white !important;
+  font-size: 26px !important;
+  line-height: 1 !important;
+}
+.first-purchase-form + * { color: var(--ago-ink); }
+.first-purchase-success { padding: clamp(40px, 7vw, 78px) !important; text-align: left !important; }
+.first-purchase-success .eyebrow { color: var(--ago-earth) !important; }
+.first-purchase-success p { color: var(--ago-muted) !important; max-width: 570px !important; }
+.first-purchase-coupon {
+  margin: 22px 0 12px !important;
+  min-height: 66px !important;
+  width: min(340px, 100%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 20px !important;
+  border: 1px dashed var(--ago-earth) !important;
+  border-radius: 16px !important;
+  background: var(--ago-soft) !important;
+  color: var(--ago-cacao) !important;
+}
+.first-purchase-coupon strong { font: 600 30px/1 'Cormorant Garamond', Georgia, serif !important; letter-spacing: .06em !important; }
+.first-purchase-coupon span { font-size: 11px !important; font-weight: 800 !important; text-transform: uppercase !important; letter-spacing: .08em !important; }
+.first-purchase-continue { width: min(340px,100%) !important; }
+
+/* ---------- carrinho ---------- */
+.cart-drawer {
+  width: min(520px, 100vw) !important;
+  background: var(--ago-cream) !important;
+  color: var(--ago-ink) !important;
+}
+.cart-header { background: var(--ago-paper) !important; min-height: 78px !important; }
+.cart-header-title h2 { color: var(--ago-cacao) !important; }
+.cart-close { background: #EEE0D3 !important; color: var(--ago-cacao) !important; }
+.cart-item { background: rgba(255,253,249,.74) !important; border: 0 !important; border-radius: 18px !important; }
+.cart-summary { background: var(--ago-paper) !important; border-radius: 18px !important; }
+.cart-checkout { background: var(--ago-cacao) !important; color: white !important; border-radius: 999px !important; }
+
+/* ---------- checkout ---------- */
+.checkout-page { background: var(--ago-cream) !important; min-height: 72vh !important; }
+.checkout-shell { width: min(1220px, calc(100% - 48px)) !important; margin-inline: auto !important; padding: 70px 0 !important; }
+.checkout-layout { grid-template-columns: minmax(0,1.1fr) minmax(340px,.8fr) !important; gap: 34px !important; align-items: start !important; }
+.checkout-form-panel,
+.checkout-summary {
+  border-radius: 24px !important;
+  border: 0 !important;
+  box-shadow: 0 14px 45px rgba(74,44,31,.08) !important;
+}
+.checkout-form-panel { padding: clamp(24px, 4vw, 42px) !important; background: var(--ago-paper) !important; }
+.checkout-title { font-size: clamp(48px, 5vw, 68px) !important; line-height: .92 !important; }
+.checkout-section { padding: 23px 0 !important; border: 0 !important; }
+.checkout-section + .checkout-section { border-top: 1px solid rgba(74,44,31,.1) !important; }
+.checkout-input { min-height: 52px !important; border-radius: 12px !important; border: 1px solid rgba(74,44,31,.15) !important; }
+.checkout-input:focus { border-color: var(--ago-earth) !important; box-shadow: 0 0 0 3px rgba(164,81,31,.1) !important; outline: none !important; }
+.checkout-submit { min-height: 56px !important; border: 0 !important; border-radius: 999px !important; background: var(--ago-cacao) !important; color: white !important; font-size: 14px !important; font-weight: 800 !important; }
+.checkout-summary { position: sticky !important; top: 104px !important; padding: 28px !important; background: var(--ago-paper) !important; }
+.checkout-total strong { color: var(--ago-earth) !important; font: 700 34px/1 'Cormorant Garamond', Georgia, serif !important; }
+
+/* ---------- páginas institucionais ---------- */
+.legal-page,
+.institutional-page,
+.contact-page,
+.essence-page,
+.products-page {
+  background: var(--ago-cream) !important;
+}
+.legal-shell,
+.institutional-shell,
+.contact-shell,
+.essence-shell,
+.products-shell {
+  width: min(1180px, calc(100% - 56px)) !important;
+  margin-inline: auto !important;
+}
+
+/* ---------- foco e movimento ---------- */
+:focus-visible { outline: 3px solid rgba(195,138,46,.65) !important; outline-offset: 3px !important; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+
+/* ---------- tablet ---------- */
+@media (max-width: 1100px) {
+  .header-inner { width: min(100% - 34px, 980px) !important; }
+  .header-nav { gap: 16px !important; }
+  .header-search-form { width: 180px !important; }
+  .featured-products-grid,
+  .remaining-products-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; gap: 30px 18px !important; }
+  .benefits-strip { padding: 50px 0 !important; }
+  .features-container { display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)) !important; row-gap: 38px !important; }
+  .editorial-grid,
+  .house-grid,
+  .how-grid,
+  .visit-grid { width: min(100% - 42px, 920px) !important; }
+  .how-grid { grid-template-columns: 1fr !important; }
+  .steps-grid { grid-template-columns: repeat(3,minmax(0,1fr)) !important; }
+}
+
+/* ---------- celular ---------- */
+@media (max-width: 767px) {
+  .ago-topbar { min-height: 36px !important; padding: 7px 12px !important; gap: 7px !important; font-size: 9px !important; }
+  .ago-topbar i { display: none !important; }
+  .header-inner { width: calc(100% - 28px) !important; min-height: 68px !important; gap: 8px !important; }
+  .header-logo img { width: 52px !important; height: 52px !important; }
+  .header-nav-desktop,
+  .header-search-form { display: none !important; }
+  .header-actions { margin-left: auto !important; }
+  .mobile-menu-button { display: inline-flex !important; }
+  .mobile-menu { width: calc(100% - 28px) !important; padding: 12px 0 18px !important; }
+  .mobile-menu form { margin-bottom: 4px !important; }
+  .mobile-menu input { min-height: 48px !important; border-radius: 999px !important; border: 1px solid rgba(74,44,31,.13) !important; background: #FFFDFC !important; }
+  .mobile-menu a { min-height: 46px !important; display: flex !important; align-items: center !important; border-bottom: 1px solid rgba(74,44,31,.08) !important; }
+
+  .ago-container,
+  .home-collection-grid,
+  .editorial-grid,
+  .house-grid,
+  .how-grid,
+  .visit-grid,
+  .footer-shell,
+  .checkout-shell { width: calc(100% - 28px) !important; }
+
+  .home-collection { padding: 38px 0 44px !important; }
+  .collection-intro { padding-bottom: 24px !important; }
+  .collection-intro .section-title { font-size: clamp(38px, 12vw, 56px) !important; }
+  .collection-intro .section-intro { font-size: 14px !important; }
+  .featured-products-grid,
+  .remaining-products-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 25px 12px !important; }
+  .product-image-wrap { border-radius: 16px !important; }
+  .product-name { margin-top: 11px !important; font-size: 18px !important; }
+  .current-price { font-size: 18px !important; }
+  .product-add { min-height: 46px !important; padding: 9px 10px !important; font-size: 11px !important; }
+  .home-categories { justify-content: flex-start !important; overflow-x: auto !important; flex-wrap: nowrap !important; padding: 14px 14px 18px !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+  .home-categories::-webkit-scrollbar { display: none !important; }
+  .category-pill { flex: 0 0 auto !important; min-height: 42px !important; padding-inline: 16px !important; }
+  .brasilidade-ribbon-inner { min-height: 48px !important; gap: 10px !important; overflow: hidden !important; white-space: nowrap !important; justify-content: flex-start !important; }
+
+  .hero-section { min-height: 620px !important; }
+  .hero-content { padding-top: 55px !important; padding-bottom: 44px !important; }
+  .hero-section h1 { font-size: clamp(48px, 13.5vw, 72px) !important; line-height: .86 !important; }
+  .hero-copy { font-size: 15px !important; }
+  .hero-actions { align-items: stretch !important; flex-direction: column !important; max-width: 360px !important; }
+  .hero-primary,
+  .hero-secondary { width: 100% !important; justify-content: center !important; }
+
+  .features-container { width: calc(100% - 28px) !important; grid-template-columns: 1fr 1fr !important; column-gap: 10px !important; row-gap: 32px !important; }
+  .feature-item { padding: 0 6px !important; }
+  .feature-title { font-size: 21px !important; }
+  .feature-description { font-size: 10.5px !important; }
+  .feature-icon { width: 52px !important; height: 48px !important; }
+
+  .collection-more { padding: 54px 0 !important; }
+  .section-heading { display: grid !important; gap: 16px !important; }
+  .section-heading .section-title { font-size: 41px !important; }
+  .editorial-section,
+  .home-house,
+  .how-section,
+  .visit-section { padding: 58px 0 !important; }
+  .editorial-grid,
+  .house-grid,
+  .visit-grid { display: grid !important; grid-template-columns: 1fr !important; gap: 34px !important; }
+  .editorial-grid .editorial-image,
+  .house-image { min-height: 340px !important; }
+  .editorial-copy-column { max-width: none !important; }
+  .steps-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .visit-section h2 { font-size: clamp(50px, 16vw, 74px) !important; }
+  .visit-actions { display: grid !important; }
+  .visit-actions a { text-align: center !important; }
+
+  .footer-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .footer-copyright { margin-top: 34px !important; }
+
+  .first-purchase-backdrop { padding: 10px !important; }
+  .first-purchase-modal { max-height: calc(100dvh - 20px) !important; border-radius: 22px !important; }
+  .first-purchase-layout { grid-template-columns: 1fr !important; }
+  .first-purchase-brand-panel { padding: 30px 24px 24px !important; }
+  .first-purchase-brand-panel h2,
+  .first-purchase-success h2 { font-size: 44px !important; }
+  .first-purchase-promise { margin-top: 20px !important; }
+  .first-purchase-form { padding: 24px !important; }
+  .first-purchase-close { background: rgba(50,30,23,.25) !important; }
+
+  .checkout-shell { padding: 40px 0 !important; }
+  .checkout-layout { grid-template-columns: 1fr !important; gap: 18px !important; }
+  .checkout-summary { position: static !important; order: -1 !important; }
+  .checkout-form-panel { padding: 24px 18px !important; }
+  .checkout-summary { padding: 20px !important; }
+  .checkout-fields-two,
+  .checkout-fields-address { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 430px) {
+  .featured-products-grid,
+  .remaining-products-grid { gap: 24px 10px !important; }
+  .product-name { font-size: 17px !important; }
+  .product-add { font-size: 10.5px !important; }
+  .hero-section { min-height: 590px !important; }
+  .first-purchase-form { gap: 13px !important; }
+}
