@@ -20,7 +20,7 @@ export default function HomePage() {
   const remainingProducts = products.slice(8);
 
   return (
-    <div className="ago-home" data-design-audit="2026-09-17-human-attention">
+    <div className="ago-home" data-design-audit="2026-09-17-master">
       <section id="colecao" className="collection-showcase home-collection">
         <div className="home-collection-grid">
           <div className="collection-intro">
@@ -52,7 +52,7 @@ export default function HomePage() {
       </section>
 
       <section className="hero-section relative flex items-end overflow-hidden bg-marrom text-areia">
-        <Image src="/hero.jpg" alt="Peças de cerâmica da Agô Trancoso" fill priority sizes="100vw" className="object-cover hero-image" />
+        <Image src="/hero.jpg" alt="Peças de cerâmica da Agô Trancoso" fill sizes="100vw" className="object-cover hero-image" />
         <div className="absolute inset-0 hero-overlay" />
         <div className="hero-brazil-shape hero-brazil-shape-one" aria-hidden="true" />
         <div className="hero-brazil-shape hero-brazil-shape-two" aria-hidden="true" />
