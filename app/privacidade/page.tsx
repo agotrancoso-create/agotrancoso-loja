@@ -1,6 +1,7 @@
 export const metadata = {
   title: 'Política de Privacidade',
   description: 'Política de privacidade do site Agô Trancoso.',
+  alternates: { canonical: '/privacidade' },
 };
 
 export default function PrivacyPage() {
