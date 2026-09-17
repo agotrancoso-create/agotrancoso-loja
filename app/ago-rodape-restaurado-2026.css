@@ -1,0 +1,174 @@
+/* AGÔ TRANCOSO — RODAPÉ RESTAURADO
+   Recupera a composição equilibrada do rodapé anterior.
+   Não altera conteúdo, apenas proporção, tipografia, cor e espaçamento.
+*/
+
+footer{
+  width:100% !important;
+  background:#321B17 !important;
+  color:#FFFDF9 !important;
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+}
+
+footer > div:first-child{
+  width:min(1280px,calc(100% - 96px)) !important;
+  max-width:1280px !important;
+  margin:0 auto !important;
+  padding:64px 0 58px !important;
+}
+
+footer > div:first-child > div:first-child{
+  display:flex !important;
+  justify-content:flex-start !important;
+  align-items:flex-start !important;
+  margin:0 0 44px !important;
+}
+
+footer > div:first-child > div:first-child a{
+  display:inline-flex !important;
+}
+
+footer > div:first-child > div:first-child img{
+  width:104px !important;
+  height:104px !important;
+  object-fit:contain !important;
+}
+
+footer .grid{
+  display:grid !important;
+  grid-template-columns:minmax(0,1.45fr) minmax(150px,.70fr) minmax(220px,1fr) !important;
+  gap:clamp(52px,7vw,108px) !important;
+  align-items:start !important;
+}
+
+footer .grid > div{
+  min-width:0 !important;
+}
+
+footer h3{
+  margin:0 0 12px !important;
+  font-family:'Cormorant Garamond',Georgia,serif !important;
+  font-size:36px !important;
+  font-weight:500 !important;
+  line-height:.98 !important;
+  letter-spacing:-.02em !important;
+  color:#FFFDF9 !important;
+}
+
+footer h4{
+  margin:0 0 16px !important;
+  font-family:'DM Sans',Arial,sans-serif !important;
+  font-size:10px !important;
+  font-weight:700 !important;
+  letter-spacing:.17em !important;
+  line-height:1.2 !important;
+  text-transform:uppercase !important;
+  color:rgba(255,253,249,.55) !important;
+}
+
+footer p,
+footer li,
+footer a,
+footer span{
+  font-family:'DM Sans',Arial,sans-serif !important;
+  font-size:14px !important;
+  font-weight:400 !important;
+  line-height:1.65 !important;
+  letter-spacing:.005em !important;
+  color:rgba(255,253,249,.78) !important;
+}
+
+footer .grid > div:first-child p:first-of-type{
+  max-width:430px !important;
+  margin:0 !important;
+}
+
+footer .grid > div:first-child p:last-of-type{
+  max-width:390px !important;
+  margin-top:15px !important;
+  color:rgba(255,253,249,.52) !important;
+  font-size:12px !important;
+}
+
+footer ul{
+  margin:0 !important;
+  padding:0 !important;
+  list-style:none !important;
+}
+
+footer li + li{
+  margin-top:8px !important;
+}
+
+footer a:hover{
+  color:#FFFDF9 !important;
+}
+
+footer > div:last-child{
+  width:min(1280px,calc(100% - 96px)) !important;
+  max-width:1280px !important;
+  margin:0 auto !important;
+  padding:18px 0 22px !important;
+  border:0 !important;
+  border-top:0 !important;
+  text-align:left !important;
+  font-family:'DM Sans',Arial,sans-serif !important;
+  font-size:10px !important;
+  line-height:1.5 !important;
+  letter-spacing:.04em !important;
+  color:rgba(255,253,249,.42) !important;
+}
+
+footer > div:last-child::before,
+footer > div:last-child::after{
+  display:none !important;
+  content:none !important;
+}
+
+@media(max-width:1100px){
+  footer > div:first-child,
+  footer > div:last-child{
+    width:calc(100% - 72px) !important;
+  }
+  footer .grid{gap:42px !important}
+}
+
+@media(max-width:767px){
+  footer > div:first-child{
+    width:calc(100% - 36px) !important;
+    padding:48px 0 40px !important;
+  }
+
+  footer > div:first-child > div:first-child{
+    margin-bottom:34px !important;
+  }
+
+  footer > div:first-child > div:first-child img{
+    width:86px !important;
+    height:86px !important;
+  }
+
+  footer .grid{
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+    gap:34px 28px !important;
+  }
+
+  footer .grid > div:first-child{
+    grid-column:1 / -1 !important;
+  }
+
+  footer h3{font-size:32px !important}
+  footer h4{font-size:9px !important;letter-spacing:.16em !important}
+  footer p,
+  footer li,
+  footer a,
+  footer span{font-size:13px !important;line-height:1.6 !important}
+
+  footer > div:last-child{
+    width:calc(100% - 36px) !important;
+    padding:16px 0 18px !important;
+    font-size:9px !important;
+  }
+}
