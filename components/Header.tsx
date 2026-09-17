@@ -21,7 +21,13 @@ export default function Header() {
 
   return (
     <>
-      <div className="ago-topbar">Frete grátis em compras acima de R$ 500</div>
+      <div className="ago-topbar">
+        <span>Frete grátis acima de R$ 500</span>
+        <i aria-hidden="true" />
+        <span>Envio para todo o Brasil</span>
+        <i aria-hidden="true" />
+        <span>Atendimento pelo WhatsApp</span>
+      </div>
       <header className="site-header sticky top-0 z-40">
         <div className="ago-container header-inner">
           <Link href="/" className="header-logo" aria-label="Agô Trancoso">
@@ -31,6 +37,7 @@ export default function Header() {
           <nav className="header-nav header-nav-desktop" aria-label="Navegação principal">
             <Link href="/" className="header-link">Início</Link>
             <Link href="/produtos" className="header-link">Coleção</Link>
+            <Link href="/produtos?categoria=trancoso" className="header-link">Trancoso</Link>
             <Link href="/nossa-essencia" className="header-link">Agô</Link>
             <Link href="/contato" className="header-link">Contato</Link>
           </nav>
@@ -65,6 +72,7 @@ export default function Header() {
             </form>
             <Link href="/" onClick={() => setMenuOpen(false)}>Início</Link>
             <Link href="/produtos" onClick={() => setMenuOpen(false)}>Coleção</Link>
+            <Link href="/produtos?categoria=trancoso" onClick={() => setMenuOpen(false)}>Trancoso</Link>
             <Link href="/nossa-essencia" onClick={() => setMenuOpen(false)}>Agô</Link>
             <Link href="/contato" onClick={() => setMenuOpen(false)}>Contato</Link>
           </div>
