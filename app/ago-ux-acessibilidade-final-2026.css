@@ -1,0 +1,229 @@
+/* AGÔ TRANCOSO — UX, LEITURA E ACESSIBILIDADE FINAL 2026
+   Referências aplicadas: clareza, consistência, contraste, áreas de toque,
+   redução de distração e leitura confortável em diferentes idades e telas.
+*/
+
+:root{
+  --ago-ux-ink:#2E1B17;
+  --ago-ux-paper:#FFFDF9;
+  --ago-ux-terra:#8F3A25;
+  --ago-ux-focus:#6F2D1D;
+}
+
+/* ===== LEITURA ===== */
+html{font-size:16px;}
+body{
+  color:var(--ago-ux-ink);
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+p,
+li,
+label,
+input,
+select,
+textarea,
+button{
+  line-height:1.55;
+}
+
+/* Não usar justificação em blocos longos: preserva a regularidade visual das palavras. */
+p,
+.editorial-copy,
+.editorial-copy-column,
+.essencia-text,
+.contact-copy > p,
+.visit-copy,
+.visit-section p,
+.house-copy p,
+.how-section p,
+.checkout-note,
+.checkout-shipping-note,
+.info-panel p{
+  text-align:left!important;
+  text-justify:auto!important;
+  hyphens:none!important;
+}
+
+/* Corpo de texto confortável sem deixar a interface pesada. */
+.editorial-copy,
+.essencia-text p,
+.contact-copy > p,
+.visit-copy,
+.house-copy p,
+.steps-grid p,
+.info-list span,
+.checkout-note,
+.checkout-shipping-note{
+  font-size:clamp(1rem,0.96rem + 0.18vw,1.08rem)!important;
+}
+
+/* ===== HIERARQUIA ===== */
+.section-title,
+.catalog-intro h1,
+.essencia-copy h1,
+.contact-copy h1,
+.visit-section h2{
+  line-height:1.12!important;
+  letter-spacing:-0.02em!important;
+}
+
+.eyebrow{
+  line-height:1.35!important;
+  letter-spacing:0.08em!important;
+}
+
+/* ===== CONTRASTE ===== */
+a,
+button,
+input,
+select,
+textarea{
+  -webkit-tap-highlight-color:transparent;
+}
+
+.hero-primary,
+.hero-secondary,
+.dark-button,
+.product-add,
+.visit-actions a,
+.collection-link{
+  font-weight:700!important;
+}
+
+/* ===== ÁREAS DE TOQUE ===== */
+.hero-primary,
+.hero-secondary,
+.dark-button,
+.product-add,
+.visit-actions a,
+.contact-actions a,
+.checkout-submit,
+.category-pill,
+footer a,
+header a{
+  min-height:44px!important;
+}
+
+.category-pill,
+.visit-actions a,
+.hero-primary,
+.hero-secondary,
+.dark-button,
+.product-add{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+/* ===== FOCO VISÍVEL ===== */
+:where(a,button,input,select,textarea):focus-visible{
+  outline:3px solid var(--ago-ux-focus)!important;
+  outline-offset:3px!important;
+}
+
+/* ===== CATEGORIAS: sem barras/linhas ===== */
+.category-row,
+.home-categories,
+.catalog-toolbar,
+.category-pills,
+.filter-bar{
+  border:0!important;
+  box-shadow:none!important;
+}
+
+.category-row::before,
+.category-row::after,
+.home-categories::before,
+.home-categories::after,
+.catalog-toolbar::before,
+.catalog-toolbar::after{
+  display:none!important;
+  content:none!important;
+}
+
+/* ===== FOTOS: nada de halos/caixas ===== */
+.product-image-wrap,
+.product-image-wrap img,
+.editorial-image,
+.editorial-image img,
+.essencia-image,
+.essencia-image img{
+  box-shadow:none!important;
+  outline:0!important;
+}
+
+/* ===== RODAPÉ: COPYRIGHT É APENAS TEXTO ===== */
+.site-footer .footer-copyright,
+footer .footer-copyright{
+  display:block!important;
+  width:100%!important;
+  margin:26px 0 0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:inherit!important;
+  text-align:center!important;
+  font:inherit!important;
+  font-size:0.82rem!important;
+  line-height:1.5!important;
+}
+
+/* O copyright não cria uma nova faixa visual; permanece no mesmo fundo do rodapé. */
+.site-footer .footer-shell{padding-bottom:0!important;}
+
+/* ===== SOCIAIS FLUTUANTES: proporção estável ===== */
+.ago-social-floaters{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:12px!important;
+}
+.ago-social-button{
+  width:58px!important;
+  height:58px!important;
+  min-width:58px!important;
+  min-height:58px!important;
+  border-radius:50%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.ago-social-button svg{
+  width:27px!important;
+  height:27px!important;
+}
+
+/* ===== CONSISTÊNCIA ENTRE TELAS ===== */
+@media(min-width:768px){
+  .ago-container,
+  .footer-shell,
+  .hero-content,
+  .category-row,
+  .home-categories{
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+}
+
+@media(max-width:767px){
+  html{font-size:16px;}
+  .ago-social-button{
+    width:54px!important;
+    height:54px!important;
+    min-width:54px!important;
+    min-height:54px!important;
+  }
+  .ago-social-button svg{width:24px!important;height:24px!important;}
+  .footer-copyright{margin-top:24px!important;}
+}
+
+/* ===== MENOS MOVIMENTO PARA QUEM PREFERIR ===== */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto!important;
+    animation-duration:0.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:0.01ms!important;
+  }
+}
