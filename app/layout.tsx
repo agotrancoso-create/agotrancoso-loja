@@ -47,6 +47,7 @@ import './ago-rodape-restaurado-2026.css';
 import './ago-design-system-2026.css';
 import './ago-ajuste-terroso-elegante-final-2026.css';
 import './ago-social-floaters-final-2026.css';
+import './ago-salvador-sertao-final.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
