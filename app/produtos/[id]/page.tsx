@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getAllProducts, getEffectivePrice, getProductById } from '@/lib/products';
-import { whatsappLink } from '@/lib/config';
+import { SITE_DOMAIN, whatsappLink } from '@/lib/config';
 import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping } from '@/lib/shipping';
 import AddToCart from './AddToCart';
 import ProductGallery from '@/components/ProductGallery';
