@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
+import CartIcon from './CartIcon';
 
 const navItems = [
   { href: '/', label: 'Início' },
@@ -74,6 +75,7 @@ export default function Header() {
               className="header-icon"
             >
               <span className="header-cart-label">
+                <CartIcon size={22} />
                 <span>Sacola</span>
                 {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
               </span>
