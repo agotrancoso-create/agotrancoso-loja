@@ -501,3 +501,181 @@ body, body button, body input, body select, body textarea{
 [class*="green"],[class*="olive"],[class*="khaki"],[class*="verde"],[class*="oliva"],[class*="caqui"]{
   color:inherit;
 }
+
+
+/* PALETA FINAL — SERTÃO SEM VERDE / OLIVA / CÁQUI
+   Território cromático: barro, terra seca, ferrugem, areia e cacau.
+*/
+:root{
+  --ago-barro:#A34B2F;
+  --ago-ferrugem:#B45D35;
+  --ago-terra:#7B3928;
+  --ago-cacau:#40251D;
+  --ago-terra-escura:#271A15;
+  --ago-areia:#D7B894;
+  --ago-argila-clara:#C98970;
+  --ago-papel:#F6EDE2;
+  --ago-neutro:#FCF8F2;
+}
+
+/* Base */
+html,body{
+  background:var(--ago-papel)!important;
+  color:var(--ago-terra-escura)!important;
+}
+
+/* Header */
+.site-header{
+  background:var(--ago-neutro)!important;
+  color:var(--ago-cacau)!important;
+  border-bottom-color:rgba(64,37,29,.10)!important;
+}
+.ago-topbar{
+  background:var(--ago-terra)!important;
+  color:var(--ago-neutro)!important;
+}
+
+/* Home */
+.ago-clean-home,
+.ago-clean-collection,
+.ago-clean-benefits{
+  background:var(--ago-neutro)!important;
+}
+.ago-clean-collection-kicker > span{
+  color:rgba(64,37,29,.48)!important;
+}
+.ago-clean-home .eyebrow,
+.ago-clean-product-grid .current-price,
+.ago-clean-product-grid .product-add,
+.ago-clean-dark-link{
+  color:var(--ago-barro)!important;
+}
+.ago-clean-collection-head h1,
+.ago-clean-product-grid .product-name,
+.ago-clean-benefit h3{
+  color:var(--ago-cacau)!important;
+}
+.ago-clean-category-nav{
+  background:var(--ago-areia)!important;
+  border-top-color:rgba(64,37,29,.08)!important;
+  border-bottom-color:rgba(64,37,29,.12)!important;
+}
+.ago-clean-category-inner a,
+.ago-clean-category-inner>span{
+  color:var(--ago-cacau)!important;
+}
+.ago-clean-category-inner a:hover{
+  color:var(--ago-terra)!important;
+}
+.ago-clean-product-grid .product-image-wrap{
+  background:var(--ago-papel)!important;
+}
+.ago-clean-product-grid .product-badge{
+  background:var(--ago-barro)!important;
+  color:var(--ago-neutro)!important;
+}
+
+/* Hero */
+.ago-clean-hero,
+.ago-clean-visit{
+  background:var(--ago-cacau)!important;
+}
+.ago-clean-hero-overlay{
+  background:
+    linear-gradient(90deg,rgba(39,26,21,.86),rgba(64,37,29,.48) 42%,rgba(64,37,29,.12) 76%,rgba(64,37,29,.03)),
+    linear-gradient(0deg,rgba(39,26,21,.42),transparent 58%)!important;
+}
+
+/* Editorial — barro claro, não rosa frio */
+.ago-clean-edit{
+  background:var(--ago-argila-clara)!important;
+}
+.ago-clean-edit-image{
+  background:var(--ago-areia)!important;
+}
+.ago-clean-edit-copy h2{
+  color:var(--ago-cacau)!important;
+}
+.ago-clean-edit-copy>p:not(.eyebrow){
+  color:rgba(64,37,29,.80)!important;
+}
+
+/* Benefícios */
+.ago-clean-benefit:not(:last-child):after{
+  background:rgba(64,37,29,.15)!important;
+}
+
+/* Visita */
+.ago-clean-visit{
+  background:var(--ago-terra)!important;
+}
+.ago-clean-visit h2{
+  color:var(--ago-neutro)!important;
+}
+.ago-clean-visit p:not(.eyebrow),
+.ago-clean-visit-note p{
+  color:rgba(252,248,242,.78)!important;
+}
+.ago-clean-visit-note{
+  border-left-color:rgba(252,248,242,.30)!important;
+}
+
+/* Checkout */
+.ago-clean-checkout{
+  background:var(--ago-papel)!important;
+}
+.ago-clean-checkout-summary{
+  background:var(--ago-neutro)!important;
+  border-color:rgba(64,37,29,.12)!important;
+}
+.ago-clean-checkout .checkout-submit{
+  background:var(--ago-barro)!important;
+}
+.ago-clean-checkout .checkout-submit:hover{
+  background:var(--ago-cacau)!important;
+}
+.ago-clean-checkout .checkout-coupon-row button{
+  background:var(--ago-cacau)!important;
+}
+.ago-clean-checkout .checkout-shipping-note,
+.ago-clean-checkout-form .checkout-first-purchase{
+  background:var(--ago-areia)!important;
+}
+.ago-clean-checkout .checkout-input,
+.ago-clean-checkout input:not([type="checkbox"]){
+  background:var(--ago-neutro)!important;
+  color:var(--ago-cacau)!important;
+}
+
+/* Footer */
+.site-footer,
+footer{
+  background:var(--ago-terra-escura)!important;
+  color:var(--ago-neutro)!important;
+}
+.site-footer h3,
+.site-footer h4,
+.site-footer p,
+.site-footer li,
+.site-footer a{
+  color:var(--ago-neutro)!important;
+}
+.site-footer h4{
+  color:var(--ago-ferrugem)!important;
+}
+
+/* Social / modal */
+.ago-social-button{
+  background:var(--ago-cacau)!important;
+}
+.first-purchase-modal{
+  background:var(--ago-neutro)!important;
+}
+
+/* Remove possíveis tonalidades herdadas de verde/oliva/cáqui por classes de tema */
+.bg-green,.bg-olive,.bg-khaki,.text-green,.text-olive,.text-khaki,
+.green,.olive,.khaki,.verde,.oliva,.caqui{
+  background-color:var(--ago-papel)!important;
+  color:var(--ago-cacau)!important;
+  border-color:rgba(64,37,29,.12)!important;
+}
