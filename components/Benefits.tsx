@@ -1,8 +1,8 @@
 const benefits = [
-  { title: 'Feito à mão', text: 'Afeto, calma e a riqueza do trabalho artesanal em cada detalhe.', icon: '✳' },
-  { title: 'Peças exclusivas', text: 'Cerâmicas com formas marcantes e presença própria.', icon: '◌' },
-  { title: 'Inspiração brasileira', text: 'Cores, formas e símbolos inspirados na cultura e energia do nosso país.', icon: '◇' },
-  { title: 'Envio para todo o Brasil', text: 'Embalagem reforçada para sua peça chegar impecável em todo o Brasil.', icon: '↗' },
+  { title: 'Feito à mão', text: 'Peças feitas à mão, com cuidado em cada etapa.' },
+  { title: 'Peças exclusivas', text: 'No trabalho manual, cada peça tem seus próprios detalhes.' },
+  { title: 'Inspiração brasileira', text: 'Trancoso, Bahia e referências brasileiras presentes na coleção.' },
+  { title: 'Envio para todo o Brasil', text: 'A gente embala tudo com cuidado para enviar sua peça para qualquer lugar do Brasil.' },
 ];
 
 export default function Benefits() {
@@ -11,7 +11,6 @@ export default function Benefits() {
       <div className="ago-clean-container ago-clean-benefits-grid">
         {benefits.map((item) => (
           <div className="ago-clean-benefit" key={item.title}>
-            <span className="ago-clean-benefit-mark" aria-hidden="true">{item.icon}</span>
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </div>
