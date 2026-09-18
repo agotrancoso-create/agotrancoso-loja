@@ -17,7 +17,7 @@ export default function NossaEssenciaPage() {
             <div className="essencia-text">
               <p>A Agô nasce da vivência em Trancoso e transforma referências da Bahia em peças para decorar, presentear e guardar.</p>
               <p>Arquitetura, fé, cor, barro e memória aparecem nas formas e nos detalhes que fazem cada peça ter seu lugar dentro de casa.</p>
-              <p>A cerâmica está no centro desse trabalho: uma matéria simples, marcada pelas mãos e pelo tempo, que ganha presença em objetos feitos para durar.</p>
+              <p>A cerâmica está no centro desse trabalho: uma matéria simples, marcada pelas mãos e pelo tempo, que ganha presença em peças feitas para durar.</p>
             </div>
           </section>
           <div className="essencia-image">
