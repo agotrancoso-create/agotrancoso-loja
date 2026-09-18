@@ -5,6 +5,7 @@ import type { CSSProperties } from 'react';
 import { Product } from '@/lib/types';
 import { getEffectivePrice } from '@/lib/products';
 import { useCart } from '@/context/CartContext';
+import { trackAddToCart, trackViewItem } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -46,7 +47,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
 
   return (
     <article className="product-card group" data-product-id={product.id}>
-      <Link href={`/produtos/${product.id}`} className="block">
+      <Link href={`/produtos/${product.id}`} className="block" onClick={() => trackViewItem({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category })}>
         <div className="product-image-wrap">
           <Image
             src={image}
@@ -74,7 +75,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         </div>
       </Link>
       {product.available && (
-        <button type="button" onClick={() => addItem(product.id)} className="product-add" aria-label={`Adicionar ${product.name} ao carrinho`}>
+        <button type="button" onClick={() => { addItem(product.id); trackAddToCart({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category }); }} className="product-add" aria-label={`Adicionar ${product.name} ao carrinho`}>
           Adicionar ao carrinho
         </button>
       )}
