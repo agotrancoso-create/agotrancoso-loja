@@ -149,3 +149,56 @@
 .ago-clean-checkout .checkout-coupon-row{grid-template-columns:1fr 100px}
 .ago-clean-checkout-summary{padding:18px}
 .ago-clean-checkout-summary .checkout-summary-items{max-height:260px}}
+
+/* Header e rodapé: menos ruído, mais marca */
+.ago-clean-home~*{}
+.ago-topbar{min-height:30px!important;padding:0 20px!important;background:#3f261c!important;color:rgba(251,250,247,.72)!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:13px!important;font-size:8px!important;letter-spacing:.10em!important;text-transform:uppercase!important}
+.ago-topbar .ago-topbar-offer{color:#f3d2bc!important}
+.ago-topbar i{width:2px!important;height:2px!important;background:#ad5a32!important;border-radius:999px!important}
+.site-header{background:rgba(251,250,247,.98)!important;box-shadow:0 1px 0 rgba(63,38,28,.09)!important}
+.header-inner{min-height:74px!important}
+.header-link{font-family:'Manrope',Arial,sans-serif!important;color:rgba(33,25,20,.68)!important;font-size:9px!important;letter-spacing:.10em!important}
+.header-link:hover,.header-link.is-active{color:#8d4327!important}
+.header-search-form{border-bottom:1px solid rgba(63,38,28,.20)!important}
+.header-search{min-width:150px!important;border:0!important;background:transparent!important;color:#3f261c!important;font-size:10px!important}
+.header-search:focus{outline:none!important}
+.header-icon{color:#3f261c!important}
+.header-cart-label{font-family:'Manrope',Arial,sans-serif!important;font-size:9px!important;letter-spacing:.10em!important;text-transform:uppercase!important}
+.cart-count{background:#8d4327!important;color:#fff!important}
+.mobile-menu-button{color:#3f261c!important}
+
+/* Footer */
+.site-footer{background:#211914!important}
+.site-footer .footer-shell{padding:58px 0 26px!important}
+.site-footer .footer-brand img{width:86px!important;height:86px!important;opacity:.92}
+.site-footer .footer-grid{margin-top:24px!important}
+.site-footer h3{font-family:'Cormorant Garamond',Georgia,serif!important;font-size:30px!important}
+.site-footer h4{font-size:8px!important;letter-spacing:.18em!important;text-transform:uppercase!important;color:#ad5a32!important}
+
+/* Catálogo */
+.catalog-page{background:#fbfaf7!important}
+.catalog-page .catalog-toolbar{background:transparent!important;border:0!important}
+.catalog-page .catalog-toolbar input{border:0!important;border-bottom:1px solid rgba(63,38,28,.18)!important;border-radius:0!important;background:transparent!important}
+.catalog-page .catalog-controls-row{border-bottom:1px solid rgba(63,38,28,.10)!important}
+.catalog-page .catalog-category-option{border:0!important;border-radius:0!important;background:transparent!important;color:rgba(63,38,28,.58)!important}
+.catalog-page .catalog-category-option[aria-selected="true"]{color:#8d4327!important;border-bottom:1px solid #8d4327!important}
+.catalog-page .catalog-sort{border:0!important;background:transparent!important;color:#3f261c!important}
+.catalog-page .catalog-grid{gap:34px 22px!important}
+.catalog-page .catalog-results-meta{color:rgba(63,38,28,.48)!important}
+
+/* A Agô */
+.essencia-page{background:#f3ede5!important}
+.essencia-shell{width:min(1200px,calc(100% - 56px))!important;margin:0 auto!important;padding:88px 0!important}
+.essencia-grid{display:grid!important;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important;gap:76px!important;align-items:center!important}
+.essencia-copy h1{margin:12px 0 24px!important;font-family:'Cormorant Garamond',Georgia,serif!important;font-size:clamp(3.4rem,5.8vw,6rem)!important;line-height:.88!important;letter-spacing:-.04em!important;color:#3f261c!important}
+.essencia-text p{margin:0 0 18px!important;max-width:520px!important;color:rgba(63,38,28,.68)!important;font-size:14px!important;line-height:1.9!important}
+.essencia-image{min-height:620px!important}
+.essencia-image-img{object-fit:cover!important}
+@media(max-width:900px){.essencia-shell{padding:56px 0!important}.essencia-grid{grid-template-columns:1fr!important;gap:38px!important}.essencia-image{min-height:430px!important}}
+@media(max-width:700px){.ago-topbar{display:none!important}.header-inner{min-height:64px!important}.header-search-form{display:none!important}.header-nav-desktop{display:none!important}.essencia-shell{width:calc(100% - 32px)!important}.essencia-copy h1{font-size:3.5rem!important}.essencia-text p{font-size:13px!important}.essencia-image{min-height:360px!important}.site-footer .footer-grid{grid-template-columns:1fr!important;gap:28px!important}}
+
+/* Oferta e canais: discretos */
+.first-purchase-backdrop{background:rgba(33,25,20,.42)!important;backdrop-filter:blur(2px)!important}
+.first-purchase-modal{border:1px solid rgba(63,38,28,.10)!important;border-radius:0!important;box-shadow:0 26px 80px rgba(33,25,20,.24)!important;background:#fbfaf7!important}
+.ago-social-floaters{right:18px!important;bottom:18px!important;gap:8px!important}
+.ago-social-button{width:40px!important;height:40px!important;border-radius:999px!important;background:#3f261c!important;border:1px solid rgba(251,250,247,.18)!important;box-shadow:none!important}
