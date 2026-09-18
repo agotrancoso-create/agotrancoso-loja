@@ -119,7 +119,7 @@ export default function CartDrawer() {
                     </div>
                   </div>
 
-                  <div className="cart-item-total">{formatBRL(getEffectivePrice(product) * item.item.quantity)}</div>
+                  <div className="cart-item-total">{formatBRL(getEffectivePrice(product) * item.quantity)}</div>
                 </li>
               ))}
             </ul>
