@@ -184,7 +184,7 @@ export default function CheckoutPage() {
               <h2>Seu pedido</h2>
             </div>
 
-            <div className="checkout-summary-items" aria-label="Peças do pedido">
+            <div className="checkout-summary-items" aria-label="Suas peças">
               {lines.map(({ item, product }) => (
                 <div key={item.productId} className="checkout-summary-item">
                   <div className="checkout-product-main">
