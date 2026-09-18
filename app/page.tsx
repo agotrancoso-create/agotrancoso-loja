@@ -117,7 +117,7 @@ export default function HomePage() {
           <div className="ago-clean-visit-note">
             <span>Entrega</span>
             <strong>Frete fixo de R$ 39,90</strong>
-            <p>Grátis a partir de R$ 500.</p>
+            <p>Grátis acima de R$ 500.</p>
           </div>
         </div>
       </section>
