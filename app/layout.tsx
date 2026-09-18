@@ -118,16 +118,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           .hero-section h1 { font-size: clamp(3rem, 5.2vw, 5.6rem) !important; line-height: .9 !important; }
           .ago-home .section-title, .ago-home .visit-section-title { font-size: clamp(2.35rem, 4vw, 4.05rem) !important; line-height: .94 !important; }
           .product-name, .product-price, .current-price, .product-add, .header-link, .header-search, .header-actions, .eyebrow, .category-pill, .hero-copy { font-family: 'Manrope', Arial, sans-serif !important; }
-          footer, .site-footer { background: #45291f !important; color: #f8f2ea !important; text-align: center !important; }
-          footer .footer-shell, .site-footer .footer-shell { width: min(1240px, calc(100% - 48px)) !important; margin-inline: auto !important; padding: 64px 0 28px !important; text-align: center !important; }
-          footer .footer-brand, .site-footer .footer-brand { display: flex !important; justify-content: center !important; align-items: center !important; }
-          footer .footer-grid, .site-footer .footer-grid { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 56px !important; justify-items: center !important; text-align: center !important; }
-          footer .footer-grid > div, .site-footer .footer-grid > div { width: 100% !important; display: flex !important; flex-direction: column !important; align-items: center !important; text-align: center !important; }
+          footer, .site-footer { background: #2d1813 !important; color: #f8f2ea !important; text-align: left !important; }
+          footer .footer-shell, .site-footer .footer-shell { width: min(1180px, calc(100% - 48px)) !important; margin-inline: auto !important; padding: 62px 0 26px !important; text-align: left !important; }
+          footer .footer-brand, .site-footer .footer-brand { display: flex !important; justify-content: flex-start !important; align-items: center !important; }
+          footer .footer-grid, .site-footer .footer-grid { display: grid !important; grid-template-columns: 1.4fr .65fr .9fr !important; gap: 64px !important; justify-items: stretch !important; text-align: left !important; }
+          footer .footer-grid > div, .site-footer .footer-grid > div { width: 100% !important; display: flex !important; flex-direction: column !important; align-items: flex-start !important; text-align: left !important; }
           footer h3, .site-footer h3 { color: #f8f2ea !important; }
-          footer h4, .site-footer h4 { font-family: 'Manrope', Arial, sans-serif !important; color: #ad5a32 !important; text-align: center !important; }
-          footer p, footer li, footer a, footer span, .site-footer p, .site-footer li, .site-footer a, .site-footer span { font-family: 'Manrope', Arial, sans-serif !important; color: rgba(248,242,234,.76) !important; text-align: center !important; }
-          footer ul, .site-footer ul { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 7px !important; }
-          footer .footer-copyright, .site-footer .footer-copyright { display: block !important; width: 100% !important; margin-top: 38px !important; padding-top: 18px !important; border-top: 1px solid rgba(248,242,234,.12) !important; text-align: center !important; color: rgba(248,242,234,.52) !important; }
+          footer h4, .site-footer h4 { font-family: 'Manrope', Arial, sans-serif !important; color: #b45d35 !important; text-align: left !important; }
+          footer p, footer li, footer a, footer span, .site-footer p, .site-footer li, .site-footer a, .site-footer span { font-family: 'Manrope', Arial, sans-serif !important; color: rgba(248,242,234,.75) !important; text-align: left !important; }
+          footer ul, .site-footer ul { display: flex !important; flex-direction: column !important; align-items: flex-start !important; gap: 7px !important; }
+          footer .footer-copyright, .site-footer .footer-copyright { display: block !important; width: 100% !important; margin-top: 34px !important; padding-top: 18px !important; border-top: 1px solid rgba(248,242,234,.12) !important; text-align: center !important; color: rgba(248,242,234,.50) !important; }
           @media (max-width: 767px) {
             .hero-section h1 { font-size: clamp(2.7rem, 13vw, 4.2rem) !important; line-height: .92 !important; }
             .ago-home .section-title, .ago-home .visit-section-title { font-size: 2.65rem !important; line-height: .96 !important; }
