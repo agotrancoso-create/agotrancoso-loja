@@ -15,9 +15,9 @@ export default function NossaEssenciaPage() {
             <p className="eyebrow">A Agô</p>
             <h1>O que vemos por aqui ganha outra forma.</h1>
             <div className="essencia-text">
-              <p>A Agô nasce da vivência em Trancoso e transforma referências da Bahia em peças para decorar, presentear e guardar.</p>
-              <p>Arquitetura, fé, cor, barro e memória aparecem nas formas e nos detalhes que fazem cada peça ter seu lugar dentro de casa.</p>
-              <p>A cerâmica está no centro desse trabalho: uma matéria simples, marcada pelas mãos e pelo tempo, que ganha presença em peças feitas para durar.</p>
+              <p>A Agô está em Trancoso desde 2016. Foi dali que vieram muitas das referências que aparecem nas nossas peças.</p>
+              <p>A arquitetura, a fé, as cores, o barro e as lembranças desse lugar aparecem nas formas e nos detalhes.</p>
+              <p>A cerâmica está no centro de tudo. É um trabalho feito à mão, peça por peça, com o tempo e o cuidado que esse tipo de trabalho pede.</p>
             </div>
           </section>
           <div className="essencia-image">
