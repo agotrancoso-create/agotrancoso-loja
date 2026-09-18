@@ -74,6 +74,7 @@ import './ago-desktop-final-clean-2026.css';
 import './ago-unificacao-humana-2026.css';
 import './ago-tipografia-rodape-refinado-2026.css';
 import './ago-carrinho-premium-final-2026.css';
+import './ago-redesign-clean-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -85,7 +86,7 @@ import { SITE_DOMAIN } from '@/lib/config';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
   title: { default: 'Agô Trancoso | Cerâmicas e peças feitas à mão', template: '%s | Agô Trancoso' },
-  description: 'Cerâmicas e objetos feitos à mão, inspirados na Bahia, nas formas de Trancoso e no jeito brasileiro de viver. Conheça a coleção da Agô Trancoso.',
+  description: 'Cerâmicas e peças feitas à mão, inspirados na Bahia, nas formas de Trancoso e no jeito brasileiro de viver. Conheça a coleção da Agô Trancoso.',
   keywords: ['Agô Trancoso', 'cerâmica artesanal', 'peças feitas à mão', 'decoração artesanal', 'presentes artesanais', 'Trancoso', 'Bahia'],
   alternates: { canonical: SITE_DOMAIN },
   robots: { index: true, follow: true },
