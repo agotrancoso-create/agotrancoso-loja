@@ -6,6 +6,7 @@ import { useCart } from '@/context/CartContext';
 import { getProductById, getEffectivePrice } from '@/lib/products';
 import CartIcon from './CartIcon';
 import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping, FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
+import { trackRemoveFromCart } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -43,7 +44,7 @@ export default function CartDrawer() {
                       <button type="button" onClick={() => updateQuantity(item.productId, item.quantity - 1)} aria-label="Diminuir quantidade">−</button>
                       <span>{item.quantity}</span>
                       <button type="button" onClick={() => updateQuantity(item.productId, item.quantity + 1)} aria-label="Aumentar quantidade">+</button>
-                      <button type="button" onClick={() => removeItem(item.productId)} aria-label="Remover item" className="cart-remove">Remover</button>
+                      <button type="button" onClick={() => { removeItem(item.productId); trackRemoveFromCart({ item_id: product.id, item_name: product.name, price: getEffectivePrice(product), quantity: item.quantity, item_category: product.category }); }} aria-label="Remover item" className="cart-remove">Remover</button>
                     </div>
                   </div>
                   <div className="cart-item-total">{formatBRL(getEffectivePrice(product) * item.quantity)}</div>
