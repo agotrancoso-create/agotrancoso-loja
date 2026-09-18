@@ -134,8 +134,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MarketingAnalytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <style id="ago-final-ui-fix" dangerouslySetInnerHTML={{ __html: `
-          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
-          body, body button, body input, body select, body textarea { font-family: 'Manrope', Arial, sans-serif !important; }
+          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Lato:wght@400;700;900&display=swap');
+          body, body button, body input, body select, body textarea { font-family: 'Lato', Arial, sans-serif !important; }
           .ago-home h1, .ago-home h2, .ago-home h3, .catalog-page h1, .catalog-page h2, .product-page h1, .product-page h2, .checkout-page h1, .checkout-page h2, .section-title, .visit-section-title, .hero-section h1, .product-detail-title, footer h3 { font-family: 'Cormorant Garamond', Georgia, serif !important; font-weight: 600 !important; letter-spacing: -0.028em !important; text-rendering: optimizeLegibility; }
           .hero-section h1 { font-size: clamp(3rem, 5.2vw, 5.6rem) !important; line-height: .9 !important; }
           .ago-home .section-title, .ago-home .visit-section-title { font-size: clamp(2.35rem, 4vw, 4.05rem) !important; line-height: .94 !important; }
