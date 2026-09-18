@@ -77,7 +77,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             {product.dimensions && <p className="product-dimensions">Dimensões: {product.dimensions}</p>}
             <div className="product-shipping-note">
               {freeShippingAtProductQuantity ? 'Frete grátis nesta peça.' : <>Frete fixo de <strong>{formatBRL(FIXED_SHIPPING_PRICE)}</strong>.</>}
-              <span>Compras a partir de R$ 500 têm frete grátis.</span>
+              <span>Compras acima de R$ 500 têm frete grátis.</span>
             </div>
             <div className="product-purchase"><AddToCart product={product} /></div>
             <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="product-whatsapp">Comprar pelo WhatsApp</a>
