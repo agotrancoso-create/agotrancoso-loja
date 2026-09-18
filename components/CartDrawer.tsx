@@ -19,19 +19,21 @@ export default function CartDrawer() {
   const freeShipping = shouldOfferFreeShipping(subtotal);
   const shipping = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
   const total = subtotal + shipping;
-  const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
+  const remaining = Math.max(0, (FREE_SHIPPING_THRESHOLD + 0.01) - subtotal);
+  const progressTarget = FREE_SHIPPING_THRESHOLD + 0.01;
+  const progress = Math.min(100, (subtotal / progressTarget) * 100);
 
   return (
     <>
       {isDrawerOpen && <div className="cart-backdrop fixed inset-0 z-50" onClick={closeDrawer} aria-hidden="true" />}
-      <aside className={`cart-drawer fixed top-0 right-0 h-full w-full sm:w-[460px] z-50 transform transition-transform duration-300 flex flex-col ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`} aria-hidden={!isDrawerOpen}>
+      <aside className={`cart-drawer fixed top-0 right-0 h-full w-full sm:w-[460px] z-50 transform transition-transform duration-300 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`} aria-hidden={!isDrawerOpen}>
         <div className="cart-header">
-          <div className="cart-header-title"><CartIcon size={22} /><h2>Seu carrinho</h2></div>
+          <div className="cart-header-title"><CartIcon size={22} /><h2>Suas peças</h2></div>
           <button onClick={closeDrawer} aria-label="Fechar carrinho" className="cart-close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg></button>
         </div>
         <div className="cart-body">
           {lines.length === 0 ? (
-            <div className="cart-empty"><p>Seu carrinho está vazio.</p><span>Explore a coleção e encontre uma peça para levar um pouco de Trancoso para sua casa.</span><Link href="/produtos" onClick={closeDrawer}>Ver coleção</Link></div>
+            <div className="cart-empty"><p>Suas peças estão por aqui.</p><span>Explore a coleção e encontre uma peça para levar um pouco de Trancoso para sua casa.</span><Link href="/produtos" onClick={closeDrawer}>Ver coleção</Link></div>
           ) : (
             <ul className="cart-items">
               {lines.map(({ item, product }) => (
@@ -44,7 +46,7 @@ export default function CartDrawer() {
                       <button type="button" onClick={() => updateQuantity(item.productId, item.quantity - 1)} aria-label="Diminuir quantidade">−</button>
                       <span>{item.quantity}</span>
                       <button type="button" onClick={() => updateQuantity(item.productId, item.quantity + 1)} aria-label="Aumentar quantidade">+</button>
-                      <button type="button" onClick={() => { removeItem(item.productId); trackRemoveFromCart({ item_id: product.id, item_name: product.name, price: getEffectivePrice(product), quantity: item.quantity, item_category: product.category }); }} aria-label="Remover item" className="cart-remove">Remover</button>
+                      <button type="button" onClick={() => { removeItem(item.productId); trackRemoveFromCart({ item_id: product.id, item_name: product.name, price: getEffectivePrice(product), quantity: item.quantity, item_category: product.category }); }} aria-label={`Remover ${product.name}`} className="cart-remove">Remover</button>
                     </div>
                   </div>
                   <div className="cart-item-total">{formatBRL(getEffectivePrice(product) * item.quantity)}</div>
@@ -58,9 +60,9 @@ export default function CartDrawer() {
             <div className="cart-shipping-progress-block">
               {!freeShipping ? <p className="cart-shipping-message">Faltam <strong>{formatBRL(remaining)}</strong> para o frete grátis.</p> : <p className="cart-shipping-message is-free">Você ganhou frete grátis neste pedido.</p>}
               <div className="cart-shipping-progress" aria-hidden="true">
-                <span style={{ width: Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100) + '%' }} />
+                <span style={{ width: progress + '%' }} />
               </div>
-              <div className="cart-shipping-progress-labels"><span>Frete fixo R$ 39,90</span><span>Grátis a partir de R$ 500</span></div>
+              <div className="cart-shipping-progress-labels"><span>Frete fixo R$ 39,90</span><span>Grátis acima de R$ 500</span></div>
             </div>
             <div className="cart-summary-row"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
             <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
