@@ -6,6 +6,7 @@ import { getProductById, getEffectivePrice } from '@/lib/products';
 import { calculateCouponDiscount, FIRST_PURCHASE_COUPON, isFirstPurchaseCoupon, normalizeCoupon } from '@/lib/coupons';
 import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping } from '@/lib/shipping';
 import type { CartItem, Product } from '@/lib/types';
+import { trackBeginCheckout } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) { return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
 
@@ -59,6 +60,7 @@ export default function CheckoutPage() {
     if (form.zip.replace(/\D/g, '').length !== 8) { setShippingError('Informe um CEP válido com 8 dígitos.'); return; }
     if (coupon && !isFirstPurchaseCoupon(coupon)) { setCouponMessage('Confira o código do cupom antes de continuar.'); return; }
     setLoading(true);
+    trackBeginCheckout(lines.map(({ item, product }) => ({ item_id: product.id, item_name: product.name, price: getEffectivePrice(product), quantity: item.quantity, item_category: product.category })), total);
     try {
       const res = await fetch('/api/create-checkout', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ items, coupon: normalizeCoupon(coupon), shippingValue, shippingName: freeShipping ? 'Frete grátis' : 'Frete fixo', customer: { name:form.name, email:form.email, phone:form.phone, address:{ street:form.street, number:form.number, complement:form.complement, neighborhood:form.neighborhood, city:form.city, state:form.state, zip:form.zip } } }) });
       const data = await res.json();
