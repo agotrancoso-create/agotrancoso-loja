@@ -364,3 +364,140 @@
     font-size:4.2rem!important;
   }
 }
+
+
+/* AGÔ — PALETA SERTÃO + TIPOGRAFIA FORÇADA
+   Verde, oliva, cáqui e amarelo-mostarda não fazem parte da identidade.
+*/
+:root{
+  --ago-terra:#9A4A2F;
+  --ago-terra-deep:#7C3827;
+  --ago-cacau:#40271E;
+  --ago-areia:#D9C4A7;
+  --ago-argila:#C98F76;
+  --ago-creme:#F7F1E8;
+  --ago-offwhite:#FCFAF6;
+  --ago-ink:#211914;
+}
+html,body{
+  background:var(--ago-creme)!important;
+  color:var(--ago-ink)!important;
+}
+body, body button, body input, body select, body textarea{
+  font-family:'Lato',Arial,sans-serif!important;
+}
+.ago-home h1,.ago-home h2,.ago-home h3,
+.catalog-page h1,.catalog-page h2,
+.product-page h1,.product-page h2,
+.checkout-page h1,.checkout-page h2,
+.section-title,.visit-section-title,.hero-section h1,
+.product-detail-title, footer h3, .site-footer h3,
+.ago-clean-collection-head h1,
+.ago-clean-hero-content h2,
+.ago-clean-edit-copy h2,
+.ago-clean-visit h2,
+.ago-clean-benefit h3,
+.ago-clean-summary-head h2{
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+}
+.header-link,.header-search,.header-actions,.eyebrow,
+.category-pill,.hero-copy,.product-name,.product-price,
+.current-price,.product-add,.checkout-input,.checkout-submit,
+.ago-clean-collection-head>p,
+.ago-clean-edit-copy>p:not(.eyebrow),
+.ago-clean-visit p,.ago-clean-benefit p,
+.footer-grid,.footer-grid p,.footer-grid li,.footer-grid a{
+  font-family:'Lato',Arial,sans-serif!important;
+}
+
+/* Neutraliza cores legadas fora da nova paleta */
+.ago-clean-home,
+.ago-clean-collection,
+.ago-clean-benefits{
+  background:var(--ago-creme)!important;
+  color:var(--ago-ink)!important;
+}
+.ago-clean-category-nav{
+  background:var(--ago-areia)!important;
+}
+.ago-clean-product-grid .product-image-wrap{
+  background:var(--ago-offwhite)!important;
+}
+.ago-clean-product-grid .product-badge,
+.ago-clean-button-light:hover{
+  background:var(--ago-terra)!important;
+}
+.ago-clean-product-grid .product-name,
+.ago-clean-collection-head h1,
+.ago-clean-edit-copy h2,
+.ago-clean-benefit h3{
+  color:var(--ago-cacau)!important;
+}
+.ago-clean-product-grid .current-price,
+.ago-clean-product-grid .product-add,
+.ago-clean-dark-link,
+.ago-clean-home .eyebrow,
+.ago-clean-category-inner a:hover{
+  color:var(--ago-terra)!important;
+}
+.ago-clean-product-grid .product-add{
+  border-bottom-color:rgba(154,74,47,.38)!important;
+}
+.ago-clean-hero,
+.ago-clean-visit{
+  background:var(--ago-cacau)!important;
+}
+.ago-clean-edit{
+  background:var(--ago-argila)!important;
+}
+.ago-clean-edit-copy>p:not(.eyebrow){
+  color:rgba(64,39,30,.78)!important;
+}
+.site-header{
+  background:var(--ago-creme)!important;
+}
+.ago-topbar{
+  background:var(--ago-terra-deep)!important;
+  color:var(--ago-offwhite)!important;
+}
+.ago-topbar *{
+  color:var(--ago-offwhite)!important;
+}
+.ago-clean-category-inner>span{
+  color:rgba(64,39,30,.58)!important;
+}
+.ago-clean-category-inner a{
+  color:var(--ago-cacau)!important;
+}
+.ago-clean-benefit:not(:last-child):after{
+  background:rgba(64,39,30,.15)!important;
+}
+.ago-clean-visit-links a{
+  color:var(--ago-offwhite)!important;
+}
+.first-purchase-modal{
+  background:var(--ago-offwhite)!important;
+}
+.ago-clean-checkout{
+  background:var(--ago-creme)!important;
+}
+.ago-clean-checkout .checkout-submit{
+  background:var(--ago-terra)!important;
+}
+.ago-clean-checkout .checkout-submit:hover{
+  background:var(--ago-cacau)!important;
+}
+.ago-clean-checkout .checkout-coupon-row button{
+  background:var(--ago-cacau)!important;
+}
+.ago-clean-checkout-summary{
+  background:var(--ago-offwhite)!important;
+}
+.ago-social-button{
+  background:var(--ago-cacau)!important;
+}
+
+/* Remove qualquer aparência visual verde/caqui herdada */
+[class*="green"],[class*="olive"],[class*="khaki"],[class*="verde"],[class*="oliva"],[class*="caqui"]{
+  color:inherit;
+}
