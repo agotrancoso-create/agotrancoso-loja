@@ -896,3 +896,216 @@ html body .checkout-empty .checkout-title{
   html body .checkout-coupon-row button{width:100%!important}
   html body .ago-clean-checkout-head h1{font-size:clamp(2.9rem,12vw,4rem)!important}
 }
+
+
+/* AGÔ TRANCOSO — SERTÃO NORDESTINO / TIPOGRAFIA FINAL 2026
+   Última prioridade: remover verdes/olivas e consolidar uma tipografia mais quente.
+   Direção cromática: barro, terra vermelha, couro, areia, cal e cacau.
+*/
+:root{
+  --ago-sertao-cacau:#2B1813;
+  --ago-sertao-terra:#7A321C;
+  --ago-sertao-barro:#9A4429;
+  --ago-sertao-ferrugem:#B85C3B;
+  --ago-sertao-couro:#6B432F;
+  --ago-sertao-areia:#D9C0A6;
+  --ago-sertao-palha:#EFE2D2;
+  --ago-sertao-cal:#FBF6EF;
+  --ago-sertao-pedra:#CBBBAA;
+  --ago-sertao-texto:#5B4338;
+  --ago-sertao-linha:rgba(91,67,56,.17);
+}
+
+/* TIPOGRAFIA PRINCIPAL */
+html body,
+html body button,
+html body input,
+html body select,
+html body textarea{
+  font-family:'Lato',Arial,sans-serif!important;
+  color:var(--ago-sertao-texto)!important;
+}
+html body h1,html body h2,html body h3,html body h4,
+html body .section-title,html body .visit-section-title,
+html body .catalog-intro h1,html body .product-detail-title,
+html body .checkout-title,html body .checkout-section h2,
+html body .ago-clean-collection-head h1,
+html body .ago-clean-hero-content h2,
+html body .ago-clean-edit-copy h2,
+html body .ago-clean-visit h2,
+html body .essencia-page h1,
+html body .contact-page h1,
+html body .contact-page h2,
+html body .site-footer h3,
+html body .cart-header h2,
+html body .cart-empty p{
+  font-family:'EB Garamond',Georgia,serif!important;
+  font-weight:500!important;
+  letter-spacing:-.025em!important;
+  text-rendering:optimizeLegibility!important;
+}
+html body .product-name,
+html body .catalog-grid .product-name{
+  font-family:'Lato',Arial,sans-serif!important;
+  font-weight:700!important;
+  letter-spacing:-.005em!important;
+}
+html body .eyebrow,
+html body .header-link,
+html body .header-cart-label,
+html body .product-add,
+html body .product-primary-cta,
+html body .checkout-submit,
+html body .cart-checkout,
+html body .contact-location-button{
+  font-family:'Lato',Arial,sans-serif!important;
+  font-weight:700!important;
+  letter-spacing:.11em!important;
+  text-transform:uppercase!important;
+}
+
+/* REMOVE VERDE / OLIVA / ESMERALDA / LIMA DE UTILITÁRIOS ANTIGOS */
+html body [class*="green"],html body [class*="emerald"],html body [class*="olive"],
+html body [class*="oliva"],html body [class*="verde"],html body [class*="lime"],
+html body [class*="mint"],html body [class*="sage"],html body [class*="khaki"],
+html body [class*="caqui"],html body [class*="mostarda"],html body [class*="yellow"],
+html body .text-green,html body .text-emerald,html body .text-olive,html body .text-oliva,
+html body .text-verde,html body .bg-green,html body .bg-emerald,html body .bg-olive,
+html body .bg-oliva,html body .bg-verde,html body .border-green,html body .border-emerald,
+html body .border-olive,html body .border-oliva,html body .border-verde{
+  background-color:transparent!important;
+  color:var(--ago-sertao-terra)!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+}
+
+/* Paleta global — nenhuma superfície funcional cai no verde. */
+html body{background:var(--ago-sertao-cal)!important}
+html body main{background:var(--ago-sertao-cal)!important}
+html body .ago-topbar{background:var(--ago-sertao-cacau)!important;color:var(--ago-sertao-cal)!important}
+html body .ago-topbar-offer{color:#D99A74!important}
+html body .site-header{background:rgba(251,246,239,.97)!important;color:var(--ago-sertao-cacau)!important}
+html body .header-link,html body .header-icon,html body .header-search{color:var(--ago-sertao-cacau)!important}
+html body .header-link:hover,html body .header-link.is-active{color:var(--ago-sertao-terra)!important}
+html body .header-search{background:transparent!important;border-color:rgba(43,24,19,.16)!important}
+html body .header-cart-label svg,html body .cart-count{color:var(--ago-sertao-terra)!important;background:var(--ago-sertao-terra)!important}
+
+html body .ago-clean-collection,
+html body .catalog-page,
+html body .product-page,
+html body .ago-clean-checkout,
+html body .contact-page,
+html body .essencia-page{background:var(--ago-sertao-cal)!important}
+html body .ago-clean-edit{background:var(--ago-sertao-palha)!important}
+html body .ago-clean-benefits{background:#E4CFB9!important}
+html body .ago-clean-visit{background:var(--ago-sertao-cacau)!important}
+html body .site-footer{background:#24140F!important}
+
+/* Acentos */
+html body .eyebrow,
+html body .current-price,
+html body .product-current-price,
+html body .collection-link,
+html body .editorial-link,
+html body .ago-clean-collection-foot a,
+html body .catalog-results-meta button{
+  color:var(--ago-sertao-terra)!important;
+}
+html body .product-add,
+html body .product-primary-cta,
+html body .checkout-submit,
+html body .cart-checkout,
+html body .ago-clean-button,
+html body .contact-location-button{
+  background:var(--ago-sertao-terra)!important;
+  border-color:var(--ago-sertao-terra)!important;
+  color:#FFF8F1!important;
+}
+html body .product-add:hover,
+html body .product-primary-cta:hover,
+html body .checkout-submit:hover,
+html body .cart-checkout:hover,
+html body .ago-clean-button:hover,
+html body .contact-location-button:hover{
+  background:var(--ago-sertao-cacau)!important;
+  border-color:var(--ago-sertao-cacau)!important;
+}
+html body .product-whatsapp,
+html body .ago-clean-text-link,
+html body .ago-clean-dark-link{
+  color:var(--ago-sertao-terra)!important;
+}
+
+/* IMAGENS: aparência de cerâmica/barro, sem filtros verdes e sem halos. */
+html body .product-image-wrap,
+html body .product-gallery-main,
+html body .editorial-image,
+html body .checkout-product-image,
+html body .cart-product-image{
+  background:var(--ago-sertao-palha)!important;
+  border-color:rgba(91,67,56,.07)!important;
+}
+
+/* BARRA DE FRETE / CUPOM */
+html body .product-shipping-note,
+html body .checkout-shipping-note,
+html body .cart-shipping-message,
+html body .checkout-first-purchase{
+  background:#E2CCB8!important;
+  color:var(--ago-sertao-cacau)!important;
+  border-left:2px solid var(--ago-sertao-terra)!important;
+}
+html body .checkout-coupon-message.success{color:#7A321C!important}
+
+/* CARRINHO */
+html body .cart-drawer{background:var(--ago-sertao-cal)!important;color:var(--ago-sertao-cacau)!important}
+html body .cart-header{background:var(--ago-sertao-cacau)!important;color:#FFF8F1!important}
+html body .cart-item{background:#E8D3BF!important;border-color:rgba(91,67,56,.11)!important}
+html body .cart-summary{background:#E0C6AB!important}
+html body .cart-item-controls{background:#F4E7D9!important;border-color:rgba(91,67,56,.18)!important}
+html body .cart-checkout{background:var(--ago-sertao-terra)!important}
+html body .cart-continue{color:var(--ago-sertao-terra)!important}
+
+/* SOCIAIS: marrom/terracota, nunca verde */
+html body .ago-social-whatsapp{background:var(--ago-sertao-cacau)!important}
+html body .ago-social-instagram{background:var(--ago-sertao-ferrugem)!important}
+
+/* PÁGINAS INTERNAS */
+html body .catalog-intro h1,
+html body .product-detail-title,
+html body .checkout-title,
+html body .contact-page h1,
+html body .essencia-page h1{color:var(--ago-sertao-cacau)!important}
+html body .catalog-grid .product-name{color:var(--ago-sertao-cacau)!important}
+html body .catalog-grid .current-price{color:var(--ago-sertao-terra)!important}
+html body .product-description,
+html body .catalog-intro>p:last-child,
+html body .checkout-clean-head>p,
+html body .essencia-text p,
+html body .contact-copy>p{color:var(--ago-sertao-texto)!important}
+
+/* RODAPÉ */
+html body .site-footer h3,
+html body .site-footer h4{color:#FFF8F1!important;font-family:'EB Garamond',Georgia,serif!important}
+html body .site-footer h4{font-family:'Lato',Arial,sans-serif!important;color:#D08A63!important;letter-spacing:.12em!important}
+html body .site-footer p,
+html body .site-footer li,
+html body .site-footer a,
+html body .site-footer span{color:rgba(255,248,241,.76)!important;font-family:'Lato',Arial,sans-serif!important}
+
+:focus-visible{outline:2px solid var(--ago-sertao-ferrugem)!important;outline-offset:3px!important}
+
+@media(max-width:767px){
+  html body .ago-clean-collection-head h1,
+  html body .ago-clean-hero-content h2,
+  html body .ago-clean-edit-copy h2,
+  html body .ago-clean-visit h2,
+  html body .catalog-intro h1,
+  html body .product-detail-title,
+  html body .checkout-title,
+  html body .essencia-page h1,
+  html body .contact-page h1{
+    letter-spacing:-.022em!important;
+  }
+  html body .catalog-grid .product-name{font-size:12px!important;line-height:1.35!important}
+}
