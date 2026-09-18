@@ -8,75 +8,60 @@ import ProductCard from '@/components/ProductCard';
 export default function ProdutosClient({ products, categories }: { products: Product[]; categories: Category[] }) {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('busca') || '');
-  const [category, setCategory] = useState<string>(searchParams.get('categoria') || 'todas');
-  const [onlyAvailable, setOnlyAvailable] = useState(false);
-  const [maxPrice, setMaxPrice] = useState<number | ''>('');
+  const [category, setCategory] = useState(searchParams.get('categoria') || 'todas');
   const [sort, setSort] = useState<'featured' | 'price-asc' | 'price-desc' | 'name'>('featured');
 
-  const normalize = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  const normalize = (value: string) =>
+    value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 
   const filtered = useMemo(() => {
     const q = normalize(query);
-    const result = products.filter((p) => {
-      const haystack = normalize(`${p.name} ${p.description} ${p.category}`);
-      if (q && !haystack.includes(q)) return false;
-      if (category !== 'todas' && p.category !== category) return false;
-      if (onlyAvailable && !p.available) return false;
-      if (maxPrice !== '' && p.price > maxPrice) return false;
-      return true;
-    });
 
-    return [...result].sort((a, b) => {
-      if (sort === 'price-asc') return a.price - b.price;
-      if (sort === 'price-desc') return b.price - a.price;
-      if (sort === 'name') return a.name.localeCompare(b.name, 'pt-BR');
-      return products.indexOf(a) - products.indexOf(b);
-    });
-  }, [products, query, category, onlyAvailable, maxPrice, sort]);
+    return products
+      .filter((product) => {
+        if (!product.available) return false;
+        const haystack = normalize(`${product.name} ${product.description} ${product.category}`);
+        if (q && !haystack.includes(q)) return false;
+        if (category !== 'todas' && product.category !== category) return false;
+        return true;
+      })
+      .sort((a, b) => {
+        if (sort === 'price-asc') return a.price - b.price;
+        if (sort === 'price-desc') return b.price - a.price;
+        if (sort === 'name') return a.name.localeCompare(b.name, 'pt-BR');
+        return products.indexOf(a) - products.indexOf(b);
+      });
+  }, [products, query, category, sort]);
 
-  const hasFilters = Boolean(query.trim()) || category !== 'todas' || onlyAvailable || maxPrice !== '';
+  const hasFilters = Boolean(query.trim()) || category !== 'todas';
 
   function clearFilters() {
     setQuery('');
     setCategory('todas');
-    setOnlyAvailable(false);
-    setMaxPrice('');
     setSort('featured');
   }
 
   return (
     <div className="catalog-interface">
       <div className="catalog-toolbar">
+        <label htmlFor="catalog-search">Encontrar uma peça</label>
         <input
+          id="catalog-search"
           aria-label="Buscar peça"
-          type="text"
+          type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Buscar peça por nome..."
+          placeholder="Buscar por nome..."
         />
-
-        <input
-          aria-label="Preço máximo"
-          type="number"
-          min={0}
-          value={maxPrice}
-          onChange={(e) => setMaxPrice(e.target.value === '' ? '' : Number(e.target.value))}
-          placeholder="Preço até (R$)"
-        />
-
-        <label className="catalog-availability">
-          <input type="checkbox" checked={onlyAvailable} onChange={(e) => setOnlyAvailable(e.target.checked)} />
-          <span>Apenas disponíveis</span>
-        </label>
       </div>
 
       <div className="catalog-controls-row">
-        <div className="catalog-category-nav" aria-label="Filtrar por categoria">
-          <button type="button" role="option" aria-selected={category === 'todas'} className="catalog-category-option" onClick={() => setCategory('todas')}>Todos</button>
+        <nav className="catalog-category-nav" aria-label="Filtrar por categoria">
+          <button type="button" role="option" aria-selected={category === 'todas'} className="catalog-category-option" onClick={() => setCategory('todas')}>Todas</button>
           {categories.map((item) => (
             <button type="button" role="option" key={item.id} aria-selected={category === item.id} className="catalog-category-option" onClick={() => setCategory(item.id)}>{item.name}</button>
           ))}
-        </div>
+        </nav>
         <div className="catalog-sort-wrap">
           <label htmlFor="catalog-sort">Ordenar</label>
           <select id="catalog-sort" className="catalog-sort" value={sort} onChange={(e) => setSort(e.target.value as typeof sort)}>
@@ -89,18 +74,18 @@ export default function ProdutosClient({ products, categories }: { products: Pro
       </div>
 
       <div className="catalog-results-meta">
-        <span>{filtered.length} {filtered.length === 1 ? 'peça encontrada' : 'peças encontradas'}</span>
-        {hasFilters && <button type="button" onClick={clearFilters}>Limpar filtros</button>}
+        <span>{filtered.length} {filtered.length === 1 ? 'peça' : 'peças'}</span>
+        {hasFilters && <button type="button" onClick={clearFilters}>Limpar</button>}
       </div>
 
       {filtered.length === 0 ? (
         <div className="catalog-empty">
-          <p>Nenhuma peça encontrada com esses filtros.</p>
-          <button type="button" onClick={clearFilters}>Voltar para toda a coleção</button>
+          <p>Nenhuma peça encontrada.</p>
+          <button type="button" onClick={clearFilters}>Ver toda a coleção</button>
         </div>
       ) : (
         <div className="catalog-grid">
-          {filtered.map((p) => <ProductCard key={p.id} product={p} />)}
+          {filtered.map((product) => <ProductCard key={product.id} product={product} />)}
         </div>
       )}
     </div>
