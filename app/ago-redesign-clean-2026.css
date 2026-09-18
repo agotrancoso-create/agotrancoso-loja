@@ -202,3 +202,20 @@
 .first-purchase-modal{border:1px solid rgba(63,38,28,.10)!important;border-radius:0!important;box-shadow:0 26px 80px rgba(33,25,20,.24)!important;background:#fbfaf7!important}
 .ago-social-floaters{right:18px!important;bottom:18px!important;gap:8px!important}
 .ago-social-button{width:40px!important;height:40px!important;border-radius:999px!important;background:#3f261c!important;border:1px solid rgba(251,250,247,.18)!important;box-shadow:none!important}
+
+/* Checkout: scrollbar invisível, interação preservada */
+.ago-clean-checkout-summary .checkout-summary-items{
+  scrollbar-width:none!important;
+  -ms-overflow-style:none!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+}
+.ago-clean-checkout-summary .checkout-summary-items::-webkit-scrollbar{
+  display:none!important;
+  width:0!important;
+  height:0!important;
+}
+.ago-clean-checkout-summary .checkout-summary-item{padding:15px 2px!important}
+.ago-clean-checkout-summary .checkout-product-name{font-size:11px!important}
+.ago-clean-checkout-summary .checkout-line-total{font-size:10px!important}
