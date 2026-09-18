@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import MarketingAnalytics from '@/components/MarketingAnalytics';
 import './globals.css';
 import './ago-editorial.css';
 import './ago-terrosa-final.css';
@@ -128,6 +129,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR">
       <body className="font-sans">
+        <MarketingAnalytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <style id="ago-final-ui-fix" dangerouslySetInnerHTML={{ __html: `
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
