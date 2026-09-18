@@ -6,6 +6,7 @@ import { whatsappLink } from '@/lib/config';
 import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping } from '@/lib/shipping';
 import AddToCart from './AddToCart';
 import ProductGallery from '@/components/ProductGallery';
+import ProductViewTracker from '@/components/ProductViewTracker';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -37,6 +38,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="product-page">
+      <ProductViewTracker product={product} />
       <div className="product-page-shell">
         <Link href="/produtos" className="product-back">← Voltar à coleção</Link>
         <div className="product-page-grid">
@@ -53,7 +55,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             {product.dimensions && <p className="product-dimensions">Dimensões: {product.dimensions}</p>}
             <div className="product-shipping-note">
               {freeShippingAtProductQuantity ? 'Frete grátis nesta peça.' : <>Frete fixo de <strong>{formatBRL(FIXED_SHIPPING_PRICE)}</strong>.</>}
-              <span>Compras acima de R$ 500 têm frete grátis.</span>
+              <span>Compras a partir de R$ 500 têm frete grátis.</span>
             </div>
             <div className="product-purchase"><AddToCart product={product} /></div>
             <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="product-whatsapp">Comprar pelo WhatsApp</a>
