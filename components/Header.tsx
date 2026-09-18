@@ -33,7 +33,7 @@ export default function Header() {
       <div className="ago-topbar" aria-label="Informações comerciais">
         <span className="ago-topbar-offer">3% OFF na 1ª compra</span>
         <i aria-hidden="true" />
-        <span>Frete grátis acima de R$ 500</span>
+        <span>Frete grátis a partir de R$ 500</span>
         <i aria-hidden="true" />
         <span>Envio para todo o Brasil</span>
         <i aria-hidden="true" />
