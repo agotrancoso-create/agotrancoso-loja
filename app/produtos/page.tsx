@@ -4,7 +4,7 @@ import { getAllProducts, getAllCategories } from '@/lib/products';
 import ProdutosClient from './ProdutosClient';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Coleção | Agô Trancoso' },
+  title: 'Coleção',
   description: 'Conheça a coleção de peças de cerâmica feitas à mão da Agô Trancoso.',
   alternates: { canonical: '/produtos' },
 };

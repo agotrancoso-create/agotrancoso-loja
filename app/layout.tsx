@@ -112,20 +112,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MarketingAnalytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <style id="ago-final-ui-fix" dangerouslySetInnerHTML={{ __html: `
-          @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600;700&family=Lato:wght@400;700;900&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Lato:wght@400;700;900&display=swap');
           body, body button, body input, body select, body textarea { font-family: 'Lato', Arial, sans-serif !important; }
-          .ago-home h1, .ago-home h2, .ago-home h3, .catalog-page h1, .catalog-page h2, .product-page h1, .product-page h2, .checkout-page h1, .checkout-page h2, .section-title, .visit-section-title, .hero-section h1, .product-detail-title, footer h3 { font-family: 'EB Garamond', Georgia, serif !important; font-weight: 600 !important; letter-spacing: -0.028em !important; text-rendering: optimizeLegibility; }
+          .ago-home h1, .ago-home h2, .ago-home h3, .catalog-page h1, .catalog-page h2, .product-page h1, .product-page h2, .checkout-page h1, .checkout-page h2, .section-title, .visit-section-title, .hero-section h1, .product-detail-title, footer h3 { font-family: 'Cormorant Garamond', Georgia, serif !important; font-weight: 600 !important; letter-spacing: -0.028em !important; text-rendering: optimizeLegibility; }
           .hero-section h1 { font-size: clamp(3rem, 5.2vw, 5.6rem) !important; line-height: .9 !important; }
           .ago-home .section-title, .ago-home .visit-section-title { font-size: clamp(2.35rem, 4vw, 4.05rem) !important; line-height: .94 !important; }
-          .product-name, .product-price, .current-price, .product-add, .header-link, .header-search, .header-actions, .eyebrow, .category-pill, .hero-copy { font-family: 'Lato', Arial, sans-serif !important; }
-          footer, .site-footer { background: #2B1813 !important; color: #F7EDE3 !important; text-align: left !important; }
+          .product-name, .product-price, .current-price, .product-add, .header-link, .header-search, .header-actions, .eyebrow, .category-pill, .hero-copy { font-family: 'Manrope', Arial, sans-serif !important; }
+          footer, .site-footer { background: #2d1813 !important; color: #f8f2ea !important; text-align: left !important; }
           footer .footer-shell, .site-footer .footer-shell { width: min(1180px, calc(100% - 48px)) !important; margin-inline: auto !important; padding: 62px 0 26px !important; text-align: left !important; }
           footer .footer-brand, .site-footer .footer-brand { display: flex !important; justify-content: flex-start !important; align-items: center !important; }
           footer .footer-grid, .site-footer .footer-grid { display: grid !important; grid-template-columns: 1.4fr .65fr .9fr !important; gap: 64px !important; justify-items: stretch !important; text-align: left !important; }
           footer .footer-grid > div, .site-footer .footer-grid > div { width: 100% !important; display: flex !important; flex-direction: column !important; align-items: flex-start !important; text-align: left !important; }
           footer h3, .site-footer h3 { color: #f8f2ea !important; }
-          footer h4, .site-footer h4 { font-family: 'Lato', Arial, sans-serif !important; color: #b45d35 !important; text-align: left !important; }
-          footer p, footer li, footer a, footer span, .site-footer p, .site-footer li, .site-footer a, .site-footer span { font-family: 'Lato', Arial, sans-serif !important; color: rgba(248,242,234,.75) !important; text-align: left !important; }
+          footer h4, .site-footer h4 { font-family: 'Manrope', Arial, sans-serif !important; color: #b45d35 !important; text-align: left !important; }
+          footer p, footer li, footer a, footer span, .site-footer p, .site-footer li, .site-footer a, .site-footer span { font-family: 'Manrope', Arial, sans-serif !important; color: rgba(248,242,234,.75) !important; text-align: left !important; }
           footer ul, .site-footer ul { display: flex !important; flex-direction: column !important; align-items: flex-start !important; gap: 7px !important; }
           footer .footer-copyright, .site-footer .footer-copyright { display: block !important; width: 100% !important; margin-top: 34px !important; padding-top: 18px !important; border-top: 1px solid rgba(248,242,234,.12) !important; text-align: center !important; color: rgba(248,242,234,.50) !important; }
           @media (max-width: 767px) {

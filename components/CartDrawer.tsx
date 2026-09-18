@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useRef } from 'react';
 import { useCart } from '@/context/CartContext';
 import { getProductById, getEffectivePrice } from '@/lib/products';
 import CartIcon from './CartIcon';
@@ -14,8 +15,33 @@ function formatBRL(value: number) {
 
 export default function CartDrawer() {
   const { items, isDrawerOpen, closeDrawer, updateQuantity, removeItem } = useCart();
-  const lines = items.map((item) => { const product = getProductById(item.productId); return product ? { item, product } : null; }).filter(Boolean) as { item: { productId: string; quantity: number }; product: NonNullable<ReturnType<typeof getProductById>> }[];
-  const subtotal = lines.reduce((sum, l) => sum + getEffectivePrice(l.product) * l.item.quantity, 0);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!isDrawerOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closeDrawer();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isDrawerOpen, closeDrawer]);
+
+  const lines = items
+    .map((item) => {
+      const product = getProductById(item.productId);
+      return product?.available ? { item, product } : null;
+    })
+    .filter(Boolean) as { item: { productId: string; quantity: number }; product: NonNullable<ReturnType<typeof getProductById>> }[];
+
+  const subtotal = lines.reduce((sum, line) => sum + getEffectivePrice(line.product) * line.item.quantity, 0);
   const freeShipping = shouldOfferFreeShipping(subtotal);
   const shipping = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
   const total = subtotal + shipping;
@@ -26,49 +52,103 @@ export default function CartDrawer() {
   return (
     <>
       {isDrawerOpen && <div className="cart-backdrop fixed inset-0 z-50" onClick={closeDrawer} aria-hidden="true" />}
-      <aside className={`cart-drawer fixed top-0 right-0 h-full w-full sm:w-[460px] z-50 transform transition-transform duration-300 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`} aria-hidden={!isDrawerOpen}>
+      <aside
+        className={`cart-drawer fixed top-0 right-0 h-full w-full sm:w-[460px] z-50 transform transition-transform duration-300 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        aria-hidden={!isDrawerOpen}
+        aria-labelledby="ago-cart-title"
+        role="dialog"
+        aria-modal="true"
+      >
         <div className="cart-header">
-          <div className="cart-header-title"><CartIcon size={22} /><h2>Suas peças</h2></div>
-          <button onClick={closeDrawer} aria-label="Fechar carrinho" className="cart-close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg></button>
+          <div className="cart-header-title">
+            <CartIcon size={22} />
+            <h2 id="ago-cart-title">Suas peças</h2>
+          </div>
+          <button ref={closeRef} type="button" onClick={closeDrawer} aria-label="Fechar carrinho" className="cart-close">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </button>
         </div>
+
         <div className="cart-body">
           {lines.length === 0 ? (
-            <div className="cart-empty"><p>Suas peças estão por aqui.</p><span>Explore a coleção e encontre uma peça para levar um pouco de Trancoso para sua casa.</span><Link href="/produtos" onClick={closeDrawer}>Ver coleção</Link></div>
+            <div className="cart-empty">
+              <p>Seu carrinho está vazio.</p>
+              <span>Explore a coleção e encontre uma peça para levar um pouco de Trancoso para sua casa.</span>
+              <Link href="/produtos" onClick={closeDrawer}>Continuar comprando</Link>
+            </div>
           ) : (
             <ul className="cart-items">
               {lines.map(({ item, product }) => (
                 <li key={item.productId} className="cart-item">
-                  <div className="cart-product-image"><Image src={product.images?.[0] || '/images/placeholder.svg'} alt={product.name} fill sizes="82px" className="object-contain" /></div>
+                  <div className="cart-product-image">
+                    <Image
+                      src={product.images?.[0] || '/images/placeholder.svg'}
+                      alt={product.name}
+                      fill
+                      sizes="82px"
+                      className="object-contain"
+                    />
+                  </div>
+
                   <div className="cart-item-info">
                     <h4>{product.name}</h4>
                     <p>{formatBRL(getEffectivePrice(product))} / un.</p>
                     <div className="cart-item-controls">
-                      <button type="button" onClick={() => updateQuantity(item.productId, item.quantity - 1)} aria-label="Diminuir quantidade">−</button>
-                      <span>{item.quantity}</span>
-                      <button type="button" onClick={() => updateQuantity(item.productId, item.quantity + 1)} aria-label="Aumentar quantidade">+</button>
-                      <button type="button" onClick={() => { removeItem(item.productId); trackRemoveFromCart({ item_id: product.id, item_name: product.name, price: getEffectivePrice(product), quantity: item.quantity, item_category: product.category }); }} aria-label={`Remover ${product.name}`} className="cart-remove">Remover</button>
+                      <button type="button" onClick={() => updateQuantity(item.productId, item.quantity - 1)} aria-label={`Diminuir quantidade de ${product.name}`}>−</button>
+                      <span aria-live="polite">{item.quantity}</span>
+                      <button type="button" onClick={() => updateQuantity(item.productId, item.quantity + 1)} aria-label={`Aumentar quantidade de ${product.name}`}>+</button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          removeItem(item.productId);
+                          trackRemoveFromCart({
+                            item_id: product.id,
+                            item_name: product.name,
+                            price: getEffectivePrice(product),
+                            quantity: item.quantity,
+                            item_category: product.category,
+                          });
+                        }}
+                        aria-label={`Remover ${product.name}`}
+                        className="cart-remove"
+                      >
+                        Remover
+                      </button>
                     </div>
                   </div>
-                  <div className="cart-item-total">{formatBRL(getEffectivePrice(product) * item.quantity)}</div>
+
+                  <div className="cart-item-total">{formatBRL(getEffectivePrice(product) * item.item.quantity)}</div>
                 </li>
               ))}
             </ul>
           )}
         </div>
+
         {lines.length > 0 && (
           <div className="cart-summary">
             <div className="cart-shipping-progress-block">
-              {!freeShipping ? <p className="cart-shipping-message">Faltam <strong>{formatBRL(remaining)}</strong> para o frete grátis.</p> : <p className="cart-shipping-message is-free">Você ganhou frete grátis neste pedido.</p>}
+              {!freeShipping ? (
+                <p className="cart-shipping-message">
+                  Faltam <strong>{formatBRL(remaining)}</strong> para o frete grátis.
+                </p>
+              ) : (
+                <p className="cart-shipping-message is-free">Você ganhou frete grátis neste pedido.</p>
+              )}
               <div className="cart-shipping-progress" aria-hidden="true">
                 <span style={{ width: progress + '%' }} />
               </div>
-              <div className="cart-shipping-progress-labels"><span>Frete fixo R$ 39,90</span><span>Grátis acima de R$ 500</span></div>
+              <div className="cart-shipping-progress-labels">
+                <span>Frete fixo R$ 39,90</span>
+                <span>Grátis acima de R$ 500</span>
+              </div>
             </div>
             <div className="cart-summary-row"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
             <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
             <div className="cart-total-row"><span>Total</span><strong>{formatBRL(total)}</strong></div>
             <Link href="/checkout" onClick={closeDrawer} className="cart-checkout">Finalizar compra</Link>
-            <button onClick={closeDrawer} className="cart-continue">Continuar comprando</button>
+            <button type="button" onClick={closeDrawer} className="cart-continue">Continuar comprando</button>
           </div>
         )}
       </aside>

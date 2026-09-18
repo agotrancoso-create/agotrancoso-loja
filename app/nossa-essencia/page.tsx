@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: { absolute: 'A Agô | Agô Trancoso' },
+  title: 'A Agô',
   alternates: { canonical: '/nossa-essencia' },
 };
 
