@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { Product } from '@/lib/types';
+import { trackAddToCart } from '@/lib/marketing-analytics';
 
 export default function AddToCart({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
@@ -19,7 +20,7 @@ export default function AddToCart({ product }: { product: Product }) {
         <span aria-live="polite">{quantity}</span>
         <button type="button" onClick={() => setQuantity((q) => q + 1)} aria-label="Aumentar quantidade">+</button>
       </div>
-      <button type="button" onClick={() => addItem(product.id, quantity)} className="product-primary-cta">Adicionar ao carrinho</button>
+      <button type="button" onClick={() => { addItem(product.id, quantity); trackAddToCart({ item_id: product.id, item_name: product.name, price: product.promotionalPrice ?? product.price, quantity, item_category: product.category }); }} className="product-primary-cta">Adicionar ao carrinho</button>
     </div>
   );
 }
