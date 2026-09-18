@@ -34,10 +34,32 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const waMessage = `Olá! Vim pelo site da Agô Trancoso e tenho interesse em ${product.name}.`;
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    image: images.map((image) => `${SITE_DOMAIN}${image}`),
+    sku: product.id,
+    brand: { '@type': 'Brand', name: 'Agô Trancoso' },
+    offers: {
+      '@type': 'Offer',
+      url: `${SITE_DOMAIN}/produtos/${product.id}`,
+      priceCurrency: 'BRL',
+      price: price.toFixed(2),
+      availability: product.available
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
+      itemCondition: 'https://schema.org/NewCondition',
+    },
+  };
+
   const freeShippingAtProductQuantity = shouldOfferFreeShipping(price);
 
   return (
     <div className="product-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <ProductViewTracker product={product} />
       <div className="product-page-shell">
         <Link href="/produtos" className="product-back">← Voltar à coleção</Link>
