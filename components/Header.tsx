@@ -34,7 +34,7 @@ export default function Header() {
       <div className="ago-topbar" aria-label="Informações comerciais">
         <span className="ago-topbar-offer">3% OFF na 1ª compra</span>
         <i aria-hidden="true" />
-        <span>Frete grátis a partir de R$ 500</span>
+        <span>Frete grátis acima de R$ 500</span>
       </div>
 
       <header className="site-header sticky top-0 z-40">
@@ -76,7 +76,7 @@ export default function Header() {
             >
               <span className="header-cart-label">
                 <CartIcon size={22} />
-                <span>Sacola</span>
+                <span>Suas peças</span>
                 {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
               </span>
             </button>
