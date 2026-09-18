@@ -90,7 +90,7 @@ export default function CheckoutPage() {
               <section className="checkout-section">
                 <h2>Entrega</h2>
                 <div className="checkout-field"><label htmlFor="zip" className="checkout-label">CEP</label><input id="zip" required name="zip" inputMode="numeric" autoComplete="postal-code" placeholder="00000-000" value={form.zip} onChange={change} className="checkout-input" /></div>
-                <div className="checkout-shipping-note">{freeShipping ? 'Frete grátis neste pedido.' : <>Frete fixo de <strong>R$ 39,90</strong>.</>}<span>Compras acima de R$ 500 têm frete grátis.</span></div>
+                <div className="checkout-shipping-note">{freeShipping ? 'Frete grátis neste pedido.' : <>Frete fixo de <strong>R$ 39,90</strong>.</>}<span>Compras a partir de R$ 500 têm frete grátis.</span></div>
                 {shippingError && <p className="checkout-error" role="alert">{shippingError}</p>}
                 <div className="checkout-fields-address"><div className="checkout-field"><label htmlFor="street" className="checkout-label">Rua</label><input id="street" required name="street" autoComplete="street-address" placeholder="Rua / avenida" value={form.street} onChange={change} className="checkout-input" /></div><div className="checkout-field checkout-number"><label htmlFor="number" className="checkout-label">Número</label><input id="number" required name="number" placeholder="Nº" value={form.number} onChange={change} className="checkout-input" /></div></div>
                 <div className="checkout-field"><label htmlFor="complement" className="checkout-label">Complemento <span>(opcional)</span></label><input id="complement" name="complement" placeholder="Apartamento, casa, etc." value={form.complement} onChange={change} className="checkout-input" /></div>
@@ -106,7 +106,7 @@ export default function CheckoutPage() {
 
               {error && <p className="checkout-error" role="alert">{error}</p>}
               <button disabled={loading} type="submit" className="checkout-submit">{loading ? 'Preparando pagamento…' : 'Ir para o pagamento'}</button>
-              <p className="checkout-note">Pagamento seguro pela InfinitePay. Frete fixo de R$ 39,90 ou grátis em compras acima de R$ 500.</p>
+              <p className="checkout-note">Pagamento seguro pela InfinitePay. Frete fixo de R$ 39,90 ou grátis em compras a partir de R$ 500.</p>
             </form>
           </div>
 
