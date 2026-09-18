@@ -679,3 +679,312 @@ footer{
   color:var(--ago-cacau)!important;
   border-color:rgba(64,37,29,.12)!important;
 }
+
+
+/* SISTEMA FINAL — HIERARQUIA, CORES E ALINHAMENTO
+   Títulos = cacau | botões = terracota | pequenos destaques = ferrugem/argila.
+*/
+:root{
+  --ago-title:#40251D;
+  --ago-button:#A34B2F;
+  --ago-button-dark:#7B3928;
+  --ago-accent:#B45D35;
+  --ago-soft:#C98970;
+  --ago-sand:#D7B894;
+  --ago-paper:#F6EDE2;
+  --ago-white:#FCF8F2;
+  --ago-body:#594138;
+}
+
+/* Ritmo global */
+.ago-clean-container{
+  width:min(1180px,calc(100% - 64px))!important;
+  margin-inline:auto!important;
+}
+.ago-clean-home h1,
+.ago-clean-home h2,
+.ago-clean-home h3,
+.catalog-page h1,
+.product-page h1,
+.product-page h2,
+.checkout-page h1,
+.checkout-page h2,
+.essencia-page h1,
+.essencia-page h2,
+.contact-page h1,
+.contact-page h2{
+  color:var(--ago-title)!important;
+}
+
+/* Eyebrows: cor de destaque, nunca competem com título */
+.ago-clean-home .eyebrow,
+.catalog-page .eyebrow,
+.product-page .eyebrow,
+.checkout-page .eyebrow,
+.essencia-page .eyebrow,
+.contact-page .eyebrow{
+  color:var(--ago-accent)!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  font-size:10px!important;
+  line-height:1.2!important;
+  font-weight:900!important;
+  letter-spacing:.18em!important;
+  text-transform:uppercase!important;
+}
+
+/* Títulos proporcionais */
+.ago-clean-collection-head h1{
+  font-size:clamp(4rem,6.4vw,6.65rem)!important;
+  line-height:.84!important;
+  letter-spacing:-.045em!important;
+}
+.ago-clean-hero-content h2{
+  font-size:clamp(4rem,7.2vw,7.4rem)!important;
+  line-height:.80!important;
+  letter-spacing:-.048em!important;
+}
+.ago-clean-edit-copy h2{
+  font-size:clamp(3.1rem,4.8vw,5.4rem)!important;
+  line-height:.86!important;
+}
+.ago-clean-visit h2{
+  font-size:clamp(3.2rem,5.3vw,5.9rem)!important;
+  line-height:.84!important;
+}
+
+/* Corpo */
+.ago-clean-collection-head>p,
+.ago-clean-edit-copy>p:not(.eyebrow),
+.ago-clean-visit p:not(.eyebrow){
+  font-family:'Lato',Arial,sans-serif!important;
+  font-size:14px!important;
+  line-height:1.8!important;
+  color:var(--ago-body)!important;
+}
+
+/* Botões: cor própria e consistente */
+.ago-clean-button,
+.checkout-submit,
+.contact-location-button{
+  background:var(--ago-button)!important;
+  color:var(--ago-white)!important;
+  border:1px solid var(--ago-button)!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  font-weight:900!important;
+  letter-spacing:.12em!important;
+}
+.ago-clean-button:hover,
+.checkout-submit:hover,
+.contact-location-button:hover{
+  background:var(--ago-button-dark)!important;
+  border-color:var(--ago-button-dark)!important;
+}
+.ago-clean-button-light{
+  background:var(--ago-button)!important;
+  color:var(--ago-white)!important;
+}
+.ago-clean-text-link,
+.ago-clean-dark-link{
+  color:var(--ago-button-dark)!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  font-weight:900!important;
+}
+.ago-clean-text-link{
+  color:var(--ago-white)!important;
+}
+
+/* Grid e alinhamento dos produtos */
+.ago-clean-product-grid{
+  align-items:start!important;
+}
+.ago-clean-product-grid .product-card{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+}
+.ago-clean-product-grid .product-card>a{
+  display:flex!important;
+  flex-direction:column!important;
+  flex:1!important;
+}
+.ago-clean-product-grid .product-name{
+  min-height:2.7em!important;
+  display:flex!important;
+  align-items:flex-start!important;
+}
+.ago-clean-product-grid .price-row,
+.ago-clean-product-grid .current-price{
+  min-height:18px!important;
+}
+.ago-clean-product-grid .product-add{
+  align-self:flex-start!important;
+  margin-top:12px!important;
+}
+
+/* Seções: mesma linha de leitura */
+.ago-clean-collection,
+.ago-clean-hero,
+.ago-clean-edit,
+.ago-clean-benefits,
+.ago-clean-visit{
+  overflow:clip;
+}
+.ago-clean-edit-grid,
+.ago-clean-visit-grid{
+  align-items:center!important;
+}
+.ago-clean-visit-note{
+  justify-self:end!important;
+  width:min(100%,300px)!important;
+}
+
+/* Balões sociais — dois, mas dentro da paleta da Agô */
+.ago-social-floaters{
+  position:fixed!important;
+  right:20px!important;
+  bottom:20px!important;
+  z-index:80!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:10px!important;
+}
+.ago-social-button{
+  width:46px!important;
+  height:46px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border-radius:50%!important;
+  border:1px solid rgba(252,248,242,.35)!important;
+  box-shadow:0 10px 28px rgba(39,26,21,.22)!important;
+  color:var(--ago-white)!important;
+  transition:transform .18s ease,filter .18s ease!important;
+}
+.ago-social-button:hover{
+  transform:translateY(-2px)!important;
+  filter:brightness(1.05)!important;
+}
+.ago-social-button svg{
+  width:22px!important;
+  height:22px!important;
+}
+.ago-social-whatsapp{
+  background:var(--ago-button-dark)!important;
+}
+.ago-social-instagram{
+  background:var(--ago-accent)!important;
+}
+
+/* Header alinhado ao mesmo eixo do conteúdo */
+.site-header .ago-container{
+  width:min(1180px,calc(100% - 64px))!important;
+  margin-inline:auto!important;
+}
+.header-inner{
+  display:grid!important;
+  grid-template-columns:120px 1fr auto!important;
+  align-items:center!important;
+  gap:30px!important;
+}
+.header-logo{
+  justify-self:start!important;
+}
+.header-nav-desktop{
+  justify-self:center!important;
+}
+.header-actions{
+  justify-self:end!important;
+}
+
+/* Footer: eixo central e respiro */
+.site-footer .footer-shell{
+  width:min(1180px,calc(100% - 64px))!important;
+  margin-inline:auto!important;
+}
+.site-footer .footer-grid{
+  align-items:start!important;
+}
+.site-footer .footer-grid p{
+  max-width:310px!important;
+  margin-inline:auto!important;
+}
+
+/* Páginas internas — mesma escala */
+.catalog-shell,.product-page-shell,.contact-shell,.essencia-shell,.checkout-shell{
+  width:min(1180px,calc(100% - 64px))!important;
+  margin-inline:auto!important;
+}
+.catalog-intro h1,.contact-copy h1,.essencia-copy h1,.checkout-title,.product-detail-title{
+  color:var(--ago-title)!important;
+}
+.catalog-intro>p:not(.eyebrow),
+.contact-copy>p:not(.eyebrow),
+.essencia-text p{
+  font-family:'Lato',Arial,sans-serif!important;
+  color:var(--ago-body)!important;
+  font-size:14px!important;
+  line-height:1.8!important;
+}
+
+/* Não deixar títulos, textos ou botões com pesos exagerados */
+.product-name{
+  font-size:12px!important;
+  line-height:1.4!important;
+  font-weight:700!important;
+}
+.current-price,.product-current-price{
+  font-size:13px!important;
+  font-weight:700!important;
+}
+.checkout-summary h2,
+.checkout-section h2,
+.contact-actions h2{
+  color:var(--ago-title)!important;
+}
+
+/* Mobile: menos quebra e mais proporção */
+@media(max-width:700px){
+  .ago-clean-container,
+  .site-header .ago-container,
+  .site-footer .footer-shell,
+  .catalog-shell,.product-page-shell,.contact-shell,.essencia-shell,.checkout-shell{
+    width:calc(100% - 32px)!important;
+  }
+  .ago-clean-collection-head h1{
+    font-size:3.45rem!important;
+    line-height:.86!important;
+  }
+  .ago-clean-hero-content h2{
+    font-size:4rem!important;
+    line-height:.82!important;
+  }
+  .ago-clean-edit-copy h2{
+    font-size:3.2rem!important;
+  }
+  .ago-clean-visit h2{
+    font-size:3.6rem!important;
+  }
+  .header-inner{
+    grid-template-columns:1fr auto!important;
+    gap:16px!important;
+  }
+  .header-nav-desktop{
+    display:none!important;
+  }
+  .header-actions{
+    justify-self:end!important;
+  }
+  .ago-social-floaters{
+    right:14px!important;
+    bottom:14px!important;
+    gap:8px!important;
+  }
+  .ago-social-button{
+    width:42px!important;
+    height:42px!important;
+  }
+  .ago-clean-visit-note{
+    justify-self:start!important;
+    width:auto!important;
+  }
+}
