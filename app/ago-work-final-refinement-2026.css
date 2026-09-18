@@ -530,3 +530,369 @@ html body .ago-social-instagram{background:var(--ago-work-accent)!important}
   html body .ago-clean-product-grid .product-image{padding:6px!important}
   html body .ago-clean-product-grid .product-add{min-height:40px!important;padding-inline:5px!important}
 }
+
+
+/* ===== COLEÇÃO ===== */
+html body .catalog-page{
+  min-height:60vh!important;
+  background:var(--ago-work-paper)!important;
+  color:var(--ago-work-body)!important;
+  padding:58px 0 76px!important;
+}
+html body .catalog-shell{width:min(1180px,calc(100% - 48px))!important;margin-inline:auto!important}
+html body .catalog-intro{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.15fr) minmax(260px,.65fr)!important;
+  align-items:end!important;
+  gap:50px!important;
+  margin-bottom:34px!important;
+}
+html body .catalog-intro .eyebrow{
+  grid-column:1/-1!important;
+  margin:0 0 -28px!important;
+  color:var(--ago-work-terra)!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  font-size:10px!important;font-weight:700!important;letter-spacing:.18em!important;text-transform:uppercase!important;
+}
+html body .catalog-intro h1{
+  margin:0!important;color:var(--ago-work-title)!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(3.25rem,5.5vw,5.35rem)!important;
+  line-height:.89!important;font-weight:600!important;letter-spacing:-.037em!important;
+}
+html body .catalog-intro>p:last-child{
+  margin:0!important;color:var(--ago-work-body)!important;
+  font-size:14px!important;line-height:1.78!important;max-width:410px!important;
+}
+html body .catalog-toolbar{
+  display:grid!important;grid-template-columns:auto minmax(220px,420px)!important;
+  align-items:center!important;justify-content:space-between!important;
+  gap:20px!important;margin-bottom:14px!important;
+  padding:13px 0!important;border-top:1px solid var(--ago-work-line)!important;border-bottom:1px solid var(--ago-work-line)!important;
+}
+html body .catalog-toolbar label,
+html body .catalog-sort-wrap label{
+  color:rgba(64,37,29,.52)!important;font-family:'Lato',Arial,sans-serif!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.12em!important;text-transform:uppercase!important;
+}
+html body .catalog-toolbar input,
+html body .catalog-sort{
+  min-height:38px!important;border:1px solid rgba(64,37,29,.16)!important;border-radius:3px!important;
+  background:#fff!important;color:var(--ago-work-title)!important;font-size:11px!important;
+}
+html body .catalog-toolbar input{padding:0 11px!important;width:100%!important}
+html body .catalog-controls-row{
+  display:flex!important;align-items:center!important;justify-content:space-between!important;gap:18px!important;margin-bottom:14px!important;
+}
+html body .catalog-category-nav{
+  display:flex!important;align-items:center!important;gap:7px!important;min-width:0!important;overflow-x:auto!important;
+  scrollbar-width:none!important;
+}
+html body .catalog-category-nav::-webkit-scrollbar{display:none!important}
+html body .catalog-category-option{
+  min-height:34px!important;padding:0 13px!important;flex:0 0 auto!important;
+  border:1px solid rgba(64,37,29,.13)!important;border-radius:2px!important;
+  background:transparent!important;color:rgba(64,37,29,.68)!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.08em!important;text-transform:uppercase!important;
+}
+html body .catalog-category-option[aria-selected="true"]{
+  border-color:var(--ago-work-title)!important;background:var(--ago-work-title)!important;color:#fff!important;
+}
+html body .catalog-sort-wrap{display:flex!important;align-items:center!important;gap:9px!important;flex:0 0 auto!important}
+html body .catalog-sort{min-width:145px!important;padding:0 10px!important}
+html body .catalog-results-meta{
+  display:flex!important;align-items:center!important;justify-content:space-between!important;
+  gap:18px!important;margin:20px 0!important;color:rgba(64,37,29,.48)!important;font-size:10px!important;
+}
+html body .catalog-results-meta button{
+  border:0!important;background:transparent!important;color:var(--ago-work-terra)!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.10em!important;text-transform:uppercase!important;
+}
+html body .catalog-grid{
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:38px 22px!important;
+}
+html body .catalog-grid .product-card{
+  min-width:0!important;display:flex!important;flex-direction:column!important;
+}
+html body .catalog-grid .product-image-wrap{
+  aspect-ratio:1/1!important;background:var(--ago-work-cream)!important;
+  border:1px solid rgba(64,37,29,.07)!important;border-radius:3px!important;overflow:hidden!important;
+}
+html body .catalog-grid .product-image{padding:9px!important;transition:transform .3s ease!important}
+html body .catalog-grid .product-card:hover .product-image{transform:scale(1.02)!important}
+html body .catalog-grid .product-name{
+  min-height:2.8em!important;margin:0!important;color:var(--ago-work-title)!important;
+  font-family:'Lato',Arial,sans-serif!important;font-size:12px!important;line-height:1.42!important;font-weight:700!important;
+}
+html body .catalog-grid .current-price{margin-top:8px!important;color:var(--ago-work-terra)!important;font-size:13px!important;font-weight:700!important}
+html body .catalog-grid .product-add{
+  width:100%!important;min-height:42px!important;margin-top:14px!important;
+  border:1px solid var(--ago-work-terra)!important;border-radius:3px!important;
+  background:transparent!important;color:var(--ago-work-terra)!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.11em!important;text-transform:uppercase!important;
+}
+html body .catalog-grid .product-add:hover{background:var(--ago-work-terra)!important;color:#fff!important}
+html body .catalog-empty{
+  min-height:280px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+  border-top:1px solid var(--ago-work-line)!important;text-align:center!important;
+}
+html body .catalog-empty p{
+  margin:0!important;color:var(--ago-work-title)!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;font-size:34px!important;font-weight:600!important;
+}
+html body .catalog-empty button{
+  margin-top:12px!important;border:0!important;background:transparent!important;color:var(--ago-work-terra)!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.10em!important;text-transform:uppercase!important;
+}
+
+/* ===== PÁGINA DE PRODUTO ===== */
+html body .product-page{
+  background:var(--ago-work-paper)!important;padding:34px 0 82px!important;
+}
+html body .product-page-shell{width:min(1180px,calc(100% - 48px))!important;margin-inline:auto!important}
+html body .product-back{
+  display:inline-flex!important;align-items:center!important;gap:6px!important;
+  margin-bottom:28px!important;color:rgba(64,37,29,.54)!important;
+  font-size:10px!important;letter-spacing:.07em!important;
+}
+html body .product-page-grid{
+  display:grid!important;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr)!important;gap:70px!important;align-items:start!important;
+}
+html body .product-gallery-main{
+  position:relative!important;overflow:hidden!important;aspect-ratio:1/1!important;
+  background:var(--ago-work-cream)!important;border:1px solid rgba(64,37,29,.07)!important;border-radius:3px!important;
+}
+html body .product-gallery-image{width:100%!important;height:100%!important;object-fit:contain!important;padding:14px!important;display:block!important}
+html body .product-gallery-arrow{
+  width:38px!important;height:38px!important;display:flex!important;align-items:center!important;justify-content:center!important;
+  position:absolute!important;top:50%!important;transform:translateY(-50%)!important;
+  border:1px solid rgba(64,37,29,.15)!important;border-radius:50%!important;background:rgba(252,252,250,.82)!important;
+  color:var(--ago-work-title)!important;
+}
+html body .product-gallery-arrow-left{left:14px!important}
+html body .product-gallery-arrow-right{right:14px!important}
+html body .product-gallery-thumbs{display:flex!important;gap:8px!important;margin-top:10px!important;overflow:auto!important}
+html body .product-gallery-thumb{
+  width:68px!important;height:68px!important;flex:0 0 68px!important;
+  border:1px solid rgba(64,37,29,.12)!important;border-radius:2px!important;background:var(--ago-work-cream)!important;padding:3px!important;
+}
+html body .product-gallery-thumb.is-active{border-color:var(--ago-work-terra)!important}
+html body .product-gallery-thumb img{width:100%!important;height:100%!important;object-fit:contain!important}
+html body .product-gallery-dots{display:none!important}
+html body .product-info-column .eyebrow{margin:0 0 10px!important;color:var(--ago-work-terra)!important}
+html body .product-detail-title{
+  margin:0!important;color:var(--ago-work-title)!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(3rem,4.8vw,5rem)!important;line-height:.90!important;font-weight:600!important;letter-spacing:-.035em!important;
+}
+html body .product-current-price{
+  margin:16px 0 0!important;color:var(--ago-work-terra)!important;
+  font-family:'Lato',Arial,sans-serif!important;font-size:20px!important;font-weight:700!important;
+}
+html body .price-detail-row{display:flex!important;align-items:center!important;gap:10px!important;margin-top:16px!important}
+html body .product-old-price{text-decoration:line-through!important;color:rgba(64,37,29,.42)!important;font-size:12px!important}
+html body .price-detail-row .product-current-price{margin:0!important}
+html body .product-description{
+  margin:24px 0 0!important;max-width:520px!important;color:var(--ago-work-body)!important;font-size:14px!important;line-height:1.82!important;
+}
+html body .product-dimensions{
+  margin:13px 0 0!important;color:rgba(64,37,29,.60)!important;font-size:11px!important;line-height:1.6!important;
+}
+html body .product-shipping-note{
+  margin-top:22px!important;padding:12px 13px!important;
+  background:var(--ago-work-cream)!important;border-left:2px solid var(--ago-work-terra)!important;
+  color:var(--ago-work-body)!important;font-size:11px!important;line-height:1.6!important;
+  display:flex!important;flex-direction:column!important;gap:2px!important;
+}
+html body .product-shipping-note span{color:rgba(64,37,29,.56)!important;font-size:10px!important}
+html body .product-purchase{margin-top:22px!important}
+html body .add-to-cart-control{display:grid!important;grid-template-columns:116px minmax(0,1fr)!important;gap:9px!important}
+html body .quantity-control{
+  min-height:54px!important;display:grid!important;grid-template-columns:1fr 1fr 1fr!important;
+  border:1px solid rgba(64,37,29,.15)!important;background:#fff!important;border-radius:3px!important;
+}
+html body .quantity-control button,
+html body .quantity-control span{border:0!important;background:transparent!important;display:flex!important;align-items:center!important;justify-content:center!important;color:var(--ago-work-title)!important}
+html body .quantity-control span{font-size:12px!important;font-weight:700!important;border-left:1px solid rgba(64,37,29,.10)!important;border-right:1px solid rgba(64,37,29,.10)!important}
+html body .product-primary-cta{
+  min-height:54px!important;border:0!important;border-radius:3px!important;
+  background:var(--ago-work-terra)!important;color:#fff!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.13em!important;text-transform:uppercase!important;
+}
+html body .product-primary-cta:hover{background:var(--ago-work-terra-hover)!important}
+html body .product-whatsapp{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  min-height:43px!important;margin-top:9px!important;
+  border:1px solid rgba(64,37,29,.16)!important;border-radius:3px!important;
+  color:var(--ago-work-terra)!important;background:transparent!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.11em!important;text-transform:uppercase!important;
+}
+html body .product-trust-grid{
+  display:grid!important;grid-template-columns:repeat(3,1fr)!important;
+  gap:0!important;margin-top:25px!important;border-top:1px solid var(--ago-work-line)!important;border-bottom:1px solid var(--ago-work-line)!important;
+}
+html body .product-trust-grid div{padding:13px 10px!important;border-left:1px solid var(--ago-work-line)!important;text-align:center!important}
+html body .product-trust-grid div:first-child{border-left:0!important}
+html body .product-trust-grid span{font-size:9px!important;font-weight:700!important;color:var(--ago-work-title)!important;letter-spacing:.08em!important;text-transform:uppercase!important}
+
+/* ===== CHECKOUT ===== */
+html body .ago-clean-checkout{
+  background:var(--ago-work-paper)!important;padding:54px 0 82px!important;
+}
+html body .ago-clean-checkout .checkout-shell{width:min(1180px,calc(100% - 48px))!important;margin-inline:auto!important}
+html body .ago-clean-checkout-head{margin-bottom:34px!important}
+html body .ago-clean-checkout-head .eyebrow{margin:0 0 9px!important;color:var(--ago-work-terra)!important}
+html body .ago-clean-checkout-head h1{
+  margin:0!important;color:var(--ago-work-title)!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;font-size:clamp(3.2rem,5vw,5.2rem)!important;line-height:.88!important;font-weight:600!important;letter-spacing:-.037em!important;
+}
+html body .ago-clean-checkout-head>p{margin:13px 0 0!important;color:var(--ago-work-body)!important;font-size:13px!important;line-height:1.7!important}
+html body .checkout-layout{
+  display:grid!important;grid-template-columns:minmax(0,1fr) 380px!important;gap:52px!important;align-items:start!important;
+}
+html body .checkout-form-panel{
+  background:#fff!important;border:1px solid rgba(64,37,29,.10)!important;border-radius:3px!important;padding:30px!important;
+}
+html body .checkout-first-purchase{
+  margin-bottom:26px!important;padding:13px 14px!important;
+  background:var(--ago-work-cream)!important;border-left:2px solid var(--ago-work-terra)!important;
+  display:flex!important;flex-direction:column!important;gap:3px!important;
+  color:var(--ago-work-body)!important;font-size:11px!important;line-height:1.5!important;
+}
+html body .checkout-first-purchase strong{color:var(--ago-work-title)!important}
+html body .checkout-first-purchase b{color:var(--ago-work-terra)!important;letter-spacing:.08em!important}
+html body .checkout-section{padding:0!important;margin:0 0 28px!important}
+html body .checkout-section h2{
+  margin:0 0 14px!important;color:var(--ago-work-title)!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;font-size:28px!important;line-height:1!important;font-weight:600!important;
+}
+html body .checkout-field{margin-bottom:12px!important}
+html body .checkout-field label{
+  display:block!important;margin:0 0 6px!important;color:rgba(64,37,29,.60)!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.10em!important;text-transform:uppercase!important;
+}
+html body .checkout-field label span{font-weight:400!important;letter-spacing:0!important;text-transform:none!important}
+html body .checkout-input{
+  width:100%!important;min-height:50px!important;padding:12px 13px!important;
+  border:1px solid rgba(64,37,29,.15)!important;border-radius:3px!important;
+  background:#FCFCFA!important;color:var(--ago-work-title)!important;font-size:14px!important;
+}
+html body .checkout-input:focus{border-color:var(--ago-work-terra)!important;outline:2px solid rgba(164,81,31,.12)!important;outline-offset:0!important}
+html body .checkout-fields-two,
+html body .checkout-fields-address{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px!important}
+html body .checkout-fields-address .checkout-number{max-width:190px!important}
+html body .checkout-fields-address .checkout-uf{max-width:150px!important}
+html body .checkout-shipping-note{
+  margin-top:13px!important;padding:11px 12px!important;
+  background:var(--ago-work-cream)!important;border-left:2px solid var(--ago-work-terra)!important;
+  color:var(--ago-work-body)!important;font-size:10px!important;line-height:1.5!important;
+  display:flex!important;flex-direction:column!important;gap:2px!important;
+}
+html body .checkout-shipping-note span{color:rgba(64,37,29,.55)!important}
+html body .checkout-coupon-row{display:grid!important;grid-template-columns:minmax(0,1fr) 112px!important;gap:8px!important}
+html body .checkout-coupon-row button{
+  min-height:50px!important;border:1px solid var(--ago-work-terra)!important;border-radius:3px!important;
+  background:transparent!important;color:var(--ago-work-terra)!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.10em!important;text-transform:uppercase!important;
+}
+html body .checkout-coupon-row button:hover{background:var(--ago-work-terra)!important;color:#fff!important}
+html body .checkout-coupon-message{margin:8px 0 0!important;font-size:10px!important}
+html body .checkout-coupon-message.success{color:#5B6B53!important}
+html body .checkout-coupon-message.error,
+html body .checkout-error{color:#8A392A!important}
+html body .checkout-submit{
+  width:100%!important;min-height:54px!important;margin-top:2px!important;
+  border:0!important;border-radius:3px!important;
+  background:var(--ago-work-terra)!important;color:#fff!important;
+  font-size:10px!important;font-weight:700!important;letter-spacing:.13em!important;text-transform:uppercase!important;
+}
+html body .checkout-submit:hover{background:var(--ago-work-terra-hover)!important}
+html body .checkout-submit:disabled{opacity:.58!important;cursor:not-allowed!important}
+html body .checkout-note{margin:9px 0 0!important;text-align:center!important;color:rgba(64,37,29,.48)!important;font-size:9px!important}
+html body .ago-clean-checkout-summary{
+  position:sticky!important;top:96px!important;
+  padding:24px!important;border:1px solid rgba(64,37,29,.10)!important;border-radius:3px!important;background:var(--ago-work-cream)!important;
+}
+html body .ago-clean-summary-head .eyebrow{margin:0 0 5px!important;color:var(--ago-work-terra)!important}
+html body .ago-clean-summary-head h2{
+  margin:0!important;color:var(--ago-work-title)!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;font-size:31px!important;line-height:1!important;font-weight:600!important;
+}
+html body .checkout-summary-item{
+  display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;
+  padding:12px 0!important;border-bottom:1px solid var(--ago-work-line)!important;
+}
+html body .checkout-product-main{display:flex!important;align-items:center!important;gap:11px!important;min-width:0!important}
+html body .checkout-product-image{
+  width:58px!important;height:58px!important;flex:0 0 58px!important;background:#FCFCFA!important;border:1px solid rgba(64,37,29,.07)!important;border-radius:2px!important;overflow:hidden!important;
+}
+html body .checkout-product-image img{width:100%!important;height:100%!important;object-fit:contain!important;padding:4px!important}
+html body .checkout-product-name{display:block!important;color:var(--ago-work-title)!important;font-size:11px!important;line-height:1.35!important;font-weight:700!important}
+html body .checkout-product-price{display:block!important;margin-top:3px!important;color:rgba(64,37,29,.54)!important;font-size:9px!important}
+html body .checkout-line-total{white-space:nowrap!important;color:var(--ago-work-title)!important;font-size:10px!important;font-weight:700!important}
+html body .ago-clean-summary-bottom{margin-top:14px!important}
+html body .checkout-summary-row{
+  display:flex!important;justify-content:space-between!important;gap:18px!important;padding:5px 0!important;
+  color:var(--ago-work-body)!important;font-size:10px!important;
+}
+html body .checkout-summary-row strong{color:var(--ago-work-title)!important}
+html body .checkout-discount-row strong{color:#5B6B53!important}
+html body .checkout-total{
+  display:flex!important;justify-content:space-between!important;align-items:end!important;
+  gap:18px!important;margin-top:10px!important;padding-top:13px!important;border-top:1px solid rgba(64,37,29,.15)!important;
+  color:var(--ago-work-title)!important;font-size:12px!important;
+}
+html body .checkout-total strong{font-size:20px!important}
+html body .checkout-empty{min-height:65vh!important;display:flex!important;align-items:center!important;background:var(--ago-work-paper)!important}
+html body .checkout-empty .checkout-shell{width:min(1180px,calc(100% - 48px))!important;margin-inline:auto!important}
+html body .checkout-empty .checkout-title{
+  margin:0!important;color:var(--ago-work-title)!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;font-size:clamp(3rem,5vw,5rem)!important;line-height:.9!important;
+}
+
+@media(max-width:900px){
+  html body .catalog-page,
+  html body .product-page,
+  html body .ago-clean-checkout{padding-top:40px!important;padding-bottom:58px!important}
+  html body .catalog-shell,
+  html body .product-page-shell,
+  html body .ago-clean-checkout .checkout-shell,
+  html body .checkout-empty .checkout-shell{width:calc(100% - 32px)!important}
+  html body .catalog-intro{display:block!important;margin-bottom:28px!important}
+  html body .catalog-intro .eyebrow{margin:0 0 10px!important}
+  html body .catalog-intro h1{font-size:clamp(2.8rem,11vw,4rem)!important}
+  html body .catalog-intro>p:last-child{margin-top:14px!important;font-size:13px!important}
+  html body .catalog-toolbar{display:block!important}
+  html body .catalog-toolbar label{display:block!important;margin-bottom:7px!important}
+  html body .catalog-controls-row{display:block!important}
+  html body .catalog-sort-wrap{margin-top:10px!important;justify-content:space-between!important}
+  html body .catalog-sort{min-width:170px!important}
+  html body .catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:28px 12px!important}
+  html body .catalog-grid .product-name{min-height:0!important;font-size:11px!important}
+  html body .catalog-grid .current-price{font-size:12px!important}
+  html body .catalog-grid .product-add{min-height:41px!important;padding:9px 7px!important;font-size:7.5px!important}
+  html body .product-page-grid{grid-template-columns:1fr!important;gap:34px!important}
+  html body .product-info-column{max-width:none!important}
+  html body .product-detail-title{font-size:clamp(3rem,12vw,4.3rem)!important}
+  html body .product-description{font-size:13px!important}
+  html body .checkout-layout{grid-template-columns:1fr!important;gap:26px!important}
+  html body .checkout-form-panel{padding:20px!important}
+  html body .ago-clean-checkout-summary{position:static!important;top:auto!important}
+}
+@media(max-width:520px){
+  html body .catalog-grid{gap:24px 9px!important}
+  html body .catalog-grid .product-add{font-size:7px!important;letter-spacing:.07em!important}
+  html body .product-page{padding-top:26px!important}
+  html body .add-to-cart-control{grid-template-columns:92px minmax(0,1fr)!important}
+  html body .quantity-control,
+  html body .product-primary-cta{min-height:50px!important}
+  html body .product-trust-grid span{font-size:7.5px!important;letter-spacing:.05em!important}
+  html body .checkout-fields-two,
+  html body .checkout-fields-address{grid-template-columns:1fr!important;gap:0!important}
+  html body .checkout-fields-address .checkout-number,
+  html body .checkout-fields-address .checkout-uf{max-width:none!important}
+  html body .checkout-coupon-row{grid-template-columns:1fr!important}
+  html body .checkout-coupon-row button{width:100%!important}
+  html body .ago-clean-checkout-head h1{font-size:clamp(2.9rem,12vw,4rem)!important}
+}
