@@ -1,0 +1,366 @@
+/* AGÔ — FORÇA VERDADEIRA 2026
+   Última camada visual: editorial, brasileira, limpa e comercial.
+   Sem circo, sem lona, sem linguagem de souvenir.
+*/
+.ago-home.ago-clean-home{
+  background:#fbfaf7!important;
+  color:#211914!important;
+}
+
+/* 01 — coleção: produto é a entrada, sem bloco de categoria empurrando a vitrine */
+.ago-clean-collection{
+  padding:74px 0 64px!important;
+  background:#fbfaf7!important;
+}
+.ago-clean-collection-kicker{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:24px;
+  margin-bottom:18px;
+}
+.ago-clean-collection-kicker > span{
+  color:rgba(33,25,20,.42);
+  font-size:9px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.ago-clean-collection-head{
+  grid-template-columns:minmax(0,1.22fr) minmax(260px,.58fr)!important;
+  gap:84px!important;
+  margin-bottom:48px!important;
+}
+.ago-clean-collection-head h1{
+  max-width:880px;
+  margin:0!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(4.2rem,7.3vw,7.8rem)!important;
+  line-height:.79!important;
+  letter-spacing:-.048em!important;
+  font-weight:600!important;
+  color:#3f261c!important;
+  text-wrap:balance;
+}
+.ago-clean-collection-head > p{
+  max-width:385px!important;
+  margin:0 0 5px!important;
+  color:rgba(33,25,20,.60)!important;
+  font-size:13px!important;
+  line-height:1.85!important;
+}
+
+/* Cards: fotografia maior, hierarquia mais sofisticada, menos interface */
+.ago-clean-product-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:42px 24px!important;
+}
+.ago-clean-product-grid .product-card{
+  min-width:0;
+}
+.ago-clean-product-grid .product-image-wrap{
+  aspect-ratio:1/1!important;
+  background:#f5efe7!important;
+  overflow:hidden!important;
+}
+.ago-clean-product-grid .product-image{
+  padding:3px!important;
+  transition:transform .45s cubic-bezier(.2,.7,.2,1)!important;
+}
+.ago-clean-product-grid .product-card:hover .product-image{
+  transform:scale(1.025)!important;
+}
+.ago-clean-product-grid .product-view{
+  display:none!important;
+}
+.ago-clean-product-grid .product-badge{
+  top:12px!important;
+  left:12px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#8d4327!important;
+  color:#fff8f2!important;
+  padding:7px 9px!important;
+  font-size:8px!important;
+  letter-spacing:.13em!important;
+  text-transform:uppercase!important;
+}
+.ago-clean-product-grid .product-name{
+  margin-top:0!important;
+  font-size:12px!important;
+  line-height:1.35!important;
+  font-weight:600!important;
+  letter-spacing:.005em!important;
+  color:#3f261c!important;
+}
+.ago-clean-product-grid .current-price{
+  display:block!important;
+  margin-top:6px!important;
+  font-size:12px!important;
+  line-height:1.2!important;
+  font-weight:600!important;
+  color:#8d4327!important;
+}
+.ago-clean-product-grid .old-price{
+  font-size:10px!important;
+  color:rgba(63,38,28,.38)!important;
+}
+.ago-clean-product-grid .product-add{
+  display:inline-flex!important;
+  width:auto!important;
+  margin-top:13px!important;
+  padding:7px 0 5px!important;
+  border:0!important;
+  border-bottom:1px solid rgba(141,67,39,.36)!important;
+  background:transparent!important;
+  color:#8d4327!important;
+  font-size:8px!important;
+  line-height:1!important;
+  font-weight:700!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+}
+.ago-clean-product-grid .product-add:hover{
+  border-bottom-color:#8d4327!important;
+  color:#3f261c!important;
+}
+.ago-clean-collection-foot{
+  margin-top:42px!important;
+  padding-top:18px!important;
+  border-top:1px solid rgba(63,38,28,.10)!important;
+}
+
+/* 02 — hero: imagem grande e uma mensagem só */
+.ago-clean-hero{
+  min-height:700px!important;
+  background:#3f261c!important;
+}
+.ago-clean-hero-overlay{
+  background:
+    linear-gradient(90deg,rgba(33,25,20,.80) 0%,rgba(33,25,20,.52) 34%,rgba(33,25,20,.12) 72%,rgba(33,25,20,.05) 100%),
+    linear-gradient(0deg,rgba(33,25,20,.40),transparent 55%)!important;
+}
+.ago-clean-hero-content{
+  max-width:1240px;
+  padding-bottom:78px!important;
+}
+.ago-clean-hero-content h2{
+  max-width:850px;
+  font-size:clamp(4.5rem,8.5vw,9rem)!important;
+  line-height:.76!important;
+  letter-spacing:-.052em!important;
+  text-wrap:balance;
+}
+.ago-clean-hero-content > p:not(.eyebrow){
+  font-size:14px!important;
+  line-height:1.7!important;
+  max-width:420px;
+}
+
+/* 03 — editorial: menos cartão, mais revista */
+.ago-clean-edit{
+  padding:112px 0!important;
+  background:#f5efe7!important;
+}
+.ago-clean-edit-grid{
+  grid-template-columns:minmax(0,1.14fr) minmax(320px,.86fr)!important;
+  gap:88px!important;
+}
+.ago-clean-edit-image{
+  min-height:620px!important;
+  background:#eadfd2!important;
+}
+.ago-clean-edit-copy{
+  max-width:480px!important;
+}
+.ago-clean-edit-copy h2{
+  font-size:clamp(3.5rem,5.2vw,6.1rem)!important;
+  line-height:.80!important;
+  letter-spacing:-.045em!important;
+}
+.ago-clean-edit-copy > p:not(.eyebrow){
+  max-width:420px!important;
+  font-size:14px!important;
+  line-height:1.9!important;
+  color:rgba(63,38,28,.64)!important;
+}
+
+/* 04 — benefícios: faixa calma, sem cara de cards */
+.ago-clean-benefits{
+  padding:58px 0!important;
+  background:#fbfaf7!important;
+}
+.ago-clean-benefit{
+  padding:0 28px!important;
+}
+.ago-clean-benefit-mark{
+  display:none!important;
+}
+.ago-clean-benefit h3{
+  margin:0 0 10px!important;
+  font-size:26px!important;
+}
+.ago-clean-benefit p{
+  font-size:10.5px!important;
+  line-height:1.65!important;
+  max-width:225px!important;
+}
+
+/* 05 — presença física: terracota, não marrom total */
+.ago-clean-visit{
+  padding:92px 0!important;
+  background:#8d4327!important;
+}
+.ago-clean-visit h2{
+  font-size:clamp(3.5rem,6.1vw,6.6rem)!important;
+  line-height:.79!important;
+}
+.ago-clean-visit p:not(.eyebrow){
+  color:rgba(255,248,242,.78)!important;
+}
+.ago-clean-visit-links a{
+  color:#fff8f2!important;
+}
+.ago-clean-visit-links a:hover{
+  color:#211914!important;
+}
+.ago-clean-visit-note{
+  border-left-color:rgba(255,248,242,.28)!important;
+}
+.ago-clean-visit-note span,
+.ago-clean-visit-note p{
+  color:rgba(255,248,242,.62)!important;
+}
+.ago-clean-visit-note strong{
+  color:#fff8f2!important;
+}
+
+/* Header: mais silencioso para a vitrine respirar */
+.ago-topbar{
+  min-height:28px!important;
+  padding:5px 18px!important;
+}
+.site-header{
+  box-shadow:none!important;
+  border-bottom:1px solid rgba(63,38,28,.08)!important;
+}
+.header-inner{
+  min-height:72px!important;
+}
+.header-link{
+  font-size:9px!important;
+  letter-spacing:.14em!important;
+}
+.header-search{
+  width:154px!important;
+  border:0!important;
+  border-bottom:1px solid rgba(63,38,28,.16)!important;
+  border-radius:0!important;
+  padding:8px 0!important;
+  background:transparent!important;
+}
+
+/* Checkout: sem trilho visual de scrollbar */
+.ago-clean-checkout-summary .checkout-summary-items{
+  scrollbar-width:none!important;
+  -ms-overflow-style:none!important;
+}
+.ago-clean-checkout-summary .checkout-summary-items::-webkit-scrollbar{
+  display:none!important;
+  width:0!important;
+}
+
+/* Responsivo */
+@media(max-width:1000px){
+  .ago-clean-collection-head{
+    grid-template-columns:1fr!important;
+    gap:20px!important;
+  }
+  .ago-clean-collection-head > p{
+    max-width:600px!important;
+  }
+  .ago-clean-product-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:700px){
+  .ago-clean-container{
+    width:calc(100% - 32px)!important;
+  }
+  .ago-clean-collection{
+    padding:44px 0 42px!important;
+  }
+  .ago-clean-collection-kicker{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:7px;
+  }
+  .ago-clean-collection-head{
+    gap:17px!important;
+    margin-bottom:30px!important;
+  }
+  .ago-clean-collection-head h1{
+    font-size:4.15rem!important;
+    line-height:.82!important;
+  }
+  .ago-clean-collection-head > p{
+    font-size:12px!important;
+  }
+  .ago-desktop-only{
+    display:none;
+  }
+  .ago-clean-product-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:28px 12px!important;
+  }
+  .ago-clean-product-grid .product-name{
+    font-size:11px!important;
+  }
+  .ago-clean-product-grid .product-add{
+    margin-top:11px!important;
+    font-size:7.5px!important;
+  }
+  .ago-clean-hero{
+    min-height:610px!important;
+  }
+  .ago-clean-hero-content{
+    padding-bottom:46px!important;
+  }
+  .ago-clean-hero-content h2{
+    font-size:4.55rem!important;
+    line-height:.80!important;
+  }
+  .ago-clean-edit{
+    padding:64px 0!important;
+  }
+  .ago-clean-edit-grid{
+    gap:34px!important;
+  }
+  .ago-clean-edit-image{
+    min-height:390px!important;
+  }
+  .ago-clean-edit-copy h2{
+    font-size:3.65rem!important;
+  }
+  .ago-clean-benefits{
+    padding:48px 0!important;
+  }
+  .ago-clean-benefits-grid{
+    grid-template-columns:1fr 1fr!important;
+    row-gap:34px!important;
+  }
+  .ago-clean-benefit{
+    padding:0 12px!important;
+  }
+  .ago-clean-benefit:nth-child(2):after{
+    display:none!important;
+  }
+  .ago-clean-visit{
+    padding:66px 0!important;
+  }
+  .ago-clean-visit-grid{
+    gap:48px!important;
+  }
+  .ago-clean-visit h2{
+    font-size:4.2rem!important;
+  }
+}
