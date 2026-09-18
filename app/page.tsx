@@ -29,14 +29,16 @@ export default function HomePage() {
     <div className="ago-home ago-clean-home">
       <section id="colecao" className="ago-clean-collection">
         <div className="ago-clean-container">
+          <div className="ago-clean-collection-kicker">
+            <p className="eyebrow">A coleção</p>
+            <span>Trancoso · Bahia · Brasil</span>
+          </div>
+
           <div className="ago-clean-collection-head">
-            <div>
-              <p className="eyebrow">A coleção</p>
-              <h1>Peças que ficam.</h1>
-            </div>
+            <h1>Peças para levar a Bahia<br className="ago-desktop-only" /> para dentro de casa.</h1>
             <p>
-              Cerâmicas feitas à mão, inspiradas na Bahia, em Trancoso e nas formas que
-              fazem parte do nosso jeito brasileiro de viver.
+              Cerâmicas feitas à mão, inspiradas na arquitetura, na fé, nas cores e nas
+              memórias que fazem parte do nosso jeito brasileiro de viver.
             </p>
           </div>
 
@@ -53,26 +55,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      <nav className="ago-clean-category-nav" aria-label="Categorias da coleção">
-        <div className="ago-clean-container ago-clean-category-inner">
-          <span>Escolha por perto</span>
-          <div>
-            <Link href="/produtos?categoria=trancoso">Trancoso</Link>
-            <Link href="/produtos?categoria=igrejinhas">Igrejinhas</Link>
-            <Link href="/produtos?categoria=decoracao">Decoração</Link>
-            <Link href="/produtos?categoria=fe-devocao">Fé e devoção</Link>
-            <Link href="/produtos?categoria=presentes">Presentes</Link>
-          </div>
-        </div>
-      </nav>
-
       <section className="ago-clean-hero">
-        <Image src="/hero.jpg" alt="Peças de cerâmica da Agô Trancoso" fill sizes="100vw" className="ago-clean-hero-image" priority />
+        <Image
+          src="/hero.jpg"
+          alt="Peças de cerâmica da Agô Trancoso"
+          fill
+          sizes="100vw"
+          className="ago-clean-hero-image"
+          priority
+        />
         <div className="ago-clean-hero-overlay" />
         <div className="ago-clean-container ago-clean-hero-content">
           <p className="eyebrow">Agô Trancoso</p>
           <h2>FEITO À MÃO.<br />FEITO PARA DURAR.</h2>
-          <p>Peças para levar a Bahia para dentro de casa.<br />Um jeito brasileiro de morar.</p>
+          <p>
+            Peças para levar a Bahia para dentro de casa.<br />
+            Um jeito brasileiro de morar.
+          </p>
           <div className="ago-clean-actions">
             <Link href="/produtos" className="ago-clean-button ago-clean-button-light">Ver coleção</Link>
             <Link href="/nossa-essencia" className="ago-clean-text-link">Conheça a Agô <span aria-hidden="true">↗</span></Link>
@@ -83,7 +82,12 @@ export default function HomePage() {
       <section className="ago-clean-edit">
         <div className="ago-clean-container ago-clean-edit-grid">
           <div className="ago-clean-edit-image">
-            <Image src="/complementar.jpg" alt="Igrejinhas de cerâmica da Agô Trancoso" fill sizes="(max-width: 900px) 100vw, 48vw" />
+            <Image
+              src="/complementar.jpg"
+              alt="Igrejinhas de cerâmica da Agô Trancoso"
+              fill
+              sizes="(max-width: 900px) 100vw, 56vw"
+            />
           </div>
           <div className="ago-clean-edit-copy">
             <p className="eyebrow">Da Bahia para sua casa</p>
@@ -104,7 +108,10 @@ export default function HomePage() {
           <div>
             <p className="eyebrow">Visite a Agô</p>
             <h2>Chegou ao Quadrado?<br />Procure a Agô.</h2>
-            <p>Nossa banca fica no Quadrado de Trancoso. Para localizar uma peça ou conversar com a gente, fale pelo WhatsApp ou Instagram.</p>
+            <p>
+              Nossa banca fica no Quadrado de Trancoso. Para localizar uma peça ou
+              conversar com a gente, fale pelo WhatsApp ou Instagram.
+            </p>
             <div className="ago-clean-visit-links">
               <a href={mapsUrl} target="_blank" rel="noreferrer">Google Maps <span aria-hidden="true">↗</span></a>
               <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
