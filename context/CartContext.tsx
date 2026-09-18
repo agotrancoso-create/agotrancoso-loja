@@ -28,10 +28,29 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw) setItems(JSON.parse(raw));
+      if (raw) {
+        const parsed: unknown = JSON.parse(raw);
+        const safeItems = Array.isArray(parsed)
+          ? parsed
+              .map((entry): CartItem | null => {
+                if (!entry || typeof entry !== 'object') return null;
+                const value = entry as { productId?: unknown; id?: unknown; quantity?: unknown };
+                const productId =
+                  typeof value.productId === 'string'
+                    ? value.productId
+                    : typeof value.id === 'string'
+                      ? value.id
+                      : '';
+                const quantity = Number(value.quantity);
+                if (!productId || !Number.isInteger(quantity) || quantity < 1) return null;
+                return { productId, quantity };
+              })
+              .filter((item): item is CartItem => Boolean(item))
+          : [];
+        setItems(safeItems);
+      }
     } catch {
-      // localStorage indisponível (ex: modo privado) — o carrinho simplesmente
-      // não persiste entre visitas, mas o site continua funcionando.
+      // localStorage indisponível ou corrompido — começa com carrinho vazio.
     }
     setHydrated(true);
   }, []);
