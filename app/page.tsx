@@ -37,8 +37,7 @@ export default function HomePage() {
           <div className="ago-clean-collection-head">
             <h1>Peças para levar a Bahia<br className="ago-desktop-only" /> para dentro de casa.</h1>
             <p>
-              Cerâmicas feitas à mão, inspiradas na arquitetura, na fé, nas cores e nas
-              memórias que fazem parte do nosso jeito brasileiro de viver.
+              São peças de cerâmica feitas à mão, inspiradas no que a gente vê, vive e guarda de Trancoso.
             </p>
           </div>
 
@@ -69,8 +68,7 @@ export default function HomePage() {
           <p className="eyebrow">Agô Trancoso</p>
           <h2>FEITO À MÃO.<br />FEITO PARA DURAR.</h2>
           <p>
-            Peças para levar a Bahia para dentro de casa.<br />
-            Um jeito brasileiro de morar.
+            Peças para levar a Bahia para dentro de casa.
           </p>
           <div className="ago-clean-actions">
             <Link href="/produtos" className="ago-clean-button ago-clean-button-light">Ver coleção</Link>
@@ -93,8 +91,7 @@ export default function HomePage() {
             <p className="eyebrow">Da Bahia para sua casa</p>
             <h2>Uma peça pode mudar o lugar onde você olha.</h2>
             <p>
-              Igrejinhas, imagens, pequenas arquiteturas e formas para decorar,
-              presentear e guardar — escolhidas para ter presença sem excesso.
+              Igrejinhas, imagens e formas que a gente gosta de ter por perto — para decorar, presentear ou guardar.
             </p>
             <Link href="/produtos" className="ago-clean-dark-link">Escolher uma peça <span aria-hidden="true">↗</span></Link>
           </div>
@@ -109,8 +106,7 @@ export default function HomePage() {
             <p className="eyebrow">Visite a Agô</p>
             <h2>Chegou ao Quadrado?<br />Procure a Agô.</h2>
             <p>
-              Nossa banca fica no Quadrado de Trancoso. Para localizar uma peça ou
-              conversar com a gente, fale pelo WhatsApp ou Instagram.
+              Nossa banca fica no Quadrado de Trancoso. Para ver uma peça de perto ou falar com a gente, é só chamar pelo WhatsApp ou Instagram.
             </p>
             <div className="ago-clean-visit-links">
               <a href={mapsUrl} target="_blank" rel="noreferrer">Google Maps <span aria-hidden="true">↗</span></a>
