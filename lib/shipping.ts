@@ -2,7 +2,7 @@ export const FREE_SHIPPING_THRESHOLD = 500;
 export const FIXED_SHIPPING_PRICE = 39.9;
 
 export function shouldOfferFreeShipping(subtotal: number): boolean {
-  return subtotal >= FREE_SHIPPING_THRESHOLD;
+  return subtotal > FREE_SHIPPING_THRESHOLD;
 }
 
 export function getShippingPrice(subtotal: number): number {
