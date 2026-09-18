@@ -20,7 +20,7 @@ export function generateMetadata({ params }: { params: { id: string } }): Metada
   const product = getProductById(params.id);
   if (!product) return {};
   return {
-    title: product.name,
+    title: { absolute: `${product.name} | Agô Trancoso` },
     description: product.description,
     alternates: { canonical: `/produtos/${product.id}` },
   };
