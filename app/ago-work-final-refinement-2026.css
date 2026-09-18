@@ -1,0 +1,532 @@
+/* Agô Trancoso — WORK FINAL REFINEMENT 2026
+   Camada final de direção visual. Não altera arquitetura, catálogo ou gateway.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Lato:wght@400;700;900&display=swap');
+
+:root{
+  --ago-work-title:#40251D;
+  --ago-work-body:#655047;
+  --ago-work-terra:#A4511F;
+  --ago-work-terra-hover:#7B3928;
+  --ago-work-accent:#B45D35;
+  --ago-work-paper:#FCFCFA;
+  --ago-work-cream:#F6F0E8;
+  --ago-work-sand:#E8D9C7;
+  --ago-work-line:rgba(64,37,29,.12);
+}
+
+html,body{
+  background:var(--ago-work-paper)!important;
+  color:var(--ago-work-body)!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  overflow-x:hidden;
+}
+
+body .ago-topbar{
+  min-height:34px!important;
+  padding:7px 18px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:12px!important;
+  background:var(--ago-work-title)!important;
+  color:#FCFCFA!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  font-size:9px!important;
+  line-height:1!important;
+  letter-spacing:.11em!important;
+  text-transform:uppercase!important;
+}
+body .ago-topbar-offer{color:#F1B28A!important;font-weight:700!important}
+body .ago-topbar i{width:2px!important;height:2px!important;border-radius:50%!important;background:rgba(252,252,250,.5)!important;display:block!important}
+
+html body .site-header{
+  background:rgba(252,252,250,.98)!important;
+  border-bottom:1px solid var(--ago-work-line)!important;
+  box-shadow:0 5px 18px rgba(64,37,29,.04)!important;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+html body .site-header .header-inner{
+  min-height:70px!important;
+  width:min(1240px,calc(100% - 48px))!important;
+  margin-inline:auto!important;
+  display:grid!important;
+  grid-template-columns:66px minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:24px!important;
+}
+html body .site-header .header-logo{
+  width:52px!important;height:52px!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+}
+html body .site-header .header-logo img{width:48px!important;height:48px!important}
+html body .site-header .header-nav-desktop{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:30px!important;
+}
+html body .site-header .header-link{
+  padding:25px 0!important;
+  color:rgba(64,37,29,.72)!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  letter-spacing:.13em!important;
+  text-transform:uppercase!important;
+  transition:color .18s ease;
+}
+html body .site-header .header-link:hover,
+html body .site-header .header-link.is-active{color:var(--ago-work-terra)!important}
+html body .site-header .header-link.is-active::after{background:var(--ago-work-terra)!important;height:1px!important}
+
+html body .header-actions{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:12px!important;
+}
+html body .header-search-form{width:145px!important}
+html body .header-search{
+  width:100%!important;height:34px!important;
+  padding:0 1px!important;
+  border:0!important;border-bottom:1px solid rgba(64,37,29,.18)!important;
+  border-radius:0!important;background:transparent!important;
+  color:var(--ago-work-title)!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  font-size:11px!important;
+}
+html body .header-search:focus{border-bottom-color:var(--ago-work-terra)!important}
+html body .header-icon{
+  min-width:78px!important;min-height:42px!important;
+  padding:4px 5px!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  border:0!important;border-radius:0!important;background:transparent!important;
+  color:var(--ago-work-title)!important;
+}
+html body .header-cart-label{
+  display:inline-flex!important;align-items:center!important;gap:7px!important;
+  color:inherit!important;font-family:'Lato',Arial,sans-serif!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.12em!important;
+  line-height:1!important;text-transform:uppercase!important;
+}
+html body .header-cart-label svg{width:21px!important;height:21px!important;color:var(--ago-work-terra)!important}
+html body .cart-count{
+  width:17px!important;height:17px!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  border-radius:50%!important;background:var(--ago-work-terra)!important;color:#fff!important;
+  font-size:8px!important;font-weight:700!important;
+}
+html body .mobile-menu-button{display:none!important}
+
+html body .ago-clean-container{
+  width:min(1180px,calc(100% - 48px))!important;
+  margin-inline:auto!important;
+}
+
+html body .ago-clean-collection{
+  padding:54px 0 62px!important;
+  background:var(--ago-work-paper)!important;
+}
+html body .ago-clean-collection-kicker{
+  margin-bottom:26px!important;
+  display:flex!important;align-items:center!important;justify-content:space-between!important;gap:20px!important;
+}
+html body .ago-clean-collection-kicker .eyebrow{
+  margin:0!important;color:var(--ago-work-terra)!important;
+  font-family:'Lato',Arial,sans-serif!important;font-size:10px!important;font-weight:700!important;
+  letter-spacing:.18em!important;text-transform:uppercase!important;
+}
+html body .ago-clean-collection-kicker>span{
+  color:rgba(64,37,29,.48)!important;
+  font-size:9px!important;letter-spacing:.10em!important;
+}
+html body .ago-clean-collection-head{
+  display:grid!important;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr)!important;
+  align-items:end!important;gap:48px!important;margin-bottom:36px!important;
+}
+html body .ago-clean-collection-head h1{
+  margin:0!important;max-width:760px!important;
+  color:var(--ago-work-title)!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(3.4rem,5.7vw,5.75rem)!important;
+  line-height:.88!important;font-weight:600!important;letter-spacing:-.037em!important;
+}
+html body .ago-clean-collection-head>p{
+  max-width:430px!important;margin:0!important;
+  color:var(--ago-work-body)!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  font-size:14px!important;line-height:1.78!important;
+}
+
+html body .ago-clean-product-grid{
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:36px 22px!important;align-items:start!important;
+}
+html body .ago-clean-product-grid .product-card{
+  min-width:0!important;display:flex!important;flex-direction:column!important;
+}
+html body .ago-clean-product-grid .product-image-wrap{
+  position:relative!important;aspect-ratio:1/1!important;overflow:hidden!important;
+  background:var(--ago-work-cream)!important;
+  border:1px solid rgba(64,37,29,.07)!important;border-radius:3px!important;
+}
+html body .ago-clean-product-grid .product-image{
+  padding:9px!important;
+  transition:transform .32s ease!important;
+}
+html body .ago-clean-product-grid .product-card:hover .product-image{transform:scale(1.02)!important}
+html body .ago-clean-product-grid .product-name{
+  min-height:2.8em!important;margin:0!important;
+  color:var(--ago-work-title)!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  font-size:12px!important;line-height:1.42!important;font-weight:700!important;
+}
+html body .ago-clean-product-grid .current-price{
+  margin-top:8px!important;color:var(--ago-work-terra)!important;
+  font-family:'Lato',Arial,sans-serif!important;font-size:13px!important;font-weight:700!important;
+}
+html body .ago-clean-product-grid .product-add{
+  width:100%!important;min-height:42px!important;
+  margin-top:14px!important;padding:10px 12px!important;
+  border:1px solid var(--ago-work-terra)!important;border-radius:3px!important;
+  background:transparent!important;color:var(--ago-work-terra)!important;
+  font-family:'Lato',Arial,sans-serif!important;font-size:9px!important;
+  font-weight:700!important;letter-spacing:.11em!important;text-transform:uppercase!important;
+  transition:background .18s ease,color .18s ease,border-color .18s ease!important;
+}
+html body .ago-clean-product-grid .product-add:hover{
+  background:var(--ago-work-terra)!important;color:#fff!important;border-color:var(--ago-work-terra)!important;
+}
+html body .ago-clean-product-grid .product-badge{
+  background:var(--ago-work-terra)!important;color:#fff!important;border-radius:2px!important;
+}
+html body .ago-clean-collection-foot{
+  margin-top:42px!important;padding-top:18px!important;
+  border-top:1px solid var(--ago-work-line)!important;
+  display:flex!important;align-items:center!important;justify-content:space-between!important;gap:20px!important;
+}
+html body .ago-clean-collection-foot>span{
+  color:rgba(64,37,29,.50)!important;font-size:10px!important;letter-spacing:.03em!important;
+}
+html body .ago-clean-collection-foot a{
+  color:var(--ago-work-terra)!important;font-size:9px!important;font-weight:700!important;
+  letter-spacing:.12em!important;text-transform:uppercase!important;
+}
+
+html body .ago-clean-hero{
+  min-height:540px!important;background:var(--ago-work-title)!important;
+}
+html body .ago-clean-hero-overlay{
+  background:linear-gradient(90deg,rgba(32,20,15,.84),rgba(64,37,29,.45) 48%,rgba(64,37,29,.08))!important;
+}
+html body .ago-clean-hero-content{
+  padding-block:76px!important;
+}
+html body .ago-clean-hero-content h2{
+  max-width:700px!important;margin:0!important;color:#FCFCFA!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(3.8rem,6.3vw,6.5rem)!important;line-height:.84!important;
+  font-weight:600!important;letter-spacing:-.04em!important;
+}
+html body .ago-clean-hero-content>p:not(.eyebrow){
+  max-width:410px!important;color:rgba(252,252,250,.80)!important;
+  font-size:14px!important;line-height:1.72!important;
+}
+html body .ago-clean-actions{display:flex!important;align-items:center!important;gap:22px!important;flex-wrap:wrap!important}
+html body .ago-clean-button{
+  min-height:44px!important;padding:12px 20px!important;border-radius:3px!important;
+  background:var(--ago-work-terra)!important;color:#fff!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.13em!important;text-transform:uppercase!important;
+}
+html body .ago-clean-button:hover{background:var(--ago-work-terra-hover)!important}
+html body .ago-clean-text-link{
+  color:#FCFCFA!important;font-size:10px!important;font-weight:700!important;letter-spacing:.10em!important;text-transform:uppercase!important;
+}
+
+html body .ago-clean-edit{background:#E8D8C7!important}
+html body .ago-clean-edit-copy h2,
+html body .ago-clean-visit h2{
+  color:var(--ago-work-title)!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(2.9rem,4.4vw,4.75rem)!important;
+  line-height:.90!important;font-weight:600!important;letter-spacing:-.034em!important;
+}
+html body .ago-clean-edit-copy>p:not(.eyebrow),
+html body .ago-clean-visit p:not(.eyebrow){
+  color:var(--ago-work-body)!important;font-size:14px!important;line-height:1.8!important;
+}
+html body .ago-clean-edit-copy .ago-clean-dark-link{
+  color:var(--ago-work-terra-hover)!important;font-size:10px!important;font-weight:700!important;
+  letter-spacing:.11em!important;text-transform:uppercase!important;
+}
+html body .ago-clean-benefits{background:var(--ago-work-paper)!important}
+html body .ago-clean-benefit h3{
+  color:var(--ago-work-title)!important;font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:24px!important;line-height:1.02!important;font-weight:600!important;
+}
+html body .ago-clean-benefit p{color:var(--ago-work-body)!important;font-size:11px!important;line-height:1.7!important}
+html body .ago-clean-visit{background:var(--ago-work-title)!important}
+html body .ago-clean-visit h2{color:#FCFCFA!important}
+html body .ago-clean-visit p:not(.eyebrow){color:rgba(252,252,250,.78)!important}
+html body .ago-clean-visit-links a{
+  color:#FCFCFA!important;font-size:10px!important;font-weight:700!important;
+  letter-spacing:.10em!important;text-transform:uppercase!important;
+}
+
+html body .site-footer{
+  background:#2D1813!important;color:#F8F2EA!important;
+  text-align:left!important;
+}
+html body .site-footer .footer-shell{
+  width:min(1180px,calc(100% - 48px))!important;
+  margin-inline:auto!important;padding:62px 0 26px!important;
+}
+html body .site-footer .footer-brand{
+  display:flex!important;justify-content:flex-start!important;align-items:center!important;
+}
+html body .site-footer .footer-brand img{width:92px!important;height:92px!important}
+html body .site-footer .footer-grid{
+  display:grid!important;grid-template-columns:1.4fr .65fr .9fr!important;
+  gap:64px!important;justify-items:stretch!important;text-align:left!important;
+  margin-top:30px!important;
+}
+html body .site-footer .footer-grid>div{
+  width:100%!important;display:flex!important;flex-direction:column!important;
+  align-items:flex-start!important;text-align:left!important;
+}
+html body .site-footer h3{
+  color:#F8F2EA!important;font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:31px!important;font-weight:600!important;line-height:1!important;
+}
+html body .site-footer h4{
+  margin:0!important;color:#B45D35!important;text-align:left!important;
+  font-family:'Lato',Arial,sans-serif!important;font-size:10px!important;
+  font-weight:700!important;letter-spacing:.15em!important;text-transform:uppercase!important;
+}
+html body .site-footer p,
+html body .site-footer li,
+html body .site-footer a,
+html body .site-footer span{
+  color:rgba(248,242,234,.75)!important;text-align:left!important;
+  font-family:'Lato',Arial,sans-serif!important;font-size:12px!important;line-height:1.65!important;
+}
+html body .site-footer ul{align-items:flex-start!important;text-align:left!important;gap:7px!important}
+html body .site-footer .footer-copyright{
+  display:block!important;width:100%!important;margin-top:34px!important;padding-top:18px!important;
+  border-top:1px solid rgba(248,242,234,.12)!important;
+  text-align:center!important;color:rgba(248,242,234,.50)!important;
+}
+
+html body .cart-drawer{
+  width:min(500px,100vw)!important;
+  display:flex!important;flex-direction:column!important;
+  background:#FCFCFA!important;color:var(--ago-work-title)!important;
+  border-left:1px solid rgba(64,37,29,.10)!important;
+  box-shadow:-26px 0 72px rgba(39,26,21,.20)!important;
+}
+html body .cart-backdrop{background:rgba(39,26,21,.42)!important;z-index:90!important;backdrop-filter:blur(2px)}
+html body .cart-drawer{z-index:100!important}
+html body .cart-header{
+  min-height:82px!important;padding:16px 24px!important;
+  display:flex!important;align-items:center!important;justify-content:space-between!important;
+  gap:20px!important;background:var(--ago-work-title)!important;
+}
+html body .cart-header-title{display:flex!important;align-items:center!important;gap:10px!important}
+html body .cart-header-title svg{color:var(--ago-work-accent)!important}
+html body .cart-header h2{
+  margin:0!important;color:#FCFCFA!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:31px!important;line-height:.95!important;font-weight:600!important;
+}
+html body .cart-close{
+  width:38px!important;height:38px!important;flex:0 0 auto!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  border:1px solid rgba(252,252,250,.22)!important;border-radius:50%!important;
+  background:transparent!important;color:#FCFCFA!important;
+}
+html body .cart-body{
+  flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;
+  padding:18px 22px 20px!important;background:#FCFCFA!important;
+}
+html body .cart-items{display:flex!important;flex-direction:column!important;gap:12px!important}
+html body .cart-item{
+  display:grid!important;grid-template-columns:82px minmax(0,1fr) auto!important;
+  gap:14px!important;margin:0!important;padding:13px!important;
+  border:1px solid var(--ago-work-line)!important;border-radius:3px!important;background:#FBF7F1!important;
+}
+html body .cart-product-image{
+  width:82px!important;height:82px!important;background:var(--ago-work-cream)!important;
+  border:0!important;border-radius:2px!important;overflow:hidden!important;
+}
+html body .cart-product-image img{padding:6px!important}
+html body .cart-item-info h4{
+  margin:0 0 5px!important;color:var(--ago-work-title)!important;
+  font-family:'Lato',Arial,sans-serif!important;font-size:12px!important;line-height:1.4!important;font-weight:700!important;
+}
+html body .cart-item-info p{margin:0!important;color:rgba(64,37,29,.55)!important;font-size:10px!important}
+html body .cart-item-controls{
+  margin-top:10px!important;display:inline-flex!important;align-items:center!important;
+  border:1px solid rgba(64,37,29,.15)!important;border-radius:2px!important;background:#F6EDE3!important;
+}
+html body .cart-item-controls>button:not(.cart-remove),
+html body .cart-item-controls>span{
+  width:29px!important;height:29px!important;min-width:29px!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+}
+html body .cart-item-controls>button{border:0!important;background:transparent!important;color:var(--ago-work-title)!important}
+html body .cart-item-controls .cart-remove{
+  width:auto!important;padding:0 8px!important;margin-left:7px!important;
+  border-left:1px solid rgba(64,37,29,.15)!important;color:var(--ago-work-terra)!important;
+  font-size:8px!important;font-weight:700!important;letter-spacing:.08em!important;text-transform:uppercase!important;
+}
+html body .cart-item-total{
+  align-self:start!important;white-space:nowrap!important;
+  color:var(--ago-work-title)!important;font-size:11px!important;font-weight:700!important;
+}
+html body .cart-summary{
+  flex:0 0 auto!important;
+  padding:15px 22px calc(20px + env(safe-area-inset-bottom))!important;
+  background:var(--ago-work-sand)!important;border-top:1px solid rgba(64,37,29,.10)!important;
+}
+html body .cart-shipping-message{
+  margin:0 0 9px!important;padding:9px 10px!important;
+  background:rgba(252,252,250,.64)!important;border-left:2px solid var(--ago-work-terra)!important;
+  color:var(--ago-work-body)!important;font-size:10px!important;line-height:1.45!important;
+}
+html body .cart-shipping-progress{
+  height:4px!important;margin:10px 0 6px!important;background:rgba(64,37,29,.12)!important;border-radius:999px!important;overflow:hidden!important;
+}
+html body .cart-shipping-progress span{background:var(--ago-work-terra)!important}
+html body .cart-shipping-progress-labels{font-size:8px!important;color:rgba(64,37,29,.52)!important}
+html body .cart-summary-row,
+html body .cart-total-row{display:flex!important;justify-content:space-between!important;gap:16px!important}
+html body .cart-summary-row{padding:4px 0!important;color:var(--ago-work-body)!important;font-size:11px!important}
+html body .cart-total-row{
+  margin-top:7px!important;padding-top:11px!important;
+  border-top:1px solid rgba(64,37,29,.14)!important;color:var(--ago-work-title)!important;font-size:12px!important;
+}
+html body .cart-total-row strong{color:var(--ago-work-title)!important;font-size:18px!important}
+html body .cart-checkout{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  width:100%!important;min-height:46px!important;margin-top:13px!important;
+  border-radius:3px!important;background:var(--ago-work-terra)!important;color:#fff!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.13em!important;text-transform:uppercase!important;
+}
+html body .cart-checkout:hover{background:var(--ago-work-terra-hover)!important}
+html body .cart-continue{
+  width:100%!important;min-height:34px!important;margin-top:5px!important;
+  border:0!important;background:transparent!important;color:var(--ago-work-terra-hover)!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.10em!important;text-transform:uppercase!important;
+}
+html body .cart-empty{
+  min-height:360px!important;display:flex!important;flex-direction:column!important;
+  justify-content:center!important;align-items:center!important;text-align:center!important;padding:30px 18px!important;
+}
+html body .cart-empty p{
+  margin:0!important;color:var(--ago-work-title)!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;font-size:34px!important;line-height:.98!important;font-weight:600!important;
+}
+html body .cart-empty span{max-width:34ch!important;color:rgba(64,37,29,.58)!important;font-size:12px!important;line-height:1.7!important;text-align:center!important}
+html body .cart-empty a{
+  min-height:44px!important;margin-top:11px!important;padding:0 20px!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  border-radius:3px!important;background:var(--ago-work-terra)!important;color:#fff!important;
+  font-size:9px!important;font-weight:700!important;letter-spacing:.12em!important;text-transform:uppercase!important;
+}
+
+html body .ago-social-floaters{
+  right:16px!important;bottom:16px!important;z-index:70!important;
+  display:flex!important;flex-direction:column!important;gap:8px!important;
+}
+html body .ago-social-button{
+  width:40px!important;height:40px!important;border-radius:50%!important;
+  border:1px solid rgba(252,252,250,.35)!important;
+  box-shadow:0 8px 18px rgba(39,26,21,.20)!important;
+}
+html body .ago-social-button svg{width:19px!important;height:19px!important}
+html body .ago-social-whatsapp{background:var(--ago-work-terra-hover)!important}
+html body .ago-social-instagram{background:var(--ago-work-accent)!important}
+
+:focus-visible{outline:2px solid var(--ago-work-accent)!important;outline-offset:3px!important}
+
+@media(max-width:900px){
+  html body .site-header .header-inner{
+    min-height:66px!important;width:calc(100% - 32px)!important;
+    grid-template-columns:48px minmax(0,1fr) auto!important;gap:8px!important;
+  }
+  html body .site-header .header-nav-desktop{display:none!important}
+  html body .mobile-menu-button{
+    display:inline-flex!important;align-items:center!important;justify-content:center!important;
+    width:38px!important;height:38px!important;padding:0!important;
+    border:1px solid rgba(64,37,29,.14)!important;border-radius:50%!important;
+    background:transparent!important;color:var(--ago-work-title)!important;
+  }
+  html body .header-actions{gap:5px!important}
+  html body .header-icon{min-width:65px!important}
+  html body .header-search-form{display:none!important}
+  html body .ago-clean-container{width:calc(100% - 32px)!important}
+  html body .ago-clean-collection{padding:40px 0 48px!important}
+  html body .ago-clean-collection-head{
+    display:block!important;margin-bottom:28px!important;
+  }
+  html body .ago-clean-collection-head h1{
+    font-size:clamp(2.9rem,12vw,4.15rem)!important;line-height:.90!important;
+  }
+  html body .ago-clean-collection-head>p{max-width:490px!important;margin-top:16px!important;font-size:13px!important}
+  html body .ago-clean-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:28px 12px!important}
+  html body .ago-clean-product-grid .product-name{min-height:0!important;font-size:11px!important}
+  html body .ago-clean-product-grid .current-price{font-size:12px!important}
+  html body .ago-clean-product-grid .product-add{min-height:42px!important;padding:9px 7px!important;font-size:7.5px!important;letter-spacing:.08em!important}
+  html body .ago-clean-hero{min-height:465px!important}
+  html body .ago-clean-hero-content{padding-block:56px!important}
+  html body .ago-clean-hero-content h2{font-size:clamp(3rem,14vw,4.7rem)!important;line-height:.86!important}
+  html body .ago-clean-edit-copy h2,
+  html body .ago-clean-visit h2{font-size:clamp(2.75rem,11vw,4rem)!important}
+  html body .ago-clean-collection-kicker{margin-bottom:22px!important}
+  html body .ago-clean-collection-foot{margin-top:34px!important}
+  html body .site-footer .footer-shell{width:calc(100% - 32px)!important;padding:48px 0 22px!important}
+  html body .site-footer .footer-brand{justify-content:center!important}
+  html body .site-footer .footer-grid{
+    grid-template-columns:1fr!important;gap:28px!important;text-align:center!important;
+  }
+  html body .site-footer .footer-grid>div{
+    align-items:center!important;text-align:center!important;
+  }
+  html body .site-footer h4,
+  html body .site-footer p,
+  html body .site-footer li,
+  html body .site-footer a,
+  html body .site-footer span{
+    text-align:center!important;
+  }
+  html body .site-footer ul{align-items:center!important}
+  html body .cart-drawer{width:100vw!important;border-left:0!important}
+  html body .cart-header{min-height:76px!important;padding:14px 18px!important}
+  html body .cart-header h2{font-size:28px!important}
+  html body .cart-body{padding:14px 16px 18px!important}
+  html body .cart-item{
+    grid-template-columns:70px minmax(0,1fr)!important;gap:11px!important;padding:11px!important;
+  }
+  html body .cart-product-image{width:70px!important;height:70px!important}
+  html body .cart-item-total{grid-column:2!important;margin-top:-4px!important}
+  html body .cart-summary{padding:13px 16px calc(16px + env(safe-area-inset-bottom))!important}
+  html body .cart-checkout{min-height:52px!important}
+  html body .ago-social-floaters{right:11px!important;bottom:11px!important;gap:6px!important}
+  html body .ago-social-button{width:38px!important;height:38px!important}
+}
+
+@media(max-width:430px){
+  html body .ago-topbar{font-size:8px!important;gap:8px!important;letter-spacing:.07em!important;white-space:nowrap!important}
+  html body .site-header .header-inner{width:calc(100% - 24px)!important;grid-template-columns:44px minmax(0,1fr) auto!important}
+  html body .site-header .header-logo,
+  html body .site-header .header-logo img{width:40px!important;height:40px!important}
+  html body .header-cart-label{font-size:7.2px!important;gap:4px!important}
+  html body .header-cart-label svg{width:18px!important;height:18px!important}
+  html body .header-icon{min-width:58px!important}
+  html body .ago-clean-container{width:calc(100% - 24px)!important}
+  html body .ago-clean-product-grid{gap:24px 9px!important}
+  html body .ago-clean-product-grid .product-image{padding:6px!important}
+  html body .ago-clean-product-grid .product-add{min-height:40px!important;padding-inline:5px!important}
+}
