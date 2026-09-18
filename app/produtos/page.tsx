@@ -5,7 +5,7 @@ import ProdutosClient from './ProdutosClient';
 
 export const metadata: Metadata = {
   title: 'Coleção',
-  description: 'Conheça a coleção de cerâmicas e objetos feitos à mão da Agô Trancoso, inspirados na Bahia, em Trancoso e no jeito brasileiro de viver.',
+  description: 'Conheça a coleção de peças de cerâmica feitas à mão da Agô Trancoso.',
   alternates: { canonical: '/produtos' },
 };
 
@@ -19,7 +19,7 @@ export default function ProdutosPage() {
         <div className="catalog-intro">
           <p className="eyebrow">A coleção</p>
           <h1>Peças para decorar, presentear e guardar.</h1>
-          <p>Cerâmicas e objetos feitos à mão, inspirados na Bahia e nas formas de Trancoso.</p>
+          <p>Peças de cerâmica feitas à mão, inspiradas em Trancoso e na Bahia.</p>
         </div>
         <Suspense fallback={null}>
           <ProdutosClient products={products} categories={categories} />
