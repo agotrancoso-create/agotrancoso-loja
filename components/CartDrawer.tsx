@@ -18,7 +18,7 @@ export default function CartDrawer() {
   const freeShipping = shouldOfferFreeShipping(subtotal);
   const shipping = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
   const total = subtotal + shipping;
-  const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD + 0.01 - subtotal);
+  const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
 
   return (
     <>
@@ -59,7 +59,7 @@ export default function CartDrawer() {
               <div className="cart-shipping-progress" aria-hidden="true">
                 <span style={{ width: Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100) + '%' }} />
               </div>
-              <div className="cart-shipping-progress-labels"><span>Frete fixo R$ 39,90</span><span>Grátis acima de R$ 500</span></div>
+              <div className="cart-shipping-progress-labels"><span>Frete fixo R$ 39,90</span><span>Grátis a partir de R$ 500</span></div>
             </div>
             <div className="cart-summary-row"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
             <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
