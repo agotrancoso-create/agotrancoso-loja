@@ -16,7 +16,7 @@ export default function ContatoPage() {
           <section className="contact-copy">
             <p className="eyebrow">Fale com a Agô</p>
             <h1>Contato</h1>
-            <p>Dúvidas sobre uma peça, entrega ou pagamento? Fale com a gente. Para comprar, não é necessário enviar mensagem: você pode finalizar o pedido diretamente pelo site.</p>
+            <p>Tem dúvida sobre uma peça, entrega ou pagamento? Fale com a gente. Para comprar, você também pode finalizar o pedido direto pelo site.</p>
           </section>
           <section className="contact-actions" aria-label="Canais de contato">
             <div className="contact-links">
