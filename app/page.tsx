@@ -136,7 +136,7 @@ export default function HomePage() {
             <div className="info-list">
               <div><strong>Banca</strong><span>Quadrado de Trancoso</span></div>
               <div><strong>Atendimento</strong><span>WhatsApp, Instagram e presencialmente no Quadrado</span></div>
-              <div><strong>Envios</strong><span>Frete fixo de R$ 39,90; grátis acima de R$ 500.</span></div>
+              <div><strong>Envios</strong><span>Frete fixo de R$ 39,90; grátis a partir de R$ 500.</span></div>
             </div>
           </div>
         </div>
