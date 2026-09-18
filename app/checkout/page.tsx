@@ -159,7 +159,7 @@ export default function CheckoutPage() {
               </div>
               <div className="checkout-shipping-note">
                 {freeShipping ? 'Frete grátis neste pedido.' : <>Frete fixo de <strong>R$ 39,90</strong>.</>}
-                <span>Grátis a partir de R$ 500.</span>
+                <span>Grátis acima de R$ 500.</span>
               </div>
               {shippingError && <p className="checkout-error" role="alert">{shippingError}</p>}
             </section>
