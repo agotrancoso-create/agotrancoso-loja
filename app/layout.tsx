@@ -72,6 +72,7 @@ import './ago-direcao-desktop-radical-2026.css';
 import './ago-desktop-final-clean-2026.css';
 import './ago-unificacao-humana-2026.css';
 import './ago-tipografia-rodape-refinado-2026.css';
+import './ago-carrinho-premium-final-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
