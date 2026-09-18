@@ -34,10 +34,6 @@ export default function Header() {
         <span className="ago-topbar-offer">3% OFF na 1ª compra</span>
         <i aria-hidden="true" />
         <span>Frete grátis a partir de R$ 500</span>
-        <i aria-hidden="true" />
-        <span>Envio para todo o Brasil</span>
-        <i aria-hidden="true" />
-        <span>Atendimento pelo WhatsApp</span>
       </div>
 
       <header className="site-header sticky top-0 z-40">
