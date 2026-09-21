@@ -9,6 +9,12 @@ import type { CartItem } from '@/lib/types';
 const INFINITEPAY_HANDLE = process.env.INFINITEPAY_HANDLE || 'ago-trancoso';
 type CheckoutUnit = { id: string; name: string; price: number; quantity: number };
 function cleanCep(value: unknown) { return String(value ?? '').replace(/\D/g, '').slice(0, 8); }
+function cleanPhone(value: unknown) {
+  const digits = String(value ?? '').replace(/\D/g, '');
+  if (digits.length === 10 || digits.length === 11) return '+55' + digits;
+  if (digits.startsWith('55') && (digits.length === 12 || digits.length === 13)) return '+' + digits;
+  return '';
+}
 function buildDiscountedUnits(lines: { id: string; name: string; unitPrice: number; quantity: number; subtotal: number }[], discount: number) {
   const units: { id: string; name: string; originalCents: number; exactDiscount: number; discountCents: number }[] = [];
   const totalCents = Math.round(lines.reduce((sum, line) => sum + line.subtotal, 0) * 100);
@@ -34,6 +40,8 @@ export async function POST(req: Request) {
     const customer = body.customer ?? {};
     const address = customer.address ?? {};
     if (!items.length) return NextResponse.json({ error: 'Carrinho vazio.' }, { status: 400 });
+    const normalizedPhone = cleanPhone(customer.phone);
+    if (!customer.email || !normalizedPhone) return NextResponse.json({ error: 'Informe um e-mail e telefone válidos.' }, { status: 400 });
     const totals = calculateCartTotals(items);
     if (!totals.valid) return NextResponse.json({ error: totals.errors[0] || 'Não foi possível validar o carrinho.' }, { status: 400 });
     const checkoutLines = items.map((item) => {
@@ -69,7 +77,7 @@ export async function POST(req: Request) {
       order_nsu: orderNsu,
       redirect_url: `${siteUrl}/confirmacao?pedido=${encodeURIComponent(orderNsu)}`,
       webhook_url: `${siteUrl}/api/webhooks/infinitepay`,
-      customer: { name: customer.name || undefined, email: customer.email || undefined, phone_number: customer.phone || undefined },
+      customer: { name: customer.name || undefined, email: customer.email || undefined, phone_number: normalizedPhone },
       address: { street: address.street, number: address.number, complement: address.complement || undefined, neighborhood: address.neighborhood, city: address.city, state: address.state, cep: destinationCep },
     };
     const response = await fetch('https://api.checkout.infinitepay.io/links', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload), cache: 'no-store', signal: AbortSignal.timeout(15000) });
