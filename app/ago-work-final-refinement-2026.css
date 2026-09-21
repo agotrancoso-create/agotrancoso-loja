@@ -2063,3 +2063,273 @@ html body .first-purchase-continue{
     height:34px!important;
   }
 }
+
+
+/* AGÔ — MOBILE FIRST POLISH v2
+   O celular não é uma versão reduzida do desktop:
+   mantém a mesma identidade, mas recebe proporções próprias para toque e leitura.
+*/
+@media (max-width:767px){
+
+  html{overflow-x:hidden!important}
+  body{
+    min-width:0!important;
+    width:100%!important;
+    overflow-x:hidden!important;
+    font-size:14px!important;
+  }
+
+  /* Header: compacto, limpo e respirado */
+  html body .site-header{
+    min-height:64px!important;
+    padding:0 16px!important;
+  }
+  html body .site-header .header-inner,
+  html body .site-header > div{
+    max-width:none!important;
+    width:100%!important;
+    min-height:64px!important;
+  }
+  html body .site-header a,
+  html body .site-header button{
+    min-width:40px!important;
+    min-height:40px!important;
+  }
+  html body .site-header .logo,
+  html body .site-header img{
+    max-width:118px!important;
+    max-height:38px!important;
+    object-fit:contain!important;
+  }
+
+  /* Espaçamento horizontal único em todo o mobile */
+  html body .ago-clean-container,
+  html body .catalog-shell,
+  html body .product-page-shell,
+  html body .checkout-shell,
+  html body .contact-shell,
+  html body .essencia-shell{
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding-left:18px!important;
+    padding-right:18px!important;
+  }
+
+  /* Hero: menos altura, mais impacto */
+  html body .ago-clean-hero{
+    min-height:clamp(390px,72svh,610px)!important;
+    padding:54px 20px 42px!important;
+    display:flex!important;
+    align-items:flex-end!important;
+  }
+  html body .ago-clean-hero h1{
+    max-width:340px!important;
+    font-size:clamp(2.7rem,13vw,4.1rem)!important;
+    line-height:.9!important;
+    letter-spacing:-.045em!important;
+  }
+  html body .ago-clean-hero p{
+    max-width:310px!important;
+    font-size:12px!important;
+    line-height:1.6!important;
+  }
+  html body .ago-clean-hero .hero-actions{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:9px!important;
+    width:min(100%,320px)!important;
+  }
+  html body .ago-clean-hero .hero-actions a,
+  html body .ago-clean-hero .hero-actions button{
+    width:100%!important;
+    min-height:46px!important;
+  }
+
+  /* Produtos: dois cards realmente proporcionais */
+  html body .ago-clean-product-grid,
+  html body .featured-products-grid,
+  html body .products-grid{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:12px 10px!important;
+    width:100%!important;
+  }
+
+  html body .ago-clean-product-grid .product-card,
+  html body .featured-products-grid .product-card,
+  html body .products-grid .product-card{
+    min-width:0!important;
+    width:100%!important;
+    margin:0!important;
+    padding:0!important;
+    background:transparent!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+
+  html body .product-image-wrap,
+  html body .ago-clean-product-grid .product-image-wrap{
+    width:100%!important;
+    aspect-ratio:1/1!important;
+    min-height:0!important;
+    border-radius:14px!important;
+    overflow:hidden!important;
+  }
+
+  html body .product-image-wrap img,
+  html body .ago-clean-product-grid .product-image-wrap img{
+    width:100%!important;
+    height:100%!important;
+    display:block!important;
+    object-fit:cover!important;
+    object-position:center!important;
+  }
+
+  html body .product-card h2,
+  html body .product-card h3,
+  html body .product-card .product-name{
+    margin:9px 0 3px!important;
+    font-size:13px!important;
+    line-height:1.12!important;
+    font-weight:600!important;
+  }
+
+  html body .product-card .current-price,
+  html body .product-card .product-price{
+    font-size:13px!important;
+    line-height:1.2!important;
+    font-weight:800!important;
+  }
+
+  /* Botões: nenhum botão minúsculo */
+  html body a.button,
+  html body button.button,
+  html body .ago-clean-button,
+  html body .product-card a,
+  html body .product-card button{
+    min-height:42px!important;
+  }
+
+  /* Seções: ritmo visual consistente */
+  html body .ago-clean-section,
+  html body .editorial-section,
+  html body .how-section,
+  html body .ago-clean-edit,
+  html body .ago-clean-benefits{
+    padding-top:42px!important;
+    padding-bottom:42px!important;
+  }
+
+  html body section h2{
+    font-size:clamp(2rem,9vw,2.9rem)!important;
+    line-height:.95!important;
+    letter-spacing:-.025em!important;
+  }
+
+  html body section p{
+    line-height:1.65!important;
+  }
+
+  /* Benefícios: sem quatro blocos esmagados */
+  html body .ago-clean-benefits .benefits-grid,
+  html body .benefits-strip .benefits-grid,
+  html body .benefits-grid{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+
+  html body .ago-clean-benefits .benefit,
+  html body .benefits-strip .benefit{
+    min-height:104px!important;
+    padding:16px 12px!important;
+  }
+
+  /* Floating socials: discretos e sem disputar com o carrinho */
+  html body .social-float,
+  html body .floating-socials{
+    right:12px!important;
+    bottom:78px!important;
+    gap:8px!important;
+  }
+
+  html body .social-float a,
+  html body .floating-socials a{
+    width:42px!important;
+    height:42px!important;
+  }
+
+  /* Carrinho mobile: painel confortável */
+  html body .cart-drawer{
+    width:min(94vw,390px)!important;
+    max-width:94vw!important;
+    border-radius:16px 0 0 16px!important;
+  }
+
+  html body .cart-item{
+    grid-template-columns:58px minmax(0,1fr) auto!important;
+    gap:10px!important;
+  }
+
+  html body .cart-product-image{
+    width:58px!important;
+    height:58px!important;
+    border-radius:10px!important;
+  }
+
+  /* Footer não pode virar um paredão */
+  html body .site-footer{
+    padding:42px 18px 28px!important;
+  }
+
+  html body .site-footer .footer-grid{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:28px 18px!important;
+  }
+
+  /* Cupom: primeira dobra limpa no celular */
+  html body .first-purchase-brand-panel{
+    min-height:0!important;
+  }
+
+  html body .first-purchase-form{
+    min-height:0!important;
+  }
+
+  /* Corrige qualquer overflow criado por títulos/preços longos */
+  html body h1,
+  html body h2,
+  html body h3,
+  html body p,
+  html body a,
+  html body button{
+    overflow-wrap:anywhere!important;
+  }
+}
+
+/* Telefones muito estreitos */
+@media (max-width:380px){
+  html body .ago-clean-container,
+  html body .catalog-shell,
+  html body .product-page-shell,
+  html body .checkout-shell,
+  html body .contact-shell,
+  html body .essencia-shell{
+    padding-left:14px!important;
+    padding-right:14px!important;
+  }
+
+  html body .ago-clean-product-grid,
+  html body .featured-products-grid,
+  html body .products-grid{
+    gap:9px 8px!important;
+  }
+
+  html body .product-card h2,
+  html body .product-card h3,
+  html body .product-card .product-name{
+    font-size:12px!important;
+  }
+}
