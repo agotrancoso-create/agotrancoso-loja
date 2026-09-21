@@ -1374,3 +1374,88 @@ html body .site-footer span{color:rgba(255,248,241,.76)!important;font-family:'L
     font-size:7px!important;
   }
 }
+
+
+/* AGÔ — UNIFICAÇÃO REAL DOS FUNDOS ENTRE DESKTOP E MOBILE
+   Mobile não deve criar uma paleta paralela. Os mesmos tons usados no desktop
+   precisam permanecer nos mesmos blocos em qualquer viewport.
+*/
+html,
+html body{
+  background:#FCFCFA!important;
+}
+
+html body main{
+  background:#FCFCFA!important;
+}
+
+html body .ago-clean-collection,
+html body .catalog-page,
+html body .product-page,
+html body .ago-clean-checkout,
+html body .contact-page,
+html body .essencia-page{
+  background:#FCFCFA!important;
+}
+
+html body .ago-clean-edit{
+  background:#E4CFB9!important;
+}
+
+html body .ago-clean-benefits{
+  background:#E4CFB9!important;
+}
+
+html body .ago-clean-visit{
+  background:#24140F!important;
+}
+
+html body .site-header{
+  background:#FCFCFA!important;
+}
+
+html body .site-footer{
+  background:#24140F!important;
+}
+
+@media (max-width:767px){
+  html,
+  html body,
+  html body main{
+    background:#FCFCFA!important;
+  }
+
+  html body .ago-clean-collection,
+  html body .catalog-page,
+  html body .product-page,
+  html body .ago-clean-checkout,
+  html body .contact-page,
+  html body .essencia-page{
+    background:#FCFCFA!important;
+  }
+
+  html body .ago-clean-edit,
+  html body .ago-clean-benefits{
+    background:#E4CFB9!important;
+  }
+
+  html body .ago-clean-visit,
+  html body .site-footer{
+    background:#24140F!important;
+  }
+
+  html body .site-header,
+  html body .mobile-menu{
+    background:#FCFCFA!important;
+  }
+
+  /* Impede cards/containers antigos de introduzirem cinza no mobile. */
+  html body .ago-clean-container,
+  html body .catalog-shell,
+  html body .product-page-shell,
+  html body .checkout-shell,
+  html body .contact-shell,
+  html body .essencia-shell{
+    background:transparent!important;
+  }
+}
