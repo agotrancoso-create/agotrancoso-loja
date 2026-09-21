@@ -1570,3 +1570,496 @@ html body .essencia-shell,
 html body .ago-clean-container{
   background:transparent!important;
 }
+
+
+/* AGÔ — PARIDADE VISUAL FINAL + CUPOM DE PRIMEIRA COMPRA
+   Desktop e mobile compartilham os mesmos tokens; só a geometria responde à largura.
+*/
+:root{
+  --ago-final-paper:#F5EEE5;
+  --ago-final-cream:#FAF6EF;
+  --ago-final-sand:#DCC9B4;
+  --ago-final-beige:#EADDCB;
+  --ago-final-cocoa:#4B2B1E;
+  --ago-final-terra:#8E4B32;
+  --ago-final-text:#4B2B1E;
+}
+
+html,
+html body,
+html body main,
+html body > div{
+  background-color:var(--ago-final-paper)!important;
+}
+
+html body .site-header,
+html body .mobile-menu{
+  background-color:var(--ago-final-cream)!important;
+}
+
+html body .ago-clean-home,
+html body .ago-clean-collection,
+html body .catalog-page,
+html body .product-page,
+html body .ago-clean-checkout,
+html body .contact-page,
+html body .essencia-page,
+html body .collection-more{
+  background-color:var(--ago-final-paper)!important;
+}
+
+html body .ago-clean-category-nav,
+html body .ago-clean-edit,
+html body .editorial-section,
+html body .how-section{
+  background-color:var(--ago-final-sand)!important;
+}
+
+html body .ago-clean-benefits,
+html body .benefits-strip{
+  background-color:var(--ago-final-beige)!important;
+}
+
+html body .ago-clean-hero,
+html body .ago-clean-visit,
+html body .visit-section,
+html body .site-footer{
+  background-color:var(--ago-final-cocoa)!important;
+}
+
+html body .catalog-shell,
+html body .product-page-shell,
+html body .checkout-shell,
+html body .contact-shell,
+html body .essencia-shell,
+html body .ago-clean-container{
+  background:transparent!important;
+}
+
+html body .product-image-wrap,
+html body .featured-products-grid .product-image-wrap,
+html body .ago-clean-product-grid .product-image-wrap,
+html body .checkout-product-image,
+html body .cart-product-image{
+  background-color:var(--ago-final-cream)!important;
+}
+
+html body .ago-clean-product-grid .product-name,
+html body .product-name{
+  color:var(--ago-final-text)!important;
+}
+
+html body .ago-clean-product-grid .current-price,
+html body .current-price,
+html body .product-price{
+  color:var(--ago-final-terra)!important;
+}
+
+/* POP-UP: primeira compra — mais visível, elegante e proporcional */
+html body .first-purchase-backdrop{
+  position:fixed!important;
+  inset:0!important;
+  z-index:9999!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:24px!important;
+  background:rgba(45,25,19,.74)!important;
+  backdrop-filter:blur(3px)!important;
+}
+
+html body .first-purchase-modal{
+  position:relative!important;
+  width:min(860px,100%)!important;
+  max-height:min(700px,calc(100dvh - 36px))!important;
+  overflow:auto!important;
+  background:var(--ago-final-cream)!important;
+  color:var(--ago-final-text)!important;
+  border:1px solid rgba(75,43,30,.16)!important;
+  border-radius:18px!important;
+  box-shadow:0 28px 80px rgba(32,18,13,.30)!important;
+}
+
+html body .first-purchase-layout{
+  display:grid!important;
+  grid-template-columns:minmax(290px,.92fr) minmax(330px,1.08fr)!important;
+  min-height:470px!important;
+}
+
+html body .first-purchase-brand-panel{
+  position:relative!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  padding:48px 42px!important;
+  overflow:hidden!important;
+  background:var(--ago-final-cocoa)!important;
+  color:#F8F0E7!important;
+}
+
+html body .first-purchase-brand-panel::after{
+  content:""!important;
+  position:absolute!important;
+  width:150px!important;
+  height:150px!important;
+  right:-58px!important;
+  bottom:-68px!important;
+  border:1px solid rgba(245,238,229,.17)!important;
+  border-radius:50%!important;
+}
+
+html body .first-purchase-discount-badge{
+  display:flex!important;
+  align-items:baseline!important;
+  gap:8px!important;
+  width:max-content!important;
+  margin:0 0 20px!important;
+  padding:8px 13px 7px!important;
+  border:1px solid rgba(255,255,255,.22)!important;
+  border-radius:999px!important;
+  background:var(--ago-final-terra)!important;
+  color:#FFF9F4!important;
+  box-shadow:0 8px 20px rgba(0,0,0,.16)!important;
+}
+
+html body .first-purchase-discount-badge strong{
+  font-family:'EB Garamond',Georgia,serif!important;
+  font-size:42px!important;
+  line-height:.78!important;
+  letter-spacing:-.04em!important;
+}
+
+html body .first-purchase-discount-badge span{
+  font-size:11px!important;
+  font-weight:900!important;
+  letter-spacing:.14em!important;
+}
+
+html body .first-purchase-brand-panel .eyebrow{
+  margin:0 0 10px!important;
+  color:#DDB89F!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  font-size:9px!important;
+  font-weight:900!important;
+  letter-spacing:.16em!important;
+  text-transform:uppercase!important;
+}
+
+html body .first-purchase-brand-panel h2{
+  margin:0!important;
+  max-width:420px!important;
+  color:#FFF8F2!important;
+  font-family:'EB Garamond',Georgia,serif!important;
+  font-size:clamp(2.9rem,5vw,4.5rem)!important;
+  font-weight:600!important;
+  line-height:.88!important;
+  letter-spacing:-.035em!important;
+}
+
+html body .first-purchase-brand-panel > p:not(.eyebrow){
+  max-width:360px!important;
+  margin:18px 0 0!important;
+  color:rgba(248,240,231,.78)!important;
+  font-size:13px!important;
+  line-height:1.7!important;
+}
+
+html body .first-purchase-promise{
+  display:grid!important;
+  gap:8px!important;
+  margin-top:28px!important;
+}
+
+html body .first-purchase-promise span{
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  color:rgba(248,240,231,.82)!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  letter-spacing:.03em!important;
+}
+
+html body .first-purchase-promise span::before{
+  content:""!important;
+  width:6px!important;
+  height:6px!important;
+  flex:0 0 6px!important;
+  border-radius:50%!important;
+  background:#C97A57!important;
+}
+
+html body .first-purchase-form{
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  padding:44px 42px!important;
+  background:#FFF9F4!important;
+}
+
+html body .first-purchase-field{
+  margin-bottom:14px!important;
+}
+
+html body .first-purchase-field label{
+  display:block!important;
+  margin:0 0 6px!important;
+  color:rgba(75,43,30,.64)!important;
+  font-size:9px!important;
+  font-weight:900!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+
+html body .first-purchase-field input{
+  width:100%!important;
+  min-height:48px!important;
+  padding:12px 13px!important;
+  border:1px solid rgba(75,43,30,.15)!important;
+  border-radius:9px!important;
+  background:var(--ago-final-cream)!important;
+  color:var(--ago-final-text)!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  font-size:14px!important;
+  outline:none!important;
+}
+
+html body .first-purchase-field input:focus{
+  border-color:var(--ago-final-terra)!important;
+  box-shadow:0 0 0 3px rgba(142,75,50,.10)!important;
+}
+
+html body .first-purchase-consent{
+  display:grid!important;
+  grid-template-columns:18px minmax(0,1fr)!important;
+  gap:9px!important;
+  align-items:start!important;
+  margin:4px 0 16px!important;
+  color:rgba(75,43,30,.64)!important;
+  font-size:9px!important;
+  line-height:1.5!important;
+}
+
+html body .first-purchase-consent input{
+  width:18px!important;
+  height:18px!important;
+  margin:0!important;
+  accent-color:var(--ago-final-terra)!important;
+}
+
+html body .first-purchase-consent a{
+  color:var(--ago-final-terra)!important;
+}
+
+html body .first-purchase-submit{
+  min-height:52px!important;
+  border:0!important;
+  border-radius:9px!important;
+  background:var(--ago-final-terra)!important;
+  color:#FFF9F4!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  font-size:10px!important;
+  font-weight:900!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+  cursor:pointer!important;
+  box-shadow:0 10px 24px rgba(142,75,50,.18)!important;
+}
+
+html body .first-purchase-submit:hover{
+  filter:brightness(.94)!important;
+}
+
+html body .first-purchase-form small{
+  display:block!important;
+  margin-top:10px!important;
+  color:rgba(75,43,30,.46)!important;
+  font-size:8px!important;
+  line-height:1.5!important;
+}
+
+html body .first-purchase-close{
+  position:absolute!important;
+  top:14px!important;
+  right:14px!important;
+  z-index:3!important;
+  width:36px!important;
+  height:36px!important;
+  border:1px solid rgba(75,43,30,.14)!important;
+  border-radius:50%!important;
+  background:rgba(255,249,244,.94)!important;
+  color:var(--ago-final-cocoa)!important;
+  font-size:25px!important;
+  line-height:1!important;
+  cursor:pointer!important;
+}
+
+html body .first-purchase-success{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:470px!important;
+  padding:48px!important;
+  text-align:center!important;
+}
+
+html body .first-purchase-success .eyebrow{
+  color:var(--ago-final-terra)!important;
+}
+
+html body .first-purchase-success h2{
+  margin:0!important;
+  color:var(--ago-final-cocoa)!important;
+  font-family:'EB Garamond',Georgia,serif!important;
+  font-size:clamp(2.8rem,5vw,4.4rem)!important;
+  line-height:.9!important;
+  letter-spacing:-.035em!important;
+}
+
+html body .first-purchase-success p{
+  max-width:470px!important;
+  margin:14px auto 0!important;
+  color:rgba(75,43,30,.68)!important;
+  font-size:13px!important;
+  line-height:1.65!important;
+}
+
+html body .first-purchase-coupon{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:24px!important;
+  width:min(380px,100%)!important;
+  margin-top:24px!important;
+  padding:14px 16px!important;
+  border:1px dashed var(--ago-final-terra)!important;
+  border-radius:10px!important;
+  background:var(--ago-final-beige)!important;
+  color:var(--ago-final-cocoa)!important;
+}
+
+html body .first-purchase-coupon strong{
+  font-family:'Lato',Arial,sans-serif!important;
+  font-size:18px!important;
+  letter-spacing:.16em!important;
+}
+
+html body .first-purchase-coupon span{
+  color:var(--ago-final-terra)!important;
+  font-size:9px!important;
+  font-weight:900!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+
+html body .first-purchase-continue{
+  margin-top:14px!important;
+  border:0!important;
+  background:transparent!important;
+  color:var(--ago-final-terra)!important;
+  font-size:9px!important;
+  font-weight:900!important;
+  letter-spacing:.10em!important;
+  text-transform:uppercase!important;
+}
+
+@media (max-width:767px){
+  html body .ago-clean-home,
+  html body .ago-clean-collection,
+  html body .catalog-page,
+  html body .product-page,
+  html body .ago-clean-checkout,
+  html body .contact-page,
+  html body .essencia-page,
+  html body .collection-more{
+    background-color:var(--ago-final-paper)!important;
+  }
+
+  html body .ago-clean-category-nav,
+  html body .ago-clean-edit,
+  html body .editorial-section,
+  html body .how-section{
+    background-color:var(--ago-final-sand)!important;
+  }
+
+  html body .ago-clean-benefits,
+  html body .benefits-strip{
+    background-color:var(--ago-final-beige)!important;
+  }
+
+  html body .ago-clean-hero,
+  html body .ago-clean-visit,
+  html body .visit-section,
+  html body .site-footer{
+    background-color:var(--ago-final-cocoa)!important;
+  }
+
+  html body .first-purchase-backdrop{
+    align-items:flex-end!important;
+    padding:10px!important;
+  }
+
+  html body .first-purchase-modal{
+    width:100%!important;
+    max-height:calc(100dvh - 20px)!important;
+    border-radius:18px 18px 12px 12px!important;
+  }
+
+  html body .first-purchase-layout{
+    grid-template-columns:1fr!important;
+    min-height:auto!important;
+  }
+
+  html body .first-purchase-brand-panel{
+    padding:30px 24px 26px!important;
+  }
+
+  html body .first-purchase-discount-badge{
+    margin-bottom:16px!important;
+  }
+
+  html body .first-purchase-discount-badge strong{
+    font-size:35px!important;
+  }
+
+  html body .first-purchase-brand-panel h2{
+    max-width:300px!important;
+    font-size:clamp(2.55rem,12vw,3.5rem)!important;
+  }
+
+  html body .first-purchase-brand-panel > p:not(.eyebrow){
+    margin-top:13px!important;
+    font-size:12px!important;
+    line-height:1.6!important;
+  }
+
+  html body .first-purchase-promise{
+    grid-template-columns:1fr 1fr!important;
+    gap:7px 14px!important;
+    margin-top:20px!important;
+  }
+
+  html body .first-purchase-promise span{
+    font-size:8px!important;
+  }
+
+  html body .first-purchase-form{
+    padding:26px 22px 24px!important;
+  }
+
+  html body .first-purchase-field{
+    margin-bottom:11px!important;
+  }
+
+  html body .first-purchase-field input{
+    min-height:46px!important;
+  }
+
+  html body .first-purchase-close{
+    top:10px!important;
+    right:10px!important;
+    width:34px!important;
+    height:34px!important;
+  }
+}
