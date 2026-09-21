@@ -18,7 +18,7 @@ type FormState = {
 };
 
 export default function CheckoutPage() {
-  const { items } = useCart();
+  const { items, hydrated } = useCart();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [shippingError, setShippingError] = useState<string | null>(null);
@@ -72,7 +72,21 @@ export default function CheckoutPage() {
   async function submit(e: FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!lines.length) { setError('Seu carrinho está vazio.'); return; }
+    if (!hydrated) {
+    return (
+      <div className="checkout-page ago-clean-checkout checkout-loading" aria-busy="true">
+        <div className="ago-clean-container checkout-shell">
+          <div className="checkout-loading-card">
+            <span className="eyebrow">Agô Trancoso</span>
+            <h1 className="checkout-title">Preparando seu pedido…</h1>
+            <p>Um instante enquanto carregamos suas peças.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!lines.length) { setError('Seu carrinho está vazio.'); return; }
     if (form.zip.replace(/\D/g, '').length !== 8) { setShippingError('Informe um CEP válido com 8 dígitos.'); return; }
     if (coupon && !isFirstPurchaseCoupon(coupon)) { setCouponMessage('Confira o código do cupom antes de continuar.'); return; }
 
