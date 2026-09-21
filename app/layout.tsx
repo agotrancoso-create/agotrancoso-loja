@@ -128,6 +128,54 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           footer p, footer li, footer a, footer span, .site-footer p, .site-footer li, .site-footer a, .site-footer span { font-family: 'Lato', Arial, sans-serif !important; color: rgba(248,242,234,.75) !important; text-align: left !important; }
           footer ul, .site-footer ul { display: flex !important; flex-direction: column !important; align-items: flex-start !important; gap: 7px !important; }
           footer .footer-copyright, .site-footer .footer-copyright { display: block !important; width: 100% !important; margin-top: 34px !important; padding-top: 18px !important; border-top: 1px solid rgba(248,242,234,.12) !important; text-align: center !important; color: rgba(248,242,234,.50) !important; }
+          /* AGÔ — PALETA RESPONSIVA UNIFICADA: mobile usa exatamente os mesmos fundos do desktop */
+          :root {
+            --ago-bg-paper: #FCFCFA;
+            --ago-bg-cream: #F6F0E8;
+            --ago-bg-sand: #E8D9C7;
+            --ago-bg-beige: #E8D8C7;
+            --ago-bg-dark: #40251D;
+            --ago-bg-terra: #A4511F;
+          }
+          html, body, body > div { background-color: var(--ago-bg-paper) !important; }
+          .ago-clean-home { background: var(--ago-bg-paper) !important; }
+          .ago-clean-collection { background: var(--ago-bg-paper) !important; }
+          .ago-clean-category-nav { background: var(--ago-bg-sand) !important; }
+          .ago-clean-hero { background: var(--ago-bg-dark) !important; }
+          .ago-clean-edit { background: var(--ago-bg-beige) !important; }
+          .ago-clean-benefits { background: var(--ago-bg-paper) !important; }
+          .ago-clean-visit { background: var(--ago-bg-dark) !important; }
+          .collection-more { background: var(--ago-bg-paper) !important; }
+          .editorial-section { background: var(--ago-bg-sand) !important; }
+          .how-section { background: var(--ago-bg-sand) !important; }
+          .benefits-strip { background: var(--ago-bg-paper) !important; }
+          .visit-section { background: var(--ago-bg-dark) !important; }
+          .site-header { background: rgba(252,252,250,.98) !important; }
+          footer, .site-footer { background: #2B1813 !important; }
+          .product-image-wrap { background: var(--ago-bg-cream) !important; }
+          .featured-products-grid .product-image-wrap,
+          .ago-clean-product-grid .product-image-wrap { background: var(--ago-bg-cream) !important; }
+          @media (max-width: 767px) {
+            html, body, body > div { background-color: var(--ago-bg-paper) !important; }
+            .ago-clean-home,
+            .ago-clean-collection,
+            .collection-more { background: var(--ago-bg-paper) !important; }
+            .ago-clean-category-nav { background: var(--ago-bg-sand) !important; }
+            .ago-clean-hero,
+            .ago-clean-visit,
+            .visit-section { background: var(--ago-bg-dark) !important; }
+            .ago-clean-edit,
+            .editorial-section,
+            .how-section { background: var(--ago-bg-sand) !important; }
+            .ago-clean-benefits,
+            .benefits-strip { background: var(--ago-bg-paper) !important; }
+            .site-header { background: rgba(252,252,250,.98) !important; }
+            footer, .site-footer { background: #2B1813 !important; }
+            .product-image-wrap,
+            .featured-products-grid .product-image-wrap,
+            .ago-clean-product-grid .product-image-wrap { background: var(--ago-bg-cream) !important; }
+            .ago-clean-hero-overlay { background: linear-gradient(90deg,rgba(32,20,15,.84),rgba(64,37,29,.45) 48%,rgba(64,37,29,.08)) !important; }
+          }
           @media (max-width: 767px) {
             .hero-section h1 { font-size: clamp(2.7rem, 13vw, 4.2rem) !important; line-height: .92 !important; }
             .ago-home .section-title, .ago-home .visit-section-title { font-size: 2.65rem !important; line-height: .96 !important; }
