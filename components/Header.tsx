@@ -76,7 +76,7 @@ export default function Header() {
             >
               <span className="header-cart-label">
                 <CartIcon size={22} />
-                <span>Suas peças</span>
+                <span className="header-cart-text">Carrinho</span>
                 {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
               </span>
             </button>
