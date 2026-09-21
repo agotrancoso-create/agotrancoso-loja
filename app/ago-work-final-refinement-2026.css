@@ -2437,3 +2437,706 @@ html body .first-purchase-continue{
     font-size:7.5px!important;
   }
 }
+
+
+/* AGÔ — CORREÇÃO FINAL MOBILE / TODAS AS SEÇÕES
+   Camada final com base no DOM real da home. Corrige geometria em vez de apenas reduzir fontes.
+*/
+@media (max-width: 767px){
+  html body,
+  html body main,
+  html body .ago-home,
+  html body section{
+    min-width:0!important;
+    max-width:100%!important;
+    overflow-x:hidden!important;
+  }
+
+  html body .ago-clean-container,
+  html body .catalog-shell,
+  html body .product-page-shell,
+  html body .checkout-shell,
+  html body .contact-shell,
+  html body .essencia-shell{
+    box-sizing:border-box!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding-left:20px!important;
+    padding-right:20px!important;
+  }
+
+  /* HEADER — sem busca ocupando espaço; carrinho sempre desenhado e clicável */
+  html body .site-header{
+    position:sticky!important;
+    top:0!important;
+    z-index:500!important;
+    padding:0!important;
+    min-height:64px!important;
+    background:#FAF6EF!important;
+  }
+  html body .site-header .header-inner{
+    box-sizing:border-box!important;
+    width:100%!important;
+    min-height:64px!important;
+    padding:0 14px!important;
+    display:grid!important;
+    grid-template-columns:42px minmax(0,1fr) auto!important;
+    align-items:center!important;
+    gap:8px!important;
+  }
+  html body .site-header .header-logo,
+  html body .site-header .header-logo img{
+    width:42px!important;
+    height:42px!important;
+    max-width:42px!important;
+    max-height:42px!important;
+  }
+  html body .site-header .header-nav-desktop,
+  html body .site-header .header-search-form{
+    display:none!important;
+  }
+  html body .header-actions{
+    min-width:0!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    gap:8px!important;
+  }
+  html body .site-header .header-icon{
+    position:relative!important;
+    width:46px!important;
+    min-width:46px!important;
+    height:46px!important;
+    min-height:46px!important;
+    padding:0!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    border:1px solid rgba(142,75,50,.28)!important;
+    border-radius:50%!important;
+    background:#EADDCB!important;
+    color:#4B2B1E!important;
+  }
+  html body .site-header .header-cart-label{
+    position:relative!important;
+    width:100%!important;
+    height:100%!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:0!important;
+    font-size:0!important;
+    line-height:0!important;
+  }
+  html body .site-header .header-cart-label svg{
+    display:block!important;
+    width:25px!important;
+    height:25px!important;
+    flex:0 0 25px!important;
+    opacity:1!important;
+    visibility:visible!important;
+    color:#8E4B32!important;
+  }
+  html body .site-header .header-cart-text{display:none!important}
+  html body .site-header .header-cart-label .cart-count{
+    position:absolute!important;
+    top:4px!important;
+    right:3px!important;
+    transform:none!important;
+    width:18px!important;
+    height:18px!important;
+    min-width:18px!important;
+    min-height:18px!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    border:2px solid #FAF6EF!important;
+    border-radius:50%!important;
+    background:#8E4B32!important;
+    color:#FFF9F4!important;
+    font-size:8px!important;
+    line-height:1!important;
+    font-weight:900!important;
+  }
+  html body .site-header .mobile-menu-button{
+    display:inline-flex!important;
+    flex:0 0 42px!important;
+    width:42px!important;
+    min-width:42px!important;
+    height:42px!important;
+    min-height:42px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    border:1px solid rgba(75,43,30,.18)!important;
+    border-radius:50%!important;
+    background:#FAF6EF!important;
+    color:#4B2B1E!important;
+  }
+
+  /* TOPBAR */
+  html body .ago-topbar{
+    box-sizing:border-box!important;
+    min-height:30px!important;
+    padding:7px 10px!important;
+    gap:7px!important;
+    font-size:8px!important;
+    line-height:1!important;
+    letter-spacing:.055em!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+  }
+  html body .ago-topbar span{white-space:nowrap!important}
+
+  /* COLEÇÃO */
+  html body .ago-clean-collection{
+    padding:36px 0 44px!important;
+    background:#F5EEE5!important;
+  }
+  html body .ago-clean-collection-kicker{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:12px!important;
+    margin-bottom:18px!important;
+  }
+  html body .ago-clean-collection-kicker .eyebrow{
+    margin:0!important;
+    font-size:9px!important;
+  }
+  html body .ago-clean-collection-kicker>span{
+    font-size:8px!important;
+    text-align:right!important;
+  }
+  html body .ago-clean-collection-head{
+    display:block!important;
+    margin-bottom:25px!important;
+  }
+  html body .ago-clean-collection-head h1{
+    max-width:340px!important;
+    margin:0!important;
+    font-size:clamp(2.75rem,12vw,3.75rem)!important;
+    line-height:.91!important;
+    letter-spacing:-.025em!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+  html body .ago-clean-collection-head>p{
+    max-width:335px!important;
+    margin:14px 0 0!important;
+    font-size:13px!important;
+    line-height:1.62!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+
+  /* CARDS */
+  html body .ago-clean-product-grid{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    align-items:start!important;
+    gap:24px 12px!important;
+    width:100%!important;
+  }
+  html body .ago-clean-product-grid .product-card{
+    display:flex!important;
+    flex-direction:column!important;
+    min-width:0!important;
+    width:100%!important;
+    margin:0!important;
+  }
+  html body .ago-clean-product-grid .product-card>a{
+    display:block!important;
+    min-width:0!important;
+    width:100%!important;
+  }
+  html body .ago-clean-product-grid .product-image-wrap{
+    position:relative!important;
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:1/1!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    border:0!important;
+    border-radius:12px!important;
+    background:#EADDCB!important;
+  }
+  html body .ago-clean-product-grid .product-image{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    display:block!important;
+    padding:9px!important;
+    object-fit:contain!important;
+    object-position:center!important;
+    transform:none!important;
+  }
+  html body .ago-clean-product-grid .product-view{
+    display:none!important;
+  }
+  html body .ago-clean-product-grid .product-badge{
+    top:8px!important;
+    left:8px!important;
+    z-index:2!important;
+    font-size:8px!important;
+  }
+  html body .ago-clean-product-grid .product-card .mt-4{
+    margin-top:9px!important;
+    padding-right:0!important;
+  }
+  html body .ago-clean-product-grid .product-name{
+    min-height:0!important;
+    margin:0!important;
+    color:#4B2B1E!important;
+    font-size:12px!important;
+    line-height:1.22!important;
+    font-weight:700!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+  html body .ago-clean-product-grid .current-price,
+  html body .ago-clean-product-grid .old-price{
+    margin-top:5px!important;
+    font-size:12px!important;
+    line-height:1.2!important;
+  }
+  html body .ago-clean-product-grid .price-row{display:flex!important;flex-wrap:wrap!important;gap:6px!important}
+  html body .ago-clean-product-grid .product-add{
+    width:100%!important;
+    min-height:40px!important;
+    margin-top:9px!important;
+    padding:8px 5px!important;
+    border:1px solid #8E4B32!important;
+    border-radius:8px!important;
+    background:#8E4B32!important;
+    color:#FFF8F1!important;
+    font-size:8px!important;
+    line-height:1.15!important;
+    letter-spacing:.065em!important;
+    text-align:center!important;
+    white-space:normal!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+
+  html body .ago-clean-collection-foot{
+    margin-top:30px!important;
+    padding-top:15px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:14px!important;
+  }
+  html body .ago-clean-collection-foot>span,
+  html body .ago-clean-collection-foot a{
+    font-size:8px!important;
+    line-height:1.3!important;
+  }
+
+  /* HERO — imagem, overlay e conteúdo em camadas reais */
+  html body .ago-clean-hero{
+    position:relative!important;
+    min-height:510px!important;
+    height:auto!important;
+    padding:0!important;
+    display:block!important;
+    overflow:hidden!important;
+    background:#4B2B1E!important;
+  }
+  html body .ago-clean-hero-image{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:center!important;
+    z-index:0!important;
+  }
+  html body .ago-clean-hero-overlay{
+    position:absolute!important;
+    inset:0!important;
+    z-index:1!important;
+    background:rgba(43,24,19,.48)!important;
+  }
+  html body .ago-clean-hero-content{
+    position:relative!important;
+    z-index:2!important;
+    box-sizing:border-box!important;
+    width:100%!important;
+    max-width:none!important;
+    min-height:510px!important;
+    margin:0!important;
+    padding:56px 20px 44px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    justify-content:flex-end!important;
+  }
+  html body .ago-clean-hero-content .eyebrow{
+    margin:0 0 10px!important;
+  }
+  html body .ago-clean-hero-content h2{
+    max-width:340px!important;
+    margin:0!important;
+    color:#FFF8F1!important;
+    font-size:clamp(3rem,14.5vw,4.4rem)!important;
+    line-height:.87!important;
+    letter-spacing:-.03em!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+  html body .ago-clean-hero-content>p:not(.eyebrow){
+    max-width:315px!important;
+    margin:15px 0 0!important;
+    color:rgba(255,248,241,.82)!important;
+    font-size:13px!important;
+    line-height:1.6!important;
+  }
+  html body .ago-clean-actions{
+    width:100%!important;
+    margin-top:20px!important;
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:9px!important;
+  }
+  html body .ago-clean-button{
+    width:100%!important;
+    min-height:46px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    padding:12px 16px!important;
+    border-radius:8px!important;
+    text-align:center!important;
+  }
+  html body .ago-clean-text-link{
+    min-height:42px!important;
+    display:flex!important;
+    align-items:center!important;
+  }
+
+  /* DA BAHIA PARA SUA CASA */
+  html body .ago-clean-edit{
+    padding:44px 0!important;
+    background:#EADDCB!important;
+  }
+  html body .ago-clean-edit-grid{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:28px!important;
+    width:100%!important;
+  }
+  html body .ago-clean-edit-image{
+    position:relative!important;
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:4/3!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    border-radius:12px!important;
+  }
+  html body .ago-clean-edit-image img{
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:center!important;
+  }
+  html body .ago-clean-edit-copy{
+    min-width:0!important;
+  }
+  html body .ago-clean-edit-copy h2{
+    max-width:335px!important;
+    margin:0!important;
+    font-size:clamp(2.7rem,11.5vw,4rem)!important;
+    line-height:.91!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+  html body .ago-clean-edit-copy>p:not(.eyebrow){
+    max-width:340px!important;
+    margin:15px 0 0!important;
+    font-size:13px!important;
+    line-height:1.68!important;
+  }
+  html body .ago-clean-edit-copy .ago-clean-dark-link{
+    display:inline-flex!important;
+    margin-top:18px!important;
+    min-height:42px!important;
+    align-items:center!important;
+  }
+
+  /* BENEFÍCIOS — seletor correto para a estrutura atual (sem .benefits-grid fantasma) */
+  html body .ago-clean-benefits{
+    padding:40px 0!important;
+    background:#DCC9B4!important;
+  }
+  html body .ago-clean-benefits-grid{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:1px!important;
+    width:100%!important;
+    background:rgba(75,43,30,.12)!important;
+  }
+  html body .ago-clean-benefit{
+    min-width:0!important;
+    min-height:140px!important;
+    padding:18px 14px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:flex-start!important;
+    background:#DCC9B4!important;
+  }
+  html body .ago-clean-benefit h3{
+    margin:0!important;
+    font-size:21px!important;
+    line-height:.98!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+  html body .ago-clean-benefit p{
+    margin:10px 0 0!important;
+    font-size:10.5px!important;
+    line-height:1.55!important;
+  }
+
+  /* VISITE */
+  html body .ago-clean-visit{
+    padding:46px 0!important;
+    background:#4B2B1E!important;
+  }
+  html body .ago-clean-visit-grid{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:30px!important;
+    width:100%!important;
+  }
+  html body .ago-clean-visit-grid>div{
+    min-width:0!important;
+  }
+  html body .ago-clean-visit h2{
+    max-width:340px!important;
+    margin:0!important;
+    color:#FFF8F1!important;
+    font-size:clamp(2.8rem,12vw,4.1rem)!important;
+    line-height:.9!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+  html body .ago-clean-visit-grid>div:first-child>p:not(.eyebrow){
+    max-width:335px!important;
+    margin:15px 0 0!important;
+    color:rgba(255,248,241,.78)!important;
+    font-size:13px!important;
+    line-height:1.65!important;
+  }
+  html body .ago-clean-visit-links{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    gap:10px 17px!important;
+    margin-top:19px!important;
+  }
+  html body .ago-clean-visit-links a{
+    min-height:38px!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    font-size:9px!important;
+    white-space:nowrap!important;
+  }
+  html body .ago-clean-visit-note{
+    box-sizing:border-box!important;
+    width:100%!important;
+    padding:20px!important;
+    border:1px solid rgba(255,248,241,.16)!important;
+    background:rgba(255,248,241,.06)!important;
+    border-radius:10px!important;
+  }
+  html body .ago-clean-visit-note span{
+    display:block!important;
+    margin-bottom:7px!important;
+    color:#DDB89F!important;
+    font-size:9px!important;
+    font-weight:900!important;
+    letter-spacing:.14em!important;
+    text-transform:uppercase!important;
+  }
+  html body .ago-clean-visit-note strong{
+    display:block!important;
+    color:#FFF8F1!important;
+    font-family:'EB Garamond',Georgia,serif!important;
+    font-size:25px!important;
+    line-height:1!important;
+  }
+  html body .ago-clean-visit-note p{
+    margin:7px 0 0!important;
+    color:rgba(255,248,241,.72)!important;
+    font-size:11px!important;
+  }
+
+  /* RODAPÉ */
+  html body .site-footer{
+    padding:42px 0 25px!important;
+    background:#4B2B1E!important;
+  }
+  html body .site-footer .footer-shell{
+    box-sizing:border-box!important;
+    width:100%!important;
+    padding:0 20px!important;
+  }
+  html body .site-footer .footer-brand img{
+    width:70px!important;
+    height:70px!important;
+  }
+  html body .site-footer .footer-grid{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:25px!important;
+    margin-top:24px!important;
+  }
+  html body .site-footer .footer-grid>div{
+    min-width:0!important;
+  }
+  html body .site-footer h3{
+    font-size:29px!important;
+    line-height:.95!important;
+  }
+  html body .site-footer h4{
+    font-size:9px!important;
+  }
+  html body .site-footer p,
+  html body .site-footer li,
+  html body .site-footer a,
+  html body .site-footer span{
+    font-size:11px!important;
+    line-height:1.55!important;
+  }
+  html body .site-footer .footer-copyright{
+    margin-top:28px!important;
+    padding-top:16px!important;
+    font-size:8px!important;
+    text-align:center!important;
+  }
+
+  /* SOCIAIS FLUTUANTES — não encobrem o header nem o carrinho */
+  html body .ago-social-floaters{
+    position:fixed!important;
+    z-index:120!important;
+    right:12px!important;
+    bottom:12px!important;
+    gap:7px!important;
+  }
+  html body .ago-social-button{
+    width:40px!important;
+    height:40px!important;
+    min-width:40px!important;
+    min-height:40px!important;
+  }
+
+  /* CARRINHO ABERTO — aproveita a tela inteira e não esmaga itens */
+  html body .cart-drawer{
+    z-index:1000!important;
+    width:100%!important;
+    max-width:420px!important;
+    border-radius:16px 0 0 16px!important;
+    background:#FAF6EF!important;
+  }
+  html body .cart-header{
+    min-height:72px!important;
+    padding:13px 18px!important;
+  }
+  html body .cart-header h2{
+    font-size:29px!important;
+  }
+  html body .cart-body{
+    padding:14px 14px 16px!important;
+    background:#FAF6EF!important;
+  }
+  html body .cart-item{
+    grid-template-columns:64px minmax(0,1fr)!important;
+    gap:10px!important;
+    padding:11px!important;
+    border-radius:10px!important;
+    background:#EADDCB!important;
+  }
+  html body .cart-product-image{
+    width:64px!important;
+    height:64px!important;
+    border-radius:8px!important;
+    background:#FAF6EF!important;
+  }
+  html body .cart-item-info h4{
+    font-size:12px!important;
+    line-height:1.3!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+  html body .cart-item-info p{font-size:10px!important}
+  html body .cart-item-total{
+    grid-column:2!important;
+    justify-self:start!important;
+    margin-top:-6px!important;
+    font-size:11px!important;
+  }
+  html body .cart-item-controls{
+    max-width:100%!important;
+    flex-wrap:wrap!important;
+    margin-top:9px!important;
+  }
+  html body .cart-summary{
+    padding:14px 16px calc(17px + env(safe-area-inset-bottom))!important;
+    background:#DCC9B4!important;
+  }
+  html body .cart-checkout{
+    min-height:48px!important;
+    border-radius:8px!important;
+  }
+  html body .cart-continue{
+    min-height:40px!important;
+  }
+
+  /* NUNCA quebrar títulos/botões em lugares estranhos no mobile */
+  html body h1,html body h2,html body h3,html body h4,
+  html body button,html body a{
+    word-break:normal!important;
+    overflow-wrap:normal!important;
+  }
+}
+
+@media (max-width:380px){
+  html body .ago-clean-container,
+  html body .catalog-shell,
+  html body .product-page-shell,
+  html body .checkout-shell,
+  html body .contact-shell,
+  html body .essencia-shell{
+    padding-left:15px!important;
+    padding-right:15px!important;
+  }
+  html body .site-header .header-inner{
+    padding-left:11px!important;
+    padding-right:11px!important;
+    grid-template-columns:40px minmax(0,1fr) auto!important;
+  }
+  html body .site-header .header-logo,
+  html body .site-header .header-logo img{
+    width:40px!important;
+    height:40px!important;
+  }
+  html body .site-header .header-icon{
+    width:44px!important;
+    min-width:44px!important;
+    height:44px!important;
+    min-height:44px!important;
+  }
+  html body .site-header .mobile-menu-button{
+    width:40px!important;
+    min-width:40px!important;
+    height:40px!important;
+    min-height:40px!important;
+  }
+  html body .ago-clean-product-grid{gap:21px 9px!important}
+  html body .ago-clean-product-grid .product-name{font-size:11px!important}
+  html body .ago-clean-product-grid .product-add{font-size:7.5px!important}
+  html body .ago-clean-benefit{min-height:132px!important;padding:16px 11px!important}
+  html body .ago-clean-benefit h3{font-size:19px!important}
+}
