@@ -12,6 +12,7 @@ type CartContextValue = {
   clearCart: () => void;
   totalItems: number;
   isDrawerOpen: boolean;
+  hydrated: boolean;
   openDrawer: () => void;
   closeDrawer: () => void;
 };
@@ -127,6 +128,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         clearCart,
         totalItems,
         isDrawerOpen,
+        hydrated,
         openDrawer: () => setIsDrawerOpen(true),
         closeDrawer: () => setIsDrawerOpen(false),
       }}
