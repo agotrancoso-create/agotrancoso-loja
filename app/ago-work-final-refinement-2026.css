@@ -1459,3 +1459,114 @@ html body .site-footer{
     background:transparent!important;
   }
 }
+
+
+/* AGÔ — CORREÇÃO FORÇADA DE FUNDO / MOBILE
+   O mobile usa os mesmos tons quentes do layout da Agô, sem branco puro.
+*/
+html{
+  background:#F5EEE5!important;
+}
+
+html body{
+  background:#F5EEE5!important;
+  color:#5B4338!important;
+}
+
+html body main{
+  background:#F5EEE5!important;
+}
+
+html body .site-header,
+html body .mobile-menu{
+  background:#FAF6EF!important;
+}
+
+html body .ago-clean-collection,
+html body .catalog-page,
+html body .product-page,
+html body .ago-clean-checkout,
+html body .contact-page,
+html body .essencia-page{
+  background:#F5EEE5!important;
+}
+
+html body .ago-clean-edit{
+  background:#EADDCB!important;
+}
+
+html body .ago-clean-benefits{
+  background:#DCC9B4!important;
+}
+
+html body .ago-clean-visit,
+html body .site-footer{
+  background:#4B2B1E!important;
+}
+
+html body .ago-clean-product-grid .product-image-wrap,
+html body .product-image-wrap,
+html body .product-gallery-main,
+html body .editorial-image,
+html body .checkout-product-image,
+html body .cart-product-image{
+  background:#EADDCB!important;
+}
+
+@media (max-width:767px){
+  html,
+  html body,
+  html body main{
+    background:#F5EEE5!important;
+  }
+
+  html body .site-header,
+  html body .mobile-menu{
+    background:#FAF6EF!important;
+  }
+
+  html body .ago-clean-collection,
+  html body .catalog-page,
+  html body .product-page,
+  html body .ago-clean-checkout,
+  html body .contact-page,
+  html body .essencia-page{
+    background:#F5EEE5!important;
+  }
+
+  html body .ago-clean-edit{
+    background:#EADDCB!important;
+  }
+
+  html body .ago-clean-benefits{
+    background:#DCC9B4!important;
+  }
+
+  html body .ago-clean-visit,
+  html body .site-footer{
+    background:#4B2B1E!important;
+  }
+
+  html body .ago-clean-product-grid .product-image-wrap,
+  html body .product-image-wrap,
+  html body .product-gallery-main,
+  html body .editorial-image,
+  html body .checkout-product-image,
+  html body .cart-product-image{
+    background:#EADDCB!important;
+  }
+
+  html body .mobile-menu form input{
+    background:#FAF6EF!important;
+  }
+}
+
+/* Evita que superfícies genéricas dos componentes revelem branco puro. */
+html body .catalog-shell,
+html body .product-page-shell,
+html body .checkout-shell,
+html body .contact-shell,
+html body .essencia-shell,
+html body .ago-clean-container{
+  background:transparent!important;
+}
