@@ -42,13 +42,6 @@ export default function CheckoutPage() {
   const shippingValue = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
   const total = discountedSubtotal + shippingValue;
 
-  useEffect(() => {
-    try {
-      const savedCoupon = window.localStorage.getItem('ago_primeira_compra_v2_cupom');
-      if (savedCoupon && isFirstPurchaseCoupon(savedCoupon)) setCoupon(normalizeCoupon(savedCoupon));
-    } catch {}
-  }, []);
-
   function change(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setForm((f) => ({
