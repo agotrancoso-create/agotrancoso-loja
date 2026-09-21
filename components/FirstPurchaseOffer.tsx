@@ -73,13 +73,17 @@ export default function FirstPurchaseOffer() {
         {!submitted ? (
           <div className="first-purchase-layout">
             <div className="first-purchase-brand-panel">
+              <div className="first-purchase-discount-badge" aria-label="3% de desconto na primeira compra">
+                <strong>3%</strong>
+                <span>OFF</span>
+              </div>
               <p className="eyebrow">Primeira vez por aqui?</p>
-              <h2 id="first-purchase-title">3% OFF na sua primeira compra.</h2>
-              <p>Deixe seu contato para receber novidades da Agô e o cupom de boas-vindas.</p>
+              <h2 id="first-purchase-title">Seu primeiro pedido tem 3% OFF.</h2>
+              <p>Cadastre seu contato e receba o cupom de boas-vindas da Agô.</p>
               <div className="first-purchase-promise">
                 <span>3% de desconto</span>
                 <span>Novidades da Agô</span>
-                <span>Novos produtos e ofertas</span>
+                <span>Peças novas em primeira mão</span>
               </div>
             </div>
 
