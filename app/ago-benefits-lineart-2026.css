@@ -1,0 +1,99 @@
+/* AGÔ TRANCOSO — LINE ART MINIMALISTA / BENEFÍCIOS */
+.ago-clean-benefits-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:0!important;
+}
+.ago-clean-benefit{
+  min-width:0!important;
+  min-height:185px!important;
+  padding:2px 28px 0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  text-align:center!important;
+}
+.ago-clean-benefit:not(:last-child){
+  border-right:1px solid rgba(75,43,30,.14)!important;
+}
+.ago-lineart-benefit-icon{
+  width:48px!important;
+  height:48px!important;
+  margin:0 0 15px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  color:#8E4B32!important;
+  flex:0 0 48px!important;
+}
+.ago-lineart-benefit-icon svg{
+  width:42px!important;
+  height:42px!important;
+  display:block!important;
+}
+.ago-clean-benefit h3{
+  margin:0!important;
+  color:#4B2B1E!important;
+  font-family:'EB Garamond',Georgia,serif!important;
+  font-size:24px!important;
+  line-height:.98!important;
+  font-weight:600!important;
+  letter-spacing:-.018em!important;
+}
+.ago-clean-benefit p{
+  max-width:220px!important;
+  margin:8px auto 0!important;
+  color:rgba(75,43,30,.70)!important;
+  font-family:'Lato',Arial,sans-serif!important;
+  font-size:11px!important;
+  line-height:1.55!important;
+}
+@media(max-width:1000px){
+  .ago-clean-benefits-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .ago-clean-benefit{
+    min-height:176px!important;
+    padding:4px 20px 20px!important;
+  }
+  .ago-clean-benefit:nth-child(2n){
+    border-right:0!important;
+  }
+  .ago-clean-benefit:nth-child(n+3){
+    border-top:1px solid rgba(75,43,30,.12)!important;
+    padding-top:22px!important;
+  }
+}
+@media(max-width:767px){
+  .ago-clean-benefits-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:0 8px!important;
+  }
+  .ago-clean-benefit{
+    min-height:154px!important;
+    padding:2px 9px 18px!important;
+  }
+  .ago-clean-benefit:nth-child(n+3){
+    padding-top:19px!important;
+  }
+  .ago-lineart-benefit-icon{
+    width:40px!important;
+    height:40px!important;
+    margin-bottom:10px!important;
+    flex-basis:40px!important;
+  }
+  .ago-lineart-benefit-icon svg{
+    width:35px!important;
+    height:35px!important;
+  }
+  .ago-clean-benefit h3{
+    font-size:18px!important;
+    line-height:1.02!important;
+  }
+  .ago-clean-benefit p{
+    max-width:145px!important;
+    margin-top:7px!important;
+    font-size:9.5px!important;
+    line-height:1.45!important;
+  }
+}
