@@ -1,0 +1,57 @@
+/* AGÔ TRANCOSO — ESTRUTURA EDITORIAL / EXPERIÊNCIA 2026 */
+@media (min-width: 901px) {
+  .site-header .header-inner { position:relative!important; display:grid!important; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important; align-items:center!important; gap:24px!important; }
+  .site-header .header-logo { position:static!important; grid-column:2!important; grid-row:1!important; width:58px!important; height:58px!important; margin:0!important; transform:none!important; justify-self:center!important; }
+  .site-header .header-logo img { width:50px!important; height:50px!important; }
+  .site-header .header-nav-desktop { grid-column:1!important; grid-row:1!important; justify-content:flex-start!important; }
+  .site-header .header-actions { grid-column:3!important; grid-row:1!important; justify-content:flex-end!important; }
+  .ago-home-category-nav { display:flex!important; align-items:center!important; gap:28px!important; margin-top:26px!important; padding-top:16px!important; border-top:1px solid rgba(75,43,30,.10)!important; }
+  .ago-home-category-label { flex:0 0 auto!important; color:rgba(75,43,30,.46)!important; font-size:9px!important; font-weight:700!important; letter-spacing:.16em!important; text-transform:uppercase!important; }
+  .ago-home-category-links { min-width:0!important; display:flex!important; align-items:center!important; flex-wrap:wrap!important; gap:8px 24px!important; }
+  .ago-home-category-links a { color:#6B432F!important; font-size:9px!important; font-weight:700!important; letter-spacing:.10em!important; text-transform:uppercase!important; }
+  .ago-home-category-links a:hover { color:#8E4B32!important; }
+  .ago-home-essence { padding:104px 0!important; background:#F5EEE5!important; }
+  .ago-home-essence-grid { display:grid!important; grid-template-columns:minmax(0,1.06fr) minmax(360px,.94fr)!important; gap:76px!important; align-items:center!important; }
+  .ago-home-essence-image { position:relative!important; min-width:0!important; aspect-ratio:4/3!important; overflow:hidden!important; border-radius:16px!important; background:#EADDCB!important; }
+  .ago-home-essence-image img { width:100%!important; height:100%!important; object-fit:cover!important; }
+  .ago-home-essence-copy { min-width:0!important; max-width:520px!important; }
+  .ago-home-essence-copy h2 { margin:10px 0 0!important; color:#4B2B1E!important; font-family:'EB Garamond',Georgia,serif!important; font-size:clamp(3.25rem,5vw,5.4rem)!important; line-height:.88!important; letter-spacing:-.035em!important; font-weight:600!important; }
+  .ago-home-essence-copy>p:not(.eyebrow) { max-width:470px!important; margin:18px 0 0!important; color:rgba(75,43,30,.72)!important; font-size:14px!important; line-height:1.8!important; }
+  .ago-home-structure-link { display:inline-flex!important; margin-top:24px!important; color:#8E4B32!important; font-size:9px!important; font-weight:800!important; letter-spacing:.13em!important; text-transform:uppercase!important; }
+  .ago-home-structure-link span { margin-left:8px!important; font-size:14px!important; }
+  .ago-home-how { padding:96px 0 102px!important; background:#EADDCB!important; }
+  .ago-home-how-head { max-width:670px!important; }
+  .ago-home-how-head h2 { margin:10px 0 0!important; color:#4B2B1E!important; font-family:'EB Garamond',Georgia,serif!important; font-size:clamp(3.25rem,4.9vw,5.3rem)!important; line-height:.88!important; letter-spacing:-.035em!important; font-weight:600!important; }
+  .ago-home-how-grid { display:grid!important; grid-template-columns:repeat(3,minmax(0,1fr))!important; margin-top:52px!important; border-top:1px solid rgba(75,43,30,.13)!important; border-bottom:1px solid rgba(75,43,30,.13)!important; }
+  .ago-home-how-step { min-width:0!important; padding:26px 30px 28px 0!important; }
+  .ago-home-how-step+.ago-home-how-step { padding-left:30px!important; border-left:1px solid rgba(75,43,30,.13)!important; }
+  .ago-home-how-step>span { display:block!important; margin-bottom:15px!important; color:#8E4B32!important; font-size:9px!important; font-weight:800!important; letter-spacing:.18em!important; }
+  .ago-home-how-step h3 { margin:0!important; color:#4B2B1E!important; font-family:'EB Garamond',Georgia,serif!important; font-size:26px!important; line-height:1!important; font-weight:600!important; }
+  .ago-home-how-step p { max-width:280px!important; margin:11px 0 0!important; color:rgba(75,43,30,.66)!important; font-size:12px!important; line-height:1.75!important; }
+  .ago-home-how-cta { margin-top:26px!important; }
+  .ago-clean-button-terra { background:#8E4B32!important; color:#FFF9F4!important; }
+}
+@media (max-width:900px) {
+  .ago-home-category-nav { margin-top:22px!important; padding-top:15px!important; border-top:1px solid rgba(75,43,30,.10)!important; }
+  .ago-home-category-label { display:block!important; margin-bottom:10px!important; color:rgba(75,43,30,.48)!important; font-size:8px!important; font-weight:800!important; letter-spacing:.15em!important; text-transform:uppercase!important; }
+  .ago-home-category-links { display:flex!important; gap:8px!important; overflow-x:auto!important; padding-bottom:3px!important; scrollbar-width:none!important; }
+  .ago-home-category-links::-webkit-scrollbar { display:none!important; }
+  .ago-home-category-links a { flex:0 0 auto!important; padding:8px 11px!important; border:1px solid rgba(75,43,30,.14)!important; border-radius:999px!important; color:#6B432F!important; font-size:7.5px!important; font-weight:800!important; letter-spacing:.08em!important; text-transform:uppercase!important; }
+  .ago-home-essence { padding:60px 0!important; background:#F5EEE5!important; }
+  .ago-home-essence-grid { display:grid!important; grid-template-columns:1fr!important; gap:28px!important; }
+  .ago-home-essence-image { position:relative!important; width:100%!important; aspect-ratio:4/3!important; overflow:hidden!important; border-radius:14px!important; background:#EADDCB!important; }
+  .ago-home-essence-image img { width:100%!important; height:100%!important; object-fit:cover!important; }
+  .ago-home-essence-copy h2 { margin:8px 0 0!important; color:#4B2B1E!important; font-family:'EB Garamond',Georgia,serif!important; font-size:clamp(2.85rem,11vw,4.2rem)!important; line-height:.90!important; letter-spacing:-.03em!important; font-weight:600!important; }
+  .ago-home-essence-copy>p:not(.eyebrow) { margin:14px 0 0!important; color:rgba(75,43,30,.72)!important; font-size:13px!important; line-height:1.68!important; }
+  .ago-home-structure-link { display:inline-flex!important; margin-top:18px!important; color:#8E4B32!important; font-size:8px!important; font-weight:800!important; letter-spacing:.11em!important; text-transform:uppercase!important; }
+  .ago-home-how { padding:54px 0 60px!important; background:#EADDCB!important; }
+  .ago-home-how-head h2 { margin:8px 0 0!important; color:#4B2B1E!important; font-family:'EB Garamond',Georgia,serif!important; font-size:clamp(2.85rem,11vw,4.2rem)!important; line-height:.92!important; letter-spacing:-.03em!important; font-weight:600!important; }
+  .ago-home-how-grid { display:grid!important; grid-template-columns:1fr!important; margin-top:34px!important; border-top:1px solid rgba(75,43,30,.12)!important; border-bottom:1px solid rgba(75,43,30,.12)!important; }
+  .ago-home-how-step { padding:21px 0!important; }
+  .ago-home-how-step+.ago-home-how-step { padding-left:0!important; border-left:0!important; border-top:1px solid rgba(75,43,30,.12)!important; }
+  .ago-home-how-step>span { display:block!important; margin-bottom:10px!important; color:#8E4B32!important; font-size:8px!important; font-weight:800!important; letter-spacing:.17em!important; }
+  .ago-home-how-step h3 { margin:0!important; color:#4B2B1E!important; font-family:'EB Garamond',Georgia,serif!important; font-size:23px!important; line-height:1!important; font-weight:600!important; }
+  .ago-home-how-step p { max-width:330px!important; margin:8px 0 0!important; color:rgba(75,43,30,.66)!important; font-size:11px!important; line-height:1.6!important; }
+  .ago-home-how-cta { margin-top:20px!important; }
+  .ago-clean-button-terra { width:100%!important; min-height:46px!important; justify-content:center!important; background:#8E4B32!important; color:#FFF9F4!important; }
+}

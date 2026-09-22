@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ProductCard from '@/components/ProductCard';
 import Benefits from '@/components/Benefits';
-import { getAvailableProducts, getProductById } from '@/lib/products';
+import { getAllCategories, getAvailableProducts, getProductById } from '@/lib/products';
 
 const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu';
 const whatsappUrl = 'https://wa.me/557398558124?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ag%C3%B4%20Trancoso.';
@@ -21,6 +21,7 @@ const featuredOrder = [
 
 export default function HomePage() {
   const available = getAvailableProducts();
+  const categories = getAllCategories();
   const featured = featuredOrder
     .map((id) => getProductById(id))
     .filter((p): p is NonNullable<typeof p> => Boolean(p?.available));
@@ -51,6 +52,17 @@ export default function HomePage() {
             <span>{available.length} peças na coleção</span>
             <Link href="/produtos">Ver coleção completa <span aria-hidden="true">↗</span></Link>
           </div>
+
+          <nav className="ago-home-category-nav" aria-label="Explorar por categoria">
+            <span className="ago-home-category-label">Explorar</span>
+            <div className="ago-home-category-links">
+              {categories.map((category) => (
+                <Link key={category.id} href={`/produtos?categoria=\${category.id}`}>
+                  {category.name}
+                </Link>
+              ))}
+            </div>
+          </nav>
         </div>
       </section>
 
@@ -99,6 +111,49 @@ export default function HomePage() {
       </section>
 
       <Benefits />
+
+      <section className="ago-home-essence" aria-labelledby="ago-home-essence-title">
+        <div className="ago-clean-container ago-home-essence-grid">
+          <div className="ago-home-essence-image">
+            <Image src="/nossa-essencia.jpg" alt="Peças de cerâmica da Agô Trancoso" fill sizes="(max-width: 900px) 100vw, 50vw" />
+          </div>
+          <div className="ago-home-essence-copy">
+            <p className="eyebrow">A Agô</p>
+            <h2 id="ago-home-essence-title">O encanto de Trancoso.</h2>
+            <p>A arquitetura, o barro, a fé e as lembranças desse lugar aparecem nas formas e nos detalhes de cada peça.</p>
+            <Link href="/nossa-essencia" className="ago-home-structure-link">Conheça a Agô <span aria-hidden="true">↗</span></Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="ago-home-how" aria-labelledby="ago-home-how-title">
+        <div className="ago-clean-container">
+          <div className="ago-home-how-head">
+            <p className="eyebrow">Como comprar</p>
+            <h2 id="ago-home-how-title">Escolha com calma.<br />A gente cuida do resto.</h2>
+          </div>
+          <div className="ago-home-how-grid">
+            <div className="ago-home-how-step">
+              <span>01</span>
+              <h3>Escolha sua peça</h3>
+              <p>Veja as fotos, conheça os detalhes e encontre a peça que combina com você.</p>
+            </div>
+            <div className="ago-home-how-step">
+              <span>02</span>
+              <h3>Adicione ao carrinho</h3>
+              <p>Revise seu pedido e preencha os dados de entrega de forma simples.</p>
+            </div>
+            <div className="ago-home-how-step">
+              <span>03</span>
+              <h3>Receba em casa</h3>
+              <p>Pagamento pela InfinitePay e envio da sua peça com todo o cuidado.</p>
+            </div>
+          </div>
+          <div className="ago-home-how-cta">
+            <Link href="/produtos" className="ago-clean-button ago-clean-button-terra">Ver produtos</Link>
+          </div>
+        </div>
+      </section>
 
       <section className="ago-clean-visit">
         <div className="ago-clean-container ago-clean-visit-grid">
