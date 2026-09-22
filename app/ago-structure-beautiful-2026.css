@@ -55,3 +55,249 @@
   .ago-home-how-cta { margin-top:20px!important; }
   .ago-clean-button-terra { width:100%!important; min-height:46px!important; justify-content:center!important; background:#8E4B32!important; color:#FFF9F4!important; }
 }
+
+/* =========================================================
+   AGÔ 2026 — CART + CHECKOUT / COESÃO FINAL
+   Última camada visual: usa somente a paleta oficial da marca.
+   Corrige o ícone do carrinho no desktop e unifica o checkout.
+   ========================================================= */
+
+:root{
+  --ago-site-paper:#F5EEE5;
+  --ago-site-cream:#FAF6EF;
+  --ago-site-beige:#EADDCB;
+  --ago-site-sand:#DCC9B4;
+  --ago-site-terra:#8E4B32;
+  --ago-site-clay:#A4511F;
+  --ago-site-brown:#4B2B1E;
+  --ago-site-deep:#3F261C;
+}
+
+/* CARRINHO — o desenho SVG real deve aparecer */
+.site-header .header-icon{
+  color:var(--ago-site-brown)!important;
+  overflow:visible!important;
+}
+.site-header .header-cart-label{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  color:var(--ago-site-brown)!important;
+  line-height:1!important;
+}
+.site-header .header-cart-label svg{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  width:22px!important;
+  height:22px!important;
+  flex:0 0 22px!important;
+  color:var(--ago-site-terra)!important;
+}
+.site-header .header-cart-label::before{
+  content:none!important;
+  display:none!important;
+}
+.site-header .header-cart-text{
+  color:inherit!important;
+}
+.site-header .cart-count{
+  background:var(--ago-site-terra)!important;
+  color:#FFF9F4!important;
+}
+
+/* DRAWER — mesma linguagem visual do restante do site */
+.cart-drawer{
+  background:var(--ago-site-cream)!important;
+  color:var(--ago-site-brown)!important;
+}
+.cart-header{
+  background:var(--ago-site-brown)!important;
+  color:#FFF9F4!important;
+}
+.cart-header-title svg{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  color:#C77A55!important;
+}
+.cart-product-image{
+  background:var(--ago-site-beige)!important;
+}
+.cart-summary{
+  background:var(--ago-site-sand)!important;
+}
+.cart-checkout{
+  background:var(--ago-site-terra)!important;
+  color:#FFF9F4!important;
+}
+.cart-checkout:hover{
+  background:var(--ago-site-brown)!important;
+}
+
+/* CHECKOUT — eliminar restos de paletas antigas */
+.checkout-page,
+.checkout-page.ago-clean-checkout,
+.ago-clean-checkout{
+  background:var(--ago-site-paper)!important;
+  color:var(--ago-site-brown)!important;
+}
+.checkout-page .checkout-shell,
+.ago-clean-checkout .checkout-shell{
+  background:transparent!important;
+}
+.ago-clean-checkout-head .eyebrow,
+.checkout-page .eyebrow{
+  color:var(--ago-site-terra)!important;
+}
+.ago-clean-checkout-head .checkout-title,
+.checkout-page .checkout-title{
+  color:var(--ago-site-brown)!important;
+}
+.ago-clean-checkout-head>p:not(.eyebrow){
+  color:rgba(75,43,30,.68)!important;
+}
+
+.ago-clean-checkout-form{
+  background:var(--ago-site-cream)!important;
+  color:var(--ago-site-brown)!important;
+}
+.ago-clean-checkout .checkout-section{
+  border-color:rgba(75,43,30,.11)!important;
+}
+.ago-clean-checkout .checkout-section h2{
+  color:var(--ago-site-brown)!important;
+}
+.ago-clean-checkout .checkout-field label{
+  color:rgba(75,43,30,.58)!important;
+}
+.ago-clean-checkout .checkout-input,
+.ago-clean-checkout input:not([type="checkbox"]){
+  background:#FFF9F4!important;
+  color:var(--ago-site-brown)!important;
+  border-color:rgba(75,43,30,.15)!important;
+}
+.ago-clean-checkout .checkout-input:focus,
+.ago-clean-checkout input:not([type="checkbox"]):focus{
+  border-color:var(--ago-site-terra)!important;
+  box-shadow:0 0 0 3px rgba(142,75,50,.10)!important;
+}
+.ago-clean-checkout .checkout-shipping-note{
+  background:var(--ago-site-beige)!important;
+  color:var(--ago-site-brown)!important;
+  border-left-color:var(--ago-site-terra)!important;
+}
+.ago-clean-checkout .checkout-shipping-note span{
+  color:rgba(75,43,30,.62)!important;
+}
+.checkout-first-purchase{
+  background:var(--ago-site-beige)!important;
+  border-left-color:var(--ago-site-terra)!important;
+}
+.checkout-first-purchase strong{
+  color:var(--ago-site-brown)!important;
+}
+.checkout-first-purchase span{
+  color:rgba(75,43,30,.66)!important;
+}
+.ago-clean-checkout .checkout-coupon-row button{
+  background:var(--ago-site-brown)!important;
+  color:#FFF9F4!important;
+}
+.ago-clean-checkout .checkout-coupon-row button:hover{
+  background:var(--ago-site-terra)!important;
+}
+.ago-clean-checkout .checkout-submit{
+  background:var(--ago-site-terra)!important;
+  color:#FFF9F4!important;
+}
+.ago-clean-checkout .checkout-submit:hover:not(:disabled){
+  background:var(--ago-site-brown)!important;
+}
+.ago-clean-checkout .checkout-note{
+  color:rgba(75,43,30,.52)!important;
+}
+
+/* Resumo do pedido */
+.ago-clean-checkout-summary{
+  background:var(--ago-site-beige)!important;
+  color:var(--ago-site-brown)!important;
+  border-color:rgba(75,43,30,.10)!important;
+  box-shadow:none!important;
+}
+.ago-clean-summary-head{
+  border-color:rgba(75,43,30,.12)!important;
+}
+.ago-clean-summary-head h2{
+  color:var(--ago-site-brown)!important;
+}
+.checkout-summary-item{
+  border-color:rgba(75,43,30,.10)!important;
+}
+.checkout-product-image{
+  background:var(--ago-site-cream)!important;
+  border:0!important;
+}
+.checkout-product-name,
+.checkout-line-total{
+  color:var(--ago-site-brown)!important;
+}
+.checkout-product-price,
+.checkout-summary-row{
+  color:rgba(75,43,30,.64)!important;
+}
+.checkout-discount-row strong{
+  color:var(--ago-site-terra)!important;
+}
+.checkout-total{
+  border-top-color:rgba(75,43,30,.14)!important;
+}
+.checkout-total span{
+  color:var(--ago-site-brown)!important;
+}
+.checkout-total strong{
+  color:var(--ago-site-terra)!important;
+}
+
+/* Mensagens e estados */
+.checkout-coupon-message.success{
+  color:var(--ago-site-terra)!important;
+}
+.checkout-coupon-message.error,
+.checkout-error{
+  background:#EAD0C2!important;
+  color:#6B281A!important;
+  border-left-color:var(--ago-site-terra)!important;
+}
+
+/* Mobile: repetir a mesma paleta sem branco/rosa/laranja estranho */
+@media(max-width:900px){
+  .site-header .header-cart-label svg{
+    display:block!important;
+    width:25px!important;
+    height:25px!important;
+    flex-basis:25px!important;
+  }
+}
+@media(max-width:767px){
+  .checkout-page.ago-clean-checkout,
+  .ago-clean-checkout{
+    background:var(--ago-site-paper)!important;
+  }
+  .checkout-form-panel{
+    background:var(--ago-site-cream)!important;
+  }
+  .ago-clean-checkout-summary{
+    background:var(--ago-site-beige)!important;
+  }
+  .checkout-submit,
+  .checkout-coupon-row button{
+    background:var(--ago-site-terra)!important;
+    color:#FFF9F4!important;
+  }
+  .checkout-submit:hover,
+  .checkout-coupon-row button:hover{
+    background:var(--ago-site-brown)!important;
+  }
+}
