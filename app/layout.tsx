@@ -80,6 +80,7 @@ import './ago-refinamento-senior-2026.css';
 import './ago-work-final-refinement-2026.css';
 import './ago-mobile-checkout-final-2026.css';
 import './ago-benefits-lineart-2026.css';
+import './ago-desktop-force-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';

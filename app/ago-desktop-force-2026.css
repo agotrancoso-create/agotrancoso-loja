@@ -1,0 +1,227 @@
+/* AGÔ TRANCOSO — ESTABILIZAÇÃO DESKTOP FINAL 2026
+   Escopo exclusivo para telas acima de 900px.
+   Mantém a camada mobile existente intacta.
+*/
+@media (min-width: 901px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .ago-clean-home,
+  .ago-clean-collection,
+  .ago-clean-edit,
+  .ago-clean-benefits,
+  .ago-clean-visit {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  /* HERO: imagem sempre em plano inteiro + conteúdo em uma única coluna */
+  .ago-clean-hero {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    min-height: 620px !important;
+    height: 620px !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    background: #4B2B1E !important;
+  }
+
+  .ago-clean-hero-image {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    z-index: 0 !important;
+  }
+
+  .ago-clean-hero-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    background:
+      linear-gradient(90deg, rgba(32,20,15,.84) 0%, rgba(64,37,29,.48) 48%, rgba(64,37,29,.10) 100%) !important;
+  }
+
+  .ago-clean-container.ago-clean-hero-content {
+    position: relative !important;
+    z-index: 2 !important;
+    box-sizing: border-box !important;
+    width: min(1180px, calc(100% - 48px)) !important;
+    max-width: 1180px !important;
+    min-height: 620px !important;
+    height: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 0 74px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-end !important;
+    text-align: left !important;
+  }
+
+  .ago-clean-hero-content .eyebrow,
+  .ago-clean-hero-content h2,
+  .ago-clean-hero-content > p:not(.eyebrow),
+  .ago-clean-actions {
+    width: auto !important;
+    max-width: 100% !important;
+    flex: 0 0 auto !important;
+  }
+
+  .ago-clean-hero-content h2 {
+    display: block !important;
+    max-width: 760px !important;
+    margin: 12px 0 18px !important;
+    columns: auto !important;
+    column-count: 1 !important;
+    column-width: auto !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    text-wrap: balance !important;
+    font-size: clamp(4rem, 6.4vw, 6.6rem) !important;
+    line-height: .84 !important;
+    letter-spacing: -.042em !important;
+  }
+
+  .ago-clean-hero-content > p:not(.eyebrow) {
+    max-width: 405px !important;
+    margin: 0 !important;
+    font-size: 14px !important;
+    line-height: 1.72 !important;
+  }
+
+  .ago-clean-actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 22px !important;
+    margin-top: 25px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .ago-clean-button {
+    min-height: 46px !important;
+    padding: 12px 20px !important;
+  }
+
+  /* HEADER: eixo central estável no desktop */
+  .site-header .header-inner {
+    box-sizing: border-box !important;
+    width: min(1180px, calc(100% - 48px)) !important;
+    max-width: 1180px !important;
+    margin-inline: auto !important;
+  }
+
+  /* COLEÇÃO: quatro cartões equilibrados no desktop */
+  .ago-clean-container {
+    box-sizing: border-box !important;
+    width: min(1180px, calc(100% - 48px)) !important;
+    max-width: 1180px !important;
+    margin-inline: auto !important;
+  }
+
+  .ago-clean-collection-head {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 400px) !important;
+    gap: 64px !important;
+    align-items: end !important;
+  }
+
+  .ago-clean-collection-head h1 {
+    max-width: 760px !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    text-wrap: balance !important;
+  }
+
+  .ago-clean-product-grid {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 30px 20px !important;
+    align-items: start !important;
+  }
+
+  .ago-clean-product-grid .product-card {
+    min-width: 0 !important;
+  }
+
+  /* EDITORIAL + VISITA: duas colunas sem estouro */
+  .ago-clean-edit-grid {
+    width: 100% !important;
+    max-width: 1180px !important;
+    margin-inline: auto !important;
+    grid-template-columns: minmax(0, 1.08fr) minmax(300px, .92fr) !important;
+    gap: 68px !important;
+  }
+
+  .ago-clean-edit-image {
+    min-width: 0 !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .ago-clean-edit-copy {
+    min-width: 0 !important;
+  }
+
+  .ago-clean-visit-grid {
+    width: 100% !important;
+    max-width: 1180px !important;
+    margin-inline: auto !important;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, .9fr) !important;
+    gap: 64px !important;
+    align-items: end !important;
+  }
+
+  /* BENEFÍCIOS: quatro blocos visíveis e proporcionais */
+  .ago-clean-benefits-grid {
+    width: 100% !important;
+    max-width: 1180px !important;
+    margin-inline: auto !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  .ago-clean-benefit {
+    min-width: 0 !important;
+  }
+
+  /* FLOATERS: fora do conteúdo principal, sem sobreposição */
+  .ago-social-floaters {
+    right: 18px !important;
+    bottom: 18px !important;
+    z-index: 70 !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .ago-clean-product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 28px 18px !important;
+  }
+
+  .ago-clean-hero {
+    height: 580px !important;
+    min-height: 580px !important;
+  }
+
+  .ago-clean-container.ago-clean-hero-content {
+    min-height: 580px !important;
+    padding-bottom: 58px !important;
+  }
+
+  .ago-clean-hero-content h2 {
+    max-width: 680px !important;
+    font-size: clamp(3.7rem, 6.8vw, 5.5rem) !important;
+  }
+}
