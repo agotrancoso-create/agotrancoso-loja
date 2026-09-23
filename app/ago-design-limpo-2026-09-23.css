@@ -2869,3 +2869,199 @@ html,body,.ago-home,.catalog-page,.product-page,.essencia-page,.contact-page,.ch
 .ago-site-footer .ago-footer-brand h2,.ago-site-footer .ago-footer-group h3{color:#FFF8F1!important}
 .ago-site-footer .ago-footer-description,.ago-site-footer .ago-footer-group p,.ago-site-footer .ago-footer-group a,.ago-site-footer .ago-footer-group span{color:rgba(255,248,241,.78)!important}
 .ago-site-footer .ago-footer-group a:hover{color:#E4AF8D!important}
+
+
+/* ========= AGÔ — PALETA SERTÃO / CAATINGA =========
+   Direção visual inspirada em cal, areia, barro, terracota,
+   ocre e madeira presentes na paisagem e na arquitetura do sertão.
+   Esta camada vem por último para manter desktop e mobile com
+   exatamente as mesmas cores de seção.
+*/
+:root{
+  --ago-cal:#F3E8D8;
+  --ago-areia:#D9BE98;
+  --ago-palha:#E8D1B3;
+  --ago-barro:#B9673D;
+  --ago-terracota:#9F4E2D;
+  --ago-ocre:#C58B4E;
+  --ago-madeira:#5A3828;
+  --ago-terra-escura:#43291E;
+  --ago-tinta:#38231A;
+  --ago-pedra:#766456;
+  --ago-branco:#FFF9F1;
+}
+
+/* Fundo geral */
+html,body{
+  background:var(--ago-cal)!important;
+  color:var(--ago-tinta)!important;
+}
+
+/* Coleção — cal quente */
+.ago-premium-collection{
+  background:var(--ago-cal)!important;
+  color:var(--ago-tinta)!important;
+}
+.ago-premium-section-head h1,
+.ago-premium-section-head h2,
+.ago-premium-collection .product-name{
+  color:var(--ago-terra-escura)!important;
+}
+.ago-premium-section-head>div>p:last-child,
+.ago-premium-collection-bottom{
+  color:var(--ago-pedra)!important;
+}
+.product-image-wrap{
+  background:#E9DCCB!important;
+}
+
+/* Faixa — barro queimado */
+.ago-premium-trust{
+  background:var(--ago-barro)!important;
+  color:var(--ago-branco)!important;
+}
+.ago-premium-trust-inner{color:rgba(255,249,241,.94)!important}
+.ago-premium-trust i{background:rgba(255,249,241,.72)!important}
+
+/* Hero — madeira/terra escura */
+.ago-premium-hero{
+  background:var(--ago-terra-escura)!important;
+}
+.ago-premium-hero-overlay{
+  background:linear-gradient(90deg,rgba(56,35,26,.88) 0%,rgba(56,35,26,.55) 47%,rgba(56,35,26,.12) 90%)!important;
+}
+.ago-premium-hero h2,
+.ago-premium-hero-content>p:not(.eyebrow){
+  color:var(--ago-branco)!important;
+}
+
+/* Benefícios — palha */
+.benefits-strip{
+  background:var(--ago-palha)!important;
+  color:var(--ago-tinta)!important;
+}
+.ago-clean-benefit h3,
+.ago-benefits-heading>span{
+  color:var(--ago-terra-escura)!important;
+}
+.ago-clean-benefit p{color:var(--ago-pedra)!important}
+
+/* Editorial — areia */
+.ago-premium-editorial{
+  background:var(--ago-areia)!important;
+  color:var(--ago-tinta)!important;
+}
+.ago-premium-editorial .ago-premium-copy h2{color:var(--ago-terra-escura)!important}
+.ago-premium-editorial .ago-premium-copy>p:not(.eyebrow){color:#614D40!important}
+
+/* Essência — areia mais clara, ainda quente */
+.ago-premium-essence{
+  background:#E4C9A7!important;
+  color:var(--ago-tinta)!important;
+}
+.ago-premium-essence .ago-premium-copy h2{color:var(--ago-terra-escura)!important}
+.ago-premium-essence .ago-premium-copy>p:not(.eyebrow){color:#614D40!important}
+
+/* Descoberta — cal/palha */
+.ago-premium-discovery{
+  background:#EFE1CE!important;
+  color:var(--ago-tinta)!important;
+}
+.ago-premium-discovery .ago-premium-section-head h2,
+.ago-premium-discovery-copy>span{
+  color:var(--ago-terra-escura)!important;
+}
+.ago-premium-discovery-copy p{color:var(--ago-pedra)!important}
+
+/* Como comprar — ocre */
+.ago-premium-how{
+  background:var(--ago-ocre)!important;
+  color:var(--ago-tinta)!important;
+}
+.ago-premium-how h2,
+.ago-premium-how-grid h3{
+  color:var(--ago-terra-escura)!important;
+}
+.ago-premium-how-grid p{color:#5C4638!important}
+.ago-premium-how-grid,
+.ago-premium-how-grid article{
+  border-color:rgba(67,41,30,.23)!important;
+}
+
+/* Visite — barro claro */
+.ago-premium-visit{
+  background:#D3AF87!important;
+  color:var(--ago-tinta)!important;
+  border-top:1px solid rgba(67,41,30,.14)!important;
+  border-bottom:1px solid rgba(67,41,30,.14)!important;
+}
+.ago-premium-visit .eyebrow{color:var(--ago-terracota)!important}
+.ago-premium-visit h2{color:var(--ago-terra-escura)!important}
+.ago-premium-visit>div>div:first-child>p:not(.eyebrow){color:#594439!important}
+.ago-premium-visit-links a{
+  color:var(--ago-terra-escura)!important;
+  border-color:rgba(67,41,30,.30)!important;
+}
+.ago-premium-visit-links a:hover{
+  color:var(--ago-terracota)!important;
+  border-color:var(--ago-terracota)!important;
+}
+.ago-premium-visit-mark{color:rgba(67,41,30,.64)!important}
+.ago-premium-visit-mark strong{color:var(--ago-terracota)!important}
+
+/* Rodapé — madeira escura */
+.site-footer.ago-site-footer{
+  background:var(--ago-madeira)!important;
+  color:#F8EEE3!important;
+  border-top:0!important;
+}
+.ago-site-footer .ago-footer-place{color:#E2B58E!important}
+.ago-site-footer .ago-footer-brand h2,
+.ago-site-footer .ago-footer-group h3{color:#FFF8F0!important}
+.ago-site-footer .ago-footer-description,
+.ago-site-footer .ago-footer-group p,
+.ago-site-footer .ago-footer-group a,
+.ago-site-footer .ago-footer-group span{
+  color:rgba(255,248,240,.80)!important;
+}
+.ago-site-footer .ago-footer-group a:hover{color:#E6B995!important}
+
+/* ========= MESMA PALETA NO CELULAR =========
+   Nenhuma troca de cor por viewport. Apenas estas garantias
+   mantêm os mesmos fundos e textos em telas pequenas.
+*/
+@media (max-width:767px){
+  html,body{background:var(--ago-cal)!important}
+  .ago-premium-collection{background:var(--ago-cal)!important}
+  .ago-premium-trust{background:var(--ago-barro)!important}
+  .ago-premium-hero{background:var(--ago-terra-escura)!important}
+  .benefits-strip{background:var(--ago-palha)!important}
+  .ago-premium-editorial{background:var(--ago-areia)!important}
+  .ago-premium-essence{background:#E4C9A7!important}
+  .ago-premium-discovery{background:#EFE1CE!important}
+  .ago-premium-how{background:var(--ago-ocre)!important}
+  .ago-premium-visit{background:#D3AF87!important}
+  .site-footer.ago-site-footer{background:var(--ago-madeira)!important}
+
+  .ago-premium-section-head h1,
+  .ago-premium-section-head h2,
+  .ago-premium-collection .product-name,
+  .ago-clean-benefit h3,
+  .ago-benefits-heading>span,
+  .ago-premium-editorial .ago-premium-copy h2,
+  .ago-premium-essence .ago-premium-copy h2,
+  .ago-premium-discovery .ago-premium-section-head h2,
+  .ago-premium-discovery-copy>span,
+  .ago-premium-how h2,
+  .ago-premium-how-grid h3,
+  .ago-premium-visit h2{
+    color:var(--ago-terra-escura)!important;
+  }
+
+  .ago-premium-hero h2,
+  .ago-premium-hero-content>p:not(.eyebrow),
+  .ago-premium-trust,
+  .site-footer.ago-site-footer{
+    color:var(--ago-branco)!important;
+  }
+}
