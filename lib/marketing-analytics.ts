@@ -31,14 +31,41 @@ function track(event: string, ecommerce?: Record<string, unknown>) {
   }
 
   if (typeof window.fbq === 'function') {
+    const payload = ecommerce || {};
+    const items = Array.isArray(payload.items) ? payload.items as Array<Record<string, unknown>> : [];
+    const contents = items.map((item) => ({
+      id: item.item_id,
+      quantity: item.quantity,
+      item_price: item.price,
+    }));
+
     if (event === 'view_item') {
-      window.fbq('track', 'ViewContent', ecommerce || {});
+      window.fbq('track', 'ViewContent', {
+        content_ids: items.map((item) => item.item_id),
+        content_type: 'product',
+        contents,
+        value: payload.value,
+        currency: payload.currency || 'BRL',
+      });
     } else if (event === 'add_to_cart') {
-      window.fbq('track', 'AddToCart', ecommerce || {});
+      window.fbq('track', 'AddToCart', {
+        content_ids: items.map((item) => item.item_id),
+        content_type: 'product',
+        contents,
+        value: payload.value,
+        currency: payload.currency || 'BRL',
+      });
     } else if (event === 'begin_checkout') {
-      window.fbq('track', 'InitiateCheckout', ecommerce || {});
+      window.fbq('track', 'InitiateCheckout', {
+        content_ids: items.map((item) => item.item_id),
+        content_type: 'product',
+        contents,
+        num_items: items.reduce((sum, item) => sum + Number(item.quantity || 0), 0),
+        value: payload.value,
+        currency: payload.currency || 'BRL',
+      });
     } else if (event === 'contact') {
-      window.fbq('track', 'Contact', ecommerce || {});
+      window.fbq('track', 'Contact', payload);
     }
   }
 }
