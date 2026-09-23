@@ -38,7 +38,7 @@ export default function HomePage() {
           <div className="ago-collection-intro-brand">
             <p className="eyebrow">Agô Trancoso · Bahia</p>
             <h1 id="featured-title">Peças que levam um pouco de Trancoso para casa.</h1>
-            <p>Feitas à mão, uma a uma, em Trancoso, Bahia.</p>
+            <p>Feitas à mão, uma a uma.</p>
             <Link href="/produtos" className="ago-premium-text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
           </div>
 
