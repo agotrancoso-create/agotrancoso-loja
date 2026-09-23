@@ -27,7 +27,7 @@
 
 .ago-benefit-art-tile{
   min-width:0!important;
-  aspect-ratio: (2048 / 4) / 690!important;
+  aspect-ratio:512 / 690!important;
   background-image:url('/benefits/benefits-icons.webp')!important;
   background-repeat:no-repeat!important;
   background-size:400% auto!important;
@@ -58,7 +58,7 @@
   }
 
   .ago-benefit-art-tile{
-    aspect-ratio:(2048 / 4) / 690!important;
+    aspect-ratio:512 / 690!important;
   }
 
   .ago-benefit-art-tile:nth-child(3),
