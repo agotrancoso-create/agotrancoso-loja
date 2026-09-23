@@ -638,3 +638,88 @@ select,
 textarea{
   text-align:initial;
 }
+
+
+/* FINAL CART + SOCIAL SHARPNESS */
+.header-icon,
+.header-icon:visited,
+.header-icon:hover,
+.header-icon:active,
+.header-icon:focus,
+.header-cart-label{
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  padding:0!important;
+  margin:0!important;
+}
+
+.header-icon::before,
+.header-icon::after,
+.header-cart-label::before,
+.header-cart-label::after{
+  content:none!important;
+  display:none!important;
+}
+
+.header-icon,
+.header-cart-label{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+.header-icon svg,
+.header-icon svg *,
+.header-cart-label svg,
+.header-cart-label svg *{
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  fill-opacity:1!important;
+  filter:none!important;
+}
+
+.header-icon svg{
+  width:24px!important;
+  height:24px!important;
+  overflow:visible!important;
+  shape-rendering:geometricPrecision!important;
+}
+
+.ago-social-button,
+.ago-social-button:visited,
+.ago-social-button:hover,
+.ago-social-button:active{
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  filter:none!important;
+}
+
+.ago-social-button svg{
+  width:30px!important;
+  height:30px!important;
+  display:block!important;
+  overflow:visible!important;
+  shape-rendering:geometricPrecision!important;
+  filter:none!important;
+  transform:translateZ(0);
+}
+
+.ago-social-button svg path,
+.ago-social-button svg rect,
+.ago-social-button svg circle{
+  vector-effect:non-scaling-stroke;
+}
