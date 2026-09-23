@@ -4,17 +4,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { useCart } from '@/context/CartContext';
-import { getProductById, getEffectivePrice } from '@/lib/products';
+import { getProductById, getEffectivePrice, getAvailableProducts } from '@/lib/products';
 import CartIcon from './CartIcon';
 import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping, FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
-import { trackRemoveFromCart } from '@/lib/marketing-analytics';
+import { trackRemoveFromCart, trackAddToCart } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
 export default function CartDrawer() {
-  const { items, isDrawerOpen, closeDrawer, updateQuantity, removeItem } = useCart();
+  const { items, isDrawerOpen, closeDrawer, updateQuantity, removeItem, addItem } = useCart();
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -48,6 +48,10 @@ export default function CartDrawer() {
   const remaining = Math.max(0, (FREE_SHIPPING_THRESHOLD + 0.01) - subtotal);
   const progressTarget = FREE_SHIPPING_THRESHOLD + 0.01;
   const progress = Math.min(100, (subtotal / progressTarget) * 100);
+  const cartIds = new Set(lines.map(({ product }) => product.id));
+  const complementary = getAvailableProducts()
+    .filter((product) => !cartIds.has(product.id) && getEffectivePrice(product) <= 500)
+    .slice(0, 2);
 
   return (
     <>
@@ -144,6 +148,53 @@ export default function CartDrawer() {
                 <span>Grátis acima de R$ 500</span>
               </div>
             </div>
+            {complementary.length > 0 && (
+              <div className="cart-complementary" aria-label="Peças que podem acompanhar sua seleção">
+                <div className="cart-complementary-head">
+                  <span>Para acompanhar</span>
+                  <small>Mais uma peça, mais um pouco de Trancoso.</small>
+                </div>
+                <div className="cart-complementary-list">
+                  {complementary.map((product) => (
+                    <article key={product.id} className="cart-complementary-item">
+                      <Link href={`/produtos/${product.id}`} onClick={closeDrawer} className="cart-complementary-image" aria-label={`Ver ${product.name}`}>
+                        <Image
+                          src={product.images?.[0] || '/images/placeholder.svg'}
+                          alt={product.name}
+                          fill
+                          sizes="64px"
+                          className="object-contain"
+                        />
+                      </Link>
+                      <div className="cart-complementary-info">
+                        <Link href={`/produtos/${product.id}`} onClick={closeDrawer}>
+                          <strong>{product.name}</strong>
+                        </Link>
+                        <span>{formatBRL(getEffectivePrice(product))}</span>
+                      </div>
+                      <button
+                        type="button"
+                        className="cart-complementary-add"
+                        onClick={() => {
+                          const price = getEffectivePrice(product);
+                          addItem(product.id);
+                          trackAddToCart({
+                            item_id: product.id,
+                            item_name: product.name,
+                            price,
+                            quantity: 1,
+                            item_category: product.category,
+                          });
+                        }}
+                        aria-label={`Adicionar ${product.name} ao carrinho`}
+                      >
+                        +
+                      </button>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            )}
             <div className="cart-summary-row"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
             <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
             <div className="cart-total-row"><span>Total</span><strong>{formatBRL(total)}</strong></div>
