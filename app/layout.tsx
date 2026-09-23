@@ -89,6 +89,7 @@ import './ago-final-art-direction-2026.css';
 import './ago-alinhamento-final-sem-bordas-2026.css';
 import './ago-simbolos-estrutura-editorial-2026.css';
 import './ago-interacao-simbolos-centralizados-2026.css';
+import './ago-cart-icon-transparent-final-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';

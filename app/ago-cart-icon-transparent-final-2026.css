@@ -1,0 +1,39 @@
+/* FINAL CART ICON TRANSPARENCY — NO PAINT BEHIND THE DRAWING */
+button.header-icon,
+button.header-icon:hover,
+button.header-icon:focus,
+button.header-icon:active,
+button.header-icon:focus-visible,
+.header-cart-label,
+.header-cart-label:hover,
+.header-cart-label:active,
+.header-cart-label:focus,
+.header-icon > span,
+.header-icon > span:hover,
+.header-icon > span:active{
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+  outline:none!important;
+  border-radius:0!important;
+  filter:none!important;
+}
+.header-icon svg,
+.header-cart-label svg{
+  display:block!important;
+  width:23px!important;
+  height:23px!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  fill:none!important;
+  filter:none!important;
+}
+.header-icon svg path,
+.header-icon svg circle,
+.header-cart-label svg path,
+.header-cart-label svg circle{
+  background:transparent!important;
+}
