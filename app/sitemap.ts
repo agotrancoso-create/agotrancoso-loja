@@ -4,7 +4,7 @@ import { SITE_DOMAIN } from '@/lib/config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const staticRoutes = ['', '/produtos', '/nossa-essencia'];
+  const staticRoutes = ['', '/produtos', '/nossa-essencia', '/contato'];
   const productRoutes = getAllProducts().map((product) => `/produtos/${product.id}`);
 
   return [...staticRoutes.map((path) => ({

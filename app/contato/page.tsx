@@ -5,7 +5,16 @@ const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.589557
 
 export const metadata: Metadata = {
   title: { absolute: 'Contato | Agô Trancoso' },
+  description: 'Fale com a Agô Trancoso, conheça a localização da banca no Quadrado e encontre nossos canais oficiais.',
   alternates: { canonical: '/contato' },
+  openGraph: {
+    title: 'Contato | Agô Trancoso',
+    description: 'Fale com a Agô Trancoso, conheça a localização da banca no Quadrado e encontre nossos canais oficiais.',
+    url: '/contato',
+    siteName: 'Agô Trancoso',
+    locale: 'pt_BR',
+    type: 'website',
+  },
 };
 
 export default function ContatoPage() {
