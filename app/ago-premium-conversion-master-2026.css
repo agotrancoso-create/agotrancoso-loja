@@ -1408,3 +1408,25 @@ html body .catalog-empty button{
     transition-duration:.001ms!important;
   }
 }
+
+
+/* PRIMEIRA VISÃO — a coleção entra cedo, sem transformar a abertura em banner */
+html body .ago-premium-collection-first{
+  padding-top:58px!important;
+}
+html body .ago-premium-collection-first .ago-premium-section-head{
+  margin-bottom:38px!important;
+}
+@media(max-width:900px){
+  html body .ago-premium-collection-first{
+    padding-top:40px!important;
+  }
+  html body .ago-premium-collection-first .ago-premium-section-head{
+    margin-bottom:28px!important;
+  }
+}
+@media(max-width:520px){
+  html body .ago-premium-collection-first{
+    padding-top:31px!important;
+  }
+}
