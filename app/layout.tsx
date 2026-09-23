@@ -53,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <CartProvider>
           <InteractiveEnhancements />
           <Header />
-          <main className="min-h-[60vh]">{children}</main>
+          <main id="conteudo-principal" className="min-h-[60vh]">{children}</main>
           <Footer />
           <CartDrawer />
           <SocialFloaters />
