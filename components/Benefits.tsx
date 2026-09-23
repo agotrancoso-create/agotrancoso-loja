@@ -15,9 +15,9 @@ const benefits = [
     icon: 'brazil',
   },
   {
-    title: 'envio para todo brasil',
-    text: 'receba com segurança na sua casa.',
-    icon: 'shipping',
+    title: 'sem fronteiras',
+    text: 'uma lembrança para qualquer lugar.',
+    icon: 'world',
   },
 ] as const;
 
@@ -71,17 +71,20 @@ function BenefitIcon({ type }: { type: BenefitIconType }) {
     );
   }
 
-  return (
-    <svg {...iconProps}>
-      <path d="M8 22h31l8.6 7.2v12.6H8V22Z" />
-      <path d="M8 22 17.6 29h21.4" />
-      <path d="M47.6 29.6h4.8c2.4 0 4.3 1.9 4.3 4.3v7.9h-9.1" />
-      <circle cx="16.6" cy="42.3" r="3.4" />
-      <circle cx="43.6" cy="42.3" r="3.4" />
-      <path d="M48 16.8h7.6M51.8 13v7.6" />
-      <path d="M2.2 28.8h4.3M1.7 34.2h5.1" />
-    </svg>
-  );
+  if (type === 'world') {
+    return (
+      <svg {...iconProps}>
+        <circle cx="32" cy="32" r="18" />
+        <path d="M14 32h36" />
+        <path d="M32 14c5.4 4.8 8.4 11 8.4 18S37.4 45.2 32 50" />
+        <path d="M32 14c-5.4 4.8-8.4 11-8.4 18S26.6 45.2 32 50" />
+        <path d="M18.2 23.3c4.3 2 8.8 3 13.8 3s9.5-1 13.8-3" />
+        <path d="M18.2 40.7c4.3-2 8.8-3 13.8-3s9.5 1 13.8 3" />
+      </svg>
+    );
+  }
+
+  return null;
 }
 
 export default function Benefits() {
