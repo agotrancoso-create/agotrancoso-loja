@@ -1,102 +1,10 @@
 import type { Metadata } from 'next';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
 import './globals.css';
-import './ago-editorial.css';
-import './ago-terrosa-final.css';
-import './ago-paleta-final.css';
-import './ago-beneficios-referencia.css';
-import './ago-hero-sem-borda.css';
-import './ago-proporcao-final.css';
-import './ago-ajuste-mestre.css';
-import './ago-direcao-estrategica-final.css';
-import './ago-final-polish.css';
-import './ago-composicao-final.css';
 import './ago-checkout-premium.css';
 import './ago-social-mobile.css';
-import './ago-professional-final.css';
-import './ago-composicao-definitiva.css';
-import './ago-responsive-final.css';
-import './ago-final-device-audit.css';
-import './ago-ajuste-final-sessoes.css';
-import './ago-paleta-coesa-final.css';
-import './ago-direcao-final.css';
-import './ago-sem-verde-final.css';
-import './ago-direcao-artesanal-2026.css';
-import './ago-redesign-2026.css';
-import './ago-centralizado-terra-final.css';
-import './ago-layout-final-2026.css';
-import './ago-direcao-proporcional-terra-2026.css';
-import './ago-paleta-rodape-final.css';
-import './ago-direcao-mestre-2026.css';
-import './ago-sem-linhas-proporcional.css';
-import './ago-ajuste-proporcao-final.css';
-import './ago-mobile-preenchido-final.css';
-import './ago-unificacao-total.css';
-import './ago-force-final.css';
-import './ago-auditoria-visual-final.css';
-import './ago-rodape-tipografia-final.css';
-import './ago-neuro-conversao-final.css';
-import './ago-mestre-final-2026.css';
-import './ago-visita-editorial.css';
-import './ago-ajuste-pedido-final.css';
-import './ago-palette-terrosa-2026.css';
-import './ago-forca-total-2026.css';
-import './ago-direcao-definitiva-viva-2026.css';
-import './ago-viva-ajuste-final-2026.css';
-import './ago-rodape-restaurado-2026.css';
-import './ago-design-system-2026.css';
-import './ago-ajuste-terroso-elegante-final-2026.css';
-import './ago-social-floaters-final-2026.css';
-import './ago-salvador-sertao-final.css';
-import './ago-alinhamento-textual-final-2026.css';
-import './ago-force-alinhamento-visual-2026.css';
-import './ago-catalogo-editorial-final-2026.css';
-import './ago-identidade-bahia-final-2026.css';
-import './ago-responsive-unico-2026.css';
-import './ago-visite-alinhamento-force-2026.css';
-import './ago-alinhamento-global-2026.css';
-import './ago-acessibilidade-proporcao-final-2026.css';
-import './ago-ux-acessibilidade-final-2026.css';
-import './ago-copyright-centralizado-final.css';
-import './ago-direcao-designer-final-2026.css';
-import './ago-brasilidade-2026.css';
-import './ago-prompt-mestre-final-2026.css';
-import './ago-experiencia-total-2026.css';
-import './ago-oferta-checkout-legal-2026.css';
-import './ago-alinhamento-total-final-2026.css';
-import './ago-refinamento-visual-final-2026.css';
-import './ago-redesign-forca-2026.css';
-import './ago-catalog-controls-2026.css';
-import './ago-polimento-editorial-2026.css';
-import './ago-direcao-arte-final-2026.css';
-import './ago-direcao-desktop-radical-2026.css';
-import './ago-desktop-final-clean-2026.css';
-import './ago-unificacao-humana-2026.css';
-import './ago-tipografia-rodape-refinado-2026.css';
-import './ago-carrinho-premium-final-2026.css';
-import './ago-redesign-clean-2026.css';
-import './ago-forca-verdadeira-2026.css';
-import './ago-refinamento-senior-2026.css';
-import './ago-work-final-refinement-2026.css';
 import './ago-mobile-checkout-final-2026.css';
-import './ago-benefits-lineart-2026.css';
-import './ago-desktop-force-2026.css';
-import './ago-structure-beautiful-2026.css';
-import './ago-master-visual-2026.css';
-import './ago-fashion-commerce-2026.css';
-import './ago-brand-color-system-2026.css';
-import './ago-final-art-direction-2026.css';
-import './ago-alinhamento-final-sem-bordas-2026.css';
-import './ago-simbolos-estrutura-editorial-2026.css';
-import './ago-interacao-simbolos-centralizados-2026.css';
-import './ago-cart-icon-transparent-final-2026.css';
-import './ago-justificado-global-2026.css';
-import './ago-neuro-structure-final-2026.css';
-import './ago-benefits-footer-ideal-2026.css';
-import './ago-premium-conversion-master-2026.css';
-import './ago-ajuste-visual-final-2026-09-22.css';
-import './ago-site-perfeito-2026-09-23.css';
-import './ago-estabilizacao-final-2026-09-23.css';
+import './ago-design-limpo-2026-09-23.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -112,8 +20,19 @@ export const metadata: Metadata = {
   keywords: ['Agô Trancoso', 'cerâmica artesanal', 'peças feitas à mão', 'decoração artesanal', 'presentes artesanais', 'Trancoso', 'Bahia'],
   alternates: { canonical: SITE_DOMAIN },
   robots: { index: true, follow: true },
-  openGraph: { title: 'Agô Trancoso | Cerâmicas e peças feitas à mão', description: 'Peças feitas à mão, inspiradas na Bahia, nas formas de Trancoso e no jeito brasileiro de viver.', url: SITE_DOMAIN, siteName: 'Agô Trancoso', locale: 'pt_BR', type: 'website' },
-  twitter: { card: 'summary_large_image', title: 'Agô Trancoso | Cerâmicas e peças feitas à mão', description: 'Peças feitas à mão, inspiradas na Bahia e nas formas de Trancoso.' },
+  openGraph: {
+    title: 'Agô Trancoso | Cerâmicas e peças feitas à mão',
+    description: 'Peças feitas à mão, inspiradas na Bahia, nas formas de Trancoso e no jeito brasileiro de viver.',
+    url: SITE_DOMAIN,
+    siteName: 'Agô Trancoso',
+    locale: 'pt_BR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Agô Trancoso | Cerâmicas e peças feitas à mão',
+    description: 'Peças feitas à mão, inspiradas na Bahia e nas formas de Trancoso.',
+  },
 };
 
 const structuredData = {
@@ -127,7 +46,7 @@ const structuredData = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className="font-sans">
+      <body>
         <MarketingAnalytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <CartProvider>
