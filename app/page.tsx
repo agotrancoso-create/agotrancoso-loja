@@ -44,24 +44,12 @@ export default function HomePage() {
             <Link href="/produtos" className="ago-premium-text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
           </div>
 
-          <nav className="ago-collection-quicknav" aria-label="Explorar a coleção">
-            <Link href="/produtos?categoria=trancoso">Trancoso</Link>
-            <Link href="/produtos?categoria=igrejinhas">Igrejinhas</Link>
-            <Link href="/produtos?categoria=decoracao">Decoração</Link>
-            <Link href="/produtos?categoria=fe-devocao">Fé & devoção</Link>
-            <Link href="/produtos?categoria=presentes">Presentes</Link>
-          </nav>
-
           <div className="ago-premium-product-grid ago-premium-product-grid-featured">
             {featured.map((product, index) => (
               <ProductCard key={product.id} product={product} priority={index < 4} />
             ))}
           </div>
 
-          <div className="ago-premium-collection-bottom">
-            <span>{available.length} peças</span>
-            <Link href="/produtos">Explorar tudo <span aria-hidden="true">↗</span></Link>
-          </div>
         </div>
       </section>
 
