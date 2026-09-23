@@ -3,7 +3,16 @@ import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: { absolute: 'A Agô | Agô Trancoso' },
+  description: 'Conheça a história da Agô Trancoso e as referências de Trancoso, Bahia e do trabalho em cerâmica feito à mão.',
   alternates: { canonical: '/nossa-essencia' },
+  openGraph: {
+    title: 'A Agô | Agô Trancoso',
+    description: 'Conheça a história da Agô Trancoso e as referências de Trancoso, Bahia e do trabalho em cerâmica feito à mão.',
+    url: '/nossa-essencia',
+    siteName: 'Agô Trancoso',
+    locale: 'pt_BR',
+    type: 'website',
+  },
 };
 
 export default function NossaEssenciaPage() {
