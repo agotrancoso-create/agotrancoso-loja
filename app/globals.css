@@ -343,69 +343,42 @@ button, input, select { font: inherit; }
 
 
   .ago-benefits-reference {
-    padding: 54px 22px 58px;
+    padding: 48px 22px 54px;
     background: #faf7f1;
     border-top: 1px solid rgba(63, 38, 28, .09);
     border-bottom: 1px solid rgba(63, 38, 28, .09);
   }
 
-  .ago-benefits-reference-grid {
+  .ago-benefits-image {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+    line-height: 0;
+  }
+
+  .ago-benefits-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .ago-benefits-copy-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    max-width: 1180px;
+    width: min(1180px, 100%);
     margin: 0 auto;
   }
 
-  .ago-benefit-reference-item {
-    position: relative;
-    display: flex;
+  .ago-benefit-copy-item {
     min-width: 0;
-    align-items: center;
-    flex-direction: column;
-    padding: 4px 34px 0;
+    padding: 7px 34px 0;
     text-align: center;
   }
 
-  .ago-benefit-reference-item + .ago-benefit-reference-item {
+  .ago-benefit-copy-item + .ago-benefit-copy-item {
     border-left: 1px solid rgba(63, 38, 28, .16);
   }
 
-  .ago-benefit-reference-icon {
-    display: flex;
-    width: 100%;
-    height: 178px;
-    align-items: flex-end;
-    justify-content: center;
-    margin-bottom: 14px;
-  }
-
-  .ago-benefit-reference-icon svg {
-    width: min(190px, 82%);
-    height: 158px;
-    color: #8e4b32;
-  }
-
-  .ago-benefit-reference-item:nth-child(1) .ago-benefit-reference-icon svg {
-    width: min(210px, 88%);
-    height: 162px;
-  }
-
-  .ago-benefit-reference-item:nth-child(2) .ago-benefit-reference-icon svg {
-    width: min(165px, 78%);
-    height: 154px;
-  }
-
-  .ago-benefit-reference-item:nth-child(3) .ago-benefit-reference-icon svg {
-    width: min(165px, 76%);
-    height: 158px;
-  }
-
-  .ago-benefit-reference-item:nth-child(4) .ago-benefit-reference-icon svg {
-    width: min(185px, 84%);
-    height: 160px;
-  }
-
-  .ago-benefit-reference-item h2 {
+  .ago-benefit-copy-item h2 {
     margin: 0;
     color: #4b2b1e;
     font-family: 'Fraunces', Georgia, serif;
@@ -416,7 +389,7 @@ button, input, select { font: inherit; }
     text-wrap: balance;
   }
 
-  .ago-benefit-reference-item p {
+  .ago-benefit-copy-item p {
     max-width: 235px;
     margin: 10px auto 0;
     color: rgba(75, 43, 30, .7);
@@ -428,35 +401,32 @@ button, input, select { font: inherit; }
   }
 
 @media (max-width: 1000px) {
-  .ago-benefits-reference-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .ago-benefit-reference-item:nth-child(3),
-  .ago-benefit-reference-item:nth-child(4) { border-top: 1px solid rgba(63, 38, 28, .16); padding-top: 34px; }
-  .ago-benefit-reference-item:nth-child(3) { border-left: 0; }
+  .ago-benefits-copy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ago-benefit-copy-item:nth-child(3),
+  .ago-benefit-copy-item:nth-child(4) {
+    border-top: 1px solid rgba(63, 38, 28, .16);
+    padding-top: 26px;
+  }
+  .ago-benefit-copy-item:nth-child(3) { border-left: 0; }
 }
 
 @media (max-width: 767px) {
-  .ago-benefits-reference { padding: 44px 14px 48px; }
-  .ago-benefits-reference-grid { grid-template-columns: 1fr; gap: 0; }
-  .ago-benefit-reference-item,
-  .ago-benefit-reference-item:nth-child(3),
-  .ago-benefit-reference-item:nth-child(4) {
-    padding: 0 18px 38px;
+  .ago-benefits-reference { padding: 34px 12px 42px; }
+  .ago-benefits-image { width: 100%; }
+  .ago-benefits-copy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ago-benefit-copy-item,
+  .ago-benefit-copy-item:nth-child(3),
+  .ago-benefit-copy-item:nth-child(4) {
+    padding: 8px 10px 28px;
     border: 0;
     border-bottom: 1px solid rgba(63, 38, 28, .14);
   }
-  .ago-benefit-reference-item + .ago-benefit-reference-item { padding-top: 38px; }
-  .ago-benefit-reference-item:last-child { padding-bottom: 0; border-bottom: 0; }
-  .ago-benefit-reference-icon { height: 150px; margin-bottom: 12px; }
-  .ago-benefit-reference-icon svg,
-  .ago-benefit-reference-item:nth-child(1) .ago-benefit-reference-icon svg,
-  .ago-benefit-reference-item:nth-child(2) .ago-benefit-reference-icon svg,
-  .ago-benefit-reference-item:nth-child(3) .ago-benefit-reference-icon svg,
-  .ago-benefit-reference-item:nth-child(4) .ago-benefit-reference-icon svg {
-    width: 175px;
-    height: 138px;
-  }
-  .ago-benefit-reference-item h2 { font-size: 1.65rem; }
-  .ago-benefit-reference-item p { max-width: 280px; font-size: 10px; }
+  .ago-benefit-copy-item:nth-child(2n) { border-left: 1px solid rgba(63, 38, 28, .14); }
+  .ago-benefit-copy-item:nth-child(3),
+  .ago-benefit-copy-item:nth-child(4) { padding-top: 28px; }
+  .ago-benefit-copy-item:last-child { padding-bottom: 0; border-bottom: 0; }
+  .ago-benefit-copy-item h2 { font-size: 1.1rem; line-height: 1.04; }
+  .ago-benefit-copy-item p { max-width: 150px; font-size: 9px; line-height: 1.55; }
 }
 
 @media (max-width: 1000px) {
