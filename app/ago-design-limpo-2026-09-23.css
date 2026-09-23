@@ -9700,3 +9700,33 @@ h1,h2,h3,
 .ago-lineart-benefit-icon.benefit-icon-ceramic{color:#7E4632!important}
 .ago-lineart-benefit-icon.benefit-icon-trancoso{color:#9B7048!important}
 .ago-lineart-benefit-icon.benefit-icon-shipping{color:#8A5A45!important}
+
+
+/* Símbolos redefinidos: sem moldura circular, sem halo e com desenho contínuo. */
+.ago-lineart-benefit-icon{
+  width:52px!important;
+  height:52px!important;
+  flex:0 0 52px!important;
+  margin-bottom:18px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.ago-lineart-benefit-icon::after{display:none!important}
+.ago-lineart-benefit-icon svg{
+  width:44px!important;
+  height:44px!important;
+  stroke-width:1.05!important;
+}
+.ago-clean-benefit:hover .ago-lineart-benefit-icon{
+  transform:translateY(-2px)!important;
+  box-shadow:none!important;
+}
+.ago-lineart-benefit-icon.benefit-icon-handmade{color:#8F4F39!important}
+.ago-lineart-benefit-icon.benefit-icon-ceramic{color:#784331!important}
+.ago-lineart-benefit-icon.benefit-icon-trancoso{color:#946A45!important}
+.ago-lineart-benefit-icon.benefit-icon-shipping{color:#815540!important}
