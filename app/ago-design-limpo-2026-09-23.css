@@ -1651,7 +1651,7 @@ h1,h2,h3,
   text-transform:uppercase!important;
 }
 .checkout-coupon-message{margin:8px 0 0!important;font-size:9px!important}
-.checkout-coupon-message.success{color:#49603C!important}
+.checkout-coupon-message.success{color:#7C321B!important}
 .checkout-coupon-message.error,.checkout-error{color:#8B3E31!important}
 .checkout-error{
   margin:15px 0 0!important;
