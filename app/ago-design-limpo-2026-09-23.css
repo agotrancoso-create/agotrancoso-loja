@@ -5491,3 +5491,315 @@ html,body{background:#E9CCC0!important;color:#35231E!important}
     color:#24160F!important;
   }
 }
+
+
+/* ==========================================================================
+   AGÔ — ACABAMENTO DE NÍVEL PROFISSIONAL
+   Sistema visual consistente, legível e responsivo.
+   ========================================================================== */
+
+/* Base tipográfica: evita textos excessivamente pequenos e mantém leitura
+   confortável sem perder o caráter editorial. */
+.ago-premium-home,
+.ago-site-footer,
+.site-header{
+  font-family:'DM Sans',Arial,sans-serif!important;
+}
+
+.ago-premium-home p,
+.ago-premium-home li,
+.ago-premium-home a,
+.ago-premium-home button{
+  -webkit-font-smoothing:antialiased!important;
+  text-rendering:optimizeLegibility!important;
+}
+
+.ago-premium-section-head>div>p:last-child,
+.ago-premium-copy>p:not(.eyebrow),
+.ago-clean-benefit p,
+.ago-premium-discovery-copy p,
+.ago-premium-how-grid p,
+.ago-premium-visit>div>div:first-child>p:not(.eyebrow){
+  font-size:14px!important;
+  line-height:1.75!important;
+}
+
+.ago-premium-collection h1,
+.ago-premium-editorial h2,
+.ago-premium-essence h2,
+.ago-premium-discovery h2,
+.ago-premium-how h2,
+.ago-premium-visit h2{
+  letter-spacing:-.03em!important;
+  text-wrap:balance!important;
+}
+
+.ago-premium-collection h1{font-size:clamp(3rem,6vw,5.6rem)!important;line-height:.9!important}
+.ago-premium-editorial h2,
+.ago-premium-essence h2,
+.ago-premium-discovery h2,
+.ago-premium-how h2{font-size:clamp(2.8rem,5vw,5rem)!important;line-height:.92!important}
+
+.eyebrow{
+  font-size:10px!important;
+  letter-spacing:.20em!important;
+  line-height:1.35!important;
+}
+
+/* Header: mais limpo, mais espaçado e com estados visuais claros. */
+.ago-topbar{
+  min-height:30px!important;
+  font-size:10px!important;
+}
+.site-header{
+  box-shadow:0 1px 0 rgba(53,35,30,.10)!important;
+  backdrop-filter:saturate(120%) blur(8px)!important;
+  -webkit-backdrop-filter:saturate(120%) blur(8px)!important;
+}
+.header-inner{
+  min-height:72px!important;
+}
+.header-link{
+  min-height:44px!important;
+  font-size:10px!important;
+  letter-spacing:.11em!important;
+}
+.header-actions{
+  gap:8px!important;
+}
+.header-icon,
+.mobile-menu-button{
+  min-width:44px!important;
+  min-height:44px!important;
+  border-radius:10px!important;
+}
+.header-search{
+  min-height:42px!important;
+  font-size:14px!important;
+}
+
+/* Navegação de categoria: leve e editorial, não parecida com um filtro
+   administrativo. */
+.ago-category-bar-inner{
+  min-height:44px!important;
+}
+.ago-category-bar a{
+  min-height:44px!important;
+  font-size:10px!important;
+}
+
+/* Cartões de produto: fotografia é protagonista; informação entra depois. */
+.ago-premium-product-grid-featured .product-card{
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+.ago-premium-product-grid-featured .product-image-wrap{
+  aspect-ratio:1/1!important;
+  border-radius:24px!important;
+}
+.ago-premium-product-grid-featured .product-image{
+  padding:12px!important;
+}
+.product-name{
+  font-size:21px!important;
+  line-height:1.08!important;
+  min-height:2.1em!important;
+}
+.current-price{
+  font-size:14px!important;
+  line-height:1.4!important;
+}
+.product-add{
+  min-height:48px!important;
+  margin-top:13px!important;
+  border:0!important;
+  border-radius:10px!important;
+  background:#A95A43!important;
+  color:#FFFDF9!important;
+  font-size:10px!important;
+  letter-spacing:.10em!important;
+}
+.product-add:hover{
+  transform:translateY(-1px)!important;
+  background:#944936!important;
+}
+.product-add:focus-visible,
+.ago-premium-hero-cta:focus-visible,
+.ago-premium-dark-cta:focus-visible,
+.contact-location-button:focus-visible,
+.product-primary-cta:focus-visible,
+.cart-checkout:focus-visible,
+.header-icon:focus-visible,
+.mobile-menu-button:focus-visible{
+  outline:3px solid #F1C68F!important;
+  outline-offset:3px!important;
+}
+
+/* Fotos editoriais: arredondamento forte e consistente, sem qualquer moldura. */
+.ago-premium-image,
+.ago-premium-discovery-image,
+.essencia-image{
+  border-radius:28px!important;
+  overflow:hidden!important;
+  border:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+}
+.ago-premium-image img,
+.ago-premium-discovery-image img,
+.essencia-image img{
+  border-radius:inherit!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+
+/* Benefícios e descoberta: módulos com respiro, não “caixas” apertadas. */
+.ago-clean-benefit{
+  min-width:0!important;
+}
+.ago-lineart-benefit-icon{
+  width:56px!important;
+  height:56px!important;
+}
+.ago-premium-discovery-card{
+  border-radius:22px!important;
+  overflow:hidden!important;
+}
+.ago-premium-discovery-card .ago-premium-discovery-image{
+  border-radius:0!important;
+  overflow:hidden!important;
+}
+.ago-premium-discovery-copy{
+  padding:20px 2px 2px!important;
+}
+.ago-premium-discovery-copy>span{
+  font-size:23px!important;
+  line-height:1.05!important;
+}
+.ago-premium-discovery-copy p{
+  margin-top:9px!important;
+  font-size:13px!important;
+  line-height:1.7!important;
+}
+.ago-premium-discovery-copy strong{
+  display:inline-flex!important;
+  min-height:44px!important;
+  align-items:center!important;
+  margin-top:10px!important;
+  font-size:11px!important;
+}
+
+/* CTAs editoriais usam o mesmo idioma do botão de compra. */
+.ago-premium-hero-cta,
+.ago-premium-dark-cta,
+.contact-location-button,
+.product-primary-cta,
+.checkout-submit,
+.cart-checkout{
+  min-height:50px!important;
+  border-radius:10px!important;
+  font-size:10px!important;
+  letter-spacing:.10em!important;
+  font-weight:700!important;
+}
+
+/* Social floaters: discretos, reconhecíveis e sem competir com o carrinho. */
+.ago-social-button{
+  width:48px!important;
+  height:48px!important;
+  border-radius:50%!important;
+  box-shadow:0 8px 28px rgba(53,35,30,.16)!important;
+}
+
+/* Modal de primeira compra: sofisticação em vez de aparência de pop-up
+   promocional genérico. */
+.first-purchase-modal{
+  border-radius:22px!important;
+  border:0!important;
+  box-shadow:0 30px 90px rgba(53,35,30,.24)!important;
+}
+.first-purchase-close{
+  width:44px!important;
+  height:44px!important;
+  border-radius:50%!important;
+}
+.first-purchase-submit{
+  min-height:50px!important;
+  border-radius:10px!important;
+}
+
+/* Rodapé visualmente integrado ao site. */
+.ago-site-footer{
+  border-top:0!important;
+}
+.ago-footer-group a,
+.ago-footer-map-link{
+  min-height:36px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+}
+
+/* Nada de deslocamento horizontal acidental em telas estreitas. */
+html,body,#__next{
+  max-width:100%!important;
+  overflow-x:hidden!important;
+}
+
+@media (max-width:767px){
+  .ago-premium-section-head>div>p:last-child,
+  .ago-premium-copy>p:not(.eyebrow),
+  .ago-clean-benefit p,
+  .ago-premium-discovery-copy p,
+  .ago-premium-how-grid p,
+  .ago-premium-visit>div>div:first-child>p:not(.eyebrow){
+    font-size:14px!important;
+    line-height:1.78!important;
+  }
+
+  .ago-premium-collection h1{
+    font-size:clamp(2.9rem,14vw,4.4rem)!important;
+    line-height:.92!important;
+  }
+
+  .ago-premium-editorial h2,
+  .ago-premium-essence h2,
+  .ago-premium-discovery h2,
+  .ago-premium-how h2,
+  .ago-premium-visit h2{
+    font-size:clamp(2.65rem,12vw,4rem)!important;
+  }
+
+  .ago-premium-product-grid-featured .product-image-wrap{
+    border-radius:20px!important;
+  }
+  .product-name{
+    font-size:19px!important;
+    min-height:2.15em!important;
+  }
+  .current-price{font-size:13px!important}
+  .product-add{
+    min-height:46px!important;
+    font-size:9px!important;
+    padding:10px 8px!important;
+  }
+  .ago-premium-image,
+  .ago-premium-discovery-image,
+  .essencia-image{
+    border-radius:22px!important;
+  }
+  .ago-premium-discovery-card{
+    border-radius:18px!important;
+  }
+  .ago-premium-discovery-copy>span{
+    font-size:21px!important;
+  }
+  .ago-social-button{
+    width:46px!important;
+    height:46px!important;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .product-add:hover{transform:none!important}
+}
