@@ -1,0 +1,197 @@
+/* AGÔ TRANCOSO — INTERAÇÃO EDITORIAL + ÍCONES CENTRALIZADOS 2026 */
+
+.ago-clean-benefits-grid{
+  align-items:stretch!important;
+}
+.ago-clean-benefit{
+  position:relative!important;
+  min-width:0!important;
+  min-height:210px!important;
+  padding:8px 30px 10px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  text-align:center!important;
+  background:transparent!important;
+  border:0!important;
+  transition:transform .24s ease, opacity .24s ease!important;
+}
+.ago-clean-benefit + .ago-clean-benefit{
+  border-left:1px solid rgba(67,37,28,.09)!important;
+}
+.ago-lineart-benefit-icon{
+  width:58px!important;
+  height:58px!important;
+  margin:0 auto 18px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  color:var(--ag-terra,#A94C35)!important;
+  transition:transform .28s ease, color .28s ease!important;
+}
+.ago-lineart-benefit-icon svg{
+  width:41px!important;
+  height:41px!important;
+  display:block!important;
+  stroke-width:1.25!important;
+}
+.ago-benefit-copy{
+  max-width:230px!important;
+  margin-inline:auto!important;
+}
+.ago-benefit-copy h3{
+  margin:0!important;
+  color:var(--ag-brown,#43251C)!important;
+  font:500 27px/1 'EB Garamond',Georgia,serif!important;
+  letter-spacing:-.02em!important;
+}
+.ago-benefit-copy p{
+  margin:10px auto 0!important;
+  max-width:215px!important;
+  color:rgba(67,37,28,.60)!important;
+  font:400 11px/1.72 'Lato',Arial,sans-serif!important;
+}
+.ago-clean-benefit:hover,
+.ago-clean-benefit:focus-visible{
+  transform:translateY(-5px)!important;
+}
+.ago-clean-benefit:hover .ago-lineart-benefit-icon,
+.ago-clean-benefit:focus-visible .ago-lineart-benefit-icon{
+  transform:translateY(-2px) scale(1.06)!important;
+  color:var(--ag-coral,#D95E45)!important;
+}
+.ago-clean-benefit:focus-visible{
+  outline:1px solid rgba(169,76,53,.35)!important;
+  outline-offset:8px!important;
+}
+
+/* Make the whole store feel responsive without turning it into an animation-heavy site */
+.ago-clean-product-grid .product-card{
+  transition:transform .24s ease!important;
+}
+.ago-clean-product-grid .product-card:hover{
+  transform:translateY(-4px)!important;
+}
+.ago-clean-product-grid .product-card .product-name,
+.ago-clean-product-grid .product-card .current-price,
+.ago-clean-product-grid .product-card .product-add{
+  transition:color .22s ease, background-color .22s ease, transform .22s ease!important;
+}
+.ago-clean-product-grid .product-card:hover .product-name{
+  color:var(--ag-terra,#A94C35)!important;
+}
+.ago-clean-product-grid .product-card .product-add:hover{
+  transform:translateY(-1px)!important;
+}
+.ago-home-category-links a,
+.ago-clean-visit-links a,
+.header-link,
+.footer-grid a{
+  transition:color .2s ease, transform .2s ease!important;
+}
+.ago-home-category-links a:hover,
+.ago-clean-visit-links a:hover,
+.footer-grid a:hover{
+  transform:translateX(3px)!important;
+}
+.header-icon{
+  transition:transform .2s ease!important;
+}
+.header-icon:hover{
+  transform:translateY(-1px)!important;
+}
+
+/* Keep controls discreet and background-free */
+.header-icon,
+.header-icon:hover,
+.header-icon:active,
+.ago-social-button,
+.ago-social-button:hover,
+.ago-social-button:active{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.ago-social-button{
+  border-radius:0!important;
+  transition:transform .2s ease, color .2s ease!important;
+}
+.ago-social-button:hover{
+  transform:translateY(-2px)!important;
+}
+
+/* Mobile */
+@media(max-width:900px){
+  .ago-clean-benefits{
+    padding:55px 0 62px!important;
+  }
+  .ago-clean-benefits-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .ago-clean-benefit{
+    min-height:168px!important;
+    padding:4px 8px 24px!important;
+  }
+  .ago-clean-benefit + .ago-clean-benefit{
+    border-left:0!important;
+  }
+  .ago-clean-benefit:nth-child(even){
+    border-left:1px solid rgba(67,37,28,.09)!important;
+  }
+  .ago-clean-benefit:nth-child(n+3){
+    margin-top:20px!important;
+    padding-top:24px!important;
+    border-top:1px solid rgba(67,37,28,.09)!important;
+  }
+  .ago-lineart-benefit-icon{
+    width:48px!important;
+    height:48px!important;
+    margin-bottom:14px!important;
+  }
+  .ago-lineart-benefit-icon svg{
+    width:35px!important;
+    height:35px!important;
+  }
+  .ago-benefit-copy{
+    max-width:175px!important;
+  }
+  .ago-benefit-copy h3{
+    font-size:21px!important;
+  }
+  .ago-benefit-copy p{
+    max-width:160px!important;
+    font-size:9.5px!important;
+    line-height:1.62!important;
+  }
+  .ago-clean-product-grid .product-card:hover{
+    transform:none!important;
+  }
+}
+@media(max-width:390px){
+  .ago-clean-benefit{
+    padding-inline:4px!important;
+  }
+  .ago-benefit-copy h3{
+    font-size:19px!important;
+  }
+  .ago-benefit-copy p{
+    font-size:9px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .ago-clean-benefit,
+  .ago-lineart-benefit-icon,
+  .ago-clean-product-grid .product-card,
+  .header-icon,
+  .ago-social-button{
+    transition:none!important;
+  }
+  .ago-clean-benefit:hover,
+  .ago-clean-benefit:focus-visible,
+  .ago-clean-product-grid .product-card:hover,
+  .header-icon:hover,
+  .ago-social-button:hover{
+    transform:none!important;
+  }
+}

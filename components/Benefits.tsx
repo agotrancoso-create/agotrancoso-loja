@@ -1,8 +1,8 @@
 const benefits = [
-  { number: '01', title: 'Feito à mão', text: 'Peças feitas à mão, com cuidado em cada etapa.', icon: 'handmade' },
-  { number: '02', title: 'Peças exclusivas', text: 'No trabalho manual, cada peça tem seus próprios detalhes.', icon: 'ceramic' },
-  { number: '03', title: 'Inspiração brasileira', text: 'Trancoso, Bahia e referências brasileiras presentes na coleção.', icon: 'sun' },
-  { number: '04', title: 'Envio para todo o Brasil', text: 'A gente embala tudo com cuidado para enviar sua peça para qualquer lugar do Brasil.', icon: 'package' },
+  { title: 'Feito à mão', text: 'Peças feitas à mão, com cuidado em cada etapa.', icon: 'handmade' },
+  { title: 'Peças exclusivas', text: 'No trabalho manual, cada peça tem seus próprios detalhes.', icon: 'ceramic' },
+  { title: 'Inspiração brasileira', text: 'Trancoso, Bahia e referências brasileiras presentes na coleção.', icon: 'sun' },
+  { title: 'Envio para todo o Brasil', text: 'A gente embala tudo com cuidado para enviar sua peça para qualquer lugar do Brasil.', icon: 'package' },
 ] as const;
 
 type BenefitIconType = (typeof benefits)[number]['icon'];
@@ -41,19 +41,19 @@ function BenefitIcon({ type }: { type: BenefitIconType }) {
   if (type === 'sun') {
     return (
       <svg {...common}>
-        <circle cx="16" cy="16" r="5.2" />
-        <path d="M16 4.8v2.5M16 24.7v2.5M27.2 16h-2.5M7.3 16H4.8M23.9 8.1l-1.8 1.8M9.9 22.1l-1.8 1.8M23.9 23.9l-1.8-1.8M9.9 9.9 8.1 8.1" />
+        <circle cx="16" cy="16" r="4.8" />
+        <path d="M16 5.2v2.1M16 24.7v2.1M26.8 16h-2.1M7.3 16H5.2M23.6 8.4l-1.5 1.5M9.9 22.1l-1.5 1.5M23.6 23.6l-1.5-1.5M9.9 9.9 8.4 8.4" />
       </svg>
     );
   }
 
   return (
     <svg {...common}>
-      <rect x="5.5" y="9" width="15.5" height="12.5" rx="1.2" />
-      <path d="m5.8 10 7.3 6h7.5l5.8-6" />
-      <path d="M21 13.5h5v7.7h-5" />
-      <circle cx="10.5" cy="23.8" r="1.6" />
-      <circle cx="23.2" cy="23.8" r="1.6" />
+      <path d="M5.8 10.2h14.5l5.9 5v6.8H5.8z" />
+      <path d="M5.8 10.2 13 16h13.2" />
+      <path d="M21 15.8h5.2" />
+      <circle cx="10.2" cy="24.1" r="1.5" />
+      <circle cx="23" cy="24.1" r="1.5" />
     </svg>
   );
 }
@@ -63,11 +63,10 @@ export default function Benefits() {
     <section className="benefits-strip ago-clean-benefits" aria-label="Diferenciais da Agô Trancoso">
       <div className="ago-clean-container ago-clean-benefits-grid">
         {benefits.map((item) => (
-          <article className="ago-clean-benefit" key={item.title}>
-            <div className="ago-benefit-mark">
-              <span>{item.number}</span>
-              <span className="ago-lineart-benefit-icon"><BenefitIcon type={item.icon} /></span>
-            </div>
+          <article className="ago-clean-benefit" key={item.title} tabIndex={0}>
+            <span className="ago-lineart-benefit-icon" aria-hidden="true">
+              <BenefitIcon type={item.icon} />
+            </span>
             <div className="ago-benefit-copy">
               <h3>{item.title}</h3>
               <p>{item.text}</p>
