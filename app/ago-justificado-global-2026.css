@@ -107,3 +107,102 @@ footer .footer-description{
     hyphens:auto!important;
   }
 }
+
+
+/* AGÔ — FORCE FINAL: NENHUM VERDE / OLIVA NA INTERFACE
+   Esta camada é carregada por último, inclusive em tablet e celular.
+*/
+:root{
+  --ago-final-paper:#FAF6EF !important;
+  --ago-final-ivory:#FFFDF9 !important;
+  --ago-final-sand:#E7D3C1 !important;
+  --ago-final-clay:#D8B39D !important;
+  --ago-final-rose:#E6B8A8 !important;
+  --ago-final-terra:#9B503A !important;
+  --ago-final-cocoa:#5A3328 !important;
+  --ago-final-deep:#342019 !important;
+  --ago-final-ink:#35231D !important;
+}
+
+html,body{
+  background:var(--ago-final-paper)!important;
+  color:var(--ago-final-ink)!important;
+}
+
+.site-header,.ago-topbar{background:var(--ago-final-paper)!important;color:var(--ago-final-cocoa)!important}
+.ago-category-bar{background:var(--ago-final-sand)!important;color:var(--ago-final-cocoa)!important}
+.ago-clean-collection,.ago-clean-benefits,.benefits-strip,.collection-more,.catalog-page,.product-page,.checkout-page,.contact-page,.essencia-page{background:var(--ago-final-paper)!important}
+.ago-clean-edit,.editorial-section{background:var(--ago-final-clay)!important}
+.ago-home-essence{background:var(--ago-final-rose)!important}
+.ago-home-how,.how-section{background:var(--ago-final-sand)!important}
+.ago-clean-visit,.visit-section{background:var(--ago-final-terra)!important}
+.ago-clean-hero,.hero-section,footer,.site-footer{background:var(--ago-final-deep)!important}
+
+/* texto */
+body,p,li,label,small,strong,.header-link,.header-search,.product-name,.product-description,.feature-description,.ago-benefit-copy p,.editorial-copy,.how-copy,.visit-copy{color:var(--ago-final-cocoa)!important}
+h1,h2,h3,h4,h5,h6,.section-title,.feature-title,.product-detail-title,.editorial-title,.essencia-title,.visit-title,.how-title{color:var(--ago-final-cocoa)!important}
+.ago-clean-hero h1,.ago-clean-hero h2,.hero-section h1,.hero-section h2,.ago-clean-visit h1,.ago-clean-visit h2,.visit-section h1,.visit-section h2,.visit-section p,.visit-section strong,footer,footer p,footer li,footer a,footer span,.site-footer,.site-footer p,.site-footer li,.site-footer a,.site-footer span{color:var(--ago-final-ivory)!important}
+.eyebrow,.kicker,.current-price,.step-number,.collection-link,.editorial-link,.header-link:first-child{color:var(--ago-final-terra)!important}
+
+/* ações */
+.product-add,.cta-primary,.primary-button,.ago-btn,.button-primary,.catalog-cta a{background:var(--ago-final-terra)!important;border-color:var(--ago-final-terra)!important;color:var(--ago-final-ivory)!important}
+.product-add:hover,.cta-primary:hover,.primary-button:hover,.ago-btn:hover,.button-primary:hover,.catalog-cta a:hover{background:var(--ago-final-cocoa)!important;border-color:var(--ago-final-cocoa)!important}
+
+/* elimina cores verdes/oliva herdadas, inclusive SVGs e classes utilitárias */
+[class*="green"],[class*="emerald"],[class*="lime"],[class*="olive"],[class*="oliva"]{
+  color:var(--ago-final-terra)!important;
+  border-color:rgba(90,51,40,.20)!important;
+}
+[class*="bg-green"],[class*="bg-emerald"],[class*="bg-lime"],[class*="bg-olive"],[class*="bg-oliva"]{
+  background:var(--ago-final-terra)!important;
+}
+svg [stroke="#258A5C"],svg [stroke="#229A62"],svg [fill="#258A5C"],svg [fill="#229A62"]{
+  stroke:var(--ago-final-terra)!important;
+  fill:var(--ago-final-terra)!important;
+}
+.ago-social-whatsapp,.ago-social-instagram{
+  color:var(--ago-final-terra)!important;
+}
+.ago-social-button svg{
+  filter:none!important;
+  shape-rendering:geometricPrecision!important;
+}
+
+/* carrinho: desenho real, limpo e SEM fundo */
+.header-icon,.header-cart-label{
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  color:var(--ago-final-cocoa)!important;
+  padding:0!important;
+  margin:0!important;
+}
+.header-icon::before,.header-icon::after,.header-cart-label::before,.header-cart-label::after{content:none!important;display:none!important}
+.header-cart-label svg,.header-icon svg{
+  display:block!important;
+  width:28px!important;
+  height:28px!important;
+  overflow:visible!important;
+  background:transparent!important;
+  color:var(--ago-final-cocoa)!important;
+}
+.header-cart-label svg path{fill:none!important;stroke:currentColor!important}
+.header-cart-label svg circle{fill:currentColor!important;stroke:none!important}
+.cart-count{background:transparent!important;border:0!important;box-shadow:none!important;color:var(--ago-final-terra)!important}
+
+/* mesma escala de espaçamento e alinhamento */
+.ago-container,.ago-clean-container,.catalog-shell,.product-page-shell,.checkout-shell,.contact-shell,.essencia-shell,.footer-shell,.ago-clean-hero-content{
+  width:min(1180px,calc(100% - 64px))!important;
+  max-width:1180px!important;
+  margin-inline:auto!important;
+  padding-inline:0!important;
+}
+@media(max-width:1100px){
+  .ago-container,.ago-clean-container,.catalog-shell,.product-page-shell,.checkout-shell,.contact-shell,.essencia-shell,.footer-shell,.ago-clean-hero-content{width:calc(100% - 48px)!important}
+}
+@media(max-width:767px){
+  .ago-container,.ago-clean-container,.catalog-shell,.product-page-shell,.checkout-shell,.contact-shell,.essencia-shell,.footer-shell,.ago-clean-hero-content{width:calc(100% - 32px)!important}
+}
