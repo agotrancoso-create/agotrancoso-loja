@@ -13,34 +13,43 @@ const featuredOrder = [
   'igreja-quadrado-m',
   'igrejinha-luminaria-trancoso',
   'casinha-luminaria',
-];
-
-const homeOrder = [
   'miniatura-quadrado-trancoso',
   'cruzeiro-do-quadrado',
-  'mobile-trancoso',
-  'esfera-decorativa',
 ];
 
-const giftOrder = [
-  'colar-igreja-quadrado',
-  'ima-igrejinha-trancoso',
-  'terco-em-ceramica',
-  'divino-espirito-santo',
+const discovery = [
+  {
+    title: 'Para a casa',
+    text: 'Peças para estante, mesa, aparador e cantos que pedem alguma coisa especial.',
+    category: 'decoracao',
+    image: '/produtos/casinha-luminaria.jpg',
+  },
+  {
+    title: 'Para presentear',
+    text: 'Lembranças de Trancoso para levar, oferecer e guardar.',
+    category: 'presentes',
+    image: '/produtos/colar-igreja-quadrado.jpg',
+  },
+  {
+    title: 'Trancoso',
+    text: 'Igrejinhas, o Quadrado e outras formas que fazem parte desse lugar.',
+    category: 'trancoso',
+    image: '/produtos/miniatura-quadrado-trancoso.jpg',
+  },
+  {
+    title: 'Fé & devoção',
+    text: 'Peças ligadas à fé e às imagens que atravessam a nossa coleção.',
+    category: 'fe-devocao',
+    image: '/produtos/nossa-senhora-grande.jpg',
+  },
 ];
-
-function pickProducts(availableIds: string[], available: ReturnType<typeof getAvailableProducts>) {
-  const byId = new Map(available.map((product) => [product.id, product]));
-  return availableIds
-    .map((id) => byId.get(id) ?? getProductById(id))
-    .filter((product): product is NonNullable<typeof product> => Boolean(product?.available));
-}
 
 export default function HomePage() {
   const available = getAvailableProducts();
-  const featured = pickProducts(featuredOrder, available);
-  const homeProducts = pickProducts(homeOrder, available);
-  const giftProducts = pickProducts(giftOrder, available);
+  const byId = new Map(available.map((product) => [product.id, product]));
+  const featured = featuredOrder
+    .map((id) => byId.get(id) ?? getProductById(id))
+    .filter((product): product is NonNullable<typeof product> => Boolean(product?.available));
 
   return (
     <div className="ago-home ago-premium-home">
@@ -50,7 +59,7 @@ export default function HomePage() {
             <div>
               <p className="eyebrow">A coleção · Trancoso · Bahia · Brasil</p>
               <h1 id="featured-title">Peças para olhar de perto.</h1>
-              <p>Feitas à mão, inspiradas no que a gente vê, vive e guarda de Trancoso.</p>
+              <p>Uma seleção da Agô para começar por aqui. Feitas à mão, inspiradas no que a gente vê, vive e guarda de Trancoso.</p>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
           </div>
@@ -65,16 +74,6 @@ export default function HomePage() {
             <span>{available.length} peças na coleção</span>
             <Link href="/produtos">Explorar tudo <span aria-hidden="true">↗</span></Link>
           </div>
-
-          <nav className="ago-premium-category-nav" aria-label="Explorar por intenção">
-            <span>Escolha por intenção</span>
-            <div>
-              <Link href="/produtos?categoria=decoracao">Para a casa</Link>
-              <Link href="/produtos?categoria=presentes">Para presentear</Link>
-              <Link href="/produtos?categoria=trancoso">Trancoso</Link>
-              <Link href="/produtos?categoria=fe-devocao">Fé & devoção</Link>
-            </div>
-          </nav>
         </div>
       </section>
 
@@ -107,25 +106,6 @@ export default function HomePage() {
       </section>
 
       <Benefits />
-
-      <section className="ago-premium-category-section ago-premium-category-home" aria-labelledby="home-title">
-        <div className="ago-container">
-          <div className="ago-premium-section-head">
-            <div>
-              <p className="eyebrow">Para a casa</p>
-              <h2 id="home-title">Objetos que mudam o lugar.</h2>
-              <p>Peças para mesa, estante, aparador e aqueles cantos que pedem alguma coisa especial.</p>
-            </div>
-            <Link href="/produtos?categoria=decoracao" className="ago-premium-text-link">Ver decoração <span aria-hidden="true">↗</span></Link>
-          </div>
-
-          <div className="ago-premium-product-grid ago-premium-product-grid-secondary">
-            {homeProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="ago-premium-editorial ago-premium-editorial-one" aria-labelledby="edit-title">
         <div className="ago-container ago-premium-split">
@@ -167,20 +147,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="ago-premium-category-section ago-premium-category-gifts" aria-labelledby="gift-title">
+      <section className="ago-premium-discovery" aria-labelledby="discover-title">
         <div className="ago-container">
           <div className="ago-premium-section-head">
             <div>
-              <p className="eyebrow">Para presentear</p>
-              <h2 id="gift-title">Uma lembrança com história.</h2>
-              <p>Peças pequenas, especiais e cheias de referências de Trancoso.</p>
+              <p className="eyebrow">Explore a coleção</p>
+              <h2 id="discover-title">Encontre o que combina com você.</h2>
+              <p>Comece pela ocasião, pelo lugar ou pelo jeito que você quer levar a Agô para casa.</p>
             </div>
-            <Link href="/produtos?categoria=presentes" className="ago-premium-text-link">Ver presentes <span aria-hidden="true">↗</span></Link>
+            <Link href="/produtos" className="ago-premium-text-link">Ver tudo <span aria-hidden="true">↗</span></Link>
           </div>
 
-          <div className="ago-premium-product-grid ago-premium-product-grid-secondary">
-            {giftProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+          <div className="ago-premium-discovery-grid">
+            {discovery.map((item) => (
+              <Link key={item.category} href={'/produtos?categoria=' + item.category} className="ago-premium-discovery-card">
+                <div className="ago-premium-discovery-image">
+                  <Image src={item.image} alt={item.title} fill sizes="(max-width: 767px) 50vw, 25vw" />
+                </div>
+                <div className="ago-premium-discovery-copy">
+                  <span>{item.title}</span>
+                  <p>{item.text}</p>
+                  <strong>Explorar <span aria-hidden="true">↗</span></strong>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
