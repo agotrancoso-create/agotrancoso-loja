@@ -1,5 +1,8 @@
-/* Agô Trancoso — benefícios: arte original + tipografia do site.
-   Não redesenha os símbolos. A imagem existente é a referência visual principal. */
+/* AGÔ TRANCOSO — benefícios
+   Usa a arte original enviada como única fonte visual.
+   Não redesenha os símbolos nem cria outra ilustração.
+   A mesma imagem é recortada apenas por CSS para preservar a composição
+   e permitir uma leitura muito melhor no mobile. */
 
 .ago-benefits-reference{
   width:100%!important;
@@ -14,65 +17,30 @@
   margin:0 auto!important;
 }
 
-.ago-benefits-reference-art{
+.ago-benefits-art-grid{
   width:100%!important;
-  display:block!important;
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  align-items:stretch!important;
   overflow:hidden!important;
 }
 
-.ago-benefits-reference-art img{
-  display:block!important;
-  width:100%!important;
-  height:auto!important;
-  max-width:1180px!important;
-  margin:0 auto!important;
-  object-fit:contain!important;
-  object-position:center!important;
-}
-
-.ago-benefits-copy-grid{
-  display:grid!important;
-  grid-template-columns:repeat(4,minmax(0,1fr))!important;
-  width:100%!important;
-  margin-top:18px!important;
-}
-
-.ago-benefit-copy-item{
+.ago-benefit-art-tile{
   min-width:0!important;
-  padding:0 28px!important;
-  text-align:center!important;
+  aspect-ratio: (2048 / 4) / 690!important;
+  background-image:url('/benefits/benefits-icons.webp')!important;
+  background-repeat:no-repeat!important;
+  background-size:400% auto!important;
+  background-position-y:center!important;
+  background-color:transparent!important;
 }
 
-.ago-benefit-copy-item + .ago-benefit-copy-item{
-  border-left:1px solid rgba(75,43,30,.32)!important;
+.ago-benefit-art-tile + .ago-benefit-art-tile{
+  border-left:1px solid rgba(75,43,30,.30)!important;
 }
 
-.ago-benefit-copy-item h3{
-  margin:0!important;
-  color:#4B2B1E!important;
-  font-family:'Fraunces',Georgia,serif!important;
-  font-size:clamp(1.45rem,2vw,2.15rem)!important;
-  line-height:1!important;
-  letter-spacing:-.025em!important;
-  font-weight:600!important;
-}
-
-.ago-benefit-copy-item:last-child h3{
-  font-family:'Manrope',Arial,sans-serif!important;
-  font-size:clamp(.82rem,1vw,.98rem)!important;
-  line-height:1.15!important;
-  letter-spacing:.13em!important;
-  font-weight:800!important;
-}
-
-.ago-benefit-copy-item p{
-  max-width:220px!important;
-  margin:9px auto 0!important;
-  color:#5C473D!important;
-  font-family:'Manrope',Arial,sans-serif!important;
-  font-size:11px!important;
-  line-height:1.5!important;
-  font-weight:500!important;
+.ago-benefit-art-tile:nth-child(4){
+  background-position-y:center!important;
 }
 
 @media (max-width:767px){
@@ -84,79 +52,30 @@
     width:calc(100% - 28px)!important;
   }
 
-  .ago-benefits-reference-art{
-    margin-inline:auto!important;
-  }
-
-  .ago-benefits-reference-art img{
-    width:100%!important;
-    height:auto!important;
-  }
-
-  .ago-benefits-copy-grid{
+  .ago-benefits-art-grid{
     grid-template-columns:1fr 1fr!important;
-    margin-top:12px!important;
-    row-gap:24px!important;
+    row-gap:0!important;
   }
 
-  .ago-benefit-copy-item{
-    padding:0 10px!important;
+  .ago-benefit-art-tile{
+    aspect-ratio:(2048 / 4) / 690!important;
   }
 
-  .ago-benefit-copy-item:nth-child(odd){
-    border-left:0!important;
-  }
-
-  .ago-benefit-copy-item:nth-child(even){
-    border-left:1px solid rgba(75,43,30,.28)!important;
-  }
-
-  .ago-benefit-copy-item:nth-child(n+3){
-    padding-top:22px!important;
+  .ago-benefit-art-tile:nth-child(3),
+  .ago-benefit-art-tile:nth-child(4){
     border-top:1px solid rgba(75,43,30,.22)!important;
   }
 
-  .ago-benefit-copy-item h3{
-    font-size:1.28rem!important;
-    line-height:.98!important;
+  .ago-benefit-art-tile:nth-child(odd){
+    border-left:0!important;
   }
 
-  .ago-benefit-copy-item:last-child h3{
-    font-size:.76rem!important;
-    letter-spacing:.1em!important;
-  }
-
-  .ago-benefit-copy-item p{
-    max-width:150px!important;
-    margin-top:7px!important;
-    font-size:9.5px!important;
-    line-height:1.45!important;
+  .ago-benefit-art-tile:nth-child(even){
+    border-left:1px solid rgba(75,43,30,.28)!important;
   }
 }
 
-@media (max-width:390px){
-  .ago-benefits-copy-grid{
-    column-gap:0!important;
-  }
-
-  .ago-benefit-copy-item{
-    padding-inline:7px!important;
-  }
-
-  .ago-benefit-copy-item h3{
-    font-size:1.18rem!important;
-  }
-
-  .ago-benefit-copy-item:last-child h3{
-    font-size:.7rem!important;
-  }
-
-  .ago-benefit-copy-item p{
-    font-size:9px!important;
-  }
-}
-
-/* Balões sociais: discretos, sólidos e alinhados à linguagem da marca. */
+/* Balões sociais: pequenos, sólidos e coerentes com a identidade. */
 .ago-social-floaters{
   right:16px!important;
   bottom:16px!important;
