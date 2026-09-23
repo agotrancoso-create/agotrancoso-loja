@@ -5,6 +5,7 @@ import type { CSSProperties } from 'react';
 import { Product } from '@/lib/types';
 import { getEffectivePrice } from '@/lib/products';
 import { useCart } from '@/context/CartContext';
+import { useEffect, useState } from 'react';
 import { trackAddToCart, trackViewItem } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) {
@@ -40,6 +41,13 @@ const photoScales: Record<string, number> = {
 
 export default function ProductCard({ product, priority = false }: ProductCardProps) {
   const { addItem } = useCart();
+  const [added, setAdded] = useState(false);
+
+  useEffect(() => {
+    if (!added) return;
+    const timer = window.setTimeout(() => setAdded(false), 1400);
+    return () => window.clearTimeout(timer);
+  }, [added]);
   const image = product.images?.[0] || '/images/placeholder.svg';
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
@@ -75,8 +83,8 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         </div>
       </Link>
       {product.available && (
-        <button type="button" onClick={() => { addItem(product.id); trackAddToCart({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category }); }} className="product-add ago-premium-add" aria-label={`Adicionar ${product.name} ao carrinho`}>
-          Adicionar ao carrinho
+        <button type="button" onClick={() => { addItem(product.id); trackAddToCart({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category }); setAdded(true); }} className={`product-add ago-premium-add${added ? ' is-added' : ''}`} aria-label={added ? `${product.name} adicionado ao carrinho` : `Adicionar ${product.name} ao carrinho`}>
+          {added ? 'Adicionado ✓' : 'Adicionar ao carrinho'}
         </button>
       )}
     </article>

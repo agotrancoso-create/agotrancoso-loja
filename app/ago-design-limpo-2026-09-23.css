@@ -3283,3 +3283,333 @@ html,body{
     gap:14px!important;
   }
 }
+
+
+/* ========= AGÔ — INTERAÇÃO EDITORIAL / UX PREMIUM ========= */
+html{
+  scroll-behavior:smooth!important;
+  scroll-padding-top:110px!important;
+}
+:focus-visible{
+  outline:2px solid #C58B4E!important;
+  outline-offset:4px!important;
+}
+.ago-scroll-progress{
+  position:fixed!important;
+  inset:0 0 auto 0!important;
+  z-index:1000!important;
+  width:100%!important;
+  height:2px!important;
+  pointer-events:none!important;
+  transform-origin:left center!important;
+  transform:scaleX(var(--ago-scroll-progress,0))!important;
+  background:#C58B4E!important;
+  box-shadow:0 0 10px rgba(197,139,78,.28)!important;
+}
+.ago-back-to-top{
+  position:fixed!important;
+  left:24px!important;
+  bottom:24px!important;
+  z-index:480!important;
+  width:44px!important;
+  height:44px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  padding:0!important;
+  overflow:hidden!important;
+  border:1px solid rgba(67,41,30,.18)!important;
+  border-radius:999px!important;
+  background:rgba(243,232,216,.92)!important;
+  color:#43291E!important;
+  font:700 8px/1 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.11em!important;
+  text-transform:uppercase!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  transform:translateY(8px)!important;
+  transition:opacity .28s ease,transform .28s ease,width .28s ease,background-color .2s ease!important;
+  backdrop-filter:blur(14px)!important;
+}
+.ago-back-to-top.is-visible{
+  opacity:1!important;
+  pointer-events:auto!important;
+  transform:none!important;
+}
+.ago-back-to-top>span:first-child{font-size:14px!important;line-height:1!important}
+.ago-back-to-top:hover{
+  width:72px!important;
+  background:#FFF9F1!important;
+}
+
+/* Cabeçalho ganha densidade quando a página avança */
+.site-header{
+  transition:background-color .25s ease,box-shadow .25s ease!important;
+}
+.site-header.ago-header-scrolled{
+  background:rgba(243,232,216,.96)!important;
+  box-shadow:0 12px 32px rgba(67,41,30,.08)!important;
+}
+.site-header.ago-header-scrolled .header-inner{
+  min-height:72px!important;
+}
+.site-header.ago-header-scrolled .header-logo img{
+  width:52px!important;
+  height:52px!important;
+  transition:width .25s ease,height .25s ease!important;
+}
+.site-header .header-logo img{
+  transition:width .25s ease,height .25s ease!important;
+}
+
+/* Revelação delicada conforme o usuário percorre a página */
+@media (prefers-reduced-motion:no-preference){
+  .ago-reveal{
+    opacity:0!important;
+    transform:translateY(22px)!important;
+    transition:opacity .72s cubic-bezier(.2,.7,.2,1),transform .72s cubic-bezier(.2,.7,.2,1)!important;
+    transition-delay:var(--ago-reveal-delay,0ms)!important;
+  }
+  .ago-reveal.ago-inview{
+    opacity:1!important;
+    transform:none!important;
+  }
+}
+
+/* Produtos: interação tátil e editorial */
+.ago-premium-product-grid .product-card{
+  position:relative!important;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1)!important;
+}
+.ago-premium-product-grid .product-image-wrap{
+  isolation:isolate!important;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),background-color .25s ease!important;
+}
+.ago-premium-product-grid .product-image-wrap::after{
+  content:''!important;
+  position:absolute!important;
+  inset:0!important;
+  pointer-events:none!important;
+  border-radius:inherit!important;
+  box-shadow:inset 0 0 0 1px rgba(67,41,30,.06)!important;
+  opacity:.7!important;
+  transition:box-shadow .3s ease,opacity .3s ease!important;
+}
+.ago-premium-product-grid .product-card:hover{
+  transform:translateY(-5px)!important;
+}
+.ago-premium-product-grid .product-card:hover .product-image-wrap{
+  transform:translateY(-1px)!important;
+  background:#EFE1CE!important;
+}
+.ago-premium-product-grid .product-card:hover .product-image-wrap::after{
+  box-shadow:inset 0 0 0 1px rgba(159,78,45,.16)!important;
+  opacity:1!important;
+}
+.ago-premium-product-grid .product-add{
+  position:relative!important;
+  overflow:hidden!important;
+  transform:translateZ(0)!important;
+}
+.ago-premium-product-grid .product-add::after{
+  content:''!important;
+  position:absolute!important;
+  left:-120%!important;
+  top:0!important;
+  width:70%!important;
+  height:100%!important;
+  transform:skewX(-18deg)!important;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent)!important;
+  transition:left .55s ease!important;
+}
+.ago-premium-product-grid .product-add:hover::after{left:140%!important}
+.ago-premium-product-grid .product-add.is-added{
+  background:#5A3828!important;
+  border-color:#5A3828!important;
+  color:#FFF9F1!important;
+  transform:scale(.985)!important;
+}
+
+/* Discovery: imagem responde ao cursor sem perder sofisticação */
+.ago-premium-discovery-card{
+  position:relative!important;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1)!important;
+}
+.ago-premium-discovery-card::after{
+  content:''!important;
+  position:absolute!important;
+  left:0!important;
+  right:0!important;
+  bottom:0!important;
+  height:34%!important;
+  pointer-events:none!important;
+  border-radius:18px!important;
+  background:linear-gradient(180deg,transparent,rgba(67,41,30,.14))!important;
+  opacity:0!important;
+  transition:opacity .3s ease!important;
+}
+.ago-premium-discovery-card:hover{
+  transform:translateY(-5px)!important;
+}
+.ago-premium-discovery-card:hover::after{opacity:1!important}
+.ago-premium-discovery-image img{
+  transition:transform .6s cubic-bezier(.2,.7,.2,1),filter .35s ease!important;
+}
+.ago-premium-discovery-card:hover .ago-premium-discovery-image img{
+  transform:scale(1.045)!important;
+  filter:saturate(1.03) contrast(1.01)!important;
+}
+.ago-premium-discovery-copy strong{
+  transition:letter-spacing .25s ease,color .2s ease!important;
+}
+.ago-premium-discovery-card:hover .ago-premium-discovery-copy strong{
+  letter-spacing:.15em!important;
+  color:#9F4E2D!important;
+}
+
+/* Editorial: links se comportam como pequenos gestos de navegação */
+.ago-premium-text-link{
+  transition:color .2s ease,border-color .2s ease,transform .2s ease!important;
+}
+.ago-premium-text-link:hover{
+  transform:translateX(2px)!important;
+}
+.ago-premium-hero-cta,
+.ago-premium-dark-cta,
+.contact-location-button,
+.checkout-submit,
+.product-primary-cta{
+  box-shadow:0 10px 22px rgba(67,41,30,.10)!important;
+}
+.ago-premium-hero-cta:hover,
+.ago-premium-dark-cta:hover,
+.contact-location-button:hover,
+.checkout-submit:hover:not(:disabled),
+.product-primary-cta:hover{
+  box-shadow:0 14px 28px rgba(67,41,30,.16)!important;
+}
+
+/* Como comprar: cards mais físicos, sem parecer aplicativo */
+.ago-premium-how-grid article{
+  position:relative!important;
+  transition:background-color .25s ease,padding-top .25s ease!important;
+}
+.ago-premium-how-grid article::before{
+  content:''!important;
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  width:0!important;
+  height:2px!important;
+  background:#9F4E2D!important;
+  transition:width .32s cubic-bezier(.2,.7,.2,1)!important;
+}
+.ago-premium-how-grid article:hover::before{width:42px!important}
+.ago-premium-how-grid article:hover{background:rgba(255,249,241,.10)!important}
+
+/* Visite: marca territorial ganha presença */
+.ago-premium-visit-mark{
+  transition:transform .4s cubic-bezier(.2,.7,.2,1)!important;
+}
+.ago-premium-visit:hover .ago-premium-visit-mark{
+  transform:translateY(-4px)!important;
+}
+
+/* Rodapé: presença sem peso visual */
+.ago-site-footer{
+  position:relative!important;
+  overflow:hidden!important;
+}
+.ago-site-footer::before{
+  content:''!important;
+  position:absolute!important;
+  width:420px!important;
+  height:420px!important;
+  right:-190px!important;
+  top:-240px!important;
+  border-radius:50%!important;
+  background:radial-gradient(circle,rgba(217,154,114,.10),transparent 68%)!important;
+  pointer-events:none!important;
+}
+.ago-site-footer .ago-footer-wrap{
+  position:relative!important;
+  z-index:1!important;
+}
+.ago-site-footer .ago-footer-brand h2{
+  transition:color .25s ease,transform .25s ease!important;
+}
+.ago-site-footer .ago-footer-brand:hover h2{
+  transform:translateX(2px)!important;
+}
+.ago-site-footer .ago-footer-logo img{
+  transition:transform .35s cubic-bezier(.2,.7,.2,1)!important;
+}
+.ago-site-footer .ago-footer-logo:hover img{
+  transform:translateY(-3px) rotate(-1deg)!important;
+}
+
+/* Toque: nenhum efeito fica dependente de hover */
+@media (hover:none){
+  .ago-premium-product-grid .product-card:hover,
+  .ago-premium-discovery-card:hover,
+  .ago-premium-visit:hover .ago-premium-visit-mark,
+  .ago-site-footer .ago-footer-brand:hover h2{
+    transform:none!important;
+  }
+  .ago-premium-product-grid .product-add:active{
+    transform:scale(.97)!important;
+  }
+  .ago-premium-discovery-card:active{
+    transform:scale(.99)!important;
+  }
+}
+
+/* Mobile: interação preservada, mas sem elementos flutuantes dominando a tela */
+@media (max-width:767px){
+  html{scroll-padding-top:78px!important}
+  .ago-scroll-progress{height:2px!important}
+  .ago-back-to-top{
+    left:14px!important;
+    bottom:14px!important;
+    width:40px!important;
+    height:40px!important;
+  }
+  .ago-back-to-top:hover{width:40px!important}
+  .site-header.ago-header-scrolled .header-inner{
+    min-height:64px!important;
+  }
+  .ago-premium-product-grid .product-card:hover{
+    transform:none!important;
+  }
+  .ago-premium-product-grid .product-image-wrap{
+    transition:transform .2s ease,background-color .2s ease!important;
+  }
+  .ago-premium-product-grid .product-card:active .product-image-wrap{
+    transform:scale(.985)!important;
+  }
+  .ago-premium-discovery-card:active .ago-premium-discovery-image img{
+    transform:scale(1.02)!important;
+  }
+  .ago-premium-how-grid article:active{
+    background:rgba(255,249,241,.12)!important;
+  }
+  .ago-site-footer::before{
+    width:260px!important;
+    height:260px!important;
+    right:-140px!important;
+    top:-145px!important;
+  }
+}
+
+/* Usuários que pedem menos movimento recebem uma experiência estável */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+  *,
+  *::before,
+  *::after{
+    transition-duration:.01ms!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+  }
+}
