@@ -39,7 +39,7 @@ export default function HomePage() {
             <p className="eyebrow">Trancoso · Bahia</p>
             <h1 id="featured-title">Tem lugar que fica.</h1>
             <p>Objetos feitos à mão para guardar uma sensação e levar a vida adiante.</p>
-            <Link href="/produtos" className="ago-premium-text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
+            <Link href="/produtos" className="ago-premium-text-link">Ver coleção <span aria-hidden="true">↗</span></Link>
           </div>
 
           <div className="ago-premium-product-grid ago-premium-product-grid-featured">
@@ -49,7 +49,7 @@ export default function HomePage() {
           </div>
 
           <div className="ago-collection-after-grid">
-            <span>Encontre o que combina com você.</span>
+            <span>Escolha o que combina com você.</span>
             <Link href="/produtos" className="ago-premium-dark-cta">Ver tudo</Link>
           </div>
         </div>
@@ -70,7 +70,7 @@ export default function HomePage() {
       <section className="ago-premium-hero ago-home-hero" aria-labelledby="hero-title">
         <Image
           src="/hero.jpg"
-          alt="Escolhas de cerâmica da Agô Trancoso"
+          alt="Peças de cerâmica da Agô Trancoso"
           fill
           sizes="100vw"
           className="ago-premium-hero-image"
@@ -81,7 +81,7 @@ export default function HomePage() {
           <p className="eyebrow">Um jeito de lembrar</p>
           <h2 id="hero-title">O que você viveu<br />pode morar com você.</h2>
           <p>Uma seleção para transformar viagem, afeto e descoberta em algo concreto.</p>
-          <Link href="/produtos" className="ago-premium-hero-cta">Explorar a coleção</Link>
+          <Link href="/produtos" className="ago-premium-hero-cta">Ver coleção</Link>
         </div>
       </section>
 
@@ -101,7 +101,7 @@ export default function HomePage() {
             <p className="eyebrow">A Agô</p>
             <h2 id="story-title">Algumas lembranças ganham forma.</h2>
             <p>A inspiração vem de lugares que despertam alguma coisa na gente. A Agô transforma essas referências em objetos para conviver, presentear e guardar.</p>
-            <Link href="/nossa-essencia" className="ago-premium-text-link">Conheça a Agô <span aria-hidden="true">↗</span></Link>
+            <Link href="/nossa-essencia" className="ago-premium-text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
       </section>
@@ -144,13 +144,13 @@ export default function HomePage() {
           <div className="ago-premium-how-grid">
             <article>
               <span>01</span>
-              <h3>Escolha</h3>
+              <h3>Encontre</h3>
               <p>Aquela que chamou seu olhar.</p>
             </article>
             <article>
               <span>02</span>
-              <h3>Peça</h3>
-              <p>Coloque no carrinho e finalize.</p>
+              <h3>Finalize</h3>
+              <p>Coloque no carrinho e conclua o pedido.</p>
             </article>
             <article>
               <span>03</span>
