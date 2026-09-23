@@ -37,7 +37,7 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-collection-intro-brand">
             <p className="eyebrow">Agô Trancoso · Bahia</p>
-            <h1 id="featured-title">Peças que a gente faz em Trancoso.</h1>
+            <h1 id="featured-title">Peças de Trancoso, feitas à mão.</h1>
             <p>Feitas à mão, uma por uma.</p>
             <Link href="/produtos" className="ago-premium-text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
           </div>
@@ -49,7 +49,7 @@ export default function HomePage() {
           </div>
 
           <div className="ago-collection-after-grid">
-            <span>Às vezes, você olha e já sabe.</span>
+            <span>Tem peça que chama a gente.</span>
             <Link href="/produtos" className="ago-premium-dark-cta">Explorar a coleção</Link>
           </div>
         </div>
@@ -111,7 +111,7 @@ export default function HomePage() {
           <div className="ago-premium-section-head">
             <div>
               <p className="eyebrow">Escolha por onde começar</p>
-              <h2 id="discover-title">Escolha pelo que você gosta.</h2>
+              <h2 id="discover-title">Escolha pelo que chamou seu olhar.</h2>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver tudo <span aria-hidden="true">↗</span></Link>
           </div>
@@ -137,7 +137,7 @@ export default function HomePage() {
           <div className="ago-premium-section-head ago-premium-how-head">
             <div>
               <p className="eyebrow">Compra fácil</p>
-              <h2 id="how-title">Olhe com calma. Escolha a sua.</h2>
+              <h2 id="how-title">Viu uma? Pode ser a sua.</h2>
             </div>
           </div>
 
@@ -167,7 +167,7 @@ export default function HomePage() {
         <div className="ago-container ago-premium-visit-grid">
           <div>
             <p className="eyebrow">Visite a Agô</p>
-            <h2 id="visit-title">Está no Quadrado?<br />Vem conhecer a Agô.</h2>
+            <h2 id="visit-title">Passou pelo Quadrado?<br />Vem conhecer a Agô.</h2>
             <p>Nossa banca fica no Quadrado de Trancoso.</p>
             <div className="ago-premium-visit-links">
               <a href={mapsUrl} target="_blank" rel="noreferrer">Google Maps <span aria-hidden="true">↗</span></a>
