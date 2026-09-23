@@ -3770,3 +3770,119 @@ html{
   .ago-premium-visit{background:#D3AF87!important}
   .site-footer.ago-site-footer{background:var(--ago-madeira)!important}
 }
+
+
+/* Carrinho: cross-sell discreto, visual e sem atrapalhar o checkout. */
+.cart-complementary{
+  margin:0 0 17px!important;
+  padding:15px 0 16px!important;
+  border-top:1px solid rgba(67,41,30,.14)!important;
+  border-bottom:1px solid rgba(67,41,30,.14)!important;
+}
+.cart-complementary-head{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:3px!important;
+  margin-bottom:10px!important;
+}
+.cart-complementary-head>span{
+  color:#43291E!important;
+  font:700 9px/1 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+.cart-complementary-head small{
+  color:#766456!important;
+  font:400 10px/1.4 'DM Sans',Arial,sans-serif!important;
+}
+.cart-complementary-list{
+  display:grid!important;
+  gap:9px!important;
+}
+.cart-complementary-item{
+  display:grid!important;
+  grid-template-columns:58px minmax(0,1fr) 38px!important;
+  align-items:center!important;
+  gap:10px!important;
+}
+.cart-complementary-image{
+  position:relative!important;
+  width:58px!important;
+  height:58px!important;
+  overflow:hidden!important;
+  border-radius:11px!important;
+  background:#E9DCCB!important;
+}
+.cart-complementary-info{
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:4px!important;
+}
+.cart-complementary-info a{
+  min-width:0!important;
+  color:#43291E!important;
+}
+.cart-complementary-info strong{
+  display:block!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  font:600 16px/1.05 'Cormorant Garamond',Georgia,serif!important;
+}
+.cart-complementary-info>span{
+  color:#9F4E2D!important;
+  font:700 10px/1 'DM Sans',Arial,sans-serif!important;
+}
+.cart-complementary-add{
+  width:38px!important;
+  height:38px!important;
+  min-width:38px!important;
+  border:1px solid rgba(159,78,45,.35)!important;
+  border-radius:50%!important;
+  background:#F3E8D8!important;
+  color:#43291E!important;
+  font:500 21px/1 'DM Sans',Arial,sans-serif!important;
+  cursor:pointer!important;
+  transition:background-color .2s ease,color .2s ease,transform .2s ease!important;
+}
+.cart-complementary-add:hover{
+  background:#9F4E2D!important;
+  color:#FFF9F1!important;
+  transform:scale(1.04)!important;
+}
+
+/* Leitura: texto secundário nunca fica pequeno demais em telas pequenas. */
+@media (max-width:767px){
+  .cart-complementary{
+    margin-bottom:14px!important;
+    padding:14px 0!important;
+  }
+  .cart-complementary-item{
+    grid-template-columns:56px minmax(0,1fr) 44px!important;
+    gap:10px!important;
+  }
+  .cart-complementary-image{
+    width:56px!important;
+    height:56px!important;
+  }
+  .cart-complementary-add{
+    width:44px!important;
+    height:44px!important;
+    min-width:44px!important;
+  }
+}
+
+/* Acessibilidade por preferência do sistema. */
+@media (prefers-contrast:more){
+  .cart-complementary{
+    border-color:rgba(40,23,16,.28)!important;
+  }
+  .cart-complementary-info strong,
+  .cart-complementary-head>span{
+    color:#281710!important;
+  }
+  .cart-complementary-info>span{
+    color:#7C321B!important;
+  }
+}
