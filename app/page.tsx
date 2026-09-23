@@ -37,9 +37,9 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-collection-intro-brand">
             <p className="eyebrow">Agô Trancoso · Bahia</p>
-            <h1 id="featured-title">Peças para lembrar de um lugar.</h1>
-            <p>Feitas à mão, uma a uma, para levar beleza e memória para dentro de casa.</p>
-            <Link href="/produtos" className="ago-premium-text-link">Ver a coleção <span aria-hidden="true">↗</span></Link>
+            <h1 id="featured-title">Há lugares que ficam com a gente.</h1>
+            <p>Objetos feitos à mão para transformar memória em presença.</p>
+            <Link href="/produtos" className="ago-premium-text-link">Conhecer a coleção <span aria-hidden="true">↗</span></Link>
           </div>
 
           <div className="ago-premium-product-grid ago-premium-product-grid-featured">
@@ -49,7 +49,7 @@ export default function HomePage() {
           </div>
 
           <div className="ago-collection-after-grid">
-            <span>Talvez a sua esteja aqui.</span>
+            <span>Encontre a peça que vai ficar com você.</span>
             <Link href="/produtos" className="ago-premium-dark-cta">Descobrir a coleção</Link>
           </div>
         </div>
@@ -78,10 +78,10 @@ export default function HomePage() {
         />
         <div className="ago-premium-hero-overlay" aria-hidden="true" />
         <div className="ago-container ago-premium-hero-content">
-          <p className="eyebrow">Um jeito de viver</p>
-          <h2 id="hero-title">A beleza da Bahia<br />em pequenos detalhes.</h2>
-          <p>Peças feitas à mão para a casa, para presentear e para guardar.</p>
-          <Link href="/produtos" className="ago-premium-hero-cta">Ver as peças</Link>
+          <p className="eyebrow">Design brasileiro</p>
+          <h2 id="hero-title">O Brasil cabe<br />nos detalhes.</h2>
+          <p>Formas, cor e memória para fazer parte da casa.</p>
+          <Link href="/produtos" className="ago-premium-hero-cta">Explorar a coleção</Link>
         </div>
       </section>
 
@@ -98,10 +98,10 @@ export default function HomePage() {
             />
           </div>
           <div className="ago-premium-copy">
-            <p className="eyebrow">A história da Agô</p>
-            <h2 id="story-title">Tudo começa com um encontro.</h2>
-            <p>Toda noite, a Agô ganha vida no Quadrado. Entre luzes, conversas e histórias, cada escolha leva consigo uma lembrança de Trancoso.</p>
-            <Link href="/nossa-essencia" className="ago-premium-text-link">Nossa história <span aria-hidden="true">↗</span></Link>
+            <p className="eyebrow">A nossa história</p>
+            <h2 id="story-title">Uma banca. Muitas histórias.</h2>
+            <p>A Agô faz parte da noite do Quadrado. Entre luzes, encontros e conversas, nasceu um jeito especial de compartilhar peças que carregam a atmosfera de Trancoso.</p>
+            <Link href="/nossa-essencia" className="ago-premium-text-link">Conheça a Agô <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
       </section>
@@ -110,8 +110,8 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-premium-section-head">
             <div>
-              <p className="eyebrow">Escolha por perto</p>
-              <h2 id="discover-title">O que combina com a sua história?</h2>
+              <p className="eyebrow">Escolha pelo seu jeito</p>
+              <h2 id="discover-title">Para cada canto, uma peça.</h2>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver tudo <span aria-hidden="true">↗</span></Link>
           </div>
@@ -136,8 +136,8 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-premium-section-head ago-premium-how-head">
             <div>
-              <p className="eyebrow">Como comprar</p>
-              <h2 id="how-title">Escolher pode ser simples.</h2>
+              <p className="eyebrow">Comprar é simples</p>
+              <h2 id="how-title">Do primeiro olhar ao seu endereço.</h2>
             </div>
           </div>
 
@@ -145,30 +145,30 @@ export default function HomePage() {
             <article>
               <span>01</span>
               <h3>Escolha</h3>
-              <p>Olhe com calma e escolha a peça que combina com você.</p>
+              <p>Escolha pelo que chamou sua atenção. O resto acontece naturalmente.</p>
             </article>
             <article>
               <span>02</span>
               <h3>Peça</h3>
-              <p>Adicione ao carrinho e confira tudo antes de finalizar.</p>
+              <p>Coloque no carrinho, revise seu pedido e finalize com tranquilidade.</p>
             </article>
             <article>
               <span>03</span>
               <h3>Receba</h3>
-              <p>A gente prepara tudo com cuidado e envia para o endereço informado.</p>
+              <p>Depois, a gente cuida da embalagem e do envio até o endereço informado.</p>
             </article>
           </div>
 
-          <Link href="/produtos" className="ago-premium-dark-cta">Escolher uma peça</Link>
+          <Link href="/produtos" className="ago-premium-dark-cta">Ver a coleção</Link>
         </div>
       </section>
 
       <section className="ago-premium-visit" aria-labelledby="visit-title">
         <div className="ago-container ago-premium-visit-grid">
           <div>
-            <p className="eyebrow">Passe pelo Quadrado</p>
-            <h2 id="visit-title">Quando estiver em Trancoso,<br />venha ver de perto.</h2>
-            <p>A Agô está no coração do Quadrado, entre as histórias, as luzes e o movimento da noite.</p>
+            <p className="eyebrow">Em Trancoso</p>
+            <h2 id="visit-title">Passe pelo Quadrado.<br />A Agô está por lá.</h2>
+            <p>No coração do Quadrado, a banca faz parte da paisagem da noite e da história que a Agô construiu por ali.</p>
             <div className="ago-premium-visit-links">
               <a href={mapsUrl} target="_blank" rel="noreferrer">Google Maps <span aria-hidden="true">↗</span></a>
               <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
