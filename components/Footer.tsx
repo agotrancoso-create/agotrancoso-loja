@@ -11,13 +11,13 @@ export default function Footer() {
       <div className="ago-footer-wrap">
         <div className="ago-footer-main">
           <div className="ago-footer-brand">
-            <Link href="/" className="ago-footer-logo" aria-label="Agô Trancoso — início">
+            <Link href="/" className="ago-footer-logo" aria-label="Agô Trancoso, início">
               <Image src="/logo.png" alt="Agô Trancoso" width={88} height={88} sizes="88px" />
             </Link>
             <p className="ago-footer-place">Trancoso · Bahia · Brasil</p>
             <h2>Agô Trancoso</h2>
             <p className="ago-footer-description">
-              Peças feitas à mão, inspiradas na Bahia e pensadas para decorar, presentear e guardar.
+              Formas feitas à mão para morar, presentear e guardar.
             </p>
           </div>
 
@@ -43,7 +43,7 @@ export default function Footer() {
 
           <div className="ago-footer-group ago-footer-visit-group">
             <h3>Visite</h3>
-            <p>Encontre a Agô no Quadrado de Trancoso.</p>
+            <p>Passe para conhecer de perto.</p>
             <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="ago-footer-map-link">
               Abrir no Google Maps <span aria-hidden="true">↗</span>
             </a>
