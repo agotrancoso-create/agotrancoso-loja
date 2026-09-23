@@ -37,8 +37,8 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-collection-intro-brand">
             <p className="eyebrow">Agô Trancoso · Bahia</p>
-            <h1 id="featured-title">Algumas peças mudam a casa.</h1>
-            <p>Feitas à mão, pensadas para ter presença.</p>
+            <h1 id="featured-title">Leve Trancoso com você.</h1>
+            <p>Peças feitas à mão para trazer memória, cor e personalidade para a casa.</p>
             <Link href="/produtos" className="ago-premium-text-link">Conhecer a coleção <span aria-hidden="true">↗</span></Link>
           </div>
 
@@ -49,7 +49,7 @@ export default function HomePage() {
           </div>
 
           <div className="ago-collection-after-grid">
-            <span>Veja o que pode fazer parte da sua casa.</span>
+            <span>Encontre sua maneira de levar Trancoso para casa.</span>
             <Link href="/produtos" className="ago-premium-dark-cta">Descobrir a coleção</Link>
           </div>
         </div>
@@ -78,9 +78,9 @@ export default function HomePage() {
         />
         <div className="ago-premium-hero-overlay" aria-hidden="true" />
         <div className="ago-container ago-premium-hero-content">
-          <p className="eyebrow">Brasil em forma de objeto</p>
-          <h2 id="hero-title">O Brasil, visto<br />nos detalhes.</h2>
-          <p>Forma, matéria e cor para viver no dia a dia.</p>
+          <p className="eyebrow">Trancoso, Brasil</p>
+          <h2 id="hero-title">Trancoso fica<br />nos detalhes.</h2>
+          <p>Forma, matéria e cor para trazer o espírito da Bahia para perto.</p>
           <Link href="/produtos" className="ago-premium-hero-cta">Explorar a coleção</Link>
         </div>
       </section>
@@ -99,8 +99,8 @@ export default function HomePage() {
           </div>
           <div className="ago-premium-copy">
             <p className="eyebrow">A nossa história</p>
-            <h2 id="story-title">Uma história que continua.</h2>
-            <p>No Quadrado, a Agô encontrou seu lugar. É ali, entre luzes e encontros, que a história da marca continua todas as noites.</p>
+            <h2 id="story-title">Trancoso faz parte da nossa história.</h2>
+            <p>Toda noite, a Agô encontra quem passa pelo Quadrado. Entre luzes, encontros e conversas, nasceu um jeito próprio de compartilhar essa memória.</p>
             <Link href="/nossa-essencia" className="ago-premium-text-link">Conheça a Agô <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
@@ -110,8 +110,8 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-premium-section-head">
             <div>
-              <p className="eyebrow">Pelo que você procura</p>
-              <h2 id="discover-title">Para a sala. Para a mesa. Para perto.</h2>
+              <p className="eyebrow">Seu jeito de viver Trancoso</p>
+              <h2 id="discover-title">Qual parte de Trancoso combina com você?</h2>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver tudo <span aria-hidden="true">↗</span></Link>
           </div>
@@ -136,8 +136,8 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-premium-section-head ago-premium-how-head">
             <div>
-              <p className="eyebrow">Do seu olhar para a sua casa</p>
-              <h2 id="how-title">Escolha. Finalize. Receba.</h2>
+              <p className="eyebrow">Leve Trancoso com você</p>
+              <h2 id="how-title">Do primeiro olhar até a sua casa.</h2>
             </div>
           </div>
 
@@ -167,8 +167,8 @@ export default function HomePage() {
         <div className="ago-container ago-premium-visit-grid">
           <div>
             <p className="eyebrow">No Quadrado</p>
-            <h2 id="visit-title">Vai passar pelo Quadrado?<br />A Agô está por lá.</h2>
-            <p>No coração do Quadrado, a banca é o ponto de encontro da Agô com quem passa por Trancoso.</p>
+            <h2 id="visit-title">Vai passar por Trancoso?<br />Venha conhecer a Agô.</h2>
+            <p>No coração do Quadrado, a banca espera por você todas as noites.</p>
             <div className="ago-premium-visit-links">
               <a href={mapsUrl} target="_blank" rel="noreferrer">Google Maps <span aria-hidden="true">↗</span></a>
               <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
