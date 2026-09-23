@@ -554,3 +554,87 @@ footer .footer-copyright{
     min-height:40px!important;
   }
 }
+/* JUSTIFICAÇÃO TIPOGRÁFICA GLOBAL — AGÔ TRANCOSO
+   Todo texto corrido do site usa alinhamento justificado.
+   Navegação, botões, preços, badges, labels e controles mantêm
+   o alinhamento próprio de interface para não perder legibilidade.
+*/
+main p,
+main li,
+footer p,
+footer li,
+.ago-clean-copy p,
+.ago-clean-edit-copy p,
+.ago-clean-collection-head p,
+.ago-clean-benefit p,
+.ago-benefit-copy p,
+.ago-home-essence p,
+.ago-home-how p,
+.ago-home-how-step p,
+.ago-clean-visit p,
+.ago-clean-visit-item p,
+.catalog-intro p,
+.catalog-cta p,
+.product-description,
+.product-info-column p,
+.product-info-column li,
+.checkout-form-panel p,
+.checkout-summary p,
+.contact-copy p,
+.contact-copy li,
+.essencia-copy p,
+.essencia-copy li,
+.editorial-copy,
+.how-section .grid > div,
+.visit-section .divide-y > div,
+.feature-description,
+.section-intro{
+  text-align:justify!important;
+  text-justify:inter-word;
+}
+
+/* Blocos curtos não devem criar espaçamentos exagerados entre palavras. */
+.product-name,
+.section-title,
+.catalog-intro h1,
+.catalog-intro h2,
+.product-detail-title,
+.product-info-column h1,
+.product-info-column h2,
+.product-info-column h3,
+.checkout-summary h1,
+.checkout-summary h2,
+.checkout-summary h3,
+.contact-copy h1,
+.contact-copy h2,
+.contact-copy h3,
+.essencia-copy h1,
+.essencia-copy h2,
+.essencia-copy h3{
+  text-align:initial;
+}
+
+/* Elementos de interface permanecem visualmente precisos. */
+nav,
+button,
+a.header-link,
+.header-cart-label,
+.cart-count,
+.product-add,
+.collection-link,
+.catalog-link,
+.category-pill,
+.badge,
+.product-badge,
+.current-price,
+.old-price,
+.eyebrow,
+.kicker,
+.footer-copyright,
+.shipping-banner,
+.shipping-progress,
+input,
+select,
+textarea{
+  text-align:initial;
+}
