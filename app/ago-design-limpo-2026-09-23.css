@@ -3613,3 +3613,385 @@ html{
     animation-iteration-count:1!important;
   }
 }
+
+
+/* ========= AGÔ — PROPORÇÃO + ACESSIBILIDADE + EXPERIÊNCIA ========= */
+
+/* Complementares: mostrar a fotografia inteira, sem crop. */
+.ago-premium-image{
+  min-height:0!important;
+  aspect-ratio:4/3!important;
+  background:#E9DCCB!important;
+}
+.ago-premium-image img{
+  object-fit:contain!important;
+  object-position:center!important;
+}
+.ago-complementary-photo{
+  object-fit:contain!important;
+  object-position:center!important;
+}
+.essencia-image{
+  min-height:0!important;
+  aspect-ratio:4/3!important;
+  background:#E9DCCB!important;
+}
+.essencia-image-img{
+  object-fit:contain!important;
+  object-position:center!important;
+}
+
+/* Tipografia mais confortável por padrão. */
+.ago-premium-section-head>div>p:last-child{
+  font-size:15px!important;
+  line-height:1.75!important;
+}
+.ago-premium-copy>p:not(.eyebrow){
+  font-size:15px!important;
+  line-height:1.8!important;
+}
+.ago-clean-benefit p,
+.ago-premium-discovery-copy p,
+.ago-premium-how-grid p,
+.ago-premium-visit>div>div:first-child>p:not(.eyebrow){
+  font-size:12px!important;
+  line-height:1.65!important;
+}
+.ago-premium-text-link,
+.ago-premium-hero-cta,
+.ago-premium-dark-cta,
+.product-add{
+  min-height:44px!important;
+}
+.site-header .header-icon,
+.site-header .mobile-menu-button{
+  min-width:44px!important;
+  min-height:44px!important;
+  width:44px!important;
+  height:44px!important;
+}
+
+/* Produtos: segunda foto original no hover, quando houver. */
+.product-card .product-image-secondary{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  opacity:0!important;
+  transform:scale(1.01)!important;
+  transition:opacity .42s ease,transform .55s cubic-bezier(.2,.7,.2,1)!important;
+  pointer-events:none!important;
+}
+.product-card:hover .product-image-primary{
+  opacity:0!important;
+}
+.product-card:hover .product-image-secondary{
+  opacity:1!important;
+  transform:scale(1.04)!important;
+}
+.product-image-primary{
+  transition:opacity .35s ease,transform .55s cubic-bezier(.2,.7,.2,1)!important;
+}
+
+/* PDP: compra fácil de alcançar no mobile. */
+@media (max-width:767px){
+  .product-purchase{
+    position:sticky!important;
+    bottom:10px!important;
+    z-index:35!important;
+    margin:18px -2px 0!important;
+    padding:10px!important;
+    border:1px solid rgba(67,41,30,.10)!important;
+    border-radius:18px!important;
+    background:rgba(243,232,216,.94)!important;
+    box-shadow:0 12px 30px rgba(67,41,30,.13)!important;
+    backdrop-filter:blur(16px)!important;
+  }
+  .product-primary-cta{
+    min-height:50px!important;
+    font-size:10px!important;
+  }
+  .product-whatsapp{
+    min-height:44px!important;
+    align-items:center!important;
+  }
+}
+
+/* Contraste mais forte para quem tem baixa visão. */
+@media (prefers-contrast:more){
+  :root{
+    --ago-tinta:#281710;
+    --ago-terra-escura:#321C13;
+    --ago-pedra:#503C31;
+  }
+  body,
+  .ago-premium-section-head>div>p:last-child,
+  .ago-premium-copy>p:not(.eyebrow),
+  .ago-clean-benefit p,
+  .ago-premium-discovery-copy p,
+  .ago-premium-how-grid p{
+    color:#281710!important;
+  }
+  a,
+  button,
+  input,
+  select{
+    outline-color:#2F190F!important;
+  }
+}
+
+/* Tamanho de toque AA/AAA e foco não pode desaparecer atrás dos elementos fixos. */
+@media (max-width:767px){
+  .ago-premium-collection a,
+  .ago-premium-visit-links a,
+  .ago-footer-group a{
+    min-height:44px!important;
+    display:inline-flex!important;
+    align-items:center!important;
+  }
+  .ago-premium-discovery-card{
+    display:block!important;
+    min-height:0!important;
+  }
+}
+
+/* Mantém as cores da paleta Sertão em todas as larguras. */
+@media (max-width:767px){
+  .ago-premium-collection{background:var(--ago-cal)!important}
+  .ago-premium-trust{background:var(--ago-barro)!important}
+  .ago-premium-hero{background:var(--ago-terra-escura)!important}
+  .benefits-strip{background:var(--ago-palha)!important}
+  .ago-premium-editorial{background:var(--ago-areia)!important}
+  .ago-premium-essence{background:#E4C9A7!important}
+  .ago-premium-discovery{background:#EFE1CE!important}
+  .ago-premium-how{background:var(--ago-ocre)!important}
+  .ago-premium-visit{background:#D3AF87!important}
+  .site-footer.ago-site-footer{background:var(--ago-madeira)!important}
+}
+
+
+/* Carrinho: cross-sell discreto, visual e sem atrapalhar o checkout. */
+.cart-complementary{
+  margin:0 0 17px!important;
+  padding:15px 0 16px!important;
+  border-top:1px solid rgba(67,41,30,.14)!important;
+  border-bottom:1px solid rgba(67,41,30,.14)!important;
+}
+.cart-complementary-head{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:3px!important;
+  margin-bottom:10px!important;
+}
+.cart-complementary-head>span{
+  color:#43291E!important;
+  font:700 9px/1 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+.cart-complementary-head small{
+  color:#766456!important;
+  font:400 10px/1.4 'DM Sans',Arial,sans-serif!important;
+}
+.cart-complementary-list{
+  display:grid!important;
+  gap:9px!important;
+}
+.cart-complementary-item{
+  display:grid!important;
+  grid-template-columns:58px minmax(0,1fr) 38px!important;
+  align-items:center!important;
+  gap:10px!important;
+}
+.cart-complementary-image{
+  position:relative!important;
+  width:58px!important;
+  height:58px!important;
+  overflow:hidden!important;
+  border-radius:11px!important;
+  background:#E9DCCB!important;
+}
+.cart-complementary-info{
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:4px!important;
+}
+.cart-complementary-info a{
+  min-width:0!important;
+  color:#43291E!important;
+}
+.cart-complementary-info strong{
+  display:block!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  font:600 16px/1.05 'Cormorant Garamond',Georgia,serif!important;
+}
+.cart-complementary-info>span{
+  color:#9F4E2D!important;
+  font:700 10px/1 'DM Sans',Arial,sans-serif!important;
+}
+.cart-complementary-add{
+  width:38px!important;
+  height:38px!important;
+  min-width:38px!important;
+  border:1px solid rgba(159,78,45,.35)!important;
+  border-radius:50%!important;
+  background:#F3E8D8!important;
+  color:#43291E!important;
+  font:500 21px/1 'DM Sans',Arial,sans-serif!important;
+  cursor:pointer!important;
+  transition:background-color .2s ease,color .2s ease,transform .2s ease!important;
+}
+.cart-complementary-add:hover{
+  background:#9F4E2D!important;
+  color:#FFF9F1!important;
+  transform:scale(1.04)!important;
+}
+
+/* Leitura: texto secundário nunca fica pequeno demais em telas pequenas. */
+@media (max-width:767px){
+  .cart-complementary{
+    margin-bottom:14px!important;
+    padding:14px 0!important;
+  }
+  .cart-complementary-item{
+    grid-template-columns:56px minmax(0,1fr) 44px!important;
+    gap:10px!important;
+  }
+  .cart-complementary-image{
+    width:56px!important;
+    height:56px!important;
+  }
+  .cart-complementary-add{
+    width:44px!important;
+    height:44px!important;
+    min-width:44px!important;
+  }
+}
+
+/* Acessibilidade por preferência do sistema. */
+@media (prefers-contrast:more){
+  .cart-complementary{
+    border-color:rgba(40,23,16,.28)!important;
+  }
+  .cart-complementary-info strong,
+  .cart-complementary-head>span{
+    color:#281710!important;
+  }
+  .cart-complementary-info>span{
+    color:#7C321B!important;
+  }
+}
+
+
+/* ========= ACABAMENTO FINAL — LEITURA + PROPORÇÃO ========= */
+h1,h2,h3{ text-wrap:balance!important; }
+p{ text-wrap:pretty!important; }
+
+.eyebrow{
+  font-size:11px!important;
+  line-height:1.25!important;
+}
+.header-link{
+  font-size:11px!important;
+}
+.ago-category-bar a{
+  font-size:10px!important;
+}
+.product-name{
+  font-size:21px!important;
+  line-height:1.08!important;
+}
+.current-price,
+.product-current-price{
+  font-size:14px!important;
+}
+.product-add,
+.ago-premium-hero-cta,
+.ago-premium-dark-cta{
+  font-size:10px!important;
+  letter-spacing:.10em!important;
+}
+.ago-premium-copy>p:not(.eyebrow),
+.product-description{
+  font-size:15px!important;
+  line-height:1.8!important;
+}
+
+/* Nenhuma fotografia complementar é sacrificada pelo enquadramento. */
+.ago-premium-discovery-image img{
+  object-fit:contain!important;
+  object-position:center!important;
+  background:#E9DCCB!important;
+}
+
+/* Imagem complementar ganha presença sem caixa artificial. */
+.ago-premium-image,
+.essencia-image{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.ago-premium-image img,
+.essencia-image-img{
+  position:absolute!important;
+  inset:0!important;
+  margin:auto!important;
+}
+
+/* Estados claros de interação para baixa visão. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible{
+  outline:3px solid #C58B4E!important;
+  outline-offset:3px!important;
+}
+button:disabled,
+a[aria-disabled="true"]{
+  cursor:not-allowed!important;
+}
+
+/* Mobile confortável: tipografia não encolhe demais. */
+@media (max-width:767px){
+  .eyebrow{font-size:10px!important}
+  .ago-premium-section-head>div>p:last-child{
+    font-size:14px!important;
+    line-height:1.72!important;
+  }
+  .product-name{
+    font-size:17px!important;
+    line-height:1.12!important;
+  }
+  .current-price{
+    font-size:13px!important;
+  }
+  .ago-premium-copy>p:not(.eyebrow),
+  .product-description{
+    font-size:14px!important;
+    line-height:1.75!important;
+  }
+  .ago-clean-benefit p,
+  .ago-premium-discovery-copy p,
+  .ago-premium-how-grid p,
+  .ago-premium-visit>div>div:first-child>p:not(.eyebrow){
+    font-size:12.5px!important;
+    line-height:1.65!important;
+  }
+  .ago-premium-text-link,
+  .ago-premium-visit-links a,
+  .ago-footer-group a{
+    font-size:10px!important;
+  }
+  .ago-premium-hero-cta,
+  .ago-premium-dark-cta,
+  .product-add{
+    min-height:46px!important;
+    font-size:9.5px!important;
+  }
+}
