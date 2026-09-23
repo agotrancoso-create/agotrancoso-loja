@@ -5277,3 +5277,217 @@ html,body{background:#F1D2C2!important;color:#3A251E!important}
     color:#24160F!important;
   }
 }
+
+
+/* ==========================================================================
+   AGÔ — PALETA SOFISTICADA + CANTOS MAIS MARCADOS NAS FOTOGRAFIAS
+   Direção: Bahia contemporânea, cerâmica, madeira, areia e azul profundo.
+   Mais elegante e integrada; sem verde, oliva, cáqui ou cinza.
+   ========================================================================== */
+
+:root{
+  --ago-paper:#E9CCC0;
+  --ago-cream:#FBF4EC;
+  --ago-sand:#E8D6C3;
+  --ago-clay:#D8A08E;
+  --ago-terra:#A95A43;
+  --ago-rust:#B86B51;
+  --ago-cocoa:#432A23;
+  --ago-ink:#35231E;
+  --ago-muted:#655047;
+  --ago-white:#FFFDF9;
+  --ago-line:rgba(53,35,30,.16);
+
+  --ago-cal:#E9CCC0;
+  --ago-areia:#E8D6C3;
+  --ago-palha:#DCC39B;
+  --ago-barro:#A95A43;
+  --ago-terracota:#944936;
+  --ago-ocre:#D7AF68;
+  --ago-madeira:#432A23;
+  --ago-terra-escura:#355B69;
+  --ago-tinta:#35231E;
+  --ago-pedra:#655047;
+  --ago-branco:#FFFDF9;
+}
+
+/* Fundo por seção: a temperatura visual fica próxima entre os blocos,
+   com contraste suficiente para marcar a narrativa sem parecer um mosaico. */
+html,body{background:#E9CCC0!important;color:#35231E!important}
+.site-header{background:#FBF4EC!important;color:#35231E!important}
+.ago-category-bar{background:#D8A08E!important;color:#432A23!important}
+
+.ago-premium-collection{background:#E9CCC0!important;color:#35231E!important}
+.ago-premium-trust{background:#A95A43!important;color:#FFFDF9!important}
+.ago-premium-hero{background:#355B69!important;color:#FFFDF9!important}
+.benefits-strip{background:#DCC39B!important;color:#35231E!important}
+.ago-premium-editorial{background:#D5A08D!important;color:#35231E!important}
+.ago-premium-essence{background:#E2B7AA!important;color:#35231E!important}
+.ago-premium-discovery{background:#E8D6C3!important;color:#35231E!important}
+.ago-premium-how{background:#D7AF68!important;color:#35231E!important}
+.ago-premium-visit{background:#496E7B!important;color:#FFFDF9!important}
+.site-footer.ago-site-footer{background:#432A23!important;color:#FFFDF9!important}
+
+/* Textos claros apenas onde o fundo é realmente profundo. */
+.ago-premium-collection h1,
+.ago-premium-collection h2,
+.ago-premium-collection .product-name,
+.ago-benefits-heading>span,
+.ago-clean-benefit h3,
+.ago-premium-editorial h2,
+.ago-premium-essence h2,
+.ago-premium-discovery h2,
+.ago-premium-discovery-copy>span,
+.ago-premium-how h2,
+.ago-premium-how-grid h3,
+.ago-premium-section-head>div>p:last-child,
+.ago-premium-collection-bottom,
+.ago-clean-benefit p,
+.ago-premium-editorial .ago-premium-copy>p:not(.eyebrow),
+.ago-premium-essence .ago-premium-copy>p:not(.eyebrow),
+.ago-premium-discovery-copy p,
+.ago-premium-how-grid p{
+  color:#35231E!important;
+}
+.ago-premium-trust .ago-premium-trust-inner,
+.ago-premium-hero h2,
+.ago-premium-hero-content>p:not(.eyebrow),
+.ago-premium-visit h2{
+  color:#FFFDF9!important;
+}
+.ago-premium-visit>div>div:first-child>p:not(.eyebrow),
+.ago-premium-visit-mark{
+  color:rgba(255,253,249,.90)!important;
+}
+.eyebrow{color:#944936!important}
+.ago-premium-visit .eyebrow{color:#F1D5C5!important}
+.ago-premium-visit-mark strong{color:#F4D2B9!important}
+
+/* Fotografias: cantos visivelmente arredondados, sem moldura e sem sombra. */
+.product-image-wrap,
+.ago-premium-image,
+.ago-premium-discovery-image,
+.essencia-image,
+.product-gallery-main,
+.product-gallery-thumb,
+.cart-product-image,
+.cart-complementary-image,
+.checkout-product-image{
+  border:0!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+  background:transparent!important;
+}
+
+.product-image-wrap{border-radius:24px!important}
+.ago-premium-image,
+.ago-premium-discovery-image,
+.essencia-image,
+.product-gallery-main{border-radius:28px!important}
+.product-gallery-thumb{border-radius:16px!important}
+.cart-product-image,
+.cart-complementary-image,
+.checkout-product-image{border-radius:18px!important}
+
+.product-image-wrap img,
+.ago-premium-image img,
+.ago-premium-discovery-image img,
+.essencia-image img,
+.product-gallery-main img,
+.product-gallery-thumb img,
+.cart-product-image img,
+.cart-complementary-image img,
+.checkout-product-image img{
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:inherit!important;
+}
+
+.product-image-wrap::before,
+.product-image-wrap::after,
+.ago-premium-image::before,
+.ago-premium-image::after,
+.ago-premium-discovery-image::before,
+.ago-premium-discovery-image::after,
+.essencia-image::before,
+.essencia-image::after{
+  display:none!important;
+  content:none!important;
+  box-shadow:none!important;
+}
+
+.ago-premium-image img,
+.ago-premium-discovery-image img,
+.essencia-image img{
+  object-fit:contain!important;
+  object-position:center!important;
+  filter:none!important;
+}
+
+/* O CTA conversa diretamente com o terracota principal. */
+.product-add,
+.contact-location-button,
+.ago-premium-hero-cta,
+.ago-premium-dark-cta,
+.checkout-submit,
+.product-primary-cta{
+  background:#A95A43!important;
+  color:#FFFDF9!important;
+}
+.product-add:hover,
+.contact-location-button:hover,
+.ago-premium-hero-cta:hover,
+.ago-premium-dark-cta:hover,
+.checkout-submit:hover:not(:disabled),
+.product-primary-cta:hover{
+  background:#944936!important;
+}
+
+.product-image,
+.product-image-primary,
+.product-image-secondary,
+.ago-premium-hero-image,
+.ago-premium-image img,
+.ago-premium-discovery-image img,
+.essencia-image-img{
+  filter:none!important;
+}
+
+@media (max-width:767px){
+  html,body{background:#E9CCC0!important}
+  .site-header{background:#FBF4EC!important}
+  .ago-category-bar{background:#D8A08E!important}
+  .ago-premium-collection{background:#E9CCC0!important}
+  .ago-premium-trust{background:#A95A43!important}
+  .ago-premium-hero{background:#355B69!important}
+  .benefits-strip{background:#DCC39B!important}
+  .ago-premium-editorial{background:#D5A08D!important}
+  .ago-premium-essence{background:#E2B7AA!important}
+  .ago-premium-discovery{background:#E8D6C3!important}
+  .ago-premium-how{background:#D7AF68!important}
+  .ago-premium-visit{background:#496E7B!important}
+  .site-footer.ago-site-footer{background:#432A23!important}
+
+  .product-image-wrap{border-radius:20px!important}
+  .ago-premium-image,
+  .ago-premium-discovery-image,
+  .essencia-image,
+  .product-gallery-main{border-radius:22px!important}
+  .product-gallery-thumb{border-radius:14px!important}
+  .cart-product-image,
+  .cart-complementary-image,
+  .checkout-product-image{border-radius:16px!important}
+}
+
+@media (prefers-contrast:more){
+  html,body,
+  .ago-premium-collection,
+  .benefits-strip,
+  .ago-premium-editorial,
+  .ago-premium-essence,
+  .ago-premium-discovery,
+  .ago-premium-how{
+    background:#FFF8F1!important;
+    color:#24160F!important;
+  }
+}
