@@ -1,4 +1,3 @@
-
 import Link from 'next/link';
 import Image from 'next/image';
 import ProductCard from '@/components/ProductCard';
@@ -34,26 +33,12 @@ export default function HomePage() {
 
   return (
     <div className="ago-home ago-premium-home">
-      <section className="ago-premium-hero" aria-labelledby="hero-title">
-        <Image
-          src="/hero.jpg"
-          alt="Peças de cerâmica da Agô Trancoso"
-          fill
-          sizes="100vw"
-          className="ago-premium-hero-image"
-          priority
-        />
-        <div className="ago-premium-hero-overlay" aria-hidden="true" />
-        <div className="ago-container ago-premium-hero-content">
-          <p className="eyebrow">Agô Trancoso · Bahia · Brasil</p>
-          <h1 id="hero-title">Feito à mão.<br />Feito para ficar.</h1>
-          <p>Peças que levam um pouco de Trancoso para dentro de casa.</p>
-          <Link href="/produtos" className="ago-premium-hero-      <section className="ago-premium-collection" aria-labelledby="featured-title">
+      <section className="ago-premium-collection ago-premium-collection-first" aria-labelledby="featured-title">
         <div className="ago-container">
           <div className="ago-premium-section-head">
             <div>
-              <p className="eyebrow">Uma seleção da Agô</p>
-              <h2 id="featured-title">Peças para olhar de perto.</h2>
+              <p className="eyebrow">A coleção · Trancoso · Bahia · Brasil</p>
+              <h1 id="featured-title">Peças para olhar de perto.</h1>
               <p>Feitas à mão, inspiradas no que a gente vê, vive e guarda de Trancoso.</p>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
@@ -86,6 +71,16 @@ export default function HomePage() {
         </div>
       </section>
 
+      <div className="ago-premium-trust" aria-label="Informações da Agô">
+        <div className="ago-container ago-premium-trust-inner">
+          <span>Feitas à mão</span>
+          <i aria-hidden="true" />
+          <span>Envio para todo o Brasil</span>
+          <i aria-hidden="true" />
+          <span>Pagamento pela InfinitePay</span>
+        </div>
+      </div>
+
       <section className="ago-premium-hero" aria-labelledby="hero-title">
         <Image
           src="/hero.jpg"
@@ -98,24 +93,11 @@ export default function HomePage() {
         <div className="ago-premium-hero-overlay" aria-hidden="true" />
         <div className="ago-container ago-premium-hero-content">
           <p className="eyebrow">Agô Trancoso · Bahia · Brasil</p>
-          <h1 id="hero-title">Feito à mão.<br />Feito para ficar.</h1>
+          <h2 id="hero-title">Feito à mão.<br />Feito para ficar.</h2>
           <p>Peças que levam um pouco de Trancoso para dentro de casa.</p>
           <Link href="/produtos" className="ago-premium-hero-cta">Ver a coleção</Link>
         </div>
-      </section>  </div>
-          </nav>
-        </div>
       </section>
-
-      <div className="ago-premium-trust" aria-label="Informações da Agô">
-        <div className="ago-container ago-premium-trust-inner">
-          <span>Feitas à mão</span>
-          <i aria-hidden="true" />
-          <span>Envio para todo o Brasil</span>
-          <i aria-hidden="true" />
-          <span>Pagamento pela InfinitePay</span>
-        </div>
-      </div>
 
       <section className="ago-premium-editorial ago-premium-editorial-one" aria-labelledby="edit-title">
         <div className="ago-container ago-premium-split">
