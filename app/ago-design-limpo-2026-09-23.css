@@ -4789,3 +4789,276 @@ input,select,textarea{
   .skip-link{transition:none!important}
   .ago-collection-quicknav a{transition:none!important}
 }
+
+
+/* ==========================================================================
+   AGÔ — PALETA COLORIDA TRANCOSO + SERTÃO
+   Direção final: cor brasileira, terrosa e solar; sem verde, oliva, cáqui
+   ou fundos acinzentados. Cada seção tem identidade própria, mantendo
+   contraste alto para leitura.
+   ========================================================================== */
+
+:root{
+  --ago-paper:#F4D5BF;
+  --ago-cream:#FFF8F1;
+  --ago-sand:#F0D19A;
+  --ago-clay:#E3A98D;
+  --ago-terra:#A7482D;
+  --ago-rust:#B85A35;
+  --ago-cocoa:#4A2B24;
+  --ago-ink:#3A241B;
+  --ago-muted:#62483B;
+  --ago-white:#FFFDF9;
+  --ago-line:rgba(58,36,27,.18);
+
+  --ago-cal:#F4D5BF;
+  --ago-areia:#F6E6CF;
+  --ago-palha:#F0D19A;
+  --ago-barro:#A7482D;
+  --ago-terracota:#8E452D;
+  --ago-ocre:#F0C36B;
+  --ago-madeira:#4A2B24;
+  --ago-terra-escura:#2D5F76;
+  --ago-tinta:#3A241B;
+  --ago-pedra:#62483B;
+  --ago-branco:#FFFDF9;
+}
+
+/* Base */
+html,body{
+  background:#F4D5BF!important;
+  color:#3A241B!important;
+}
+.site-header{
+  background:#FFF8F1!important;
+  color:#3A241B!important;
+}
+.ago-category-bar{
+  background:#E3A98D!important;
+  color:#4A2B24!important;
+}
+
+/* Home — 9 blocos cromáticos */
+.ago-premium-collection{
+  background:#F4D5BF!important;
+  color:#3A241B!important;
+}
+.ago-premium-trust{
+  background:#A7482D!important;
+  color:#FFFDF9!important;
+}
+.ago-premium-hero{
+  background:#2D5F76!important;
+}
+.benefits-strip{
+  background:#F0D19A!important;
+  color:#3A241B!important;
+}
+.ago-premium-editorial{
+  background:#D88768!important;
+  color:#3A241B!important;
+}
+.ago-premium-essence{
+  background:#E8A29A!important;
+  color:#3A241B!important;
+}
+.ago-premium-discovery{
+  background:#F6E6CF!important;
+  color:#3A241B!important;
+}
+.ago-premium-how{
+  background:#F0C36B!important;
+  color:#3A241B!important;
+}
+.ago-premium-visit{
+  background:#416A80!important;
+  color:#FFFDF9!important;
+}
+.site-footer.ago-site-footer{
+  background:#4A2B24!important;
+  color:#FFFDF9!important;
+}
+
+/* Contraste tipográfico por bloco */
+.ago-premium-collection h1,
+.ago-premium-collection h2,
+.ago-premium-collection .product-name,
+.ago-benefits-heading>span,
+.ago-clean-benefit h3,
+.ago-premium-editorial h2,
+.ago-premium-essence h2,
+.ago-premium-discovery h2,
+.ago-premium-discovery-copy>span,
+.ago-premium-how h2,
+.ago-premium-how-grid h3{
+  color:#3A241B!important;
+}
+.ago-premium-visit h2{
+  color:#FFFDF9!important;
+}
+.ago-premium-section-head>div>p:last-child,
+.ago-premium-collection-bottom,
+.ago-clean-benefit p,
+.ago-premium-editorial .ago-premium-copy>p:not(.eyebrow),
+.ago-premium-essence .ago-premium-copy>p:not(.eyebrow),
+.ago-premium-discovery-copy p,
+.ago-premium-how-grid p{
+  color:#4E382E!important;
+}
+.ago-premium-visit>div>div:first-child>p:not(.eyebrow),
+.ago-premium-visit-mark{
+  color:rgba(255,253,249,.88)!important;
+}
+.ago-premium-visit-mark strong{
+  color:#FFD8B5!important;
+}
+.eyebrow{
+  color:#8E452D!important;
+}
+.ago-premium-trust .ago-premium-trust-inner{
+  color:#FFFDF9!important;
+}
+
+/* Hero permanece visualmente profundo; texto não compete com a foto. */
+.ago-premium-hero h2,
+.ago-premium-hero-content>p:not(.eyebrow){
+  color:#FFFDF9!important;
+}
+
+/* Fotos: sem moldura e sem "cinza" ao redor da peça. */
+.product-image-wrap,
+.ago-premium-image,
+.ago-premium-discovery-image,
+.essencia-image,
+.product-gallery-main,
+.product-gallery-thumb,
+.cart-product-image,
+.cart-complementary-image,
+.checkout-product-image{
+  border:0!important;
+  box-shadow:none!important;
+  background:#FFF8F1!important;
+}
+.product-image-wrap::after,
+.ago-premium-product-grid .product-image-wrap::after{
+  display:none!important;
+  content:none!important;
+  box-shadow:none!important;
+}
+
+/* CTAs: terracota/azul, nunca verde. */
+.product-add,
+.contact-location-button,
+.ago-premium-hero-cta,
+.ago-premium-dark-cta,
+.checkout-submit,
+.product-primary-cta{
+  background:#A7482D!important;
+  color:#FFFDF9!important;
+}
+.product-add:hover,
+.contact-location-button:hover,
+.ago-premium-hero-cta:hover,
+.ago-premium-dark-cta:hover,
+.checkout-submit:hover:not(:disabled),
+.product-primary-cta:hover{
+  background:#8E452D!important;
+}
+
+/* Seção azul: links e detalhes claros para preservar contraste. */
+.ago-premium-visit .eyebrow{
+  color:#FFD0AA!important;
+}
+.ago-premium-visit-links a{
+  color:#FFFDF9!important;
+  border-color:rgba(255,253,249,.44)!important;
+}
+.ago-premium-visit-links a:hover{
+  color:#FFD8B5!important;
+  border-color:#FFD8B5!important;
+}
+
+/* Rodapé: madeira brasileira, sem aparência pesada demais. */
+.ago-site-footer .ago-footer-place,
+.ago-site-footer .ago-footer-group h3{
+  color:#E8B58F!important;
+}
+.ago-site-footer .ago-footer-brand h2,
+.ago-site-footer .ago-footer-description,
+.ago-site-footer .ago-footer-group a,
+.ago-site-footer .ago-footer-group span,
+.ago-site-footer .ago-footer-group p{
+  color:#FFFDF9!important;
+}
+.ago-site-footer .ago-footer-description,
+.ago-site-footer .ago-footer-group a,
+.ago-site-footer .ago-footer-group span,
+.ago-site-footer .ago-footer-group p{
+  opacity:.86!important;
+}
+.ago-site-footer .ago-footer-group a:hover{
+  color:#FFD8B5!important;
+  opacity:1!important;
+}
+
+/* Mobile usa exatamente os mesmos campos cromáticos. */
+@media (max-width:767px){
+  html,body{background:#F4D5BF!important}
+  .site-header{background:#FFF8F1!important}
+  .ago-category-bar{background:#E3A98D!important}
+  .ago-premium-collection{background:#F4D5BF!important}
+  .ago-premium-trust{background:#A7482D!important}
+  .ago-premium-hero{background:#2D5F76!important}
+  .benefits-strip{background:#F0D19A!important}
+  .ago-premium-editorial{background:#D88768!important}
+  .ago-premium-essence{background:#E8A29A!important}
+  .ago-premium-discovery{background:#F6E6CF!important}
+  .ago-premium-how{background:#F0C36B!important}
+  .ago-premium-visit{background:#416A80!important}
+  .site-footer.ago-site-footer{background:#4A2B24!important}
+
+  .ago-premium-editorial .ago-premium-copy>p:not(.eyebrow),
+  .ago-premium-essence .ago-premium-copy>p:not(.eyebrow),
+  .ago-premium-discovery-copy p,
+  .ago-premium-how-grid p{
+    color:#4E382E!important;
+  }
+  .ago-premium-visit h2,
+  .ago-premium-visit>div>div:first-child>p:not(.eyebrow){
+    color:#FFFDF9!important;
+  }
+}
+
+/* Preferência de alto contraste: reduz variações, mantém cor sem comprometer leitura. */
+@media (prefers-contrast:more){
+  html,body,
+  .ago-premium-collection,
+  .benefits-strip,
+  .ago-premium-editorial,
+  .ago-premium-essence,
+  .ago-premium-discovery,
+  .ago-premium-how{
+    background:#FFF9F3!important;
+    color:#24160F!important;
+  }
+  .ago-premium-collection h1,
+  .ago-premium-collection h2,
+  .ago-premium-collection .product-name,
+  .ago-benefits-heading>span,
+  .ago-clean-benefit h3,
+  .ago-premium-editorial h2,
+  .ago-premium-essence h2,
+  .ago-premium-discovery h2,
+  .ago-premium-discovery-copy>span,
+  .ago-premium-how h2,
+  .ago-premium-how-grid h3{
+    color:#24160F!important;
+  }
+  .ago-premium-section-head>div>p:last-child,
+  .ago-premium-copy>p:not(.eyebrow),
+  .ago-clean-benefit p,
+  .ago-premium-discovery-copy p,
+  .ago-premium-how-grid p{
+    color:#39271E!important;
+  }
+}
