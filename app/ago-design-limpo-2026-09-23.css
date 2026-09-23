@@ -3886,3 +3886,112 @@ html{
     color:#7C321B!important;
   }
 }
+
+
+/* ========= ACABAMENTO FINAL — LEITURA + PROPORÇÃO ========= */
+h1,h2,h3{ text-wrap:balance!important; }
+p{ text-wrap:pretty!important; }
+
+.eyebrow{
+  font-size:11px!important;
+  line-height:1.25!important;
+}
+.header-link{
+  font-size:11px!important;
+}
+.ago-category-bar a{
+  font-size:10px!important;
+}
+.product-name{
+  font-size:21px!important;
+  line-height:1.08!important;
+}
+.current-price,
+.product-current-price{
+  font-size:14px!important;
+}
+.product-add,
+.ago-premium-hero-cta,
+.ago-premium-dark-cta{
+  font-size:10px!important;
+  letter-spacing:.10em!important;
+}
+.ago-premium-copy>p:not(.eyebrow),
+.product-description{
+  font-size:15px!important;
+  line-height:1.8!important;
+}
+
+/* Nenhuma fotografia complementar é sacrificada pelo enquadramento. */
+.ago-premium-discovery-image img{
+  object-fit:contain!important;
+  object-position:center!important;
+  background:#E9DCCB!important;
+}
+
+/* Imagem complementar ganha presença sem caixa artificial. */
+.ago-premium-image,
+.essencia-image{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.ago-premium-image img,
+.essencia-image-img{
+  position:absolute!important;
+  inset:0!important;
+  margin:auto!important;
+}
+
+/* Estados claros de interação para baixa visão. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible{
+  outline:3px solid #C58B4E!important;
+  outline-offset:3px!important;
+}
+button:disabled,
+a[aria-disabled="true"]{
+  cursor:not-allowed!important;
+}
+
+/* Mobile confortável: tipografia não encolhe demais. */
+@media (max-width:767px){
+  .eyebrow{font-size:10px!important}
+  .ago-premium-section-head>div>p:last-child{
+    font-size:14px!important;
+    line-height:1.72!important;
+  }
+  .product-name{
+    font-size:17px!important;
+    line-height:1.12!important;
+  }
+  .current-price{
+    font-size:13px!important;
+  }
+  .ago-premium-copy>p:not(.eyebrow),
+  .product-description{
+    font-size:14px!important;
+    line-height:1.75!important;
+  }
+  .ago-clean-benefit p,
+  .ago-premium-discovery-copy p,
+  .ago-premium-how-grid p,
+  .ago-premium-visit>div>div:first-child>p:not(.eyebrow){
+    font-size:12.5px!important;
+    line-height:1.65!important;
+  }
+  .ago-premium-text-link,
+  .ago-premium-visit-links a,
+  .ago-footer-group a{
+    font-size:10px!important;
+  }
+  .ago-premium-hero-cta,
+  .ago-premium-dark-cta,
+  .product-add{
+    min-height:46px!important;
+    font-size:9.5px!important;
+  }
+}
