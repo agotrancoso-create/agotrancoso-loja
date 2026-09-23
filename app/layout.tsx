@@ -5,6 +5,7 @@ import './ago-checkout-premium.css';
 import './ago-social-mobile.css';
 import './ago-mobile-checkout-final-2026.css';
 import './ago-design-limpo-2026-09-23.css';
+import './ago-beneficios-arte-final-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
