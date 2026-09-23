@@ -9687,3 +9687,16 @@ h1,h2,h3,
     letter-spacing:-.025em!important;
   }
 }
+
+
+/* Ajuste final dos símbolos dos diferenciais: linha leve, quente e sem preto puro. */
+.ago-lineart-benefit-icon{
+  background:rgba(255,253,249,.62)!important;
+  border-color:rgba(111,57,39,.12)!important;
+  box-shadow:0 4px 14px rgba(111,57,39,.04)!important;
+}
+.ago-lineart-benefit-icon svg{stroke-width:1.08!important}
+.ago-lineart-benefit-icon.benefit-icon-handmade{color:#9A563E!important}
+.ago-lineart-benefit-icon.benefit-icon-ceramic{color:#7E4632!important}
+.ago-lineart-benefit-icon.benefit-icon-trancoso{color:#9B7048!important}
+.ago-lineart-benefit-icon.benefit-icon-shipping{color:#8A5A45!important}
