@@ -14,6 +14,14 @@ const navItems = [
   { href: '/contato', label: 'Contato' },
 ];
 
+const categoryItems = [
+  { href: '/produtos?categoria=trancoso', label: 'Trancoso' },
+  { href: '/produtos?categoria=igrejinhas', label: 'Igrejinhas' },
+  { href: '/produtos?categoria=decoracao', label: 'Decoração' },
+  { href: '/produtos?categoria=fe-devocao', label: 'Fé & devoção' },
+  { href: '/produtos?categoria=presentes', label: 'Presentes' },
+];
+
 export default function Header() {
   const [query, setQuery] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -40,7 +48,7 @@ export default function Header() {
       <header className="site-header sticky top-0 z-40">
         <div className="ago-container header-inner">
           <Link href="/" className="header-logo" aria-label="Agô Trancoso">
-            <Image src="/logo.png" alt="Agô Trancoso" width={72} height={72} sizes="48px" className="h-12 w-12 object-contain" quality={82} priority />
+            <Image src="/logo.png" alt="Agô Trancoso" width={72} height={72} sizes="48px" className="object-contain" quality={82} priority />
           </Link>
 
           <nav className="header-nav header-nav-desktop" aria-label="Navegação principal">
@@ -62,7 +70,7 @@ export default function Header() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Buscar peça..."
+                placeholder="Buscar"
                 aria-label="Buscar peça"
                 className="header-search"
               />
@@ -75,8 +83,7 @@ export default function Header() {
               className="header-icon"
             >
               <span className="header-cart-label">
-                <CartIcon size={22} />
-                <span className="header-cart-text">Carrinho</span>
+                <CartIcon size={23} />
                 {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
               </span>
             </button>
@@ -88,29 +95,50 @@ export default function Header() {
               className="mobile-menu-button"
               onClick={() => setMenuOpen((v) => !v)}
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+              <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
               </svg>
             </button>
           </div>
         </div>
+
+        <nav className="ago-category-bar" aria-label="Explorar coleção">
+          <div className="ago-container ago-category-bar-inner">
+            <Link href="/produtos" className="ago-category-all">Ver tudo</Link>
+            {categoryItems.map((item) => (
+              <Link key={item.href} href={item.href}>{item.label}</Link>
+            ))}
+          </div>
+        </nav>
 
         {menuOpen && (
           <div className="mobile-menu ago-container">
             <form onSubmit={handleSearch}>
               <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Buscar peça..." aria-label="Buscar peça" />
             </form>
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMenuOpen(false)}
-                className={isActive(item.href) ? 'is-active' : undefined}
-                aria-current={isActive(item.href) ? 'page' : undefined}
-              >
-                {item.label}
-              </Link>
-            ))}
+
+            <div className="mobile-menu-primary">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className={isActive(item.href) ? 'is-active' : undefined}
+                  aria-current={isActive(item.href) ? 'page' : undefined}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+
+            <p className="mobile-menu-label">Explorar coleção</p>
+            <div className="mobile-menu-categories">
+              {categoryItems.map((item) => (
+                <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </div>
         )}
       </header>

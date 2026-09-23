@@ -83,6 +83,7 @@ import './ago-benefits-lineart-2026.css';
 import './ago-desktop-force-2026.css';
 import './ago-structure-beautiful-2026.css';
 import './ago-master-visual-2026.css';
+import './ago-fashion-commerce-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
