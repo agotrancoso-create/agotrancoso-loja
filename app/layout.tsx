@@ -124,55 +124,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-sans">
         <MarketingAnalytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-        <style id="ago-cart-no-color-final">
-          .header-icon,
-          .header-cart-label {
-            background: transparent !important;
-            background-color: transparent !important;
-            background-image: none !important;
-            border: 0 !important;
-            box-shadow: none !important;
-            color: #211914 !important;
-            -webkit-appearance: none !important;
-            appearance: none !important;
-          }
-          .header-icon::before,
-          .header-icon::after,
-          .header-cart-label::before,
-          .header-cart-label::after {
-            content: none !important;
-            display: none !important;
-            background: transparent !important;
-          }
-          .header-cart-label {
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-          }
-          .header-cart-label svg,
-          .header-cart-label svg path,
-          .header-cart-label svg circle {
-            background: transparent !important;
-            background-color: transparent !important;
-            background-image: none !important;
-            box-shadow: none !important;
-            filter: none !important;
-          }
-          .header-cart-label svg {
-            display: block !important;
-            width: 24px !important;
-            height: 24px !important;
-            color: #211914 !important;
-            overflow: visible !important;
-          }
-          .cart-count {
-            background: transparent !important;
-            background-color: transparent !important;
-            color: #211914 !important;
-            border: 0 !important;
-            box-shadow: none !important;
-          }
-        </style>
         <style id="ago-final-ui-fix" dangerouslySetInnerHTML={{ __html: `
           @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600;700&family=Lato:wght@400;700;900&display=swap');
           body, body button, body input, body select, body textarea { font-family: 'Lato', Arial, sans-serif !important; }
