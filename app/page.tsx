@@ -14,6 +14,8 @@ const featuredOrder = [
   'igreja-quadrado-m',
   'igrejinha-luminaria-trancoso',
   'casinha-luminaria',
+  'miniatura-quadrado-trancoso',
+  'cruzeiro-do-quadrado',
 ];
 
 export default function HomePage() {
@@ -46,11 +48,7 @@ export default function HomePage() {
           <p className="eyebrow">Agô Trancoso · Bahia · Brasil</p>
           <h1 id="hero-title">Feito à mão.<br />Feito para ficar.</h1>
           <p>Peças que levam um pouco de Trancoso para dentro de casa.</p>
-          <Link href="/produtos" className="ago-premium-hero-cta">Ver a coleção</Link>
-        </div>
-      </section>
-
-      <section className="ago-premium-collection" aria-labelledby="featured-title">
+          <Link href="/produtos" className="ago-premium-hero-      <section className="ago-premium-collection" aria-labelledby="featured-title">
         <div className="ago-container">
           <div className="ago-premium-section-head">
             <div>
@@ -84,6 +82,27 @@ export default function HomePage() {
                   <Link key={item.id} href={'/produtos?categoria=' + item.id}>{item.name}</Link>
                 ))}
             </div>
+          </nav>
+        </div>
+      </section>
+
+      <section className="ago-premium-hero" aria-labelledby="hero-title">
+        <Image
+          src="/hero.jpg"
+          alt="Peças de cerâmica da Agô Trancoso"
+          fill
+          sizes="100vw"
+          className="ago-premium-hero-image"
+          priority
+        />
+        <div className="ago-premium-hero-overlay" aria-hidden="true" />
+        <div className="ago-container ago-premium-hero-content">
+          <p className="eyebrow">Agô Trancoso · Bahia · Brasil</p>
+          <h1 id="hero-title">Feito à mão.<br />Feito para ficar.</h1>
+          <p>Peças que levam um pouco de Trancoso para dentro de casa.</p>
+          <Link href="/produtos" className="ago-premium-hero-cta">Ver a coleção</Link>
+        </div>
+      </section>  </div>
           </nav>
         </div>
       </section>
