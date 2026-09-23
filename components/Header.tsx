@@ -48,7 +48,7 @@ export default function Header() {
       <header className="site-header sticky top-0 z-40">
         <div className="ago-container header-inner">
           <Link href="/" className="header-logo" aria-label="Agô Trancoso">
-            <Image src="/logo.png" alt="Agô Trancoso" width={72} height={72} sizes="48px" className="object-contain" quality={82} priority />
+            <Image src="/logo.png" alt="Agô Trancoso" width={78} height={78} sizes="52px" className="object-contain" quality={86} priority />
           </Link>
 
           <nav className="header-nav header-nav-desktop" aria-label="Navegação principal">
