@@ -57,7 +57,7 @@ export default function HomePage() {
             <span className="ago-home-category-label">Explorar</span>
             <div className="ago-home-category-links">
               {categories.map((category) => (
-                <Link key={category.id} href={`/produtos?categoria=\${category.id}`}>
+                <Link key={category.id} href={`/produtos?categoria=${category.id}`}>
                   {category.name}
                 </Link>
               ))}
