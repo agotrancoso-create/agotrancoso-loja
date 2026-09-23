@@ -2054,3 +2054,101 @@ h1,h2,h3,
   content:none!important;
   display:none!important;
 }
+
+
+/* ========= PALETA MARROM AGÔ — AJUSTE FINAL ========= */
+:root{
+  --ago-paper:#EFE1D3;
+  --ago-cream:#F6ECE1;
+  --ago-sand:#DEC4AD;
+  --ago-clay:#C79A7B;
+  --ago-terra:#8E4B32;
+  --ago-rust:#A4511F;
+  --ago-cocoa:#4B2B1E;
+  --ago-ink:#3F261C;
+  --ago-muted:#6F594C;
+  --ago-white:#FFF9F3;
+  --ago-line:rgba(75,43,30,.16);
+}
+html,body,.ago-home,.catalog-page,.product-page,.essencia-page,.contact-page,.checkout-page{
+  background:var(--ago-paper)!important;color:var(--ago-ink)!important;
+}
+.site-header{background:rgba(246,236,225,.97)!important}
+.ago-category-bar{background:var(--ago-clay)!important}
+.ago-premium-collection,.ago-premium-discovery{background:var(--ago-paper)!important}
+.product-image-wrap,.ago-premium-image,.catalog-toolbar input,.catalog-sort,.ago-clean-checkout-summary{
+  background:var(--ago-cream)!important
+}
+.ago-premium-editorial,.ago-premium-essence,.ago-premium-how,.info-panel{background:var(--ago-sand)!important}
+.ago-premium-trust,.ago-premium-hero,.ago-premium-visit,.site-footer.ago-site-footer{background:var(--ago-cocoa)!important}
+.header-search{border-color:rgba(75,43,30,.22)!important}
+.product-add,.contact-location-button,.ago-premium-hero-cta,.ago-premium-dark-cta,.checkout-submit,.product-primary-cta{
+  background:var(--ago-terra)!important
+}
+.product-add{color:#fff!important;border-color:var(--ago-terra)!important}
+.product-add:hover,.contact-location-button:hover,.ago-premium-hero-cta:hover,.ago-premium-dark-cta:hover,.checkout-submit:hover:not(:disabled),.product-primary-cta:hover{
+  background:var(--ago-rust)!important
+}
+
+/* Rodapé: logo realmente sem moldura/círculo */
+.ago-site-footer .ago-footer-logo{
+  width:auto!important;height:auto!important;min-width:0!important;min-height:0!important;
+  margin:0 0 17px!important;padding:0!important;border:0!important;border-radius:0!important;
+  background:transparent!important;overflow:visible!important;
+}
+.ago-site-footer .ago-footer-logo img{
+  width:88px!important;height:88px!important;object-fit:contain!important;
+}
+
+/* Carrinho: mais sofisticado, marrom e proporcional */
+.cart-backdrop{background:rgba(45,25,18,.50)!important;backdrop-filter:blur(4px)!important}
+.cart-drawer{
+  width:min(460px,100vw)!important;background:#F6ECE1!important;
+  border-left:1px solid rgba(75,43,30,.14)!important;
+  box-shadow:-24px 0 70px rgba(45,25,18,.22)!important;
+}
+.cart-header{
+  min-height:86px!important;padding:18px 24px!important;
+  background:var(--ago-cocoa)!important;color:#FFF9F3!important;
+}
+.cart-header-title{gap:11px!important}
+.cart-header-title svg{width:22px!important;height:22px!important;color:#D7A282!important}
+.cart-header h2{font-size:34px!important;letter-spacing:-.025em!important}
+.cart-close{width:38px!important;height:38px!important;border-color:rgba(255,249,243,.22)!important}
+.cart-body{padding:8px 24px 14px!important;background:#F6ECE1!important}
+.cart-item{
+  grid-template-columns:82px minmax(0,1fr) auto!important;gap:15px!important;padding:18px 0!important;
+  border-bottom:1px solid rgba(75,43,30,.13)!important;
+}
+.cart-product-image{width:82px!important;height:82px!important;border-radius:14px!important;background:#DEC4AD!important}
+.cart-item-info h4{color:var(--ago-cocoa)!important;font-size:12px!important;font-weight:700!important}
+.cart-item-info p{color:#765F51!important;font-size:10px!important}
+.cart-item-controls{margin-top:11px!important;border-color:rgba(75,43,30,.17)!important;background:#EFE1D3!important}
+.cart-item-controls>button:not(.cart-remove),.cart-item-controls>span{
+  width:29px!important;height:29px!important;min-width:29px!important;color:var(--ago-cocoa)!important;
+}
+.cart-item-controls .cart-remove{color:var(--ago-terra)!important}
+.cart-item-total{color:var(--ago-cocoa)!important;font-size:11px!important}
+.cart-summary{padding:18px 24px 22px!important;background:#DEC4AD!important;border-top:1px solid rgba(75,43,30,.16)!important}
+.cart-shipping-message{background:rgba(246,236,225,.72)!important;color:#6F594C!important;border-left-color:var(--ago-terra)!important}
+.cart-shipping-progress{background:rgba(75,43,30,.15)!important}
+.cart-shipping-progress span{background:var(--ago-terra)!important}
+.cart-summary-row{color:#6F594C!important}
+.cart-total-row{color:var(--ago-cocoa)!important;border-top-color:rgba(75,43,30,.17)!important}
+.cart-total-row strong{font-size:18px!important;color:var(--ago-cocoa)!important}
+.cart-checkout{min-height:48px!important;background:var(--ago-cocoa)!important;color:#FFF9F3!important;border-radius:999px!important;font-size:9px!important}
+.cart-checkout:hover{background:var(--ago-terra)!important}
+.cart-continue{color:var(--ago-cocoa)!important}
+.cart-empty{padding:90px 16px!important}
+.cart-empty p{color:var(--ago-cocoa)!important}
+.cart-empty span{color:#765F51!important}
+
+/* Pop-up/floaters na mesma família cromática */
+.ago-social-whatsapp{background:var(--ago-terra)!important}
+.ago-social-instagram{background:var(--ago-cocoa)!important}
+.first-purchase-brand-panel{background:var(--ago-cocoa)!important}
+.first-purchase-submit{background:var(--ago-terra)!important}
+.first-purchase-modal{background:var(--ago-cream)!important}
+.checkout-form-panel{background:var(--ago-cream)!important;border-color:var(--ago-line)!important}
+.checkout-first-purchase,.checkout-shipping-note{background:var(--ago-sand)!important}
+.checkout-coupon-row button{background:var(--ago-cocoa)!important}
