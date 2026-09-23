@@ -63,9 +63,19 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
             fill
             priority={priority}
             sizes="(max-width: 420px) 44vw, (max-width: 767px) 45vw, (max-width: 1100px) 44vw, (max-width: 1440px) 23vw, 330px"
-            className="product-image"
+            className="product-image product-image-primary"
             style={{ '--product-photo-scale': photoScale } as CSSProperties}
           />
+          {product.images?.[1] && (
+            <Image
+              src={product.images[1]}
+              alt=""
+              fill
+              sizes="(max-width: 420px) 44vw, (max-width: 767px) 45vw, (max-width: 1100px) 44vw, (max-width: 1440px) 23vw, 330px"
+              className="product-image-secondary"
+              aria-hidden="true"
+            />
+          )}
           {hasPromo && <span className="product-badge">Oferta</span>}
           {!product.available && <span className="product-badge">Indisponível</span>}
           <span className="product-view">Ver peça</span>
