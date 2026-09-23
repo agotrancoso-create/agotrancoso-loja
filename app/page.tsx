@@ -11,12 +11,10 @@ const instagramUrl = 'https://www.instagram.com/agotrancoso';
 const featuredOrder = [
   'igreja-quadrado-p',
   'igreja-quadrado-m',
-  'igreja-quadrado-gg',
   'igrejinha-luminaria-trancoso',
   'casinha-luminaria',
   'miniatura-quadrado-trancoso',
   'cruzeiro-do-quadrado',
-  'mobile-trancoso',
 ];
 
 export default function HomePage() {
@@ -27,35 +25,38 @@ export default function HomePage() {
     .filter((p): p is NonNullable<typeof p> => Boolean(p?.available));
 
   return (
-    <div className="ago-home ago-clean-home">
-      <section id="colecao" className="ago-clean-collection">
-        <div className="ago-clean-container">
-          <div className="ago-clean-collection-kicker">
+    <div className="ago-home ago-neuro-home">
+      <section id="colecao" className="ago-neuro-collection" aria-labelledby="collection-title">
+        <div className="ago-container ago-neuro-container">
+          <div className="ago-neuro-kicker">
             <p className="eyebrow">A coleção</p>
             <span>Trancoso · Bahia · Brasil</span>
           </div>
 
-          <div className="ago-clean-collection-head">
-            <h1>Peças para levar a Bahia<br className="ago-desktop-only" /> para dentro de casa.</h1>
-            <p>
-              São peças de cerâmica feitas à mão, inspiradas no que a gente vê, vive e guarda de Trancoso.
-            </p>
+          <div className="ago-neuro-collection-head">
+            <div>
+              <h1 id="collection-title">Peças para levar a Bahia para dentro de casa.</h1>
+              <p>Feitas à mão, inspiradas no que a gente vê, vive e guarda de Trancoso.</p>
+            </div>
+            <Link href="/produtos" className="ago-neuro-inline-link">
+              Ver todas as peças <span aria-hidden="true">↗</span>
+            </Link>
           </div>
 
-          <div className="ago-clean-product-grid">
+          <div className="ago-neuro-product-grid">
             {featured.map((product, index) => (
               <ProductCard key={product.id} product={product} priority={index < 4} />
             ))}
           </div>
 
-          <div className="ago-clean-collection-foot">
+          <div className="ago-neuro-collection-foot">
             <span>{available.length} peças na coleção</span>
-            <Link href="/produtos">Ver coleção completa <span aria-hidden="true">↗</span></Link>
+            <Link href="/produtos">Explorar a coleção completa <span aria-hidden="true">↗</span></Link>
           </div>
 
-          <nav className="ago-home-category-nav" aria-label="Explorar por categoria">
-            <span className="ago-home-category-label">Explorar</span>
-            <div className="ago-home-category-links">
+          <nav className="ago-neuro-category-nav" aria-label="Escolher por categoria">
+            <span>Escolher por categoria</span>
+            <div>
               {categories.map((category) => (
                 <Link key={category.id} href={`/produtos?categoria=${category.id}`}>
                   {category.name}
@@ -66,32 +67,37 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="ago-clean-hero">
+      <div className="ago-neuro-trust" aria-label="Informações de compra">
+        <div className="ago-neuro-trust-inner">
+          <span>Feitas à mão</span>
+          <i aria-hidden="true" />
+          <span>Envio para todo o Brasil</span>
+          <i aria-hidden="true" />
+          <span>Pagamento pela InfinitePay</span>
+        </div>
+      </div>
+
+      <section className="ago-neuro-hero" aria-labelledby="hero-title">
         <Image
           src="/hero.jpg"
           alt="Peças de cerâmica da Agô Trancoso"
           fill
           sizes="100vw"
-          className="ago-clean-hero-image"
+          className="ago-neuro-hero-image"
           priority
         />
-        <div className="ago-clean-hero-overlay" />
-        <div className="ago-clean-container ago-clean-hero-content">
+        <div className="ago-neuro-hero-overlay" />
+        <div className="ago-container ago-neuro-hero-content">
           <p className="eyebrow">Agô Trancoso</p>
-          <h2>FEITO À MÃO.<br />FEITO PARA DURAR.</h2>
-          <p>
-            Peças para levar a Bahia para dentro de casa.
-          </p>
-          <div className="ago-clean-actions">
-            <Link href="/produtos" className="ago-clean-button ago-clean-button-light">Ver coleção</Link>
-            <Link href="/nossa-essencia" className="ago-clean-text-link">Conheça a Agô <span aria-hidden="true">↗</span></Link>
-          </div>
+          <h2 id="hero-title">FEITO À MÃO.<br />FEITO PARA DURAR.</h2>
+          <p>Peças para levar a Bahia para dentro de casa.</p>
+          <Link href="/produtos" className="ago-neuro-primary-button">Ver coleção</Link>
         </div>
       </section>
 
-      <section className="ago-clean-edit">
-        <div className="ago-clean-container ago-clean-edit-grid">
-          <div className="ago-clean-edit-image">
+      <section className="ago-neuro-edit" aria-labelledby="edit-title">
+        <div className="ago-container ago-neuro-split">
+          <div className="ago-neuro-image">
             <Image
               src="/complementar.jpg"
               alt="Igrejinhas de cerâmica da Agô Trancoso"
@@ -101,77 +107,79 @@ export default function HomePage() {
               className="ago-complementary-photo"
             />
           </div>
-          <div className="ago-clean-edit-copy">
+          <div className="ago-neuro-copy">
             <p className="eyebrow">Da Bahia para sua casa</p>
-            <h2>Uma peça pode mudar o lugar onde você olha.</h2>
-            <p>
-              Igrejinhas, imagens e formas que a gente gosta de ter por perto — para decorar, presentear ou guardar.
-            </p>
-            <Link href="/produtos" className="ago-clean-dark-link">Escolher uma peça <span aria-hidden="true">↗</span></Link>
+            <h2 id="edit-title">Uma peça pode mudar o lugar onde você olha.</h2>
+            <p>Igrejinhas, imagens e formas que a gente gosta de ter por perto — para decorar, presentear ou guardar.</p>
+            <Link href="/produtos" className="ago-neuro-text-link">Escolher uma peça <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
       </section>
 
       <Benefits />
 
-      <section className="ago-home-essence" aria-labelledby="ago-home-essence-title">
-        <div className="ago-clean-container ago-home-essence-grid">
-          <div className="ago-home-essence-image">
-            <Image src="/nossa-essencia.jpg" alt="Peças de cerâmica da Agô Trancoso" fill sizes="(max-width: 900px) 100vw, 50vw" />
+      <section className="ago-neuro-essence" aria-labelledby="essence-title">
+        <div className="ago-container ago-neuro-split ago-neuro-split-reverse">
+          <div className="ago-neuro-image">
+            <Image
+              src="/nossa-essencia.jpg"
+              alt="Peças de cerâmica da Agô Trancoso"
+              fill
+              sizes="(max-width: 900px) 100vw, 50vw"
+            />
           </div>
-          <div className="ago-home-essence-copy">
+          <div className="ago-neuro-copy">
             <p className="eyebrow">A Agô</p>
-            <h2 id="ago-home-essence-title">O encanto de Trancoso.</h2>
+            <h2 id="essence-title">O encanto de Trancoso.</h2>
             <p>A arquitetura, o barro, a fé e as lembranças desse lugar aparecem nas formas e nos detalhes de cada peça.</p>
-            <Link href="/nossa-essencia" className="ago-home-structure-link">Conheça a Agô <span aria-hidden="true">↗</span></Link>
+            <Link href="/nossa-essencia" className="ago-neuro-text-link">Conheça a Agô <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
       </section>
 
-      <section className="ago-home-how" aria-labelledby="ago-home-how-title">
-        <div className="ago-clean-container">
-          <div className="ago-home-how-head">
+      <section className="ago-neuro-how" aria-labelledby="how-title">
+        <div className="ago-container ago-neuro-how-inner">
+          <div className="ago-neuro-section-head">
             <p className="eyebrow">Como comprar</p>
-            <h2 id="ago-home-how-title">Escolha com calma.<br />A gente cuida do resto.</h2>
+            <h2 id="how-title">Escolha com calma.<br />A gente cuida do resto.</h2>
           </div>
-          <div className="ago-home-how-grid">
-            <div className="ago-home-how-step">
+
+          <div className="ago-neuro-how-grid">
+            <article>
               <span>01</span>
               <h3>Escolha sua peça</h3>
               <p>Veja as fotos, conheça os detalhes e encontre a peça que combina com você.</p>
-            </div>
-            <div className="ago-home-how-step">
+            </article>
+            <article>
               <span>02</span>
               <h3>Adicione ao carrinho</h3>
               <p>Revise seu pedido e preencha os dados de entrega de forma simples.</p>
-            </div>
-            <div className="ago-home-how-step">
+            </article>
+            <article>
               <span>03</span>
               <h3>Receba em casa</h3>
               <p>Pagamento pela InfinitePay e envio da sua peça com todo o cuidado.</p>
-            </div>
+            </article>
           </div>
-          <div className="ago-home-how-cta">
-            <Link href="/produtos" className="ago-clean-button ago-clean-button-terra">Ver produtos</Link>
-          </div>
+
+          <Link href="/produtos" className="ago-neuro-primary-button ago-neuro-how-button">Ver produtos</Link>
         </div>
       </section>
 
-      <section className="ago-clean-visit">
-        <div className="ago-clean-container ago-clean-visit-grid">
+      <section className="ago-neuro-visit" aria-labelledby="visit-title">
+        <div className="ago-container ago-neuro-visit-grid">
           <div>
             <p className="eyebrow">Visite a Agô</p>
-            <h2>Chegou ao Quadrado?<br />Procure a Agô.</h2>
-            <p>
-              Nossa banca fica no Quadrado de Trancoso. Para ver uma peça de perto ou falar com a gente, é só chamar pelo WhatsApp ou Instagram.
-            </p>
-            <div className="ago-clean-visit-links">
+            <h2 id="visit-title">Chegou ao Quadrado?<br />Procure a Agô.</h2>
+            <p>Nossa banca fica no Quadrado de Trancoso. Para ver uma peça de perto ou falar com a gente, é só chamar pelo WhatsApp ou Instagram.</p>
+            <div className="ago-neuro-visit-links">
               <a href={mapsUrl} target="_blank" rel="noreferrer">Google Maps <span aria-hidden="true">↗</span></a>
               <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
               <a href={instagramUrl} target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
             </div>
           </div>
-          <div className="ago-clean-visit-note">
+
+          <div className="ago-neuro-delivery">
             <span>Entrega</span>
             <strong>Frete fixo de R$ 39,90</strong>
             <p>Grátis acima de R$ 500.</p>
