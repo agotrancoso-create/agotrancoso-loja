@@ -33,29 +33,7 @@ export default function HomePage() {
 
   return (
     <div className="ago-home ago-premium-home">
-      <section className="ago-premium-collection ago-premium-collection-first" aria-labelledby="featured-title">
-        <div className="ago-container">
-          <div className="ago-premium-section-head">
-            <div>
-              <p className="eyebrow">Trancoso · Bahia · Brasil</p>
-              <h1 id="featured-title">Peças para olhar de perto.</h1>
-              <p>Feitas à mão, inspiradas em Trancoso.</p>
-            </div>
-            <Link href="/produtos" className="ago-premium-text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
-          </div>
-
-          <div className="ago-premium-product-grid ago-premium-product-grid-featured">
-            {featured.map((product, index) => (
-              <ProductCard key={product.id} product={product} priority={index < 4} />
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      <Benefits />
-
-      <section className="ago-premium-hero" aria-labelledby="hero-title">
+      <section className="ago-premium-hero ago-home-hero" aria-labelledby="hero-title">
         <Image
           src="/hero.jpg"
           alt="Peças de cerâmica da Agô Trancoso"
@@ -66,9 +44,31 @@ export default function HomePage() {
         />
         <div className="ago-premium-hero-overlay" aria-hidden="true" />
         <div className="ago-container ago-premium-hero-content">
-          <p className="eyebrow">Agô Trancoso</p>
-          <h2 id="hero-title">Feito à mão.<br />Feito para ficar.</h2>
+          <p className="eyebrow">Agô Trancoso · Bahia</p>
+          <h1 id="hero-title">Feito à mão.<br />Feito para ficar.</h1>
+          <p>Peças que levam um pouco de Trancoso para dentro de casa.</p>
           <Link href="/produtos" className="ago-premium-hero-cta">Ver a coleção</Link>
+        </div>
+      </section>
+
+      <Benefits />
+
+      <section className="ago-premium-collection ago-premium-collection-first" aria-labelledby="featured-title">
+        <div className="ago-container">
+          <div className="ago-premium-section-head">
+            <div>
+              <p className="eyebrow">A coleção</p>
+              <h2 id="featured-title">Peças para olhar de perto.</h2>
+              <p>Uma seleção feita à mão, inspirada em Trancoso.</p>
+            </div>
+            <Link href="/produtos" className="ago-premium-text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
+          </div>
+
+          <div className="ago-premium-product-grid ago-premium-product-grid-featured">
+            {featured.map((product, index) => (
+              <ProductCard key={product.id} product={product} priority={index < 4} />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -97,8 +97,8 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-premium-section-head">
             <div>
-              <p className="eyebrow">Escolha por onde começar</p>
-              <h2 id="discover-title">Encontre sua peça.</h2>
+              <p className="eyebrow">Encontre a sua</p>
+              <h2 id="discover-title">Uma peça para cada canto.</h2>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver tudo <span aria-hidden="true">↗</span></Link>
           </div>
@@ -123,8 +123,8 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-premium-section-head ago-premium-how-head">
             <div>
-              <p className="eyebrow">Como comprar</p>
-              <h2 id="how-title">Escolha com calma.<br />A gente cuida do resto.</h2>
+              <p className="eyebrow">Compra fácil</p>
+              <h2 id="how-title">Escolha. Peça. Receba.</h2>
             </div>
           </div>
 
@@ -132,12 +132,12 @@ export default function HomePage() {
             <article>
               <span>01</span>
               <h3>Escolha</h3>
-              <p>Encontre sua peça e veja os detalhes.</p>
+              <p>Encontre sua peça.</p>
             </article>
             <article>
               <span>02</span>
-              <h3>Carrinho</h3>
-              <p>Revise o pedido e informe a entrega.</p>
+              <h3>Peça</h3>
+              <p>Adicione ao carrinho.</p>
             </article>
             <article>
               <span>03</span>
@@ -146,7 +146,7 @@ export default function HomePage() {
             </article>
           </div>
 
-          <Link href="/produtos" className="ago-premium-dark-cta">Explorar a coleção</Link>
+          <Link href="/produtos" className="ago-premium-dark-cta">Ver a coleção</Link>
         </div>
       </section>
 
