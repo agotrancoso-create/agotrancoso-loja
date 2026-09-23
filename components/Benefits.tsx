@@ -1,21 +1,11 @@
 const benefits = [
-  {
-    title: 'feito à mão',
-    text: 'cuidado e tradição em cada detalhe.',
-  },
-  {
-    title: 'peças exclusivas',
-    text: 'escolhas especiais para quem valoriza o feito à mão.',
-  },
-  {
-    title: 'inspiração brasileira',
-    text: 'cores, formas e símbolos da nossa terra.',
-  },
-  {
-    title: 'SEM FRONTEIRAS',
-    text: 'Uma lembrança para qualquer lugar.',
-  },
+  ['feito à mão', 'cuidado e tradição em cada detalhe.'],
+  ['peças exclusivas', 'escolhas especiais para quem valoriza o feito à mão.'],
+  ['inspiração brasileira', 'cores, formas e símbolos da nossa terra.'],
+  ['SEM FRONTEIRAS', 'Uma lembrança para qualquer lugar.'],
 ] as const;
+
+const backgroundPositions = ['0%', '33.3333%', '66.6667%', '100%'] as const;
 
 export default function Benefits() {
   return (
@@ -23,23 +13,22 @@ export default function Benefits() {
       <div className="ago-container ago-benefits-reference-inner">
         <h2 id="benefits-title" className="sr-only">Diferenciais da Agô Trancoso</h2>
 
-        <div className="ago-benefits-reference-art" aria-hidden="true">
-          <img
-            src="/benefits/benefits-icons.webp"
-            alt=""
-            width={1180}
-            height={250}
-            loading="lazy"
-            decoding="async"
-          />
+        <div className="ago-benefits-art-grid" aria-hidden="true">
+          {backgroundPositions.map((position, index) => (
+            <div
+              key={position}
+              className="ago-benefit-art-tile"
+              style={{ backgroundPosition: `${position} center` }}
+            />
+          ))}
         </div>
 
-        <div className="ago-benefits-copy-grid">
-          {benefits.map((item) => (
-            <article className="ago-benefit-copy-item" key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </article>
+        <div className="sr-only">
+          {benefits.map(([title, text]) => (
+            <div key={title}>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </div>
           ))}
         </div>
       </div>
