@@ -7294,3 +7294,928 @@ html,body{background:var(--ago-final-bg)!important;color:var(--ago-final-ink)!im
     transition:none!important;
   }
 }
+
+
+/* ==========================================================================
+   AGÔ — DIREÇÃO FINAL | NORDESTE CONTEMPORÂNEO
+   Um sistema visual único para desktop, tablet e celular.
+   ========================================================================== */
+
+:root{
+  --ago-final-cream:#F7EFE7;
+  --ago-final-cream-2:#FFF9F4;
+  --ago-final-terracotta:#A9533E;
+  --ago-final-terracotta-deep:#8F4434;
+  --ago-final-rose:#D99A84;
+  --ago-final-sand:#E7CFAE;
+  --ago-final-ochre:#D4AA5C;
+  --ago-final-blue:#2E4D63;
+  --ago-final-blue-soft:#4D6D7B;
+  --ago-final-brown:#3D2923;
+  --ago-final-ink:#34231D;
+  --ago-final-muted:#68534A;
+  --ago-final-line:rgba(61,41,35,.19);
+  --ago-radius:26px;
+}
+
+/* 1. Base e alinhamento global */
+html,body{
+  margin:0!important;
+  background:var(--ago-final-cream)!important;
+  color:var(--ago-final-ink)!important;
+}
+
+body{
+  overflow-x:hidden!important;
+  font-family:'DM Sans',Arial,sans-serif!important;
+}
+
+.ago-home{
+  width:100%!important;
+  overflow:clip!important;
+}
+
+.ago-home section{
+  width:100%!important;
+}
+
+.ago-container,
+.ago-premium-section-head,
+.ago-premium-product-grid-featured,
+.ago-premium-hero-content,
+.ago-home-story .ago-premium-split,
+.ago-premium-discovery-grid,
+.ago-premium-how-grid,
+.ago-premium-visit-grid{
+  width:min(1180px,calc(100% - 40px))!important;
+  max-width:1180px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* 2. Header */
+.site-header{
+  background:rgba(255,249,244,.97)!important;
+  color:var(--ago-final-ink)!important;
+  box-shadow:0 1px 0 rgba(61,41,35,.10)!important;
+}
+
+.ago-category-bar{
+  background:#EBC5B4!important;
+  color:#4A3028!important;
+}
+
+.header-inner{
+  min-height:72px!important;
+}
+
+.header-link{
+  color:#4A342C!important;
+  font-size:10px!important;
+  letter-spacing:.11em!important;
+}
+
+.header-link:hover,
+.header-link.is-active{
+  color:var(--ago-final-terracotta)!important;
+}
+
+.header-link:first-child{
+  color:var(--ago-final-terracotta)!important;
+}
+
+.header-search{
+  border-color:rgba(61,41,35,.16)!important;
+  background:#FFFDFB!important;
+  color:var(--ago-final-ink)!important;
+}
+
+.header-icon,
+.mobile-menu-button{
+  color:var(--ago-final-ink)!important;
+}
+
+/* 3. Paleta por seção */
+.ago-premium-hero{
+  background:var(--ago-final-blue)!important;
+}
+
+.ago-premium-collection{
+  background:var(--ago-final-cream)!important;
+}
+
+.benefits-strip.ago-benefits-reference{
+  background:#E6D3CC!important;
+}
+
+.ago-premium-editorial{
+  background:#D99A84!important;
+}
+
+.ago-premium-discovery{
+  background:#F0DCC8!important;
+}
+
+.ago-premium-how{
+  background:var(--ago-final-ochre)!important;
+}
+
+.ago-premium-visit{
+  background:var(--ago-final-blue-soft)!important;
+}
+
+.site-footer.ago-site-footer{
+  background:var(--ago-final-brown)!important;
+}
+
+/* 4. Hero — imagem forte, texto curto */
+.ago-home-hero{
+  min-height:clamp(520px,66vw,760px)!important;
+}
+
+.ago-premium-hero-image{
+  filter:saturate(.94) contrast(.98)!important;
+  transform:scale(1.005)!important;
+}
+
+.ago-premium-hero-overlay{
+  background:
+    linear-gradient(90deg,rgba(31,24,21,.66) 0%,rgba(31,24,21,.30) 50%,rgba(31,24,21,.08) 100%),
+    linear-gradient(0deg,rgba(31,24,21,.40),transparent 58%)!important;
+}
+
+.ago-premium-hero-content{
+  padding-bottom:clamp(46px,7vw,86px)!important;
+}
+
+.ago-premium-hero-content .eyebrow{
+  color:#F3D5C7!important;
+}
+
+.ago-premium-hero h1,
+.ago-premium-hero h2{
+  max-width:720px!important;
+  margin-top:8px!important;
+  color:#FFFDF9!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(4rem,8.8vw,8.8rem)!important;
+  font-weight:500!important;
+  line-height:.80!important;
+  letter-spacing:-.055em!important;
+  text-wrap:balance!important;
+}
+
+.ago-premium-hero-content>p:not(.eyebrow){
+  max-width:380px!important;
+  margin-top:22px!important;
+  color:rgba(255,253,249,.90)!important;
+  font-size:15px!important;
+  line-height:1.65!important;
+}
+
+.ago-premium-hero-cta{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:54px!important;
+  margin-top:26px!important;
+  padding:0 24px!important;
+  border-radius:10px!important;
+  background:var(--ago-final-terracotta)!important;
+  color:#FFFDF9!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  letter-spacing:.11em!important;
+  text-transform:uppercase!important;
+}
+
+/* 5. Benefícios — referência visual do usuário, com acabamento melhor */
+.benefits-strip.ago-benefits-reference{
+  padding:0!important;
+  border:0!important;
+}
+
+.ago-benefits-reference-grid{
+  width:min(1180px,100%)!important;
+  min-height:196px!important;
+  margin:0 auto!important;
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+}
+
+.ago-benefit-reference-item,
+.ago-benefit-reference-item:first-child{
+  min-width:0!important;
+  min-height:196px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:28px 24px!important;
+  text-align:center!important;
+  border:0!important;
+  border-left:1px solid var(--ago-final-line)!important;
+  background:transparent!important;
+}
+
+.ago-benefit-reference-item:first-child{
+  border-left:0!important;
+}
+
+.ago-benefit-reference-icon{
+  width:70px!important;
+  height:70px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  margin:0 auto 10px!important;
+  color:var(--ago-final-brown)!important;
+}
+
+.ago-benefit-reference-icon svg{
+  width:70px!important;
+  height:70px!important;
+  display:block!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.2!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+  transition:transform .25s ease!important;
+}
+
+.ago-benefit-reference-item:nth-child(1) .ago-benefit-reference-icon{color:#A9533E!important}
+.ago-benefit-reference-item:nth-child(2) .ago-benefit-reference-icon{color:#915040!important}
+.ago-benefit-reference-item:nth-child(3) .ago-benefit-reference-icon{color:#6D5944!important}
+.ago-benefit-reference-item:nth-child(4) .ago-benefit-reference-icon{color:#34596A!important}
+
+.ago-benefit-reference-item:hover .ago-benefit-reference-icon svg{
+  transform:translateY(-2px)!important;
+}
+
+.ago-benefit-reference-item h2{
+  margin:0!important;
+  max-width:230px!important;
+  color:var(--ago-final-brown)!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(23px,1.8vw,29px)!important;
+  font-weight:500!important;
+  line-height:.94!important;
+  letter-spacing:-.028em!important;
+  text-transform:lowercase!important;
+}
+
+.ago-benefit-reference-item p{
+  max-width:220px!important;
+  margin:7px auto 0!important;
+  color:#5E4B42!important;
+  font-size:11.5px!important;
+  line-height:1.42!important;
+}
+
+/* 6. Coleção — grid perfeitamente alinhado */
+.ago-premium-collection-first{
+  padding:clamp(62px,6vw,92px) 0 clamp(66px,6vw,90px)!important;
+}
+
+.ago-premium-section-head{
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:space-between!important;
+  gap:40px!important;
+}
+
+.ago-premium-section-head>div{
+  min-width:0!important;
+}
+
+.ago-premium-section-head>div>p:last-child{
+  max-width:450px!important;
+  margin-top:14px!important;
+  color:#5F4D45!important;
+  font-size:14px!important;
+  line-height:1.65!important;
+}
+
+.ago-premium-collection h2{
+  max-width:780px!important;
+  margin-top:8px!important;
+  color:var(--ago-final-ink)!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(3rem,5.8vw,5.5rem)!important;
+  line-height:.88!important;
+  letter-spacing:-.045em!important;
+  text-wrap:balance!important;
+}
+
+.ago-premium-text-link{
+  flex:0 0 auto!important;
+  color:var(--ago-final-terracotta-deep)!important;
+  font-size:10px!important;
+  letter-spacing:.12em!important;
+}
+
+.ago-premium-product-grid-featured{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:52px 34px!important;
+}
+
+.ago-premium-product-grid-featured .product-card{
+  min-width:0!important;
+}
+
+.product-image-wrap,
+.ago-premium-product-grid-featured .product-image-wrap{
+  aspect-ratio:1/1!important;
+  border:0!important;
+  border-radius:var(--ago-radius)!important;
+  overflow:hidden!important;
+  background:#FBF2EB!important;
+  box-shadow:none!important;
+}
+
+.product-image-wrap::before,
+.product-image-wrap::after{
+  display:none!important;
+  content:none!important;
+}
+
+.product-image{
+  border:0!important;
+  padding:16px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  filter:none!important;
+}
+
+.ago-premium-product-grid-featured .product-name{
+  margin-top:14px!important;
+  color:var(--ago-final-ink)!important;
+  font-size:21px!important;
+  line-height:1.04!important;
+}
+
+.ago-premium-product-grid-featured .current-price{
+  margin-top:7px!important;
+  color:var(--ago-final-terracotta-deep)!important;
+  font-size:14px!important;
+}
+
+.product-add{
+  min-height:48px!important;
+  margin-top:13px!important;
+  border:0!important;
+  border-radius:9px!important;
+  background:var(--ago-final-terracotta)!important;
+  color:#FFFDF9!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  letter-spacing:.09em!important;
+  text-transform:uppercase!important;
+}
+
+.product-add:hover{
+  background:var(--ago-final-terracotta-deep)!important;
+  transform:translateY(-1px)!important;
+}
+
+/* 7. Editorial / story */
+.ago-home-story{
+  padding:clamp(72px,8vw,118px) 0!important;
+}
+
+.ago-home-story .ago-premium-split{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.12fr) minmax(300px,.88fr)!important;
+  align-items:center!important;
+  gap:clamp(48px,7vw,96px)!important;
+}
+
+.ago-home-story .ago-premium-image{
+  position:relative!important;
+  aspect-ratio:1.08/1!important;
+  overflow:hidden!important;
+  border:0!important;
+  border-radius:28px!important;
+  box-shadow:none!important;
+}
+
+.ago-home-story .ago-premium-image img{
+  border-radius:inherit!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  filter:none!important;
+}
+
+.ago-home-story .ago-premium-copy h2{
+  max-width:560px!important;
+  color:#3B2923!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(3rem,5vw,5.2rem)!important;
+  line-height:.88!important;
+  letter-spacing:-.045em!important;
+}
+
+.ago-home-story .ago-premium-copy>p:not(.eyebrow){
+  max-width:420px!important;
+  margin-top:20px!important;
+  color:#5F4940!important;
+  font-size:14px!important;
+  line-height:1.75!important;
+}
+
+/* 8. Descoberta */
+.ago-premium-discovery{
+  padding:clamp(72px,7vw,104px) 0!important;
+}
+
+.ago-premium-discovery-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:26px!important;
+}
+
+.ago-premium-discovery-card{
+  min-width:0!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  overflow:visible!important;
+}
+
+.ago-premium-discovery-image{
+  position:relative!important;
+  aspect-ratio:1/1.08!important;
+  overflow:hidden!important;
+  border:0!important;
+  border-radius:22px!important;
+  background:#FBF2EA!important;
+  box-shadow:none!important;
+}
+
+.ago-premium-discovery-image img{
+  object-fit:contain!important;
+  object-position:center!important;
+  border-radius:inherit!important;
+  filter:none!important;
+}
+
+.ago-premium-discovery-copy{
+  padding:15px 0 0!important;
+}
+
+.ago-premium-discovery-copy>span{
+  color:#402C25!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:25px!important;
+  line-height:1!important;
+}
+
+.ago-premium-discovery-copy p{
+  display:none!important;
+}
+
+.ago-premium-discovery-copy strong{
+  display:inline-flex!important;
+  align-items:center!important;
+  min-height:38px!important;
+  margin-top:2px!important;
+  color:var(--ago-final-terracotta-deep)!important;
+  font-size:10px!important;
+  letter-spacing:.10em!important;
+  text-transform:uppercase!important;
+}
+
+/* 9. Como comprar */
+.ago-premium-how{
+  padding:clamp(70px,7vw,104px) 0!important;
+}
+
+.ago-premium-how-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:0!important;
+}
+
+.ago-premium-how-grid article{
+  min-height:160px!important;
+  padding:20px 28px!important;
+  border-left:1px solid rgba(52,35,29,.20)!important;
+}
+
+.ago-premium-how-grid article:first-child{
+  border-left:0!important;
+}
+
+.ago-premium-how-grid article span{
+  color:#6E542F!important;
+  font-size:10px!important;
+  letter-spacing:.18em!important;
+}
+
+.ago-premium-how-grid article h3{
+  margin-top:13px!important;
+  color:#38251F!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:27px!important;
+  line-height:1!important;
+}
+
+.ago-premium-how-grid article p{
+  max-width:190px!important;
+  margin-top:8px!important;
+  color:#59443B!important;
+  font-size:12px!important;
+  line-height:1.55!important;
+}
+
+/* 10. Visita */
+.ago-premium-visit{
+  padding:clamp(72px,7vw,104px) 0!important;
+}
+
+.ago-premium-visit-grid{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 300px!important;
+  align-items:center!important;
+  gap:60px!important;
+}
+
+.ago-premium-visit h2{
+  color:#FFFDF9!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(3rem,5.6vw,5.8rem)!important;
+  line-height:.86!important;
+  letter-spacing:-.045em!important;
+}
+
+.ago-premium-visit>div>div:first-child>p:not(.eyebrow){
+  max-width:430px!important;
+  margin-top:20px!important;
+  color:rgba(255,253,249,.88)!important;
+  font-size:14px!important;
+  line-height:1.7!important;
+}
+
+.ago-premium-visit .eyebrow{
+  color:#F2D0BF!important;
+}
+
+.ago-premium-visit-links{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:9px!important;
+  margin-top:24px!important;
+}
+
+.ago-premium-visit-links a{
+  display:inline-flex!important;
+  align-items:center!important;
+  min-height:44px!important;
+  padding:0 15px!important;
+  border:1px solid rgba(255,253,249,.38)!important;
+  border-radius:8px!important;
+  color:#FFFDF9!important;
+  font-size:10px!important;
+  letter-spacing:.07em!important;
+}
+
+.ago-premium-visit-mark{
+  text-align:right!important;
+  color:rgba(255,253,249,.82)!important;
+}
+
+.ago-premium-visit-mark strong{
+  display:block!important;
+  margin:2px 0!important;
+  color:#F4D1B7!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:48px!important;
+  font-weight:500!important;
+  line-height:.9!important;
+}
+
+/* 11. Footer */
+.ago-site-footer{
+  color:#FFFDF9!important;
+}
+
+.ago-site-footer .ago-footer-wrap{
+  width:min(1180px,calc(100% - 40px))!important;
+  margin:0 auto!important;
+}
+
+.ago-site-footer .ago-footer-brand h2{
+  color:#FFFDF9!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+}
+
+.ago-site-footer .ago-footer-place,
+.ago-site-footer .ago-footer-group h3{
+  color:#E6AA8E!important;
+}
+
+/* 12. Tablet */
+@media (min-width:768px) and (max-width:1100px){
+  .ago-container,
+  .ago-premium-section-head,
+  .ago-premium-product-grid-featured,
+  .ago-premium-hero-content,
+  .ago-home-story .ago-premium-split,
+  .ago-premium-discovery-grid,
+  .ago-premium-how-grid,
+  .ago-premium-visit-grid{
+    width:calc(100% - 36px)!important;
+  }
+
+  .ago-premium-product-grid-featured{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:38px 18px!important;
+  }
+
+  .ago-benefits-reference-grid{
+    min-height:176px!important;
+  }
+
+  .ago-benefit-reference-item,
+  .ago-benefit-reference-item:first-child{
+    min-height:176px!important;
+    padding:22px 12px!important;
+  }
+
+  .ago-benefit-reference-icon,
+  .ago-benefit-reference-icon svg{
+    width:56px!important;
+    height:56px!important;
+  }
+
+  .ago-benefit-reference-item h2{
+    font-size:21px!important;
+  }
+
+  .ago-benefit-reference-item p{
+    max-width:165px!important;
+    font-size:11px!important;
+  }
+
+  .ago-home-story .ago-premium-split{
+    grid-template-columns:minmax(0,1fr) minmax(280px,.9fr)!important;
+    gap:44px!important;
+  }
+
+  .ago-premium-discovery-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+/* 13. Mobile */
+@media (max-width:767px){
+  .ago-container,
+  .ago-premium-section-head,
+  .ago-premium-product-grid-featured,
+  .ago-premium-hero-content,
+  .ago-home-story .ago-premium-split,
+  .ago-premium-discovery-grid,
+  .ago-premium-how-grid,
+  .ago-premium-visit-grid,
+  .ago-site-footer .ago-footer-wrap{
+    width:calc(100% - 28px)!important;
+  }
+
+  .ago-premium-section-head{
+    display:block!important;
+    margin-bottom:30px!important;
+  }
+
+  .ago-premium-section-head>div>p:last-child{
+    font-size:13px!important;
+    line-height:1.65!important;
+  }
+
+  .ago-premium-section-head .ago-premium-text-link{
+    margin-top:18px!important;
+  }
+
+  .ago-home-hero{
+    min-height:530px!important;
+  }
+
+  .ago-premium-hero-overlay{
+    background:
+      linear-gradient(0deg,rgba(31,24,21,.70),rgba(31,24,21,.10) 70%,rgba(31,24,21,.02))!important;
+  }
+
+  .ago-premium-hero h1,
+  .ago-premium-hero h2{
+    font-size:clamp(4rem,16vw,5.8rem)!important;
+    line-height:.80!important;
+  }
+
+  .ago-premium-hero-content>p:not(.eyebrow){
+    max-width:310px!important;
+    font-size:13px!important;
+  }
+
+  .ago-premium-product-grid-featured{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:34px 12px!important;
+  }
+
+  .ago-premium-product-grid-featured .product-image-wrap,
+  .product-image-wrap{
+    border-radius:19px!important;
+  }
+
+  .ago-premium-product-grid-featured .product-image{
+    padding:8px!important;
+  }
+
+  .ago-premium-product-grid-featured .product-name{
+    font-size:18px!important;
+  }
+
+  .ago-premium-product-grid-featured .current-price{
+    font-size:13px!important;
+  }
+
+  .product-add{
+    min-height:46px!important;
+    padding:10px 8px!important;
+    font-size:9px!important;
+  }
+
+  .benefits-strip.ago-benefits-reference{
+    width:100%!important;
+  }
+
+  .ago-benefits-reference-grid{
+    width:100%!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+
+  .ago-benefit-reference-item,
+  .ago-benefit-reference-item:first-child{
+    min-height:170px!important;
+    padding:20px 10px!important;
+  }
+
+  .ago-benefit-reference-item:nth-child(2n){
+    border-left:1px solid var(--ago-final-line)!important;
+  }
+
+  .ago-benefit-reference-item:nth-child(n+3){
+    border-top:1px solid var(--ago-final-line)!important;
+  }
+
+  .ago-benefit-reference-icon,
+  .ago-benefit-reference-icon svg{
+    width:52px!important;
+    height:52px!important;
+  }
+
+  .ago-benefit-reference-item h2{
+    max-width:160px!important;
+    font-size:20px!important;
+  }
+
+  .ago-benefit-reference-item p{
+    max-width:160px!important;
+    font-size:11px!important;
+  }
+
+  .ago-home-story{
+    padding:70px 0!important;
+  }
+
+  .ago-home-story .ago-premium-split{
+    grid-template-columns:1fr!important;
+    gap:34px!important;
+  }
+
+  .ago-home-story .ago-premium-image{
+    aspect-ratio:4/3!important;
+    border-radius:22px!important;
+  }
+
+  .ago-home-story .ago-premium-copy h2{
+    font-size:clamp(3rem,12vw,4.2rem)!important;
+  }
+
+  .ago-premium-discovery{
+    padding:68px 0!important;
+  }
+
+  .ago-premium-discovery-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:28px 12px!important;
+  }
+
+  .ago-premium-discovery-image{
+    border-radius:18px!important;
+  }
+
+  .ago-premium-discovery-copy>span{
+    font-size:20px!important;
+  }
+
+  .ago-premium-how-grid{
+    grid-template-columns:1fr!important;
+  }
+
+  .ago-premium-how-grid article{
+    min-height:0!important;
+    padding:22px 0!important;
+    border-left:0!important;
+    border-bottom:1px solid rgba(52,35,29,.20)!important;
+  }
+
+  .ago-premium-how-grid article:last-child{
+    border-bottom:0!important;
+  }
+
+  .ago-premium-visit-grid{
+    grid-template-columns:1fr!important;
+    gap:44px!important;
+  }
+
+  .ago-premium-visit h2{
+    font-size:clamp(3rem,12vw,4.4rem)!important;
+  }
+
+  .ago-premium-visit-mark{
+    text-align:left!important;
+  }
+
+  .ago-premium-visit-mark strong{
+    font-size:43px!important;
+  }
+}
+
+@media (max-width:430px){
+  .ago-benefit-reference-item,
+  .ago-benefit-reference-item:first-child{
+    min-height:158px!important;
+    padding:17px 7px!important;
+  }
+
+  .ago-benefit-reference-icon,
+  .ago-benefit-reference-icon svg{
+    width:45px!important;
+    height:45px!important;
+  }
+
+  .ago-benefit-reference-item h2{
+    font-size:18px!important;
+  }
+
+  .ago-benefit-reference-item p{
+    font-size:10px!important;
+  }
+}
+
+/* Acessibilidade e estabilidade */
+.product-image-wrap,
+.ago-premium-image,
+.ago-premium-discovery-image,
+.product-gallery-main,
+.product-gallery-thumb,
+.cart-product-image,
+.cart-complementary-image,
+.checkout-product-image{
+  border:0!important;
+  box-shadow:none!important;
+}
+
+.product-image-wrap img,
+.ago-premium-image img,
+.ago-premium-discovery-image img,
+.product-gallery-main img,
+.product-gallery-thumb img,
+.cart-product-image img,
+.cart-complementary-image img,
+.checkout-product-image img{
+  border-radius:inherit!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible{
+  outline:3px solid #F0C995!important;
+  outline-offset:3px!important;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .ago-benefit-reference-icon svg,
+  .ago-benefit-reference-item,
+  .product-add{
+    transition:none!important;
+  }
+
+  .ago-benefit-reference-item:hover .ago-benefit-reference-icon svg,
+  .product-add:hover{
+    transform:none!important;
+  }
+}
