@@ -16,6 +16,10 @@ export function generateStaticParams() {
   return getAllProducts().map((p) => ({ id: p.id }));
 }
 
+function metadataImage(images: string[] | undefined) {
+  return (images?.length ? images : ['/images/placeholder.svg']).map((image) => ({ url: image, alt: 'Peças da Agô Trancoso' }));
+}
+
 export function generateMetadata({ params }: { params: { id: string } }): Metadata {
   const product = getProductById(params.id);
   if (!product) return {};
@@ -23,6 +27,15 @@ export function generateMetadata({ params }: { params: { id: string } }): Metada
     title: { absolute: `${product.name} | Agô Trancoso` },
     description: product.description,
     alternates: { canonical: `/produtos/${product.id}` },
+    openGraph: {
+      title: `${product.name} | Agô Trancoso`,
+      description: product.description,
+      url: `/produtos/${product.id}`,
+      siteName: 'Agô Trancoso',
+      locale: 'pt_BR',
+      type: 'website',
+      images: metadataImage(product.images),
+    },
   };
 }
 
