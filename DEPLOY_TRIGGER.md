@@ -2,7 +2,4 @@
 
 Build/deploy validation checkpoint for the current Agô Trancoso 2026 redesign.
 
-Símbolos dos diferenciais redefinidos em 23/09/2026.
-
-
-Forca de rebuild do Vercel. 2026-09-23T19:15:57.726Z
+Refinamento visual dos benefícios com a arte original e tipografia do site. 2026-09-23T23:02:00Z
