@@ -8591,3 +8591,314 @@ input:focus-visible{
     transform:none!important;
   }
 }
+
+
+/* ==========================================================================
+   AGÔ — TIPOGRAFIA DE MARCA + BENEFÍCIOS LINE ART
+   ========================================================================== */
+
+/* Escala tipográfica consistente */
+.ago-home h1,
+.ago-home h2,
+.ago-home h3{
+  text-wrap:balance!important;
+}
+
+.ago-home p{
+  text-wrap:pretty!important;
+}
+
+.ago-collection-intro-brand h1{
+  font-size:clamp(2.9rem,5.6vw,5.7rem)!important;
+  line-height:.9!important;
+  letter-spacing:-.045em!important;
+}
+
+.ago-collection-intro-brand>p:not(.eyebrow){
+  font-size:clamp(13px,1.25vw,15px)!important;
+  line-height:1.65!important;
+}
+
+.ago-premium-section-head h2{
+  font-size:clamp(2.7rem,5vw,5.1rem)!important;
+  line-height:.9!important;
+  letter-spacing:-.04em!important;
+}
+
+.ago-premium-section-head>div>p:last-child{
+  font-size:clamp(13px,1.2vw,15px)!important;
+  line-height:1.68!important;
+}
+
+.ago-home-story .ago-premium-copy h2{
+  font-size:clamp(2.8rem,4.8vw,5rem)!important;
+  line-height:.9!important;
+}
+
+.ago-home-story .ago-premium-copy>p:not(.eyebrow){
+  font-size:clamp(13px,1.2vw,15px)!important;
+  line-height:1.72!important;
+}
+
+.ago-premium-how-head h2{
+  font-size:clamp(2.6rem,4.6vw,4.8rem)!important;
+  line-height:.9!important;
+}
+
+.ago-premium-how-grid article h3{
+  font-size:clamp(22px,2vw,28px)!important;
+  line-height:1!important;
+}
+
+.ago-premium-how-grid article p{
+  font-size:clamp(12px,1.05vw,14px)!important;
+  line-height:1.6!important;
+}
+
+.ago-premium-visit h2{
+  font-size:clamp(3rem,5.4vw,5.5rem)!important;
+  line-height:.88!important;
+}
+
+/* Benefícios: somente line art, sem emojis coloridos e sem elementos extras. */
+.benefits-strip.ago-benefits-reference{
+  background:#E6D3CC!important;
+}
+
+.ago-benefits-reference-grid{
+  width:min(1180px,100%)!important;
+  min-height:192px!important;
+  margin:0 auto!important;
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  align-items:stretch!important;
+}
+
+.ago-benefit-reference-item,
+.ago-benefit-reference-item:first-child{
+  min-width:0!important;
+  min-height:192px!important;
+  padding:30px 22px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  border:0!important;
+  border-left:1px solid rgba(67,48,41,.28)!important;
+  background:transparent!important;
+}
+
+.ago-benefit-reference-item:first-child{
+  border-left:0!important;
+}
+
+.ago-benefit-reference-icon{
+  width:62px!important;
+  height:62px!important;
+  margin:0 auto 13px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  font-size:0!important;
+  line-height:0!important;
+  color:#594239!important;
+  filter:none!important;
+}
+
+.ago-benefit-reference-icon svg{
+  width:62px!important;
+  height:62px!important;
+  display:block!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.28!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+}
+
+.ago-benefit-reference-item:nth-child(1) .ago-benefit-reference-icon{color:#A65340!important}
+.ago-benefit-reference-item:nth-child(2) .ago-benefit-reference-icon{color:#95513F!important}
+.ago-benefit-reference-item:nth-child(3) .ago-benefit-reference-icon{color:#705846!important}
+.ago-benefit-reference-item:nth-child(4) .ago-benefit-reference-icon{color:#31586A!important}
+
+.ago-benefit-reference-item h2{
+  max-width:230px!important;
+  margin:0!important;
+  color:#412F29!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(21px,1.6vw,27px)!important;
+  font-weight:500!important;
+  line-height:.98!important;
+  letter-spacing:-.025em!important;
+  text-transform:none!important;
+}
+
+.ago-benefit-reference-item p{
+  max-width:210px!important;
+  margin:7px auto 0!important;
+  color:#5A4740!important;
+  font-family:'DM Sans',Arial,sans-serif!important;
+  font-size:clamp(11px,1vw,12.5px)!important;
+  line-height:1.5!important;
+}
+
+.ago-benefit-reference-item:hover{
+  background:rgba(255,253,249,.13)!important;
+}
+
+.ago-benefit-reference-item:hover .ago-benefit-reference-icon svg{
+  transform:translateY(-2px)!important;
+}
+
+.ago-benefit-reference-icon svg{
+  transition:transform .22s ease!important;
+}
+
+/* Fotos: regra única para não sobrar nenhuma foto quadrada. */
+.ago-home img{
+  border:0!important;
+  box-shadow:none!important;
+}
+
+.ago-home .product-image-wrap,
+.ago-home .ago-premium-image,
+.ago-home .ago-premium-discovery-image,
+.ago-home .product-gallery-main,
+.ago-home .product-gallery-thumb,
+.ago-home .cart-product-image,
+.ago-home .cart-complementary-image,
+.ago-home .checkout-product-image{
+  overflow:hidden!important;
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:26px!important;
+}
+
+.ago-home .product-image-wrap img,
+.ago-home .ago-premium-image img,
+.ago-home .ago-premium-discovery-image img,
+.ago-home .product-gallery-main img,
+.ago-home .product-gallery-thumb img,
+.ago-home .cart-product-image img,
+.ago-home .cart-complementary-image img,
+.ago-home .checkout-product-image img{
+  border-radius:inherit!important;
+}
+
+/* Tablet */
+@media (min-width:768px) and (max-width:1100px){
+  .ago-benefits-reference-grid{
+    min-height:176px!important;
+  }
+
+  .ago-benefit-reference-item,
+  .ago-benefit-reference-item:first-child{
+    min-height:176px!important;
+    padding:24px 12px!important;
+  }
+
+  .ago-benefit-reference-icon,
+  .ago-benefit-reference-icon svg{
+    width:54px!important;
+    height:54px!important;
+  }
+
+  .ago-benefit-reference-item h2{
+    font-size:21px!important;
+  }
+
+  .ago-benefit-reference-item p{
+    max-width:165px!important;
+    font-size:11px!important;
+  }
+}
+
+/* Mobile */
+@media (max-width:767px){
+  .ago-collection-intro-brand h1{
+    font-size:clamp(2.8rem,12.5vw,4.45rem)!important;
+    line-height:.92!important;
+  }
+
+  .ago-collection-intro-brand>p:not(.eyebrow){
+    font-size:13px!important;
+    line-height:1.64!important;
+  }
+
+  .ago-premium-section-head h2{
+    font-size:clamp(2.55rem,11vw,4rem)!important;
+  }
+
+  .ago-benefits-reference-grid{
+    width:100%!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+
+  .ago-benefit-reference-item,
+  .ago-benefit-reference-item:first-child{
+    min-height:168px!important;
+    padding:20px 10px!important;
+  }
+
+  .ago-benefit-reference-item:nth-child(2n){
+    border-left:1px solid rgba(67,48,41,.28)!important;
+  }
+
+  .ago-benefit-reference-item:nth-child(n+3){
+    border-top:1px solid rgba(67,48,41,.28)!important;
+  }
+
+  .ago-benefit-reference-icon,
+  .ago-benefit-reference-icon svg{
+    width:49px!important;
+    height:49px!important;
+  }
+
+  .ago-benefit-reference-item h2{
+    max-width:160px!important;
+    font-size:19px!important;
+  }
+
+  .ago-benefit-reference-item p{
+    max-width:155px!important;
+    font-size:10.5px!important;
+    line-height:1.46!important;
+  }
+
+  .ago-home .product-image-wrap,
+  .ago-home .ago-premium-image,
+  .ago-home .ago-premium-discovery-image,
+  .ago-home .product-gallery-main{
+    border-radius:20px!important;
+  }
+}
+
+@media (max-width:430px){
+  .ago-benefit-reference-item,
+  .ago-benefit-reference-item:first-child{
+    min-height:156px!important;
+    padding:17px 7px!important;
+  }
+
+  .ago-benefit-reference-icon,
+  .ago-benefit-reference-icon svg{
+    width:44px!important;
+    height:44px!important;
+  }
+
+  .ago-benefit-reference-item h2{
+    font-size:17px!important;
+  }
+
+  .ago-benefit-reference-item p{
+    font-size:10px!important;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .ago-benefit-reference-item,
+  .ago-benefit-reference-icon svg{
+    transition:none!important;
+  }
+}
