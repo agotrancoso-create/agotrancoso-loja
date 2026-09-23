@@ -81,8 +81,9 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             <ProductGallery name={product.name} images={images} />
           </div>
           <div className="product-info-column">
-            <p className="eyebrow">Agô Trancoso</p>
-            <h1 className="product-detail-title">{product.name}</h1>
+            <div className="product-buybox">
+              <p className="eyebrow">Agô Trancoso</p>
+              <h1 className="product-detail-title">{product.name}</h1>
             {hasPromo ? (
               <div className="price-detail-row"><span className="product-old-price">{formatBRL(product.price)}</span><span className="product-current-price">{formatBRL(price)}</span></div>
             ) : (<p className="product-current-price">{formatBRL(price)}</p>)}
@@ -94,6 +95,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             </div>
             <div className="product-purchase"><AddToCart product={product} /></div>
             <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="product-whatsapp">Comprar pelo WhatsApp</a>
+            </div>
             <div className="product-trust-grid">
               <div><span>Feito à mão</span></div>
               <div><span>Peça especial</span></div>
