@@ -4121,3 +4121,449 @@ a[aria-disabled="true"]{
 .ago-premium-discovery-image::after{
   box-shadow:none!important;
 }
+
+
+/* ==========================================================================
+   AGÔ — LEITURA NEUTRA + ACESSIBILIDADE VISUAL + RODAPÉ PROPORCIONAL
+   Última camada intencional: elimina o aspecto esverdeado/amarelado do "cal"
+   e mantém a mesma leitura em desktop e mobile.
+   ========================================================================== */
+
+:root{
+  --ago-paper:#F7F5F1;
+  --ago-cream:#FBFAF7;
+  --ago-sand:#EEE9E2;
+  --ago-clay:#E4DDD5;
+  --ago-terra:#8E4B32;
+  --ago-rust:#A4511F;
+  --ago-cocoa:#3F2A21;
+  --ago-ink:#2F241F;
+  --ago-muted:#54483F;
+  --ago-white:#FFFDF9;
+  --ago-line:rgba(47,36,31,.16);
+
+  /* Paleta neutra para leitura: sem verde/oliva/cáqui e sem fundo amarelado forte. */
+  --ago-cal:#F7F5F1;
+  --ago-areia:#EEE9E2;
+  --ago-palha:#F1EDE7;
+  --ago-barro:#9A5137;
+  --ago-terracota:#8E4B32;
+  --ago-ocre:#C58A58;
+  --ago-madeira:#3F2A21;
+  --ago-terra-escura:#3F2A21;
+  --ago-tinta:#2F241F;
+  --ago-pedra:#54483F;
+  --ago-branco:#FFFDF9;
+}
+
+/* FUNDOS — claros e neutros para não competir com a leitura. */
+html,body{
+  background:#F7F5F1!important;
+  color:#2F241F!important;
+}
+
+.site-header{
+  background:#FBFAF7!important;
+  color:#2F241F!important;
+}
+
+.ago-category-bar{
+  background:#E4DDD5!important;
+  color:#3F2A21!important;
+}
+
+/* Home: cada bloco continua diferenciado, mas sem tons que puxem para verde. */
+.ago-premium-collection{background:#F7F5F1!important;color:#2F241F!important}
+.ago-premium-trust{background:#9A5137!important;color:#FFFDF9!important}
+.ago-premium-hero{background:#3F2A21!important}
+.benefits-strip{background:#F1EDE7!important;color:#2F241F!important}
+.ago-premium-editorial{background:#EEE9E2!important;color:#2F241F!important}
+.ago-premium-essence{background:#F5F1EC!important;color:#2F241F!important}
+.ago-premium-discovery{background:#FBFAF7!important;color:#2F241F!important}
+.ago-premium-how{background:#E9E1D9!important;color:#2F241F!important}
+.ago-premium-visit{background:#EDE5DD!important;color:#2F241F!important}
+.site-footer.ago-site-footer{background:#3F2A21!important;color:#FFFDF9!important}
+
+/* Títulos e textos: contraste mais firme, sem cinza claro demais. */
+.ago-premium-section-head h1,
+.ago-premium-section-head h2,
+.ago-premium-collection .product-name,
+.ago-clean-benefit h3,
+.ago-benefits-heading>span,
+.ago-premium-editorial .ago-premium-copy h2,
+.ago-premium-essence .ago-premium-copy h2,
+.ago-premium-discovery .ago-premium-section-head h2,
+.ago-premium-discovery-copy>span,
+.ago-premium-how h2,
+.ago-premium-how-grid h3,
+.ago-premium-visit h2{
+  color:#3F2A21!important;
+}
+
+.ago-premium-section-head>div>p:last-child,
+.ago-premium-collection-bottom,
+.ago-clean-benefit p,
+.ago-premium-editorial .ago-premium-copy>p:not(.eyebrow),
+.ago-premium-essence .ago-premium-copy>p:not(.eyebrow),
+.ago-premium-discovery-copy p,
+.ago-premium-how-grid p,
+.ago-premium-visit>div>div:first-child>p:not(.eyebrow){
+  color:#54483F!important;
+}
+
+.eyebrow{
+  color:#8E4B32!important;
+}
+
+.product-name,
+.product-current-price,
+.current-price{
+  color:#3F2A21!important;
+}
+
+.current-price,
+.product-current-price{
+  color:#8E4B32!important;
+  font-size:14px!important;
+}
+
+/* Áreas de imagem continuam sem molduras e com fundo neutro. */
+.product-image-wrap,
+.ago-premium-image,
+.ago-premium-discovery-image,
+.essencia-image{
+  border:0!important;
+  box-shadow:none!important;
+  background:#FBFAF7!important;
+}
+
+.ago-premium-discovery-image img,
+.ago-premium-image img,
+.essencia-image-img{
+  filter:none!important;
+}
+
+/* Leitura dos textos principais */
+.ago-premium-section-head>div>p:last-child,
+.ago-premium-copy>p:not(.eyebrow),
+.product-description,
+.ago-premium-visit>div>div:first-child>p:not(.eyebrow){
+  font-size:15px!important;
+  line-height:1.75!important;
+}
+
+.ago-clean-benefit p,
+.ago-premium-discovery-copy p,
+.ago-premium-how-grid p{
+  font-size:13px!important;
+  line-height:1.65!important;
+}
+
+/* Inputs em 16px no mobile evitam redução excessiva e zoom indesejado. */
+input,select,textarea{
+  color:#2F241F!important;
+}
+@media (max-width:767px){
+  input,select,textarea{font-size:16px!important}
+}
+
+/* ========================= RODAPÉ — DESKTOP ========================= */
+.site-footer.ago-site-footer{
+  background:#3F2A21!important;
+  color:#FFFDF9!important;
+}
+
+.ago-site-footer .ago-footer-wrap{
+  width:min(1180px,calc(100% - 56px))!important;
+  padding:64px 0 22px!important;
+}
+
+.ago-site-footer .ago-footer-main{
+  display:grid!important;
+  grid-template-columns:minmax(300px,1.48fr) minmax(175px,.82fr) minmax(195px,.92fr) minmax(220px,1fr)!important;
+  gap:0!important;
+  align-items:start!important;
+}
+
+.ago-site-footer .ago-footer-brand{
+  padding-right:54px!important;
+}
+
+.ago-site-footer .ago-footer-logo{
+  width:auto!important;
+  height:auto!important;
+  margin:0 0 19px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+}
+
+.ago-site-footer .ago-footer-logo img{
+  width:78px!important;
+  height:78px!important;
+}
+
+.ago-site-footer .ago-footer-place{
+  margin:0 0 8px!important;
+  color:#E4B08C!important;
+  font-size:9px!important;
+  letter-spacing:.16em!important;
+}
+
+.ago-site-footer .ago-footer-brand h2{
+  margin:0!important;
+  color:#FFFDF9!important;
+  font-size:42px!important;
+  line-height:.92!important;
+}
+
+.ago-site-footer .ago-footer-description{
+  max-width:345px!important;
+  margin:15px 0 0!important;
+  color:rgba(255,253,249,.78)!important;
+  font-size:13px!important;
+  line-height:1.7!important;
+}
+
+.ago-site-footer .ago-footer-group{
+  min-height:182px!important;
+  padding:5px 28px 0!important;
+  border-left:1px solid rgba(255,253,249,.13)!important;
+}
+
+.ago-site-footer .ago-footer-group h3{
+  margin:0 0 16px!important;
+  color:#E4B08C!important;
+  font-size:10px!important;
+  letter-spacing:.14em!important;
+}
+
+.ago-site-footer .ago-footer-group nav{
+  gap:10px!important;
+}
+
+.ago-site-footer .ago-footer-group a,
+.ago-site-footer .ago-footer-group span,
+.ago-site-footer .ago-footer-group p{
+  color:rgba(255,253,249,.82)!important;
+  font-size:13px!important;
+  line-height:1.55!important;
+}
+
+.ago-site-footer .ago-footer-visit-group p{
+  max-width:215px!important;
+  margin-bottom:15px!important;
+}
+
+.ago-site-footer .ago-footer-legal{
+  margin-top:46px!important;
+  padding-top:16px!important;
+  gap:18px!important;
+  border-top:1px solid rgba(255,253,249,.15)!important;
+  color:rgba(255,253,249,.52)!important;
+  font-size:9px!important;
+  line-height:1.5!important;
+}
+
+.ago-site-footer .ago-footer-legal>div{
+  gap:17px!important;
+}
+
+.ago-site-footer .ago-footer-legal a{
+  color:rgba(255,253,249,.64)!important;
+}
+
+/* ========================= RODAPÉ — TABLET ========================= */
+@media (max-width:1050px) and (min-width:768px){
+  .ago-site-footer .ago-footer-wrap{
+    width:min(920px,calc(100% - 48px))!important;
+    padding:54px 0 20px!important;
+  }
+  .ago-site-footer .ago-footer-main{
+    grid-template-columns:minmax(270px,1.35fr) repeat(3,minmax(150px,.82fr))!important;
+  }
+  .ago-site-footer .ago-footer-brand{padding-right:38px!important}
+  .ago-site-footer .ago-footer-group{padding-inline:20px!important}
+  .ago-site-footer .ago-footer-brand h2{font-size:38px!important}
+  .ago-site-footer .ago-footer-description{font-size:12px!important}
+}
+
+/* ========================= RODAPÉ — MOBILE ========================= */
+@media (max-width:767px){
+  .site-footer.ago-site-footer{
+    background:#3F2A21!important;
+  }
+
+  .ago-site-footer .ago-footer-wrap{
+    width:calc(100% - 32px)!important;
+    padding:44px 0 18px!important;
+  }
+
+  .ago-site-footer .ago-footer-main{
+    display:block!important;
+  }
+
+  .ago-site-footer .ago-footer-brand{
+    padding:0 0 26px!important;
+  }
+
+  .ago-site-footer .ago-footer-logo{
+    margin:0 0 15px!important;
+  }
+
+  .ago-site-footer .ago-footer-logo img{
+    width:68px!important;
+    height:68px!important;
+  }
+
+  .ago-site-footer .ago-footer-place{
+    margin-bottom:7px!important;
+    font-size:8px!important;
+    letter-spacing:.14em!important;
+  }
+
+  .ago-site-footer .ago-footer-brand h2{
+    font-size:34px!important;
+    line-height:.94!important;
+  }
+
+  .ago-site-footer .ago-footer-description{
+    max-width:320px!important;
+    margin-top:12px!important;
+    font-size:13px!important;
+    line-height:1.65!important;
+  }
+
+  .ago-site-footer .ago-footer-group{
+    min-height:0!important;
+    padding:20px 0!important;
+    border-left:0!important;
+    border-top:1px solid rgba(255,253,249,.14)!important;
+  }
+
+  .ago-site-footer .ago-footer-group h3{
+    margin-bottom:11px!important;
+    font-size:9.5px!important;
+    letter-spacing:.14em!important;
+  }
+
+  .ago-site-footer .ago-footer-group nav{
+    gap:6px!important;
+  }
+
+  .ago-site-footer .ago-footer-group a,
+  .ago-site-footer .ago-footer-group span,
+  .ago-site-footer .ago-footer-group p{
+    min-height:38px!important;
+    display:flex!important;
+    align-items:center!important;
+    margin:0!important;
+    font-size:13px!important;
+    line-height:1.5!important;
+  }
+
+  .ago-site-footer .ago-footer-group p{
+    min-height:0!important;
+    align-items:flex-start!important;
+  }
+
+  .ago-site-footer .ago-footer-visit-group{
+    padding-bottom:22px!important;
+  }
+
+  .ago-site-footer .ago-footer-visit-group p{
+    max-width:300px!important;
+    margin-bottom:12px!important;
+  }
+
+  .ago-site-footer .ago-footer-legal{
+    margin-top:7px!important;
+    padding-top:15px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    gap:9px!important;
+    font-size:9px!important;
+  }
+
+  .ago-site-footer .ago-footer-legal>div{
+    gap:12px!important;
+  }
+
+  /* Mesmos fundos neutros no celular */
+  .ago-premium-collection{background:#F7F5F1!important}
+  .ago-premium-trust{background:#9A5137!important}
+  .ago-premium-hero{background:#3F2A21!important}
+  .benefits-strip{background:#F1EDE7!important}
+  .ago-premium-editorial{background:#EEE9E2!important}
+  .ago-premium-essence{background:#F5F1EC!important}
+  .ago-premium-discovery{background:#FBFAF7!important}
+  .ago-premium-how{background:#E9E1D9!important}
+  .ago-premium-visit{background:#EDE5DD!important}
+  .site-footer.ago-site-footer{background:#3F2A21!important}
+
+  /* Corpo dos blocos fica mais confortável para baixa visão. */
+  .ago-premium-section-head>div>p:last-child,
+  .ago-premium-copy>p:not(.eyebrow),
+  .product-description,
+  .ago-premium-visit>div>div:first-child>p:not(.eyebrow){
+    font-size:14px!important;
+    line-height:1.72!important;
+  }
+
+  .ago-clean-benefit p,
+  .ago-premium-discovery-copy p,
+  .ago-premium-how-grid p{
+    font-size:13px!important;
+    line-height:1.65!important;
+  }
+
+  .ago-premium-discovery-copy>span{
+    font-size:21px!important;
+    line-height:1.05!important;
+  }
+
+  .ago-premium-section-head h1{
+    color:#3F2A21!important;
+  }
+}
+
+/* Preferência explícita por mais contraste */
+@media (prefers-contrast:more){
+  html,body{background:#F3F0EB!important;color:#211812!important}
+  .ago-premium-collection,
+  .benefits-strip,
+  .ago-premium-editorial,
+  .ago-premium-essence,
+  .ago-premium-discovery,
+  .ago-premium-how,
+  .ago-premium-visit{background:#F3F0EB!important}
+  .ago-premium-section-head h1,
+  .ago-premium-section-head h2,
+  .ago-premium-copy h2,
+  .ago-premium-how h2,
+  .ago-premium-visit h2,
+  .product-name,
+  .ago-clean-benefit h3,
+  .ago-benefits-heading>span,
+  .ago-premium-discovery-copy>span{color:#211812!important}
+  .ago-premium-section-head>div>p:last-child,
+  .ago-premium-copy>p:not(.eyebrow),
+  .ago-clean-benefit p,
+  .ago-premium-discovery-copy p,
+  .ago-premium-how-grid p,
+  .ago-premium-visit>div>div:first-child>p:not(.eyebrow){color:#35261F!important}
+}
+
+/* Reduz efeitos luminosos/gradientes que podem prejudicar a separação visual. */
+.ago-site-footer::before{
+  opacity:.45!important;
+}
+.ago-premium-product-grid .product-image-wrap::after{
+  box-shadow:none!important;
+  opacity:0!important;
+}
+.ago-premium-discovery-card::after{
+  background:linear-gradient(180deg,transparent,rgba(63,42,33,.10))!important;
+}
