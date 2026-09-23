@@ -1,16 +1,14 @@
-import React from 'react';
-
 const benefits = [
-  { title: 'Feito à mão', text: 'Cuidado em cada etapa.', icon: 'handmade' },
-  { title: 'Cada peça é única', text: 'Detalhes próprios do trabalho manual.', icon: 'ceramic' },
-  { title: 'Inspirada em Trancoso', text: 'Bahia e referências brasileiras na coleção.', icon: 'trancoso' },
-  { title: 'Envio para todo o Brasil', text: 'Embalada com cuidado para chegar bem.', icon: 'shipping' },
+  { title: 'feito à mão', text: 'cuidado e tradição em cada detalhe.', icon: 'handmade' },
+  { title: 'peças exclusivas', text: 'escolhas especiais para quem valoriza o feito à mão.', icon: 'ceramic' },
+  { title: 'inspiração brasileira', text: 'cores, formas e símbolos da nossa terra.', icon: 'brazil' },
+  { title: 'envio para todo brasil', text: 'receba com segurança na sua casa.', icon: 'shipping' },
 ] as const;
 
 type BenefitIconType = (typeof benefits)[number]['icon'];
 
 const iconProps = {
-  viewBox: '0 0 48 48',
+  viewBox: '0 0 64 64',
   fill: 'none',
   stroke: 'currentColor',
   strokeWidth: 1.35,
@@ -23,12 +21,11 @@ function BenefitIcon({ type }: { type: BenefitIconType }) {
   if (type === 'handmade') {
     return (
       <svg {...iconProps}>
-        <path d="M14.5 25.2 11.7 18c-.48-1.25.18-2.62 1.43-3.1 1.16-.44 2.43.1 2.96 1.2l2.38 4.92" />
-        <path d="m18.47 21.04-1.15-8.44c-.17-1.3.73-2.49 2.02-2.67 1.24-.16 2.4.68 2.61 1.91l1.2 7.1" />
-        <path d="m23.18 19.03.08-6.9c.01-1.31 1.08-2.36 2.39-2.34 1.27.02 2.3 1.05 2.32 2.32l.1 6.65" />
-        <path d="m27.95 18.95.53-4.63c.15-1.25 1.28-2.14 2.53-1.99 1.22.15 2.1 1.26 1.97 2.48l-.8 7.78c-.42 4.14-3.91 7.3-8.08 7.3h-3.22a8.7 8.7 0 0 1-7.98-5.23" />
-        <path d="M18.6 31.9h7.1" />
-        <path d="M34.4 10.1v4.2M32.3 12.2h4.2" />
+        <path d="M32 50.5c-2.6-2.9-15.5-10.3-18.9-18-2.8-6.2-.4-12.9 5.5-15.1 5.3-2 10.5.2 13.4 4.6 2.9-4.4 8.1-6.6 13.4-4.6 5.9 2.2 8.3 8.9 5.5 15.1-3.4 7.7-16.3 15.1-18.9 18Z" />
+        <path d="M23.6 34.5 18 26.9c-.9-1.2-.7-2.9.5-3.8 1.2-.9 2.8-.7 3.7.5l4.1 5.4" />
+        <path d="M26.3 30.2 22.7 22c-.6-1.4 0-3 1.4-3.6 1.4-.6 3 0 3.6 1.4l3 7" />
+        <path d="M32.1 28.4 29.5 20c-.4-1.4.4-2.8 1.8-3.2 1.4-.4 2.8.4 3.2 1.8l2.3 7.5" />
+        <path d="M37.6 27.1 36.8 22c-.2-1.5.8-2.8 2.3-3 1.5-.2 2.8.8 3 2.3l.8 5.4" />
       </svg>
     );
   }
@@ -36,66 +33,51 @@ function BenefitIcon({ type }: { type: BenefitIconType }) {
   if (type === 'ceramic') {
     return (
       <svg {...iconProps}>
-        <path d="M15 12h18" />
-        <path d="M17 12v9.2c0 2.1-.84 3.86-2.15 5.55-1.22 1.57-1.85 3.12-1.85 5.05A6.2 6.2 0 0 0 19.2 38h9.6a6.2 6.2 0 0 0 6.2-6.2c0-1.93-.63-3.48-1.85-5.05C31.84 25.06 31 23.3 31 21.2V12" />
-        <path d="M14.2 22.3h19.6" />
-        <path d="M19.6 8.6h8.8" />
-        <path d="m24 26.1 1.15 2.3 2.54.37-1.84 1.8.44 2.53L24 31.9l-2.29 1.2.44-2.53-1.84-1.8 2.54-.37L24 26.1Z" />
+        <path d="M22 15h20" />
+        <path d="M24.3 15v9.6c0 3-1 5.1-3 7.7-1.9 2.5-2.8 4.9-2.8 8A10.5 10.5 0 0 0 29 50.8h6A10.5 10.5 0 0 0 45.5 40c0-3.1-.9-5.5-2.8-8-2-2.6-3-4.7-3-7.7V15" />
+        <path d="M20 27.2h24" />
+        <path d="M28 10.8h8" />
+        <path d="M27 36.7c3.3 2 6.7 2 10 0" />
+        <path d="M28.7 43.2c2.3 1 4.4 1 6.7 0" />
       </svg>
     );
   }
 
-  if (type === 'trancoso') {
+  if (type === 'brazil') {
     return (
       <svg {...iconProps}>
-        <path d="M10 36V21.6L24 11l14 10.6V36" />
-        <path d="M16 36V24h16v12" />
-        <path d="M20 36V29.2c0-2.21 1.79-4 4-4s4 1.79 4 4V36" />
-        <path d="M8.5 36h31" />
-        <path d="M24 7.5v2.2M20.9 8.6h6.2" />
-        <path d="M15 21.4h18" opacity=".5" />
+        <path d="M27.3 7.2 34 8.8l4.6-1.1 3.2 4.2 5.7 2.1 1.9 5.3-2.5 4.3 1.4 5.5-3.9 5.1-4.1 1.8-1.4 6.1-3.9 4.1-3.2 5.5-5.2-2.9-3.9 1-2.9-4.3-5.1-1.9-2.1-5.5 1.8-4.4-1.6-4.2 3.2-4.2-.8-5.4 4.1-2.7 1.1-4.7 4.4-1.7 2.5-4.5Z" />
+        <path d="m25 19 4.4 5.3 3.8-.3 2.6 4.2" />
       </svg>
     );
   }
 
   return (
     <svg {...iconProps}>
-      <path d="M7.5 18.5h18.1l6.9 5.6V35H7.5V18.5Z" />
-      <path d="M7.5 18.5 14.5 24h18" />
-      <path d="M27.2 24h8.1" />
-      <circle cx="14.3" cy="35.5" r="2.1" />
-      <circle cx="30.4" cy="35.5" r="2.1" />
-      <path d="M35.7 12.6h4.8M38.1 10.2V15" />
+      <path d="M8 23h23l8 8v11H8V23Z" />
+      <path d="M8 23 17 31h22" />
+      <path d="M39 31h8v11H39" />
+      <circle cx="17" cy="44" r="3" />
+      <circle cx="41" cy="44" r="3" />
+      <path d="M48 25h5" />
+      <path d="M55 21v8M51 25h8" />
     </svg>
   );
 }
 
 export default function Benefits() {
   return (
-    <section className="benefits-strip ago-clean-benefits ago-ideal-benefits" aria-label="Diferenciais da Agô Trancoso">
-      <div className="ago-clean-container ago-clean-benefits-grid">
-        <div className="ago-benefits-heading">
-          <p className="eyebrow">Por que Agô</p>
-          <span>O cuidado aparece em cada detalhe.</span>
-        </div>
-
-        <div className="ago-ideal-benefits-grid">
-          {benefits.map((item, index) => (
-            <article
-              className="ago-clean-benefit ago-ideal-benefit"
-              key={item.title}
-              data-benefit-index={String(index + 1).padStart(2, '0')}
-            >
-              <span className={'ago-lineart-benefit-icon benefit-icon-' + item.icon} aria-hidden="true">
-                <BenefitIcon type={item.icon} />
-              </span>
-              <div className="ago-benefit-copy">
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+    <section className="benefits-strip ago-benefits-reference" aria-label="Diferenciais da Agô Trancoso">
+      <div className="ago-benefits-reference-grid">
+        {benefits.map((item) => (
+          <article className="ago-benefit-reference-item" key={item.title}>
+            <span className="ago-benefit-reference-icon">
+              <BenefitIcon type={item.icon} />
+            </span>
+            <h2>{item.title}</h2>
+            <p>{item.text}</p>
+          </article>
+        ))}
       </div>
     </section>
   );
