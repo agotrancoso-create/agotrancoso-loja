@@ -1,0 +1,1410 @@
+
+/* AGÔ TRANCOSO — REFINAMENTO MASTER 2026
+   Estrutura visual orientada por princípios de carga cognitiva,
+   hierarquia, reconhecimento, agrupamento e redução de ruído.
+   Não altera catálogo, preços, checkout, domínio ou analytics.
+*/
+
+:root{
+  --ago-pm-paper:#FAF6EF;
+  --ago-pm-ivory:#FFFDF9;
+  --ago-pm-sand:#E8D6C6;
+  --ago-pm-clay:#D9B49F;
+  --ago-pm-rose:#E8B7A7;
+  --ago-pm-terra:#9B503A;
+  --ago-pm-cocoa:#5A3328;
+  --ago-pm-deep:#342019;
+  --ago-pm-ink:#35231D;
+  --ago-pm-line:rgba(90,51,40,.12);
+  --ago-pm-soft:rgba(90,51,40,.62);
+  --ago-pm-grid:1180px;
+}
+
+html body{
+  background:var(--ago-pm-paper)!important;
+  color:var(--ago-pm-ink)!important;
+  overflow-x:hidden!important;
+}
+
+html body,
+html body button,
+html body input,
+html body select{
+  font-family:'DM Sans',Arial,sans-serif!important;
+}
+
+html body h1,
+html body h2,
+html body h3,
+html body h4{
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+}
+
+/* =========================
+   HEADER
+========================= */
+html body .ago-topbar{
+  min-height:28px!important;
+  padding:7px 16px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:11px!important;
+  background:var(--ago-pm-cocoa)!important;
+  color:rgba(255,253,249,.86)!important;
+  font:600 8px/1 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+}
+html body .ago-topbar-offer{color:#E8B7A7!important}
+html body .ago-topbar i{
+  width:3px!important;height:3px!important;
+  border-radius:50%!important;
+  background:#E8B7A7!important;
+}
+
+html body .site-header{
+  background:rgba(250,246,239,.97)!important;
+  border-bottom:1px solid rgba(90,51,40,.08)!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+
+html body .site-header .header-inner{
+  width:min(var(--ago-pm-grid),calc(100% - 64px))!important;
+  min-height:72px!important;
+  margin-inline:auto!important;
+  padding-inline:0!important;
+}
+
+html body .header-logo img{
+  width:52px!important;height:52px!important;
+}
+
+html body .header-nav-desktop{
+  gap:27px!important;
+}
+html body .header-link{
+  padding:25px 0!important;
+  color:rgba(90,51,40,.68)!important;
+  font:800 8px/1 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.13em!important;
+  text-transform:uppercase!important;
+}
+html body .header-link:first-child{
+  color:var(--ago-pm-terra)!important;
+}
+html body .header-link:first-child::after{
+  bottom:18px!important;
+  height:1px!important;
+  background:var(--ago-pm-terra)!important;
+}
+html body .header-link:hover,
+html body .header-link.is-active{
+  color:var(--ago-pm-terra)!important;
+}
+
+html body .header-actions{gap:17px!important}
+html body .header-search-form{width:125px!important}
+html body .header-search{
+  width:100%!important;
+  height:31px!important;
+  padding:0 0 7px!important;
+  border:0!important;
+  border-bottom:1px solid rgba(90,51,40,.20)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--ago-pm-cocoa)!important;
+  font:500 10px/1 'DM Sans',Arial,sans-serif!important;
+  outline:none!important;
+}
+html body .header-search::placeholder{color:rgba(90,51,40,.42)!important}
+html body .header-search:focus{
+  border-bottom-color:var(--ago-pm-terra)!important;
+  box-shadow:none!important;
+}
+
+html body button.header-icon,
+html body .header-cart-label,
+html body .header-icon:hover,
+html body .header-icon:focus,
+html body .header-icon:focus-visible{
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  color:var(--ago-pm-cocoa)!important;
+}
+html body .header-cart-label svg{
+  width:25px!important;height:25px!important;
+}
+html body .cart-count{
+  min-width:12px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:var(--ago-pm-terra)!important;
+  font:800 9px/1 'DM Sans',Arial,sans-serif!important;
+}
+
+html body .ago-category-bar{
+  background:var(--ago-pm-sand)!important;
+  border-top:0!important;
+  border-bottom:1px solid rgba(90,51,40,.06)!important;
+}
+html body .ago-category-bar-inner{
+  width:min(var(--ago-pm-grid),calc(100% - 64px))!important;
+  min-height:35px!important;
+  margin-inline:auto!important;
+  display:flex!important;
+  justify-content:center!important;
+  align-items:center!important;
+  gap:25px!important;
+}
+html body .ago-category-bar-inner a{
+  color:rgba(90,51,40,.62)!important;
+  font:800 7px/1 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.13em!important;
+  text-transform:uppercase!important;
+}
+html body .ago-category-bar-inner a:hover,
+html body .ago-category-all{
+  color:var(--ago-pm-terra)!important;
+}
+
+/* =========================
+   HOMEPAGE — OPENING
+========================= */
+html body .ago-premium-home{
+  width:100%!important;
+  background:var(--ago-pm-paper)!important;
+}
+
+html body .ago-premium-hero{
+  position:relative!important;
+  min-height:570px!important;
+  width:100%!important;
+  overflow:hidden!important;
+  background:var(--ago-pm-deep)!important;
+}
+html body .ago-premium-hero-image{
+  object-fit:cover!important;
+  object-position:center 50%!important;
+  transform:none!important;
+  filter:none!important;
+}
+html body .ago-premium-hero-overlay{
+  position:absolute!important;
+  inset:0!important;
+  background:rgba(52,32,25,.54)!important;
+}
+html body .ago-premium-hero-content{
+  position:relative!important;
+  z-index:2!important;
+  width:min(var(--ago-pm-grid),calc(100% - 64px))!important;
+  min-height:570px!important;
+  margin-inline:auto!important;
+  padding:72px 0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+}
+html body .ago-premium-hero-content .eyebrow{
+  margin:0!important;
+  color:#F0C5B5!important;
+}
+html body .ago-premium-hero-content h1{
+  max-width:770px!important;
+  margin:16px 0 0!important;
+  color:var(--ago-pm-ivory)!important;
+  font:500 clamp(70px,8vw,112px)/.80 'Cormorant Garamond',Georgia,serif!important;
+  letter-spacing:-.052em!important;
+  text-wrap:balance!important;
+}
+html body .ago-premium-hero-content > p:not(.eyebrow){
+  max-width:390px!important;
+  margin:25px 0 0!important;
+  color:rgba(255,253,249,.78)!important;
+  font:400 13px/1.75 'DM Sans',Arial,sans-serif!important;
+}
+html body .ago-premium-hero-cta{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:46px!important;
+  margin-top:28px!important;
+  padding:0 21px!important;
+  background:var(--ago-pm-ivory)!important;
+  color:var(--ago-pm-cocoa)!important;
+  border:0!important;
+  border-radius:6px!important;
+  font:800 8px/1 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.15em!important;
+  text-transform:uppercase!important;
+}
+html body .ago-premium-hero-cta:hover{
+  background:#E8D6C6!important;
+  color:var(--ago-pm-cocoa)!important;
+}
+
+/* =========================
+   COLLECTION
+========================= */
+html body .ago-premium-collection{
+  padding:92px 0 56px!important;
+  background:var(--ago-pm-paper)!important;
+}
+html body .ago-premium-collection > .ago-container,
+html body .ago-premium-editorial > .ago-container,
+html body .ago-premium-essence > .ago-container,
+html body .ago-premium-how > .ago-container,
+html body .ago-premium-visit > .ago-container{
+  width:min(var(--ago-pm-grid),calc(100% - 64px))!important;
+  max-width:var(--ago-pm-grid)!important;
+  padding-inline:0!important;
+  margin-inline:auto!important;
+}
+
+html body .ago-premium-section-head{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  gap:60px!important;
+  align-items:end!important;
+  margin-bottom:48px!important;
+}
+html body .ago-premium-section-head .eyebrow{
+  margin:0!important;
+  color:var(--ago-pm-terra)!important;
+}
+html body .ago-premium-section-head h2{
+  max-width:740px!important;
+  margin:13px 0 0!important;
+  color:var(--ago-pm-cocoa)!important;
+  font:500 clamp(51px,5.7vw,78px)/.88 'Cormorant Garamond',Georgia,serif!important;
+  letter-spacing:-.04em!important;
+  text-wrap:balance!important;
+}
+html body .ago-premium-section-head p{
+  max-width:570px!important;
+  margin:17px 0 0!important;
+  color:var(--ago-pm-soft)!important;
+  font:400 13px/1.8 'DM Sans',Arial,sans-serif!important;
+  text-align:left!important;
+}
+html body .ago-premium-text-link{
+  display:inline-flex!important;
+  align-items:center!important;
+  align-self:end!important;
+  gap:8px!important;
+  padding-bottom:7px!important;
+  border-bottom:1px solid rgba(155,80,58,.34)!important;
+  color:var(--ago-pm-terra)!important;
+  font:800 8px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+}
+html body .ago-premium-text-link span{font-size:12px!important;line-height:1!important}
+
+html body .ago-premium-product-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  column-gap:24px!important;
+  row-gap:42px!important;
+  align-items:start!important;
+}
+
+html body .ago-premium-product-grid .product-image-wrap,
+html body .catalog-grid .product-image-wrap{
+  aspect-ratio:1/1!important;
+  overflow:hidden!important;
+  background:var(--ago-pm-ivory)!important;
+  border:0!important;
+  border-radius:15px!important;
+  box-shadow:none!important;
+}
+html body .ago-premium-product-grid .product-image,
+html body .catalog-grid .product-image{
+  padding:7px!important;
+  object-fit:contain!important;
+  transform:none!important;
+}
+html body .ago-premium-product-grid .product-card:hover .product-image,
+html body .catalog-grid .product-card:hover .product-image{
+  transform:scale(1.012)!important;
+}
+html body .ago-premium-product-grid .product-name,
+html body .catalog-grid .product-name{
+  margin-top:14px!important;
+  min-height:0!important;
+  color:var(--ago-pm-cocoa)!important;
+  font:500 21px/1.03 'Cormorant Garamond',Georgia,serif!important;
+  letter-spacing:-.01em!important;
+  text-align:left!important;
+}
+html body .ago-premium-product-grid .current-price,
+html body .catalog-grid .current-price{
+  margin-top:8px!important;
+  color:var(--ago-pm-terra)!important;
+  font:800 12px/1 'DM Sans',Arial,sans-serif!important;
+}
+html body .product-view{display:none!important}
+html body .ago-premium-product-grid .ago-premium-add,
+html body .catalog-grid .product-add{
+  width:auto!important;
+  min-height:0!important;
+  margin-top:13px!important;
+  padding:0 0 6px!important;
+  border:0!important;
+  border-bottom:1px solid rgba(155,80,58,.30)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--ago-pm-terra)!important;
+  font:800 8px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.13em!important;
+  text-transform:uppercase!important;
+  box-shadow:none!important;
+}
+html body .ago-premium-product-grid .ago-premium-add:hover,
+html body .catalog-grid .product-add:hover{
+  background:transparent!important;
+  border-bottom-color:var(--ago-pm-cocoa)!important;
+  color:var(--ago-pm-cocoa)!important;
+}
+
+html body .ago-premium-collection-bottom{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:20px!important;
+  margin-top:43px!important;
+  padding-top:18px!important;
+  border-top:1px solid var(--ago-pm-line)!important;
+}
+html body .ago-premium-collection-bottom span{
+  color:rgba(90,51,40,.42)!important;
+  font:600 9px/1.3 'DM Sans',Arial,sans-serif!important;
+}
+html body .ago-premium-collection-bottom a{
+  color:var(--ago-pm-cocoa)!important;
+  font:800 8px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+}
+
+html body .ago-premium-category-nav{
+  display:grid!important;
+  grid-template-columns:auto 1fr!important;
+  gap:28px!important;
+  align-items:start!important;
+  margin-top:34px!important;
+  padding-top:24px!important;
+  border-top:1px solid var(--ago-pm-line)!important;
+}
+html body .ago-premium-category-nav > span{
+  color:var(--ago-pm-terra)!important;
+  font:800 8px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.15em!important;
+  text-transform:uppercase!important;
+}
+html body .ago-premium-category-nav > div{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:9px 25px!important;
+}
+html body .ago-premium-category-nav a{
+  color:rgba(90,51,40,.67)!important;
+  font:600 11px/1.4 'DM Sans',Arial,sans-serif!important;
+}
+html body .ago-premium-category-nav a:hover{color:var(--ago-pm-terra)!important}
+
+/* =========================
+   TRUST
+========================= */
+html body .ago-premium-trust{
+  background:var(--ago-pm-sand)!important;
+}
+html body .ago-premium-trust-inner{
+  min-height:49px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:15px!important;
+  color:var(--ago-pm-cocoa)!important;
+  font:800 8px/1 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.13em!important;
+  text-transform:uppercase!important;
+}
+html body .ago-premium-trust-inner i{
+  width:3px!important;height:3px!important;
+  border-radius:50%!important;background:var(--ago-pm-terra)!important;
+}
+
+/* =========================
+   EDITORIAL
+========================= */
+html body .ago-premium-editorial-one{
+  padding:105px 0!important;
+  background:var(--ago-pm-clay)!important;
+}
+html body .ago-premium-split{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr)!important;
+  gap:82px!important;
+  align-items:center!important;
+}
+html body .ago-premium-split-reverse{
+  grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)!important;
+}
+html body .ago-premium-image{
+  position:relative!important;
+  aspect-ratio:4/3!important;
+  overflow:hidden!important;
+  border-radius:18px!important;
+  background:var(--ago-pm-ivory)!important;
+  box-shadow:none!important;
+}
+html body .ago-premium-image img{
+  display:block!important;
+  width:100%!important;height:100%!important;
+  object-fit:cover!important;
+}
+html body .ago-premium-copy{
+  max-width:510px!important;
+}
+html body .ago-premium-copy .eyebrow{
+  margin:0!important;
+  color:var(--ago-pm-terra)!important;
+}
+html body .ago-premium-copy h2{
+  margin:13px 0 0!important;
+  color:var(--ago-pm-cocoa)!important;
+  font:500 clamp(45px,4.9vw,69px)/.91 'Cormorant Garamond',Georgia,serif!important;
+  letter-spacing:-.038em!important;
+  text-wrap:balance!important;
+}
+html body .ago-premium-copy > p:not(.eyebrow){
+  margin:20px 0 0!important;
+  color:rgba(90,51,40,.70)!important;
+  font:400 13px/1.85 'DM Sans',Arial,sans-serif!important;
+  text-align:left!important;
+}
+
+html body .ago-premium-essence{
+  padding:105px 0!important;
+  background:var(--ago-pm-rose)!important;
+}
+
+/* =========================
+   BENEFITS
+========================= */
+html body .ago-ideal-benefits{
+  padding:82px 0 84px!important;
+  background:var(--ago-pm-paper)!important;
+  border:0!important;
+}
+html body .ago-benefits-heading{
+  display:flex!important;
+  align-items:end!important;
+  justify-content:space-between!important;
+  gap:30px!important;
+  margin-bottom:31px!important;
+  padding-bottom:17px!important;
+  border-bottom:1px solid var(--ago-pm-line)!important;
+}
+html body .ago-benefits-heading .eyebrow{
+  margin:0!important;
+  color:var(--ago-pm-terra)!important;
+}
+html body .ago-benefits-heading > span{
+  color:rgba(90,51,40,.46)!important;
+  font:400 11px/1.5 'DM Sans',Arial,sans-serif!important;
+}
+
+html body .ago-ideal-benefits-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+}
+html body .ago-ideal-benefit{
+  min-height:148px!important;
+  padding:4px 28px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  text-align:center!important;
+}
+html body .ago-ideal-benefit + .ago-ideal-benefit{
+  border-left:1px solid var(--ago-pm-line)!important;
+}
+html body .ago-ideal-benefit:first-child{padding-left:8px!important}
+html body .ago-ideal-benefit:last-child{padding-right:8px!important}
+html body .ago-ideal-benefit .ago-lineart-benefit-icon{
+  width:46px!important;height:46px!important;
+  margin-bottom:13px!important;
+  color:var(--ago-pm-terra)!important;
+  background:transparent!important;
+  border:0!important;box-shadow:none!important;
+}
+html body .ago-ideal-benefit .ago-lineart-benefit-icon svg{
+  width:38px!important;height:38px!important;
+  fill:none!important;stroke:currentColor!important;
+  stroke-width:1.18!important;
+}
+html body .ago-ideal-benefit h3{
+  margin:0!important;
+  color:var(--ago-pm-cocoa)!important;
+  font:500 22px/1.04 'Cormorant Garamond',Georgia,serif!important;
+}
+html body .ago-ideal-benefit p{
+  max-width:190px!important;
+  margin:8px auto 0!important;
+  color:rgba(90,51,40,.55)!important;
+  font:400 9.5px/1.65 'DM Sans',Arial,sans-serif!important;
+}
+
+/* =========================
+   HOW
+========================= */
+html body .ago-premium-how{
+  padding:94px 0 102px!important;
+  background:var(--ago-pm-sand)!important;
+}
+html body .ago-premium-how .ago-premium-section-head{margin-bottom:42px!important}
+html body .ago-premium-how-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+html body .ago-premium-how-grid article{
+  min-height:196px!important;
+  padding:25px 30px 20px 0!important;
+}
+html body .ago-premium-how-grid article + article{
+  padding-left:32px!important;
+  border-left:1px solid var(--ago-pm-line)!important;
+}
+html body .ago-premium-how-grid article > span{
+  color:var(--ago-pm-terra)!important;
+  font:800 8px/1 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.17em!important;
+}
+html body .ago-premium-how-grid h3{
+  margin:26px 0 10px!important;
+  color:var(--ago-pm-cocoa)!important;
+  font:500 28px/1 'Cormorant Garamond',Georgia,serif!important;
+}
+html body .ago-premium-how-grid p{
+  max-width:285px!important;
+  margin:0!important;
+  color:rgba(90,51,40,.60)!important;
+  font:400 10.5px/1.78 'DM Sans',Arial,sans-serif!important;
+}
+html body .ago-premium-dark-cta{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:44px!important;
+  margin-top:24px!important;
+  padding:0 20px!important;
+  background:var(--ago-pm-cocoa)!important;
+  color:var(--ago-pm-ivory)!important;
+  border:0!important;
+  border-radius:6px!important;
+  font:800 8px/1 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+}
+html body .ago-premium-dark-cta:hover{background:var(--ago-pm-terra)!important}
+
+/* =========================
+   VISIT
+========================= */
+html body .ago-premium-visit{
+  padding:92px 0!important;
+  background:var(--ago-pm-terra)!important;
+}
+html body .ago-premium-visit-grid{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 180px!important;
+  gap:70px!important;
+  align-items:end!important;
+}
+html body .ago-premium-visit .eyebrow{color:#F3C4B3!important}
+html body .ago-premium-visit h2{
+  max-width:750px!important;
+  margin:12px 0 0!important;
+  color:var(--ago-pm-ivory)!important;
+  font:500 clamp(52px,5.8vw,78px)/.88 'Cormorant Garamond',Georgia,serif!important;
+  letter-spacing:-.04em!important;
+}
+html body .ago-premium-visit p:not(.eyebrow){
+  max-width:610px!important;
+  margin:19px 0 0!important;
+  color:rgba(255,253,249,.80)!important;
+  font:400 13px/1.8 'DM Sans',Arial,sans-serif!important;
+}
+html body .ago-premium-visit-links{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:22px!important;
+  margin-top:25px!important;
+}
+html body .ago-premium-visit-links a{
+  color:var(--ago-pm-ivory)!important;
+  font:800 8px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.13em!important;
+  text-transform:uppercase!important;
+}
+html body .ago-premium-visit-links a:hover{color:#F3C4B3!important}
+html body .ago-premium-visit-mark{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:1px!important;
+  padding-left:26px!important;
+  border-left:1px solid rgba(255,253,249,.18)!important;
+}
+html body .ago-premium-visit-mark span{
+  color:rgba(255,253,249,.55)!important;
+  font:800 7px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.16em!important;
+  text-transform:uppercase!important;
+}
+html body .ago-premium-visit-mark strong{
+  color:var(--ago-pm-ivory)!important;
+  font:500 32px/1 'Cormorant Garamond',Georgia,serif!important;
+}
+
+/* =========================
+   FOOTER
+========================= */
+html body .ago-ideal-footer{
+  background:var(--ago-pm-deep)!important;
+  color:var(--ago-pm-ivory)!important;
+}
+html body .ago-ideal-footer .footer-shell{
+  width:min(var(--ago-pm-grid),calc(100% - 64px))!important;
+  padding:72px 0 23px!important;
+  margin-inline:auto!important;
+}
+html body .ago-footer-top{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.65fr) minmax(120px,.55fr) minmax(165px,.72fr) minmax(185px,.75fr)!important;
+  gap:52px!important;
+  align-items:start!important;
+}
+html body .ago-footer-logo{
+  width:78px!important;height:78px!important;
+  display:inline-flex!important;
+}
+html body .ago-footer-logo img{
+  width:78px!important;height:78px!important;
+}
+html body .ago-footer-kicker{
+  margin:18px 0 6px!important;
+  color:#E8B7A7!important;
+  font:800 8px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.15em!important;
+  text-transform:uppercase!important;
+}
+html body .ago-ideal-footer .ago-footer-brand h3{
+  margin:0!important;
+  color:var(--ago-pm-ivory)!important;
+  font:500 30px/1 'Cormorant Garamond',Georgia,serif!important;
+}
+html body .ago-footer-description{
+  max-width:360px!important;
+  margin:13px 0 0!important;
+  color:rgba(255,253,249,.62)!important;
+  font:400 11.5px/1.75 'DM Sans',Arial,sans-serif!important;
+}
+html body .ago-footer-column h4{
+  margin:4px 0 14px!important;
+  color:#E8B7A7!important;
+  font:800 8px/1 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.15em!important;
+  text-transform:uppercase!important;
+}
+html body .ago-footer-column nav{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:9px!important;
+}
+html body .ago-footer-column nav a,
+html body .ago-footer-column nav span{
+  color:rgba(255,253,249,.70)!important;
+  font:400 10.5px/1.5 'DM Sans',Arial,sans-serif!important;
+}
+html body .ago-footer-column nav a:hover{color:var(--ago-pm-ivory)!important}
+html body .ago-footer-visit p{
+  max-width:185px!important;
+  margin:0 0 11px!important;
+  color:rgba(255,253,249,.58)!important;
+  font:400 10.5px/1.65 'DM Sans',Arial,sans-serif!important;
+}
+html body .ago-footer-visit > a{
+  color:#E8B7A7!important;
+  font:800 7.5px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+}
+html body .ago-footer-visit > a:hover{color:var(--ago-pm-ivory)!important}
+html body .ago-footer-bottom{
+  margin-top:58px!important;
+  padding-top:18px!important;
+  border-top:1px solid rgba(255,253,249,.09)!important;
+  display:flex!important;
+  justify-content:space-between!important;
+  align-items:center!important;
+  gap:20px!important;
+  color:rgba(255,253,249,.39)!important;
+  font:400 8.5px/1.5 'DM Sans',Arial,sans-serif!important;
+}
+
+/* =========================
+   CATALOG
+========================= */
+html body .catalog-page{
+  background:var(--ago-pm-paper)!important;
+  min-height:70vh!important;
+}
+html body .catalog-shell{
+  width:min(var(--ago-pm-grid),calc(100% - 64px))!important;
+  max-width:var(--ago-pm-grid)!important;
+  margin-inline:auto!important;
+  padding:82px 0 98px!important;
+}
+html body .catalog-intro{
+  max-width:840px!important;
+  margin-bottom:56px!important;
+}
+html body .catalog-intro .eyebrow{color:var(--ago-pm-terra)!important}
+html body .catalog-intro h1{
+  margin:13px 0 0!important;
+  color:var(--ago-pm-cocoa)!important;
+  font:500 clamp(52px,6vw,82px)/.87 'Cormorant Garamond',Georgia,serif!important;
+  letter-spacing:-.045em!important;
+}
+html body .catalog-intro > p:last-child{
+  max-width:560px!important;
+  margin:18px 0 0!important;
+  color:var(--ago-pm-soft)!important;
+  font:400 13px/1.8 'DM Sans',Arial,sans-serif!important;
+}
+html body .catalog-toolbar{
+  display:grid!important;
+  grid-template-columns:1fr 300px!important;
+  gap:50px!important;
+  align-items:end!important;
+  margin-bottom:28px!important;
+  padding-bottom:17px!important;
+  border-bottom:1px solid var(--ago-pm-line)!important;
+}
+html body .catalog-toolbar label,
+html body .catalog-sort-wrap label{
+  display:block!important;
+  margin-bottom:7px!important;
+  color:var(--ago-pm-terra)!important;
+  font:800 8px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+}
+html body .catalog-toolbar input{
+  width:100%!important;
+  height:38px!important;
+  padding:0 0 8px!important;
+  border:0!important;
+  border-bottom:1px solid rgba(90,51,40,.22)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--ago-pm-cocoa)!important;
+  font:500 14px/1 'DM Sans',Arial,sans-serif!important;
+  outline:none!important;
+}
+html body .catalog-toolbar input:focus{border-bottom-color:var(--ago-pm-terra)!important}
+html body .catalog-toolbar input::placeholder{color:rgba(90,51,40,.38)!important}
+
+html body .catalog-controls-row{
+  display:flex!important;
+  justify-content:space-between!important;
+  align-items:center!important;
+  gap:30px!important;
+  margin-bottom:25px!important;
+}
+html body .catalog-category-nav{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:8px 22px!important;
+}
+html body .catalog-category-option{
+  padding:0 0 6px!important;
+  border:0!important;
+  border-bottom:1px solid transparent!important;
+  background:transparent!important;
+  color:rgba(90,51,40,.62)!important;
+  font:700 8px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+html body .catalog-category-option[aria-selected="true"]{
+  color:var(--ago-pm-terra)!important;
+  border-bottom-color:var(--ago-pm-terra)!important;
+}
+html body .catalog-sort{
+  min-width:130px!important;
+  padding:8px 24px 8px 0!important;
+  border:0!important;
+  border-bottom:1px solid rgba(90,51,40,.18)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--ago-pm-cocoa)!important;
+  font:700 9px/1.2 'DM Sans',Arial,sans-serif!important;
+}
+html body .catalog-results-meta{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  margin-bottom:28px!important;
+  color:rgba(90,51,40,.43)!important;
+  font:600 9px/1.2 'DM Sans',Arial,sans-serif!important;
+}
+html body .catalog-results-meta button{
+  border:0!important;background:transparent!important;
+  color:var(--ago-pm-terra)!important;
+  font:800 8px/1.2 'DM Sans',Arial,sans-serif!important;
+  text-transform:uppercase!important;letter-spacing:.13em!important;
+}
+html body .catalog-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:42px 24px!important;
+}
+
+/* =========================
+   PRODUCT PAGE
+========================= */
+html body .product-page{
+  background:var(--ago-pm-paper)!important;
+}
+html body .product-page-shell{
+  width:min(var(--ago-pm-grid),calc(100% - 64px))!important;
+  max-width:var(--ago-pm-grid)!important;
+  margin-inline:auto!important;
+  padding:34px 0 104px!important;
+}
+html body .product-back{
+  display:inline-flex!important;
+  margin-bottom:30px!important;
+  color:rgba(90,51,40,.48)!important;
+  font:700 8px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+html body .product-page-grid{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr)!important;
+  gap:78px!important;
+  align-items:start!important;
+}
+html body .product-gallery-main{
+  aspect-ratio:1/1!important;
+  overflow:hidden!important;
+  border:0!important;
+  border-radius:18px!important;
+  background:var(--ago-pm-ivory)!important;
+}
+html body .product-gallery-image{width:100%!important;height:100%!important;object-fit:contain!important}
+html body .product-gallery-thumbs{gap:8px!important;margin-top:10px!important}
+html body .product-gallery-thumb{
+  flex-basis:68px!important;width:68px!important;height:68px!important;
+  border:1px solid rgba(90,51,40,.10)!important;
+  border-radius:8px!important;background:var(--ago-pm-ivory)!important;
+}
+html body .product-gallery-thumb.is-active{
+  border-color:var(--ago-pm-terra)!important;
+  box-shadow:none!important;
+}
+html body .product-gallery-arrow{
+  width:35px!important;height:35px!important;
+  border:0!important;border-radius:50%!important;
+  background:rgba(255,253,249,.86)!important;
+  color:var(--ago-pm-cocoa)!important;
+  box-shadow:none!important;
+}
+html body .product-info-column .eyebrow{color:var(--ago-pm-terra)!important}
+html body .product-detail-title{
+  margin:13px 0 0!important;
+  color:var(--ago-pm-cocoa)!important;
+  font:500 clamp(48px,5.3vw,72px)/.88 'Cormorant Garamond',Georgia,serif!important;
+  letter-spacing:-.04em!important;
+}
+html body .product-current-price{
+  margin-top:13px!important;
+  color:var(--ago-pm-terra)!important;
+  font:800 15px/1 'DM Sans',Arial,sans-serif!important;
+}
+html body .product-old-price{color:rgba(90,51,40,.42)!important}
+html body .product-description{
+  max-width:500px!important;
+  margin-top:20px!important;
+  color:rgba(90,51,40,.67)!important;
+  font:400 13px/1.85 'DM Sans',Arial,sans-serif!important;
+}
+html body .product-dimensions{
+  margin-top:14px!important;
+  color:rgba(90,51,40,.52)!important;
+  font:600 10px/1.5 'DM Sans',Arial,sans-serif!important;
+}
+html body .product-shipping-note{
+  margin-top:25px!important;
+  padding-top:17px!important;
+  border-top:1px solid var(--ago-pm-line)!important;
+  color:rgba(90,51,40,.58)!important;
+  font:700 9px/1.6 'DM Sans',Arial,sans-serif!important;
+}
+html body .product-shipping-note span{
+  display:block!important;
+  margin-top:2px!important;
+  font-weight:400!important;
+}
+html body .add-to-cart-control{
+  display:flex!important;
+  gap:10px!important;
+  margin-top:24px!important;
+}
+html body .quantity-control{
+  display:inline-flex!important;
+  align-items:center!important;
+  min-width:112px!important;
+  height:49px!important;
+  border:1px solid rgba(90,51,40,.15)!important;
+  background:var(--ago-pm-ivory)!important;
+  border-radius:6px!important;
+}
+html body .quantity-control button,
+html body .quantity-control span{
+  width:36px!important;
+  text-align:center!important;
+  color:var(--ago-pm-cocoa)!important;
+  border:0!important;background:transparent!important;
+  font:700 13px/1 'DM Sans',Arial,sans-serif!important;
+}
+html body .product-primary-cta{
+  flex:1!important;
+  min-height:49px!important;
+  border:0!important;
+  border-radius:6px!important;
+  background:var(--ago-pm-terra)!important;
+  color:var(--ago-pm-ivory)!important;
+  font:800 8px/1 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+}
+html body .product-primary-cta:hover{background:var(--ago-pm-cocoa)!important}
+html body .product-whatsapp{
+  display:inline-flex!important;
+  margin-top:15px!important;
+  padding-bottom:6px!important;
+  border-bottom:1px solid rgba(155,80,58,.28)!important;
+  color:var(--ago-pm-terra)!important;
+  font:800 8px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.13em!important;
+  text-transform:uppercase!important;
+}
+html body .product-trust-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  margin-top:29px!important;
+  border-top:1px solid var(--ago-pm-line)!important;
+}
+html body .product-trust-grid > div{
+  min-height:58px!important;
+  display:flex!important;
+  align-items:center!important;
+  color:rgba(90,51,40,.55)!important;
+  font:700 8px/1.4 'DM Sans',Arial,sans-serif!important;
+  text-transform:uppercase!important;
+  letter-spacing:.08em!important;
+}
+html body .product-trust-grid > div + div{border-left:1px solid var(--ago-pm-line)!important;padding-left:15px!important}
+
+/* =========================
+   CART
+========================= */
+html body .cart-drawer{
+  width:min(490px,100vw)!important;
+  background:var(--ago-pm-paper)!important;
+  border:0!important;
+  box-shadow:-24px 0 70px rgba(52,32,25,.16)!important;
+}
+html body .cart-backdrop{background:rgba(52,32,25,.46)!important}
+html body .cart-header{
+  min-height:78px!important;
+  padding:18px 22px!important;
+  background:var(--ago-pm-cocoa)!important;
+  border:0!important;
+}
+html body .cart-header-title{gap:11px!important}
+html body .cart-header-title svg{color:var(--ago-pm-ivory)!important}
+html body .cart-header h2{
+  color:var(--ago-pm-ivory)!important;
+  font:500 32px/1 'Cormorant Garamond',Georgia,serif!important;
+}
+html body .cart-close{
+  background:transparent!important;border:0!important;
+  color:var(--ago-pm-ivory)!important;
+}
+html body .cart-body{background:var(--ago-pm-paper)!important;padding:17px!important}
+html body .cart-item{
+  padding:12px!important;
+  background:var(--ago-pm-ivory)!important;
+  border:0!important;border-radius:12px!important;
+  box-shadow:none!important;
+}
+html body .cart-product-image{
+  background:#F3E6DA!important;border:0!important;border-radius:8px!important;
+}
+html body .cart-item-info h4{
+  color:var(--ago-pm-cocoa)!important;
+  font:500 20px/1.02 'Cormorant Garamond',Georgia,serif!important;
+}
+html body .cart-item-info p{
+  color:rgba(90,51,40,.52)!important;
+  font:400 9px/1.4 'DM Sans',Arial,sans-serif!important;
+}
+html body .cart-item-controls{gap:4px!important;background:transparent!important;border:0!important}
+html body .cart-item-controls button:not(.cart-remove){
+  border:0!important;background:transparent!important;color:var(--ago-pm-cocoa)!important;
+}
+html body .cart-remove{
+  color:var(--ago-pm-terra)!important;border:0!important;background:transparent!important;
+  font-size:8px!important;
+}
+html body .cart-summary{
+  background:var(--ago-pm-sand)!important;
+  border:0!important;
+}
+html body .cart-shipping-progress-block{margin-bottom:12px!important}
+html body .cart-shipping-message{
+  background:var(--ago-pm-ivory)!important;
+  color:var(--ago-pm-cocoa)!important;
+  border:0!important;border-radius:8px!important;
+  font-size:9px!important;
+}
+html body .cart-shipping-progress{background:rgba(90,51,40,.11)!important}
+html body .cart-shipping-progress span{background:var(--ago-pm-terra)!important}
+html body .cart-shipping-progress-labels{
+  color:rgba(90,51,40,.48)!important;font-size:8px!important;
+}
+html body .cart-checkout{
+  min-height:47px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:0!important;
+  border-radius:6px!important;
+  background:var(--ago-pm-terra)!important;
+  color:var(--ago-pm-ivory)!important;
+  font:800 8px/1 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+}
+html body .cart-continue{
+  margin-top:10px!important;
+  color:var(--ago-pm-terra)!important;
+  border:0!important;background:transparent!important;
+  font:800 8px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.12em!important;text-transform:uppercase!important;
+}
+
+/* =========================
+   FLOATERS
+========================= */
+html body .ago-social-floaters{
+  right:15px!important;bottom:15px!important;
+  gap:3px!important;
+}
+html body .ago-social-button,
+html body .ago-social-button:hover,
+html body .ago-social-button:active{
+  width:42px!important;height:42px!important;
+  min-width:42px!important;min-height:42px!important;
+  border:0!important;border-radius:50%!important;
+  box-shadow:none!important;
+  background:transparent!important;
+}
+html body .ago-social-button svg{
+  width:27px!important;height:27px!important;
+  color:var(--ago-pm-terra)!important;
+}
+
+/* =========================
+   GLOBAL FORM / BUTTON CLEANUP
+========================= */
+html body .catalog-empty{
+  padding:70px 0!important;
+  border-top:1px solid var(--ago-pm-line)!important;
+  color:var(--ago-pm-soft)!important;
+}
+html body .catalog-empty button{
+  margin-top:15px!important;
+  border:0!important;
+  background:transparent!important;
+  color:var(--ago-pm-terra)!important;
+  font:800 8px/1.2 'DM Sans',Arial,sans-serif!important;
+  letter-spacing:.13em!important;
+  text-transform:uppercase!important;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:1100px){
+  html body .ago-premium-product-grid,
+  html body .catalog-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+  html body .ago-premium-hero-content,
+  html body .ago-premium-collection > .ago-container,
+  html body .ago-premium-editorial > .ago-container,
+  html body .ago-premium-essence > .ago-container,
+  html body .ago-premium-how > .ago-container,
+  html body .ago-premium-visit > .ago-container,
+  html body .catalog-shell,
+  html body .product-page-shell,
+  html body .site-header .header-inner,
+  html body .ago-category-bar-inner,
+  html body .ago-ideal-footer .footer-shell{
+    width:calc(100% - 48px)!important;
+  }
+  html body .ago-footer-top{
+    grid-template-columns:1.4fr 1fr 1fr!important;
+    gap:38px!important;
+  }
+  html body .ago-footer-visit{
+    grid-column:1 / -1!important;
+    padding-top:21px!important;
+    border-top:1px solid rgba(255,253,249,.09)!important;
+  }
+}
+
+@media(max-width:900px){
+  html body .ago-premium-hero{
+    min-height:470px!important;
+  }
+  html body .ago-premium-hero-content{
+    min-height:470px!important;
+    padding:55px 0!important;
+  }
+  html body .ago-premium-hero-content h1{
+    font-size:clamp(55px,14vw,78px)!important;
+    line-height:.82!important;
+  }
+  html body .ago-premium-hero-content > p:not(.eyebrow){max-width:330px!important}
+  html body .ago-premium-collection{
+    padding:64px 0 45px!important;
+  }
+  html body .ago-premium-section-head{
+    display:block!important;
+    margin-bottom:33px!important;
+  }
+  html body .ago-premium-section-head h2{font-size:clamp(45px,12.5vw,62px)!important}
+  html body .ago-premium-section-head p{font-size:12px!important}
+  html body .ago-premium-section-head > .ago-premium-text-link{
+    margin-top:19px!important;
+  }
+  html body .ago-premium-product-grid,
+  html body .catalog-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:31px 11px!important;
+  }
+  html body .ago-premium-product-grid .product-name,
+  html body .catalog-grid .product-name{font-size:18px!important}
+  html body .ago-premium-product-grid .ago-premium-add,
+  html body .catalog-grid .product-add{font-size:7.5px!important}
+  html body .ago-premium-category-nav{
+    grid-template-columns:1fr!important;
+    gap:11px!important;
+  }
+  html body .ago-premium-category-nav > div{gap:7px 20px!important}
+  html body .ago-premium-trust-inner{
+    min-height:60px!important;
+    flex-wrap:wrap!important;
+    gap:9px 11px!important;
+    padding:10px 16px!important;
+    text-align:center!important;
+    line-height:1.2!important;
+  }
+  html body .ago-premium-editorial-one,
+  html body .ago-premium-essence{
+    padding:66px 0!important;
+  }
+  html body .ago-premium-split,
+  html body .ago-premium-split-reverse{
+    grid-template-columns:1fr!important;
+    gap:30px!important;
+  }
+  html body .ago-premium-image{border-radius:14px!important}
+  html body .ago-premium-copy h2{
+    font-size:clamp(43px,11.5vw,58px)!important;
+  }
+  html body .ago-ideal-benefits{
+    padding:62px 0 65px!important;
+  }
+  html body .ago-benefits-heading{
+    display:block!important;
+    margin-bottom:23px!important;
+  }
+  html body .ago-benefits-heading > span{
+    display:block!important;
+    margin-top:8px!important;
+  }
+  html body .ago-ideal-benefits-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  html body .ago-ideal-benefit,
+  html body .ago-ideal-benefit:first-child,
+  html body .ago-ideal-benefit:last-child{
+    min-height:145px!important;
+    padding:7px 10px 17px!important;
+  }
+  html body .ago-ideal-benefit:nth-child(odd){
+    border-left:0!important;
+    border-right:1px solid var(--ago-pm-line)!important;
+  }
+  html body .ago-ideal-benefit:nth-child(n+3){
+    border-top:1px solid var(--ago-pm-line)!important;
+    padding-top:21px!important;
+  }
+  html body .ago-ideal-benefit h3{font-size:19px!important}
+  html body .ago-ideal-benefit p{font-size:8.5px!important;max-width:145px!important}
+  html body .ago-premium-how{
+    padding:66px 0 73px!important;
+  }
+  html body .ago-premium-how-grid{grid-template-columns:1fr!important}
+  html body .ago-premium-how-grid article,
+  html body .ago-premium-how-grid article + article{
+    min-height:0!important;
+    padding:22px 0!important;
+    border-left:0!important;
+  }
+  html body .ago-premium-how-grid article + article{
+    border-top:1px solid var(--ago-pm-line)!important;
+  }
+  html body .ago-premium-how-grid h3{margin-top:18px!important}
+  html body .ago-premium-visit{
+    padding:67px 0!important;
+  }
+  html body .ago-premium-visit-grid{
+    grid-template-columns:1fr!important;
+    gap:32px!important;
+  }
+  html body .ago-premium-visit-mark{
+    padding-left:0!important;
+    padding-top:20px!important;
+    border-left:0!important;
+    border-top:1px solid rgba(255,253,249,.18)!important;
+  }
+  html body .ago-ideal-footer .footer-shell{
+    width:calc(100% - 32px)!important;
+    padding:56px 0 20px!important;
+  }
+  html body .ago-footer-top{
+    grid-template-columns:1fr!important;
+    gap:28px!important;
+  }
+  html body .ago-footer-visit{grid-column:auto!important;padding-top:26px!important}
+  html body .ago-footer-description{font-size:11px!important}
+  html body .ago-footer-bottom{
+    margin-top:38px!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    gap:6px!important;
+  }
+  html body .ago-category-bar{display:none!important}
+  html body .site-header .header-inner{
+    width:calc(100% - 32px)!important;
+    min-height:66px!important;
+  }
+  html body .header-logo img{width:48px!important;height:48px!important}
+  html body .header-nav-desktop,
+  html body .header-search-form{display:none!important}
+  html body .header-actions{gap:12px!important}
+  html body .mobile-menu-button{display:flex!important}
+  html body .mobile-menu{
+    width:calc(100% - 32px)!important;
+    margin-inline:auto!important;
+  }
+  html body .catalog-shell,
+  html body .product-page-shell{
+    width:calc(100% - 32px)!important;
+    padding-top:54px!important;
+  }
+  html body .catalog-intro h1{font-size:clamp(45px,12.5vw,64px)!important}
+  html body .catalog-toolbar{
+    grid-template-columns:1fr!important;
+    gap:22px!important;
+  }
+  html body .catalog-controls-row{
+    flex-direction:column!important;
+    align-items:flex-start!important;
+  }
+  html body .catalog-sort-wrap{width:100%!important}
+  html body .catalog-sort{width:100%!important}
+  html body .product-page-grid{
+    grid-template-columns:1fr!important;
+    gap:35px!important;
+  }
+  html body .product-detail-title{font-size:clamp(47px,12vw,65px)!important}
+  html body .product-gallery-main{border-radius:14px!important}
+}
+
+@media(max-width:520px){
+  html body .ago-topbar{
+    min-height:30px!important;
+    gap:7px!important;
+    font-size:6.8px!important;
+    letter-spacing:.11em!important;
+  }
+  html body .ago-premium-hero-content{
+    width:calc(100% - 32px)!important;
+  }
+  html body .ago-premium-collection > .ago-container,
+  html body .ago-premium-editorial > .ago-container,
+  html body .ago-premium-essence > .ago-container,
+  html body .ago-premium-how > .ago-container,
+  html body .ago-premium-visit > .ago-container{
+    width:calc(100% - 32px)!important;
+  }
+  html body .ago-premium-product-grid .product-image-wrap,
+  html body .catalog-grid .product-image-wrap{border-radius:12px!important}
+  html body .ago-premium-product-grid .product-name,
+  html body .catalog-grid .product-name{font-size:17px!important}
+  html body .ago-premium-product-grid .current-price,
+  html body .catalog-grid .current-price{font-size:11px!important}
+  html body .ago-premium-product-grid .ago-premium-add,
+  html body .catalog-grid .product-add{font-size:7px!important}
+  html body .ago-premium-hero-content h1{font-size:clamp(51px,15vw,68px)!important}
+  html body .ago-premium-hero-content > p:not(.eyebrow){font-size:11px!important}
+  html body .ago-ideal-benefits{padding:56px 0 58px!important}
+  html body .ago-ideal-benefit h3{font-size:18px!important}
+  html body .ago-ideal-benefit p{font-size:8.2px!important}
+  html body .ago-footer-logo,
+  html body .ago-footer-logo img{width:68px!important;height:68px!important}
+  html body .ago-ideal-footer .ago-footer-brand h3{font-size:28px!important}
+  html body .add-to-cart-control{gap:8px!important}
+  html body .quantity-control{min-width:100px!important}
+  html body .quantity-control button,
+  html body .quantity-control span{width:31px!important}
+  html body .product-primary-cta{font-size:7.5px!important}
+  html body .product-trust-grid > div{font-size:7px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html body *{
+    scroll-behavior:auto!important;
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+  }
+}
