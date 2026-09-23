@@ -5062,3 +5062,218 @@ html,body{
     color:#39271E!important;
   }
 }
+
+
+/* ==========================================================================
+   AGÔ — HARMONIA CROMÁTICA + FOTOS COM CANTOS ARREDONDADOS
+   Paleta mais coesa: terracota, areia, rosa-argila e azul profundo.
+   Mantém a identidade de Trancoso/Sertão sem verde, oliva, cáqui ou cinza.
+   ========================================================================== */
+
+:root{
+  --ago-paper:#F1D2C2;
+  --ago-cream:#FFF6EE;
+  --ago-sand:#E9CCA0;
+  --ago-clay:#D99A7E;
+  --ago-terra:#B75C45;
+  --ago-rust:#C16E4E;
+  --ago-cocoa:#4C2D25;
+  --ago-ink:#3A251E;
+  --ago-muted:#62483D;
+  --ago-white:#FFFDF9;
+  --ago-line:rgba(58,37,30,.17);
+
+  --ago-cal:#F1D2C2;
+  --ago-areia:#F2DECA;
+  --ago-palha:#E9CCA0;
+  --ago-barro:#B75C45;
+  --ago-terracota:#9F4D3A;
+  --ago-ocre:#E6B75E;
+  --ago-madeira:#4C2D25;
+  --ago-terra-escura:#4A6873;
+  --ago-tinta:#3A251E;
+  --ago-pedra:#62483D;
+  --ago-branco:#FFFDF9;
+}
+
+/* As seções agora seguem uma mesma família cromática, com os azuis como
+   pontos de respiro e não como cores isoladas. */
+.ago-premium-collection{background:#F1D2C2!important}
+.ago-premium-trust{background:#B75C45!important}
+.ago-premium-hero{background:#4A6873!important}
+.benefits-strip{background:#E9CCA0!important}
+.ago-premium-editorial{background:#D98A71!important}
+.ago-premium-essence{background:#E2A58F!important}
+.ago-premium-discovery{background:#F2DECA!important}
+.ago-premium-how{background:#E6B75E!important}
+.ago-premium-visit{background:#567786!important}
+.site-footer.ago-site-footer{background:#4C2D25!important}
+
+html,body{background:#F1D2C2!important;color:#3A251E!important}
+.site-header{background:#FFF6EE!important;color:#3A251E!important}
+.ago-category-bar{background:#D99A7E!important;color:#4C2D25!important}
+
+/* Tipografia acompanha a nova distribuição de fundo. */
+.ago-premium-collection h1,
+.ago-premium-collection h2,
+.ago-premium-collection .product-name,
+.ago-benefits-heading>span,
+.ago-clean-benefit h3,
+.ago-premium-editorial h2,
+.ago-premium-essence h2,
+.ago-premium-discovery h2,
+.ago-premium-discovery-copy>span,
+.ago-premium-how h2,
+.ago-premium-how-grid h3{
+  color:#3A251E!important;
+}
+.ago-premium-trust .ago-premium-trust-inner,
+.ago-premium-hero h2,
+.ago-premium-hero-content>p:not(.eyebrow),
+.ago-premium-visit h2{
+  color:#FFFDF9!important;
+}
+.ago-premium-section-head>div>p:last-child,
+.ago-premium-collection-bottom,
+.ago-clean-benefit p,
+.ago-premium-editorial .ago-premium-copy>p:not(.eyebrow),
+.ago-premium-essence .ago-premium-copy>p:not(.eyebrow),
+.ago-premium-discovery-copy p,
+.ago-premium-how-grid p{
+  color:#4E382E!important;
+}
+.ago-premium-visit>div>div:first-child>p:not(.eyebrow),
+.ago-premium-visit-mark{
+  color:rgba(255,253,249,.90)!important;
+}
+.eyebrow{color:#9F4D3A!important}
+
+.ago-premium-visit .eyebrow{color:#FFD7BC!important}
+.ago-premium-visit-links a{
+  color:#FFFDF9!important;
+  border-color:rgba(255,253,249,.44)!important;
+}
+.ago-premium-visit-links a:hover{
+  color:#FFD7BC!important;
+  border-color:#FFD7BC!important;
+}
+
+/* Fotos: sem borda, sem sombra e com arredondamento consistente. */
+.product-image-wrap,
+.ago-premium-image,
+.ago-premium-discovery-image,
+.essencia-image,
+.product-gallery-main,
+.product-gallery-thumb,
+.cart-product-image,
+.cart-complementary-image,
+.checkout-product-image{
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:20px!important;
+  overflow:hidden!important;
+  background:transparent!important;
+}
+
+.product-image-wrap img,
+.ago-premium-image img,
+.ago-premium-discovery-image img,
+.essencia-image img,
+.product-gallery-main img,
+.product-gallery-thumb img,
+.cart-product-image img,
+.cart-complementary-image img,
+.checkout-product-image img{
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:inherit!important;
+}
+
+.product-image-wrap::after,
+.ago-premium-image::after,
+.ago-premium-discovery-image::after{
+  display:none!important;
+  content:none!important;
+  box-shadow:none!important;
+}
+
+/* Mantém as imagens de destaque proporcionais e sem recorte agressivo. */
+.ago-premium-image img,
+.ago-premium-discovery-image img,
+.essencia-image img{
+  object-fit:contain!important;
+  object-position:center!important;
+}
+
+/* CTA segue a mesma terracota da identidade, em vez de introduzir outra cor. */
+.product-add,
+.contact-location-button,
+.ago-premium-hero-cta,
+.ago-premium-dark-cta,
+.checkout-submit,
+.product-primary-cta{
+  background:#B75C45!important;
+  color:#FFFDF9!important;
+}
+.product-add:hover,
+.contact-location-button:hover,
+.ago-premium-hero-cta:hover,
+.ago-premium-dark-cta:hover,
+.checkout-submit:hover:not(:disabled),
+.product-primary-cta:hover{
+  background:#9F4D3A!important;
+}
+
+/* Filtros nunca alteram a cor real das fotografias. */
+.product-image,
+.product-image-primary,
+.product-image-secondary,
+.ago-premium-hero-image,
+.ago-premium-image img,
+.ago-premium-discovery-image img,
+.essencia-image-img{
+  filter:none!important;
+}
+
+/* Mobile: exatamente a mesma harmonia cromática e o mesmo arredondamento. */
+@media (max-width:767px){
+  html,body{background:#F1D2C2!important}
+  .site-header{background:#FFF6EE!important}
+  .ago-category-bar{background:#D99A7E!important}
+  .ago-premium-collection{background:#F1D2C2!important}
+  .ago-premium-trust{background:#B75C45!important}
+  .ago-premium-hero{background:#4A6873!important}
+  .benefits-strip{background:#E9CCA0!important}
+  .ago-premium-editorial{background:#D98A71!important}
+  .ago-premium-essence{background:#E2A58F!important}
+  .ago-premium-discovery{background:#F2DECA!important}
+  .ago-premium-how{background:#E6B75E!important}
+  .ago-premium-visit{background:#567786!important}
+  .site-footer.ago-site-footer{background:#4C2D25!important}
+
+  .product-image-wrap,
+  .ago-premium-image,
+  .ago-premium-discovery-image,
+  .essencia-image,
+  .product-gallery-main,
+  .product-gallery-thumb,
+  .cart-product-image,
+  .cart-complementary-image,
+  .checkout-product-image{
+    border-radius:18px!important;
+  }
+}
+
+/* Alto contraste: mantém a leitura sem reintroduzir cinza. */
+@media (prefers-contrast:more){
+  html,body,
+  .ago-premium-collection,
+  .benefits-strip,
+  .ago-premium-editorial,
+  .ago-premium-essence,
+  .ago-premium-discovery,
+  .ago-premium-how{
+    background:#FFF8F1!important;
+    color:#24160F!important;
+  }
+}
