@@ -646,3 +646,103 @@ a{color:inherit}
     font-size:5rem!important;
   }
 }
+
+
+/* DISCOVERY — categorias como destinos, não como outra grade de catálogo */
+.ago-premium-discovery{
+  padding:96px 0!important;
+  background:var(--ago-ivory)!important;
+}
+.ago-premium-discovery .ago-premium-section-head{
+  margin-bottom:36px!important;
+}
+.ago-premium-discovery .ago-premium-section-head h2{
+  margin:0!important;
+  font:600 clamp(3rem,5vw,5.2rem)/.88 'Cormorant Garamond',Georgia,serif!important;
+  letter-spacing:-.04em!important;
+  color:var(--ago-cocoa)!important;
+}
+.ago-premium-discovery-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:15px!important;
+}
+.ago-premium-discovery-card{
+  min-width:0!important;
+  background:var(--ago-cream)!important;
+  border-radius:20px!important;
+  overflow:hidden!important;
+  text-decoration:none!important;
+  color:inherit!important;
+  transition:transform .25s ease,background .25s ease!important;
+}
+.ago-premium-discovery-card:hover{
+  transform:translateY(-4px)!important;
+  background:#fff!important;
+}
+.ago-premium-discovery-image{
+  position:relative!important;
+  aspect-ratio:1/1.05!important;
+  overflow:hidden!important;
+  background:#fff!important;
+}
+.ago-premium-discovery-image img{
+  object-fit:contain!important;
+  padding:8px!important;
+  transition:transform .35s ease!important;
+}
+.ago-premium-discovery-card:hover .ago-premium-discovery-image img{
+  transform:scale(1.04)!important;
+}
+.ago-premium-discovery-copy{
+  padding:19px 18px 20px!important;
+}
+.ago-premium-discovery-copy>span{
+  display:block!important;
+  color:var(--ago-cocoa)!important;
+  font:600 24px/1 'Cormorant Garamond',Georgia,serif!important;
+}
+.ago-premium-discovery-copy p{
+  margin:8px 0 17px!important;
+  min-height:49px!important;
+  color:var(--ago-muted)!important;
+  font:400 10px/1.55 'DM Sans',sans-serif!important;
+}
+.ago-premium-discovery-copy strong{
+  color:var(--ago-terra)!important;
+  font:700 9px/1 'DM Sans',sans-serif!important;
+  letter-spacing:.1em!important;
+  text-transform:uppercase!important;
+}
+.ago-premium-discovery-copy strong span{
+  font-size:12px!important;
+  margin-left:4px!important;
+}
+@media(max-width:767px){
+  .ago-premium-discovery{
+    padding:64px 0!important;
+  }
+  .ago-premium-discovery .ago-premium-section-head{
+    margin-bottom:24px!important;
+  }
+  .ago-premium-discovery .ago-premium-section-head h2{
+    font-size:clamp(2.7rem,12vw,4rem)!important;
+  }
+  .ago-premium-discovery-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:12px!important;
+  }
+  .ago-premium-discovery-card{
+    border-radius:15px!important;
+  }
+  .ago-premium-discovery-copy{
+    padding:15px 13px 16px!important;
+  }
+  .ago-premium-discovery-copy>span{
+    font-size:20px!important;
+  }
+  .ago-premium-discovery-copy p{
+    min-height:0!important;
+    font-size:9px!important;
+  }
+}
