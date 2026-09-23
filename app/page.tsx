@@ -76,12 +76,12 @@ export default function HomePage() {
             <span>Escolha por intenção</span>
             <div>
               {categoryLinks.map((item) => (
-                <Link key={item.id} href={\`/produtos?categoria=\${item.id}\`}>{item.label}</Link>
+                <Link key={item.id} href={'/produtos?categoria=' + item.id}>{item.label}</Link>
               ))}
               {categories
                 .filter((item) => !categoryLinks.some((link) => link.id === item.id))
                 .map((item) => (
-                  <Link key={item.id} href={\`/produtos?categoria=\${item.id}\`}>{item.name}</Link>
+                  <Link key={item.id} href={'/produtos?categoria=' + item.id}>{item.name}</Link>
                 ))}
             </div>
           </nav>
