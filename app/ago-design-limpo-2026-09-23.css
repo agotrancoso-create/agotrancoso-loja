@@ -8902,3 +8902,60 @@ input:focus-visible{
     transition:none!important;
   }
 }
+
+
+/* AGÔ — direção de arte: Bahia contemporânea, calor humano e venda clara. */
+:root{
+  --ago-paper:#FFF7EA;--ago-cream:#FFF1DE;--ago-sand:#F3D6B0;--ago-clay:#E3A15A;
+  --ago-terra:#8E432D;--ago-rust:#B9562E;--ago-cocoa:#3B241A;--ago-ink:#2F2019;
+  --ago-muted:#624E43;--ago-white:#FFFDF8;
+}
+h1,h2,h3,.ago-premium-section-head h1,.ago-premium-section-head h2,.ago-premium-copy h2,
+.ago-premium-how h2,.ago-premium-visit h2,.product-detail-title,.catalog-intro h1,
+.essencia-copy h1,.contact-copy h1,.info-panel h2,.checkout-title,.product-name,.feature-title{
+  font-family:'DM Serif Display',Georgia,serif!important;font-weight:400!important;
+}
+.ago-premium-collection-first{background:#FFF7EA!important;padding-top:84px!important;padding-bottom:70px!important}
+.ago-premium-collection-first .product-image-wrap{background:#F1DCC1!important;border-radius:22px!important}
+.ago-premium-collection-first .ago-collection-after-grid{border-top-color:rgba(59,36,26,.16)!important}
+.ago-premium-collection-first .ago-premium-dark-cta{background:#3B241A!important;color:#FFFDF8!important}
+.ago-premium-collection-first .ago-premium-dark-cta:hover{background:#8E432D!important}
+.ago-premium-trust{background:#3B241A!important;color:#FFF7EA!important}
+.ago-premium-trust-inner span{color:rgba(255,247,234,.9)!important}.ago-premium-trust-inner i{background:#D99857!important}
+.benefits-strip.ago-benefits-reference{background:#E7A45D!important}
+.ago-benefit-reference-item,.ago-benefit-reference-item:first-child{border-left-color:rgba(59,36,26,.28)!important}
+.ago-benefit-reference-item h2{color:#3B241A!important}.ago-benefit-reference-item p{color:#543B2D!important}
+.ago-benefit-reference-item:nth-child(1) .ago-benefit-reference-icon,
+.ago-benefit-reference-item:nth-child(2) .ago-benefit-reference-icon,
+.ago-benefit-reference-item:nth-child(3) .ago-benefit-reference-icon{color:#6F3927!important}
+.ago-benefit-reference-item:nth-child(4) .ago-benefit-reference-icon{color:#244C5D!important}
+.ago-benefit-reference-item:hover{background:rgba(255,253,248,.18)!important}
+.ago-home-story{background:#F2C5A3!important}.ago-home-story .ago-premium-image{background:#E6B184!important}
+.ago-home-story .ago-premium-copy p:not(.eyebrow){color:#543D31!important}
+.ago-premium-discovery{background:#B95D35!important;color:#FFF8EF!important}
+.ago-premium-discovery .eyebrow,.ago-premium-discovery .ago-premium-section-head h2{color:#FFF8EF!important}
+.ago-premium-discovery .ago-premium-text-link{color:#FFF8EF!important;border-bottom-color:rgba(255,248,239,.55)!important}
+.ago-premium-discovery .ago-premium-text-link:hover{color:#FFF!important;border-bottom-color:#FFF!important}
+.ago-premium-discovery-card{background:#F9E2C7!important}
+.ago-premium-discovery-copy span{color:#3B241A!important}.ago-premium-discovery-copy strong{color:#8E432D!important}
+.ago-premium-how{background:#E7B768!important}
+.ago-premium-how .ago-premium-section-head h2,.ago-premium-how .ago-premium-how-grid article h3{color:#3B241A!important}
+.ago-premium-how .ago-premium-how-grid article{border-color:rgba(59,36,26,.18)!important}
+.ago-premium-how .ago-premium-how-grid article span{color:#8E432D!important}
+.ago-premium-how .ago-premium-how-grid article p{color:#523D31!important}
+.ago-premium-how .ago-premium-dark-cta{background:#3B241A!important;color:#FFF7EA!important}
+.ago-premium-how .ago-premium-dark-cta:hover{background:#8E432D!important}
+.ago-premium-visit{background:#3B241A!important}.ago-premium-visit h2{color:#FFF7EA!important}
+.ago-premium-visit .eyebrow{color:#E7A45D!important}.ago-premium-visit>div>div>p:not(.eyebrow){color:rgba(255,247,234,.76)!important}
+.ago-premium-visit-links a{color:#FFF7EA!important;border-bottom-color:rgba(255,247,234,.38)!important}
+.ago-premium-visit-links a:hover{color:#E7A45D!important;border-bottom-color:#E7A45D!important}
+.ago-premium-visit-mark span{color:rgba(255,247,234,.55)!important}.ago-premium-visit-mark strong{color:#E7A45D!important}
+.ago-premium-collection-first .product-name{color:#3B241A!important}.ago-premium-collection-first .current-price{color:#8E432D!important}
+.ago-premium-add{border-color:rgba(59,36,26,.27)!important;color:#3B241A!important}
+.ago-premium-add:hover{background:#3B241A!important;border-color:#3B241A!important;color:#FFF7EA!important}
+@media (max-width:767px){
+  .ago-premium-collection-first{padding-top:54px!important;padding-bottom:46px!important}
+  .ago-premium-collection-first .product-image-wrap{border-radius:18px!important;aspect-ratio:1/1.04!important}
+  .ago-premium-collection-first .product-name{font-size:18px!important;line-height:1.04!important}
+  .ago-premium-discovery{padding-top:56px!important;padding-bottom:56px!important}
+}

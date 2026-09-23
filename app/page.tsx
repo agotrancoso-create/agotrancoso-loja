@@ -37,8 +37,8 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-collection-intro-brand">
             <p className="eyebrow">Agô Trancoso · Bahia</p>
-            <h1 id="featured-title">Peças de Trancoso, feitas à mão.</h1>
-            <p>Feitas à mão, uma por uma.</p>
+            <h1 id="featured-title">Peças que levam um pouco de Trancoso para casa.</h1>
+            <p>Feitas à mão, uma a uma, em Trancoso, Bahia.</p>
             <Link href="/produtos" className="ago-premium-text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
           </div>
 
@@ -49,7 +49,7 @@ export default function HomePage() {
           </div>
 
           <div className="ago-collection-after-grid">
-            <span>Tem peça que chama a gente.</span>
+            <span>Escolha a que encontrou você.</span>
             <Link href="/produtos" className="ago-premium-dark-cta">Explorar a coleção</Link>
           </div>
         </div>
@@ -78,10 +78,10 @@ export default function HomePage() {
         />
         <div className="ago-premium-hero-overlay" aria-hidden="true" />
         <div className="ago-container ago-premium-hero-content">
-          <p className="eyebrow">A Agô</p>
-          <h2 id="hero-title">Feito à mão.<br />Feito para ficar.</h2>
-          <p>Da nossa banca, no Quadrado, para sua casa.</p>
-          <Link href="/produtos" className="ago-premium-hero-cta">Escolher uma peça</Link>
+          <p className="eyebrow">Da Bahia</p>
+          <h2 id="hero-title">Um pedaço da Bahia<br />para viver com você.</h2>
+          <p>Peças feitas à mão para decorar, presentear e guardar.</p>
+          <Link href="/produtos" className="ago-premium-hero-cta">Conhecer a coleção</Link>
         </div>
       </section>
 
@@ -98,9 +98,9 @@ export default function HomePage() {
             />
           </div>
           <div className="ago-premium-copy">
-            <p className="eyebrow">Da Bahia para sua casa</p>
-            <h2 id="story-title">Tem lembrança que a gente leva para casa.</h2>
-            <p>O barro e as casinhas do Quadrado fazem parte do que a gente faz.</p>
+            <p className="eyebrow">A história da Agô</p>
+            <h2 id="story-title">De Trancoso para o mundo.</h2>
+            <p>À noite, a banca acende no Quadrado. Cada peça carrega um pouco desse lugar e segue com quem escolheu levar a história para casa.</p>
             <Link href="/nossa-essencia" className="ago-premium-text-link">Conheça a Agô <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
@@ -110,8 +110,8 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-premium-section-head">
             <div>
-              <p className="eyebrow">Escolha por onde começar</p>
-              <h2 id="discover-title">Escolha pelo que chamou seu olhar.</h2>
+              <p className="eyebrow">Encontre a sua</p>
+              <h2 id="discover-title">Comece pelo que chamou seu olhar.</h2>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver tudo <span aria-hidden="true">↗</span></Link>
           </div>
@@ -136,7 +136,7 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-premium-section-head ago-premium-how-head">
             <div>
-              <p className="eyebrow">Compra fácil</p>
+              <p className="eyebrow">Compra simples</p>
               <h2 id="how-title">Viu uma? Pode ser a sua.</h2>
             </div>
           </div>
@@ -145,17 +145,17 @@ export default function HomePage() {
             <article>
               <span>01</span>
               <h3>Escolha</h3>
-              <p>Olhe as peças e escolha a sua.</p>
+              <p>Veja com calma e escolha a peça que fez sentido para você.</p>
             </article>
             <article>
               <span>02</span>
               <h3>Peça</h3>
-              <p>Coloque no carrinho e pronto.</p>
+              <p>Adicione ao carrinho. O site mostra tudo antes de você pagar.</p>
             </article>
             <article>
               <span>03</span>
               <h3>Receba</h3>
-              <p>A gente embala direitinho e manda para você.</p>
+              <p>A gente embala com cuidado e envia para o endereço informado.</p>
             </article>
           </div>
 
@@ -166,9 +166,9 @@ export default function HomePage() {
       <section className="ago-premium-visit" aria-labelledby="visit-title">
         <div className="ago-container ago-premium-visit-grid">
           <div>
-            <p className="eyebrow">Visite a Agô</p>
-            <h2 id="visit-title">Passou pelo Quadrado?<br />Vem conhecer a Agô.</h2>
-            <p>Nossa banca fica no Quadrado de Trancoso.</p>
+            <p className="eyebrow">No Quadrado</p>
+            <h2 id="visit-title">Chegou ao Quadrado?<br />Vem conhecer a Agô.</h2>
+            <p>A banca fica no coração de Trancoso, onde a história da Agô começou.</p>
             <div className="ago-premium-visit-links">
               <a href={mapsUrl} target="_blank" rel="noreferrer">Google Maps <span aria-hidden="true">↗</span></a>
               <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>

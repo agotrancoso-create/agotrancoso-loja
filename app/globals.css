@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -46,7 +46,7 @@ button, input, select { font: inherit; }
 
   .section-title {
     margin: 0;
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'DM Serif Display', Georgia, serif;
     font-size: clamp(2.4rem, 4.1vw, 4.1rem);
     line-height: .94;
     letter-spacing: -.025em;
@@ -210,7 +210,7 @@ button, input, select { font: inherit; }
   .product-name {
     margin: 12px 0 0;
     color: var(--brown-deep);
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'DM Serif Display', Georgia, serif;
     font-size: 21px;
     line-height: 1.02;
     letter-spacing: -.012em;
@@ -283,7 +283,7 @@ button, input, select { font: inherit; }
   }
   .feature-icon { display: flex; align-items: center; justify-content: center; width: 72px; height: 58px; margin-bottom: 15px; }
   .feature-icon svg { width: 44px; height: 44px; fill: none; stroke: var(--brown-deep); stroke-width: 1.05; stroke-linecap: round; stroke-linejoin: round; }
-  .feature-title { margin: 0 0 7px; color: var(--brown-deep); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.65rem; font-weight: 500; line-height: 1; }
+  .feature-title { margin: 0 0 7px; color: var(--brown-deep); font-family: 'DM Serif Display', Georgia, serif; font-size: 1.65rem; font-weight: 500; line-height: 1; }
   .feature-description { max-width: 215px; margin: 0; color: rgba(63, 38, 28, .62); font-family: 'DM Sans', Arial, sans-serif; font-size: 10px; line-height: 1.65; }
 
   .editorial-section { background: #f2ece3; }
@@ -333,7 +333,7 @@ button, input, select { font: inherit; }
   .product-gallery-dots span { width: 5px; height: 5px; border-radius: 999px; background: rgba(123, 118, 101, .3); }
   .product-gallery-dots span.is-active { background: var(--terra-deep); transform: scale(1.25); }
   .price-detail-row { display: flex; gap: 14px; align-items: baseline; }
-  .product-detail-title { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; letter-spacing: -.015em; }
+  .product-detail-title { font-family: 'DM Serif Display', Georgia, serif; font-weight: 500; letter-spacing: -.015em; }
   .shipping-banner { padding: 9px 16px; background: var(--brown-deep); color: var(--paper); text-align: center; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; }
   .shipping-progress { margin-top: 14px; padding: 11px 13px; border-radius: 0; background: var(--sand); color: var(--brown-deep); font-size: 11px; line-height: 1.5; }
 
