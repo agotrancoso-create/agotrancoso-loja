@@ -1651,7 +1651,7 @@ h1,h2,h3,
   text-transform:uppercase!important;
 }
 .checkout-coupon-message{margin:8px 0 0!important;font-size:9px!important}
-.checkout-coupon-message.success{color:#49603C!important}
+.checkout-coupon-message.success{color:#7C321B!important}
 .checkout-coupon-message.error,.checkout-error{color:#8B3E31!important}
 .checkout-error{
   margin:15px 0 0!important;
@@ -3994,4 +3994,130 @@ a[aria-disabled="true"]{
     min-height:46px!important;
     font-size:9.5px!important;
   }
+}
+
+
+/* ========= AGÔ — SEM CÁQUI / SEM VERDE / FOTOS SEM MOLDURAS ========= */
+:root{
+  --ago-cal:#F4E9DA;
+  --ago-areia:#D8B58D;
+  --ago-palha:#E7CDAE;
+  --ago-barro:#B75F38;
+  --ago-terracota:#984625;
+  --ago-ocre:#C98542;
+  --ago-madeira:#593628;
+  --ago-terra-escura:#43291E;
+  --ago-tinta:#322019;
+  --ago-pedra:#695448;
+  --ago-branco:#FFF9F2;
+}
+
+/* Substitui o último tom esverdeado/cáqui que ainda existia. */
+.checkout-coupon-message.success{
+  color:#7C321B!important;
+}
+
+/* Fotografias: sem moldura, sem linha, sem sombra. */
+.product-image-wrap,
+.ago-premium-image,
+.ago-premium-discovery-image,
+.essencia-image,
+.product-gallery-main,
+.product-gallery-thumb,
+.cart-product-image,
+.cart-complementary-image{
+  border:0!important;
+  box-shadow:none!important;
+}
+
+/* Os contêineres não criam uma "caixa" em volta da fotografia. */
+.ago-premium-image,
+.essencia-image{
+  border-radius:0!important;
+}
+.ago-premium-image img,
+.ago-complementary-photo,
+.essencia-image-img,
+.ago-premium-discovery-image img{
+  border:0!important;
+  box-shadow:none!important;
+  outline:0!important;
+}
+
+/* Fotos complementares preservadas inteiras. */
+.ago-premium-image img,
+.ago-complementary-photo,
+.essencia-image-img,
+.ago-premium-discovery-image img{
+  object-fit:contain!important;
+  object-position:center!important;
+}
+
+/* Galeria de produto limpa: controles não criam moldura na foto. */
+.product-gallery-main{
+  border-radius:0!important;
+  background:transparent!important;
+}
+.product-gallery-thumb{
+  background:transparent!important;
+  border-radius:0!important;
+}
+.product-gallery-thumb.is-active{
+  border:0!important;
+  box-shadow:inset 0 0 0 2px #984625!important;
+}
+
+/* Paleta final da interface: nenhuma área usa verde/cáqui. */
+.site-header,
+.ago-premium-collection,
+.benefits-strip,
+.ago-premium-discovery,
+.ago-premium-editorial,
+.ago-premium-essence{
+  color:var(--ago-tinta)!important;
+}
+.site-header{background:#F4E9DA!important}
+.ago-premium-collection{background:#F4E9DA!important}
+.ago-premium-trust{background:#B75F38!important}
+.ago-premium-hero{background:#43291E!important}
+.benefits-strip{background:#E7CDAE!important}
+.ago-premium-editorial{background:#D8B58D!important}
+.ago-premium-essence{background:#E2C39F!important}
+.ago-premium-discovery{background:#F0E2D0!important}
+.ago-premium-how{background:#C98542!important}
+.ago-premium-visit{background:#D1AA80!important}
+.site-footer.ago-site-footer{background:#593628!important}
+
+/* Não deixar filtros de imagem introduzirem aparência esverdeada. */
+.ago-premium-discovery-card:hover .ago-premium-discovery-image img{
+  filter:none!important;
+}
+
+/* Mesmas cores em qualquer largura. */
+@media (max-width:767px){
+  .site-header{background:#F4E9DA!important}
+  .ago-premium-collection{background:#F4E9DA!important}
+  .ago-premium-trust{background:#B75F38!important}
+  .ago-premium-hero{background:#43291E!important}
+  .benefits-strip{background:#E7CDAE!important}
+  .ago-premium-editorial{background:#D8B58D!important}
+  .ago-premium-essence{background:#E2C39F!important}
+  .ago-premium-discovery{background:#F0E2D0!important}
+  .ago-premium-how{background:#C98542!important}
+  .ago-premium-visit{background:#D1AA80!important}
+  .site-footer.ago-site-footer{background:#593628!important}
+  .product-image-wrap,
+  .ago-premium-image,
+  .ago-premium-discovery-image,
+  .essencia-image{
+    border:0!important;
+    box-shadow:none!important;
+  }
+}
+
+/* Nunca acrescente uma borda visível às fotografias. */
+.product-image-wrap::after,
+.ago-premium-image::after,
+.ago-premium-discovery-image::after{
+  box-shadow:none!important;
 }
