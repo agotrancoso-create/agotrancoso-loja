@@ -7,39 +7,33 @@ const MAPS_URL = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.58955
 
 export default function Footer() {
   return (
-    <footer className="site-footer ago-ideal-footer">
-      <div className="footer-shell">
-        <div className="ago-footer-top">
+    <footer className="site-footer ago-site-footer" aria-label="Rodapé">
+      <div className="ago-footer-wrap">
+        <div className="ago-footer-main">
           <div className="ago-footer-brand">
-            <Link href="/" aria-label="Agô Trancoso, início" className="ago-footer-logo">
-              <Image
-                src="/logo.png"
-                alt="Agô Trancoso"
-                width={360}
-                height={360}
-                sizes="96px"
-                quality={82}
-              />
+            <Link href="/" className="ago-footer-logo" aria-label="Agô Trancoso — início">
+              <Image src="/logo.png" alt="Agô Trancoso" width={88} height={88} sizes="88px" />
             </Link>
-            <p className="ago-footer-kicker">Trancoso · Bahia · Brasil</p>
-            <h3>Agô Trancoso</h3>
+            <p className="ago-footer-place">Trancoso · Bahia · Brasil</p>
+            <h2>Agô Trancoso</h2>
             <p className="ago-footer-description">
               Peças feitas à mão, inspiradas na Bahia e pensadas para decorar, presentear e guardar.
             </p>
           </div>
 
-          <div className="ago-footer-column">
-            <h4>Explorar</h4>
-            <nav aria-label="Links do rodapé">
+          <div className="ago-footer-group">
+            <h3>Explorar</h3>
+            <nav aria-label="Explorar">
               <Link href="/produtos">Coleção</Link>
               <Link href="/nossa-essencia">A Agô</Link>
               <Link href="/contato">Contato</Link>
+              <Link href="/produtos?categoria=trancoso">Trancoso</Link>
             </nav>
           </div>
 
-          <div className="ago-footer-column">
-            <h4>Fale com a gente</h4>
-            <nav aria-label="Redes sociais e contato">
+          <div className="ago-footer-group">
+            <h3>Fale com a gente</h3>
+            <nav aria-label="Contato e redes sociais">
               <a href={whatsappLink('Olá! Vim pelo site da Agô Trancoso.')} target="_blank" rel="noopener noreferrer">WhatsApp</a>
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">@{INSTAGRAM_HANDLE}</a>
               <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer">TikTok</a>
@@ -47,15 +41,20 @@ export default function Footer() {
             </nav>
           </div>
 
-          <div className="ago-footer-column ago-footer-visit">
-            <h4>Visite</h4>
-            <p>Você encontra a Agô no Quadrado de Trancoso.</p>
-            <a href={MAPS_URL} target="_blank" rel="noopener noreferrer">Abrir no Google Maps</a>
+          <div className="ago-footer-group ago-footer-visit-group">
+            <h3>Visite</h3>
+            <p>Encontre a Agô no Quadrado de Trancoso.</p>
+            <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="ago-footer-map-link">
+              Abrir no Google Maps <span aria-hidden="true">↗</span>
+            </a>
           </div>
         </div>
 
-        <div className="ago-footer-bottom">
-          <span>Feitas à mão na Bahia, Brasil.</span>
+        <div className="ago-footer-legal">
+          <div>
+            <Link href="/termos">Termos de Uso</Link>
+            <Link href="/privacidade">Política de Privacidade</Link>
+          </div>
           <span>© 2026 Agô Trancoso. Todos os direitos reservados.</span>
         </div>
       </div>
