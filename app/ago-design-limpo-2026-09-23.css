@@ -2792,3 +2792,32 @@ html,body,.ago-home,.catalog-page,.product-page,.essencia-page,.contact-page,.ch
   .first-purchase-brand-panel h2{font-size:38px!important}
   .first-purchase-form{padding:24px!important}
 }
+
+
+/* ========= VISITE x RODAPÉ — SEPARAÇÃO DE CORES ========= */
+.ago-premium-visit{
+  background:var(--ago-sand)!important;
+  color:var(--ago-cocoa)!important;
+  border-top:1px solid rgba(75,43,30,.10)!important;
+  border-bottom:1px solid rgba(75,43,30,.10)!important;
+}
+.ago-premium-visit .eyebrow{color:var(--ago-terra)!important}
+.ago-premium-visit h2{color:var(--ago-cocoa)!important}
+.ago-premium-visit>div>div:first-child>p:not(.eyebrow){
+  color:var(--ago-muted)!important;
+}
+.ago-premium-visit-links a{
+  color:var(--ago-cocoa)!important;
+  border-color:rgba(75,43,30,.25)!important;
+}
+.ago-premium-visit-links a:hover{
+  color:var(--ago-terra)!important;
+  border-color:var(--ago-terra)!important;
+}
+.ago-premium-visit-mark{color:rgba(75,43,30,.56)!important}
+.ago-premium-visit-mark strong{color:var(--ago-terra)!important}
+.site-footer.ago-site-footer{
+  background:var(--ago-cocoa)!important;
+  color:#F7EDE3!important;
+  border-top:0!important;
+}
