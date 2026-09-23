@@ -86,6 +86,7 @@ import './ago-master-visual-2026.css';
 import './ago-fashion-commerce-2026.css';
 import './ago-brand-color-system-2026.css';
 import './ago-final-art-direction-2026.css';
+import './ago-alinhamento-final-sem-bordas-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
