@@ -8219,3 +8219,234 @@ input:focus-visible{
     transform:none!important;
   }
 }
+
+
+/* ==========================================================================
+   AGÔ — BRANDING / PRODUCT-FIRST
+   Produto aparece primeiro. O texto apresenta a marca, não compete com ela.
+   ========================================================================== */
+
+.ago-premium-collection-first{
+  background:#F7EFE7!important;
+  padding:clamp(54px,6vw,82px) 0 clamp(56px,6vw,88px)!important;
+}
+
+.ago-collection-intro-brand{
+  width:min(1180px,calc(100% - 40px))!important;
+  margin:0 auto 38px!important;
+}
+
+.ago-collection-intro-brand .eyebrow{
+  margin-bottom:14px!important;
+  color:#9A4B3C!important;
+}
+
+.ago-collection-intro-brand h1{
+  max-width:830px!important;
+  margin:0!important;
+  color:#392821!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(3.3rem,6.2vw,6.2rem)!important;
+  font-weight:500!important;
+  line-height:.86!important;
+  letter-spacing:-.05em!important;
+  text-wrap:balance!important;
+}
+
+.ago-collection-intro-brand>p:not(.eyebrow){
+  max-width:470px!important;
+  margin:17px 0 0!important;
+  color:#665149!important;
+  font-size:15px!important;
+  line-height:1.65!important;
+}
+
+.ago-collection-intro-brand .ago-premium-text-link{
+  margin-top:22px!important;
+}
+
+.ago-premium-product-grid-featured{
+  margin-top:0!important;
+}
+
+.ago-collection-after-grid{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:24px!important;
+  width:min(1180px,calc(100% - 40px))!important;
+  margin:46px auto 0!important;
+  padding-top:20px!important;
+  border-top:1px solid rgba(57,40,33,.16)!important;
+}
+
+.ago-collection-after-grid>span{
+  color:#634F47!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:24px!important;
+  line-height:1!important;
+}
+
+.ago-collection-after-grid .ago-premium-dark-cta{
+  min-height:48px!important;
+  padding:0 20px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+/* Benefícios: entram imediatamente depois do produto e viram prova visual
+   curta da marca. */
+.benefits-strip.ago-benefits-reference{
+  background:#E5D5CC!important;
+}
+
+.ago-benefits-reference-grid{
+  min-height:186px!important;
+}
+
+.ago-benefit-reference-item,
+.ago-benefit-reference-item:first-child{
+  min-height:186px!important;
+  padding:24px 20px!important;
+}
+
+.ago-benefit-reference-icon,
+.ago-benefit-reference-icon svg{
+  width:60px!important;
+  height:60px!important;
+}
+
+.ago-benefit-reference-item h2{
+  font-size:clamp(22px,1.7vw,27px)!important;
+}
+
+.ago-benefit-reference-item p{
+  max-width:195px!important;
+  font-size:11.5px!important;
+  line-height:1.45!important;
+}
+
+/* Hero funciona como manifesto de marca depois que a pessoa já viu produto. */
+.ago-home-hero{
+  min-height:clamp(480px,58vw,680px)!important;
+}
+
+.ago-home-hero .ago-premium-hero-content{
+  padding-bottom:clamp(44px,6vw,78px)!important;
+}
+
+.ago-home-hero h2{
+  max-width:700px!important;
+  font-size:clamp(4rem,8vw,8rem)!important;
+  line-height:.80!important;
+  letter-spacing:-.055em!important;
+}
+
+.ago-home-hero .ago-premium-hero-content>p:not(.eyebrow){
+  max-width:390px!important;
+  margin-top:18px!important;
+}
+
+/* Story com uma ideia de marca clara e uma única ação. */
+.ago-home-story{
+  background:#D99A84!important;
+}
+
+.ago-home-story .ago-premium-copy h2{
+  max-width:590px!important;
+}
+
+.ago-home-story .ago-premium-copy .ago-premium-text-link{
+  margin-top:20px!important;
+}
+
+/* Categorias: desejo visual, quase nenhum texto. */
+.ago-premium-discovery{
+  background:#F0DCC8!important;
+}
+
+.ago-premium-discovery-copy strong{
+  letter-spacing:.12em!important;
+}
+
+/* Compra: linguagem de marca, mas sem excesso de explicação. */
+.ago-premium-how{
+  background:#E4C792!important;
+}
+
+.ago-premium-how-head h2{
+  max-width:780px!important;
+}
+
+.ago-premium-how-grid article h3{
+  font-size:28px!important;
+}
+
+/* Texto de branding no mobile não vira bloco enorme. */
+@media (max-width:767px){
+  .ago-collection-intro-brand{
+    width:calc(100% - 28px)!important;
+    margin-bottom:30px!important;
+  }
+
+  .ago-collection-intro-brand h1{
+    font-size:clamp(3rem,13.5vw,4.8rem)!important;
+    line-height:.89!important;
+  }
+
+  .ago-collection-intro-brand>p:not(.eyebrow){
+    font-size:13px!important;
+    line-height:1.62!important;
+  }
+
+  .ago-collection-after-grid{
+    width:calc(100% - 28px)!important;
+    display:flex!important;
+    align-items:flex-start!important;
+    flex-direction:column!important;
+    gap:16px!important;
+    margin-top:34px!important;
+  }
+
+  .ago-collection-after-grid>span{
+    font-size:21px!important;
+  }
+
+  .ago-collection-after-grid .ago-premium-dark-cta{
+    width:100%!important;
+  }
+
+  .benefits-strip.ago-benefits-reference{
+    background:#E5D5CC!important;
+  }
+
+  .ago-benefit-reference-item,
+  .ago-benefit-reference-item:first-child{
+    min-height:164px!important;
+    padding:18px 9px!important;
+  }
+
+  .ago-benefit-reference-icon,
+  .ago-benefit-reference-icon svg{
+    width:47px!important;
+    height:47px!important;
+  }
+
+  .ago-benefit-reference-item h2{
+    font-size:18px!important;
+  }
+
+  .ago-benefit-reference-item p{
+    max-width:150px!important;
+    font-size:10.5px!important;
+  }
+
+  .ago-home-hero{
+    min-height:500px!important;
+  }
+
+  .ago-home-hero h2{
+    font-size:clamp(4rem,16vw,5.7rem)!important;
+  }
+}
