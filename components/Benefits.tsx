@@ -1,25 +1,25 @@
 const benefits = [
   {
-    title: 'Feitas à mão',
-    text: 'Cada peça passa pelas nossas mãos, do começo ao fim.',
+    title: 'Feito à mão',
+    text: 'O toque humano aparece em cada detalhe.',
     icon: 'handmade',
     tone: 'benefit-icon-handmade',
   },
   {
-    title: 'Uma de cada vez',
-    text: 'Pequenas diferenças que fazem cada peça ser única.',
+    title: 'Cada um, um',
+    text: 'Pequenas diferenças fazem parte da beleza.',
     icon: 'ceramic',
     tone: 'benefit-icon-ceramic',
   },
   {
-    title: 'Um pouco de Trancoso',
-    text: 'Formas, cores e referências de um lugar especial.',
+    title: 'Bahia por perto',
+    text: 'Cores, formas e referências de um lugar cheio de personalidade.',
     icon: 'trancoso',
     tone: 'benefit-icon-trancoso',
   },
   {
-    title: 'Para chegar bem',
-    text: 'Tudo é embalado com cuidado antes de seguir até você.',
+    title: 'Vai bem cuidado',
+    text: 'Embalamos tudo para chegar inteiro até você.',
     icon: 'shipping',
     tone: 'benefit-icon-shipping',
   },
