@@ -1,0 +1,109 @@
+/* AGÔ TRANCOSO — JUSTIFICADO GLOBAL 2026
+   Regra final: texto corrido do site inteiro alinhado de forma justificada.
+   Navegação, controles, botões, preços e elementos de interface mantêm
+   o alinhamento funcional para não deformar a composição.
+*/
+
+main p,
+main li,
+main dd,
+main blockquote,
+footer p,
+footer li,
+footer .footer-description,
+.ago-clean-collection-head p,
+.ago-clean-edit-copy p,
+.ago-home-essence-copy p,
+.ago-home-how-step p,
+.ago-clean-visit-note p,
+.ago-clean-visit > div:first-child > p:not(.eyebrow),
+.catalog-intro p,
+.product-description,
+.product-detail-copy p,
+.contact-description,
+.contact-copy p,
+.essencia-copy p,
+.essencia-description,
+.cart-empty-copy{
+  text-align:justify!important;
+  text-justify:inter-word!important;
+  hyphens:auto!important;
+}
+
+/* Textos curtos que não ganham nada com justificação */
+main .eyebrow,
+main .section-eyebrow,
+main .kicker,
+main .badge,
+main .category-pill,
+main .category-pill span,
+main .product-name,
+main .product-price,
+main .current-price,
+main .old-price,
+main .price-row,
+main .product-shipping-note,
+main .info-list span,
+main .info-list strong,
+main label,
+main button,
+main a.header-link,
+main .header-link,
+main .header-search,
+main .header-actions,
+main .hero-primary,
+main .hero-secondary,
+main .product-add,
+main .product-primary-cta,
+main .product-whatsapp,
+main .checkout-submit,
+main .visit-actions a,
+footer h3,
+footer h4,
+footer a,
+.cart-drawer p,
+.cart-drawer h2,
+.cart-drawer h3,
+.cart-drawer h4,
+.cart-drawer button,
+.cart-drawer a,
+.cart-item-info,
+.cart-item-total,
+.cart-count{
+  text-align:inherit!important;
+}
+
+/* Rodapé: descrição justificada, navegação continua limpa */
+footer .footer-grid > div:first-child p,
+footer .footer-description{
+  text-align:justify!important;
+  text-justify:inter-word!important;
+  hyphens:auto!important;
+}
+
+@media(max-width:767px){
+  main p,
+  main li,
+  main dd,
+  main blockquote,
+  footer p,
+  footer li,
+  footer .footer-description,
+  .ago-clean-collection-head p,
+  .ago-clean-edit-copy p,
+  .ago-home-essence-copy p,
+  .ago-home-how-step p,
+  .ago-clean-visit-note p,
+  .ago-clean-visit > div:first-child > p:not(.eyebrow),
+  .catalog-intro p,
+  .product-description,
+  .product-detail-copy p,
+  .contact-description,
+  .contact-copy p,
+  .essencia-copy p,
+  .essencia-description{
+    text-align:justify!important;
+    text-justify:inter-word!important;
+    hyphens:auto!important;
+  }
+}
