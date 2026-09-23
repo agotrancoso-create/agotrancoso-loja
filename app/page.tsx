@@ -36,9 +36,9 @@ export default function HomePage() {
       <section className="ago-premium-collection ago-premium-collection-first" aria-labelledby="featured-title">
         <div className="ago-container">
           <div className="ago-collection-intro-brand">
-            <p className="eyebrow">Agô Trancoso · Bahia · Brasil</p>
-            <h1 id="featured-title">Peças que fazem Trancoso morar em casa.</h1>
-            <p>Feitas à mão, para levar, presentear e guardar.</p>
+            <p className="eyebrow">Agô Trancoso · Bahia</p>
+            <h1 id="featured-title">Um pedaço de Trancoso para levar com você.</h1>
+            <p>Feitas à mão, do jeito que a gente gosta de fazer.</p>
             <Link href="/produtos" className="ago-premium-text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
           </div>
 
@@ -49,7 +49,7 @@ export default function HomePage() {
           </div>
 
           <div className="ago-collection-after-grid">
-            <span>Escolha a peça que fica.</span>
+            <span>Tem peça que a gente escolhe e pronto.</span>
             <Link href="/produtos" className="ago-premium-dark-cta">Explorar a coleção</Link>
           </div>
         </div>
@@ -80,7 +80,7 @@ export default function HomePage() {
         <div className="ago-container ago-premium-hero-content">
           <p className="eyebrow">A Agô</p>
           <h2 id="hero-title">Feito à mão.<br />Feito para ficar.</h2>
-          <p>Um pouco de Trancoso, feito para acompanhar a vida.</p>
+          <p>Da nossa banca, no Quadrado, para a sua casa.</p>
           <Link href="/produtos" className="ago-premium-hero-cta">Escolher uma peça</Link>
         </div>
       </section>
@@ -99,8 +99,8 @@ export default function HomePage() {
           </div>
           <div className="ago-premium-copy">
             <p className="eyebrow">Da Bahia para sua casa</p>
-            <h2 id="story-title">Tem coisas que a gente leva. E tem coisas que ficam.</h2>
-            <p>O barro, a arquitetura, a fé e as lembranças de Trancoso aparecem em cada forma.</p>
+            <h2 id="story-title">Tem lembrança que vai embora com a gente.</h2>
+            <p>O barro, as casinhas do Quadrado e as lembranças de Trancoso estão por toda parte.</p>
             <Link href="/nossa-essencia" className="ago-premium-text-link">Conheça a Agô <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
@@ -137,7 +137,7 @@ export default function HomePage() {
           <div className="ago-premium-section-head ago-premium-how-head">
             <div>
               <p className="eyebrow">Compra fácil</p>
-              <h2 id="how-title">Escolha o que vai levar um pouco de Trancoso para casa.</h2>
+              <h2 id="how-title">Escolha com calma. A peça certa aparece.</h2>
             </div>
           </div>
 
@@ -145,17 +145,17 @@ export default function HomePage() {
             <article>
               <span>01</span>
               <h3>Escolha</h3>
-              <p>Encontre sua peça.</p>
+              <p>Veja o que combina com você.</p>
             </article>
             <article>
               <span>02</span>
               <h3>Peça</h3>
-              <p>Adicione ao carrinho.</p>
+              <p>Coloque no carrinho.</p>
             </article>
             <article>
               <span>03</span>
               <h3>Receba</h3>
-              <p>A gente prepara e envia com cuidado.</p>
+              <p>A gente embala e manda para você.</p>
             </article>
           </div>
 
@@ -167,8 +167,8 @@ export default function HomePage() {
         <div className="ago-container ago-premium-visit-grid">
           <div>
             <p className="eyebrow">Visite a Agô</p>
-            <h2 id="visit-title">Chegou ao Quadrado?<br />Procure a Agô.</h2>
-            <p>Nossa banca fica no Quadrado de Trancoso.</p>
+            <h2 id="visit-title">Passou pelo Quadrado?<br />Vem ver a Agô.</h2>
+            <p>A gente está no Quadrado de Trancoso.</p>
             <div className="ago-premium-visit-links">
               <a href={mapsUrl} target="_blank" rel="noreferrer">Google Maps <span aria-hidden="true">↗</span></a>
               <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
