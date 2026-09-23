@@ -1,8 +1,8 @@
 const benefits = [
-  { title: 'feito à mão', text: 'cuidado e tradição em cada detalhe.', icon: 'handmade' },
-  { title: 'peças exclusivas', text: 'escolhas especiais para quem valoriza o feito à mão.', icon: 'ceramic' },
-  { title: 'inspiração brasileira', text: 'cores, formas e símbolos da nossa terra.', icon: 'brazil' },
-  { title: 'envio para todo brasil', text: 'receba com segurança na sua casa.', icon: 'shipping' },
+  { title: 'feito à mão', text: 'feito por mãos que conhecem o trabalho.', icon: 'handmade' },
+  { title: 'peças exclusivas', text: 'peças para quem gosta de coisa com história.', icon: 'ceramic' },
+  { title: 'inspiração brasileira', text: 'Trancoso, Bahia e Brasil nas formas.', icon: 'brazil' },
+  { title: 'envio para todo brasil', text: 'a gente embala bem e manda para você.', icon: 'shipping' },
 ] as const;
 
 type BenefitIconType = (typeof benefits)[number]['icon'];
