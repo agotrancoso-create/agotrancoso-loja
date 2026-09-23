@@ -6405,3 +6405,299 @@ html,body,#__next{
     transition:none!important;
   }
 }
+
+
+/* ==========================================================================
+   AGÔ — BENEFÍCIOS | REFERÊNCIA EDITORIAL
+   Estrutura inspirada na referência enviada: quatro benefícios limpos,
+   ícones lineares acima do texto e divisórias verticais.
+   ========================================================================== */
+
+.benefits-strip.ago-benefits-reference{
+  padding:0!important;
+  background:#E8D9D1!important;
+  border:0!important;
+}
+
+.ago-benefits-reference-grid{
+  width:min(1180px,calc(100% - 40px))!important;
+  min-height:188px!important;
+  margin:0 auto!important;
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  align-items:stretch!important;
+}
+
+.ago-benefit-reference-item{
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:30px 26px 28px!important;
+  text-align:center!important;
+  border-left:1px solid rgba(69,48,41,.38)!important;
+}
+
+.ago-benefit-reference-item:first-child{
+  border-left:0!important;
+}
+
+.ago-benefit-reference-icon{
+  width:62px!important;
+  height:62px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  margin:0 auto 14px!important;
+  color:#5A4136!important;
+}
+
+.ago-benefit-reference-icon svg{
+  width:62px!important;
+  height:62px!important;
+  display:block!important;
+  overflow:visible!important;
+  stroke:currentColor!important;
+  stroke-width:1.35!important;
+  fill:none!important;
+}
+
+.ago-benefit-reference-item:nth-child(3) .ago-benefit-reference-icon{
+  color:#62483B!important;
+}
+
+.ago-benefit-reference-item:nth-child(4) .ago-benefit-reference-icon{
+  color:#5A4136!important;
+}
+
+.ago-benefit-reference-item h2{
+  margin:0!important;
+  color:#49342B!important;
+  font-family:'Cormorant Garamond',Georgia,serif!important;
+  font-size:clamp(21px,1.7vw,27px)!important;
+  font-weight:500!important;
+  line-height:.98!important;
+  letter-spacing:-.02em!important;
+  text-wrap:balance!important;
+}
+
+.ago-benefit-reference-item p{
+  max-width:205px!important;
+  margin:6px auto 0!important;
+  color:#58443B!important;
+  font-family:'DM Sans',Arial,sans-serif!important;
+  font-size:12px!important;
+  font-weight:400!important;
+  line-height:1.42!important;
+  text-wrap:balance!important;
+}
+
+/* Pequeno refinamento ao passar o mouse, sem transformar o bloco em cards. */
+.ago-benefit-reference-item{
+  transition:background-color .22s ease!important;
+}
+.ago-benefit-reference-item:hover{
+  background:rgba(255,253,249,.16)!important;
+}
+.ago-benefit-reference-item:hover .ago-benefit-reference-icon svg{
+  transform:translateY(-2px)!important;
+}
+.ago-benefit-reference-icon svg{
+  transition:transform .22s ease!important;
+}
+
+/* Tablet preserva a mesma composição visual. */
+@media (min-width:768px) and (max-width:1100px){
+  .ago-benefits-reference-grid{
+    width:calc(100% - 32px)!important;
+    min-height:170px!important;
+  }
+
+  .ago-benefit-reference-item{
+    padding:24px 12px 22px!important;
+  }
+
+  .ago-benefit-reference-icon{
+    width:54px!important;
+    height:54px!important;
+    margin-bottom:11px!important;
+  }
+
+  .ago-benefit-reference-icon svg{
+    width:54px!important;
+    height:54px!important;
+  }
+
+  .ago-benefit-reference-item h2{
+    font-size:21px!important;
+  }
+
+  .ago-benefit-reference-item p{
+    max-width:165px!important;
+    font-size:11px!important;
+  }
+}
+
+/* Mobile mantém o mesmo desenho, reorganizado em 2 × 2 para leitura. */
+@media (max-width:767px){
+  .benefits-strip.ago-benefits-reference{
+    background:#E8D9D1!important;
+  }
+
+  .ago-benefits-reference-grid{
+    width:calc(100% - 28px)!important;
+    min-height:0!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+
+  .ago-benefit-reference-item,
+  .ago-benefit-reference-item:first-child{
+    min-height:174px!important;
+    padding:24px 12px 22px!important;
+    border-left:0!important;
+  }
+
+  .ago-benefit-reference-item:nth-child(2n){
+    border-left:1px solid rgba(69,48,41,.38)!important;
+  }
+
+  .ago-benefit-reference-item:nth-child(n+3){
+    border-top:1px solid rgba(69,48,41,.38)!important;
+  }
+
+  .ago-benefit-reference-icon{
+    width:52px!important;
+    height:52px!important;
+    margin-bottom:11px!important;
+  }
+
+  .ago-benefit-reference-icon svg{
+    width:52px!important;
+    height:52px!important;
+  }
+
+  .ago-benefit-reference-item h2{
+    max-width:155px!important;
+    font-size:20px!important;
+  }
+
+  .ago-benefit-reference-item p{
+    max-width:160px!important;
+    margin-top:6px!important;
+    font-size:11.5px!important;
+    line-height:1.45!important;
+  }
+}
+
+@media (max-width:430px){
+  .ago-benefits-reference-grid{
+    width:calc(100% - 20px)!important;
+  }
+
+  .ago-benefit-reference-item{
+    min-height:164px!important;
+    padding:20px 8px!important;
+  }
+
+  .ago-benefit-reference-icon{
+    width:48px!important;
+    height:48px!important;
+    margin-bottom:10px!important;
+  }
+
+  .ago-benefit-reference-icon svg{
+    width:48px!important;
+    height:48px!important;
+  }
+
+  .ago-benefit-reference-item h2{
+    font-size:18px!important;
+  }
+
+  .ago-benefit-reference-item p{
+    font-size:10.5px!important;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .ago-benefit-reference-item,
+  .ago-benefit-reference-icon svg{
+    transition:none!important;
+  }
+  .ago-benefit-reference-item:hover .ago-benefit-reference-icon svg{
+    transform:none!important;
+  }
+}
+
+/* ==========================================================================
+   AGÔ — ACABAMENTO GLOBAL / UNIDADE RESPONSIVA
+   ========================================================================== */
+
+.ago-home{
+  width:100%!important;
+  overflow:hidden!important;
+}
+
+.ago-home section{
+  isolation:isolate;
+}
+
+.ago-premium-section-head{
+  width:min(1180px,calc(100% - 40px))!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+.ago-premium-hero-content{
+  width:min(1180px,calc(100% - 40px))!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+.ago-premium-hero-cta,
+.ago-premium-dark-cta,
+.product-add,
+.product-primary-cta,
+.contact-location-button,
+.checkout-submit,
+.cart-checkout{
+  border-radius:10px!important;
+}
+
+.ago-premium-product-grid-featured .product-image-wrap,
+.product-image-wrap{
+  border-radius:24px!important;
+  border:0!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+
+.ago-premium-image,
+.ago-premium-discovery-image,
+.essencia-image,
+.product-gallery-main{
+  border-radius:28px!important;
+  border:0!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+
+@media (max-width:767px){
+  .ago-premium-section-head,
+  .ago-premium-hero-content{
+    width:calc(100% - 28px)!important;
+  }
+
+  .ago-premium-product-grid-featured .product-image-wrap,
+  .product-image-wrap{
+    border-radius:20px!important;
+  }
+
+  .ago-premium-image,
+  .ago-premium-discovery-image,
+  .essencia-image,
+  .product-gallery-main{
+    border-radius:22px!important;
+  }
+}
