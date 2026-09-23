@@ -10,15 +10,23 @@ export default function CartIcon({ size = 30 }: { size?: number }) {
       shapeRendering="geometricPrecision"
     >
       <path
-        d="M3.5 5h2l1.6 10.4h10.6l2.15-7.5H6.1"
+        d="M3.5 4.5h2l2.2 10.2a2 2 0 0 0 2 1.6h7.1a2 2 0 0 0 1.92-1.44L20.6 7H6.15"
+        fill="none"
         stroke="currentColor"
-        strokeWidth="1.55"
+        strokeWidth="1.65"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="none"
       />
-      <circle cx="9" cy="19" r="1.05" fill="currentColor" />
-      <circle cx="17" cy="19" r="1.05" fill="currentColor" />
+      <path
+        d="M8.2 10.1h10.9"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.1"
+        strokeLinecap="round"
+        opacity=".7"
+      />
+      <circle cx="9.3" cy="19.2" r="1.05" fill="currentColor" />
+      <circle cx="17.2" cy="19.2" r="1.05" fill="currentColor" />
     </svg>
   );
 }
