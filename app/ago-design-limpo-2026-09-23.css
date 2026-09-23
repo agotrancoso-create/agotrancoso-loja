@@ -8450,3 +8450,144 @@ input:focus-visible{
     font-size:clamp(4rem,16vw,5.7rem)!important;
   }
 }
+
+
+/* ==========================================================================
+   AGÔ — FOTOGRAFIAS + BENEFÍCIOS EM EMOJI
+   ========================================================================== */
+
+/* Todas as fotografias da home têm o mesmo acabamento arredondado.
+   Logo e elementos de interface permanecem fora desta regra. */
+.ago-home img{
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:26px!important;
+}
+
+.ago-home .ago-premium-hero-image{
+  border-radius:30px!important;
+  filter:saturate(.94) contrast(.98)!important;
+}
+
+.ago-home .ago-premium-image,
+.ago-home .ago-premium-discovery-image,
+.ago-home .product-image-wrap{
+  overflow:hidden!important;
+  border-radius:26px!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+
+.ago-home .ago-premium-image img,
+.ago-home .ago-premium-discovery-image img,
+.ago-home .product-image-wrap img{
+  border-radius:inherit!important;
+}
+
+/* Benefícios: emoji grande, central e limpo, na lógica da referência. */
+.benefits-strip.ago-benefits-reference{
+  background:#E6D3CC!important;
+}
+
+.ago-benefit-reference-icon{
+  width:68px!important;
+  height:68px!important;
+  margin:0 auto 10px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif!important;
+  font-size:43px!important;
+  line-height:1!important;
+  filter:saturate(.82)!important;
+  transform:translateZ(0)!important;
+}
+
+.ago-benefit-reference-item{
+  border-left-color:rgba(67,48,41,.28)!important;
+}
+
+.ago-benefit-reference-item:hover .ago-benefit-reference-icon{
+  transform:translateY(-2px) scale(1.03)!important;
+}
+
+.ago-benefit-reference-item h2{
+  font-size:clamp(22px,1.7vw,28px)!important;
+}
+
+.ago-benefit-reference-item p{
+  max-width:210px!important;
+  font-size:11.5px!important;
+  line-height:1.42!important;
+}
+
+@media (min-width:768px) and (max-width:1100px){
+  .ago-home img{
+    border-radius:24px!important;
+  }
+
+  .ago-home .ago-premium-hero-image{
+    border-radius:26px!important;
+  }
+
+  .ago-benefit-reference-icon{
+    width:56px!important;
+    height:56px!important;
+    font-size:35px!important;
+  }
+}
+
+@media (max-width:767px){
+  .ago-home img{
+    border-radius:21px!important;
+  }
+
+  .ago-home .ago-premium-hero-image{
+    border-radius:22px!important;
+  }
+
+  .ago-benefit-reference-icon{
+    width:52px!important;
+    height:52px!important;
+    font-size:32px!important;
+  }
+
+  .ago-benefit-reference-item h2{
+    font-size:19px!important;
+  }
+
+  .ago-benefit-reference-item p{
+    max-width:155px!important;
+    font-size:10.5px!important;
+  }
+}
+
+@media (max-width:430px){
+  .ago-home img{
+    border-radius:18px!important;
+  }
+
+  .ago-home .ago-premium-hero-image{
+    border-radius:20px!important;
+  }
+
+  .ago-benefit-reference-icon{
+    width:46px!important;
+    height:46px!important;
+    font-size:28px!important;
+  }
+
+  .ago-benefit-reference-item h2{
+    font-size:18px!important;
+  }
+
+  .ago-benefit-reference-item p{
+    font-size:10px!important;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .ago-benefit-reference-item:hover .ago-benefit-reference-icon{
+    transform:none!important;
+  }
+}
