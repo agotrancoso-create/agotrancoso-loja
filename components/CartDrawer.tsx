@@ -62,7 +62,7 @@ export default function CartDrawer() {
         <div className="cart-header">
           <div className="cart-header-title">
             <CartIcon size={22} />
-            <h2 id="ago-cart-title">Suas peças</h2>
+            <h2 id="ago-cart-title">Sua seleção</h2>
           </div>
           <button ref={closeRef} type="button" onClick={closeDrawer} aria-label="Fechar carrinho" className="cart-close">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -74,8 +74,8 @@ export default function CartDrawer() {
         <div className="cart-body">
           {lines.length === 0 ? (
             <div className="cart-empty">
-              <p>Seu carrinho está vazio.</p>
-              <span>Explore a coleção e encontre uma peça para levar um pouco de Trancoso para sua casa.</span>
+              <p>Sua seleção está vazia.</p>
+              <span>Escolha uma peça para levar um pouco de Trancoso para sua casa.</span>
               <Link href="/produtos" onClick={closeDrawer}>Continuar comprando</Link>
             </div>
           ) : (
@@ -147,7 +147,7 @@ export default function CartDrawer() {
             <div className="cart-summary-row"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
             <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
             <div className="cart-total-row"><span>Total</span><strong>{formatBRL(total)}</strong></div>
-            <Link href="/checkout" onClick={closeDrawer} className="cart-checkout">Finalizar compra</Link>
+            <Link href="/checkout" onClick={closeDrawer} className="cart-checkout">Finalizar pedido</Link>
             <button type="button" onClick={closeDrawer} className="cart-continue">Continuar comprando</button>
           </div>
         )}
