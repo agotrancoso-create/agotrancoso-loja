@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { INSTAGRAM_URL, INSTAGRAM_HANDLE, SITE_DOMAIN_LABEL, whatsappLink } from '@/lib/config';
 
 const TIKTOK_URL = 'https://www.tiktok.com/@agotrancoso';
+const MAPS_URL = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu';
 
 export default function Footer() {
   return (
@@ -46,10 +47,10 @@ export default function Footer() {
             </nav>
           </div>
 
-          <div className="ago-footer-purchase">
-            <span className="ago-footer-mini-label">Envio</span>
-            <strong>Frete fixo de R$ 39,90</strong>
-            <p>Grátis acima de R$ 500.</p>
+          <div className="ago-footer-column ago-footer-visit">
+            <h4>Visite</h4>
+            <p>Você encontra a Agô no Quadrado de Trancoso.</p>
+            <a href={MAPS_URL} target="_blank" rel="noopener noreferrer">Abrir no Google Maps</a>
           </div>
         </div>
 
