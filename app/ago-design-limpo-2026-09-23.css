@@ -9635,3 +9635,55 @@ h1,h2,h3,.ago-premium-section-head h1,.ago-premium-section-head h2,.ago-premium-
   }
 }
 
+/* AGÔ — tipografia editorial renovada */
+html,body{
+  font-family:'Manrope',Arial,sans-serif!important;
+}
+h1,h2,h3,
+.section-title,
+.catalog-intro h1,
+.product-detail-title,
+.essencia-copy h1,
+.contact-copy h1,
+.info-panel h2,
+.checkout-title,
+.product-name,
+.feature-title,
+.ago-premium-section-head h1,
+.ago-premium-section-head h2,
+.ago-premium-copy h2,
+.ago-premium-how h2,
+.ago-premium-how-grid article h3,
+.ago-premium-visit h2,
+.ago-benefits-heading>span,
+.ago-benefit-reference-item h2,
+.ago-premium-discovery-copy>span{
+  font-family:'Fraunces',Georgia,serif!important;
+  font-weight:600!important;
+  font-optical-sizing:auto!important;
+}
+.ago-home p,
+.ago-home a,
+.ago-home button,
+.ago-home span,
+.ago-home input{
+  font-family:'Manrope',Arial,sans-serif;
+}
+.ago-collection-intro-brand h1,
+.ago-premium-hero h2,
+.ago-home-story .ago-premium-copy h2,
+.ago-premium-section-head h2,
+.ago-premium-how-head h2,
+.ago-premium-visit h2{
+  letter-spacing:-.035em!important;
+}
+@media (max-width:767px){
+  .ago-collection-intro-brand h1,
+  .ago-premium-hero h2,
+  .ago-home-story .ago-premium-copy h2,
+  .ago-premium-section-head h2,
+  .ago-premium-how-head h2,
+  .ago-premium-visit h2{
+    letter-spacing:-.025em!important;
+  }
+}
