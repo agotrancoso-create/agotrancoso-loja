@@ -39,6 +39,7 @@ export default function Header() {
 
   return (
     <>
+      <a className="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
       <div className="ago-topbar" aria-label="Informações comerciais">
         <span className="ago-topbar-offer">3% OFF na 1ª compra</span>
         <i aria-hidden="true" />
