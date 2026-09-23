@@ -75,7 +75,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         </div>
       </Link>
       {product.available && (
-        <button type="button" onClick={() => { addItem(product.id); trackAddToCart({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category }); }} className="product-add" aria-label={`Adicionar ${product.name} ao carrinho`}>
+        <button type="button" onClick={() => { addItem(product.id); trackAddToCart({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category }); }} className="product-add ago-premium-add" aria-label={`Adicionar ${product.name} ao carrinho`}>
           Adicionar ao carrinho
         </button>
       )}
