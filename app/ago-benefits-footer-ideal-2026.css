@@ -361,3 +361,58 @@ html body .ago-footer-bottom{
     font-size:8.4px!important;
   }
 }
+
+
+/* RODAPÉ FINAL — quatro zonas informativas, sem bloco de frete */
+html body .ago-ideal-footer .ago-footer-top{
+  grid-template-columns:minmax(0,1.65fr) minmax(110px,.55fr) minmax(165px,.72fr) minmax(190px,.78fr)!important;
+  gap:54px!important;
+  align-items:start!important;
+}
+html body .ago-ideal-footer .ago-footer-visit p{
+  max-width:190px!important;
+  margin:0 0 12px!important;
+  color:rgba(255,253,249,.60)!important;
+  font:400 11px/1.7 'Lato',Arial,sans-serif!important;
+  text-align:left!important;
+}
+html body .ago-ideal-footer .ago-footer-visit > a{
+  color:#E7B19E!important;
+  font:800 8px/1.2 'Lato',Arial,sans-serif!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+}
+html body .ago-ideal-footer .ago-footer-visit > a:hover{
+  color:var(--ago-ideal-ivory)!important;
+}
+
+@media(max-width:1000px){
+  html body .ago-ideal-footer .ago-footer-top{
+    grid-template-columns:1.35fr 1fr 1fr!important;
+    gap:36px!important;
+  }
+  html body .ago-ideal-footer .ago-footer-visit{
+    grid-column:1 / -1!important;
+    padding-top:22px!important;
+    border-top:1px solid rgba(255,253,249,.10)!important;
+  }
+}
+
+@media(max-width:700px){
+  html body .ago-ideal-footer .ago-footer-top{
+    grid-template-columns:1fr!important;
+    gap:27px!important;
+  }
+  html body .ago-ideal-footer .ago-footer-visit{
+    grid-column:auto!important;
+    padding-top:27px!important;
+  }
+  html body .ago-ideal-footer .ago-footer-visit p{
+    max-width:300px!important;
+    margin-bottom:10px!important;
+    font-size:11px!important;
+  }
+  html body .ago-ideal-footer .ago-footer-bottom{
+    margin-top:38px!important;
+  }
+}
