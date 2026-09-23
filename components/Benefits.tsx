@@ -70,8 +70,8 @@ export default function Benefits() {
         </div>
 
         <div className="ago-ideal-benefits-grid">
-          {benefits.map((item) => (
-            <article className="ago-clean-benefit ago-ideal-benefit" key={item.title}>
+          {benefits.map((item, index) => (
+            <article className="ago-clean-benefit ago-ideal-benefit" key={item.title} data-benefit-index={String(index + 1).padStart(2, '0')}>
               <span className="ago-lineart-benefit-icon" aria-hidden="true">
                 <BenefitIcon type={item.icon} />
               </span>
