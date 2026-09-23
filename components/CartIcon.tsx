@@ -1,15 +1,8 @@
 export default function CartIcon({ size = 30 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M3 4.5h2.15l1.42 9.17a2 2 0 0 0 1.98 1.7h7.75a2 2 0 0 0 1.94-1.52L20.2 7H6"
-        stroke="#8E4B32"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="9.2" cy="19" r="1.35" fill="#8E4B32" />
-      <circle cx="17.1" cy="19" r="1.35" fill="#8E4B32" />
+      <path d="M5.2 8.2h13.6l-1.1 10.1H6.3L5.2 8.2Z" stroke="currentColor" strokeWidth="1.45" strokeLinejoin="round" />
+      <path d="M8.8 9V7.7a3.2 3.2 0 0 1 6.4 0V9" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" />
     </svg>
   );
 }
