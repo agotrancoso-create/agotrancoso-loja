@@ -10,9 +10,9 @@ export default function SocialFloaters() {
         aria-label="Falar com a Agô Trancoso pelo WhatsApp"
         className="ago-social-button ago-social-whatsapp"
       >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 2.8a9.2 9.2 0 0 0-7.95 13.82L3.1 21l4.55-1.08A9.2 9.2 0 1 0 12 2.8Z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
-          <path d="M8.45 8.4c.18-.42.38-.43.7-.44.16 0 .34 0 .52.01.16.01.36.06.5.39l.67 1.56c.08.18.05.32-.03.46l-.46.62c-.1.12-.2.27-.09.47.11.21.5.83 1.08 1.35.75.67 1.38.89 1.59.99.2.1.32.08.44-.05l.6-.72c.13-.15.27-.16.45-.09l1.52.73c.18.08.3.12.34.2.04.08.04.47-.11.91-.15.44-.85.84-1.17.88-.31.04-.71.06-1.15-.08-.27-.08-.62-.2-1.07-.41-1.89-.83-3.13-2.76-3.23-2.88-.1-.13-.77-1.02-.77-1.95 0-.93.49-1.39.67-1.58Z" fill="currentColor" />
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" shapeRendering="geometricPrecision">
+          <path d="M12 3.2a8.55 8.55 0 0 0-7.3 12.95L3.6 20.4l4.38-1.04A8.55 8.55 0 1 0 12 3.2Z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+          <path d="M8.65 8.8c.18-.38.37-.4.67-.4.16 0 .32.01.49.02.17.02.34.07.47.37l.62 1.43c.08.18.05.32-.03.45l-.42.57c-.1.13-.19.26-.09.45.11.2.48.77 1.02 1.3.64.62 1.24.84 1.45.95.19.1.3.08.42-.05l.55-.66c.12-.14.25-.16.42-.09l1.41.67c.17.08.28.12.32.2.04.08.04.43-.1.83-.14.4-.78.77-1.08.81-.3.04-.67.06-1.08-.07-.26-.08-.58-.19-1.0-.38-1.73-.76-2.92-2.53-3.01-2.65-.09-.12-.71-.94-.71-1.82 0-.86.46-1.3.63-1.48Z" fill="currentColor" />
         </svg>
       </a>
 
@@ -23,10 +23,10 @@ export default function SocialFloaters() {
         aria-label="Abrir o Instagram da Agô Trancoso"
         className="ago-social-button ago-social-instagram"
       >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" strokeWidth="1.7" />
-          <circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" strokeWidth="1.7" />
-          <circle cx="17.3" cy="6.8" r="1" fill="currentColor" />
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" shapeRendering="geometricPrecision">
+          <rect x="4.2" y="4.2" width="15.6" height="15.6" rx="4.4" fill="none" stroke="currentColor" strokeWidth="1.85" />
+          <circle cx="12" cy="12" r="3.45" fill="none" stroke="currentColor" strokeWidth="1.85" />
+          <circle cx="17.15" cy="6.85" r="1.05" fill="currentColor" />
         </svg>
       </a>
     </div>
