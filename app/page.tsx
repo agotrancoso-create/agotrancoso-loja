@@ -97,6 +97,8 @@ export default function HomePage() {
               alt="Igrejinhas de cerâmica da Agô Trancoso"
               fill
               sizes="(max-width: 900px) 100vw, 56vw"
+              quality={92}
+              className="ago-complementary-photo"
             />
           </div>
           <div className="ago-clean-edit-copy">
