@@ -6061,3 +6061,347 @@ html,body,#__next{
     transition:none!important;
   }
 }
+
+
+/* ==========================================================================
+   AGÔ — SISTEMA RESPONSIVO FINAL
+   Mesma linguagem visual em desktop, tablet e celular.
+   ========================================================================== */
+
+/* A seção de benefícios usa uma única linguagem espacial; apenas o número
+   de colunas muda para preservar conforto de leitura em telas menores. */
+.benefits-strip{
+  padding:clamp(64px,7vw,92px) 0!important;
+  background:#DCC39B!important;
+}
+
+.ago-clean-benefits-grid{
+  width:min(1180px,calc(100% - 40px))!important;
+  margin:0 auto!important;
+  display:grid!important;
+  grid-template-columns:minmax(250px,.74fr) minmax(0,1.7fr)!important;
+  gap:clamp(36px,5vw,72px)!important;
+  align-items:center!important;
+}
+
+.ago-benefits-heading{
+  padding:0 14px 0 0!important;
+  max-width:360px!important;
+}
+
+.ago-benefits-heading .eyebrow{
+  margin-bottom:14px!important;
+}
+
+.ago-benefits-heading>span{
+  max-width:340px!important;
+  font-size:clamp(2.55rem,4vw,4.1rem)!important;
+  line-height:.92!important;
+  font-weight:500!important;
+}
+
+.ago-benefits-heading::after{
+  bottom:-30px!important;
+  width:56px!important;
+  height:2px!important;
+}
+
+.ago-ideal-benefits-grid{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+
+.ago-clean-benefit,
+.ago-clean-benefit:first-child,
+.ago-clean-benefit:last-child{
+  border:1px solid rgba(67,42,35,.11)!important;
+  border-radius:20px!important;
+  background:rgba(255,253,249,.38)!important;
+}
+
+.ago-clean-benefit{
+  min-height:214px!important;
+  padding:24px 20px 22px!important;
+}
+
+.ago-clean-benefit:hover{
+  transform:translateY(-4px)!important;
+  background:rgba(255,253,249,.68)!important;
+  box-shadow:0 16px 34px rgba(67,42,35,.10)!important;
+}
+
+.ago-clean-benefit::before{
+  top:16px!important;
+  right:17px!important;
+  color:rgba(67,42,35,.34)!important;
+}
+
+.ago-lineart-benefit-icon{
+  position:relative!important;
+  width:58px!important;
+  height:58px!important;
+  flex:0 0 58px!important;
+  margin-bottom:20px!important;
+  border:1px solid rgba(67,42,35,.08)!important;
+  border-radius:50%!important;
+  box-shadow:0 4px 14px rgba(67,42,35,.05)!important;
+  transition:transform .28s ease,box-shadow .28s ease!important;
+}
+
+.ago-lineart-benefit-icon::after{
+  content:''!important;
+  position:absolute!important;
+  inset:4px!important;
+  border:1px solid currentColor!important;
+  border-radius:50%!important;
+  opacity:.10!important;
+}
+
+.ago-clean-benefit:hover .ago-lineart-benefit-icon{
+  transform:translateY(-2px) rotate(-2deg)!important;
+  box-shadow:0 8px 18px rgba(67,42,35,.08)!important;
+}
+
+.ago-lineart-benefit-icon svg{
+  position:relative!important;
+  z-index:1!important;
+  width:35px!important;
+  height:35px!important;
+  stroke-width:1.22!important;
+}
+
+.ago-clean-benefit h3{
+  max-width:200px!important;
+  font-size:25px!important;
+  line-height:.98!important;
+}
+
+.ago-clean-benefit p{
+  max-width:200px!important;
+  margin-top:10px!important;
+  font-size:13px!important;
+  line-height:1.62!important;
+}
+
+/* Cores dos símbolos: uma família visual, com pequenas diferenças para
+   criar ritmo sem parecer aleatório. */
+.benefit-icon-handmade{color:#A95A43!important;background:#F7E8DE!important}
+.benefit-icon-ceramic{color:#944936!important;background:#F1DED5!important}
+.benefit-icon-trancoso{color:#87613B!important;background:#EEE1CA!important}
+.benefit-icon-shipping{color:#355B69!important;background:#DFEBEE!important}
+
+/* Mesmo sistema de cantos e respiro nos blocos de conteúdo da home. */
+.ago-premium-section-head,
+.ago-premium-split,
+.ago-premium-visit-grid,
+.ago-premium-how-grid{
+  width:min(1180px,calc(100% - 40px))!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+.ago-premium-section-head{margin-bottom:clamp(32px,4vw,48px)!important}
+.ago-premium-collection{padding-top:clamp(62px,6vw,92px)!important}
+.ago-premium-editorial,
+.ago-premium-essence,
+.ago-premium-discovery,
+.ago-premium-how,
+.ago-premium-visit{
+  padding-top:clamp(68px,7vw,104px)!important;
+  padding-bottom:clamp(68px,7vw,104px)!important;
+}
+
+.ago-premium-image,
+.ago-premium-discovery-image,
+.essencia-image{
+  border-radius:28px!important;
+}
+
+/* Tablet: conserva o mesmo desenho, apenas reorganiza o conteúdo. */
+@media (min-width:768px) and (max-width:1100px){
+  .ago-clean-benefits-grid{
+    grid-template-columns:1fr!important;
+    gap:42px!important;
+    align-items:start!important;
+  }
+
+  .ago-benefits-heading{
+    max-width:640px!important;
+  }
+
+  .ago-benefits-heading>span{
+    max-width:560px!important;
+  }
+
+  .ago-ideal-benefits-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+
+  .ago-clean-benefit{
+    min-height:188px!important;
+  }
+
+  .ago-premium-product-grid-featured{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+
+  .ago-premium-discovery-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+/* Celular: mesma identidade, mesma paleta, mesma proporção dos componentes;
+   somente a composição fica vertical para facilitar o uso com uma mão. */
+@media (max-width:767px){
+  .ago-clean-benefits-grid,
+  .ago-premium-section-head,
+  .ago-premium-split,
+  .ago-premium-visit-grid,
+  .ago-premium-how-grid{
+    width:calc(100% - 28px)!important;
+  }
+
+  .benefits-strip{
+    padding:68px 0!important;
+  }
+
+  .ago-clean-benefits-grid{
+    grid-template-columns:1fr!important;
+    gap:40px!important;
+    align-items:start!important;
+  }
+
+  .ago-benefits-heading{
+    max-width:100%!important;
+    padding:0!important;
+  }
+
+  .ago-benefits-heading>span{
+    max-width:330px!important;
+    font-size:clamp(2.65rem,11.5vw,4rem)!important;
+  }
+
+  .ago-benefits-heading::after{
+    bottom:-24px!important;
+  }
+
+  .ago-ideal-benefits-grid{
+    grid-template-columns:1fr 1fr!important;
+    gap:10px!important;
+  }
+
+  .ago-clean-benefit,
+  .ago-clean-benefit:first-child,
+  .ago-clean-benefit:last-child{
+    min-height:184px!important;
+    padding:20px 15px 18px!important;
+    border-radius:18px!important;
+  }
+
+  .ago-clean-benefit::before{
+    top:12px!important;
+    right:12px!important;
+    font-size:8px!important;
+  }
+
+  .ago-lineart-benefit-icon{
+    width:50px!important;
+    height:50px!important;
+    flex-basis:50px!important;
+    margin-bottom:16px!important;
+  }
+
+  .ago-lineart-benefit-icon svg{
+    width:30px!important;
+    height:30px!important;
+  }
+
+  .ago-clean-benefit h3{
+    max-width:155px!important;
+    font-size:20px!important;
+  }
+
+  .ago-clean-benefit p{
+    max-width:165px!important;
+    font-size:12px!important;
+    line-height:1.55!important;
+  }
+
+  .ago-clean-benefit:hover{
+    transform:none!important;
+    box-shadow:none!important;
+  }
+
+  .ago-clean-benefit:hover .ago-lineart-benefit-icon{
+    transform:none!important;
+    box-shadow:0 4px 14px rgba(67,42,35,.05)!important;
+  }
+
+  .ago-premium-product-grid-featured{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+
+  .ago-premium-section-head{
+    gap:22px!important;
+  }
+
+  .ago-premium-image,
+  .ago-premium-discovery-image,
+  .essencia-image{
+    border-radius:22px!important;
+  }
+}
+
+@media (max-width:520px){
+  .ago-ideal-benefits-grid{
+    grid-template-columns:1fr!important;
+  }
+
+  .ago-clean-benefit,
+  .ago-clean-benefit:first-child,
+  .ago-clean-benefit:last-child{
+    min-height:0!important;
+    display:grid!important;
+    grid-template-columns:50px minmax(0,1fr)!important;
+    column-gap:14px!important;
+    align-items:start!important;
+  }
+
+  .ago-lineart-benefit-icon{
+    grid-row:1 / span 2!important;
+    margin-bottom:0!important;
+  }
+
+  .ago-benefit-copy{
+    padding-top:2px!important;
+  }
+
+  .ago-clean-benefit h3,
+  .ago-clean-benefit p{
+    max-width:none!important;
+  }
+}
+
+/* Respeita alto contraste sem mudar a arquitetura. */
+@media (prefers-contrast:more){
+  .ago-clean-benefit{
+    background:#FFFDF9!important;
+    border-color:#35231E!important;
+  }
+
+  .ago-lineart-benefit-icon{
+    box-shadow:none!important;
+  }
+
+  .ago-benefits-heading::after{
+    background:#35231E!important;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .ago-lineart-benefit-icon,
+  .ago-clean-benefit{
+    transition:none!important;
+  }
+}
