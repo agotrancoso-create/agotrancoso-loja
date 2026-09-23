@@ -1,0 +1,241 @@
+/* AGÔ — camada de estabilização visual. Escopo separado para não depender das camadas históricas. */
+.ago-home{
+  width:100%!important;
+  overflow:clip!important;
+  background:#F5EEE5!important;
+}
+.ago-home button::before,.ago-home button::after,
+.ago-home .ago-clean-benefit::before,.ago-home .ago-clean-benefit::after{
+  content:none!important;
+}
+.ago-premium-collection-first,
+.ago-premium-editorial,
+.ago-premium-essence,
+.ago-premium-discovery,
+.ago-premium-how,
+.ago-premium-visit,
+.benefits-strip{
+  width:100%!important;
+}
+.ago-premium-product-grid-featured{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:42px 28px!important;
+}
+.ago-premium-product-grid-featured .product-card{
+  width:100%!important;
+}
+.ago-premium-product-grid-featured .product-image-wrap{
+  width:100%!important;
+}
+.ago-premium-section-head h1,
+.ago-premium-section-head h2,
+.ago-premium-copy h2,
+.ago-premium-how-head h2,
+.ago-premium-visit h2{
+  max-width:900px!important;
+}
+.ago-premium-category-nav{
+  display:none!important;
+}
+.ago-premium-collection-bottom{
+  margin-top:30px!important;
+}
+.ago-premium-text-link span,
+.ago-premium-visit-links span{
+  display:inline!important;
+}
+
+/* Header estável */
+.site-header .header-inner{
+  width:min(1180px,calc(100% - 48px))!important;
+  margin-inline:auto!important;
+}
+.site-header .header-logo,
+.site-header .header-actions,
+.site-header .header-nav{
+  min-width:0!important;
+}
+.header-cart-label{
+  width:24px!important;
+  height:24px!important;
+}
+
+/* Rodapé reconstruído: sem dependência das antigas classes */
+.ago-site-footer{
+  position:relative!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  background:#4B2B1E!important;
+  color:#F7EDE3!important;
+}
+.ago-footer-wrap{
+  width:min(1180px,calc(100% - 48px))!important;
+  margin:0 auto!important;
+  padding:76px 0 24px!important;
+}
+.ago-footer-main{
+  display:grid!important;
+  grid-template-columns:minmax(280px,1.45fr) repeat(2,minmax(150px,.7fr)) minmax(190px,.9fr)!important;
+  gap:54px!important;
+  align-items:start!important;
+}
+.ago-footer-brand{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+.ago-footer-logo{
+  display:grid!important;
+  place-items:center!important;
+  width:84px!important;
+  height:84px!important;
+  margin:0 0 20px!important;
+  border-radius:50%!important;
+  background:#FAF6EF!important;
+  overflow:hidden!important;
+}
+.ago-footer-logo img{
+  width:70px!important;
+  height:70px!important;
+  object-fit:contain!important;
+}
+.ago-footer-place{
+  margin:0 0 7px!important;
+  color:#DDB092!important;
+  font:700 9px/1.2 'DM Sans',sans-serif!important;
+  letter-spacing:.16em!important;
+  text-transform:uppercase!important;
+}
+.ago-footer-brand h2{
+  margin:0!important;
+  color:#FFF8F0!important;
+  font:600 40px/.92 'Cormorant Garamond',Georgia,serif!important;
+  letter-spacing:-.035em!important;
+}
+.ago-footer-description{
+  max-width:340px!important;
+  margin:14px 0 0!important;
+  color:rgba(247,237,227,.70)!important;
+  font:400 12px/1.7 'DM Sans',sans-serif!important;
+}
+.ago-footer-group{
+  min-width:0!important;
+}
+.ago-footer-group h3{
+  margin:5px 0 17px!important;
+  color:#DDB092!important;
+  font:700 9px/1 'DM Sans',sans-serif!important;
+  letter-spacing:.16em!important;
+  text-transform:uppercase!important;
+}
+.ago-footer-group nav{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:11px!important;
+}
+.ago-footer-group a,
+.ago-footer-group span,
+.ago-footer-group p{
+  margin:0!important;
+  color:rgba(247,237,227,.75)!important;
+  font:400 11px/1.55 'DM Sans',sans-serif!important;
+  text-align:left!important;
+  text-decoration:none!important;
+}
+.ago-footer-group a:hover{
+  color:#FFF8F0!important;
+}
+.ago-footer-visit-group p{
+  max-width:220px!important;
+  margin-bottom:16px!important;
+}
+.ago-footer-map-link{
+  color:#FFF8F0!important;
+  font-weight:700!important;
+}
+.ago-footer-legal{
+  margin-top:56px!important;
+  padding-top:18px!important;
+  border-top:1px solid rgba(247,237,227,.14)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:20px!important;
+  color:rgba(247,237,227,.45)!important;
+  font:400 9px/1.5 'DM Sans',sans-serif!important;
+}
+.ago-footer-legal>div{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:16px!important;
+}
+.ago-footer-legal a{
+  color:rgba(247,237,227,.55)!important;
+  text-decoration:none!important;
+}
+.ago-footer-legal a:hover{
+  color:#FFF8F0!important;
+}
+
+@media(max-width:900px){
+  .ago-premium-product-grid-featured{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:30px 14px!important;
+  }
+  .ago-footer-main{
+    grid-template-columns:1.2fr 1fr 1fr!important;
+  }
+  .ago-footer-brand{
+    grid-column:1 / -1!important;
+  }
+}
+@media(max-width:767px){
+  .ago-premium-product-grid-featured{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .site-header .header-inner{
+    width:calc(100% - 30px)!important;
+  }
+  .ago-footer-wrap{
+    width:calc(100% - 30px)!important;
+    padding:58px 0 20px!important;
+  }
+  .ago-footer-main{
+    grid-template-columns:1fr 1fr!important;
+    gap:34px 24px!important;
+  }
+  .ago-footer-brand{
+    grid-column:1 / -1!important;
+  }
+  .ago-footer-brand h2{
+    font-size:34px!important;
+  }
+  .ago-footer-logo{
+    width:72px!important;
+    height:72px!important;
+    margin-bottom:16px!important;
+  }
+  .ago-footer-logo img{
+    width:60px!important;
+    height:60px!important;
+  }
+  .ago-footer-group h3{
+    margin-bottom:13px!important;
+  }
+  .ago-footer-group a,
+  .ago-footer-group span,
+  .ago-footer-group p{
+    font-size:10px!important;
+  }
+  .ago-footer-legal{
+    margin-top:38px!important;
+    display:block!important;
+    font-size:8px!important;
+  }
+  .ago-footer-legal>div{
+    margin-bottom:10px!important;
+  }
+}
