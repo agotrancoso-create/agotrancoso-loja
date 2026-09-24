@@ -1,0 +1,178 @@
+/* Correção visual solicitada: história limpa, foto sem moldura e benefícios justificados. */
+
+/* Bloco "Começou no Quadrado": composição editorial simples e alinhada. */
+.ago-home-story .ago-premium-split {
+  grid-template-columns: minmax(0, 1.02fr) minmax(360px, .98fr) !important;
+  align-items: center !important;
+  gap: clamp(42px, 6vw, 88px) !important;
+}
+
+.ago-home-story .ago-premium-image {
+  position: relative !important;
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  overflow: hidden !important;
+  border-radius: var(--ago-photo-final-radius, 18px) !important;
+}
+
+.ago-home-story .ago-premium-image img,
+.ago-home-story .ago-premium-image .ago-complementary-photo {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: inherit !important;
+}
+
+.ago-home-story .ago-premium-copy,
+.ago-home-story .ago-premium-copy .eyebrow,
+.ago-home-story .ago-premium-copy h2,
+.ago-home-story .ago-premium-copy > p,
+.ago-home-story .ago-premium-copy .ago-premium-text-link {
+  text-align: left !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+.ago-home-story .ago-premium-copy {
+  width: 100% !important;
+  max-width: 560px !important;
+  justify-self: start !important;
+  align-items: flex-start !important;
+}
+
+.ago-home-story .ago-premium-copy h2 {
+  max-width: 10ch !important;
+  text-wrap: balance !important;
+}
+
+.ago-home-story .ago-premium-copy > p:not(.eyebrow) {
+  max-width: 48ch !important;
+  line-height: 1.68 !important;
+  text-align: left !important;
+  text-align-last: auto !important;
+  hyphens: manual !important;
+}
+
+.ago-home-story .ago-premium-text-link {
+  justify-content: flex-start !important;
+}
+
+/* Benefícios: quatro blocos proporcionais e distribuídos pela largura. */
+.ago-benefits-reference-inner {
+  width: min(calc(100% - var(--ago-page-pad, 24px) - var(--ago-page-pad, 24px)), var(--ago-content-max, 1320px)) !important;
+  margin-inline: auto !important;
+}
+
+.ago-benefits-grid {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: clamp(18px, 2.4vw, 34px) !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+}
+
+.ago-benefit-item {
+  min-width: 0 !important;
+  height: 100% !important;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  grid-template-rows: auto auto 1fr !important;
+  align-content: start !important;
+  justify-items: stretch !important;
+  gap: 10px !important;
+  padding-inline: clamp(10px, 1.5vw, 20px) !important;
+}
+
+.ago-benefit-symbol,
+.ago-benefit-art {
+  margin-inline: auto !important;
+  justify-self: center !important;
+}
+
+.ago-benefit-copy {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.ago-benefit-copy h3 {
+  text-align: center !important;
+  text-wrap: balance !important;
+}
+
+.ago-benefit-copy p {
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  text-align: justify !important;
+  text-align-last: left !important;
+  text-justify: inter-word !important;
+  hyphens: auto !important;
+  line-height: 1.55 !important;
+}
+
+@media (max-width: 980px) {
+  .ago-home-story .ago-premium-split {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, .9fr) !important;
+    gap: clamp(28px, 4vw, 46px) !important;
+  }
+
+  .ago-benefits-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .ago-home-story .ago-premium-split {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  .ago-home-story .ago-premium-copy {
+    max-width: none !important;
+  }
+
+  .ago-benefit-copy p {
+    text-align: left !important;
+    text-align-last: auto !important;
+    hyphens: manual !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ago-benefits-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+
+  .ago-benefit-item {
+    grid-template-columns: auto minmax(0, 1fr) !important;
+    grid-template-rows: auto !important;
+    align-items: center !important;
+    gap: 14px !important;
+  }
+
+  .ago-benefit-symbol,
+  .ago-benefit-art {
+    grid-row: 1 / span 2;
+  }
+
+  .ago-benefit-copy h3,
+  .ago-benefit-copy p {
+    text-align: left !important;
+  }
+}
