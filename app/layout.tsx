@@ -4,6 +4,7 @@ import MarketingAnalytics from '@/components/MarketingAnalytics';
 import './globals.css';
 import './product-purchase-control.css';
 import './atelier-redesign-2026.css';
+import './atelier-overlays-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
