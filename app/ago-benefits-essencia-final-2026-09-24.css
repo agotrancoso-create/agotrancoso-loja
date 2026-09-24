@@ -1,0 +1,178 @@
+/* Ajustes finais guiados pelas capturas: benefícios compactos e imagem da página A Agô. */
+
+/* Benefícios: ritmo normal, legível e proporcional em qualquer tela. */
+.benefits-strip.ago-benefits-reference {
+  min-height: 0 !important;
+}
+
+.ago-benefits-reference-inner,
+.ago-benefits-grid,
+.ago-benefit-item,
+.ago-benefit-symbol,
+.ago-benefit-copy {
+  min-height: 0 !important;
+}
+
+.ago-benefits-grid {
+  align-items: stretch !important;
+}
+
+.ago-benefit-item {
+  height: auto !important;
+  padding-block: clamp(18px, 2.1vw, 30px) !important;
+}
+
+.ago-benefit-copy {
+  align-self: center !important;
+}
+
+.ago-benefit-copy h3 {
+  margin: 0 0 6px !important;
+  line-height: 1.2 !important;
+}
+
+.ago-benefit-copy p {
+  margin: 0 !important;
+  line-height: 1.48 !important;
+  text-wrap: pretty;
+}
+
+/* A Agô: a foto precisa ter cantos reais, sem borda ou moldura. */
+.essencia-image {
+  position: relative !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: clamp(14px, 1.4vw, 20px) !important;
+}
+
+.essencia-image img,
+.essencia-image .essencia-image-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: inherit !important;
+}
+
+@media (max-width: 700px) {
+  .benefits-strip.ago-benefits-reference {
+    padding-block: 12px !important;
+  }
+
+  .ago-benefits-reference-inner {
+    width: calc(100% - 28px) !important;
+    margin-inline: auto !important;
+  }
+
+  .ago-benefits-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+
+  .ago-benefit-item {
+    display: grid !important;
+    grid-template-columns: 64px minmax(0, 1fr) !important;
+    align-items: center !important;
+    gap: 14px !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    padding: 16px 0 !important;
+    margin: 0 !important;
+  }
+
+  .ago-benefit-item + .ago-benefit-item {
+    border-top: 1px solid rgba(69, 48, 34, .10) !important;
+  }
+
+  .ago-benefit-symbol {
+    width: 58px !important;
+    height: 58px !important;
+    min-width: 58px !important;
+    min-height: 58px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .ago-benefit-art {
+    width: 54px !important;
+    height: 50px !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+  }
+
+  .ago-benefit-copy {
+    display: block !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+  }
+
+  .ago-benefit-copy h3 {
+    margin: 0 0 5px !important;
+    font-size: clamp(.93rem, 4vw, 1.02rem) !important;
+    line-height: 1.18 !important;
+    text-align: left !important;
+  }
+
+  .ago-benefit-copy p {
+    margin: 0 !important;
+    max-width: 31ch !important;
+    font-size: clamp(.76rem, 3.25vw, .84rem) !important;
+    line-height: 1.46 !important;
+    text-align: left !important;
+    text-justify: auto !important;
+  }
+
+  .essencia-image {
+    border-radius: 15px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .ago-benefits-reference-inner {
+    width: calc(100% - 24px) !important;
+  }
+
+  .ago-benefit-item {
+    grid-template-columns: 56px minmax(0, 1fr) !important;
+    gap: 12px !important;
+    padding: 14px 0 !important;
+  }
+
+  .ago-benefit-symbol {
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    min-height: 52px !important;
+  }
+
+  .ago-benefit-art {
+    width: 49px !important;
+    height: 46px !important;
+  }
+
+  .ago-benefit-copy h3 {
+    font-size: .94rem !important;
+  }
+
+  .ago-benefit-copy p {
+    font-size: .76rem !important;
+    line-height: 1.42 !important;
+  }
+
+  .essencia-image {
+    border-radius: 13px !important;
+  }
+}
