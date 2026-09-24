@@ -12,10 +12,7 @@ export default function Benefits() {
   return (
     <section className="benefits-strip ago-benefits-reference" aria-labelledby="benefits-title">
       <div className="ago-container ago-benefits-reference-inner">
-        <div className="ago-benefits-heading">
-          <p className="eyebrow">O jeito Agô</p>
-          <h2 id="benefits-title">O que acompanha cada peça.</h2>
-        </div>
+        <h2 id="benefits-title" className="sr-only">Benefícios da Agô Trancoso</h2>
 
         <div className="ago-benefits-grid">
           {benefits.map(([title, text], index) => (
