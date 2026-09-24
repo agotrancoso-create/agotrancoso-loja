@@ -12,18 +12,10 @@ export async function POST(req: Request) {
     const phone = clean(body.phone, 40);
     const source = clean(body.source, 80) || 'site';
 
-    if (!name || !email || !phone) {
-      return NextResponse.json({ error: 'Preencha nome, e-mail e celular.' }, { status: 400 });
-    }
+    if (!email) return NextResponse.json({ error: 'Informe seu e-mail.' }, { status: 400 });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return NextResponse.json({ error: 'Informe um e-mail válido.' }, { status: 400 });
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ error: 'Informe um e-mail válido.' }, { status: 400 });
-    }
-
-    // Sem um CRM ou banco configurado no projeto, registramos o evento no runtime
-    // para que a captura possa ser conectada a um provedor de e-mail posteriormente.
-    console.info('AGÔ_LEAD', { name, email, phone, source, createdAt: new Date().toISOString() });
-
+    console.info('AGO_LEAD', { name: name || undefined, email, phone: phone || undefined, source, createdAt: new Date().toISOString() });
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: 'Não foi possível registrar o cadastro.' }, { status: 400 });

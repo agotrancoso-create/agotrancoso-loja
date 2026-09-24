@@ -65,7 +65,7 @@ export default function PhotoLightbox({ name, images, initialIndex = 0, onClose 
         <button type="button" className={`ago-photo-canvas${zoomed ? ' is-zoomed' : ''}`}
           aria-label={zoomed ? 'Reduzir foto' : 'Ampliar detalhes da foto'}
           onClick={() => { if (swiped.current) { swiped.current = false; return; } setZoomed(!zoomed); }}>
-          <Image src={images[active]} alt={`${name} — foto ${active + 1}`} fill sizes={zoomed ? '200vw' : '100vw'} />
+          <Image src={images[active]} alt={`${name}, foto ${active + 1}`} fill sizes={zoomed ? '200vw' : '100vw'} />
         </button>
       </div>
       <footer className="ago-photo-toolbar">

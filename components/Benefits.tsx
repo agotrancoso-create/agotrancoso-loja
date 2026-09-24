@@ -1,12 +1,10 @@
 const benefits = [
-  ['feito à mão', 'cuidado e tradição em cada detalhe.'],
-  ['peças exclusivas', 'escolhas especiais para quem valoriza o feito à mão.'],
-  ['inspiração brasileira', 'cores, formas e símbolos da nossa terra.'],
-  ['sem fronteiras', 'uma lembrança para qualquer lugar.'],
+  ['feito à mão', 'Cuidado e tradição em cada detalhe.'],
+  ['peças exclusivas', 'Escolhas especiais para quem valoriza o feito à mão.'],
+  ['inspiração brasileira', 'Cores, formas e símbolos da nossa terra.'],
+  ['Da Bahia para o mundo', 'Envio internacional sob consulta.'],
 ] as const;
 
-// Pixel bounds in the original 2048 × 690 artwork. Each 280 × 240
-// window contains only its symbol, leaving the printed copy and dividers out.
 const artwork = { width: 2048, height: 690, cropWidth: 280, cropHeight: 240, top: 140 };
 const iconLeft = [80, 580, 1108, 1618] as const;
 
@@ -15,10 +13,9 @@ export default function Benefits() {
     <section className="benefits-strip ago-benefits-reference" aria-labelledby="benefits-title">
       <div className="ago-container ago-benefits-reference-inner">
         <h2 id="benefits-title" className="sr-only">Diferenciais da Agô Trancoso</h2>
-
         <div className="ago-benefits-grid">
           {benefits.map(([title, text], index) => (
-            <article className="ago-benefit-item" key={title}>
+            <article className="ago-benefit-item" key={title} tabIndex={0}>
               <div
                 className="ago-benefit-art"
                 aria-hidden="true"

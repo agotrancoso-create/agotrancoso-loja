@@ -8,28 +8,19 @@ const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.589557
 const whatsappUrl = 'https://wa.me/557398558124?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ag%C3%B4%20Trancoso.';
 const instagramUrl = 'https://www.instagram.com/agotrancoso';
 
-const featuredOrder = [
-  'igreja-quadrado-p',
-  'igreja-quadrado-m',
-  'igrejinha-luminaria-trancoso',
-  'casinha-luminaria',
-  'miniatura-quadrado-trancoso',
-  'cruzeiro-do-quadrado',
-];
+const featuredOrder = ['igreja-quadrado-p', 'igreja-quadrado-m', 'igrejinha-luminaria-trancoso', 'casinha-luminaria', 'miniatura-quadrado-trancoso', 'cruzeiro-do-quadrado'];
 
 const discovery = [
   { title: 'Trancoso', subtitle: 'Nosso maior repertório', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
-  { title: 'Casa & decoração', subtitle: 'Para viver junto', category: 'decoracao', image: '/produtos/casinha-luminaria.jpg' },
-  { title: 'Fé & devoção', subtitle: 'Símbolos que acompanham', category: 'fe-devocao', image: '/produtos/nossa-senhora-grande.jpg' },
+  { title: 'Casa & decoração', subtitle: 'Para viver junto', category: 'decoracao', image: '/produtos/esfera-decorativa.jpg' },
+  { title: 'Fé & devoção', subtitle: 'Símbolos que acompanham', category: 'fe-devocao', image: '/produtos/nossa-senhora-aparecida.jpg' },
   { title: 'Presentes', subtitle: 'Para alguém que veio à cabeça', category: 'presentes', image: '/produtos/colar-igreja-quadrado.jpg' },
 ];
 
 export default function HomePage() {
   const available = getAvailableProducts();
   const byId = new Map(available.map((product) => [product.id, product]));
-  const featured = featuredOrder
-    .map((id) => byId.get(id) ?? getProductById(id))
-    .filter((product): product is NonNullable<typeof product> => Boolean(product?.available));
+  const featured = featuredOrder.map((id) => byId.get(id) ?? getProductById(id)).filter((product): product is NonNullable<typeof product> => Boolean(product?.available));
 
   return (
     <div className="ago-home ago-premium-home">
@@ -43,9 +34,7 @@ export default function HomePage() {
           </div>
 
           <div className="ago-premium-product-grid ago-premium-product-grid-featured">
-            {featured.map((product, index) => (
-              <ProductCard key={product.id} product={product} priority={index < 4} />
-            ))}
+            {featured.map((product, index) => <ProductCard key={product.id} product={product} priority={index < 4} />)}
           </div>
 
           <div className="ago-collection-after-grid">
@@ -59,25 +48,12 @@ export default function HomePage() {
 
       <div className="ago-premium-trust" aria-label="Informações da Agô">
         <div className="ago-container ago-premium-trust-inner">
-          <span>Feitas à mão</span>
-          <i aria-hidden="true" />
-          <span>Envio com cuidado</span>
-          <i aria-hidden="true" />
-          <span>Pagamento seguro</span>
-          <i aria-hidden="true" />
-          <span>Exterior sob consulta</span>
+          <span>Feitas à mão</span><i aria-hidden="true" /><span>Envio com cuidado</span><i aria-hidden="true" /><span>Pagamento seguro</span><i aria-hidden="true" /><span>Da Bahia para o mundo</span>
         </div>
       </div>
 
       <section className="ago-premium-hero ago-home-hero" aria-labelledby="hero-title">
-        <Image
-          src="/hero.jpg"
-          alt="Peças de cerâmica da Agô Trancoso"
-          fill
-          sizes="100vw"
-          className="ago-premium-hero-image"
-          quality={90}
-        />
+        <Image src="/hero.jpg" alt="Peças de cerâmica da Agô Trancoso" fill sizes="100vw" className="ago-premium-hero-image" quality={90} />
         <div className="ago-premium-hero-overlay" aria-hidden="true" />
         <div className="ago-container ago-premium-hero-content">
           <p className="eyebrow">Depois da viagem</p>
@@ -90,24 +66,15 @@ export default function HomePage() {
       <section className="ago-premium-discovery" aria-labelledby="discover-title">
         <div className="ago-container">
           <div className="ago-premium-section-head">
-            <div>
-              <p className="eyebrow">A coleção</p>
-              <h2 id="discover-title">Escolha por onde entrar.</h2>
-            </div>
+            <div><p className="eyebrow">A coleção</p><h2 id="discover-title">Escolha por onde entrar.</h2></div>
             <Link href="/produtos" className="ago-premium-text-link">Ver tudo <span aria-hidden="true">↗</span></Link>
           </div>
 
           <div className="ago-premium-discovery-grid">
             {discovery.map((item) => (
               <Link key={item.category} href={`/produtos?categoria=${item.category}`} className="ago-premium-discovery-card">
-                <div className="ago-premium-discovery-image">
-                  <Image src={item.image} alt={item.title} fill sizes="(max-width: 767px) 50vw, 25vw" />
-                </div>
-                <div className="ago-premium-discovery-copy">
-                  <small>{item.subtitle}</small>
-                  <span>{item.title}</span>
-                  <strong>Ver peças <span aria-hidden="true">↗</span></strong>
-                </div>
+                <div className="ago-premium-discovery-image"><Image src={item.image} alt={item.title} fill sizes="(max-width: 767px) 100vw, 25vw" /></div>
+                <div className="ago-premium-discovery-copy"><small>{item.subtitle}</small><span>{item.title}</span><strong>Ver peças <span aria-hidden="true">↗</span></strong></div>
               </Link>
             ))}
           </div>
@@ -117,14 +84,7 @@ export default function HomePage() {
       <section className="ago-premium-editorial ago-home-story" aria-labelledby="story-title">
         <div className="ago-container ago-premium-split">
           <div className="ago-premium-image">
-            <Image
-              src="/nossa-essencia.jpg"
-              alt="Universo visual da Agô Trancoso"
-              fill
-              sizes="(max-width: 900px) 100vw, 56vw"
-              quality={92}
-              className="ago-complementary-photo"
-            />
+            <Image src="/nossa-essencia.jpg" alt="Universo visual da Agô Trancoso" fill sizes="(max-width: 900px) 100vw, 56vw" quality={92} className="ago-complementary-photo" />
           </div>
           <div className="ago-premium-copy">
             <p className="eyebrow">De onde vem</p>
@@ -147,11 +107,7 @@ export default function HomePage() {
               <a href={instagramUrl} target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
             </div>
           </div>
-          <div className="ago-premium-visit-mark" aria-hidden="true">
-            <span>Trancoso</span>
-            <strong>Bahia</strong>
-            <span>Brasil</span>
-          </div>
+          <div className="ago-premium-visit-mark" aria-hidden="true"><span>Trancoso</span><strong>Bahia</strong><span>Brasil</span></div>
         </div>
       </section>
     </div>

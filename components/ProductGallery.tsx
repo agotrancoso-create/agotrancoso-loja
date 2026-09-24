@@ -20,6 +20,14 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
     <div className="product-gallery" aria-label={`Galeria de ${name}`}>
       <div
         className="product-gallery-main"
+        role="group"
+        tabIndex={0}
+        aria-label={`Fotos de ${name}`}
+        onKeyDown={(event) => {
+          if (safeImages.length < 2) return;
+          if (event.key === 'ArrowRight') { event.preventDefault(); go(active + 1); }
+          if (event.key === 'ArrowLeft') { event.preventDefault(); go(active - 1); }
+        }}
         onTouchStart={(e) => { touchStart.current = e.changedTouches[0]?.clientX ?? null; touchY.current = e.changedTouches[0]?.clientY ?? 0; swiped.current = false; }}
         onTouchEnd={(e) => {
           const end = e.changedTouches[0]?.clientX ?? null;
@@ -27,23 +35,20 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
           touchStart.current = null;
           if (start == null || end == null || safeImages.length < 2) return;
           const delta = end - start;
-          if (Math.abs(delta) > 42 && Math.abs(delta) > Math.abs(e.changedTouches[0].clientY - touchY.current)) { swiped.current = true; go(delta < 0 ? active + 1 : active - 1); }
+          if (Math.abs(delta) > 42 && Math.abs(delta) > Math.abs(e.changedTouches[0].clientY - touchY.current)) {
+            swiped.current = true;
+            go(delta < 0 ? active + 1 : active - 1);
+          }
         }}
       >
         <button type="button" className="ago-gallery-open" aria-label={`Ampliar foto de ${name}`} onClick={() => {
           if (swiped.current) { swiped.current = false; return; }
           setExpanded(true);
         }}>
-        <Image
-          src={safeImages[active]}
-          alt={`${name} — foto ${active + 1} de ${safeImages.length}`}
-          fill
-          priority={active === 0}
-          sizes="(max-width: 900px) 100vw, 58vw"
-          className="product-gallery-image"
-        />
-        <span className="ago-gallery-zoom-hint">⊕ Ampliar foto</span>
+          <Image src={safeImages[active]} alt={`${name}, foto ${active + 1} de ${safeImages.length}`} fill priority={active === 0} sizes="(max-width: 900px) 100vw, 58vw" className="product-gallery-image" />
+          <span className="ago-gallery-zoom-hint">Ampliar</span>
         </button>
+
         <span className="product-gallery-counter" aria-hidden="true">{String(active + 1).padStart(2, '0')} / {String(safeImages.length).padStart(2, '0')}</span>
 
         {safeImages.length > 1 && (
@@ -57,19 +62,13 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
       {safeImages.length > 1 && (
         <div className="product-gallery-thumbs" aria-label="Selecionar foto">
           {safeImages.map((src, index) => (
-            <button
-              key={`${src}-${index}`}
-              type="button"
-              onClick={() => setActive(index)}
-              aria-label={`Ver foto ${index + 1}`}
-              aria-current={active === index ? 'true' : undefined}
-              className={`product-gallery-thumb${active === index ? ' is-active' : ''}`}
-            >
+            <button key={`${src}-${index}`} type="button" onClick={() => setActive(index)} aria-label={`Ver foto ${index + 1}`} aria-current={active === index ? 'true' : undefined} className={`product-gallery-thumb${active === index ? ' is-active' : ''}`}>
               <Image src={src} alt="" fill sizes="88px" aria-hidden="true" />
             </button>
           ))}
         </div>
       )}
+
       {expanded && <PhotoLightbox name={name} images={safeImages} initialIndex={active} onClose={() => setExpanded(false)} />}
     </div>
   );

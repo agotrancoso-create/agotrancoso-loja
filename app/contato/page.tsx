@@ -27,16 +27,21 @@ export default function ContatoPage() {
             <h1>Contato</h1>
             <p>Tem dúvida sobre uma peça, entrega ou pagamento? Fale com a gente. Para comprar, você também pode finalizar o pedido direto pelo site.</p>
           </section>
+
           <section className="contact-actions" aria-label="Canais de contato">
             <div className="contact-links">
               <a href={whatsappLink('Olá! Vim pelo site da Agô Trancoso.')} target="_blank" rel="noopener noreferrer" className="info-link" aria-label="Falar com a Agô Trancoso pelo WhatsApp"><span>Falar no WhatsApp</span><span aria-hidden="true">↗</span></a>
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="info-link" aria-label="Abrir Instagram da Agô Trancoso"><span>@{INSTAGRAM_HANDLE} no Instagram</span><span aria-hidden="true">↗</span></a>
               <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="info-link" aria-label="Abrir localização no Google Maps"><span>Abrir no Google Maps</span><span aria-hidden="true">↗</span></a>
             </div>
+
             <div className="info-panel">
               <p className="eyebrow">Onde encontrar</p>
               <h2>Quadrado de Trancoso</h2>
-              <p>Praça São João Batista, Trancoso,<br />Porto Seguro, BA, 46098-000.</p>
+              <address className="contact-address">
+                <span>Praça São João Batista, Trancoso</span>
+                <span>Porto Seguro, BA, 46098-000</span>
+              </address>
               <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="contact-location-button">Ver localização</a>
             </div>
           </section>

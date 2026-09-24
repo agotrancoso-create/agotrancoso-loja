@@ -10,6 +10,7 @@ import './ago-beneficios-arte-final-2026.css';
 import './product-purchase-control.css';
 import './ago-refino-8cd-2026.css';
 import './ago-photo-interactions.css';
+import './ago-human-premium-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -19,25 +20,10 @@ import FirstPurchaseOffer from '@/components/FirstPurchaseOffer';
 import InteractiveEnhancements from '@/components/InteractiveEnhancements';
 import { SITE_DOMAIN } from '@/lib/config';
 
-const manrope = Manrope({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-sans',
-});
+const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-sans' });
+const fraunces = Fraunces({ subsets: ['latin'], display: 'swap', variable: '--font-display', weight: ['600', '700'] });
 
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-display',
-  weight: ['600', '700'],
-});
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  themeColor: '#f5eee5',
-  colorScheme: 'light',
-};
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#f4ecdf', colorScheme: 'light' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
@@ -48,7 +34,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   openGraph: {
     title: 'Agô Trancoso | Cerâmica brasileira para casa, fé e presente',
-    description: 'Trancoso é a principal inspiração da Agô — e o começo de uma coleção que vai além.',
+    description: 'Trancoso é a principal inspiração da Agô e o começo de uma coleção que vai além.',
     url: SITE_DOMAIN,
     siteName: 'Agô Trancoso',
     locale: 'pt_BR',
@@ -64,21 +50,8 @@ export const metadata: Metadata = {
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': `${SITE_DOMAIN}#organization`,
-      name: 'Agô Trancoso',
-      url: SITE_DOMAIN,
-      sameAs: ['https://www.instagram.com/agotrancoso', 'https://www.tiktok.com/@agotrancoso'],
-    },
-    {
-      '@type': 'WebSite',
-      '@id': `${SITE_DOMAIN}#website`,
-      name: 'Agô Trancoso',
-      url: SITE_DOMAIN,
-      inLanguage: 'pt-BR',
-      publisher: { '@id': `${SITE_DOMAIN}#organization` },
-    },
+    { '@type': 'Organization', '@id': `${SITE_DOMAIN}#organization`, name: 'Agô Trancoso', url: SITE_DOMAIN, sameAs: ['https://www.instagram.com/agotrancoso', 'https://www.tiktok.com/@agotrancoso'] },
+    { '@type': 'WebSite', '@id': `${SITE_DOMAIN}#website`, name: 'Agô Trancoso', url: SITE_DOMAIN, inLanguage: 'pt-BR', publisher: { '@id': `${SITE_DOMAIN}#organization` } },
   ],
 };
 
