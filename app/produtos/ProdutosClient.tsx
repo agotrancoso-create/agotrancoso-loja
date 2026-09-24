@@ -1,15 +1,42 @@
 'use client';
 
+import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Product, Category } from '@/lib/types';
 import ProductCard from '@/components/ProductCard';
 
+type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'name';
+
+const sortOptions: Array<{ value: SortOption; label: string }> = [
+  { value: 'featured', label: 'Destaques' },
+  { value: 'price-desc', label: 'Maior preço' },
+  { value: 'price-asc', label: 'Menor preço' },
+  { value: 'name', label: 'Nome' },
+];
+
+function normalize(value: string) {
+  return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+}
+
+function formatBRL(value: number) {
+  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function productPrice(product: Product) {
+  return product.promotionalPrice != null && product.promotionalPrice < product.price
+    ? product.promotionalPrice
+    : product.price;
+}
+
 export default function ProdutosClient({ products, categories }: { products: Product[]; categories: Category[] }) {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('busca') || '');
   const [category, setCategory] = useState(searchParams.get('categoria') || 'todas');
-  const [sort, setSort] = useState<'featured' | 'price-asc' | 'price-desc' | 'name'>('featured');
+  const [sort, setSort] = useState<SortOption>('featured');
+  const [searchFocused, setSearchFocused] = useState(false);
+  const [sortOpen, setSortOpen] = useState(false);
   const urlQuery = searchParams.get('busca') || '';
   const urlCategory = searchParams.get('categoria') || 'todas';
 
@@ -17,8 +44,6 @@ export default function ProdutosClient({ products, categories }: { products: Pro
     setQuery(urlQuery);
     setCategory(urlCategory);
   }, [urlQuery, urlCategory]);
-
-  const normalize = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 
   const filtered = useMemo(() => {
     const normalizedQuery = normalize(query);
@@ -31,14 +56,38 @@ export default function ProdutosClient({ products, categories }: { products: Pro
         return true;
       })
       .sort((a, b) => {
-        if (sort === 'price-asc') return a.price - b.price;
-        if (sort === 'price-desc') return b.price - a.price;
+        if (sort === 'price-asc') return productPrice(a) - productPrice(b);
+        if (sort === 'price-desc') return productPrice(b) - productPrice(a);
         if (sort === 'name') return a.name.localeCompare(b.name, 'pt-BR');
         return products.indexOf(a) - products.indexOf(b);
       });
   }, [products, query, category, sort]);
 
+  const suggestions = useMemo(() => {
+    const term = normalize(query);
+    if (!term) return [];
+
+    return products
+      .filter((product) => product.available && (category === 'todas' || product.category === category))
+      .map((product) => {
+        const name = normalize(product.name);
+        const words = name.split(/\s+/);
+        let score = 99;
+        if (name.startsWith(term)) score = 0;
+        else if (words.some((word) => word.startsWith(term))) score = 1;
+        else if (name.includes(term)) score = 2;
+        else if (normalize(`${product.description} ${product.category}`).includes(term)) score = 3;
+        return { product, score };
+      })
+      .filter(({ score }) => score < 99)
+      .sort((a, b) => a.score - b.score || a.product.name.localeCompare(b.product.name, 'pt-BR'))
+      .slice(0, 6)
+      .map(({ product }) => product);
+  }, [products, query, category]);
+
   const hasFilters = Boolean(query.trim()) || category !== 'todas' || sort !== 'featured';
+  const selectedSortLabel = sortOptions.find((option) => option.value === sort)?.label ?? 'Destaques';
+  const showSuggestions = searchFocused && Boolean(query.trim()) && suggestions.length > 0;
 
   function clearFilters() {
     setQuery('');
@@ -51,26 +100,83 @@ export default function ProdutosClient({ products, categories }: { products: Pro
       <div className="catalog-tools">
         <div className="catalog-search-wrap">
           <label htmlFor="catalog-search">Encontre uma peça</label>
-          <div className="catalog-search-control">
-            <input
-              id="catalog-search"
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Nome, símbolo ou coleção"
-            />
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+          <div className="catalog-search-area">
+            <div className="catalog-search-control">
+              <input
+                id="catalog-search"
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onFocus={() => setSearchFocused(true)}
+                onBlur={() => window.setTimeout(() => setSearchFocused(false), 120)}
+                placeholder="Digite uma inicial ou o nome da peça"
+                autoComplete="off"
+                aria-expanded={showSuggestions}
+                aria-controls="catalog-search-suggestions"
+              />
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+            </div>
+
+            {showSuggestions && (
+              <div id="catalog-search-suggestions" className="catalog-search-suggestions" role="list" aria-label="Sugestões de peças">
+                {suggestions.map((product) => {
+                  const image = product.images?.[0] || '/images/placeholder.svg';
+                  return (
+                    <Link key={product.id} href={`/produtos/${product.id}`} className="catalog-search-suggestion" role="listitem">
+                      <span className="catalog-search-suggestion-image">
+                        <Image src={image} alt="" width={54} height={54} />
+                      </span>
+                      <span className="catalog-search-suggestion-copy">
+                        <strong>{product.name}</strong>
+                        <small>{formatBRL(productPrice(product))}</small>
+                      </span>
+                      <span className="catalog-search-suggestion-arrow" aria-hidden="true">↗</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
 
-        <div className="catalog-sort-wrap">
-          <label htmlFor="catalog-sort">Ordenar por</label>
-          <select id="catalog-sort" value={sort} onChange={(e) => setSort(e.target.value as typeof sort)}>
-            <option value="featured">Destaques</option>
-            <option value="price-desc">Maior preço</option>
-            <option value="price-asc">Menor preço</option>
-            <option value="name">Nome</option>
-          </select>
+        <div
+          className="catalog-sort-wrap catalog-custom-sort"
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setSortOpen(false);
+          }}
+        >
+          <span id="catalog-sort-label" className="catalog-sort-label">Ordenar por</span>
+          <button
+            type="button"
+            className="catalog-sort-trigger"
+            aria-labelledby="catalog-sort-label"
+            aria-haspopup="listbox"
+            aria-expanded={sortOpen}
+            onClick={() => setSortOpen((open) => !open)}
+          >
+            <span>{selectedSortLabel}</span>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5.5 7.5 4.5 4.5 4.5-4.5" /></svg>
+          </button>
+          {sortOpen && (
+            <div className="catalog-sort-menu" role="listbox" aria-label="Ordenar peças">
+              {sortOptions.map((option) => (
+                <button
+                  type="button"
+                  key={option.value}
+                  role="option"
+                  aria-selected={sort === option.value}
+                  className="catalog-sort-option"
+                  onClick={() => {
+                    setSort(option.value);
+                    setSortOpen(false);
+                  }}
+                >
+                  <span>{option.label}</span>
+                  {sort === option.value && <span aria-hidden="true">✓</span>}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -90,7 +196,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
         <div className="catalog-empty">
           <p className="eyebrow">Nenhum resultado</p>
           <h2>Essa busca não encontrou uma peça.</h2>
-          <p>Tente outro termo ou volte para a coleção completa.</p>
+          <p>Tente outra inicial, outro nome ou volte para a coleção completa.</p>
           <button type="button" className="button button-dark" onClick={clearFilters}>Ver toda a coleção</button>
         </div>
       ) : (
