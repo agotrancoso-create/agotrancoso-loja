@@ -1,7 +1,8 @@
-/* Agô Trancoso — regra final para fotos preenchidas e cantos suaves. */
+/* Agô Trancoso — regra final para fotos preenchidas, cantos suaves e alinhamento editorial. */
 :root {
   --ago-photo-final-radius: clamp(14px, 1.35vw, 20px);
   --ago-photo-thumb-radius: 12px;
+  --ago-reading-width: 68ch;
 }
 
 /* Benefícios sem cabeçalho visual: só ícones + textos. */
@@ -57,7 +58,6 @@
   border-radius: inherit !important;
 }
 
-/* A foto principal de cada peça deve ocupar todo o card. */
 .product-image-wrap {
   width: 100% !important;
 }
@@ -66,7 +66,6 @@
   inset: 0 !important;
 }
 
-/* Galeria principal e miniaturas seguem a mesma linguagem visual. */
 .product-gallery-main,
 .ago-gallery-open {
   width: 100% !important;
@@ -80,13 +79,11 @@
   outline-offset: 2px !important;
 }
 
-/* Categorias e foto editorial da home usam a foto inteira como superfície visual. */
 .ago-premium-discovery-image,
 .ago-premium-image {
   min-height: 0 !important;
 }
 
-/* Imagens pequenas também não podem ficar com sobra interna. */
 .cart-product-image,
 .cart-complementary-image,
 .checkout-product-image,
@@ -106,6 +103,234 @@
   object-position: center center !important;
 }
 
+/* =========================
+   SISTEMA DE ALINHAMENTO
+   ========================= */
+
+/* Base comercial e de leitura: esquerda. */
+body,
+main,
+.product-card-copy,
+.product-buybox,
+.product-info,
+.catalog-interface,
+.catalog-tools,
+.catalog-search-wrap,
+.catalog-sort-wrap,
+.contact-copy,
+.contact-actions,
+.info-panel,
+.checkout-form-panel,
+.checkout-summary,
+.cart-body,
+.cart-summary,
+.ago-footer-brand,
+.ago-footer-group {
+  text-align: left;
+}
+
+/* Navegação: centro para formar um eixo visual estável. */
+.header-nav,
+.ago-category-bar-inner,
+.ago-topbar {
+  text-align: center;
+}
+.header-nav {
+  justify-content: center;
+}
+
+/* Abertura da coleção: esquerda para leitura rápida. */
+.ago-collection-intro-brand {
+  text-align: left;
+  max-width: min(760px, 72vw);
+}
+.ago-collection-intro-brand h1,
+.ago-collection-intro-brand > p:not(.eyebrow) {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Cards de produto: alinhamento consistente entre nome, preço e ação. */
+.product-card-copy,
+.product-name,
+.price-row,
+.current-price,
+.old-price {
+  text-align: left !important;
+}
+.product-card-copy {
+  display: grid;
+  justify-items: start;
+}
+.product-add,
+.ago-premium-add,
+.ago-card-photos {
+  text-align: center;
+}
+
+/* Benefícios: centralizados para funcionarem como conjunto de símbolos. */
+.ago-benefits-reference-inner,
+.ago-benefits-grid,
+.ago-benefit-item,
+.ago-benefit-copy {
+  text-align: center !important;
+}
+.ago-benefit-item {
+  justify-items: center;
+}
+.ago-benefit-symbol {
+  margin-inline: auto !important;
+}
+.ago-benefit-copy p {
+  max-width: 29ch;
+  margin-inline: auto;
+  text-wrap: balance;
+}
+
+/* Faixa de confiança: centro e distribuição equilibrada. */
+.ago-premium-trust-inner {
+  text-align: center;
+  justify-content: center;
+}
+
+/* Hero: texto à esquerda para entrada visual imediata. */
+.ago-premium-hero-content {
+  text-align: left;
+}
+.ago-premium-hero-content h2,
+.ago-premium-hero-content > p:not(.eyebrow) {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Cabeçalhos de seção: título à esquerda, ação na ponta oposta. */
+.ago-premium-section-head {
+  align-items: end;
+  text-align: left;
+}
+.ago-premium-section-head > .ago-premium-text-link {
+  margin-left: auto;
+  text-align: right;
+}
+
+/* Categorias: leitura rápida sempre no mesmo eixo esquerdo. */
+.ago-premium-discovery-copy {
+  text-align: left;
+}
+
+/* Visita: conversa à esquerda, assinatura geográfica à direita. */
+.ago-premium-visit-grid > div:first-child {
+  text-align: left;
+}
+.ago-premium-visit-mark {
+  text-align: right;
+  justify-self: end;
+}
+
+/* Catálogo: ferramentas pela base e resultados pela esquerda. */
+.catalog-tools {
+  align-items: end;
+}
+.catalog-results-meta {
+  text-align: left;
+}
+.catalog-results-meta > :last-child {
+  margin-left: auto;
+}
+.catalog-empty {
+  text-align: center;
+}
+.catalog-empty > * {
+  margin-inline: auto;
+}
+
+/* Contato: canais e endereço no mesmo eixo. */
+.contact-links,
+.contact-address,
+.info-panel {
+  text-align: left;
+}
+.contact-address {
+  display: grid;
+  gap: .48em;
+}
+
+/* Checkout e sacola: esquerda para reduzir esforço de leitura. */
+.checkout-form-panel,
+.checkout-summary,
+.cart-drawer,
+.cart-header,
+.cart-item,
+.cart-summary,
+.cart-header-title {
+  text-align: left;
+}
+.cart-checkout,
+.checkout-submit {
+  text-align: center;
+}
+
+/* Rodapé: colunas à esquerda; linha legal usa as duas extremidades. */
+.ago-footer-main,
+.ago-footer-legal {
+  text-align: left;
+}
+
+/* Desktop: usa direita e justificado apenas onde a largura permite. */
+@media (min-width: 1000px) {
+  .ago-home-story .ago-premium-copy {
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  .ago-home-story .ago-premium-copy .eyebrow,
+  .ago-home-story .ago-premium-copy h2,
+  .ago-home-story .ago-premium-copy .ago-premium-text-link {
+    text-align: right;
+    margin-left: auto;
+  }
+
+  .ago-home-story .ago-premium-copy > p:not(.eyebrow) {
+    max-width: min(48ch, 100%);
+    margin-left: auto;
+    text-align: justify;
+    text-align-last: right;
+    hyphens: auto;
+    text-justify: inter-word;
+  }
+
+  .contact-copy > p:not(.eyebrow) {
+    max-width: var(--ago-reading-width);
+    text-align: justify;
+    text-align-last: left;
+    hyphens: auto;
+    text-justify: inter-word;
+  }
+
+  .ago-footer-legal > span {
+    margin-left: auto;
+    text-align: right;
+  }
+}
+
+/* Tablet: reduz assimetria para manter proporção. */
+@media (max-width: 999px) {
+  .ago-collection-intro-brand {
+    max-width: min(720px, 90vw);
+  }
+
+  .ago-home-story .ago-premium-copy,
+  .ago-home-story .ago-premium-copy .eyebrow,
+  .ago-home-story .ago-premium-copy h2,
+  .ago-home-story .ago-premium-copy > p,
+  .ago-home-story .ago-premium-copy .ago-premium-text-link {
+    text-align: left !important;
+    margin-left: 0;
+    margin-right: auto;
+  }
+}
+
+/* Celular: leitura natural à esquerda; centro só onde ajuda a composição. */
 @media (max-width: 767px) {
   :root {
     --ago-photo-final-radius: 14px;
@@ -114,5 +339,51 @@
 
   .benefits-strip.ago-benefits-reference {
     padding-block: 34px !important;
+  }
+
+  .ago-collection-intro-brand,
+  .ago-premium-hero-content,
+  .ago-premium-section-head,
+  .ago-premium-discovery-copy,
+  .ago-premium-visit-grid > div:first-child,
+  .contact-copy,
+  .contact-actions,
+  .info-panel,
+  .catalog-tools,
+  .catalog-results-meta,
+  .ago-footer-main,
+  .ago-footer-brand,
+  .ago-footer-group,
+  .ago-footer-legal {
+    text-align: left !important;
+  }
+
+  .ago-premium-section-head > .ago-premium-text-link {
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .ago-premium-visit-mark {
+    justify-self: start;
+    text-align: left;
+  }
+
+  .contact-copy > p:not(.eyebrow),
+  .ago-home-story .ago-premium-copy > p:not(.eyebrow) {
+    text-align: left !important;
+    text-align-last: auto;
+    hyphens: manual;
+  }
+
+  .ago-footer-legal > span {
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .ago-benefit-item,
+  .ago-benefit-copy,
+  .ago-premium-trust-inner,
+  .catalog-empty {
+    text-align: center !important;
   }
 }
