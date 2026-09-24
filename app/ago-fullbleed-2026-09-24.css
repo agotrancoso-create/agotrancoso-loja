@@ -1,0 +1,375 @@
+/* Agô Trancoso — composição full bleed.
+   Seções ocupam a tela; cantos arredondados ficam reservados a fotos e CTAs selecionados. */
+
+:root {
+  --ago-content-wide: min(1540px, calc(100% - clamp(24px, 4vw, 64px)));
+  --ago-photo-radius: clamp(12px, 1.25vw, 18px);
+  --ago-control-radius: 14px;
+  --ago-pill-radius: 999px;
+}
+
+/* Conteúdo mais cheio, sem perder alinhamento */
+.ago-container,
+.site-container,
+.contact-shell,
+.checkout-shell {
+  width: var(--ago-content-wide) !important;
+  max-width: none !important;
+  margin-inline: auto !important;
+}
+
+/* Header reto e limpo */
+.site-header,
+.ago-category-bar {
+  border-radius: 0 !important;
+}
+
+/* Campos e controles não precisam parecer pílulas */
+.header-search,
+.ago-search-suggestions,
+.catalog-search-control,
+.catalog-sort-wrap select,
+.catalog-category-option,
+.checkout-input,
+.info-link {
+  border-radius: var(--ago-control-radius) !important;
+}
+
+/* Home em faixas de largura total */
+.ago-premium-collection-first,
+.benefits-strip.ago-benefits-reference,
+.ago-premium-trust,
+.ago-home-hero,
+.ago-premium-discovery,
+.ago-home-story,
+.ago-premium-visit,
+.site-footer {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.ago-premium-collection-first {
+  padding: clamp(46px, 6vw, 86px) 0 !important;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(198,120,85,.10), transparent 34rem),
+    linear-gradient(155deg, #fffaf2 0%, #f4ecdf 70%, #eadbc6 100%) !important;
+}
+
+.ago-premium-collection-first > .ago-container {
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* HERO: tela cheia de verdade */
+.ago-home-hero {
+  position: relative !important;
+  height: 100svh !important;
+  min-height: 640px !important;
+  overflow: hidden !important;
+  isolation: isolate;
+}
+
+.ago-home-hero .ago-premium-hero-image,
+.ago-home-hero img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 0 !important;
+}
+
+.ago-premium-hero-content {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-block: clamp(72px, 10vh, 132px) !important;
+}
+
+.ago-premium-hero-content h2 {
+  max-width: 820px;
+  font-size: clamp(3rem, 6vw, 6.4rem) !important;
+  line-height: .92 !important;
+}
+
+.ago-premium-hero-content > p:not(.eyebrow) {
+  max-width: 600px;
+  font-size: clamp(1rem, 1.35vw, 1.22rem);
+  line-height: 1.65;
+}
+
+/* Faixas cheias com conteúdo alinhado */
+.benefits-strip.ago-benefits-reference {
+  padding: clamp(58px, 7vw, 98px) 0 !important;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(255,250,242,.72), transparent 30rem),
+    linear-gradient(135deg, #dbe7e8 0%, #eadfcd 58%, #dfe3d4 100%) !important;
+  overflow: hidden !important;
+}
+
+.ago-benefits-reference-inner {
+  width: var(--ago-content-wide) !important;
+  max-width: none !important;
+}
+
+/* Benefícios sem quatro cartões arredondados */
+.ago-benefits-grid {
+  gap: 0 !important;
+}
+
+.ago-benefit-item,
+.ago-benefit-item + .ago-benefit-item {
+  padding: clamp(22px, 3vw, 38px) clamp(18px, 2.4vw, 34px) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  border-left: 1px solid rgba(61,40,31,.13) !important;
+}
+
+.ago-benefit-item:first-child {
+  border-left: 0 !important;
+}
+
+.ago-benefit-symbol {
+  width: clamp(124px, 10vw, 166px) !important;
+  margin-bottom: 18px !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.ago-benefit-art {
+  width: min(150px, 92%) !important;
+  filter: drop-shadow(0 5px 12px rgba(61,40,31,.08));
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .ago-benefit-item:hover,
+  .ago-benefit-item:focus-visible {
+    transform: translateY(-4px) !important;
+    box-shadow: none !important;
+    background: rgba(255,250,242,.18) !important;
+  }
+  .ago-benefit-item:hover .ago-benefit-symbol,
+  .ago-benefit-item:focus-visible .ago-benefit-symbol {
+    transform: translateY(-3px) scale(1.035);
+    background: transparent !important;
+  }
+}
+
+.ago-premium-trust {
+  overflow: hidden !important;
+}
+
+.ago-premium-trust-inner {
+  min-height: 64px;
+}
+
+.ago-premium-discovery,
+.ago-home-story,
+.ago-premium-visit {
+  padding-block: clamp(64px, 8vw, 118px) !important;
+  overflow: hidden !important;
+}
+
+.ago-home-story .ago-container,
+.ago-premium-discovery .ago-container,
+.ago-premium-visit .ago-container {
+  width: var(--ago-content-wide) !important;
+}
+
+/* Imagens continuam sem molduras, só com cantos suaves */
+.product-image-wrap,
+.product-gallery-main,
+.ago-gallery-open,
+.ago-premium-discovery-image,
+.ago-premium-image,
+.cart-product-image,
+.cart-complementary-image,
+.checkout-product-image,
+.ago-search-suggestion-image,
+.ago-photo-canvas {
+  border: 0 !important;
+  border-radius: var(--ago-photo-radius) !important;
+  overflow: hidden !important;
+  box-shadow: none;
+}
+
+.product-image-wrap img,
+.product-gallery-main img,
+.ago-gallery-open img,
+.ago-premium-discovery-image img,
+.ago-premium-image img,
+.cart-product-image img,
+.cart-complementary-image img,
+.checkout-product-image img,
+.ago-search-suggestion-image img,
+.ago-photo-canvas img {
+  border: 0 !important;
+  border-radius: inherit !important;
+}
+
+/* Cards e painéis voltam a ser mais arquitetônicos e retos */
+.catalog-tools,
+.catalog-empty,
+.product-buybox,
+.product-service-grid > div,
+.product-international-note,
+.contact-copy,
+.contact-actions,
+.info-panel,
+.checkout-form-panel,
+.checkout-summary,
+.cart-shipping-progress-block,
+.cart-complementary,
+.mobile-menu {
+  border-radius: 0 !important;
+}
+
+.contact-copy,
+.contact-actions,
+.info-panel,
+.catalog-tools {
+  box-shadow: none !important;
+}
+
+.product-buybox,
+.product-service-grid > div,
+.product-international-note {
+  box-shadow: none !important;
+}
+
+/* Sacola lateral reta, mais integrada à tela */
+.cart-drawer,
+.cart-header,
+.cart-summary {
+  border-radius: 0 !important;
+}
+
+.cart-item {
+  margin-inline: 0 !important;
+  border-radius: 0 !important;
+  border-bottom: 1px solid rgba(61,40,31,.10) !important;
+  background: transparent !important;
+}
+
+/* Rodapé ocupa toda a largura */
+.site-footer {
+  overflow: hidden;
+}
+
+/* Apenas alguns botões ganham formato arredondado/pílula */
+.product-add,
+.ago-premium-add,
+.ago-premium-hero-cta,
+.ago-premium-dark-cta,
+.cart-checkout,
+.checkout-submit,
+.first-purchase-submit,
+.contact-location-button {
+  border-radius: var(--ago-pill-radius) !important;
+}
+
+.header-icon,
+.mobile-menu-button,
+.cart-close,
+.ago-back-to-top,
+.checkout-coupon-row button,
+.first-purchase-continue,
+.first-purchase-coupon,
+.product-primary-cta,
+.product-whatsapp {
+  border-radius: var(--ago-control-radius) !important;
+}
+
+/* Modal de primeira compra elegante, sem cara de bolha */
+.first-purchase-modal {
+  border-radius: 12px !important;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  :root {
+    --ago-content-wide: calc(100% - clamp(24px, 4vw, 44px));
+  }
+  .ago-home-hero {
+    height: 100svh !important;
+    min-height: 620px !important;
+  }
+}
+
+/* Celular */
+@media (max-width: 767px) {
+  :root {
+    --ago-content-wide: calc(100% - 24px);
+    --ago-photo-radius: 14px;
+  }
+
+  .ago-premium-collection-first {
+    padding: 38px 0 52px !important;
+  }
+
+  .ago-home-hero {
+    width: 100% !important;
+    height: 100svh !important;
+    min-height: 600px !important;
+  }
+
+  .ago-premium-hero-content {
+    min-height: 100svh;
+    padding-block: 72px !important;
+  }
+
+  .ago-premium-hero-content h2 {
+    font-size: clamp(2.8rem, 14vw, 4.4rem) !important;
+  }
+
+  .benefits-strip.ago-benefits-reference,
+  .ago-premium-discovery,
+  .ago-home-story,
+  .ago-premium-visit {
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .ago-benefits-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .ago-benefit-item,
+  .ago-benefit-item + .ago-benefit-item {
+    border-left: 0 !important;
+    border-top: 1px solid rgba(61,40,31,.12) !important;
+    padding: 22px 12px !important;
+  }
+
+  .ago-benefit-item:nth-child(-n+2) {
+    border-top: 0 !important;
+  }
+
+  .ago-benefit-item:nth-child(even) {
+    border-left: 1px solid rgba(61,40,31,.12) !important;
+  }
+
+  .ago-premium-trust-inner {
+    padding-inline: 12px !important;
+  }
+
+  .site-footer {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  :root { --ago-content-wide: calc(100% - 20px); }
+  .ago-benefit-symbol { width: 94px !important; }
+  .ago-benefit-art { width: 84px !important; }
+}
