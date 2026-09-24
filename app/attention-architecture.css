@@ -1,0 +1,441 @@
+/* Arquitetura de atenção — camada final de experiência.
+   Objetivo: hierarquia clara, baixa carga cognitiva e foco progressivo sem dark patterns. */
+
+.attention-home {
+  --attention-accent: #9b4d34;
+  --attention-warm: #e9d8c4;
+}
+
+.attention-home .home-hero {
+  min-height: min(820px, calc(100svh - 112px));
+}
+
+.attention-home .home-hero-overlay {
+  background:
+    radial-gradient(circle at 72% 26%, rgba(255, 236, 216, 0.08), transparent 28%),
+    linear-gradient(90deg, rgba(35, 21, 16, 0.9) 0%, rgba(35, 21, 16, 0.7) 34%, rgba(35, 21, 16, 0.22) 68%, rgba(35, 21, 16, 0.08) 100%),
+    linear-gradient(0deg, rgba(27, 17, 13, 0.55), rgba(27, 17, 13, 0.02) 58%);
+}
+
+.attention-home .home-hero-copy {
+  max-width: 860px;
+}
+
+.attention-home .home-hero-copy h1 {
+  max-width: 860px;
+  font-size: clamp(3.9rem, 7.8vw, 8.5rem);
+  line-height: 0.87;
+}
+
+.attention-home .home-hero-copy h1 span {
+  display: block;
+}
+
+.attention-home .home-hero-copy h1 span + span {
+  margin-top: 0.08em;
+  color: #f1d6c2;
+}
+
+.attention-home .home-hero-lead {
+  max-width: 680px;
+  font-size: clamp(16px, 1.45vw, 20px);
+  line-height: 1.68;
+}
+
+.attention-home .home-hero-actions {
+  gap: 22px;
+}
+
+.attention-home .home-hero-signature {
+  min-width: 190px;
+}
+
+.attention-home .home-trust-ribbon {
+  position: relative;
+}
+
+.attention-home .home-trust-ribbon::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.home-discovery-first {
+  background:
+    linear-gradient(180deg, var(--paper-soft) 0%, #f5ede2 100%);
+}
+
+.home-discovery-first .section-heading {
+  align-items: end;
+}
+
+.attention-discovery-grid {
+  grid-template-columns: 1.24fr repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 24px);
+  align-items: stretch;
+}
+
+.attention-discovery-grid .discovery-card {
+  position: relative;
+  min-width: 0;
+  border-radius: var(--radius);
+  transition: transform 0.3s cubic-bezier(.2,.7,.2,1);
+}
+
+.attention-discovery-grid .discovery-card.is-primary {
+  transform-origin: center;
+}
+
+.attention-discovery-grid .discovery-card.is-primary .discovery-image-wrap {
+  box-shadow:
+    0 0 0 1px rgba(141, 69, 47, 0.3),
+    0 22px 54px rgba(59, 37, 29, 0.12);
+}
+
+.attention-discovery-grid .discovery-card.is-primary .discovery-copy h3 {
+  color: var(--terra);
+}
+
+.attention-primary-label {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(59, 37, 29, 0.88);
+  color: var(--light-text);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.attention-discovery-grid .discovery-copy {
+  min-height: 126px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.attention-discovery-grid .discovery-copy strong {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.attention-home .home-featured {
+  position: relative;
+  overflow: hidden;
+}
+
+.attention-home .home-featured::before {
+  content: '';
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  right: -250px;
+  top: 60px;
+  border-radius: 50%;
+  border: 1px solid rgba(141, 69, 47, 0.1);
+  pointer-events: none;
+}
+
+.attention-home .home-featured .section-heading-aside p,
+.home-discovery-first .section-heading-aside p {
+  font-size: 15px;
+}
+
+.attention-home .home-story {
+  position: relative;
+}
+
+.attention-home .home-story-copy {
+  max-width: 560px;
+}
+
+.attention-home .home-story-copy > p:not(.eyebrow) {
+  font-size: 17px;
+}
+
+.attention-home .home-statement {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% -20%, rgba(255,255,255,0.11), transparent 42%),
+    var(--terra);
+}
+
+.attention-home .home-statement blockquote {
+  max-width: 1120px;
+  font-size: clamp(2.8rem, 6.4vw, 7rem);
+}
+
+.attention-home .home-statement-inner > p:last-child {
+  max-width: 560px;
+  font-size: 15px;
+}
+
+.attention-home .home-global {
+  background:
+    linear-gradient(90deg, rgba(241, 227, 209, 0.58), rgba(247, 241, 232, 0.92) 45%, var(--paper));
+}
+
+.attention-home .home-global-grid > div:last-child {
+  max-width: 520px;
+}
+
+.attention-home .home-how-grid article {
+  position: relative;
+}
+
+.attention-home .home-how-grid article::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 24%;
+  bottom: -10px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--terra), transparent);
+  opacity: 0;
+  transform: scaleX(0.6);
+  transform-origin: left;
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+.attention-home .home-visit-copy > p:not(.eyebrow) {
+  max-width: 610px;
+}
+
+/* Scanning cues in product cards: category is faster to recognize than a repeated generic label. */
+.product-card-kicker {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Catalog copy stays broad while keeping Trancoso dominant. */
+.catalog-intro > p {
+  max-width: 520px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .attention-discovery-grid .discovery-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .attention-discovery-grid .discovery-card.is-primary:hover {
+    transform: translateY(-7px);
+  }
+
+  .attention-home .home-how-grid article:hover::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 1100px) {
+  .attention-home .home-hero-copy h1 {
+    font-size: clamp(3.6rem, 8.8vw, 7.3rem);
+  }
+
+  .attention-discovery-grid {
+    grid-template-columns: 1.18fr repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .attention-home .home-hero {
+    min-height: min(760px, calc(100svh - 90px));
+  }
+
+  .attention-home .home-hero-overlay {
+    background:
+      linear-gradient(0deg, rgba(33, 20, 15, 0.88) 0%, rgba(33, 20, 15, 0.56) 48%, rgba(33, 20, 15, 0.12) 82%),
+      radial-gradient(circle at 60% 20%, rgba(255, 236, 216, 0.08), transparent 35%);
+  }
+
+  .attention-home .home-hero-inner {
+    align-items: flex-end;
+  }
+
+  .attention-home .home-hero-signature {
+    display: none;
+  }
+
+  .attention-home .home-hero-copy {
+    max-width: 760px;
+  }
+
+  .attention-home .home-hero-copy h1 {
+    font-size: clamp(3.55rem, 11.5vw, 6.6rem);
+    line-height: 0.89;
+  }
+
+  .attention-home .home-hero-lead {
+    max-width: 640px;
+  }
+
+  .attention-discovery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .attention-discovery-grid .discovery-card.is-primary {
+    grid-column: span 2;
+  }
+
+  .attention-discovery-grid .discovery-card.is-primary .discovery-image-wrap {
+    aspect-ratio: 1.7 / 1;
+  }
+
+  .attention-discovery-grid .discovery-card.is-primary .discovery-image {
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 700px) {
+  .attention-home .home-hero {
+    min-height: 690px;
+  }
+
+  .attention-home .home-hero-inner {
+    padding-top: 96px;
+    padding-bottom: 44px;
+  }
+
+  .attention-home .home-hero-copy .eyebrow {
+    max-width: 290px;
+    line-height: 1.55;
+  }
+
+  .attention-home .home-hero-copy h1 {
+    font-size: clamp(3.1rem, 14vw, 5.8rem);
+    letter-spacing: -0.05em;
+  }
+
+  .attention-home .home-hero-copy h1 span + span {
+    margin-top: 0.12em;
+  }
+
+  .attention-home .home-hero-lead {
+    margin-top: 22px;
+    font-size: 16px;
+    line-height: 1.62;
+  }
+
+  .attention-home .home-hero-actions {
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .attention-home .home-hero-actions .button {
+    width: auto;
+    min-width: 190px;
+  }
+
+  .home-discovery-first .section-heading-aside {
+    max-width: none;
+  }
+
+  .attention-discovery-grid {
+    gap: 18px 12px;
+  }
+
+  .attention-discovery-grid .discovery-card.is-primary {
+    grid-column: span 2;
+  }
+
+  .attention-discovery-grid .discovery-card.is-primary .discovery-image-wrap {
+    aspect-ratio: 1.55 / 1;
+  }
+
+  .attention-discovery-grid .discovery-copy {
+    min-height: 108px;
+  }
+
+  .attention-discovery-grid .discovery-copy h3 {
+    font-size: clamp(1.35rem, 6vw, 1.8rem);
+  }
+
+  .attention-primary-label {
+    left: 10px;
+    top: 10px;
+  }
+
+  .attention-home .home-story-copy > p:not(.eyebrow) {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 430px) {
+  .attention-home .home-hero {
+    min-height: 650px;
+  }
+
+  .attention-home .home-hero-inner {
+    padding-bottom: 38px;
+  }
+
+  .attention-home .home-hero-copy h1 {
+    font-size: clamp(3rem, 15.2vw, 4.55rem);
+    line-height: 0.9;
+  }
+
+  .attention-home .home-hero-lead {
+    max-width: 360px;
+  }
+
+  .attention-home .home-hero-actions {
+    margin-top: 26px;
+  }
+
+  .attention-home .home-hero-actions .text-link {
+    min-height: 42px;
+    align-items: center;
+  }
+
+  .home-discovery-first {
+    padding-top: 64px;
+  }
+
+  .attention-discovery-grid .discovery-card:not(.is-primary) .discovery-image-wrap {
+    aspect-ratio: 0.9 / 1;
+  }
+
+  .attention-discovery-grid .discovery-copy > span {
+    font-size: 11px;
+  }
+
+  .attention-discovery-grid .discovery-copy strong {
+    font-size: 12px;
+  }
+
+  .attention-home .home-statement blockquote {
+    font-size: clamp(2.7rem, 12vw, 4.3rem);
+  }
+}
+
+@media (max-width: 360px) {
+  .attention-home .home-hero-copy h1 {
+    font-size: 2.95rem;
+  }
+
+  .attention-discovery-grid {
+    gap-inline: 10px;
+  }
+
+  .attention-primary-label {
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .attention-discovery-grid .discovery-card,
+  .attention-home .home-how-grid article::after {
+    transition: none !important;
+  }
+}

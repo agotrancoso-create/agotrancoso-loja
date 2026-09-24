@@ -3,6 +3,7 @@ import { Fraunces, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
 import './globals.css';
 import './product-purchase-control.css';
+import './attention-architecture.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -35,13 +36,13 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
   title: { default: 'Agô Trancoso | Cerâmicas e peças feitas à mão', template: '%s | Agô Trancoso' },
-  description: 'Cerâmicas e peças feitas à mão, inspiradas na Bahia, nas formas de Trancoso e no jeito brasileiro de viver. Conheça a coleção da Agô Trancoso.',
-  keywords: ['Agô Trancoso', 'cerâmica artesanal', 'peças feitas à mão', 'decoração artesanal', 'presentes artesanais', 'Trancoso', 'Bahia'],
+  description: 'Cerâmicas feitas à mão com Trancoso como principal inspiração — além de peças para casa, fé, presentes e outros símbolos brasileiros.',
+  keywords: ['Agô Trancoso', 'cerâmica artesanal', 'peças feitas à mão', 'decoração artesanal', 'presentes artesanais', 'Trancoso', 'Bahia', 'cerâmica brasileira'],
   alternates: { canonical: SITE_DOMAIN },
   robots: { index: true, follow: true },
   openGraph: {
     title: 'Agô Trancoso | Cerâmicas e peças feitas à mão',
-    description: 'Peças feitas à mão, inspiradas na Bahia, nas formas de Trancoso e no jeito brasileiro de viver.',
+    description: 'Trancoso é a principal inspiração da Agô. A coleção também percorre casa, fé, presentes e símbolos brasileiros.',
     url: SITE_DOMAIN,
     siteName: 'Agô Trancoso',
     locale: 'pt_BR',
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Agô Trancoso | Cerâmicas e peças feitas à mão',
-    description: 'Peças feitas à mão, inspiradas na Bahia e nas formas de Trancoso.',
+    description: 'Cerâmica brasileira feita à mão, com Trancoso como principal inspiração e uma coleção que vai além.',
   },
 };
 

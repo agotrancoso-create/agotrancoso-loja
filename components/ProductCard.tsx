@@ -37,6 +37,14 @@ const photoScales: Record<string, number> = {
   'ima-igrejinha-trancoso': 1.07,
 };
 
+const categoryLabels: Record<string, string> = {
+  trancoso: 'Trancoso',
+  igrejinhas: 'Igrejinhas',
+  decoracao: 'Casa & decoração',
+  'fe-devocao': 'Fé & devoção',
+  presentes: 'Presentes',
+};
+
 export default function ProductCard({ product, priority = false }: ProductCardProps) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
@@ -51,6 +59,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const photoScale = photoScales[product.id] ?? 1.05;
+  const categoryLabel = categoryLabels[product.category] ?? 'Feito à mão';
 
   const trackView = () => trackViewItem({
     item_id: product.id,
@@ -90,7 +99,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
 
         <div className="product-card-copy">
           <div>
-            <p className="product-card-kicker">feito à mão</p>
+            <p className="product-card-kicker">{categoryLabel}</p>
             <h3 className="product-name">{product.name}</h3>
           </div>
           {hasPromo ? (
