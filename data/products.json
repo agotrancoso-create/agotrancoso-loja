@@ -32,7 +32,8 @@
       "currency": "BRL",
       "category": "igrejinhas",
       "images": [
-        "/produtos/igreja-quadrado-p.jpg"
+        "/produtos/igrejinha-luminaria-trancoso.jpg",
+        "/produtos/catalogo/igreja-quadrado-p-2.jpg"
       ],
       "dimensions": "",
       "available": true,
@@ -48,7 +49,7 @@
       "currency": "BRL",
       "category": "igrejinhas",
       "images": [
-        "/produtos/igreja-quadrado-m.jpg"
+        "/produtos/catalogo/igreja-quadrado-m-1.jpg"
       ],
       "dimensions": "",
       "available": true,
@@ -64,7 +65,7 @@
       "currency": "BRL",
       "category": "igrejinhas",
       "images": [
-        "/produtos/igreja-quadrado-gg.jpg"
+        "/produtos/catalogo/igreja-quadrado-gg-1.jpg"
       ],
       "dimensions": "",
       "available": true,
@@ -80,7 +81,7 @@
       "currency": "BRL",
       "category": "igrejinhas",
       "images": [
-        "/produtos/igrejinha-luminaria-trancoso.jpg"
+        "/produtos/igreja-quadrado-p.jpg"
       ],
       "dimensions": "",
       "available": true,
@@ -96,7 +97,10 @@
       "currency": "BRL",
       "category": "decoracao",
       "images": [
-        "/produtos/casinha-luminaria.jpg"
+        "/produtos/catalogo/casinha-luminaria-1.jpg",
+        "/produtos/catalogo/casinha-luminaria-2.jpg",
+        "/produtos/catalogo/casinha-luminaria-3.jpg",
+        "/produtos/catalogo/casinha-luminaria-4.jpg"
       ],
       "dimensions": "",
       "available": true,
@@ -160,7 +164,10 @@
       "currency": "BRL",
       "category": "fe-devocao",
       "images": [
-        "/produtos/estatueta-iemanja.jpg"
+        "/produtos/catalogo/estatueta-iemanja-1.jpg",
+        "/produtos/catalogo/estatueta-iemanja-2.jpg",
+        "/produtos/catalogo/estatueta-iemanja-3.jpg",
+        "/produtos/catalogo/estatueta-iemanja-4.jpg"
       ],
       "dimensions": "",
       "available": true,
@@ -208,7 +215,9 @@
       "currency": "BRL",
       "category": "fe-devocao",
       "images": [
-        "/produtos/casal-pretos-velhos.jpg"
+        "/produtos/catalogo/casal-pretos-velhos-1.jpg",
+        "/produtos/catalogo/casal-pretos-velhos-2.jpg",
+        "/produtos/galeria/casal-pretos-velhos-3.jpg"
       ],
       "dimensions": "",
       "available": true,
@@ -240,7 +249,8 @@
       "currency": "BRL",
       "category": "fe-devocao",
       "images": [
-        "/produtos/divino-espirito-santo.jpg"
+        "/produtos/divino-espirito-santo.jpg",
+        "/produtos/catalogo/divino-espirito-santo-2.jpg"
       ],
       "dimensions": "",
       "available": true,
@@ -256,7 +266,7 @@
       "currency": "BRL",
       "category": "fe-devocao",
       "images": [
-        "/produtos/terco-em-ceramica.jpg"
+        "/produtos/catalogo/terco-em-ceramica-1.jpg"
       ],
       "dimensions": "",
       "available": true,
@@ -288,7 +298,8 @@
       "currency": "BRL",
       "category": "decoracao",
       "images": [
-        "/produtos/esfera-decorativa.jpg"
+        "/produtos/esfera-decorativa.jpg",
+        "/produtos/catalogo/esfera-decorativa-2.jpg"
       ],
       "dimensions": "",
       "available": true,
@@ -304,7 +315,8 @@
       "currency": "BRL",
       "category": "presentes",
       "images": [
-        "/produtos/colar-igreja-quadrado.jpg"
+        "/produtos/colar-igreja-quadrado.jpg",
+        "/produtos/catalogo/colar-igreja-quadrado-2.jpg"
       ],
       "dimensions": "",
       "available": true,
@@ -320,7 +332,8 @@
       "currency": "BRL",
       "category": "presentes",
       "images": [
-        "/produtos/ima-igrejinha-trancoso.jpg"
+        "/produtos/ima-igrejinha-trancoso.jpg",
+        "/produtos/igreja-quadrado-m.jpg"
       ],
       "dimensions": "",
       "available": true,

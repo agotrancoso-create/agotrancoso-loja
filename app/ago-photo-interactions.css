@@ -1,0 +1,27 @@
+/* Photo interactions share the existing warm palette. */
+.ago-gallery-open { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.ago-gallery-zoom-hint { position: absolute; z-index: 2; bottom: 18px; left: 18px; background: #fffaf2; color: #593b2b; padding: 9px 13px; border-radius: 99px; font-size: 12px; box-shadow: 0 2px 12px #30201015; }
+.product-gallery-counter { pointer-events: none; }
+.ago-card-photos { display: block; min-height: 44px; margin-top: 8px; padding: 8px 0; color: #75432f; font: inherit; font-size: 12px; font-weight: 600; background: transparent; border: 0; cursor: pointer; text-underline-offset: 4px; }
+.ago-card-photos:hover { text-decoration: underline; }
+.ago-photo-dialog { position: fixed; inset: 0; margin: auto; width: min(100% - 32px, 1060px); max-width: 1060px; height: min(90dvh, 900px); max-height: 100dvh; padding: 0; border: 1px solid #d5c6b7; border-radius: 18px; background: #faf5ec; color: #493324; overflow: hidden; box-shadow: 0 24px 100px #20140e55; }
+.ago-photo-dialog[open] { display: flex; flex-direction: column; }
+.ago-photo-dialog::backdrop { background: #241a13bd; backdrop-filter: blur(5px); }
+.ago-photo-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 20px; flex-shrink: 0; }
+.ago-photo-header h2 { font-family: var(--font-display), Georgia, serif; font-size: clamp(17px, 2.5vw, 23px); line-height: 1.3; margin: 0; }
+.ago-photo-header button, .ago-photo-toolbar button { min-width: 44px; min-height: 44px; border: 1px solid #cfbba6; border-radius: 99px; background: #fffaf3; color: #593b2b; cursor: pointer; padding: 8px 14px; font: inherit; font-size: 14px; flex-shrink: 0; }
+.ago-photo-toolbar button:disabled { opacity: .3; cursor: default; }
+.ago-photo-viewport { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; background: #f0ece5; }
+.ago-photo-canvas { display: block; position: relative; width: 100%; height: 100%; padding: 0; background: transparent; border: 0; cursor: zoom-in; }
+.ago-photo-canvas.is-zoomed { width: 200%; height: 200%; cursor: zoom-out; }
+.ago-photo-canvas img { object-fit: contain; }
+.ago-photo-toolbar { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 12px 16px 6px; flex-shrink: 0; }
+.ago-photo-toolbar span { font-size: 13px; min-width: 36px; text-align: center; }
+.ago-photo-hint { margin: 0; padding: 4px 12px 14px; text-align: center; font-size: 12px; color: #725d4d; flex-shrink: 0; }
+.ago-gallery-open:focus-visible, .ago-card-photos:focus-visible, .ago-photo-dialog button:focus-visible { outline: 3px solid #9b603c; outline-offset: -3px; }
+@media (max-width: 600px) {
+  .ago-photo-dialog { width: 100%; height: 100dvh; max-width: 100%; border: 0; border-radius: 0; padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+  .ago-photo-header { padding: 10px 14px; }
+  .ago-gallery-zoom-hint { left: 12px; bottom: 12px; }
+  .ago-photo-toolbar { gap: 12px; }
+}

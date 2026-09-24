@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import PhotoLightbox from './PhotoLightbox';
 import Image from 'next/image';
 import type { CSSProperties } from 'react';
 import { useEffect, useState } from 'react';
@@ -43,6 +44,7 @@ const photoScales: Record<string, number> = {
 export default function ProductCard({ product, priority = false }: ProductCardProps) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
+  const [showPhotos, setShowPhotos] = useState(false);
 
   useEffect(() => {
     if (!added) return;
@@ -103,6 +105,9 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
           )}
         </div>
       </Link>
+
+      <button type="button" className="ago-card-photos" onClick={() => setShowPhotos(true)} aria-label={`Ver fotos de ${product.name}`}>⊕ Ver fotos</button>
+      {showPhotos && <PhotoLightbox name={product.name} images={product.images?.length ? product.images : [image]} onClose={() => setShowPhotos(false)} />}
 
       {product.available && (
         <button
