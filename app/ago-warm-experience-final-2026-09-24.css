@@ -1,0 +1,234 @@
+/* Direção final: sertão sofisticado, sem oliva e sem troca de foto no hover. */
+
+:root {
+  --ago-cream: #f3e4cc !important;
+  --ago-cream-soft: #fbf1e2 !important;
+  --ago-sand: #d9bf93 !important;
+  --ago-straw: #cfa76b !important;
+  --ago-clay: #c98563 !important;
+  --ago-terracotta: #a95f43 !important;
+  --ago-leather: #704937 !important;
+  --ago-cacao: #2f211b !important;
+  --ago-gold: #b98748 !important;
+  --ago-text: #3b2a22 !important;
+  --ago-muted: #735d4f !important;
+  --ago-surface: #fff8ed !important;
+  --ago-surface-strong: #ead4b6 !important;
+
+  /* Variáveis antigas continuam existindo para compatibilidade, mas deixam de gerar azul/verde/oliva. */
+  --ago-olive: #b77452 !important;
+  --ago-green: #7b4d38 !important;
+  --ago-green-soft: #ead0ba !important;
+  --ago-blue: #a95f43 !important;
+  --ago-blue-soft: #ecd9bd !important;
+}
+
+html,
+body {
+  background: #f3e4cc !important;
+  color: var(--ago-text) !important;
+}
+
+body {
+  background-image:
+    radial-gradient(circle at 12% 4%, rgba(201, 133, 99, .08), transparent 30rem),
+    radial-gradient(circle at 88% 14%, rgba(185, 135, 72, .07), transparent 28rem) !important;
+}
+
+:focus-visible {
+  outline-color: var(--ago-terracotta) !important;
+}
+
+/* Ritmo cromático quente. Nenhuma grande superfície usa oliva. */
+.ago-premium-collection-first,
+.catalog-page {
+  background: #d7bd90 !important;
+}
+
+.product-page {
+  background: #cfad76 !important;
+}
+
+.product-buybox {
+  background: #6b4734 !important;
+  color: #fff7e8 !important;
+}
+
+.product-buybox .eyebrow,
+.product-buybox h1,
+.product-buybox p,
+.product-buybox a,
+.product-buybox strong,
+.product-buybox span {
+  color: inherit;
+}
+
+.product-service-grid > div {
+  background: rgba(255, 247, 232, .12) !important;
+}
+
+.product-international-note {
+  background: #dfc6a1 !important;
+  color: #3b2a22 !important;
+}
+
+.product-international-note .eyebrow,
+.product-international-note h2,
+.product-international-note p,
+.product-international-note a {
+  color: inherit !important;
+}
+
+.benefits-strip.ago-benefits-reference {
+  background: #efddc0 !important;
+}
+
+.ago-premium-trust {
+  background: #9f5b41 !important;
+  color: #fff6e9 !important;
+}
+
+.ago-premium-discovery {
+  background: #e5cda6 !important;
+  color: #3b2a22 !important;
+}
+
+.ago-home-story {
+  background: #c78f6b !important;
+  color: #35231a !important;
+}
+
+.ago-premium-visit,
+.product-aftercare {
+  background: #a85f43 !important;
+  color: #fff6e9 !important;
+}
+
+.essencia-page,
+.contact-page {
+  background: #d2b27f !important;
+  color: #3b2a22 !important;
+}
+
+.checkout-page {
+  background: #f3e4cc !important;
+}
+
+.site-footer.ago-site-footer {
+  background: #2f211b !important;
+  color: #f8ead6 !important;
+}
+
+/* A foto principal do card nunca é substituída no hover ou no toque. */
+.product-image-primary {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: scale(1) !important;
+  transition: transform 320ms cubic-bezier(.2,.7,.2,1), filter 320ms ease !important;
+}
+
+.product-image-secondary {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.product-card:hover .product-image-primary,
+.product-card:focus-within .product-image-primary {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: scale(1.018) !important;
+  filter: saturate(1.02) contrast(1.015) !important;
+}
+
+.product-image-wrap {
+  background: transparent !important;
+  transition: transform 260ms ease, box-shadow 260ms ease !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover .product-image-wrap {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 14px 34px rgba(70, 43, 31, .12) !important;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .product-image-primary,
+  .product-card:hover .product-image-primary,
+  .product-card:focus-within .product-image-primary {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+/* As fotos continuam sem moldura, apenas com o recorte arredondado. */
+.product-image-wrap,
+.product-image-wrap img,
+.product-gallery-main,
+.product-gallery-main img,
+.ago-gallery-open,
+.ago-gallery-open img,
+.product-gallery-thumb,
+.product-gallery-thumb img,
+.ago-premium-discovery-image,
+.ago-premium-discovery-image img,
+.cart-product-image,
+.cart-product-image img,
+.cart-complementary-image,
+.cart-complementary-image img,
+.ago-search-suggestion-image,
+.ago-search-suggestion-image img {
+  border: 0 !important;
+  outline: 0 !important;
+  border-radius: var(--ago-product-photo-radius, 18px) !important;
+}
+
+/* CTAs continuam quentes e coerentes, sem verde/oliva no hover. */
+.product-add,
+.ago-premium-add,
+.ago-bag-cta {
+  background: var(--ago-terracotta) !important;
+  color: #fff8ee !important;
+}
+
+.product-add:hover,
+.ago-premium-add:hover,
+.ago-bag-cta:hover,
+.product-add.is-added,
+.ago-premium-add.is-added {
+  background: var(--ago-leather) !important;
+  color: #fff8ee !important;
+}
+
+.ago-card-photos,
+.text-link,
+.ago-premium-text-link {
+  color: var(--ago-leather) !important;
+}
+
+.ago-card-photos:hover,
+.text-link:hover,
+.ago-premium-text-link:hover {
+  color: var(--ago-terracotta) !important;
+}
+
+.cart-shipping-progress span {
+  background: linear-gradient(90deg, #c98563, #a95f43) !important;
+}
+
+.cart-checkout:hover,
+.checkout-submit:hover {
+  background: var(--ago-leather) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-image-primary,
+  .product-image-wrap {
+    transition: none !important;
+    transform: none !important;
+  }
+}

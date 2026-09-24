@@ -21,6 +21,7 @@ import './ago-story-benefits-fix-2026-09-24.css';
 import './ago-polish-fix-2026-09-24.css';
 import './ago-benefits-essencia-final-2026-09-24.css';
 import './ago-product-detail-polish-2026-09-24.css';
+import './ago-warm-experience-final-2026-09-24.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -33,7 +34,7 @@ import { SITE_DOMAIN } from '@/lib/config';
 const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-sans' });
 const fraunces = Fraunces({ subsets: ['latin'], display: 'swap', variable: '--font-display', weight: ['600', '700'] });
 
-export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#f4ecdf', colorScheme: 'light' };
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#f3e4cc', colorScheme: 'light' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
