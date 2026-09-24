@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
+import { getAvailableProducts, getEffectivePrice } from '@/lib/products';
 import CartIcon from './CartIcon';
 
 const navItems = [
@@ -22,17 +23,58 @@ const categoryItems = [
   { href: '/produtos?categoria=presentes', label: 'Presentes' },
 ];
 
+function normalize(value: string) {
+  return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+}
+
+function formatBRL(value: number) {
+  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
 export default function Header() {
   const [query, setQuery] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchFocused, setSearchFocused] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const searchWrapRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const { totalItems, openDrawer } = useCart();
+  const products = useMemo(() => getAvailableProducts(), []);
+
+  const suggestions = useMemo(() => {
+    const needle = normalize(query);
+    if (!needle) return [];
+
+    return products
+      .map((product) => {
+        const name = normalize(product.name);
+        const words = name.split(/\s+/);
+        let score = 0;
+        if (name.startsWith(needle)) score = 100;
+        else if (words.some((word) => word.startsWith(needle))) score = 80;
+        else if (name.includes(needle)) score = 60;
+        else if (normalize(product.category).startsWith(needle)) score = 35;
+        return { product, score };
+      })
+      .filter((item) => item.score > 0)
+      .sort((a, b) => b.score - a.score || a.product.name.localeCompare(b.product.name, 'pt-BR'))
+      .slice(0, 6)
+      .map((item) => item.product);
+  }, [products, query]);
 
   useEffect(() => {
     setMenuOpen(false);
+    setSearchFocused(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const onPointerDown = (event: PointerEvent) => {
+      if (searchWrapRef.current && !searchWrapRef.current.contains(event.target as Node)) setSearchFocused(false);
+    };
+    window.addEventListener('pointerdown', onPointerDown);
+    return () => window.removeEventListener('pointerdown', onPointerDown);
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -60,10 +102,18 @@ export default function Header() {
   function handleSearch(event: React.FormEvent) {
     event.preventDefault();
     router.push(query.trim() ? `/produtos?busca=${encodeURIComponent(query.trim())}` : '/produtos');
+    setSearchFocused(false);
     setMenuOpen(false);
   }
 
+  function chooseProduct(id: string) {
+    setSearchFocused(false);
+    setMenuOpen(false);
+    router.push(`/produtos/${id}`);
+  }
+
   const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
+  const showSuggestions = searchFocused && query.trim().length > 0;
 
   return (
     <>
@@ -95,17 +145,79 @@ export default function Header() {
           </nav>
 
           <div className="header-actions">
-            <form onSubmit={handleSearch} className="header-search-form" role="search">
-              <label className="sr-only" htmlFor="header-search">Buscar uma peça</label>
-              <input
-                id="header-search"
-                type="search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Buscar"
-                className="header-search"
-              />
-            </form>
+            <div className="header-search-wrap" ref={searchWrapRef}>
+              <form onSubmit={handleSearch} className="header-search-form" role="search">
+                <label className="sr-only" htmlFor="header-search">Buscar uma peça</label>
+                <input
+                  id="header-search"
+                  type="search"
+                  value={query}
+                  onChange={(event) => { setQuery(event.target.value); setSearchFocused(true); }}
+                  onFocus={() => setSearchFocused(true)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Escape') setSearchFocused(false);
+                    if (event.key === 'ArrowDown' && suggestions[0]) {
+                      event.preventDefault();
+                      document.getElementById(`ago-search-suggestion-${suggestions[0].id}`)?.focus();
+                    }
+                  }}
+                  placeholder="Buscar"
+                  className="header-search"
+                  autoComplete="off"
+                  aria-expanded={showSuggestions}
+                  aria-controls="ago-search-suggestions"
+                />
+              </form>
+
+              {showSuggestions && (
+                <div id="ago-search-suggestions" className="ago-search-suggestions" role="listbox" aria-label="Sugestões de peças">
+                  {suggestions.length > 0 ? (
+                    <>
+                      {suggestions.map((product, index) => (
+                        <button
+                          id={`ago-search-suggestion-${product.id}`}
+                          type="button"
+                          role="option"
+                          key={product.id}
+                          className="ago-search-suggestion"
+                          onClick={() => chooseProduct(product.id)}
+                          onKeyDown={(event) => {
+                            if (event.key === 'ArrowDown') {
+                              event.preventDefault();
+                              const next = suggestions[index + 1];
+                              if (next) document.getElementById(`ago-search-suggestion-${next.id}`)?.focus();
+                            }
+                            if (event.key === 'ArrowUp') {
+                              event.preventDefault();
+                              const previous = suggestions[index - 1];
+                              if (previous) document.getElementById(`ago-search-suggestion-${previous.id}`)?.focus();
+                              else document.getElementById('header-search')?.focus();
+                            }
+                            if (event.key === 'Escape') { setSearchFocused(false); document.getElementById('header-search')?.focus(); }
+                          }}
+                        >
+                          <span className="ago-search-suggestion-image">
+                            <Image src={product.images?.[0] || '/images/placeholder.svg'} alt="" fill sizes="48px" />
+                          </span>
+                          <span className="ago-search-suggestion-copy">
+                            <strong>{product.name}</strong>
+                            <small>{formatBRL(getEffectivePrice(product))}</small>
+                          </span>
+                          <span className="ago-search-suggestion-arrow" aria-hidden="true">↗</span>
+                        </button>
+                      ))}
+                      <button type="button" className="ago-search-view-all" onClick={() => { router.push(`/produtos?busca=${encodeURIComponent(query.trim())}`); setSearchFocused(false); }}>
+                        Ver resultados para “{query.trim()}”
+                      </button>
+                    </>
+                  ) : (
+                    <button type="button" className="ago-search-view-all" onClick={() => { router.push(`/produtos?busca=${encodeURIComponent(query.trim())}`); setSearchFocused(false); }}>
+                      Buscar “{query.trim()}” na coleção
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
 
             <button
               type="button"
@@ -144,9 +256,18 @@ export default function Header() {
 
         {menuOpen && (
           <div id="mobile-navigation" className="mobile-menu ago-container" role="dialog" aria-modal="true" aria-label="Menu">
-            <form onSubmit={handleSearch} role="search">
+            <form onSubmit={handleSearch} role="search" className="mobile-search-form">
               <label className="sr-only" htmlFor="mobile-search">Buscar na coleção</label>
               <input id="mobile-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar peça..." autoFocus />
+              {query.trim() && (
+                <div className="mobile-search-suggestions" aria-label="Sugestões de peças">
+                  {suggestions.slice(0, 5).map((product) => (
+                    <button type="button" key={product.id} onClick={() => chooseProduct(product.id)}>
+                      <span>{product.name}</span><small>{formatBRL(getEffectivePrice(product))}</small>
+                    </button>
+                  ))}
+                </div>
+              )}
             </form>
 
             <div className="mobile-menu-primary">
