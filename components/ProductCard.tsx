@@ -13,7 +13,10 @@ function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-type ProductCardProps = { product: Product; priority?: boolean };
+type ProductCardProps = {
+  product: Product;
+  priority?: boolean;
+};
 
 const photoScales: Record<string, number> = {
   'igreja-quadrado-p': 1.05,
@@ -37,14 +40,6 @@ const photoScales: Record<string, number> = {
   'ima-igrejinha-trancoso': 1.07,
 };
 
-const categoryLabels: Record<string, string> = {
-  trancoso: 'Trancoso',
-  igrejinhas: 'Igrejinhas',
-  decoracao: 'Casa & decoração',
-  'fe-devocao': 'Fé & devoção',
-  presentes: 'Presentes',
-};
-
 export default function ProductCard({ product, priority = false }: ProductCardProps) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
@@ -59,7 +54,6 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const photoScale = photoScales[product.id] ?? 1.05;
-  const categoryLabel = categoryLabels[product.category] ?? 'Feito à mão';
 
   const trackView = () => trackViewItem({
     item_id: product.id,
@@ -70,15 +64,15 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   });
 
   return (
-    <article className="product-card" data-product-id={product.id}>
-      <Link href={`/produtos/${product.id}`} className="product-card-link" onClick={trackView}>
+    <article className="product-card group" data-product-id={product.id}>
+      <Link href={`/produtos/${product.id}`} className="block" onClick={trackView}>
         <div className="product-image-wrap">
           <Image
             src={image}
             alt={product.imageAlt || product.name}
             fill
             priority={priority}
-            sizes="(max-width: 430px) 44vw, (max-width: 900px) 45vw, (max-width: 1200px) 31vw, 390px"
+            sizes="(max-width: 420px) 44vw, (max-width: 767px) 45vw, (max-width: 1100px) 44vw, (max-width: 1440px) 23vw, 330px"
             className="product-image product-image-primary"
             style={{ '--product-photo-scale': photoScale } as CSSProperties}
           />
@@ -87,21 +81,18 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
               src={product.images[1]}
               alt=""
               fill
-              sizes="(max-width: 430px) 44vw, (max-width: 900px) 45vw, (max-width: 1200px) 31vw, 390px"
-              className="product-image product-image-secondary"
+              sizes="(max-width: 420px) 44vw, (max-width: 767px) 45vw, (max-width: 1100px) 44vw, (max-width: 1440px) 23vw, 330px"
+              className="product-image-secondary"
               aria-hidden="true"
             />
           )}
           {hasPromo && <span className="product-badge">Oferta</span>}
           {!product.available && <span className="product-badge">Indisponível</span>}
-          <span className="product-view">Ver detalhes <span aria-hidden="true">↗</span></span>
+          <span className="product-view">Ver peça</span>
         </div>
 
-        <div className="product-card-copy">
-          <div>
-            <p className="product-card-kicker">{categoryLabel}</p>
-            <h3 className="product-name">{product.name}</h3>
-          </div>
+        <div className="mt-4 pr-1">
+          <h3 className="product-name">{product.name}</h3>
           {hasPromo ? (
             <div className="price-row">
               <span className="old-price">{formatBRL(product.price)}</span>
@@ -121,12 +112,11 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
             trackAddToCart({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category });
             setAdded(true);
           }}
-          className={`product-add${added ? ' is-added' : ''}`}
+          className={`product-add ago-premium-add${added ? ' is-added' : ''}`}
           aria-live="polite"
-          aria-label={added ? `${product.name} adicionado ao carrinho` : `Adicionar ${product.name} ao carrinho`}
+          aria-label={added ? `${product.name} adicionado à sacola` : `Adicionar ${product.name} à sacola`}
         >
-          <span>{added ? 'Adicionado' : 'Adicionar à sacola'}</span>
-          <span aria-hidden="true">{added ? '✓' : '+'}</span>
+          {added ? 'Adicionado ✓' : 'Adicionar à sacola'}
         </button>
       )}
     </article>
