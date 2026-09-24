@@ -1,3 +1,3 @@
 Agô Trancoso
 
-Design refinement commit: f7b6cf12b0e02a17d67601e4fcce50949b06c3bc
+Versão visual premium: b6edf5b7bd462fc89f89943f09a41c8dd3a12299
