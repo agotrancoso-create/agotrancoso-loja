@@ -24,8 +24,28 @@ export default function FirstPurchaseOffer() {
       if (window.localStorage.getItem(STORAGE_SEEN) || window.localStorage.getItem(STORAGE_REGISTERED)) return;
     } catch {}
 
-    const timer = window.setTimeout(() => setOpen(true), 5200);
-    return () => window.clearTimeout(timer);
+    let triggered = false;
+    const showOffer = () => {
+      if (triggered) return;
+      triggered = true;
+      setOpen(true);
+      window.removeEventListener('scroll', handleScroll);
+      window.clearTimeout(timer);
+    };
+
+    const handleScroll = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      if ((window.scrollY || 0) / scrollable >= 0.4) showOffer();
+    };
+
+    const timer = window.setTimeout(showOffer, 11000);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [pathname]);
 
   useEffect(() => {
@@ -100,13 +120,13 @@ export default function FirstPurchaseOffer() {
                 <strong>3%</strong>
                 <span>OFF</span>
               </div>
-              <p className="eyebrow">Primeira vez por aqui?</p>
+              <p className="eyebrow">Gostou de alguma?</p>
               <h2 id="first-purchase-title">Seu primeiro pedido tem 3% OFF.</h2>
-              <p>Cadastre seu contato e receba o cupom de boas-vindas da Agô.</p>
+              <p>Deixe seu contato e use o cupom quando decidir levar a sua.</p>
               <div className="first-purchase-promise">
                 <span>3% de desconto</span>
                 <span>Novidades da Agô</span>
-                <span>Peças novas em primeira mão</span>
+                <span>Novas chegadas em primeira mão</span>
               </div>
             </div>
 
@@ -127,7 +147,7 @@ export default function FirstPurchaseOffer() {
                 <input type="checkbox" required checked={form.consent} onChange={(event) => setForm((current) => ({ ...current, consent: event.target.checked }))} />
                 <span>Declaro que li e aceito os <a href="/termos" target="_blank" rel="noreferrer">Termos de Uso</a> e a <a href="/privacidade" target="_blank" rel="noreferrer">Política de Privacidade</a>.</span>
               </label>
-              <button type="submit" className="first-purchase-submit">Receber desconto</button>
+              <button type="submit" className="first-purchase-submit">Quero meu cupom</button>
               <small>Usaremos seus dados para enviar novidades da Agô e disponibilizar o benefício.</small>
             </form>
           </div>
@@ -140,7 +160,7 @@ export default function FirstPurchaseOffer() {
               <strong>{FIRST_PURCHASE_COUPON}</strong>
               <span>{copied ? 'Copiado' : 'Copiar'}</span>
             </button>
-            <button type="button" className="first-purchase-continue" onClick={close}>Continuar no site</button>
+            <button type="button" className="first-purchase-continue" onClick={close}>Continuar vendo</button>
           </div>
         )}
       </section>
