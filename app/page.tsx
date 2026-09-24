@@ -65,6 +65,27 @@ export default function HomePage() {
 
   return (
     <div className="home-page attention-home">
+      <section className="home-featured home-featured-first section-space" aria-labelledby="featured-title">
+        <div className="site-container">
+          <div className="section-heading section-heading-wide">
+            <div>
+              <p className="eyebrow">Escolhas da Agô</p>
+              <h1 id="featured-title" className="display-title">As que puxam o olhar.</h1>
+            </div>
+            <div className="section-heading-aside">
+              <p>Se alguma fez você parar, comece por ela.</p>
+              <Link href="/produtos" className="text-link">Ver todas <span aria-hidden="true">↗</span></Link>
+            </div>
+          </div>
+
+          <div className="product-grid product-grid-featured">
+            {featured.map((product, index) => (
+              <ProductCard key={product.id} product={product} priority={index < 3} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="home-hero" aria-labelledby="home-hero-title">
         <Image
           src="/hero.jpg"
@@ -72,17 +93,16 @@ export default function HomePage() {
           fill
           sizes="100vw"
           className="home-hero-image"
-          priority
           quality={90}
         />
         <div className="home-hero-overlay" aria-hidden="true" />
         <div className="site-container home-hero-inner">
           <div className="home-hero-copy">
             <p className="eyebrow eyebrow-light">Objetos brasileiros · desde 2016</p>
-            <h1 id="home-hero-title">
+            <h2 id="home-hero-title">
               <span>Você olha.</span>
               <span>Depois olha de novo.</span>
-            </h1>
+            </h2>
             <p className="home-hero-lead">
               A Agô nasce no Quadrado e vai além dele: formas para casa, fé, presente e pequenos achados com o Brasil sempre por perto.
             </p>
@@ -110,27 +130,6 @@ export default function HomePage() {
           <span>Exterior sob consulta</span>
         </div>
       </div>
-
-      <section className="home-featured home-featured-first section-space" aria-labelledby="featured-title">
-        <div className="site-container">
-          <div className="section-heading section-heading-wide">
-            <div>
-              <p className="eyebrow">Escolhas da Agô</p>
-              <h2 id="featured-title" className="display-title">As que puxam o olhar.</h2>
-            </div>
-            <div className="section-heading-aside">
-              <p>Se alguma fez você parar, comece por ela.</p>
-              <Link href="/produtos" className="text-link">Ver todas <span aria-hidden="true">↗</span></Link>
-            </div>
-          </div>
-
-          <div className="product-grid product-grid-featured">
-            {featured.map((product, index) => (
-              <ProductCard key={product.id} product={product} priority={index < 3} />
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="home-discovery section-space" aria-labelledby="discovery-title">
         <div className="site-container">
