@@ -3,20 +3,25 @@
 import { useEffect, useState } from 'react';
 
 const revealSelectors = [
-  '.ago-premium-collection .ago-premium-section-head',
-  '.ago-premium-collection .product-card',
-  '.ago-premium-collection-bottom',
-  '.ago-premium-editorial .ago-premium-image',
-  '.ago-premium-editorial .ago-premium-copy',
-  '.ago-premium-essence .ago-premium-image',
-  '.ago-premium-essence .ago-premium-copy',
-  '.ago-premium-discovery .ago-premium-section-head',
-  '.ago-premium-discovery-card',
-  '.ago-premium-how-head',
-  '.ago-premium-how-grid article',
-  '.ago-premium-visit-grid',
-  '.benefits-strip .ago-clean-benefit',
-];
+  '.home-featured .section-heading',
+  '.home-featured .product-card',
+  '.benefits-heading',
+  '.benefit-item',
+  '.home-story-image-wrap',
+  '.home-story-copy',
+  '.home-statement-inner',
+  '.home-discovery .section-heading',
+  '.discovery-card',
+  '.home-global-grid',
+  '.home-how .section-heading',
+  '.home-how-grid article',
+  '.home-visit-grid',
+  '.catalog-intro',
+  '.catalog-tools',
+  '.catalog-grid .product-card',
+  '.product-gallery',
+  '.product-buybox',
+] as const;
 
 export default function InteractiveEnhancements() {
   const [showTop, setShowTop] = useState(false);
@@ -24,64 +29,70 @@ export default function InteractiveEnhancements() {
   useEffect(() => {
     const body = document.body;
     const header = document.querySelector('.site-header');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let frame = 0;
 
-    const onScroll = () => {
+    const updateViewportState = () => {
       const y = window.scrollY || 0;
       body.classList.toggle('ago-has-scrolled', y > 24);
       header?.classList.toggle('ago-header-scrolled', y > 24);
-      setShowTop(y > 600);
+      setShowTop(y > 680);
 
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - window.innerHeight;
-      const progress = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
-      doc.style.setProperty('--ago-scroll-progress', String(progress));
+      const documentElement = document.documentElement;
+      const scrollable = documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? Math.min(1, Math.max(0, y / scrollable)) : 0;
+      documentElement.style.setProperty('--ago-scroll-progress', String(progress));
     };
 
-    let frame = 0;
-    const handleScroll = () => {
+    const handleViewportChange = () => {
       if (frame) return;
       frame = window.requestAnimationFrame(() => {
         frame = 0;
-        onScroll();
+        updateViewportState();
       });
     };
 
-    onScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll);
+    updateViewportState();
+    window.addEventListener('scroll', handleViewportChange, { passive: true });
+    window.addEventListener('resize', handleViewportChange);
 
-    const targets = document.querySelectorAll<HTMLElement>(revealSelectors.join(','));
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const targets = Array.from(document.querySelectorAll<HTMLElement>(revealSelectors.join(',')));
+    let observer: IntersectionObserver | null = null;
 
     if (!reducedMotion && 'IntersectionObserver' in window) {
       targets.forEach((element, index) => {
-        element.style.setProperty('--ago-reveal-delay', Math.min(index % 4, 3) * 70 + 'ms');
+        element.style.setProperty('--ago-reveal-delay', `${Math.min(index % 4, 3) * 65}ms`);
         element.classList.add('ago-reveal');
-
-        const observer = new IntersectionObserver(
-          (entries, currentObserver) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('ago-inview');
-                currentObserver.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.14, rootMargin: '0px 0px -8% 0px' }
-        );
-
-        observer.observe(element);
       });
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('ago-inview');
+            observer?.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -7% 0px' }
+      );
+
+      targets.forEach((element) => observer?.observe(element));
     } else {
       targets.forEach((element) => element.classList.add('ago-inview'));
     }
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener('scroll', handleViewportChange);
+      window.removeEventListener('resize', handleViewportChange);
+      observer?.disconnect();
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, []);
+
+  function scrollToTop() {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+  }
 
   return (
     <>
@@ -89,7 +100,7 @@ export default function InteractiveEnhancements() {
       <button
         type="button"
         className={`ago-back-to-top${showTop ? ' is-visible' : ''}`}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onClick={scrollToTop}
         aria-label="Voltar ao topo"
       >
         <span aria-hidden="true">↑</span>

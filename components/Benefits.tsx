@@ -2,32 +2,34 @@ const benefits = [
   ['feito à mão', 'cuidado e tradição em cada detalhe.'],
   ['peças exclusivas', 'escolhas especiais para quem valoriza o feito à mão.'],
   ['inspiração brasileira', 'cores, formas e símbolos da nossa terra.'],
-  ['sem fronteiras', 'Uma lembrança para qualquer lugar.'],
+  ['sem fronteiras', 'uma lembrança para qualquer lugar.'],
 ] as const;
 
-// Pixel bounds in the original 2048 × 690 artwork. Each 280 × 240
-// window contains only its symbol, leaving the printed copy and dividers out.
+// Recortes da arte original aprovada (2048 × 690). Os símbolos não são redesenhados.
 const artwork = { width: 2048, height: 690, cropWidth: 280, cropHeight: 240, top: 140 };
 const iconLeft = [80, 580, 1108, 1618] as const;
 
 export default function Benefits() {
   return (
-    <section className="benefits-strip ago-benefits-reference" aria-labelledby="benefits-title">
-      <div className="ago-container ago-benefits-reference-inner">
-        <h2 id="benefits-title" className="sr-only">Diferenciais da Agô Trancoso</h2>
+    <section className="benefits-section" aria-labelledby="benefits-title">
+      <div className="site-container">
+        <div className="benefits-heading">
+          <p className="eyebrow">Por que Agô</p>
+          <h2 id="benefits-title">Feito para ter história, não pressa.</h2>
+        </div>
 
-        <div className="ago-benefits-grid">
+        <div className="benefits-grid">
           {benefits.map(([title, text], index) => (
-            <article className="ago-benefit-item" key={title}>
+            <article className="benefit-item" key={title}>
               <div
-                className="ago-benefit-art"
+                className="benefit-art"
                 aria-hidden="true"
                 style={{
                   backgroundSize: `${artwork.width / artwork.cropWidth * 100}% ${artwork.height / artwork.cropHeight * 100}%`,
                   backgroundPosition: `${iconLeft[index] / (artwork.width - artwork.cropWidth) * 100}% ${artwork.top / (artwork.height - artwork.cropHeight) * 100}%`,
                 }}
               />
-              <div className="ago-benefit-copy">
+              <div className="benefit-copy">
                 <h3>{title}</h3>
                 <p>{text}</p>
               </div>

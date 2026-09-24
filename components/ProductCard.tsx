@@ -1,21 +1,19 @@
 'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import type { CSSProperties } from 'react';
+import { useEffect, useState } from 'react';
 import { Product } from '@/lib/types';
 import { getEffectivePrice } from '@/lib/products';
 import { useCart } from '@/context/CartContext';
-import { useEffect, useState } from 'react';
 import { trackAddToCart, trackViewItem } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-type ProductCardProps = {
-  product: Product;
-  priority?: boolean;
-};
+type ProductCardProps = { product: Product; priority?: boolean };
 
 const photoScales: Record<string, number> = {
   'igreja-quadrado-p': 1.05,
@@ -45,24 +43,33 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
 
   useEffect(() => {
     if (!added) return;
-    const timer = window.setTimeout(() => setAdded(false), 1400);
+    const timer = window.setTimeout(() => setAdded(false), 1500);
     return () => window.clearTimeout(timer);
   }, [added]);
+
   const image = product.images?.[0] || '/images/placeholder.svg';
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const photoScale = photoScales[product.id] ?? 1.05;
 
+  const trackView = () => trackViewItem({
+    item_id: product.id,
+    item_name: product.name,
+    price,
+    quantity: 1,
+    item_category: product.category,
+  });
+
   return (
-    <article className="product-card group" data-product-id={product.id}>
-      <Link href={`/produtos/${product.id}`} className="block" onClick={() => trackViewItem({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category })}>
+    <article className="product-card" data-product-id={product.id}>
+      <Link href={`/produtos/${product.id}`} className="product-card-link" onClick={trackView}>
         <div className="product-image-wrap">
           <Image
             src={image}
             alt={product.imageAlt || product.name}
             fill
             priority={priority}
-            sizes="(max-width: 420px) 44vw, (max-width: 767px) 45vw, (max-width: 1100px) 44vw, (max-width: 1440px) 23vw, 330px"
+            sizes="(max-width: 430px) 44vw, (max-width: 900px) 45vw, (max-width: 1200px) 31vw, 390px"
             className="product-image product-image-primary"
             style={{ '--product-photo-scale': photoScale } as CSSProperties}
           />
@@ -71,17 +78,21 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
               src={product.images[1]}
               alt=""
               fill
-              sizes="(max-width: 420px) 44vw, (max-width: 767px) 45vw, (max-width: 1100px) 44vw, (max-width: 1440px) 23vw, 330px"
-              className="product-image-secondary"
+              sizes="(max-width: 430px) 44vw, (max-width: 900px) 45vw, (max-width: 1200px) 31vw, 390px"
+              className="product-image product-image-secondary"
               aria-hidden="true"
             />
           )}
           {hasPromo && <span className="product-badge">Oferta</span>}
           {!product.available && <span className="product-badge">Indisponível</span>}
-          <span className="product-view">Ver peça</span>
+          <span className="product-view">Ver detalhes <span aria-hidden="true">↗</span></span>
         </div>
-        <div className="mt-4 pr-1">
-          <h3 className="product-name">{product.name}</h3>
+
+        <div className="product-card-copy">
+          <div>
+            <p className="product-card-kicker">feito à mão</p>
+            <h3 className="product-name">{product.name}</h3>
+          </div>
           {hasPromo ? (
             <div className="price-row">
               <span className="old-price">{formatBRL(product.price)}</span>
@@ -92,9 +103,21 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
           )}
         </div>
       </Link>
+
       {product.available && (
-        <button type="button" onClick={() => { addItem(product.id); trackAddToCart({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category }); setAdded(true); }} className={`product-add ago-premium-add${added ? ' is-added' : ''}`} aria-label={added ? `${product.name} adicionado ao carrinho` : `Adicionar ${product.name} ao carrinho`}>
-          {added ? 'Adicionado ✓' : 'Adicionar ao carrinho'}
+        <button
+          type="button"
+          onClick={() => {
+            addItem(product.id);
+            trackAddToCart({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category });
+            setAdded(true);
+          }}
+          className={`product-add${added ? ' is-added' : ''}`}
+          aria-live="polite"
+          aria-label={added ? `${product.name} adicionado ao carrinho` : `Adicionar ${product.name} ao carrinho`}
+        >
+          <span>{added ? 'Adicionado' : 'Adicionar à sacola'}</span>
+          <span aria-hidden="true">{added ? '✓' : '+'}</span>
         </button>
       )}
     </article>
