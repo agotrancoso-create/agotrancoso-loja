@@ -12,18 +12,23 @@ export default function Benefits() {
   return (
     <section className="benefits-strip ago-benefits-reference" aria-labelledby="benefits-title">
       <div className="ago-container ago-benefits-reference-inner">
-        <h2 id="benefits-title" className="sr-only">Diferenciais da Agô Trancoso</h2>
+        <div className="ago-benefits-heading">
+          <p className="eyebrow">O jeito Agô</p>
+          <h2 id="benefits-title">O que acompanha cada peça.</h2>
+        </div>
+
         <div className="ago-benefits-grid">
           {benefits.map(([title, text], index) => (
             <article className="ago-benefit-item" key={title} tabIndex={0}>
-              <div
-                className="ago-benefit-art"
-                aria-hidden="true"
-                style={{
-                  backgroundSize: `${artwork.width / artwork.cropWidth * 100}% ${artwork.height / artwork.cropHeight * 100}%`,
-                  backgroundPosition: `${iconLeft[index] / (artwork.width - artwork.cropWidth) * 100}% ${artwork.top / (artwork.height - artwork.cropHeight) * 100}%`,
-                }}
-              />
+              <div className="ago-benefit-symbol" aria-hidden="true">
+                <div
+                  className="ago-benefit-art"
+                  style={{
+                    backgroundSize: `${artwork.width / artwork.cropWidth * 100}% ${artwork.height / artwork.cropHeight * 100}%`,
+                    backgroundPosition: `${iconLeft[index] / (artwork.width - artwork.cropWidth) * 100}% ${artwork.top / (artwork.height - artwork.cropHeight) * 100}%`,
+                  }}
+                />
+              </div>
               <div className="ago-benefit-copy">
                 <h3>{title}</h3>
                 <p>{text}</p>

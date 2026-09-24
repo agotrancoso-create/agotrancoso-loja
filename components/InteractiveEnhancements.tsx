@@ -3,24 +3,25 @@
 import { useEffect, useState } from 'react';
 
 const revealSelectors = [
-  '.home-featured .section-heading',
-  '.home-featured .product-card',
-  '.benefits-heading',
-  '.benefit-item',
-  '.home-story-image-wrap',
-  '.home-story-copy',
-  '.home-statement-inner',
-  '.home-discovery .section-heading',
-  '.discovery-card',
-  '.home-global-grid',
-  '.home-how .section-heading',
-  '.home-how-grid article',
-  '.home-visit-grid',
+  '.ago-collection-intro-brand',
+  '.ago-premium-product-grid .product-card',
+  '.ago-benefits-heading',
+  '.ago-benefit-item',
+  '.ago-premium-trust',
+  '.ago-home-hero .ago-premium-hero-content',
+  '.ago-premium-discovery-card',
+  '.ago-premium-split',
+  '.ago-premium-visit-grid',
   '.catalog-intro',
   '.catalog-tools',
   '.catalog-grid .product-card',
   '.product-gallery',
   '.product-buybox',
+  '.contact-copy',
+  '.contact-actions',
+  '.checkout-form-panel',
+  '.checkout-summary',
+  '.first-purchase-modal',
 ] as const;
 
 export default function InteractiveEnhancements() {
@@ -61,7 +62,7 @@ export default function InteractiveEnhancements() {
 
     if (!reducedMotion && 'IntersectionObserver' in window) {
       targets.forEach((element, index) => {
-        element.style.setProperty('--ago-reveal-delay', `${Math.min(index % 4, 3) * 65}ms`);
+        element.style.setProperty('--ago-reveal-delay', `${Math.min(index % 4, 3) * 70}ms`);
         element.classList.add('ago-reveal');
       });
 
@@ -73,7 +74,7 @@ export default function InteractiveEnhancements() {
             observer?.unobserve(entry.target);
           });
         },
-        { threshold: 0.12, rootMargin: '0px 0px -7% 0px' }
+        { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
       );
 
       targets.forEach((element) => observer?.observe(element));
