@@ -20,6 +20,7 @@ import './ago-rhythm-footer-final-2026-09-24.css';
 import './ago-story-benefits-fix-2026-09-24.css';
 import './ago-polish-fix-2026-09-24.css';
 import './ago-benefits-essencia-final-2026-09-24.css';
+import './ago-product-detail-polish-2026-09-24.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
