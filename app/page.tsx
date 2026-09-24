@@ -1,112 +1,123 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import ProductCard from '@/components/ProductCard';
 import Benefits from '@/components/Benefits';
-import { getAvailableProducts, getProductById } from '@/lib/products';
+import HomeInteractiveCollection from '@/components/HomeInteractiveCollection';
+import { getAvailableProducts } from '@/lib/products';
 
 const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu';
 const whatsappUrl = 'https://wa.me/557398558124?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ag%C3%B4%20Trancoso.';
 const instagramUrl = 'https://www.instagram.com/agotrancoso';
 
-const featuredOrder = [
+const homeOrder = [
+  'divino-espirito-santo',
+  'terco-em-ceramica',
+  'esfera-decorativa',
+  'nossa-senhora-aparecida',
+  'ima-igrejinha-trancoso',
+  'colar-igreja-quadrado',
+  'casal-pretos-velhos',
   'igreja-quadrado-p',
   'igreja-quadrado-m',
+  'igreja-quadrado-gg',
+  'cruzeiro-do-quadrado',
+  'estatueta-iemanja',
   'igrejinha-luminaria-trancoso',
   'casinha-luminaria',
+  'presepio-em-ceramica',
   'miniatura-quadrado-trancoso',
-  'cruzeiro-do-quadrado',
+  'mobile-trancoso',
+  'nossa-senhora-grande',
+  'rosario-trancoso',
 ];
 
-const discovery = [
-  { title: 'Trancoso', subtitle: 'Nosso maior repertório', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
-  { title: 'Casa & decoração', subtitle: 'Para viver junto', category: 'decoracao', image: '/produtos/casinha-luminaria.jpg' },
-  { title: 'Fé & devoção', subtitle: 'Símbolos que acompanham', category: 'fe-devocao', image: '/produtos/nossa-senhora-grande.jpg' },
-  { title: 'Presentes', subtitle: 'Para alguém que veio à cabeça', category: 'presentes', image: '/produtos/colar-igreja-quadrado.jpg' },
+const categories = [
+  {
+    title: 'Trancoso',
+    subtitle: 'O começo de tudo',
+    href: '/produtos?categoria=trancoso',
+    image: '/produtos/miniatura-quadrado-trancoso.jpg',
+  },
+  {
+    title: 'Casa',
+    subtitle: 'Objetos para conviver',
+    href: '/produtos?categoria=decoracao',
+    image: '/produtos/casinha-luminaria.jpg',
+  },
+  {
+    title: 'Fé',
+    subtitle: 'Símbolos que acompanham',
+    href: '/produtos?categoria=fe-devocao',
+    image: '/produtos/nossa-senhora-aparecida.jpg',
+  },
+  {
+    title: 'Presentes',
+    subtitle: 'Para levar de Trancoso',
+    href: '/produtos?categoria=presentes',
+    image: '/produtos/colar-igreja-quadrado.jpg',
+  },
 ];
 
 export default function HomePage() {
   const available = getAvailableProducts();
-  const byId = new Map(available.map((product) => [product.id, product]));
-  const featured = featuredOrder
-    .map((id) => byId.get(id) ?? getProductById(id))
-    .filter((product): product is NonNullable<typeof product> => Boolean(product?.available));
+  const order = new Map(homeOrder.map((id, index) => [id, index]));
+  const products = [...available].sort((a, b) => (order.get(a.id) ?? 999) - (order.get(b.id) ?? 999));
 
   return (
-    <div className="ago-home ago-premium-home">
-      <section className="ago-premium-collection ago-premium-collection-first" aria-labelledby="featured-title">
-        <div className="ago-container">
-          <div className="ago-collection-intro-brand">
-            <p className="eyebrow">Agô · Trancoso, Bahia</p>
-            <h1 id="featured-title">Peças que ficam por perto.</h1>
-            <p>Trancoso é nosso começo. A coleção também passa por casa, fé, presentes e outros símbolos brasileiros.</p>
-            <Link href="/produtos" className="ago-premium-text-link">Ver coleção <span aria-hidden="true">↗</span></Link>
-          </div>
+    <div className="ago-home ago-immersive-home">
+      <HomeInteractiveCollection products={products} />
 
-          <div className="ago-premium-product-grid ago-premium-product-grid-featured">
-            {featured.map((product, index) => (
-              <ProductCard key={product.id} product={product} priority={index < 4} />
-            ))}
-          </div>
-
-          <div className="ago-collection-after-grid">
-            <span>Escolha sem pressa.</span>
-            <Link href="/produtos" className="ago-premium-dark-cta">Ver tudo</Link>
-          </div>
-        </div>
-      </section>
-
-      <Benefits />
-
-      <div className="ago-premium-trust" aria-label="Informações da Agô">
-        <div className="ago-container ago-premium-trust-inner">
-          <span>Feitas à mão</span>
+      <div className="ago-real-trust" aria-label="Condições da loja">
+        <div className="ago-container ago-real-trust-inner">
+          <span>3% OFF na primeira compra</span>
           <i aria-hidden="true" />
-          <span>Envio com cuidado</span>
+          <span>Frete grátis acima de R$ 500</span>
           <i aria-hidden="true" />
-          <span>Pagamento seguro</span>
+          <span>Envio para todo o Brasil</span>
           <i aria-hidden="true" />
           <span>Exterior sob consulta</span>
         </div>
       </div>
 
-      <section className="ago-premium-hero ago-home-hero" aria-labelledby="hero-title">
-        <Image
-          src="/hero.jpg"
-          alt="Peças de cerâmica da Agô Trancoso"
-          fill
-          sizes="100vw"
-          className="ago-premium-hero-image"
-          quality={90}
-        />
-        <div className="ago-premium-hero-overlay" aria-hidden="true" />
-        <div className="ago-container ago-premium-hero-content">
-          <p className="eyebrow">Depois da viagem</p>
-          <h2 id="hero-title">Tem lugar que continua com a gente.</h2>
-          <p>Às vezes ele volta numa cor, numa fachada, numa imagem, num objeto.</p>
-          <Link href="/produtos?categoria=trancoso" className="ago-premium-hero-cta">Ver Trancoso</Link>
+      <section className="ago-immersive-hero" aria-labelledby="home-hero-title">
+        <div className="ago-immersive-hero-media">
+          <Image
+            src="/hero.jpg"
+            alt="Atmosfera de Trancoso e peças da Agô"
+            fill
+            sizes="(max-width: 900px) 100vw, 68vw"
+            quality={92}
+          />
+        </div>
+        <div className="ago-immersive-hero-copy">
+          <p className="eyebrow">Trancoso em cada detalhe</p>
+          <h2 id="home-hero-title">Tem lugar que continua com a gente.</h2>
+          <p>Nas fachadas, nas cores, na fé e nos objetos que escolhemos manter por perto.</p>
+          <Link href="/produtos?categoria=trancoso" className="ago-hero-link">
+            Ver peças de Trancoso <span aria-hidden="true">↗</span>
+          </Link>
         </div>
       </section>
 
-      <section className="ago-premium-discovery" aria-labelledby="discover-title">
+      <section className="ago-home-categories" aria-labelledby="home-categories-title">
         <div className="ago-container">
-          <div className="ago-premium-section-head">
+          <div className="ago-home-section-head">
             <div>
-              <p className="eyebrow">A coleção</p>
-              <h2 id="discover-title">Escolha por onde entrar.</h2>
+              <p className="eyebrow">Explore a coleção</p>
+              <h2 id="home-categories-title">Por onde você quer começar?</h2>
             </div>
-            <Link href="/produtos" className="ago-premium-text-link">Ver tudo <span aria-hidden="true">↗</span></Link>
+            <Link href="/produtos" className="ago-premium-text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
           </div>
 
-          <div className="ago-premium-discovery-grid">
-            {discovery.map((item) => (
-              <Link key={item.category} href={`/produtos?categoria=${item.category}`} className="ago-premium-discovery-card">
-                <div className="ago-premium-discovery-image">
-                  <Image src={item.image} alt={item.title} fill sizes="(max-width: 767px) 50vw, 25vw" />
-                </div>
-                <div className="ago-premium-discovery-copy">
-                  <small>{item.subtitle}</small>
-                  <span>{item.title}</span>
-                  <strong>Ver peças <span aria-hidden="true">↗</span></strong>
+          <div className="ago-home-category-grid">
+            {categories.map((category) => (
+              <Link key={category.title} href={category.href} className="ago-home-category-card">
+                <Image src={category.image} alt="" fill sizes="(max-width: 700px) 50vw, 25vw" />
+                <div className="ago-home-category-copy">
+                  <div>
+                    <small>{category.subtitle}</small>
+                    <strong>{category.title}</strong>
+                  </div>
+                  <span aria-hidden="true">↗</span>
                 </div>
               </Link>
             ))}
@@ -114,40 +125,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="ago-premium-editorial ago-home-story" aria-labelledby="story-title">
-        <div className="ago-container ago-premium-split">
-          <div className="ago-premium-image">
+      <Benefits />
+
+      <section className="ago-home-story-refined" aria-labelledby="home-story-title">
+        <div className="ago-container ago-home-story-grid">
+          <div className="ago-home-story-image">
             <Image
               src="/nossa-essencia.jpg"
               alt="Universo visual da Agô Trancoso"
               fill
-              sizes="(max-width: 900px) 100vw, 56vw"
+              sizes="(max-width: 900px) 100vw, 62vw"
               quality={92}
-              className="ago-complementary-photo"
             />
           </div>
-          <div className="ago-premium-copy">
-            <p className="eyebrow">De onde vem</p>
-            <h2 id="story-title">Começou no Quadrado.</h2>
-            <p>É dali que vem boa parte do nosso olhar: as casas, a igreja, as cores, a fé. A Agô parte de Trancoso, mas não termina ali.</p>
+          <div className="ago-home-story-copy">
+            <p className="eyebrow">A Agô</p>
+            <h2 id="home-story-title">Começou no Quadrado.</h2>
+            <p>Trancoso guia boa parte do nosso olhar. A partir dali, a coleção também percorre a casa, a fé, os presentes e outros símbolos brasileiros.</p>
             <Link href="/nossa-essencia" className="ago-premium-text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
       </section>
 
-      <section className="ago-premium-visit" aria-labelledby="visit-title">
-        <div className="ago-container ago-premium-visit-grid">
+      <section className="ago-home-visit-refined" aria-labelledby="home-visit-title">
+        <div className="ago-container ago-home-visit-grid">
           <div>
-            <p className="eyebrow">Se estiver por perto</p>
-            <h2 id="visit-title">A gente está no Quadrado.</h2>
-            <p>Passe para ver as peças de perto.</p>
-            <div className="ago-premium-visit-links">
-              <a href={mapsUrl} target="_blank" rel="noreferrer">Como chegar <span aria-hidden="true">↗</span></a>
-              <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
-              <a href={instagramUrl} target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+            <p className="eyebrow">No Quadrado</p>
+            <h2 id="home-visit-title">Veja as peças de perto.</h2>
+            <p>Se estiver em Trancoso, passe na nossa banca no Quadrado.</p>
+            <div className="ago-home-visit-links">
+              <a href={mapsUrl} target="_blank" rel="noreferrer">Como chegar ↗</a>
+              <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp ↗</a>
+              <a href={instagramUrl} target="_blank" rel="noreferrer">Instagram ↗</a>
             </div>
           </div>
-          <div className="ago-premium-visit-mark" aria-hidden="true">
+          <div className="ago-home-place-mark" aria-hidden="true">
             <span>Trancoso</span>
             <strong>Bahia</strong>
             <span>Brasil</span>
