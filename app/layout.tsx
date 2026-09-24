@@ -1,9 +1,14 @@
 import type { Metadata, Viewport } from 'next';
-import { Cormorant_Garamond, Manrope } from 'next/font/google';
+import { Fraunces, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
 import './globals.css';
+import './ago-checkout-premium.css';
+import './ago-social-mobile.css';
+import './ago-mobile-checkout-final-2026.css';
+import './ago-design-limpo-2026-09-23.css';
+import './ago-beneficios-arte-final-2026.css';
 import './product-purchase-control.css';
-import './attention-architecture.css';
+import './ago-refino-8cd-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -19,30 +24,30 @@ const manrope = Manrope({
   variable: '--font-sans',
 });
 
-const cormorant = Cormorant_Garamond({
+const fraunces = Fraunces({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-display',
-  weight: ['500', '600', '700'],
+  weight: ['600', '700'],
 });
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#f7f1e8',
+  themeColor: '#f5eee5',
   colorScheme: 'light',
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
-  title: { default: 'Agô Trancoso | Objetos brasileiros em cerâmica', template: '%s | Agô Trancoso' },
-  description: 'Objetos brasileiros em cerâmica para casa, fé e presente. Trancoso é o maior repertório da Agô — e o começo de uma coleção que vai além.',
-  keywords: ['Agô Trancoso', 'cerâmica brasileira', 'decoração em cerâmica', 'presentes artesanais', 'Trancoso', 'Bahia', 'fé e devoção'],
+  title: { default: 'Agô Trancoso | Cerâmica brasileira para casa, fé e presente', template: '%s | Agô Trancoso' },
+  description: 'Cerâmica brasileira para casa, fé e presente. Trancoso é a principal inspiração da Agô, em uma coleção que também percorre outros símbolos e referências do Brasil.',
+  keywords: ['Agô Trancoso', 'cerâmica brasileira', 'cerâmica artesanal', 'decoração artesanal', 'presentes artesanais', 'Trancoso', 'Bahia', 'fé e devoção'],
   alternates: { canonical: SITE_DOMAIN },
   robots: { index: true, follow: true },
   openGraph: {
-    title: 'Agô Trancoso | Objetos brasileiros em cerâmica',
-    description: 'Trancoso é o maior repertório da Agô. Descubra objetos para casa, fé, presente e outras referências brasileiras.',
+    title: 'Agô Trancoso | Cerâmica brasileira para casa, fé e presente',
+    description: 'Trancoso é a principal inspiração da Agô — e o começo de uma coleção que vai além.',
     url: SITE_DOMAIN,
     siteName: 'Agô Trancoso',
     locale: 'pt_BR',
@@ -50,8 +55,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Agô Trancoso | Objetos brasileiros em cerâmica',
-    description: 'Objetos para casa, fé e presente, com o Brasil sempre por perto.',
+    title: 'Agô Trancoso | Cerâmica brasileira',
+    description: 'Objetos para casa, fé e presente, com Trancoso como principal inspiração.',
   },
 };
 
@@ -78,14 +83,14 @@ const structuredData = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`}>
+    <html lang="pt-BR" className={`${manrope.variable} ${fraunces.variable}`}>
       <body>
         <MarketingAnalytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <CartProvider>
           <InteractiveEnhancements />
           <Header />
-          <main id="conteudo-principal">{children}</main>
+          <main id="conteudo-principal" className="min-h-[60vh]">{children}</main>
           <Footer />
           <CartDrawer />
           <SocialFloaters />
