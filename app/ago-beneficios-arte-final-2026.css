@@ -4,7 +4,7 @@
    Os textos ficam em HTML para usar a tipografia real do site e manter
    "sem fronteiras" em caixa baixa. */
 
-.ago-benefits-reference{
+.benefits-strip.ago-benefits-reference{
   width:100%!important;
   padding:58px 0 62px!important;
   background:#EADDCB!important;
@@ -35,12 +35,11 @@
 }
 
 .ago-benefit-art{
-  width:100%!important;
-  height:145px!important;
-  background-image:url('/benefits/benefits-icons.webp')!important;
+  width:min(148px,100%)!important;
+  aspect-ratio:7 / 6;
+  margin:0 auto 16px!important;
+  background-image:url('/benefits/benefits-reference.png')!important;
   background-repeat:no-repeat!important;
-  background-size:400% auto!important;
-  background-position-y:30%!important;
   background-color:transparent!important;
 }
 
@@ -70,8 +69,8 @@
   font-weight:500!important;
 }
 
-@media (max-width:767px){
-  .ago-benefits-reference{
+@media (max-width:900px){
+  .benefits-strip.ago-benefits-reference{
     padding:42px 0 46px!important;
   }
 
@@ -92,15 +91,18 @@
     border-left:1px solid rgba(75,43,30,.28)!important;
   }
 
+  .ago-benefit-item:nth-child(odd){
+    border-left:0!important;
+  }
+
   .ago-benefit-item:nth-child(n+3){
     padding-top:22px!important;
     border-top:1px solid rgba(75,43,30,.22)!important;
   }
 
   .ago-benefit-art{
-    height:80px!important;
-    background-size:400% auto!important;
-    background-position-y:30%!important;
+    width:min(120px,100%)!important;
+    margin-bottom:12px!important;
   }
 
   .ago-benefit-copy h3{
@@ -130,7 +132,7 @@
   }
 
   .ago-benefit-art{
-    height:74px!important;
+    width:min(108px,100%)!important;
   }
 }
 

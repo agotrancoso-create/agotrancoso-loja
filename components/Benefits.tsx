@@ -5,7 +5,10 @@ const benefits = [
   ['sem fronteiras', 'Uma lembrança para qualquer lugar.'],
 ] as const;
 
-const backgroundPositions = ['0%', '33.3333%', '66.6667%', '100%'] as const;
+// Pixel bounds in the original 2048 × 690 artwork. Each 280 × 240
+// window contains only its symbol, leaving the printed copy and dividers out.
+const artwork = { width: 2048, height: 690, cropWidth: 280, cropHeight: 240, top: 140 };
+const iconLeft = [80, 580, 1108, 1618] as const;
 
 export default function Benefits() {
   return (
@@ -19,7 +22,10 @@ export default function Benefits() {
               <div
                 className="ago-benefit-art"
                 aria-hidden="true"
-                style={{ backgroundPosition: `${backgroundPositions[index]} 30%` }}
+                style={{
+                  backgroundSize: `${artwork.width / artwork.cropWidth * 100}% ${artwork.height / artwork.cropHeight * 100}%`,
+                  backgroundPosition: `${iconLeft[index] / (artwork.width - artwork.cropWidth) * 100}% ${artwork.top / (artwork.height - artwork.cropHeight) * 100}%`,
+                }}
               />
               <div className="ago-benefit-copy">
                 <h3>{title}</h3>
