@@ -1,0 +1,118 @@
+/* Agô Trancoso — regra final para fotos preenchidas e cantos suaves. */
+:root {
+  --ago-photo-final-radius: clamp(14px, 1.35vw, 20px);
+  --ago-photo-thumb-radius: 12px;
+}
+
+/* Benefícios sem cabeçalho visual: só ícones + textos. */
+.benefits-strip.ago-benefits-reference {
+  padding-block: clamp(42px, 5vw, 72px) !important;
+}
+.ago-benefits-reference-inner {
+  padding-top: 0 !important;
+}
+.ago-benefits-grid {
+  align-items: stretch;
+}
+
+/* Fotos de produto e complementares: sempre preenchidas, sem moldura. */
+.product-image-wrap,
+.product-gallery-main,
+.ago-premium-discovery-image,
+.ago-premium-image,
+.cart-product-image,
+.cart-complementary-image,
+.checkout-product-image,
+.ago-search-suggestion-image,
+.product-gallery-thumb {
+  position: relative;
+  aspect-ratio: 1 / 1 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  outline: 0 !important;
+  border-radius: var(--ago-photo-final-radius) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.product-image-wrap > img,
+.product-image-wrap .product-image,
+.product-image-wrap .product-image-secondary,
+.product-gallery-main img,
+.product-gallery-image,
+.ago-gallery-open img,
+.ago-premium-discovery-image img,
+.ago-premium-image img,
+.ago-complementary-photo,
+.cart-product-image img,
+.cart-complementary-image img,
+.checkout-product-image img,
+.ago-search-suggestion-image img,
+.product-gallery-thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+}
+
+/* A foto principal de cada peça deve ocupar todo o card. */
+.product-image-wrap {
+  width: 100% !important;
+}
+.product-image-wrap .product-image,
+.product-image-wrap .product-image-secondary {
+  inset: 0 !important;
+}
+
+/* Galeria principal e miniaturas seguem a mesma linguagem visual. */
+.product-gallery-main,
+.ago-gallery-open {
+  width: 100% !important;
+}
+.product-gallery-thumb {
+  border-radius: var(--ago-photo-thumb-radius) !important;
+}
+.product-gallery-thumb[aria-current='true'],
+.product-gallery-thumb.is-active {
+  outline: 2px solid rgba(117,67,47,.45) !important;
+  outline-offset: 2px !important;
+}
+
+/* Categorias e foto editorial da home usam a foto inteira como superfície visual. */
+.ago-premium-discovery-image,
+.ago-premium-image {
+  min-height: 0 !important;
+}
+
+/* Imagens pequenas também não podem ficar com sobra interna. */
+.cart-product-image,
+.cart-complementary-image,
+.checkout-product-image,
+.ago-search-suggestion-image {
+  flex: 0 0 auto;
+}
+
+/* Exceção intencional: a hero é full bleed e permanece reta. */
+.ago-home-hero,
+.ago-home-hero .ago-premium-hero-image,
+.ago-home-hero img {
+  border-radius: 0 !important;
+}
+.ago-home-hero .ago-premium-hero-image,
+.ago-home-hero img {
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --ago-photo-final-radius: 14px;
+    --ago-photo-thumb-radius: 10px;
+  }
+
+  .benefits-strip.ago-benefits-reference {
+    padding-block: 34px !important;
+  }
+}
