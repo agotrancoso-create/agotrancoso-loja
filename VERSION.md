@@ -1,3 +1,3 @@
 Agô Trancoso
-Galerias reais do catálogo integradas às páginas das peças.
-Commit de referência: 3cc83ef68c42b0e2b6932d2aa4b58ad3e98cb201
+
+Design refinement commit: f7b6cf12b0e02a17d67601e4fcce50949b06c3bc
