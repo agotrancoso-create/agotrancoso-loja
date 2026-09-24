@@ -18,6 +18,7 @@ import './ago-fullbleed-2026-09-24.css';
 import './ago-photo-fill-final-2026-09-24.css';
 import './ago-rhythm-footer-final-2026-09-24.css';
 import './ago-story-benefits-fix-2026-09-24.css';
+import './ago-polish-fix-2026-09-24.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
