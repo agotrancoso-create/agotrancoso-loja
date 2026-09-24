@@ -1,8 +1,23 @@
-/* Ajustes finais guiados pelas capturas: benefícios compactos e imagem da página A Agô. */
+/* Ajuste final de benefícios, rodapé mobile e imagem da página A Agô. */
 
-/* Benefícios: ritmo normal, legível e proporcional em qualquer tela. */
+/* A mesma paleta vale para desktop, tablet e celular. */
 .benefits-strip.ago-benefits-reference {
   min-height: 0 !important;
+  background: var(--ago-blue-soft) !important;
+}
+
+.site-footer.ago-site-footer {
+  min-height: 0 !important;
+  background: #332219 !important;
+  color: var(--ago-cream-soft) !important;
+}
+
+.ago-site-footer a,
+.ago-site-footer span,
+.ago-site-footer p,
+.ago-site-footer h2,
+.ago-site-footer h3 {
+  color: inherit !important;
 }
 
 .ago-benefits-reference-inner,
@@ -19,25 +34,20 @@
 
 .ago-benefit-item {
   height: auto !important;
-  padding-block: clamp(18px, 2.1vw, 30px) !important;
-}
-
-.ago-benefit-copy {
-  align-self: center !important;
 }
 
 .ago-benefit-copy h3 {
   margin: 0 0 6px !important;
-  line-height: 1.2 !important;
+  line-height: 1.16 !important;
 }
 
 .ago-benefit-copy p {
   margin: 0 !important;
-  line-height: 1.48 !important;
+  line-height: 1.45 !important;
   text-wrap: pretty;
 }
 
-/* A Agô: a foto precisa ter cantos reais, sem borda ou moldura. */
+/* A Agô: foto limpa, preenchida e com os mesmos cantos do restante do site. */
 .essencia-image {
   position: relative !important;
   overflow: hidden !important;
@@ -60,42 +70,77 @@
 }
 
 @media (max-width: 700px) {
+  /* Reafirma os mesmos tons usados no desktop. */
+  body {
+    background: radial-gradient(circle at 12% 3%, rgba(198,120,85,.08), transparent 28rem), radial-gradient(circle at 88% 16%, rgba(66,107,120,.07), transparent 26rem), var(--ago-cream) !important;
+  }
+
+  .ago-premium-collection-first {
+    background: linear-gradient(180deg, var(--ago-cream-soft) 0%, var(--ago-cream) 100%) !important;
+  }
+
+  .ago-premium-discovery {
+    background: linear-gradient(145deg, rgba(223,227,212,.75), rgba(244,236,223,.96) 52%, rgba(219,231,232,.66)) !important;
+  }
+
+  .ago-home-story {
+    background: var(--ago-sand) !important;
+  }
+
+  .ago-premium-visit {
+    background: var(--ago-cacao) !important;
+    color: var(--ago-cream-soft) !important;
+  }
+
+  .ago-premium-trust {
+    background: var(--ago-green) !important;
+  }
+
+  /* BENEFÍCIOS: 2x2 compacto, simétrico e fácil de ler. */
   .benefits-strip.ago-benefits-reference {
-    padding-block: 12px !important;
+    padding: 22px 0 !important;
+    background: var(--ago-blue-soft) !important;
   }
 
   .ago-benefits-reference-inner {
-    width: calc(100% - 28px) !important;
+    width: calc(100% - 24px) !important;
     margin-inline: auto !important;
   }
 
   .ago-benefits-grid {
     display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 0 !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    align-items: stretch !important;
   }
 
-  .ago-benefit-item {
-    display: grid !important;
-    grid-template-columns: 64px minmax(0, 1fr) !important;
-    align-items: center !important;
-    gap: 14px !important;
-    width: 100% !important;
-    min-height: 0 !important;
-    padding: 16px 0 !important;
-    margin: 0 !important;
-  }
-
+  .ago-benefit-item,
+  .ago-benefit-item:nth-child(odd),
+  .ago-benefit-item:nth-child(even),
+  .ago-benefit-item:nth-child(n+3),
   .ago-benefit-item + .ago-benefit-item {
-    border-top: 1px solid rgba(69, 48, 34, .10) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 146px !important;
+    margin: 0 !important;
+    padding: 14px 10px 13px !important;
+    gap: 6px !important;
+    border: 0 !important;
+    border-radius: 14px !important;
+    box-shadow: none !important;
+    text-align: center !important;
   }
 
   .ago-benefit-symbol {
-    width: 58px !important;
-    height: 58px !important;
-    min-width: 58px !important;
-    min-height: 58px !important;
-    margin: 0 !important;
+    width: 50px !important;
+    height: 48px !important;
+    min-width: 50px !important;
+    min-height: 48px !important;
+    margin: 0 auto 2px !important;
     padding: 0 !important;
     display: grid !important;
     place-items: center !important;
@@ -105,34 +150,168 @@
   }
 
   .ago-benefit-art {
-    width: 54px !important;
-    height: 50px !important;
+    width: 48px !important;
+    height: 44px !important;
     min-width: 0 !important;
     min-height: 0 !important;
+    margin: 0 !important;
   }
 
   .ago-benefit-copy {
-    display: block !important;
-    width: auto !important;
+    width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-    text-align: left !important;
+    text-align: center !important;
   }
 
   .ago-benefit-copy h3 {
-    margin: 0 0 5px !important;
-    font-size: clamp(.93rem, 4vw, 1.02rem) !important;
-    line-height: 1.18 !important;
-    text-align: left !important;
+    margin: 0 0 4px !important;
+    font-size: clamp(.84rem, 3.55vw, .96rem) !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
   }
 
   .ago-benefit-copy p {
-    margin: 0 !important;
-    max-width: 31ch !important;
-    font-size: clamp(.76rem, 3.25vw, .84rem) !important;
-    line-height: 1.46 !important;
-    text-align: left !important;
+    max-width: 19ch !important;
+    margin: 0 auto !important;
+    font-size: clamp(.67rem, 2.75vw, .76rem) !important;
+    line-height: 1.36 !important;
+    text-align: center !important;
     text-justify: auto !important;
+  }
+
+  /* RODAPÉ: compacto, alinhado e com a mesma cor do desktop. */
+  footer.ago-site-footer {
+    background: #332219 !important;
+    color: var(--ago-cream-soft) !important;
+  }
+
+  footer.ago-site-footer .ago-footer-wrap {
+    width: calc(100% - 32px) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+    padding: 22px 0 14px !important;
+  }
+
+  footer.ago-site-footer .ago-footer-main {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 20px 18px !important;
+    align-items: start !important;
+  }
+
+  footer.ago-site-footer .ago-footer-brand {
+    grid-column: 1 / -1 !important;
+    display: grid !important;
+    grid-template-columns: 44px minmax(0, 1fr) !important;
+    grid-template-rows: auto auto !important;
+    column-gap: 12px !important;
+    row-gap: 2px !important;
+    align-items: center !important;
+    padding-bottom: 14px !important;
+    border-bottom: 1px solid rgba(251,246,238,.12) !important;
+  }
+
+  footer.ago-site-footer .ago-footer-logo {
+    grid-column: 1 !important;
+    grid-row: 1 / 3 !important;
+    width: 44px !important;
+    height: 44px !important;
+    margin: 0 !important;
+  }
+
+  footer.ago-site-footer .ago-footer-place {
+    grid-column: 2 !important;
+    margin: 0 !important;
+    font-size: .59rem !important;
+    line-height: 1.25 !important;
+    letter-spacing: .08em !important;
+  }
+
+  footer.ago-site-footer .ago-footer-brand h2 {
+    grid-column: 2 !important;
+    margin: 0 !important;
+    font-size: 1.22rem !important;
+    line-height: 1.05 !important;
+  }
+
+  footer.ago-site-footer .ago-footer-description {
+    display: none !important;
+  }
+
+  footer.ago-site-footer .ago-footer-group {
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    text-align: left !important;
+  }
+
+  footer.ago-site-footer .ago-footer-group h3 {
+    margin: 0 0 8px !important;
+    font-size: .64rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: .1em !important;
+  }
+
+  footer.ago-site-footer .ago-footer-group nav {
+    display: grid !important;
+    gap: 5px !important;
+  }
+
+  footer.ago-site-footer .ago-footer-group a,
+  footer.ago-site-footer .ago-footer-group p,
+  footer.ago-site-footer .ago-footer-group span {
+    margin: 0 !important;
+    font-size: .69rem !important;
+    line-height: 1.36 !important;
+    text-align: left !important;
+  }
+
+  footer.ago-site-footer .ago-footer-visit-group {
+    grid-column: 1 / -1 !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 7px 16px !important;
+    padding-top: 14px !important;
+    border-top: 1px solid rgba(251,246,238,.12) !important;
+  }
+
+  footer.ago-site-footer .ago-footer-visit-group h3 {
+    grid-column: 1 / -1 !important;
+    margin-bottom: 1px !important;
+  }
+
+  footer.ago-site-footer .ago-footer-visit-group p {
+    grid-column: 1 !important;
+  }
+
+  footer.ago-site-footer .ago-footer-visit-group .ago-footer-map-link {
+    grid-column: 2 !important;
+    align-self: start !important;
+  }
+
+  footer.ago-site-footer .ago-footer-visit-group > a:last-child {
+    grid-column: 1 / -1 !important;
+    margin-top: 2px !important;
+  }
+
+  footer.ago-site-footer .ago-footer-legal {
+    margin-top: 16px !important;
+    padding-top: 11px !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+    border-top: 1px solid rgba(251,246,238,.12) !important;
+    font-size: .56rem !important;
+    line-height: 1.3 !important;
+    text-align: left !important;
+  }
+
+  footer.ago-site-footer .ago-footer-legal > div {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 5px 12px !important;
   }
 
   .essencia-image {
@@ -140,36 +319,58 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 390px) {
   .ago-benefits-reference-inner {
-    width: calc(100% - 24px) !important;
+    width: calc(100% - 20px) !important;
   }
 
-  .ago-benefit-item {
-    grid-template-columns: 56px minmax(0, 1fr) !important;
-    gap: 12px !important;
-    padding: 14px 0 !important;
+  .ago-benefits-grid {
+    gap: 8px !important;
+  }
+
+  .ago-benefit-item,
+  .ago-benefit-item:nth-child(odd),
+  .ago-benefit-item:nth-child(even),
+  .ago-benefit-item:nth-child(n+3),
+  .ago-benefit-item + .ago-benefit-item {
+    min-height: 138px !important;
+    padding: 12px 7px !important;
   }
 
   .ago-benefit-symbol {
-    width: 52px !important;
-    height: 52px !important;
-    min-width: 52px !important;
-    min-height: 52px !important;
+    width: 46px !important;
+    height: 44px !important;
+    min-width: 46px !important;
+    min-height: 44px !important;
   }
 
   .ago-benefit-art {
-    width: 49px !important;
-    height: 46px !important;
+    width: 44px !important;
+    height: 41px !important;
   }
 
   .ago-benefit-copy h3 {
-    font-size: .94rem !important;
+    font-size: .83rem !important;
   }
 
   .ago-benefit-copy p {
-    font-size: .76rem !important;
-    line-height: 1.42 !important;
+    font-size: .66rem !important;
+    line-height: 1.32 !important;
+  }
+
+  footer.ago-site-footer .ago-footer-wrap {
+    width: calc(100% - 26px) !important;
+    padding-top: 19px !important;
+  }
+
+  footer.ago-site-footer .ago-footer-main {
+    gap: 17px 14px !important;
+  }
+
+  footer.ago-site-footer .ago-footer-group a,
+  footer.ago-site-footer .ago-footer-group p,
+  footer.ago-site-footer .ago-footer-group span {
+    font-size: .66rem !important;
   }
 
   .essencia-image {
