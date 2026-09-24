@@ -1,7 +1,8 @@
 /* AGÔ TRANCOSO — benefícios
-   Mantém a arte original enviada como referência visual.
-   Exibe apenas a faixa superior da arte, onde estão os símbolos e divisórias,
-   e usa HTML para os textos, permitindo a tipografia real do site. */
+   A arte original enviada é a única fonte dos símbolos.
+   O recorte mostra somente a parte visual dos quatro blocos.
+   Os textos ficam em HTML para usar a tipografia real do site e manter
+   "sem fronteiras" em caixa baixa. */
 
 .ago-benefits-reference{
   width:100%!important;
@@ -16,42 +17,39 @@
   margin:0 auto!important;
 }
 
-.ago-benefits-visual{
+.ago-benefits-grid{
   width:100%!important;
-  height:232px!important;
-  overflow:hidden!important;
-  position:relative!important;
-}
-
-.ago-benefits-visual img{
-  display:block!important;
-  width:100%!important;
-  height:auto!important;
-  max-width:none!important;
-  margin:0!important;
-  object-fit:contain!important;
-  object-position:top center!important;
-}
-
-.ago-benefits-copy-grid{
   display:grid!important;
   grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  align-items:start!important;
+}
+
+.ago-benefit-item{
+  min-width:0!important;
+  padding:0 clamp(22px,2.4vw,42px)!important;
+  text-align:center!important;
+}
+
+.ago-benefit-item + .ago-benefit-item{
+  border-left:1px solid rgba(75,43,30,.30)!important;
+}
+
+.ago-benefit-art{
+  width:100%!important;
+  height:145px!important;
+  background-image:url('/benefits/benefits-icons.webp')!important;
+  background-repeat:no-repeat!important;
+  background-size:400% auto!important;
+  background-position-y:30%!important;
+  background-color:transparent!important;
+}
+
+.ago-benefit-copy{
   width:100%!important;
   margin-top:0!important;
 }
 
-.ago-benefit-copy-item{
-  min-width:0!important;
-  padding:0 clamp(22px,2.4vw,42px)!important;
-  text-align:center!important;
-  border-left:1px solid rgba(75,43,30,.30)!important;
-}
-
-.ago-benefit-copy-item:first-child{
-  border-left:0!important;
-}
-
-.ago-benefit-copy-item h3{
+.ago-benefit-copy h3{
   margin:0!important;
   color:#4B2B1E!important;
   font-family:'Fraunces',Georgia,serif!important;
@@ -62,7 +60,7 @@
   text-transform:lowercase!important;
 }
 
-.ago-benefit-copy-item p{
+.ago-benefit-copy p{
   max-width:220px!important;
   margin:10px auto 0!important;
   color:#5C473D!important;
@@ -81,38 +79,36 @@
     width:calc(100% - 28px)!important;
   }
 
-  .ago-benefits-visual{
-    height:128px!important;
-  }
-
-  .ago-benefits-copy-grid{
+  .ago-benefits-grid{
     grid-template-columns:1fr 1fr!important;
     row-gap:22px!important;
   }
 
-  .ago-benefit-copy-item{
+  .ago-benefit-item{
     padding:0 10px 22px!important;
   }
 
-  .ago-benefit-copy-item:nth-child(odd){
-    border-left:0!important;
-  }
-
-  .ago-benefit-copy-item:nth-child(even){
+  .ago-benefit-item:nth-child(even){
     border-left:1px solid rgba(75,43,30,.28)!important;
   }
 
-  .ago-benefit-copy-item:nth-child(n+3){
+  .ago-benefit-item:nth-child(n+3){
     padding-top:22px!important;
     border-top:1px solid rgba(75,43,30,.22)!important;
   }
 
-  .ago-benefit-copy-item h3{
+  .ago-benefit-art{
+    height:80px!important;
+    background-size:400% auto!important;
+    background-position-y:30%!important;
+  }
+
+  .ago-benefit-copy h3{
     font-size:1.28rem!important;
     line-height:.98!important;
   }
 
-  .ago-benefit-copy-item p{
+  .ago-benefit-copy p{
     max-width:150px!important;
     margin-top:7px!important;
     font-size:9.5px!important;
@@ -121,20 +117,20 @@
 }
 
 @media (max-width:390px){
-  .ago-benefit-copy-item{
+  .ago-benefit-item{
     padding-inline:7px!important;
   }
 
-  .ago-benefit-copy-item h3{
+  .ago-benefit-copy h3{
     font-size:1.18rem!important;
   }
 
-  .ago-benefit-copy-item p{
+  .ago-benefit-copy p{
     font-size:9px!important;
   }
 
-  .ago-benefits-visual{
-    height:118px!important;
+  .ago-benefit-art{
+    height:74px!important;
   }
 }
 
