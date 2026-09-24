@@ -122,9 +122,9 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
       <section className="product-aftercare">
         <div className="site-container product-aftercare-inner">
-          <p className="eyebrow">Agô Trancoso</p>
-          <h2>Escolha com calma. É para ficar.</h2>
-          <Link href="/produtos" className="text-link">Continuar pela coleção <span aria-hidden="true">↗</span></Link>
+          <p className="eyebrow">Continue explorando</p>
+          <h2>Veja outras peças da coleção.</h2>
+          <Link href="/produtos" className="text-link">Explorar coleção <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
     </div>
