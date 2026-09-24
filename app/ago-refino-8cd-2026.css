@@ -10,6 +10,33 @@
   --ago-refino-line: rgba(63, 38, 28, .14);
 }
 
+/* Closed drawers must not cast a shadow or receive keyboard focus. */
+.cart-drawer[aria-hidden="true"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+  box-shadow: none !important;
+}
+
+/* Keep every cart action reachable on short screens and mobile browsers. */
+.cart-drawer { height: 100dvh !important; }
+@media (max-height: 760px) {
+  .cart-drawer { overflow-y: auto !important; overscroll-behavior: contain; }
+  .cart-drawer .cart-header,
+  .cart-drawer .cart-summary { flex-shrink: 0 !important; }
+  .cart-drawer .cart-body { flex: 1 0 auto !important; overflow: visible !important; }
+}
+
+@media (min-width: 901px) {
+  .site-header .mobile-menu-button { display: none !important; }
+}
+
+.mobile-menu { max-height: calc(100dvh - 110px); overscroll-behavior: contain; }
+
+/* The section's light text must not carry into the light category cards. */
+.ago-premium-discovery-copy > small {
+  color: var(--ago-refino-muted) !important;
+}
+
 body {
   font-family: var(--font-sans), system-ui, sans-serif;
   background: var(--ago-refino-paper);

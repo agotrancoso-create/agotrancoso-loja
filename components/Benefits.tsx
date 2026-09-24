@@ -1,36 +1,39 @@
 const benefits = [
-  {
-    title: 'feito à mão',
-    text: 'cuidado e tradição em cada detalhe.',
-  },
-  {
-    title: 'peças exclusivas',
-    text: 'escolhas especiais para quem valoriza o feito à mão.',
-  },
-  {
-    title: 'inspiração brasileira',
-    text: 'cores, formas e símbolos da nossa terra.',
-  },
-  {
-    title: 'sem fronteiras',
-    text: 'uma lembrança para qualquer lugar.',
-  },
+  ['feito à mão', 'cuidado e tradição em cada detalhe.'],
+  ['peças exclusivas', 'escolhas especiais para quem valoriza o feito à mão.'],
+  ['inspiração brasileira', 'cores, formas e símbolos da nossa terra.'],
+  ['sem fronteiras', 'uma lembrança para qualquer lugar.'],
 ] as const;
+
+// Pixel bounds in the original 2048 × 690 artwork. Each 280 × 240
+// window contains only its symbol, leaving the printed copy and dividers out.
+const artwork = { width: 2048, height: 690, cropWidth: 280, cropHeight: 240, top: 140 };
+const iconLeft = [80, 580, 1108, 1618] as const;
 
 export default function Benefits() {
   return (
-    <section className="benefits-strip ago-benefits-reference" aria-label="Diferenciais da Agô Trancoso">
-      <div className="ago-benefits-image">
-        <img src="/benefits/benefits-icons.webp" alt="" aria-hidden="true" />
-      </div>
+    <section className="benefits-strip ago-benefits-reference" aria-labelledby="benefits-title">
+      <div className="ago-container ago-benefits-reference-inner">
+        <h2 id="benefits-title" className="sr-only">Diferenciais da Agô Trancoso</h2>
 
-      <div className="ago-benefits-copy-grid">
-        {benefits.map((item) => (
-          <article className="ago-benefit-copy-item" key={item.title}>
-            <h2>{item.title}</h2>
-            <p>{item.text}</p>
-          </article>
-        ))}
+        <div className="ago-benefits-grid">
+          {benefits.map(([title, text], index) => (
+            <article className="ago-benefit-item" key={title}>
+              <div
+                className="ago-benefit-art"
+                aria-hidden="true"
+                style={{
+                  backgroundSize: `${artwork.width / artwork.cropWidth * 100}% ${artwork.height / artwork.cropHeight * 100}%`,
+                  backgroundPosition: `${iconLeft[index] / (artwork.width - artwork.cropWidth) * 100}% ${artwork.top / (artwork.height - artwork.cropHeight) * 100}%`,
+                }}
+              />
+              <div className="ago-benefit-copy">
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

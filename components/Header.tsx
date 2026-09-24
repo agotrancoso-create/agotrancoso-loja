@@ -47,9 +47,13 @@ export default function Header() {
     };
 
     window.addEventListener('keydown', onKeyDown);
+    const desktop = window.matchMedia('(min-width: 901px)');
+    const closeOnDesktop = () => { if (desktop.matches) setMenuOpen(false); };
+    desktop.addEventListener('change', closeOnDesktop);
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', onKeyDown);
+      desktop.removeEventListener('change', closeOnDesktop);
     };
   }, [menuOpen]);
 
@@ -106,7 +110,7 @@ export default function Header() {
             <button
               type="button"
               aria-label={totalItems > 0 ? `Abrir carrinho com ${totalItems} ${totalItems === 1 ? 'item' : 'itens'}` : 'Abrir carrinho'}
-              onClick={openDrawer}
+              onClick={() => { setMenuOpen(false); openDrawer(); }}
               className="header-icon"
             >
               <span className="header-cart-label">
@@ -147,7 +151,7 @@ export default function Header() {
 
             <div className="mobile-menu-primary">
               {navItems.map((item) => (
-                <Link key={item.href} href={item.href} className={isActive(item.href) ? 'is-active' : undefined} aria-current={isActive(item.href) ? 'page' : undefined}>
+                <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)} className={isActive(item.href) ? 'is-active' : undefined} aria-current={isActive(item.href) ? 'page' : undefined}>
                   {item.label}
                 </Link>
               ))}
@@ -155,7 +159,7 @@ export default function Header() {
 
             <p className="mobile-menu-label">Explorar coleção</p>
             <div className="mobile-menu-categories">
-              {categoryItems.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+              {categoryItems.map((item) => <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}</Link>)}
             </div>
           </div>
         )}

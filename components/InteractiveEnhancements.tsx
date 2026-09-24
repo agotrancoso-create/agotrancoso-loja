@@ -102,6 +102,8 @@ export default function InteractiveEnhancements() {
         className={`ago-back-to-top${showTop ? ' is-visible' : ''}`}
         onClick={scrollToTop}
         aria-label="Voltar ao topo"
+        aria-hidden={!showTop}
+        tabIndex={showTop ? 0 : -1}
       >
         <span aria-hidden="true">↑</span>
         <span>Topo</span>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Product, Category } from '@/lib/types';
 import ProductCard from '@/components/ProductCard';
@@ -10,6 +10,13 @@ export default function ProdutosClient({ products, categories }: { products: Pro
   const [query, setQuery] = useState(searchParams.get('busca') || '');
   const [category, setCategory] = useState(searchParams.get('categoria') || 'todas');
   const [sort, setSort] = useState<'featured' | 'price-asc' | 'price-desc' | 'name'>('featured');
+  const urlQuery = searchParams.get('busca') || '';
+  const urlCategory = searchParams.get('categoria') || 'todas';
+
+  useEffect(() => {
+    setQuery(urlQuery);
+    setCategory(urlCategory);
+  }, [urlQuery, urlCategory]);
 
   const normalize = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 

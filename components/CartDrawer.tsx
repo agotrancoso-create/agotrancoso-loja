@@ -16,23 +16,40 @@ function formatBRL(value: number) {
 export default function CartDrawer() {
   const { items, isDrawerOpen, closeDrawer, updateQuantity, removeItem, addItem } = useCart();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
+  const closeDrawerRef = useRef(closeDrawer);
+
+  useEffect(() => { closeDrawerRef.current = closeDrawer; }, [closeDrawer]);
 
   useEffect(() => {
     if (!isDrawerOpen) return;
+    const previousActive = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     closeRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') closeDrawer();
+      if (event.key === 'Escape') closeDrawerRef.current();
+      if (event.key === 'Tab') {
+        const controls = Array.from(drawerRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex="0"]') ?? [])
+          .filter((element) => element.getClientRects().length > 0);
+        const first = controls[0];
+        const last = controls[controls.length - 1];
+        if (event.shiftKey && (document.activeElement === first || !drawerRef.current?.contains(document.activeElement))) {
+          event.preventDefault(); last?.focus();
+        } else if (!event.shiftKey && (document.activeElement === last || !drawerRef.current?.contains(document.activeElement))) {
+          event.preventDefault(); first?.focus();
+        }
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleKeyDown);
+      if (previousActive?.isConnected) previousActive.focus({ preventScroll: true });
     };
-  }, [isDrawerOpen, closeDrawer]);
+  }, [isDrawerOpen]);
 
   const lines = items
     .map((item) => {
@@ -57,6 +74,7 @@ export default function CartDrawer() {
     <>
       {isDrawerOpen && <div className="cart-backdrop fixed inset-0 z-50" onClick={closeDrawer} aria-hidden="true" />}
       <aside
+        ref={drawerRef}
         className={`cart-drawer fixed top-0 right-0 h-full w-full sm:w-[460px] z-50 transform transition-transform duration-300 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}
         aria-hidden={!isDrawerOpen}
         aria-labelledby="ago-cart-title"
