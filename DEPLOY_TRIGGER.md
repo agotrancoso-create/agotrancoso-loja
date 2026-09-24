@@ -2,4 +2,4 @@
 
 Build/deploy validation checkpoint for the current Agô Trancoso 2026 redesign.
 
-Benefícios: composição corrigida com a arte original; textos HTML em tipografia do site; "sem fronteiras" em caixa baixa; desktop e mobile alinhados. 2026-09-23T23:30:00Z
+Benefícios: recorte fiel da arte original, tipografia em HTML, "sem fronteiras" em caixa baixa, desktop e mobile refinados. 2026-09-23T23:36:00Z
