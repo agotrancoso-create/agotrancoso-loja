@@ -6,10 +6,22 @@ import { Product, Category, CartItem } from './types';
 // Isso garante que exista UMA ÚNICA fonte de preços (data/products.json).
 // -----------------------------------------------------------------------
 
-// O catálogo define também a ordem das fotos. Nomes antigos de arquivos
-// não identificam necessariamente a peça fotografada.
+// Correções visuais confirmadas pelo catálogo enviado pela Agô.
+// Mantemos os dados comerciais no JSON e corrigimos apenas referências
+// de imagens que haviam sido cruzadas entre produtos.
+const CONFIRMED_IMAGE_OVERRIDES: Record<string, string[]> = {
+  'igreja-quadrado-p': [
+    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/catalogo/igreja-quadrado-p-2.jpg',
+  ],
+  'igrejinha-luminaria-trancoso': [
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
+  ],
+};
+
 function normalizeProductImages(product: Product): Product {
-  const images = Array.from(new Set((product.images ?? []).filter(Boolean)));
+  const source = CONFIRMED_IMAGE_OVERRIDES[product.id] ?? product.images ?? [];
+  const images = Array.from(new Set(source.filter(Boolean)));
   return {
     ...product,
     images: images.length ? images : ['/images/placeholder.svg'],
@@ -40,7 +52,7 @@ export function getEffectivePrice(product: Product): number {
 
 /**
  * Recalcula o valor total de um carrinho a partir do catálogo OFICIAL.
- * NUNCA confie em preços/subtotais enviados pelo navegador — esta função
+ * NUNCA confie em preços/subtotais enviados pelo navegador: esta função
  * é a única fonte da verdade usada pelo backend (API de checkout).
  *
  * Retorna erro se algum produto não existir ou estiver indisponível.
@@ -72,7 +84,6 @@ export function calculateCartTotals(items: CartItem[]) {
       continue;
     }
 
-    // Se houver preço promocional, ele é o preço oficial cobrado.
     const effectivePrice = product.promotionalPrice ?? product.price;
 
     const subtotal = Number((effectivePrice * item.quantity).toFixed(2));
