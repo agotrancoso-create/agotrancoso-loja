@@ -37,7 +37,7 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-collection-intro-brand">
             <p className="eyebrow">Agô · Trancoso, Bahia</p>
-            <h1 id="featured-title">Coisas que ficam por perto.</h1>
+            <h1 id="featured-title">Peças que ficam por perto.</h1>
             <p>Trancoso é nosso começo. A coleção também passa por casa, fé, presentes e outros símbolos brasileiros.</p>
             <Link href="/produtos" className="ago-premium-text-link">Ver coleção <span aria-hidden="true">↗</span></Link>
           </div>
