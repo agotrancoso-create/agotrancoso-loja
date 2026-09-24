@@ -16,6 +16,7 @@ import './ago-search-polish-2026.css';
 import './ago-experience-2026-09-24.css';
 import './ago-fullbleed-2026-09-24.css';
 import './ago-photo-fill-final-2026-09-24.css';
+import './ago-rhythm-footer-final-2026-09-24.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
