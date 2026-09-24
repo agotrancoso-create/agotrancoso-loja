@@ -1,0 +1,1 @@
+Fotos adicionais reais, associadas apenas às peças correspondentes. A foto principal continua definida em lib/products.ts.
