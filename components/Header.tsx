@@ -77,7 +77,7 @@ export default function Header() {
 
       <header className="site-header sticky top-0 z-40">
         <div className="ago-container header-inner">
-          <Link href="/" className="header-logo" aria-label="Agô Trancoso — página inicial">
+          <Link href="/" className="header-logo" aria-label="Agô Trancoso, página inicial">
             <Image src="/logo.png" alt="Agô Trancoso" width={78} height={78} sizes="52px" className="object-contain" quality={86} priority />
           </Link>
 
@@ -109,7 +109,7 @@ export default function Header() {
 
             <button
               type="button"
-              aria-label={totalItems > 0 ? `Abrir carrinho com ${totalItems} ${totalItems === 1 ? 'item' : 'itens'}` : 'Abrir carrinho'}
+              aria-label={totalItems > 0 ? `Abrir sacola com ${totalItems} ${totalItems === 1 ? 'item' : 'itens'}` : 'Abrir sacola'}
               onClick={() => { setMenuOpen(false); openDrawer(); }}
               className="header-icon"
             >

@@ -11,6 +11,7 @@ import './product-purchase-control.css';
 import './ago-refino-8cd-2026.css';
 import './ago-photo-interactions.css';
 import './ago-human-premium-2026.css';
+import './ago-proportional-final-2026.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';

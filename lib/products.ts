@@ -6,16 +6,16 @@ import { Product, Category, CartItem } from './types';
 // Isso garante que exista UMA ÚNICA fonte de preços (data/products.json).
 // -----------------------------------------------------------------------
 
-// Correções visuais confirmadas pelo catálogo enviado pela Agô.
-// Mantemos os dados comerciais no JSON e corrigimos apenas referências
-// de imagens que haviam sido cruzadas entre produtos.
+// Correção visual conforme o catálogo real da Agô.
+// Os nomes históricos dos arquivos dessas duas peças ficaram invertidos no acervo,
+// por isso a referência correta é feita aqui sem alterar preços ou dados comerciais.
 const CONFIRMED_IMAGE_OVERRIDES: Record<string, string[]> = {
   'igreja-quadrado-p': [
-    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ],
   'igrejinha-luminaria-trancoso': [
-    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/igreja-quadrado-p.jpg',
   ],
 };
 
