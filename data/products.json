@@ -116,7 +116,11 @@
       "currency": "BRL",
       "category": "trancoso",
       "images": [
-        "/produtos/miniatura-quadrado-trancoso.jpg"
+        "/produtos/miniatura-quadrado-trancoso.jpg",
+        "/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg",
+        "/produtos/catalogo/miniatura-quadrado-trancoso-3.jpg",
+        "/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg",
+        "/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg"
       ],
       "dimensions": "",
       "available": true,
@@ -183,7 +187,8 @@
       "currency": "BRL",
       "category": "fe-devocao",
       "images": [
-        "/produtos/nossa-senhora-grande.jpg"
+        "/produtos/catalogo/nossa-senhora-grande-1.jpg",
+        "/produtos/catalogo/nossa-senhora-grande-2.jpg"
       ],
       "dimensions": "",
       "available": true,
