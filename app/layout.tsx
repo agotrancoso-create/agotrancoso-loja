@@ -3,14 +3,14 @@ import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
 import './globals.css';
 import './product-purchase-control.css';
-import './atelier-redesign-2026.css';
-import './atelier-overlays-2026.css';
+import './attention-architecture.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
 import SocialFloaters from '@/components/SocialFloaters';
 import FirstPurchaseOffer from '@/components/FirstPurchaseOffer';
+import InteractiveEnhancements from '@/components/InteractiveEnhancements';
 import { SITE_DOMAIN } from '@/lib/config';
 
 const manrope = Manrope({
@@ -29,20 +29,20 @@ const cormorant = Cormorant_Garamond({
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#f7f3ec',
+  themeColor: '#f7f1e8',
   colorScheme: 'light',
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
-  title: { default: 'Agô Trancoso | Cerâmica brasileira', template: '%s | Agô Trancoso' },
-  description: 'Cerâmica brasileira para casa, fé e presente. Trancoso é o principal ponto de partida da Agô, mas a coleção vai além.',
+  title: { default: 'Agô Trancoso | Objetos brasileiros em cerâmica', template: '%s | Agô Trancoso' },
+  description: 'Objetos brasileiros em cerâmica para casa, fé e presente. Trancoso é o maior repertório da Agô — e o começo de uma coleção que vai além.',
   keywords: ['Agô Trancoso', 'cerâmica brasileira', 'decoração em cerâmica', 'presentes artesanais', 'Trancoso', 'Bahia', 'fé e devoção'],
   alternates: { canonical: SITE_DOMAIN },
   robots: { index: true, follow: true },
   openGraph: {
-    title: 'Agô Trancoso | Cerâmica brasileira',
-    description: 'Cerâmica brasileira com Trancoso como principal ponto de partida — para casa, fé, presente e outros caminhos.',
+    title: 'Agô Trancoso | Objetos brasileiros em cerâmica',
+    description: 'Trancoso é o maior repertório da Agô. Descubra objetos para casa, fé, presente e outras referências brasileiras.',
     url: SITE_DOMAIN,
     siteName: 'Agô Trancoso',
     locale: 'pt_BR',
@@ -50,8 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Agô Trancoso | Cerâmica brasileira',
-    description: 'Peças para casa, fé e presente, com Trancoso como principal ponto de partida.',
+    title: 'Agô Trancoso | Objetos brasileiros em cerâmica',
+    description: 'Objetos para casa, fé e presente, com o Brasil sempre por perto.',
   },
 };
 
@@ -83,6 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MarketingAnalytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <CartProvider>
+          <InteractiveEnhancements />
           <Header />
           <main id="conteudo-principal">{children}</main>
           <Footer />

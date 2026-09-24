@@ -12,14 +12,6 @@ function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-const categoryLabels: Record<string, string> = {
-  trancoso: 'Trancoso',
-  igrejinhas: 'Igrejinhas',
-  decoracao: 'Casa',
-  'fe-devocao': 'Fé',
-  presentes: 'Presentes',
-};
-
 export function generateStaticParams() {
   return getAllProducts().map((product) => ({ id: product.id }));
 }
@@ -57,7 +49,6 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const waMessage = `Olá! Vim pelo site da Agô Trancoso e tenho interesse em ${product.name}.`;
   const internationalMessage = `Olá! Gostaria de consultar o envio internacional de ${product.name}.`;
   const freeShippingAtProductQuantity = shouldOfferFreeShipping(price);
-  const categoryLabel = categoryLabels[product.category] ?? 'Coleção Agô';
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -94,7 +85,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
           <div className="product-info-column">
             <div className="product-buybox">
-              <p className="eyebrow">{categoryLabel}</p>
+              <p className="eyebrow">Cerâmica feita à mão</p>
               <h1 className="product-detail-title">{product.name}</h1>
 
               {hasPromo ? (
@@ -110,18 +101,18 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               {product.dimensions && <p className="product-dimensions"><strong>Dimensões</strong><span>{product.dimensions}</span></p>}
 
               <div className="product-purchase"><AddToCart product={product} /></div>
-              <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="product-whatsapp">Comprar pelo WhatsApp <span aria-hidden="true">↗</span></a>
+              <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="product-whatsapp">Prefere comprar pelo WhatsApp? <span aria-hidden="true">↗</span></a>
 
               <div className="product-service-grid">
-                <div><strong>Brasil</strong><span>{freeShippingAtProductQuantity ? 'Frete grátis nesta peça.' : <>Frete fixo de {formatBRL(FIXED_SHIPPING_PRICE)}.</>}</span></div>
-                <div><strong>Pedidos +R$ 500</strong><span>Frete grátis para pedidos nacionais.</span></div>
-                <div><strong>Pagamento</strong><span>Checkout seguro pela InfinitePay.</span></div>
+                <div><strong>Entrega no Brasil</strong><span>{freeShippingAtProductQuantity ? 'Frete grátis nesta peça.' : <>Frete fixo de {formatBRL(FIXED_SHIPPING_PRICE)}.</>}</span></div>
+                <div><strong>Acima de R$ 500</strong><span>Frete grátis para pedidos nacionais.</span></div>
+                <div><strong>Pagamento</strong><span>Ambiente de pagamento seguro pela InfinitePay.</span></div>
               </div>
 
               <div className="product-international-note">
-                <p className="eyebrow">Outros países</p>
-                <h2>Quer levar para fora do Brasil?</h2>
-                <p>A cotação é feita conforme o destino e a escolha. Enquanto peso e medidas de embalagem não estão cadastrados, não mostramos um frete estimado que possa estar errado.</p>
+                <p className="eyebrow">International shipping</p>
+                <h2>Fora do Brasil?</h2>
+                <p>Como o envio de cerâmica depende do destino e da embalagem de cada pedido, fazemos a cotação internacional manualmente, sem estimar peso ou medidas.</p>
                 <a href={whatsappLink(internationalMessage)} target="_blank" rel="noopener noreferrer">Consultar envio <span aria-hidden="true">↗</span></a>
               </div>
             </div>
@@ -131,9 +122,9 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
       <section className="product-aftercare">
         <div className="site-container product-aftercare-inner">
-          <p className="eyebrow">Ainda olhando?</p>
-          <h2>Tem mais na coleção.</h2>
-          <Link href="/produtos" className="text-link">Continuar <span aria-hidden="true">↗</span></Link>
+          <p className="eyebrow">Agô Trancoso</p>
+          <h2>Escolha com calma. É para ficar.</h2>
+          <Link href="/produtos" className="text-link">Continuar pela coleção <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
     </div>

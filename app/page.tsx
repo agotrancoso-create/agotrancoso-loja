@@ -5,52 +5,50 @@ import Benefits from '@/components/Benefits';
 import { getAvailableProducts, getProductById } from '@/lib/products';
 
 const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu';
+const whatsappUrl = 'https://wa.me/557398558124?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ag%C3%B4%20Trancoso.';
 const internationalWhatsappUrl = 'https://wa.me/557398558124?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20um%20envio%20internacional%20da%20Ag%C3%B4%20Trancoso.';
+const instagramUrl = 'https://www.instagram.com/agotrancoso';
 
-const openingOrder = [
+const featuredOrder = [
   'igreja-quadrado-p',
   'miniatura-quadrado-trancoso',
   'casinha-luminaria',
-  'colar-igreja-quadrado',
-  'estatueta-iemanja',
   'cruzeiro-do-quadrado',
-  'esfera-decorativa',
+  'estatueta-iemanja',
+  'nossa-senhora-aparecida',
 ];
 
 const moreOrder = [
-  'igreja-quadrado-m',
-  'nossa-senhora-aparecida',
+  'colar-igreja-quadrado',
+  'esfera-decorativa',
   'terco-em-ceramica',
   'presepio-em-ceramica',
-  'ima-igrejinha-trancoso',
-  'divino-espirito-santo',
-  'casal-pretos-velhos',
-  'igrejinha-luminaria-trancoso',
 ];
 
-const categories = [
+const discovery = [
   {
     title: 'Trancoso',
-    eyebrow: 'O ponto de partida',
-    href: '/produtos?categoria=trancoso',
+    subtitle: 'Nosso maior repertório',
+    category: 'trancoso',
     image: '/produtos/miniatura-quadrado-trancoso.jpg',
+    primary: true,
   },
   {
-    title: 'Casa',
-    eyebrow: 'Objetos para conviver',
-    href: '/produtos?categoria=decoracao',
+    title: 'Casa & decoração',
+    subtitle: 'Objetos para conviver',
+    category: 'decoracao',
     image: '/produtos/casinha-luminaria.jpg',
   },
   {
-    title: 'Fé',
-    eyebrow: 'Símbolos que acompanham',
-    href: '/produtos?categoria=fe-devocao',
+    title: 'Fé & devoção',
+    subtitle: 'Símbolos que acompanham',
+    category: 'fe-devocao',
     image: '/produtos/nossa-senhora-grande.jpg',
   },
   {
     title: 'Presentes',
-    eyebrow: 'Para levar e dar',
-    href: '/produtos?categoria=presentes',
+    subtitle: 'Para alguém que veio à cabeça',
+    category: 'presentes',
     image: '/produtos/colar-igreja-quadrado.jpg',
   },
 ];
@@ -62,70 +60,111 @@ export default function HomePage() {
     .map((id) => byId.get(id) ?? getProductById(id))
     .filter((product): product is NonNullable<typeof product> => Boolean(product?.available));
 
-  const opening = pick(openingOrder);
+  const featured = pick(featuredOrder);
   const moreProducts = pick(moreOrder);
 
   return (
-    <div className="atelier-home">
-      <section className="atelier-opening" aria-labelledby="opening-title">
-        <div className="site-container atelier-opening-head">
-          <div>
-            <p className="eyebrow">Agô · Trancoso, Bahia</p>
-            <h1 id="opening-title">Peças para escolher com os olhos.</h1>
+    <div className="home-page attention-home">
+      <section className="home-featured home-featured-first section-space" aria-labelledby="featured-title">
+        <div className="site-container">
+          <div className="section-heading section-heading-wide">
+            <div>
+              <p className="eyebrow">Escolhas da Agô</p>
+              <h1 id="featured-title" className="display-title">As que puxam o olhar.</h1>
+            </div>
+            <div className="section-heading-aside">
+              <p>Se alguma fez você parar, comece por ela.</p>
+              <Link href="/produtos" className="text-link">Ver todas <span aria-hidden="true">↗</span></Link>
+            </div>
           </div>
-          <Link href="/produtos" className="text-link">Ver a coleção inteira <span aria-hidden="true">↗</span></Link>
-        </div>
 
-        <div className="site-container atelier-product-grid">
-          {opening.map((product, index) => (
-            <ProductCard key={product.id} product={product} priority={index < 4} />
-          ))}
+          <div className="product-grid product-grid-featured">
+            {featured.map((product, index) => (
+              <ProductCard key={product.id} product={product} priority={index < 3} />
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="atelier-hero" aria-labelledby="atelier-hero-title">
+      <section className="home-hero" aria-labelledby="home-hero-title">
         <Image
           src="/hero.jpg"
-          alt="Universo visual da Agô Trancoso"
+          alt="Peças da Agô Trancoso"
           fill
           sizes="100vw"
-          className="atelier-hero-image"
+          className="home-hero-image"
           quality={90}
         />
-        <div className="site-container atelier-hero-copy">
-          <p className="eyebrow eyebrow-light">Trancoso está aqui. O Brasil também.</p>
-          <h2 id="atelier-hero-title">Tem coisa que a gente vê e já imagina em casa.</h2>
-          <p>A Agô começa no Quadrado, mas não termina nele. A coleção passa por casa, fé, presente e outros símbolos brasileiros.</p>
-          <Link href="/nossa-essencia" className="text-link text-link-light">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
+        <div className="home-hero-overlay" aria-hidden="true" />
+        <div className="site-container home-hero-inner">
+          <div className="home-hero-copy">
+            <p className="eyebrow eyebrow-light">Objetos brasileiros · desde 2016</p>
+            <h2 id="home-hero-title">
+              <span>Você olha.</span>
+              <span>Depois olha de novo.</span>
+            </h2>
+            <p className="home-hero-lead">
+              A Agô nasce no Quadrado e vai além dele: formas para casa, fé, presente e pequenos achados com o Brasil sempre por perto.
+            </p>
+            <div className="home-hero-actions">
+              <Link href="/produtos" className="button button-light">Ver as peças</Link>
+              <Link href="/produtos?categoria=trancoso" className="text-link text-link-light">Ir direto a Trancoso <span aria-hidden="true">↗</span></Link>
+            </div>
+          </div>
+          <div className="home-hero-signature" aria-label="Características da Agô Trancoso">
+            <span>Quadrado · Bahia</span>
+            <span>mão e matéria</span>
+            <span>envios pelo Brasil</span>
+          </div>
         </div>
       </section>
 
-      <div className="atelier-strip" aria-label="Condições da loja">
-        <div className="site-container atelier-strip-inner">
+      <div className="home-trust-ribbon" aria-label="Condições da loja">
+        <div className="site-container home-trust-ribbon-inner">
           <span>3% OFF na primeira compra</span>
+          <i aria-hidden="true" />
           <span>Frete grátis acima de R$ 500</span>
+          <i aria-hidden="true" />
           <span>Pagamento seguro</span>
+          <i aria-hidden="true" />
           <span>Exterior sob consulta</span>
         </div>
       </div>
 
-      <section className="atelier-categories" aria-labelledby="categories-title">
+      <section className="home-discovery section-space" aria-labelledby="discovery-title">
         <div className="site-container">
-          <div className="atelier-section-head">
+          <div className="section-heading section-heading-wide">
             <div>
-              <p className="eyebrow">Por universo</p>
-              <h2 id="categories-title">Comece por onde der vontade.</h2>
+              <p className="eyebrow">Quatro caminhos</p>
+              <h2 id="discovery-title" className="display-title">Por onde você quer entrar?</h2>
             </div>
-            <Link href="/produtos" className="text-link">Tudo por aqui <span aria-hidden="true">↗</span></Link>
+            <div className="section-heading-aside">
+              <p>O Quadrado é nosso maior repertório. O resto da coleção abre outras portas.</p>
+              <Link href="/produtos" className="text-link">Explorar tudo <span aria-hidden="true">↗</span></Link>
+            </div>
           </div>
 
-          <div className="atelier-category-grid">
-            {categories.map((category) => (
-              <Link key={category.href} href={category.href} className="atelier-category">
-                <Image src={category.image} alt={category.title} fill sizes="(max-width: 900px) 50vw, 28vw" />
-                <div className="atelier-category-copy">
-                  <span>{category.eyebrow}</span>
-                  <h3>{category.title}</h3>
+          <div className="discovery-grid attention-discovery-grid">
+            {discovery.map((item) => (
+              <Link
+                key={item.category}
+                href={`/produtos?categoria=${item.category}`}
+                className={`discovery-card${item.primary ? ' is-primary' : ''}`}
+              >
+                <div className="discovery-image-wrap">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 700px) 50vw, 25vw"
+                    className="discovery-image"
+                  />
+                  {item.primary && <span className="attention-primary-label">Comece aqui</span>}
+                </div>
+                <div className="discovery-copy">
+                  <span>{item.subtitle}</span>
+                  <h3>{item.title}</h3>
+                  <strong>Explorar <span aria-hidden="true">↗</span></strong>
                 </div>
               </Link>
             ))}
@@ -133,34 +172,87 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="atelier-more" aria-labelledby="more-title">
+      <section className="home-more-products section-space" aria-labelledby="more-products-title">
         <div className="site-container">
-          <div className="atelier-section-head">
+          <div className="section-heading">
             <div>
-              <p className="eyebrow">Mais da coleção</p>
-              <h2 id="more-title">Continue olhando.</h2>
+              <p className="eyebrow">Continue olhando</p>
+              <h2 id="more-products-title" className="display-title">Tem mais por aqui.</h2>
             </div>
+            <Link href="/produtos" className="text-link">Abrir a coleção <span aria-hidden="true">↗</span></Link>
           </div>
-          <div className="atelier-more-grid">
-            {moreProducts.map((product) => <ProductCard key={product.id} product={product} />)}
+          <div className="product-grid home-more-products-grid">
+            {moreProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
           </div>
         </div>
       </section>
 
       <Benefits />
 
-      <section className="atelier-world" aria-labelledby="world-title">
-        <div>
-          <p className="eyebrow eyebrow-light">Da Bahia para outros lugares</p>
-          <h2 id="world-title">A Agô vai junto.</h2>
-          <p>Enviamos pelo Brasil. Para outros países, a cotação é feita conforme o destino e as peças escolhidas, sem inventar peso ou medida.</p>
-          <a href={internationalWhatsappUrl} target="_blank" rel="noreferrer" className="text-link text-link-light">Consultar envio internacional <span aria-hidden="true">↗</span></a>
+      <section className="home-story section-space" aria-labelledby="story-title">
+        <div className="site-container home-story-grid">
+          <div className="home-story-image-wrap">
+            <Image
+              src="/nossa-essencia.jpg"
+              alt="Universo visual da Agô"
+              fill
+              sizes="(max-width: 900px) 100vw, 52vw"
+              className="home-story-image"
+              quality={88}
+            />
+            <span className="home-story-caption">Quadrado · Bahia</span>
+          </div>
+          <div className="home-story-copy">
+            <p className="eyebrow">De onde vem</p>
+            <h2 id="story-title" className="display-title">Começou no Quadrado.</h2>
+            <p>
+              O Quadrado é nosso endereço e também nosso maior repertório. Igrejas, fachadas, cores e símbolos aparecem muito — mas não sozinhos. A coleção também passa por fé, casa, presentes e outras referências brasileiras.
+            </p>
+            <Link href="/nossa-essencia" className="text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
+          </div>
         </div>
-        <div className="atelier-world-side">
-          <p className="eyebrow eyebrow-light">Em Trancoso</p>
-          <h2>Veja de perto.</h2>
-          <p>Nossa banca fica no Quadrado. Se estiver por aqui, passe para escolher sem pressa.</p>
-          <a href={mapsUrl} target="_blank" rel="noreferrer" className="text-link text-link-light">Abrir no mapa <span aria-hidden="true">↗</span></a>
+      </section>
+
+      <section className="home-statement" aria-label="Manifesto da Agô Trancoso">
+        <div className="site-container home-statement-inner">
+          <p className="eyebrow eyebrow-light">Casa é escolha</p>
+          <blockquote>“Uma casa fica mais nossa aos poucos.”</blockquote>
+          <p>Às vezes começa por um objeto.</p>
+        </div>
+      </section>
+
+      <section className="home-global" aria-labelledby="global-title">
+        <div className="site-container home-global-grid">
+          <div>
+            <p className="eyebrow">Outros destinos</p>
+            <h2 id="global-title">Vai mais longe também.</h2>
+          </div>
+          <div>
+            <p>Para fora do Brasil, calculamos cada envio de acordo com o destino e a escolha. Sem peso e medidas confirmados, a cotação é feita manualmente para não prometer um valor errado.</p>
+            <a href={internationalWhatsappUrl} target="_blank" rel="noreferrer" className="button button-dark">Consultar envio</a>
+          </div>
+        </div>
+      </section>
+
+      <section className="home-visit" aria-labelledby="visit-title">
+        <div className="site-container home-visit-grid">
+          <div className="home-visit-copy">
+            <p className="eyebrow eyebrow-light">Se estiver por perto</p>
+            <h2 id="visit-title">Passe no Quadrado.</h2>
+            <p>Veja de perto, sinta as texturas e escolha sem pressa.</p>
+            <div className="home-visit-links">
+              <a href={mapsUrl} target="_blank" rel="noreferrer">Como chegar <span aria-hidden="true">↗</span></a>
+              <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
+              <a href={instagramUrl} target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <div className="home-visit-mark" aria-hidden="true">
+            <span>Trancoso</span>
+            <strong>BA</strong>
+            <span>Brasil</span>
+          </div>
         </div>
       </section>
     </div>
