@@ -9,7 +9,6 @@ import './ago-design-limpo-2026-09-23.css';
 import './ago-beneficios-arte-final-2026.css';
 import './product-purchase-control.css';
 import './ago-refino-8cd-2026.css';
-import './ago-interativo-2026-09-24.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
