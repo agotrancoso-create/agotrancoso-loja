@@ -9,8 +9,7 @@ import { Product, Category, CartItem } from './types';
 /**
  * Fonte de verdade para a foto principal de cada peça.
  * Evita que galerias antigas/crossadas façam uma peça aparecer com a foto
- * de outro produto. Fotos adicionais, quando existirem, permanecem depois
- * da foto principal.
+ * de outro produto.
  */
 const PRODUCT_PRIMARY_IMAGES: Record<string, string> = {
   'igreja-quadrado-p': '/produtos/igreja-quadrado-p.jpg',
@@ -34,7 +33,59 @@ const PRODUCT_PRIMARY_IMAGES: Record<string, string> = {
   'ima-igrejinha-trancoso': '/produtos/ima-igrejinha-trancoso.jpg',
 };
 
+/**
+ * Galerias confirmadas a partir das fotos enviadas pela Agô.
+ * A primeira foto de cada lista é sempre a foto principal já usada na vitrine.
+ */
+const PRODUCT_GALLERY_IMAGES: Record<string, string[]> = {
+  'igreja-quadrado-p': [
+    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/galeria/igreja-quadrado-p-2.jpg',
+  ],
+  'casinha-luminaria': [
+    '/produtos/casinha-luminaria.jpg',
+    '/produtos/galeria/casinha-luminaria-2.jpg',
+    '/produtos/galeria/casinha-luminaria-3.jpg',
+  ],
+  'estatueta-iemanja': [
+    '/produtos/estatueta-iemanja.jpg',
+    '/produtos/galeria/estatueta-iemanja-2.jpg',
+    '/produtos/galeria/estatueta-iemanja-3.jpg',
+    '/produtos/galeria/estatueta-iemanja-4.jpg',
+  ],
+  'casal-pretos-velhos': [
+    '/produtos/casal-pretos-velhos.jpg',
+    '/produtos/galeria/casal-pretos-velhos-2.jpg',
+    '/produtos/galeria/casal-pretos-velhos-3.jpg',
+  ],
+  'divino-espirito-santo': [
+    '/produtos/divino-espirito-santo.jpg',
+    '/produtos/galeria/divino-espirito-santo-2.jpg',
+  ],
+  'esfera-decorativa': [
+    '/produtos/esfera-decorativa.jpg',
+    '/produtos/galeria/esfera-decorativa-2.jpg',
+  ],
+  'colar-igreja-quadrado': [
+    '/produtos/colar-igreja-quadrado.jpg',
+    '/produtos/galeria/colar-igreja-quadrado-2.jpg',
+  ],
+  'ima-igrejinha-trancoso': [
+    '/produtos/ima-igrejinha-trancoso.jpg',
+    '/produtos/galeria/ima-igrejinha-trancoso-2.jpg',
+  ],
+};
+
 function normalizeProductImages(product: Product): Product {
+  const gallery = PRODUCT_GALLERY_IMAGES[product.id];
+  if (gallery?.length) {
+    return {
+      ...product,
+      images: gallery,
+      imageAlt: product.imageAlt || product.name,
+    };
+  }
+
   const primary = PRODUCT_PRIMARY_IMAGES[product.id];
   const existing = product.images ?? [];
   if (!primary) {

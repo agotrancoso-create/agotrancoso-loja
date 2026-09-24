@@ -1,1 +1,0 @@
-Não usar em produção; marcador temporário da correção de galeria.
