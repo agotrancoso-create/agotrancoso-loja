@@ -90,30 +90,19 @@
   text-shadow: 0 2px 14px rgba(45,32,26,.28);
 }
 
-/* Assinatura Trancoso / Bahia / Brasil preservada e visível também em telas menores. */
+/* Restaura a assinatura Trancoso / Bahia / Brasil ao desenho original. */
 .ago-premium-visit-mark {
   display: grid;
-  justify-items: center;
-  align-content: center;
-  gap: 3px;
+  gap: 12px;
   text-align: center;
-  color: #d5ad73;
 }
 .ago-premium-visit-mark span {
-  color: inherit;
   text-transform: uppercase;
   letter-spacing: .18em;
-  font-size: .68rem;
-  line-height: 1.25;
+  font-size: .75rem;
 }
 .ago-premium-visit-mark strong {
-  color: inherit;
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(2.75rem, 3.4vw, 3.35rem);
-  font-weight: 500;
-  line-height: .94;
-  letter-spacing: .01em;
-  text-transform: uppercase;
+  font: 600 3rem/1.1 var(--font-display), Georgia, serif;
 }
 
 @media (max-width: 900px) {
@@ -121,6 +110,7 @@
     background: linear-gradient(90deg, rgba(45,32,26,.42) 0%, rgba(45,32,26,.27) 58%, rgba(45,32,26,.14) 100%);
   }
 
+  /* Mantém a assinatura visível no mobile, mas com o desenho original. */
   .ago-premium-visit-mark {
     display: grid;
     justify-self: start;
@@ -147,8 +137,6 @@
 }
 
 @media (max-width: 600px) {
-  .ago-premium-visit-mark strong { font-size: 2.35rem; }
-
   /* Rodapé compacto: mantém as informações úteis sem virar uma página inteira. */
   .site-footer { padding-block: 24px 14px; }
   .ago-footer-main {
