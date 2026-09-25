@@ -1,0 +1,130 @@
+/* Passe final de experiência: terra, barro e cacau. Sem oliva, caqui ou rosé. */
+
+:root {
+  --ago-cream: #f4e5d0 !important;
+  --ago-cream-soft: #fff7eb !important;
+  --ago-sand: #ddb98d !important;
+  --ago-straw: #c99158 !important;
+  --ago-clay: #b96b43 !important;
+  --ago-terracotta: #9e4f31 !important;
+  --ago-leather: #6c3d29 !important;
+  --ago-cacao: #2e1d16 !important;
+  --ago-gold: #a96f35 !important;
+  --ago-text: #38251d !important;
+  --ago-muted: #72594a !important;
+  --ago-surface: #fff8ee !important;
+  --ago-surface-strong: #ecd1ae !important;
+  --ago-olive: #9e4f31 !important;
+  --ago-green: #6c3d29 !important;
+  --ago-green-soft: #ecd1ae !important;
+  --ago-blue: #9e4f31 !important;
+  --ago-blue-soft: #f0dcc1 !important;
+  --ago-title-size: clamp(1.95rem, 2.15vw, 2.55rem) !important;
+  --ago-body-size: clamp(.96rem, .12vw + .93rem, 1.02rem) !important;
+  --ago-ui-size: clamp(.86rem, .1vw + .84rem, .94rem) !important;
+}
+
+html, body { background: #f4e5d0 !important; color: var(--ago-text) !important; }
+body { background-image: radial-gradient(circle at 12% 4%, rgba(185,107,67,.06), transparent 30rem), radial-gradient(circle at 88% 14%, rgba(201,145,88,.05), transparent 28rem) !important; }
+.ago-premium-collection-first, .catalog-page { background: #e2c49c !important; }
+.product-page { background: #d8ad7c !important; }
+.product-buybox { background: #68412d !important; color: #fff7ea !important; }
+.product-service-grid > div { background: rgba(255,248,235,.11) !important; }
+.product-international-note { background: #efd8b8 !important; color: #38251d !important; }
+.benefits-strip.ago-benefits-reference { background: #f5e7d3 !important; padding: clamp(34px, 4vw, 56px) 0 !important; }
+.ago-premium-trust { background: #87462f !important; color: #fff7e9 !important; }
+.ago-premium-discovery { background: #ead1ae !important; color: #38251d !important; }
+.ago-home-story { background: #bd744d !important; color: #2f1e17 !important; }
+.ago-premium-visit, .product-aftercare { background: #8f4930 !important; color: #fff6e8 !important; }
+.essencia-page, .contact-page { background: #dfbd92 !important; color: #38251d !important; }
+.checkout-page { background: #f4e5d0 !important; }
+.site-footer.ago-site-footer { background: #2e1d16 !important; color: #f9ead6 !important; }
+
+.ago-benefits-grid { display: grid !important; grid-template-columns: repeat(4,minmax(0,1fr)) !important; gap: 0 !important; align-items: stretch !important; }
+.ago-benefit-item, .ago-benefit-item:nth-child(n) { display: grid !important; grid-template-rows: auto auto !important; justify-items: center !important; align-content: start !important; gap: 14px !important; min-height: 0 !important; padding: 18px 24px !important; background: transparent !important; color: var(--ago-text) !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; text-align: center !important; }
+.ago-benefit-item + .ago-benefit-item { border-left: 1px solid rgba(56,37,29,.13) !important; }
+.ago-benefit-symbol { display: grid !important; place-items: center !important; width: 104px !important; height: 88px !important; margin: 0 auto !important; background: transparent !important; border: 0 !important; }
+.ago-benefit-art { width: 100% !important; height: 100% !important; }
+.ago-benefit-copy { display: grid !important; gap: 7px !important; width: 100% !important; }
+.ago-benefit-copy h3 { margin: 0 !important; font-family: var(--font-display), Georgia, serif !important; font-size: clamp(1rem,.2vw + .96rem,1.1rem) !important; font-weight: 700 !important; line-height: 1.2 !important; letter-spacing: -.01em !important; color: var(--ago-cacao) !important; }
+.ago-benefit-copy p { max-width: 26ch !important; margin: 0 auto !important; font-family: var(--font-sans), sans-serif !important; font-size: clamp(.86rem,.1vw + .84rem,.92rem) !important; line-height: 1.48 !important; color: var(--ago-muted) !important; text-align: center !important; text-justify: auto !important; }
+
+.product-gallery-main { position: relative !important; overflow: hidden !important; }
+.product-gallery-arrows { position: absolute !important; z-index: 8 !important; top: 50% !important; right: 0 !important; bottom: auto !important; left: 0 !important; width: 100% !important; height: auto !important; display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 0 !important; padding: 0 14px !important; margin: 0 !important; transform: translateY(-50%) !important; pointer-events: none !important; }
+.product-gallery-arrow { position: static !important; width: clamp(38px,2.7vw,44px) !important; height: clamp(38px,2.7vw,44px) !important; min-width: clamp(38px,2.7vw,44px) !important; min-height: clamp(38px,2.7vw,44px) !important; display: grid !important; place-items: center !important; padding: 0 !important; border: 0 !important; border-radius: 999px !important; background: rgba(46,29,22,.86) !important; color: #fff8ed !important; font-size: 1rem !important; line-height: 1 !important; box-shadow: 0 4px 16px rgba(46,29,22,.12) !important; transform: none !important; pointer-events: auto !important; backdrop-filter: blur(4px); }
+.product-gallery-arrow:hover, .product-gallery-arrow:focus-visible { background: var(--ago-terracotta) !important; transform: scale(1.04) !important; }
+.ago-gallery-zoom-hint { left: 14px !important; bottom: 14px !important; top: auto !important; right: auto !important; min-height: 36px !important; padding: 0 13px !important; border-radius: 999px !important; background: rgba(46,29,22,.86) !important; color: #fff8ed !important; }
+.product-gallery-counter { top: 14px !important; right: 14px !important; bottom: auto !important; left: auto !important; background: rgba(46,29,22,.86) !important; color: #fff8ed !important; }
+.product-image-primary, .product-card:hover .product-image-primary, .product-card:focus-within .product-image-primary { opacity: 1 !important; visibility: visible !important; }
+.product-image-secondary { display: none !important; }
+
+.checkout-shell { width: min(1180px,calc(100% - 32px)) !important; padding: clamp(34px,5vw,72px) 0 !important; }
+.checkout-progress { display: grid !important; grid-template-columns: repeat(3,minmax(0,1fr)) !important; gap: 10px !important; margin: 0 0 20px !important; }
+.checkout-progress-step { display: flex !important; align-items: center !important; gap: 10px !important; min-height: 54px !important; padding: 10px 14px !important; border: 1px solid rgba(56,37,29,.13) !important; border-radius: 14px !important; background: rgba(255,248,238,.66) !important; color: var(--ago-muted) !important; text-align: left !important; }
+.checkout-progress-step > span { flex: 0 0 30px !important; width: 30px !important; height: 30px !important; display: grid !important; place-items: center !important; border-radius: 999px !important; background: rgba(56,37,29,.08) !important; font-size: .78rem !important; font-weight: 800 !important; }
+.checkout-progress-step strong { font-size: .9rem !important; line-height: 1.15 !important; }
+.checkout-progress-step.is-active { background: #fff8ee !important; border-color: rgba(158,79,49,.42) !important; color: var(--ago-cacao) !important; }
+.checkout-progress-step.is-active > span, .checkout-progress-step.is-complete > span { background: var(--ago-terracotta) !important; color: #fff8ed !important; }
+.checkout-progress-step:disabled { opacity: .48 !important; cursor: not-allowed !important; }
+.checkout-stepped-form { display: grid !important; gap: 12px !important; }
+.checkout-stage { padding: 0 !important; border: 1px solid rgba(56,37,29,.11) !important; border-radius: 16px !important; overflow: hidden !important; background: rgba(255,248,238,.54) !important; }
+.checkout-stage.is-active { background: #fff8ee !important; border-color: rgba(158,79,49,.26) !important; }
+.checkout-stage-head { min-height: 64px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 14px !important; padding: 15px 18px !important; }
+.checkout-stage-head > div { display: flex !important; align-items: center !important; gap: 10px !important; }
+.checkout-stage-head > div > span { color: var(--ago-terracotta) !important; font-size: .72rem !important; font-weight: 800 !important; letter-spacing: .08em !important; }
+.checkout-stage-head h2 { margin: 0 !important; font-family: var(--font-display), Georgia, serif !important; font-size: 1.18rem !important; line-height: 1.15 !important; color: var(--ago-cacao) !important; }
+.checkout-stage-head > button { border: 0 !important; background: transparent !important; color: var(--ago-terracotta) !important; font-size: .82rem !important; font-weight: 800 !important; }
+.checkout-stage-body { display: grid !important; gap: 15px !important; padding: 2px 18px 20px !important; }
+.checkout-stage-summary, .checkout-stage-locked { margin: 0 !important; padding: 0 18px 18px !important; color: var(--ago-muted) !important; font-size: .88rem !important; line-height: 1.45 !important; }
+.checkout-next-step { min-height: 50px !important; padding: 0 20px !important; border: 0 !important; border-radius: 999px !important; background: var(--ago-terracotta) !important; color: #fff8ed !important; font-weight: 800 !important; font-size: .92rem !important; }
+.checkout-next-step:hover { background: var(--ago-leather) !important; }
+.checkout-benefit-copy { margin: 0 !important; color: var(--ago-muted) !important; font-size: .92rem !important; line-height: 1.5 !important; }
+.checkout-form-panel { box-shadow: none !important; background: transparent !important; }
+.checkout-first-purchase { margin-bottom: 2px !important; background: #ead0ad !important; color: var(--ago-cacao) !important; }
+.checkout-summary { background: var(--ago-cacao) !important; color: #fff7ea !important; border-radius: 18px !important; box-shadow: none !important; }
+
+@media (max-width: 767px) {
+  :root { --ago-title-size: clamp(1.75rem,7vw,2.05rem) !important; --ago-body-size: 1rem !important; --ago-ui-size: .9rem !important; }
+  .product-page-grid { display: grid !important; grid-template-columns: 1fr !important; gap: 24px !important; }
+  .product-gallery-main, .ago-gallery-open { width: 100% !important; aspect-ratio: 1/1 !important; }
+  .product-gallery-arrows { padding: 0 10px !important; }
+  .product-gallery-arrow { width: 40px !important; height: 40px !important; min-width: 40px !important; min-height: 40px !important; }
+  .ago-gallery-zoom-hint { left: 10px !important; bottom: 10px !important; min-height: 34px !important; padding: 0 12px !important; font-size: .74rem !important; }
+  .product-gallery-counter { top: 10px !important; right: 10px !important; }
+  .product-gallery-thumbs { gap: 8px !important; padding-top: 10px !important; }
+  .product-gallery-thumb { flex-basis: 60px !important; width: 60px !important; height: 60px !important; min-width: 60px !important; min-height: 60px !important; }
+  .product-buybox { padding: 22px 18px !important; border-radius: 16px !important; }
+  .product-detail-title { font-size: clamp(1.72rem,7.4vw,2rem) !important; line-height: 1.04 !important; }
+  .product-description { font-size: .96rem !important; line-height: 1.55 !important; }
+  .product-service-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+  .product-service-grid > div { min-height: 0 !important; padding: 13px 14px !important; }
+  .product-international-note { margin-top: 18px !important; padding: 18px !important; }
+  .ago-benefits-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+  .ago-benefit-item, .ago-benefit-item:nth-child(n) { min-height: 0 !important; padding: 16px 12px !important; gap: 9px !important; }
+  .ago-benefit-item + .ago-benefit-item { border-left: 0 !important; }
+  .ago-benefit-item:nth-child(even) { border-left: 1px solid rgba(56,37,29,.12) !important; }
+  .ago-benefit-item:nth-child(n+3) { border-top: 1px solid rgba(56,37,29,.12) !important; }
+  .ago-benefit-symbol { width: 78px !important; height: 66px !important; }
+  .ago-benefit-copy h3 { font-size: .98rem !important; line-height: 1.2 !important; }
+  .ago-benefit-copy p { max-width: 22ch !important; font-size: .86rem !important; line-height: 1.45 !important; }
+  .checkout-shell { width: min(calc(100% - 20px),620px) !important; padding: 28px 0 46px !important; }
+  .ago-clean-checkout-head { margin-bottom: 18px !important; }
+  .checkout-progress { grid-template-columns: 1fr !important; gap: 7px !important; }
+  .checkout-progress-step { min-height: 48px !important; padding: 8px 12px !important; }
+  .checkout-layout { display: grid !important; grid-template-columns: 1fr !important; gap: 18px !important; }
+  .checkout-stage-head { min-height: 58px !important; padding: 13px 14px !important; }
+  .checkout-stage-body { padding: 2px 14px 16px !important; }
+  .checkout-fields-two, .checkout-fields-address { grid-template-columns: 1fr !important; }
+  .checkout-input { min-height: 48px !important; font-size: 16px !important; }
+  .checkout-coupon-row { grid-template-columns: 1fr auto !important; }
+  .checkout-summary { position: static !important; top: auto !important; padding: 18px !important; }
+  .checkout-summary-item { gap: 10px !important; }
+  .checkout-product-image { width: 54px !important; height: 54px !important; min-width: 54px !important; border-radius: 12px !important; overflow: hidden !important; }
+}
+
+@media (max-width: 420px) {
+  .ago-benefits-grid { grid-template-columns: 1fr 1fr !important; }
+  .ago-benefit-item, .ago-benefit-item:nth-child(n) { padding-inline: 9px !important; }
+  .ago-benefit-copy p { font-size: .82rem !important; }
+  .product-gallery-arrow { width: 38px !important; height: 38px !important; min-width: 38px !important; min-height: 38px !important; }
+}
