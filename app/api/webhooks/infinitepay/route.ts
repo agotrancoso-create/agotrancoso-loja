@@ -1,24 +1,31 @@
 import { getFirstPurchaseOrder, markFirstPurchaseAsPaid } from '@/lib/first-purchase';
 
 const INFINITEPAY_HANDLE = process.env.INFINITEPAY_HANDLE || 'ago-trancoso';
+const FIRST_PURCHASE_ORDER_PREFIX = 'AGO-FP-';
 
 export async function POST(req: Request) {
   try {
     const data = await req.json();
     const orderNsu = String(data?.order_nsu || '').trim();
-    const transactionNsu = String(data?.transaction_nsu || '').trim();
-    const invoiceSlug = String(data?.invoice_slug || data?.slug || '').trim();
 
     if (!orderNsu) return new Response('Pedido não encontrado', { status: 400 });
 
-    const firstPurchaseOrder = await getFirstPurchaseOrder(orderNsu);
-    if (!firstPurchaseOrder) {
+    // Pagamentos comuns não dependem do armazenamento do benefício de primeira compra.
+    if (!orderNsu.startsWith(FIRST_PURCHASE_ORDER_PREFIX)) {
       return new Response('OK', { status: 200 });
     }
 
+    const transactionNsu = String(data?.transaction_nsu || '').trim();
+    const invoiceSlug = String(data?.invoice_slug || data?.slug || '').trim();
     if (!transactionNsu || !invoiceSlug) {
       console.error('InfinitePay webhook missing verification fields:', { orderNsu });
       return new Response('Webhook incompleto', { status: 400 });
+    }
+
+    const firstPurchaseOrder = await getFirstPurchaseOrder(orderNsu);
+    if (!firstPurchaseOrder) {
+      console.error('First purchase order not found for webhook:', { orderNsu });
+      return new Response('Pedido de primeira compra não encontrado', { status: 400 });
     }
 
     const verificationResponse = await fetch('https://api.checkout.infinitepay.io/payment_check', {
@@ -31,7 +38,7 @@ export async function POST(req: Request) {
         slug: invoiceSlug,
       }),
       cache: 'no-store',
-      signal: AbortSignal.timeout(12000),
+      signal: AbortSignal.timeout(750),
     });
     const verification = await verificationResponse.json().catch(() => ({}));
 
@@ -42,7 +49,7 @@ export async function POST(req: Request) {
         success: verification?.success,
         paid: verification?.paid,
       });
-      return new Response('Pagamento não confirmado', { status: 409 });
+      return new Response('Pagamento não confirmado', { status: 400 });
     }
 
     const verifiedAmount = Number(verification?.amount);
@@ -52,7 +59,7 @@ export async function POST(req: Request) {
         expected: firstPurchaseOrder.expectedAmountCents,
         received: verification?.amount,
       });
-      return new Response('Valor do pagamento divergente', { status: 409 });
+      return new Response('Valor do pagamento divergente', { status: 400 });
     }
 
     const webhookAmount = data?.amount == null ? null : Number(data.amount);
@@ -62,7 +69,7 @@ export async function POST(req: Request) {
         expected: firstPurchaseOrder.expectedAmountCents,
         received: webhookAmount,
       });
-      return new Response('Valor do webhook divergente', { status: 409 });
+      return new Response('Valor do webhook divergente', { status: 400 });
     }
 
     await markFirstPurchaseAsPaid(orderNsu);
@@ -71,10 +78,10 @@ export async function POST(req: Request) {
     console.error('Invalid InfinitePay webhook:', error);
     const message = error instanceof Error ? error.message : '';
     if (message === 'FIRST_PURCHASE_STORAGE_NOT_CONFIGURED') {
-      return new Response('Storage unavailable', { status: 503 });
+      return new Response('Storage unavailable', { status: 400 });
     }
     if (message.toLowerCase().includes('timeout') || message.toLowerCase().includes('aborted')) {
-      return new Response('Verification timeout', { status: 504 });
+      return new Response('Verification timeout', { status: 400 });
     }
     return new Response('Webhook error', { status: 400 });
   }

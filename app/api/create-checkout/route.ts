@@ -102,6 +102,7 @@ export async function POST(req: Request) {
     });
 
     const subtotal = Number(totals.total.toFixed(2));
+    const firstPurchaseOrder = isFirstPurchaseCoupon(coupon);
     const discount = calculateCouponDiscount(subtotal, coupon);
     const discountedUnits = buildDiscountedUnits(checkoutLines, discount);
     const discountedSubtotal = Number((subtotal - discount).toFixed(2));
@@ -127,10 +128,11 @@ export async function POST(req: Request) {
       });
     }
 
-    const orderNsu = `AGO-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+    const orderPrefix = firstPurchaseOrder ? 'AGO-FP' : 'AGO';
+    const orderNsu = `${orderPrefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
     const expectedAmountCents = checkoutItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-    if (isFirstPurchaseCoupon(coupon)) {
+    if (firstPurchaseOrder) {
       const eligibility = await reserveFirstPurchaseIdentity({
         orderNsu,
         email: customer.email,
