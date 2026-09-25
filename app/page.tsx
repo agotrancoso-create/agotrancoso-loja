@@ -29,7 +29,7 @@ export default function HomePage() {
           <div className="ago-collection-intro-brand">
             <p className="eyebrow">Agô · Trancoso, Bahia</p>
             <h1 id="featured-title">Peças que ficam por perto.</h1>
-            <p>Trancoso é nosso começo. A coleção também passa por casa, fé, presentes e outros símbolos brasileiros.</p>
+            <p>Trancoso é nossa principal inspiração. A coleção também passa por casa, fé, presentes e outros símbolos brasileiros.</p>
             <Link href="/produtos" className="ago-premium-text-link">Ver coleção <span aria-hidden="true">↗</span></Link>
           </div>
 
@@ -48,7 +48,7 @@ export default function HomePage() {
 
       <div className="ago-premium-trust" aria-label="Informações da Agô">
         <div className="ago-container ago-premium-trust-inner">
-          <span>Feitas à mão</span><i aria-hidden="true" /><span>Envio com cuidado</span><i aria-hidden="true" /><span>Pagamento seguro</span><i aria-hidden="true" /><span>Da Bahia para o mundo</span>
+          <span>Feitas à mão</span><i aria-hidden="true" /><span>Envio com cuidado</span><i aria-hidden="true" /><span>Pagamento seguro</span><i aria-hidden="true" /><span>Envio internacional</span>
         </div>
       </div>
 
@@ -87,9 +87,9 @@ export default function HomePage() {
             <Image src="/nossa-essencia.jpg" alt="Universo visual da Agô Trancoso" fill sizes="(max-width: 900px) 100vw, 56vw" quality={92} className="ago-complementary-photo" />
           </div>
           <div className="ago-premium-copy">
-            <p className="eyebrow">De onde vem</p>
+            <p className="eyebrow">Nossa inspiração</p>
             <h2 id="story-title">Começou no Quadrado.</h2>
-            <p>É dali que vem boa parte do nosso olhar: as casas, a igreja, as cores, a fé. A Agô parte de Trancoso, mas não termina ali.</p>
+            <p>Trancoso inspira boa parte do nosso olhar: as casas, a igreja, as cores e a fé. A coleção também percorre outras referências brasileiras.</p>
             <Link href="/nossa-essencia" className="ago-premium-text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
           </div>
         </div>

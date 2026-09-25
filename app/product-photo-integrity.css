@@ -1,0 +1,96 @@
+/* Correções cirúrgicas pedidas pela Agô. Esta camada não redesenha o site.
+   Mantém o design atual e corrige apenas fotografia de produto e a assinatura da seção Visite. */
+
+.product-image-wrap,
+.product-gallery-main,
+.product-gallery-thumb,
+.ago-premium-discovery-image,
+.ago-search-suggestion-image,
+.catalog-search-suggestion-image,
+.cart-product-image,
+.cart-complementary-image,
+.checkout-product-image {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.product-image-wrap,
+.product-gallery-main,
+.ago-premium-discovery-image {
+  aspect-ratio: 1 / 1;
+}
+
+.product-image-primary,
+.product-gallery-image,
+.product-gallery-thumb img,
+.ago-premium-discovery-image img,
+.ago-search-suggestion-image img,
+.catalog-search-suggestion-image img,
+.cart-product-image img,
+.cart-complementary-image img,
+.checkout-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  padding: 0;
+  border: 0;
+}
+
+.product-image-primary,
+.product-card:hover .product-image-primary,
+.product-card:focus-within .product-image-primary,
+.product-card-main:active .product-image-primary {
+  opacity: 1;
+  visibility: visible;
+}
+
+.product-gallery-thumb { opacity: .72; }
+.product-gallery-thumb.is-active {
+  opacity: 1;
+  outline: 0;
+  box-shadow: none;
+}
+
+.ago-photo-canvas img {
+  object-fit: contain;
+  object-position: center;
+  border: 0;
+}
+
+.ago-premium-visit-mark {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 2px;
+  text-align: center;
+  color: #d5ad73;
+}
+.ago-premium-visit-mark span {
+  color: inherit;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: .68rem;
+  line-height: 1.25;
+}
+.ago-premium-visit-mark strong {
+  color: inherit;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.75rem, 3.4vw, 3.35rem);
+  font-weight: 500;
+  line-height: .94;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  .ago-premium-visit-mark {
+    display: grid;
+    justify-self: start;
+    margin-top: 10px;
+  }
+  .ago-premium-visit-mark strong { font-size: 2.35rem; }
+}

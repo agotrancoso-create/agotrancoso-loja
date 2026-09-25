@@ -1,5 +1,6 @@
 import './globals.css';
 import './commerce.css';
+import './product-photo-integrity.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';

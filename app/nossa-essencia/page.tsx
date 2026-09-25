@@ -5,14 +5,7 @@ export const metadata: Metadata = {
   title: { absolute: 'A Agô | Agô Trancoso' },
   description: 'Conheça a história da Agô Trancoso e as referências de Trancoso, Bahia e do trabalho em cerâmica feito à mão.',
   alternates: { canonical: '/nossa-essencia' },
-  openGraph: {
-    title: 'A Agô | Agô Trancoso',
-    description: 'Conheça a história da Agô Trancoso e as referências de Trancoso, Bahia e do trabalho em cerâmica feito à mão.',
-    url: '/nossa-essencia',
-    siteName: 'Agô Trancoso',
-    locale: 'pt_BR',
-    type: 'website',
-  },
+  openGraph: { title: 'A Agô | Agô Trancoso', description: 'Conheça a história da Agô Trancoso e as referências de Trancoso, Bahia e do trabalho em cerâmica feito à mão.', url: '/nossa-essencia', siteName: 'Agô Trancoso', locale: 'pt_BR', type: 'website' },
 };
 
 export default function NossaEssenciaPage() {
@@ -24,7 +17,7 @@ export default function NossaEssenciaPage() {
             <p className="eyebrow">A Agô</p>
             <h1>O que vemos por aqui ganha outra forma.</h1>
             <div className="essencia-text">
-              <p>A Agô está em Trancoso desde 2016. Foi dali que vieram muitas das referências que aparecem nas nossas peças.</p>
+              <p>A Agô está em Trancoso desde 2016. O lugar é uma das principais inspirações para as referências que aparecem nas nossas peças.</p>
               <p>A arquitetura, a fé, as cores, o barro e as lembranças desse lugar aparecem nas formas e nos detalhes.</p>
               <p>A cerâmica está no centro de tudo. É um trabalho feito à mão, peça por peça, com o tempo e o cuidado que esse tipo de trabalho pede.</p>
             </div>
