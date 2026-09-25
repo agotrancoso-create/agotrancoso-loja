@@ -3,12 +3,19 @@ import { Product, Category, CartItem } from './types';
 
 // -----------------------------------------------------------------------
 // Toda a loja lê nomes, preços, categorias e imagens a partir de products.json.
-// As exceções abaixo existem apenas para fotos recuperadas do acervo que ainda
-// não estão registradas no JSON. Elas não podem trocar a foto principal de
-// produtos diferentes nem alterar preço, disponibilidade ou categoria.
+// As exceções abaixo existem apenas para fotos recuperadas do acervo ou para
+// corrigir nomes de arquivos históricos que não correspondem ao produto real.
+// Elas não alteram preço, disponibilidade ou categoria.
 // -----------------------------------------------------------------------
 
 const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
+  'igreja-quadrado-p': [
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/catalogo/igreja-quadrado-p-2.jpg',
+  ],
+  'igrejinha-luminaria-trancoso': [
+    '/produtos/igreja-quadrado-p.jpg',
+  ],
   'ima-igrejinha-trancoso': [
     '/produtos/ima-igrejinha-trancoso.jpg',
     '/produtos/galeria/ima-igrejinha-trancoso-2.jpg',
