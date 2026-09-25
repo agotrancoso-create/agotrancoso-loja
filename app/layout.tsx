@@ -2,26 +2,14 @@ import type { Metadata, Viewport } from 'next';
 import { Fraunces, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
 import './globals.css';
-import './ago-checkout-premium.css';
-import './ago-social-mobile.css';
-import './ago-mobile-checkout-final-2026.css';
 import './ago-design-limpo-2026-09-23.css';
 import './ago-beneficios-arte-final-2026.css';
 import './product-purchase-control.css';
-import './ago-refino-8cd-2026.css';
 import './ago-photo-interactions.css';
-import './ago-human-premium-2026.css';
-import './ago-proportional-final-2026.css';
+import './ago-checkout-premium.css';
+import './ago-social-mobile.css';
 import './ago-search-polish-2026.css';
-import './ago-experience-2026-09-24.css';
-import './ago-fullbleed-2026-09-24.css';
-import './ago-photo-fill-final-2026-09-24.css';
-import './ago-rhythm-footer-final-2026-09-24.css';
-import './ago-story-benefits-fix-2026-09-24.css';
-import './ago-polish-fix-2026-09-24.css';
-import './ago-benefits-essencia-final-2026-09-24.css';
-import './ago-product-detail-polish-2026-09-24.css';
-import './ago-warm-experience-final-2026-09-24.css';
+import './ago-human-premium-2026.css';
 import './ago-earth-flow-final-2026-09-24.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
@@ -35,7 +23,7 @@ import { SITE_DOMAIN } from '@/lib/config';
 const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-sans' });
 const fraunces = Fraunces({ subsets: ['latin'], display: 'swap', variable: '--font-display', weight: ['600', '700'] });
 
-export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#f4e5d0', colorScheme: 'light' };
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#e4c7a4', colorScheme: 'light' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),

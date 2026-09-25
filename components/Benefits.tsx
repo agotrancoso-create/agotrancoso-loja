@@ -16,7 +16,7 @@ export default function Benefits() {
 
         <div className="ago-benefits-grid">
           {benefits.map(([title, text], index) => (
-            <article className="ago-benefit-item" key={title} tabIndex={0}>
+            <article className="ago-benefit-item" key={title}>
               <div className="ago-benefit-symbol" aria-hidden="true">
                 <div
                   className="ago-benefit-art"

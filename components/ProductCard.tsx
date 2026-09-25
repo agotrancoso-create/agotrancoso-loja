@@ -38,8 +38,15 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
     <article className="product-card group" data-product-id={product.id}>
       <Link href={`/produtos/${product.id}`} className="product-card-main" onClick={trackView}>
         <div className="product-image-wrap">
-          <Image src={image} alt={product.imageAlt || product.name} fill priority={priority} sizes="(max-width: 420px) 44vw, (max-width: 767px) 45vw, (max-width: 1100px) 30vw, (max-width: 1440px) 23vw, 330px" className="product-image product-image-primary" />
-          {product.images?.[1] && <Image src={product.images[1]} alt="" fill sizes="(max-width: 420px) 44vw, (max-width: 767px) 45vw, (max-width: 1100px) 30vw, (max-width: 1440px) 23vw, 330px" className="product-image-secondary" aria-hidden="true" />}
+          <Image
+            src={image}
+            alt={product.imageAlt || product.name}
+            fill
+            priority={priority}
+            quality={86}
+            sizes="(max-width: 350px) 92vw, (max-width: 767px) 45vw, (max-width: 1100px) 30vw, (max-width: 1440px) 23vw, 330px"
+            className="product-image product-image-primary"
+          />
           {hasPromo && <span className="product-badge">Oferta</span>}
           {!product.available && <span className="product-badge">Indisponível</span>}
           <span className="product-view">Ver peça</span>

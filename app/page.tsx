@@ -13,7 +13,7 @@ const featuredOrder = ['igreja-quadrado-p', 'igreja-quadrado-m', 'igrejinha-lumi
 const discovery = [
   { title: 'Trancoso', subtitle: 'Nosso maior repertório', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
   { title: 'Casa & decoração', subtitle: 'Para viver junto', category: 'decoracao', image: '/produtos/esfera-decorativa.jpg' },
-  { title: 'Fé & devoção', subtitle: 'Símbolos que acompanham', category: 'fe-devocao', image: '/produtos/nossa-senhora-aparecida.jpg' },
+  { title: 'Fé & devoção', subtitle: 'Símbolos que acompanham', category: 'fe-devocao', image: '/produtos/nossa-senhora-grande.jpg' },
   { title: 'Presentes', subtitle: 'Para alguém que veio à cabeça', category: 'presentes', image: '/produtos/colar-igreja-quadrado.jpg' },
 ];
 
@@ -53,7 +53,7 @@ export default function HomePage() {
       </div>
 
       <section className="ago-premium-hero ago-home-hero" aria-labelledby="hero-title">
-        <Image src="/hero.jpg" alt="Peças de cerâmica da Agô Trancoso" fill sizes="100vw" className="ago-premium-hero-image" quality={90} />
+        <Image src="/hero.jpg" alt="Peças de cerâmica da Agô Trancoso" fill priority sizes="100vw" className="ago-premium-hero-image" quality={90} />
         <div className="ago-premium-hero-overlay" aria-hidden="true" />
         <div className="ago-container ago-premium-hero-content">
           <p className="eyebrow">Depois da viagem</p>
@@ -73,7 +73,7 @@ export default function HomePage() {
           <div className="ago-premium-discovery-grid">
             {discovery.map((item) => (
               <Link key={item.category} href={`/produtos?categoria=${item.category}`} className="ago-premium-discovery-card">
-                <div className="ago-premium-discovery-image"><Image src={item.image} alt={item.title} fill sizes="(max-width: 767px) 100vw, 25vw" /></div>
+                <div className="ago-premium-discovery-image"><Image src={item.image} alt={item.title} fill quality={86} sizes="(max-width: 767px) 50vw, 25vw" /></div>
                 <div className="ago-premium-discovery-copy"><small>{item.subtitle}</small><span>{item.title}</span><strong>Ver peças <span aria-hidden="true">↗</span></strong></div>
               </Link>
             ))}

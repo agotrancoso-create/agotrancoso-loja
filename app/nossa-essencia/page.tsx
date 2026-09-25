@@ -30,7 +30,15 @@ export default function NossaEssenciaPage() {
             </div>
           </section>
           <div className="essencia-image">
-            <Image src="/nossa-essencia.jpg" alt="Peças de cerâmica da Agô Trancoso" fill className="essencia-image-img" sizes="(max-width: 900px) 100vw, 50vw" quality={82} />
+            <Image
+              src="/nossa-essencia.jpg"
+              alt="Peças de cerâmica da Agô Trancoso"
+              fill
+              priority
+              className="essencia-image-img"
+              sizes="(max-width: 900px) 100vw, 50vw"
+              quality={92}
+            />
           </div>
         </div>
       </div>
