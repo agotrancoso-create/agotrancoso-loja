@@ -7,6 +7,7 @@ import { FIRST_PURCHASE_COUPON } from '@/lib/coupons';
 const STORAGE_SEEN = 'ago_primeira_compra_v3_vista';
 const STORAGE_REGISTERED = 'ago_primeira_compra_v3_cadastro';
 const STORAGE_COUPON = 'ago_primeira_compra_v3_cupom';
+const STORAGE_EMAIL = 'ago_primeira_compra_v3_email';
 
 export default function FirstPurchaseOffer() {
   const pathname = usePathname();
@@ -14,13 +15,17 @@ export default function FirstPurchaseOffer() {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [email, setEmail] = useState('');
   const [consent, setConsent] = useState(false);
 
   useEffect(() => {
     if (!pathname || ['/checkout', '/confirmacao', '/termos', '/privacidade'].some((route) => pathname.startsWith(route))) return;
-    try { if (window.localStorage.getItem(STORAGE_SEEN) || window.localStorage.getItem(STORAGE_REGISTERED)) return; } catch {}
+    try {
+      if (window.localStorage.getItem(STORAGE_SEEN) || window.localStorage.getItem(STORAGE_REGISTERED)) return;
+    } catch {}
 
     let triggered = false;
     const showOffer = () => {
@@ -36,7 +41,10 @@ export default function FirstPurchaseOffer() {
     };
     const timer = window.setTimeout(showOffer, 12000);
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => { window.clearTimeout(timer); window.removeEventListener('scroll', handleScroll); };
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [pathname]);
 
   useEffect(() => {
@@ -47,14 +55,24 @@ export default function FirstPurchaseOffer() {
     closeButtonRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') { close(); return; }
+      if (event.key === 'Escape') {
+        close();
+        return;
+      }
       if (event.key === 'Tab') {
-        const controls = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), [tabindex="0"]') ?? []).filter((element) => element.getClientRects().length > 0);
+        const controls = Array.from(
+          dialogRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), [tabindex="0"]') ?? [],
+        ).filter((element) => element.getClientRects().length > 0);
         const first = controls[0];
         const last = controls[controls.length - 1];
         if (!first || !last) return;
-        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     };
 
@@ -73,7 +91,10 @@ export default function FirstPurchaseOffer() {
 
   async function submit(event: FormEvent) {
     event.preventDefault();
-    if (!consent) return;
+    if (!consent || submitting) return;
+    setError(null);
+    setSubmitting(true);
+
     try {
       const response = await fetch('/api/leads', {
         method: 'POST',
@@ -81,14 +102,23 @@ export default function FirstPurchaseOffer() {
         body: JSON.stringify({ email, source: 'primeira-compra' }),
         keepalive: true,
       });
-      if (!response.ok) return;
-    } catch { return; }
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        setError(data.error || 'Não foi possível guardar seu benefício agora. Tente novamente.');
+        return;
+      }
 
-    try {
-      window.localStorage.setItem(STORAGE_REGISTERED, '1');
-      window.localStorage.setItem(STORAGE_COUPON, FIRST_PURCHASE_COUPON);
-    } catch {}
-    setSubmitted(true);
+      try {
+        window.localStorage.setItem(STORAGE_REGISTERED, '1');
+        window.localStorage.setItem(STORAGE_COUPON, FIRST_PURCHASE_COUPON);
+        window.localStorage.setItem(STORAGE_EMAIL, email.trim().toLowerCase());
+      } catch {}
+      setSubmitted(true);
+    } catch {
+      setError('Não foi possível guardar seu benefício agora. Tente novamente.');
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   async function copyCoupon() {
@@ -96,7 +126,9 @@ export default function FirstPurchaseOffer() {
       await navigator.clipboard.writeText(FIRST_PURCHASE_COUPON);
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1800);
-    } catch { setCopied(false); }
+    } catch {
+      setCopied(false);
+    }
   }
 
   if (!open) return null;
@@ -112,7 +144,7 @@ export default function FirstPurchaseOffer() {
               <h2 id="first-purchase-title">Um pequeno presente para começar.</h2>
               <p className="first-purchase-lead">3% OFF na sua primeira compra.</p>
               <div className="first-purchase-discount-badge" aria-label="3% de desconto na primeira compra"><strong>3%</strong><span>OFF</span></div>
-              <p className="first-purchase-soft-note">Escolha sua peça com calma. O benefício fica com você.</p>
+              <p className="first-purchase-soft-note">O benefício é validado no checkout pelo e-mail e telefone.</p>
             </div>
             <form className="first-purchase-form" onSubmit={submit}>
               <div className="first-purchase-field">
@@ -123,7 +155,8 @@ export default function FirstPurchaseOffer() {
                 <input type="checkbox" required checked={consent} onChange={(event) => setConsent(event.target.checked)} />
                 <span>Li e aceito os <a href="/termos" target="_blank" rel="noreferrer">Termos de Uso</a> e a <a href="/privacidade" target="_blank" rel="noreferrer">Política de Privacidade</a>.</span>
               </label>
-              <button type="submit" className="first-purchase-submit">Quero meu desconto</button>
+              {error && <p className="first-purchase-error" role="alert">{error}</p>}
+              <button type="submit" disabled={submitting} className="first-purchase-submit">{submitting ? 'Guardando…' : 'Quero meu desconto'}</button>
               <small>Sem excesso de mensagens. Você pode sair da lista quando quiser.</small>
             </form>
           </div>
@@ -131,7 +164,7 @@ export default function FirstPurchaseOffer() {
           <div className="first-purchase-success">
             <p className="eyebrow">Pronto</p>
             <h2 id="first-purchase-title">Seu benefício está guardado.</h2>
-            <p>Use o código abaixo no checkout para receber 3% OFF na primeira compra.</p>
+            <p>O código já fica salvo neste aparelho e pode ser validado no checkout.</p>
             <button type="button" className="first-purchase-coupon" onClick={copyCoupon} aria-label={`Copiar cupom ${FIRST_PURCHASE_COUPON}`}><strong>{FIRST_PURCHASE_COUPON}</strong><span>{copied ? 'Copiado' : 'Copiar'}</span></button>
             <button type="button" className="first-purchase-continue" onClick={close}>Continuar vendo</button>
           </div>
