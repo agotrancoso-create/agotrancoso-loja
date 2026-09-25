@@ -6,9 +6,7 @@ import { Product, Category, CartItem } from './types';
 // Isso garante que exista UMA ÚNICA fonte de preços (data/products.json).
 // -----------------------------------------------------------------------
 
-// Correção visual conforme o catálogo real da Agô.
-// Os nomes históricos dos arquivos dessas duas peças ficaram invertidos no acervo,
-// por isso a referência correta é feita aqui sem alterar preços ou dados comerciais.
+// Correções visuais confirmadas do acervo. Preços e dados comerciais não mudam.
 const CONFIRMED_IMAGE_OVERRIDES: Record<string, string[]> = {
   'igreja-quadrado-p': [
     '/produtos/igrejinha-luminaria-trancoso.jpg',
@@ -16,6 +14,11 @@ const CONFIRMED_IMAGE_OVERRIDES: Record<string, string[]> = {
   ],
   'igrejinha-luminaria-trancoso': [
     '/produtos/igreja-quadrado-p.jpg',
+  ],
+  'casal-pretos-velhos': [
+    '/produtos/catalogo/casal-pretos-velhos-1.jpg',
+    '/produtos/catalogo/casal-pretos-velhos-2.jpg',
+    '/produtos/galeria/casal-pretos-velhos-3-hq.jpg',
   ],
 };
 
