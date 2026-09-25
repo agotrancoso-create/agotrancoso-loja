@@ -24,7 +24,7 @@ export default function ProdutosPage() {
           <p>Trancoso ocupa o centro da coleção, sem limitar o que criamos. Aqui também entram objetos para casa, fé, devoção, presentes e outros símbolos brasileiros, sempre feitos à mão.</p>
         </header>
 
-        <Suspense fallback={<div className="catalog-loading" aria-label="Carregando coleção" />}>
+        <Suspense fallback={<div className="catalog-loading" role="status">Carregando coleção…</div>}>
           <ProdutosClient products={products} categories={categories} />
         </Suspense>
       </div>

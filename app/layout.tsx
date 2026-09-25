@@ -1,14 +1,8 @@
+import './globals.css';
+import './commerce.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
-import './globals.css';
-import './ago-beneficios-arte-final-2026.css';
-import './product-purchase-control.css';
-import './ago-photo-interactions.css';
-import './ago-social-mobile.css';
-import './ago-search-polish-2026.css';
-import './ago-master-system-2026-09-25.css';
-import './ago-production-audit-2026-09-25.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -21,7 +15,7 @@ import { SITE_DOMAIN } from '@/lib/config';
 const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-sans' });
 const cormorant = Cormorant_Garamond({ subsets: ['latin'], display: 'swap', variable: '--font-display', weight: ['500', '600', '700'] });
 
-export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#ead7c1', colorScheme: 'light' };
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#eedcc2', colorScheme: 'light' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),

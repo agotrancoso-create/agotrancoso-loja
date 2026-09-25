@@ -31,13 +31,14 @@ export default function FirstPurchaseOffer() {
     let active = true;
     let timer: number | undefined;
     let triggered = false;
+    const started = Date.now();
 
     const closeListeners = () => {
       if (timer) window.clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
     };
     const showOffer = () => {
-      if (!active || triggered) return;
+      if (!active || triggered || Date.now() - started < 30000 || document.querySelector('.cart-drawer[aria-hidden="false"], dialog[open], .mobile-menu') || /INPUT|TEXTAREA/.test(document.activeElement?.tagName || '')) return;
       triggered = true;
       setOpen(true);
       closeListeners();
@@ -60,7 +61,7 @@ export default function FirstPurchaseOffer() {
         return;
       }
 
-      timer = window.setTimeout(showOffer, 12000);
+      timer = window.setTimeout(handleScroll, 30000);
       window.addEventListener('scroll', handleScroll, { passive: true });
     }
 
@@ -76,6 +77,8 @@ export default function FirstPurchaseOffer() {
     const previousActive = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    const background = Array.from(document.querySelectorAll<HTMLElement>('.site-header, main, .site-footer, .ago-topbar, .ago-social-floaters')).filter(node => !node.hasAttribute('inert'));
+    background.forEach(node => node.setAttribute('inert', ''));
     closeButtonRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -103,6 +106,7 @@ export default function FirstPurchaseOffer() {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       document.body.style.overflow = previousOverflow;
+      background.forEach(node => node.removeAttribute('inert'));
       window.removeEventListener('keydown', handleKeyDown);
       if (previousActive?.isConnected) previousActive.focus({ preventScroll: true });
     };
@@ -170,7 +174,7 @@ export default function FirstPurchaseOffer() {
                 <input type="checkbox" required checked={consent} onChange={(event) => setConsent(event.target.checked)} />
                 <span>Li e aceito os <a href="/termos" target="_blank" rel="noreferrer">Termos de Uso</a> e a <a href="/privacidade" target="_blank" rel="noreferrer">Política de Privacidade</a>.</span>
               </label>
-              {error && <p className="first-purchase-error" role="alert">{error}</p>}
+              {error && <p className="checkout-error" role="alert">{error}</p>}
               <button type="submit" disabled={submitting} className="first-purchase-submit">{submitting ? 'Salvando…' : 'Quero meu desconto'}</button>
               <small>O código fica salvo neste navegador. A validação final acontece antes do pagamento.</small>
             </form>

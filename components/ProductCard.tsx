@@ -9,7 +9,6 @@ import { Product } from '@/lib/types';
 import { getEffectivePrice } from '@/lib/products';
 import { useCart } from '@/context/CartContext';
 import { trackAddToCart, trackViewItem } from '@/lib/marketing-analytics';
-import styles from './ProductCardTouch.module.css';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -32,28 +31,21 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const hasGallery = (product.images?.length ?? 0) > 1;
+
   const trackView = () => trackViewItem({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category });
 
   return (
     <article className="product-card group" data-product-id={product.id}>
-      <Link href={`/produtos/${product.id}`} className={`product-card-main ${styles.touchLink}`} onClick={trackView}>
-        <div className={`product-image-wrap ${styles.touchSurface}`}>
-          <Image
-            src={image}
-            alt={product.imageAlt || product.name}
-            fill
-            priority={priority}
-            quality={86}
-            sizes="(max-width: 390px) 92vw, (max-width: 767px) 45vw, (max-width: 1100px) 30vw, (max-width: 1440px) 23vw, 330px"
-            className={`product-image product-image-primary ${styles.touchImage}`}
-          />
+      <Link href={`/produtos/${product.id}`} className="product-card-main" onClick={trackView}>
+        <div className="product-image-wrap">
+          <Image src={image} alt={product.imageAlt || product.name} fill quality={86} priority={priority} sizes="(max-width: 900px) 46vw, (max-width: 1400px) 30vw, 424px" className="product-image product-image-primary" />
           {hasPromo && <span className="product-badge">Oferta</span>}
           {!product.available && <span className="product-badge">Indisponível</span>}
-          <span className={`product-view ${styles.touchCue}`} aria-hidden="true">Ver peça</span>
+          <span className="product-view" aria-hidden="true">Ver peça</span>
         </div>
 
         <div className="product-card-copy">
-          <h3 className="product-name">{product.name}</h3>
+          <h2 className="product-name">{product.name}</h2>
           {hasPromo ? (
             <div className="price-row"><span className="old-price">{formatBRL(product.price)}</span><span className="current-price">{formatBRL(price)}</span></div>
           ) : <p className="current-price">{formatBRL(price)}</p>}

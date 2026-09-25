@@ -2,7 +2,7 @@ import { whatsappLink } from '@/lib/config';
 
 export default function SocialFloaters() {
   return (
-    <div className="ago-social-floaters" aria-label="Falar com a Agô Trancoso">
+    <nav className="ago-social-floaters" aria-label="Falar com a Agô Trancoso">
       <a
         href={whatsappLink('Olá! Vim pelo site da Agô Trancoso e gostaria de consultar as peças.')}
         target="_blank"
@@ -29,6 +29,6 @@ export default function SocialFloaters() {
           <circle cx="17.15" cy="6.85" r="1.05" fill="currentColor" />
         </svg>
       </a>
-    </div>
+    </nav>
   );
 }

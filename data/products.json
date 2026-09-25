@@ -32,7 +32,7 @@
       "currency": "BRL",
       "category": "igrejinhas",
       "images": [
-        "/produtos/igrejinha-luminaria-trancoso.jpg",
+        "/produtos/igreja-quadrado-p.jpg",
         "/produtos/catalogo/igreja-quadrado-p-2.jpg"
       ],
       "dimensions": "",
@@ -81,7 +81,7 @@
       "currency": "BRL",
       "category": "igrejinhas",
       "images": [
-        "/produtos/igreja-quadrado-p.jpg"
+        "/produtos/igrejinha-luminaria-trancoso.jpg"
       ],
       "dimensions": "",
       "available": true,
@@ -337,8 +337,7 @@
       "currency": "BRL",
       "category": "presentes",
       "images": [
-        "/produtos/ima-igrejinha-trancoso.jpg",
-        "/produtos/igreja-quadrado-m.jpg"
+        "/produtos/ima-igrejinha-trancoso.jpg"
       ],
       "dimensions": "",
       "available": true,

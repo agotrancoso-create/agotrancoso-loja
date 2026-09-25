@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Product, Category } from '@/lib/types';
 import ProductCard from '@/components/ProductCard';
@@ -36,7 +36,10 @@ export default function ProdutosClient({ products, categories }: { products: Pro
   const [category, setCategory] = useState(searchParams.get('categoria') || 'todas');
   const [sort, setSort] = useState<SortOption>('featured');
   const [searchFocused, setSearchFocused] = useState(false);
+  const sortButton = useRef<HTMLButtonElement>(null);
+  const sortMenu = useRef<HTMLDivElement>(null);
   const [sortOpen, setSortOpen] = useState(false);
+  useEffect(() => { if (sortOpen) sortMenu.current?.querySelector<HTMLButtonElement>('[aria-selected="true"]')?.focus(); }, [sortOpen]);
   const urlQuery = searchParams.get('busca') || '';
   const urlCategory = searchParams.get('categoria') || 'todas';
 
@@ -100,7 +103,13 @@ export default function ProdutosClient({ products, categories }: { products: Pro
       <div className="catalog-tools">
         <div className="catalog-search-wrap">
           <label htmlFor="catalog-search">Encontre uma peça</label>
-          <div className="catalog-search-area">
+          <div className="catalog-search-area" onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setSearchFocused(false); }} onKeyDown={(event) => {
+            if (event.key === 'Escape') { event.preventDefault(); document.getElementById('catalog-search')?.focus(); setSearchFocused(false); }
+            const links = Array.from(event.currentTarget.querySelectorAll<HTMLAnchorElement>('.catalog-search-suggestion'));
+            const index = links.indexOf(event.target as HTMLAnchorElement);
+            if (event.key === 'ArrowDown' && links.length) { event.preventDefault(); links[(index + 1) % links.length]?.focus(); }
+            if (event.key === 'ArrowUp' && links.length) { event.preventDefault(); if (index > 0) links[index - 1]?.focus(); else document.getElementById('catalog-search')?.focus(); }
+          }}>
             <div className="catalog-search-control">
               <input
                 id="catalog-search"
@@ -108,21 +117,19 @@ export default function ProdutosClient({ products, categories }: { products: Pro
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onFocus={() => setSearchFocused(true)}
-                onBlur={() => window.setTimeout(() => setSearchFocused(false), 120)}
                 placeholder="Digite uma inicial ou o nome da peça"
                 autoComplete="off"
-                aria-expanded={showSuggestions}
-                aria-controls="catalog-search-suggestions"
+                aria-controls={showSuggestions ? 'catalog-search-suggestions' : undefined}
               />
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
             </div>
 
             {showSuggestions && (
-              <div id="catalog-search-suggestions" className="catalog-search-suggestions" role="list" aria-label="Sugestões de peças">
+              <div id="catalog-search-suggestions" className="catalog-search-suggestions" role="navigation" aria-label="Sugestões de peças">
                 {suggestions.map((product) => {
                   const image = product.images?.[0] || '/images/placeholder.svg';
                   return (
-                    <Link key={product.id} href={`/produtos/${product.id}`} className="catalog-search-suggestion" role="listitem">
+                    <Link key={product.id} href={`/produtos/${product.id}`} className="catalog-search-suggestion">
                       <span className="catalog-search-suggestion-image">
                         <Image src={image} alt="" width={54} height={54} />
                       </span>
@@ -149,7 +156,10 @@ export default function ProdutosClient({ products, categories }: { products: Pro
           <button
             type="button"
             className="catalog-sort-trigger"
-            aria-labelledby="catalog-sort-label"
+            ref={sortButton}
+            aria-label={`Ordenar por: ${selectedSortLabel}`}
+            aria-controls={sortOpen ? 'catalog-sort-options' : undefined}
+            onKeyDown={(event) => { if (['ArrowDown', 'ArrowUp'].includes(event.key)) { event.preventDefault(); setSortOpen(true); } }}
             aria-haspopup="listbox"
             aria-expanded={sortOpen}
             onClick={() => setSortOpen((open) => !open)}
@@ -158,7 +168,15 @@ export default function ProdutosClient({ products, categories }: { products: Pro
             <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5.5 7.5 4.5 4.5 4.5-4.5" /></svg>
           </button>
           {sortOpen && (
-            <div className="catalog-sort-menu" role="listbox" aria-label="Ordenar peças">
+            <div id="catalog-sort-options" ref={sortMenu} className="catalog-sort-menu" role="listbox" aria-label="Ordenar peças" onKeyDown={(event) => {
+              const options = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>('[role=option]'));
+              const index = options.indexOf(event.target as HTMLButtonElement);
+              if (event.key === 'Escape') { event.preventDefault(); setSortOpen(false); sortButton.current?.focus(); }
+              if (event.key === 'ArrowDown') { event.preventDefault(); options[(index + 1) % options.length]?.focus(); }
+              if (event.key === 'ArrowUp') { event.preventDefault(); options[(index - 1 + options.length) % options.length]?.focus(); }
+              if (event.key === 'Home') { event.preventDefault(); options[0]?.focus(); }
+              if (event.key === 'End') { event.preventDefault(); options[options.length - 1]?.focus(); }
+            }}>
               {sortOptions.map((option) => (
                 <button
                   type="button"
@@ -169,6 +187,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
                   onClick={() => {
                     setSort(option.value);
                     setSortOpen(false);
+                    sortButton.current?.focus();
                   }}
                 >
                   <span>{option.label}</span>

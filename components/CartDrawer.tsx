@@ -16,7 +16,7 @@ function formatBRL(value: number) {
 export default function CartDrawer() {
   const { items, isDrawerOpen, closeDrawer, updateQuantity, removeItem, addItem } = useCart();
   const closeRef = useRef<HTMLButtonElement>(null);
-  const drawerRef = useRef<HTMLElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
   const closeDrawerRef = useRef(closeDrawer);
 
   useEffect(() => { closeDrawerRef.current = closeDrawer; }, [closeDrawer]);
@@ -26,6 +26,8 @@ export default function CartDrawer() {
     const previousActive = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    const background = Array.from(document.querySelectorAll<HTMLElement>('.site-header, main, .site-footer, .ago-topbar, .ago-social-floaters')).filter(node => !node.hasAttribute('inert'));
+    background.forEach(node => node.setAttribute('inert', ''));
     closeRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -36,11 +38,9 @@ export default function CartDrawer() {
         const first = controls[0];
         const last = controls[controls.length - 1];
         if (event.shiftKey && (document.activeElement === first || !drawerRef.current?.contains(document.activeElement))) {
-          event.preventDefault();
-          last?.focus();
+          event.preventDefault(); last?.focus();
         } else if (!event.shiftKey && (document.activeElement === last || !drawerRef.current?.contains(document.activeElement))) {
-          event.preventDefault();
-          first?.focus();
+          event.preventDefault(); first?.focus();
         }
       }
     };
@@ -48,6 +48,7 @@ export default function CartDrawer() {
 
     return () => {
       document.body.style.overflow = previousOverflow;
+      background.forEach(node => node.removeAttribute('inert'));
       window.removeEventListener('keydown', handleKeyDown);
       if (previousActive?.isConnected) previousActive.focus({ preventScroll: true });
     };
@@ -75,10 +76,9 @@ export default function CartDrawer() {
   return (
     <>
       {isDrawerOpen && <div className="cart-backdrop fixed inset-0 z-50" onClick={closeDrawer} aria-hidden="true" />}
-      <aside
+      <div
         ref={drawerRef}
         className={`cart-drawer fixed top-0 right-0 h-full w-full sm:w-[460px] z-50 transform transition-transform duration-300 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}
-        style={{ visibility: isDrawerOpen ? 'visible' : 'hidden' }}
         aria-hidden={!isDrawerOpen}
         aria-labelledby="ago-cart-title"
         role="dialog"
@@ -118,7 +118,7 @@ export default function CartDrawer() {
                   </div>
 
                   <div className="cart-item-info">
-                    <h4>{product.name}</h4>
+                    <h3>{product.name}</h3>
                     <p>{formatBRL(getEffectivePrice(product))} / un.</p>
                     <div className="cart-item-controls">
                       <button type="button" onClick={() => updateQuantity(item.productId, item.quantity - 1)} aria-label={`Diminuir quantidade de ${product.name}`}>−</button>
@@ -149,26 +149,6 @@ export default function CartDrawer() {
               ))}
             </ul>
           )}
-        </div>
-
-        {lines.length > 0 && (
-          <div className="cart-summary">
-            <div className="cart-shipping-progress-block">
-              {!freeShipping ? (
-                <p className="cart-shipping-message">
-                  Faltam <strong>{formatBRL(remaining)}</strong> para o frete grátis.
-                </p>
-              ) : (
-                <p className="cart-shipping-message is-free">Você ganhou frete grátis neste pedido.</p>
-              )}
-              <div className="cart-shipping-progress" aria-hidden="true">
-                <span style={{ width: progress + '%' }} />
-              </div>
-              <div className="cart-shipping-progress-labels">
-                <span>Frete fixo R$ 39,90</span>
-                <span>Grátis acima de R$ 500</span>
-              </div>
-            </div>
             {complementary.length > 0 && (
               <div className="cart-complementary" aria-label="Peças que podem acompanhar sua seleção">
                 <div className="cart-complementary-head">
@@ -216,6 +196,26 @@ export default function CartDrawer() {
                 </div>
               </div>
             )}
+        </div>
+
+        {lines.length > 0 && (
+          <div className="cart-summary">
+            <div className="cart-shipping-progress-block">
+              {!freeShipping ? (
+                <p className="cart-shipping-message">
+                  Faltam <strong>{formatBRL(remaining)}</strong> para o frete grátis.
+                </p>
+              ) : (
+                <p className="cart-shipping-message is-free">Você ganhou frete grátis neste pedido.</p>
+              )}
+              <div className="cart-shipping-progress" aria-hidden="true">
+                <span style={{ width: progress + '%' }} />
+              </div>
+              <div className="cart-shipping-progress-labels">
+                <span>Frete fixo R$ 39,90</span>
+                <span>Grátis acima de R$ 500</span>
+              </div>
+            </div>
             <div className="cart-summary-row"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
             <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
             <div className="cart-total-row"><span>Total</span><strong>{formatBRL(total)}</strong></div>
@@ -223,7 +223,7 @@ export default function CartDrawer() {
             <button type="button" onClick={closeDrawer} className="cart-continue">Continuar comprando</button>
           </div>
         )}
-      </aside>
+      </div>
     </>
   );
 }

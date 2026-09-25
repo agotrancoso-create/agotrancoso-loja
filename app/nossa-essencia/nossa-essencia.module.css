@@ -1,8 +1,0 @@
-.frame {
-  background: var(--ago-ivory, #f4e5d0);
-}
-
-.frame .image {
-  object-fit: contain !important;
-  object-position: center !important;
-}

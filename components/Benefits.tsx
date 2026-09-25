@@ -1,8 +1,16 @@
+import Link from 'next/link';
 const benefits = [
-  ['Feito à mão', 'Cuidado e tradição em cada detalhe.'],
-  ['Peças exclusivas', 'Escolhas especiais para quem valoriza o feito à mão.'],
-  ['Inspiração brasileira', 'Cores, formas e símbolos da nossa terra.'],
+  ['feito à mão', 'Cuidado e tradição em cada detalhe.'],
+  ['peças exclusivas', 'Escolhas especiais para quem valoriza o feito à mão.'],
+  ['inspiração brasileira', 'Cores, formas e símbolos da nossa terra.'],
   ['Da Bahia para o mundo', 'Envio internacional sob consulta.'],
+] as const;
+
+const details = [
+  ['Conheça o trabalho em cerâmica e as referências que fazem parte da Agô.', '/nossa-essencia', 'Conhecer a Agô'],
+  ['Encontre peças para casa, fé e presentes na nossa coleção.', '/produtos', 'Explorar peças'],
+  ['Trancoso é o começo de uma coleção que percorre outros símbolos brasileiros.', '/produtos?categoria=trancoso', 'Ver Trancoso'],
+  ['Enviamos para o mundo todo. Consulte o valor e as condições para o seu destino antes de comprar.', '/contato', 'Consultar envio'],
 ] as const;
 
 const artwork = { width: 2048, height: 690, cropWidth: 280, cropHeight: 240, top: 140 };
@@ -16,7 +24,8 @@ export default function Benefits() {
 
         <div className="ago-benefits-grid">
           {benefits.map(([title, text], index) => (
-            <article className="ago-benefit-item" key={title}>
+            <details className="ago-benefit-item" key={title}>
+              <summary>
               <div className="ago-benefit-symbol" aria-hidden="true">
                 <div
                   className="ago-benefit-art"
@@ -30,7 +39,10 @@ export default function Benefits() {
                 <h3>{title}</h3>
                 <p>{text}</p>
               </div>
-            </article>
+              <span className="ago-benefit-more">Saiba mais</span>
+              </summary>
+              <p className="ago-benefit-detail">{details[index][0]}<br /><Link href={details[index][1]}>{details[index][2]}</Link></p>
+            </details>
           ))}
         </div>
       </div>

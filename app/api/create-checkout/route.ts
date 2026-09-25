@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { customerErrors, addressErrors } from '@/lib/checkout-validation';
 import { getProductById, getEffectivePrice, calculateCartTotals } from '@/lib/products';
 import { calculateCouponDiscount, isFirstPurchaseCoupon, normalizeCoupon } from '@/lib/coupons';
 import { getShippingPrice, shouldOfferFreeShipping, FIXED_SHIPPING_PRICE } from '@/lib/shipping';
@@ -69,6 +70,8 @@ export async function POST(req: Request) {
     const coupon = normalizeCoupon(body.coupon);
     const customer = body.customer ?? {};
     const address = customer.address ?? {};
+    const validation = { ...customerErrors({ name: String(customer.name ?? ''), email: String(customer.email ?? ''), phone: String(customer.phone ?? '') }), ...addressErrors({ zip: String(address.zip ?? ''), street: String(address.street ?? ''), number: String(address.number ?? ''), neighborhood: String(address.neighborhood ?? ''), city: String(address.city ?? ''), state: String(address.state ?? '') }) };
+    if (Object.keys(validation).length) return NextResponse.json({ error: Object.values(validation)[0], fields: validation }, { status: 400 });
 
     if (!items.length) return NextResponse.json({ error: 'Sua sacola está vazia.' }, { status: 400 });
     if (coupon && !isFirstPurchaseCoupon(coupon)) {
