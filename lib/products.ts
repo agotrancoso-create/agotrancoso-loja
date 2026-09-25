@@ -9,11 +9,14 @@ import { Product, Category, CartItem } from './types';
 // Correções visuais confirmadas do acervo. Preços e dados comerciais não mudam.
 const CONFIRMED_IMAGE_OVERRIDES: Record<string, string[]> = {
   'igreja-quadrado-p': [
-    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/igreja-quadrado-p.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ],
   'igrejinha-luminaria-trancoso': [
-    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
+  ],
+  'ima-igrejinha-trancoso': [
+    '/produtos/ima-igrejinha-trancoso.jpg',
   ],
   'casal-pretos-velhos': [
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
