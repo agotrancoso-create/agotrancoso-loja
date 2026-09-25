@@ -3,12 +3,15 @@ import { Product, Category, CartItem } from './types';
 
 // -----------------------------------------------------------------------
 // Toda a loja lê nomes, preços, categorias e imagens a partir de products.json.
-// As exceções abaixo existem apenas para fotos recuperadas do acervo ou para
-// corrigir nomes de arquivos históricos que não correspondem ao produto real.
-// Elas não alteram preço, disponibilidade ou categoria.
+// As exceções abaixo existem apenas para corrigir nomes de arquivos históricos
+// que não correspondem ao produto real e para manter somente originais com
+// qualidade suficiente para exibição. Elas não alteram preço, disponibilidade
+// ou categoria.
 // -----------------------------------------------------------------------
 
 const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
+  // Estes dois arquivos têm nomes históricos invertidos no acervo. A associação
+  // abaixo é a associação visual correta e não deve ser inferida pelo filename.
   'igreja-quadrado-p': [
     '/produtos/igrejinha-luminaria-trancoso.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
@@ -16,14 +19,12 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
   'igrejinha-luminaria-trancoso': [
     '/produtos/igreja-quadrado-p.jpg',
   ],
-  'ima-igrejinha-trancoso': [
-    '/produtos/ima-igrejinha-trancoso.jpg',
-    '/produtos/galeria/ima-igrejinha-trancoso-2.jpg',
-  ],
+
+  // A antiga terceira foto vinha de uma miniatura de poucos KB. Mantemos apenas
+  // os dois originais de catálogo, que possuem resolução adequada.
   'casal-pretos-velhos': [
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
     '/produtos/catalogo/casal-pretos-velhos-2.jpg',
-    '/produtos/casal-pretos-velhos.jpg',
   ],
 };
 

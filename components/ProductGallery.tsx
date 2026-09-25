@@ -72,8 +72,8 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
             alt={`${name}, foto ${active + 1} de ${safeImages.length}`}
             fill
             priority={active === 0}
-            quality={90}
-            sizes="(max-width: 900px) 100vw, 58vw"
+            quality={95}
+            sizes="(max-width: 960px) 100vw, 960px"
             className="product-gallery-image"
           />
           <span className="ago-gallery-zoom-hint"><ZoomIcon /><span>Ampliar</span></span>
@@ -100,7 +100,7 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
               aria-current={active === index ? 'true' : undefined}
               className={`product-gallery-thumb${active === index ? ' is-active' : ''}`}
             >
-              <Image src={src} alt="" fill quality={82} sizes="88px" aria-hidden="true" />
+              <Image src={src} alt="" fill quality={88} sizes="88px" aria-hidden="true" />
             </button>
           ))}
         </div>
