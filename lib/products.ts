@@ -6,8 +6,31 @@ import { Product, Category, CartItem } from './types';
 // Isso garante que exista UMA ÚNICA fonte de preços (data/products.json).
 // -----------------------------------------------------------------------
 
+const PRODUCT_IMAGE_OVERRIDES: Record<string, string[]> = {
+  'igreja-quadrado-p': [
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/catalogo/igreja-quadrado-p-2.jpg',
+  ],
+  'igrejinha-luminaria-trancoso': [
+    '/produtos/igreja-quadrado-p.jpg',
+  ],
+  'ima-igrejinha-trancoso': [
+    '/produtos/ima-igrejinha-trancoso.jpg',
+    '/produtos/galeria/ima-igrejinha-trancoso-2.jpg',
+  ],
+  'nossa-senhora-grande': [
+    '/produtos/catalogo/nossa-senhora-grande-1.jpg',
+    '/produtos/catalogo/nossa-senhora-grande-2.jpg',
+  ],
+  'casal-pretos-velhos': [
+    '/produtos/catalogo/casal-pretos-velhos-1.jpg',
+    '/produtos/catalogo/casal-pretos-velhos-2.jpg',
+    '/produtos/casal-pretos-velhos.jpg',
+  ],
+};
+
 function normalizeProductImages(product: Product): Product {
-  const source = product.images ?? [];
+  const source = PRODUCT_IMAGE_OVERRIDES[product.id] ?? product.images ?? [];
   const images = Array.from(new Set(source.filter(Boolean)));
   return {
     ...product,

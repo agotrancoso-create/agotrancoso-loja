@@ -1,8 +1,7 @@
-/* Correções cirúrgicas pedidas pela Agô. Esta camada não redesenha o site.
-   Mantém o design atual e corrige apenas integridade/proporção das fotografias de produto
-   e preserva a assinatura visual da seção Visite. */
+/* Ajustes finais de integridade visual e mobile da Agô.
+   Esta camada é carregada depois de globals.css e commerce.css para manter uma fonte única de overrides. */
 
-/* Fotos sempre sem moldura, borda ou “barras” artificiais. */
+/* Todas as molduras de fotografia de produto seguem o mesmo acabamento. */
 .product-image-wrap,
 .product-gallery-main,
 .product-gallery-thumb,
@@ -17,10 +16,19 @@
   background: transparent;
   box-shadow: none;
   overflow: hidden;
+  border-radius: var(--radius);
 }
 
-/* A apresentação de produto é sempre quadrada (equivalente visual a 960 × 960),
-   sem deformar a fotografia original. */
+.product-gallery-thumb,
+.ago-search-suggestion-image,
+.catalog-search-suggestion-image,
+.cart-product-image,
+.cart-complementary-image,
+.checkout-product-image {
+  border-radius: var(--radius-sm);
+}
+
+/* Apresentação quadrada equivalente a 960 × 960, sem cortar ou deformar a peça. */
 .product-image-wrap,
 .product-gallery-main,
 .ago-premium-discovery-image {
@@ -28,8 +36,6 @@
   width: 100%;
 }
 
-/* Nunca cortar uma peça. A imagem ocupa todo o espaço disponível mantendo 100% do conteúdo visível.
-   Como os arquivos de catálogo são quadrados, eles continuam preenchendo o quadro sem barras laterais. */
 .product-image-primary,
 .product-gallery-image,
 .product-gallery-thumb img,
@@ -38,9 +44,7 @@
 .catalog-search-suggestion-image img,
 .cart-product-image img,
 .cart-complementary-image img,
-.checkout-product-image img,
-.ago-complementary-photo,
-.essencia-image-img {
+.checkout-product-image img {
   display: block;
   width: 100%;
   height: 100%;
@@ -51,9 +55,10 @@
   border: 0;
   outline: 0;
   box-shadow: none;
+  border-radius: inherit;
 }
 
-/* A interação nunca pode ocultar ou trocar a peça. */
+/* Hover e toque nunca podem esconder, trocar ou recortar a peça. */
 .product-image-primary,
 .product-card:hover .product-image-primary,
 .product-card:focus-within .product-image-primary,
@@ -69,20 +74,28 @@
   box-shadow: none;
 }
 
-/* No lightbox, a prioridade é sempre mostrar a peça inteira. */
 .ago-photo-canvas img {
   object-fit: contain;
   object-position: center;
   border: 0;
   outline: 0;
+  border-radius: var(--radius-sm);
 }
 
-/* Preserva a assinatura Trancoso / Bahia / Brasil da penúltima seção. */
+/* O hero mantém contraste para leitura, mas deixa a fotografia aparecer. */
+.ago-premium-hero-overlay {
+  background: linear-gradient(90deg, rgba(45,32,26,.44) 0%, rgba(45,32,26,.28) 48%, rgba(45,32,26,.10) 100%);
+}
+.ago-premium-hero-content {
+  text-shadow: 0 2px 14px rgba(45,32,26,.28);
+}
+
+/* Assinatura Trancoso / Bahia / Brasil preservada e visível também em telas menores. */
 .ago-premium-visit-mark {
   display: grid;
   justify-items: center;
   align-content: center;
-  gap: 2px;
+  gap: 3px;
   text-align: center;
   color: #d5ad73;
 }
@@ -103,11 +116,134 @@
   text-transform: uppercase;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
+  .ago-premium-hero-overlay {
+    background: linear-gradient(90deg, rgba(45,32,26,.42) 0%, rgba(45,32,26,.27) 58%, rgba(45,32,26,.14) 100%);
+  }
+
   .ago-premium-visit-mark {
     display: grid;
     justify-self: start;
-    margin-top: 10px;
+    margin-top: 12px;
   }
+
+  /* WhatsApp e Instagram continuam realmente flutuantes no mobile. */
+  .ago-social-floaters {
+    position: fixed;
+    right: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    z-index: 30;
+    justify-content: flex-end;
+    padding: 0;
+    background: transparent;
+  }
+  .ago-social-button {
+    width: 48px;
+    height: 48px;
+    background: var(--cacao);
+    color: var(--ivory);
+    box-shadow: 0 10px 30px rgba(45,32,26,.22);
+  }
+}
+
+@media (max-width: 600px) {
   .ago-premium-visit-mark strong { font-size: 2.35rem; }
+
+  /* Rodapé compacto: mantém as informações úteis sem virar uma página inteira. */
+  .site-footer { padding-block: 24px 14px; }
+  .ago-footer-main {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 18px 20px;
+  }
+  .ago-footer-brand {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 0 12px;
+    align-items: center;
+    padding-bottom: 2px;
+  }
+  .ago-footer-logo {
+    width: 44px;
+    grid-row: 1 / 3;
+    margin: 0;
+  }
+  .ago-footer-place { font-size: .68rem; margin: 0; }
+  .ago-footer-brand h2 { font-size: 1.1rem; }
+  .ago-footer-description { display: none; }
+  .ago-footer-group h3 { margin-bottom: 6px; }
+  .ago-footer-group a { min-height: 38px; line-height: 1.35; }
+  .ago-footer-group p { line-height: 1.45; }
+  .ago-footer-group nav > span { display: none; }
+  .ago-footer-visit-group {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 2px 14px;
+  }
+  .ago-footer-visit-group h3,
+  .ago-footer-visit-group p { grid-column: 1 / -1; }
+  .ago-footer-visit-group p { margin-bottom: 4px; }
+  .ago-footer-legal {
+    margin-top: 18px;
+    padding-top: 12px;
+    gap: 6px 16px;
+    line-height: 1.4;
+  }
+  .ago-footer-legal > div { gap: 0 16px; }
+  .ago-footer-legal a { min-height: 36px; }
+
+  /* Cross-sell na sacola: quatro sugestões compactas, navegáveis por swipe. */
+  .cart-complementary {
+    display: block;
+    padding: 16px 0 8px;
+  }
+  .cart-complementary-head small {
+    margin-top: 3px;
+    color: var(--muted);
+  }
+  .cart-complementary-list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(146px, 44vw);
+    gap: 10px;
+    margin-top: 10px;
+    padding: 2px 2px 8px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .cart-complementary-list::-webkit-scrollbar { display: none; }
+  .cart-complementary-item {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) 40px;
+    gap: 8px;
+    align-items: end;
+    padding: 10px;
+    border-radius: 14px;
+    background: var(--sand);
+    scroll-snap-align: start;
+  }
+  .cart-complementary-image {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+  }
+  .cart-complementary-info {
+    min-width: 0;
+    font-size: .72rem;
+  }
+  .cart-complementary-info strong {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  .cart-complementary-add {
+    width: 40px;
+    height: 40px;
+  }
 }

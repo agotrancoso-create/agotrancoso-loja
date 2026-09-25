@@ -69,9 +69,26 @@ export default function CartDrawer() {
   const progressTarget = FREE_SHIPPING_THRESHOLD + 0.01;
   const progress = Math.min(100, (subtotal / progressTarget) * 100);
   const cartIds = new Set(lines.map(({ product }) => product.id));
-  const complementary = getAvailableProducts()
-    .filter((product) => !cartIds.has(product.id) && getEffectivePrice(product) <= 500)
-    .slice(0, 2);
+  const cartCategories = new Set(lines.map(({ product }) => product.category));
+  const maxComplementaryPrice = Math.max(500, Math.min(1500, subtotal + 500));
+  const complementary = lines.length === 0
+    ? []
+    : getAvailableProducts()
+        .filter((product) => !cartIds.has(product.id))
+        .map((product) => {
+          const price = getEffectivePrice(product);
+          let score = 0;
+          if (cartCategories.has(product.category)) score += 6;
+          if (product.category === 'presentes') score += 3;
+          if (product.category === 'trancoso') score += 2;
+          if (price <= 350) score += 2;
+          if (price <= maxComplementaryPrice) score += 1;
+          return { product, price, score };
+        })
+        .filter(({ price }) => price <= maxComplementaryPrice)
+        .sort((a, b) => b.score - a.score || a.price - b.price)
+        .slice(0, 4)
+        .map(({ product }) => product);
 
   return (
     <>
@@ -149,53 +166,54 @@ export default function CartDrawer() {
               ))}
             </ul>
           )}
-            {complementary.length > 0 && (
-              <div className="cart-complementary" aria-label="Peças que podem acompanhar sua seleção">
-                <div className="cart-complementary-head">
-                  <span>Para acompanhar</span>
-                  <small>Mais uma peça, mais um pouco de Trancoso.</small>
-                </div>
-                <div className="cart-complementary-list">
-                  {complementary.map((product) => (
-                    <article key={product.id} className="cart-complementary-item">
-                      <Link href={`/produtos/${product.id}`} onClick={closeDrawer} className="cart-complementary-image" aria-label={`Ver ${product.name}`}>
-                        <Image
-                          src={product.images?.[0] || '/images/placeholder.svg'}
-                          alt={product.name}
-                          fill
-                          sizes="64px"
-                          className="object-contain"
-                        />
-                      </Link>
-                      <div className="cart-complementary-info">
-                        <Link href={`/produtos/${product.id}`} onClick={closeDrawer}>
-                          <strong>{product.name}</strong>
-                        </Link>
-                        <span>{formatBRL(getEffectivePrice(product))}</span>
-                      </div>
-                      <button
-                        type="button"
-                        className="cart-complementary-add"
-                        onClick={() => {
-                          const price = getEffectivePrice(product);
-                          addItem(product.id);
-                          trackAddToCart({
-                            item_id: product.id,
-                            item_name: product.name,
-                            price,
-                            quantity: 1,
-                            item_category: product.category,
-                          });
-                        }}
-                        aria-label={`Levar ${product.name} para a sacola`}
-                      >
-                        <CartIcon size={18} withPlus />
-                      </button>
-                    </article>
-                  ))}
-                </div>
+
+          {complementary.length > 0 && (
+            <div className="cart-complementary" aria-label="Peças que podem acompanhar sua seleção">
+              <div className="cart-complementary-head">
+                <span>Para acompanhar</span>
+                <small>Peças relacionadas ao que você escolheu.</small>
               </div>
-            )}
+              <div className="cart-complementary-list">
+                {complementary.map((product) => (
+                  <article key={product.id} className="cart-complementary-item">
+                    <Link href={`/produtos/${product.id}`} onClick={closeDrawer} className="cart-complementary-image" aria-label={`Ver ${product.name}`}>
+                      <Image
+                        src={product.images?.[0] || '/images/placeholder.svg'}
+                        alt={product.name}
+                        fill
+                        sizes="(max-width: 600px) 44vw, 64px"
+                        className="object-contain"
+                      />
+                    </Link>
+                    <div className="cart-complementary-info">
+                      <Link href={`/produtos/${product.id}`} onClick={closeDrawer}>
+                        <strong>{product.name}</strong>
+                      </Link>
+                      <span>{formatBRL(getEffectivePrice(product))}</span>
+                    </div>
+                    <button
+                      type="button"
+                      className="cart-complementary-add"
+                      onClick={() => {
+                        const price = getEffectivePrice(product);
+                        addItem(product.id);
+                        trackAddToCart({
+                          item_id: product.id,
+                          item_name: product.name,
+                          price,
+                          quantity: 1,
+                          item_category: product.category,
+                        });
+                      }}
+                      aria-label={`Levar ${product.name} para a sacola`}
+                    >
+                      <CartIcon size={18} withPlus />
+                    </button>
+                  </article>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {lines.length > 0 && (

@@ -13,7 +13,7 @@ const featuredOrder = ['igreja-quadrado-p', 'igreja-quadrado-m', 'igrejinha-lumi
 const discovery = [
   { title: 'Trancoso', subtitle: 'Nosso maior repertório', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
   { title: 'Casa & decoração', subtitle: 'Para viver junto', category: 'decoracao', image: '/produtos/esfera-decorativa.jpg' },
-  { title: 'Fé & devoção', subtitle: 'Símbolos que acompanham', category: 'fe-devocao', image: '/produtos/nossa-senhora-grande.jpg' },
+  { title: 'Fé & devoção', subtitle: 'Símbolos que acompanham', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-1.jpg' },
   { title: 'Presentes', subtitle: 'Para alguém que veio à cabeça', category: 'presentes', image: '/produtos/colar-igreja-quadrado.jpg' },
 ];
 
