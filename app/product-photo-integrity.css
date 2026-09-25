@@ -1,6 +1,8 @@
 /* Correções cirúrgicas pedidas pela Agô. Esta camada não redesenha o site.
-   Mantém o design atual e corrige apenas fotografia de produto e a assinatura da seção Visite. */
+   Mantém o design atual e corrige apenas integridade/proporção das fotografias de produto
+   e preserva a assinatura visual da seção Visite. */
 
+/* Fotos sempre sem moldura, borda ou “barras” artificiais. */
 .product-image-wrap,
 .product-gallery-main,
 .product-gallery-thumb,
@@ -17,12 +19,17 @@
   overflow: hidden;
 }
 
+/* A apresentação de produto é sempre quadrada (equivalente visual a 960 × 960),
+   sem deformar a fotografia original. */
 .product-image-wrap,
 .product-gallery-main,
 .ago-premium-discovery-image {
   aspect-ratio: 1 / 1;
+  width: 100%;
 }
 
+/* Nunca cortar uma peça. A imagem ocupa todo o espaço disponível mantendo 100% do conteúdo visível.
+   Como os arquivos de catálogo são quadrados, eles continuam preenchendo o quadro sem barras laterais. */
 .product-image-primary,
 .product-gallery-image,
 .product-gallery-thumb img,
@@ -31,15 +38,22 @@
 .catalog-search-suggestion-image img,
 .cart-product-image img,
 .cart-complementary-image img,
-.checkout-product-image img {
+.checkout-product-image img,
+.ago-complementary-photo,
+.essencia-image-img {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   padding: 0;
+  margin: 0;
   border: 0;
+  outline: 0;
+  box-shadow: none;
 }
 
+/* A interação nunca pode ocultar ou trocar a peça. */
 .product-image-primary,
 .product-card:hover .product-image-primary,
 .product-card:focus-within .product-image-primary,
@@ -55,12 +69,15 @@
   box-shadow: none;
 }
 
+/* No lightbox, a prioridade é sempre mostrar a peça inteira. */
 .ago-photo-canvas img {
   object-fit: contain;
   object-position: center;
   border: 0;
+  outline: 0;
 }
 
+/* Preserva a assinatura Trancoso / Bahia / Brasil da penúltima seção. */
 .ago-premium-visit-mark {
   display: grid;
   justify-items: center;
