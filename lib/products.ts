@@ -2,25 +2,16 @@ import productsData from '@/data/products.json';
 import { Product, Category, CartItem } from './types';
 
 // -----------------------------------------------------------------------
-// TODA a loja lê os produtos a partir deste arquivo.
-// Isso garante que exista UMA ÚNICA fonte de preços (data/products.json).
+// Toda a loja lê nomes, preços, categorias e imagens a partir de products.json.
+// As exceções abaixo existem apenas para fotos recuperadas do acervo que ainda
+// não estão registradas no JSON. Elas não podem trocar a foto principal de
+// produtos diferentes nem alterar preço, disponibilidade ou categoria.
 // -----------------------------------------------------------------------
 
-const PRODUCT_IMAGE_OVERRIDES: Record<string, string[]> = {
-  'igreja-quadrado-p': [
-    '/produtos/igrejinha-luminaria-trancoso.jpg',
-    '/produtos/catalogo/igreja-quadrado-p-2.jpg',
-  ],
-  'igrejinha-luminaria-trancoso': [
-    '/produtos/igreja-quadrado-p.jpg',
-  ],
+const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
   'ima-igrejinha-trancoso': [
     '/produtos/ima-igrejinha-trancoso.jpg',
     '/produtos/galeria/ima-igrejinha-trancoso-2.jpg',
-  ],
-  'nossa-senhora-grande': [
-    '/produtos/catalogo/nossa-senhora-grande-1.jpg',
-    '/produtos/catalogo/nossa-senhora-grande-2.jpg',
   ],
   'casal-pretos-velhos': [
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
@@ -30,7 +21,7 @@ const PRODUCT_IMAGE_OVERRIDES: Record<string, string[]> = {
 };
 
 function normalizeProductImages(product: Product): Product {
-  const source = PRODUCT_IMAGE_OVERRIDES[product.id] ?? product.images ?? [];
+  const source = RECOVERED_PRODUCT_GALLERIES[product.id] ?? product.images ?? [];
   const images = Array.from(new Set(source.filter(Boolean)));
   return {
     ...product,
@@ -61,9 +52,9 @@ export function getEffectivePrice(product: Product): number {
 }
 
 /**
- * Recalcula o valor total de um carrinho a partir do catálogo OFICIAL.
- * NUNCA confie em preços/subtotais enviados pelo navegador: esta função
- * é a única fonte da verdade usada pelo backend (API de checkout).
+ * Recalcula o valor total de um carrinho a partir do catálogo oficial.
+ * Nunca confie em preços ou subtotais enviados pelo navegador: esta função
+ * é a fonte da verdade usada pelo backend da API de checkout.
  *
  * Retorna erro se algum produto não existir ou estiver indisponível.
  */

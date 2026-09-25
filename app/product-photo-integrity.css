@@ -1,7 +1,8 @@
-/* Ajustes finais de integridade visual e mobile da Agô.
-   Esta camada é carregada depois de globals.css e commerce.css para manter uma fonte única de overrides. */
+/* Ajustes finais de integridade visual e experiência responsiva da Agô.
+   Esta camada é carregada depois de globals.css e commerce.css e concentra
+   somente correções finais que precisam prevalecer em todos os dispositivos. */
 
-/* Todas as molduras de fotografia de produto seguem o mesmo acabamento. */
+/* Todas as molduras de fotografia seguem o mesmo acabamento, sem bordas artificiais. */
 .product-image-wrap,
 .product-gallery-main,
 .product-gallery-thumb,
@@ -28,7 +29,7 @@
   border-radius: var(--radius-sm);
 }
 
-/* Apresentação quadrada equivalente a 960 × 960, sem cortar ou deformar a peça. */
+/* Apresentação quadrada equivalente a 960 x 960, preservando a peça inteira. */
 .product-image-wrap,
 .product-gallery-main,
 .ago-premium-discovery-image {
@@ -90,7 +91,7 @@
   text-shadow: 0 2px 14px rgba(45,32,26,.28);
 }
 
-/* Restaura a assinatura Trancoso / Bahia / Brasil ao desenho original. */
+/* Assinatura Trancoso / Bahia / Brasil no desenho original. */
 .ago-premium-visit-mark {
   display: grid;
   gap: 12px;
@@ -105,19 +106,215 @@
   font: 600 3rem/1.1 var(--font-display), Georgia, serif;
 }
 
+/*
+ * Navegação moderna sem trilhos nativos visíveis.
+ * A rolagem continua funcionando por roda do mouse, trackpad, toque e teclado.
+ */
+html,
+body,
+.catalog-search-suggestions,
+.ago-search-suggestions,
+.cart-body,
+.product-gallery-thumbs,
+.mobile-menu,
+.mobile-search-suggestions,
+.ago-photo-dialog,
+.ago-photo-viewport,
+.first-purchase-modal,
+.cart-complementary-list {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.catalog-search-suggestions::-webkit-scrollbar,
+.ago-search-suggestions::-webkit-scrollbar,
+.cart-body::-webkit-scrollbar,
+.product-gallery-thumbs::-webkit-scrollbar,
+.mobile-menu::-webkit-scrollbar,
+.mobile-search-suggestions::-webkit-scrollbar,
+.ago-photo-dialog::-webkit-scrollbar,
+.ago-photo-viewport::-webkit-scrollbar,
+.first-purchase-modal::-webkit-scrollbar,
+.cart-complementary-list::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.catalog-search-suggestions,
+.ago-search-suggestions,
+.cart-body,
+.mobile-menu,
+.ago-photo-dialog,
+.ago-photo-viewport,
+.first-purchase-modal {
+  overscroll-behavior: contain;
+}
+
+/* A linha superior substitui o aspecto de barra lateral por feedback discreto de progresso. */
+.ago-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 260;
+  pointer-events: none;
+  overflow: hidden;
+}
+.ago-scroll-progress > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--terracotta);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+/* Busca com aparência de superfície flutuante, não de caixa antiga com scrollbar. */
+.catalog-search-suggestions,
+.ago-search-suggestions {
+  max-height: min(560px, calc(100dvh - 180px));
+  padding: 10px;
+  border: 0;
+  border-radius: 18px;
+  background: rgba(250,243,232,.98);
+  box-shadow: 0 18px 52px rgba(45,32,26,.18);
+  overflow-y: auto;
+}
+
+.catalog-search-suggestion,
+.ago-search-suggestion {
+  border-radius: 14px;
+  transition: background .18s ease, transform .18s ease;
+}
+
+.catalog-search-suggestion:focus-visible,
+.ago-search-suggestion:focus-visible {
+  outline-offset: -2px;
+}
+
+/* Recomendações da sacola: mesma experiência em computador e celular. */
+.cart-complementary {
+  display: block;
+  padding: 20px 0 12px;
+}
+.cart-complementary-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+.cart-complementary-head > div:first-child {
+  min-width: 0;
+}
+.cart-complementary-head small {
+  color: var(--muted);
+}
+.cart-complementary-nav {
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
+.cart-complementary-nav button {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--sand);
+  color: var(--cacao);
+  transition: transform .18s ease, background .18s ease;
+}
+.cart-complementary-nav svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+.cart-complementary-list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(168px, 47%);
+  gap: 10px;
+  margin-top: 12px;
+  padding: 2px 2px 8px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: 2px;
+}
+.cart-complementary-item {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 40px;
+  gap: 9px;
+  align-items: end;
+  padding: 10px;
+  border-radius: 16px;
+  background: var(--sand);
+  scroll-snap-align: start;
+}
+.cart-complementary-image {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+}
+.cart-complementary-info {
+  min-width: 0;
+  font-size: .75rem;
+}
+.cart-complementary-info strong {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.cart-complementary-add {
+  width: 40px;
+  height: 40px;
+}
+
+/* Microinterações discretas. Nada pula, pisca ou compete com as peças. */
+@media (hover: hover) {
+  .product-card,
+  .ago-premium-discovery-card,
+  .ago-social-button {
+    transition: transform .22s ease;
+  }
+  .product-card:hover,
+  .ago-premium-discovery-card:hover {
+    transform: translateY(-3px);
+  }
+  .ago-social-button:hover,
+  .cart-complementary-nav button:hover {
+    transform: translateY(-2px);
+  }
+  .catalog-search-suggestion:hover,
+  .ago-search-suggestion:hover {
+    transform: translateX(2px);
+  }
+}
+
 @media (max-width: 900px) {
   .ago-premium-hero-overlay {
     background: linear-gradient(90deg, rgba(45,32,26,.42) 0%, rgba(45,32,26,.27) 58%, rgba(45,32,26,.14) 100%);
   }
 
-  /* Mantém a assinatura visível no mobile, mas com o desenho original. */
+  /* Mantém a assinatura visível no mobile com o mesmo desenho. */
   .ago-premium-visit-mark {
     display: grid;
     justify-self: start;
     margin-top: 12px;
   }
 
-  /* WhatsApp e Instagram continuam realmente flutuantes no mobile. */
+  /* WhatsApp e Instagram permanecem flutuantes, sem cobrir ações de compra. */
   .ago-social-floaters {
     position: fixed;
     right: 14px;
@@ -137,6 +334,9 @@
 }
 
 @media (max-width: 600px) {
+  /* Mantém no celular o mesmo significado visual do CTA de sacola do desktop. */
+  .ago-bag-cta-icon { display: inline-flex; }
+
   /* Rodapé compacto: mantém as informações úteis sem virar uma página inteira. */
   .site-footer { padding-block: 24px 14px; }
   .ago-footer-main {
@@ -181,57 +381,11 @@
   .ago-footer-legal > div { gap: 0 16px; }
   .ago-footer-legal a { min-height: 36px; }
 
-  /* Cross-sell na sacola: quatro sugestões compactas, navegáveis por swipe. */
-  .cart-complementary {
-    display: block;
-    padding: 16px 0 8px;
-  }
-  .cart-complementary-head small {
-    margin-top: 3px;
-    color: var(--muted);
-  }
+  /* Cross-sell compacto com swipe, sem barra lateral ou inferior aparente. */
+  .cart-complementary { padding: 16px 0 8px; }
+  .cart-complementary-head small { margin-top: 3px; }
   .cart-complementary-list {
-    display: grid;
-    grid-auto-flow: column;
     grid-auto-columns: minmax(146px, 44vw);
-    gap: 10px;
     margin-top: 10px;
-    padding: 2px 2px 8px;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;
-  }
-  .cart-complementary-list::-webkit-scrollbar { display: none; }
-  .cart-complementary-item {
-    display: grid;
-    grid-template-columns: minmax(0,1fr) 40px;
-    gap: 8px;
-    align-items: end;
-    padding: 10px;
-    border-radius: 14px;
-    background: var(--sand);
-    scroll-snap-align: start;
-  }
-  .cart-complementary-image {
-    grid-column: 1 / -1;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1;
-    border-radius: 12px;
-  }
-  .cart-complementary-info {
-    min-width: 0;
-    font-size: .72rem;
-  }
-  .cart-complementary-info strong {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-  }
-  .cart-complementary-add {
-    width: 40px;
-    height: 40px;
   }
 }

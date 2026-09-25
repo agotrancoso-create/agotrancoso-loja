@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function InteractiveEnhancements() {
   const [showTop, setShowTop] = useState(false);
+  const progressRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const body = document.body;
@@ -12,10 +13,16 @@ export default function InteractiveEnhancements() {
 
     const updateViewportState = () => {
       const y = window.scrollY || 0;
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const progress = Math.min(1, Math.max(0, y / maxScroll));
+
       body.classList.toggle('ago-has-scrolled', y > 24);
       header?.classList.toggle('ago-header-scrolled', y > 24);
       setShowTop(y > 680);
 
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${progress})`;
+      }
     };
 
     const handleViewportChange = () => {
@@ -44,6 +51,9 @@ export default function InteractiveEnhancements() {
 
   return (
     <>
+      <div className="ago-scroll-progress" aria-hidden="true">
+        <span ref={progressRef} />
+      </div>
       <button
         type="button"
         className={`ago-back-to-top${showTop ? ' is-visible' : ''}`}

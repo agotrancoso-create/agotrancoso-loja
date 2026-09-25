@@ -17,6 +17,7 @@ export default function CartDrawer() {
   const { items, isDrawerOpen, closeDrawer, updateQuantity, removeItem, addItem } = useCart();
   const closeRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
+  const complementaryRef = useRef<HTMLDivElement>(null);
   const closeDrawerRef = useRef(closeDrawer);
 
   useEffect(() => { closeDrawerRef.current = closeDrawer; }, [closeDrawer]);
@@ -89,6 +90,16 @@ export default function CartDrawer() {
         .sort((a, b) => b.score - a.score || a.price - b.price)
         .slice(0, 4)
         .map(({ product }) => product);
+
+  function scrollComplementary(direction: -1 | 1) {
+    const node = complementaryRef.current;
+    if (!node) return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    node.scrollBy({
+      left: direction * Math.max(180, node.clientWidth * .72),
+      behavior: reducedMotion ? 'auto' : 'smooth',
+    });
+  }
 
   return (
     <>
@@ -170,10 +181,20 @@ export default function CartDrawer() {
           {complementary.length > 0 && (
             <div className="cart-complementary" aria-label="Peças que podem acompanhar sua seleção">
               <div className="cart-complementary-head">
-                <span>Para acompanhar</span>
-                <small>Peças relacionadas ao que você escolheu.</small>
+                <div>
+                  <span>Para acompanhar</span>
+                  <small>Peças relacionadas ao que você escolheu.</small>
+                </div>
+                <div className="cart-complementary-nav" aria-label="Navegar pelas sugestões">
+                  <button type="button" onClick={() => scrollComplementary(-1)} aria-label="Ver sugestões anteriores">
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12.5 4.5-5.5 5.5 5.5 5.5" /></svg>
+                  </button>
+                  <button type="button" onClick={() => scrollComplementary(1)} aria-label="Ver próximas sugestões">
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4.5 5.5 5.5-5.5 5.5" /></svg>
+                  </button>
+                </div>
               </div>
-              <div className="cart-complementary-list">
+              <div ref={complementaryRef} className="cart-complementary-list" tabIndex={0} aria-label="Sugestões para acompanhar">
                 {complementary.map((product) => (
                   <article key={product.id} className="cart-complementary-item">
                     <Link href={`/produtos/${product.id}`} onClick={closeDrawer} className="cart-complementary-image" aria-label={`Ver ${product.name}`}>
@@ -181,7 +202,7 @@ export default function CartDrawer() {
                         src={product.images?.[0] || '/images/placeholder.svg'}
                         alt={product.name}
                         fill
-                        sizes="(max-width: 600px) 44vw, 64px"
+                        sizes="(max-width: 600px) 44vw, 190px"
                         className="object-contain"
                       />
                     </Link>
