@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 
 const revealSelectors = [
   '.ago-collection-intro-brand',
-  '.ago-premium-product-grid .product-card',
   '.ago-benefits-heading',
   '.ago-benefit-item',
   '.ago-premium-trust',
@@ -14,7 +13,6 @@ const revealSelectors = [
   '.ago-premium-visit-grid',
   '.catalog-intro',
   '.catalog-tools',
-  '.catalog-grid .product-card',
   '.product-gallery',
   '.product-buybox',
   '.contact-copy',
