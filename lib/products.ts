@@ -18,7 +18,7 @@ const CONFIRMED_IMAGE_OVERRIDES: Record<string, string[]> = {
   'casal-pretos-velhos': [
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
     '/produtos/catalogo/casal-pretos-velhos-2.jpg',
-    '/produtos/galeria/casal-pretos-velhos-3-hq.jpg',
+    '/produtos/galeria/casal-pretos-velhos-3.jpg',
   ],
 };
 
