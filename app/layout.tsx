@@ -1,16 +1,14 @@
 import type { Metadata, Viewport } from 'next';
-import { Fraunces, Manrope } from 'next/font/google';
+import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
 import './globals.css';
-import './ago-design-limpo-2026-09-23.css';
 import './ago-beneficios-arte-final-2026.css';
 import './product-purchase-control.css';
 import './ago-photo-interactions.css';
 import './ago-checkout-premium.css';
 import './ago-social-mobile.css';
 import './ago-search-polish-2026.css';
-import './ago-human-premium-2026.css';
-import './ago-earth-flow-final-2026-09-24.css';
+import './ago-master-system-2026-09-25.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -21,9 +19,9 @@ import InteractiveEnhancements from '@/components/InteractiveEnhancements';
 import { SITE_DOMAIN } from '@/lib/config';
 
 const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-sans' });
-const fraunces = Fraunces({ subsets: ['latin'], display: 'swap', variable: '--font-display', weight: ['600', '700'] });
+const cormorant = Cormorant_Garamond({ subsets: ['latin'], display: 'swap', variable: '--font-display', weight: ['500', '600', '700'] });
 
-export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#e4c7a4', colorScheme: 'light' };
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#e7cfb5', colorScheme: 'light' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
@@ -57,7 +55,7 @@ const structuredData = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${manrope.variable} ${fraunces.variable}`}>
+    <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`}>
       <body>
         <MarketingAnalytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />

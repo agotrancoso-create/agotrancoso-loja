@@ -1,7 +1,7 @@
 const benefits = [
-  ['feito à mão', 'Cuidado e tradição em cada detalhe.'],
-  ['peças exclusivas', 'Escolhas especiais para quem valoriza o feito à mão.'],
-  ['inspiração brasileira', 'Cores, formas e símbolos da nossa terra.'],
+  ['Feito à mão', 'Cuidado e tradição em cada detalhe.'],
+  ['Peças exclusivas', 'Escolhas especiais para quem valoriza o feito à mão.'],
+  ['Inspiração brasileira', 'Cores, formas e símbolos da nossa terra.'],
   ['Da Bahia para o mundo', 'Envio internacional sob consulta.'],
 ] as const;
 
