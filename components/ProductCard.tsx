@@ -32,7 +32,6 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const hasGallery = (product.images?.length ?? 0) > 1;
-
   const trackView = () => trackViewItem({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category });
 
   return (
@@ -45,7 +44,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
             fill
             priority={priority}
             quality={86}
-            sizes="(max-width: 350px) 92vw, (max-width: 767px) 45vw, (max-width: 1100px) 30vw, (max-width: 1440px) 23vw, 330px"
+            sizes="(max-width: 390px) 92vw, (max-width: 767px) 45vw, (max-width: 1100px) 30vw, (max-width: 1440px) 23vw, 330px"
             className={`product-image product-image-primary ${styles.touchImage}`}
           />
           {hasPromo && <span className="product-badge">Oferta</span>}

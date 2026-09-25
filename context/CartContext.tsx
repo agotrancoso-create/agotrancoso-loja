@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { CartItem } from '@/lib/types';
 import { getProductById } from '@/lib/products';
 
@@ -28,13 +28,7 @@ function normalizeStoredItems(parsed: unknown): CartItem[] {
     if (!entry || typeof entry !== 'object') continue;
 
     const value = entry as { productId?: unknown; id?: unknown; quantity?: unknown };
-    const productId =
-      typeof value.productId === 'string'
-        ? value.productId
-        : typeof value.id === 'string'
-          ? value.id
-          : '';
-
+    const productId = typeof value.productId === 'string' ? value.productId : typeof value.id === 'string' ? value.id : '';
     const quantity = Number(value.quantity);
     const product = productId ? getProductById(productId) : undefined;
 
@@ -58,7 +52,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (raw) setItems(normalizeStoredItems(JSON.parse(raw)));
     } catch {
-      window.localStorage.removeItem(STORAGE_KEY);
+      try { window.localStorage.removeItem(STORAGE_KEY); } catch {}
     } finally {
       setHydrated(true);
     }
@@ -69,73 +63,59 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     } catch {
-      /* armazenamento local indisponível — mantém o carrinho em memória */
+      /* armazenamento local indisponível: mantém a sacola em memória */
     }
   }, [items, hydrated]);
 
-  function addItem(productId: string, quantity = 1) {
+  const addItem = useCallback((productId: string, quantity = 1) => {
     const product = getProductById(productId);
     if (!product?.available || !Number.isInteger(quantity) || quantity < 1) return;
 
     setItems((prev) => {
       const existing = prev.find((item) => item.productId === productId);
       if (existing) {
-        return prev.map((item) =>
-          item.productId === productId
-            ? { ...item, quantity: Math.min(99, item.quantity + quantity) }
-            : item
-        );
+        return prev.map((item) => item.productId === productId ? { ...item, quantity: Math.min(99, item.quantity + quantity) } : item);
       }
       return [...prev, { productId, quantity: Math.min(99, quantity) }];
     });
     setIsDrawerOpen(true);
-  }
+  }, []);
 
-  function removeItem(productId: string) {
+  const removeItem = useCallback((productId: string) => {
     setItems((prev) => prev.filter((item) => item.productId !== productId));
-  }
+  }, []);
 
-  function updateQuantity(productId: string, quantity: number) {
+  const updateQuantity = useCallback((productId: string, quantity: number) => {
     if (!Number.isInteger(quantity) || quantity < 1) {
-      removeItem(productId);
+      setItems((prev) => prev.filter((item) => item.productId !== productId));
       return;
     }
-    setItems((prev) =>
-      prev.map((item) =>
-        item.productId === productId
-          ? { ...item, quantity: Math.min(99, quantity) }
-          : item
-      )
-    );
-  }
+    setItems((prev) => prev.map((item) => item.productId === productId ? { ...item, quantity: Math.min(99, quantity) } : item));
+  }, []);
 
-  function clearCart() {
-    setItems([]);
-  }
+  const clearCart = useCallback(() => {
+    setItems((current) => current.length ? [] : current);
+  }, []);
 
-  const totalItems = useMemo(
-    () => items.reduce((sum, item) => sum + item.quantity, 0),
-    [items]
-  );
+  const openDrawer = useCallback(() => setIsDrawerOpen(true), []);
+  const closeDrawer = useCallback(() => setIsDrawerOpen(false), []);
 
-  return (
-    <CartContext.Provider
-      value={{
-        items,
-        addItem,
-        removeItem,
-        updateQuantity,
-        clearCart,
-        totalItems,
-        isDrawerOpen,
-        hydrated,
-        openDrawer: () => setIsDrawerOpen(true),
-        closeDrawer: () => setIsDrawerOpen(false),
-      }}
-    >
-      {children}
-    </CartContext.Provider>
-  );
+  const totalItems = useMemo(() => items.reduce((sum, item) => sum + item.quantity, 0), [items]);
+
+  const value = useMemo<CartContextValue>(() => ({
+    items,
+    addItem,
+    removeItem,
+    updateQuantity,
+    clearCart,
+    totalItems,
+    isDrawerOpen,
+    hydrated,
+    openDrawer,
+    closeDrawer,
+  }), [items, addItem, removeItem, updateQuantity, clearCart, totalItems, isDrawerOpen, hydrated, openDrawer, closeDrawer]);
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {

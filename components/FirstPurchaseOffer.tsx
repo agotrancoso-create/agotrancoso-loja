@@ -9,6 +9,10 @@ const STORAGE_REGISTERED = 'ago_primeira_compra_v3_cadastro';
 const STORAGE_COUPON = 'ago_primeira_compra_v3_cupom';
 const STORAGE_EMAIL = 'ago_primeira_compra_v3_email';
 
+function validEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
 export default function FirstPurchaseOffer() {
   const pathname = usePathname();
   const dialogRef = useRef<HTMLElement>(null);
@@ -23,27 +27,47 @@ export default function FirstPurchaseOffer() {
 
   useEffect(() => {
     if (!pathname || ['/checkout', '/confirmacao', '/termos', '/privacidade'].some((route) => pathname.startsWith(route))) return;
-    try {
-      if (window.localStorage.getItem(STORAGE_SEEN) || window.localStorage.getItem(STORAGE_REGISTERED)) return;
-    } catch {}
 
+    let active = true;
+    let timer: number | undefined;
     let triggered = false;
+
+    const closeListeners = () => {
+      if (timer) window.clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
     const showOffer = () => {
-      if (triggered) return;
+      if (!active || triggered) return;
       triggered = true;
       setOpen(true);
-      window.removeEventListener('scroll', handleScroll);
-      window.clearTimeout(timer);
+      closeListeners();
     };
     const handleScroll = () => {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
       if (scrollable > 0 && (window.scrollY || 0) / scrollable >= 0.45) showOffer();
     };
-    const timer = window.setTimeout(showOffer, 12000);
-    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    async function prepareOffer() {
+      try {
+        if (window.localStorage.getItem(STORAGE_SEEN) || window.localStorage.getItem(STORAGE_REGISTERED)) return;
+      } catch {}
+
+      try {
+        const response = await fetch('/api/first-purchase/eligibility', { method: 'GET', cache: 'no-store' });
+        const data = await response.json().catch(() => ({}));
+        if (!active || !response.ok || data.available !== true) return;
+      } catch {
+        return;
+      }
+
+      timer = window.setTimeout(showOffer, 12000);
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    void prepareOffer();
     return () => {
-      window.clearTimeout(timer);
-      window.removeEventListener('scroll', handleScroll);
+      active = false;
+      closeListeners();
     };
   }, [pathname]);
 
@@ -93,29 +117,20 @@ export default function FirstPurchaseOffer() {
     event.preventDefault();
     if (!consent || submitting) return;
     setError(null);
+
+    if (!validEmail(email)) {
+      setError('Informe um e-mail válido.');
+      return;
+    }
+
     setSubmitting(true);
-
     try {
-      const response = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source: 'primeira-compra' }),
-        keepalive: true,
-      });
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        setError(data.error || 'Não foi possível guardar seu benefício agora. Tente novamente.');
-        return;
-      }
-
-      try {
-        window.localStorage.setItem(STORAGE_REGISTERED, '1');
-        window.localStorage.setItem(STORAGE_COUPON, FIRST_PURCHASE_COUPON);
-        window.localStorage.setItem(STORAGE_EMAIL, email.trim().toLowerCase());
-      } catch {}
+      window.localStorage.setItem(STORAGE_REGISTERED, '1');
+      window.localStorage.setItem(STORAGE_COUPON, FIRST_PURCHASE_COUPON);
+      window.localStorage.setItem(STORAGE_EMAIL, email.trim().toLowerCase());
       setSubmitted(true);
     } catch {
-      setError('Não foi possível guardar seu benefício agora. Tente novamente.');
+      setError('Não foi possível salvar o benefício neste navegador. Tente novamente.');
     } finally {
       setSubmitting(false);
     }
@@ -144,7 +159,7 @@ export default function FirstPurchaseOffer() {
               <h2 id="first-purchase-title">Um pequeno presente para começar.</h2>
               <p className="first-purchase-lead">3% OFF na sua primeira compra.</p>
               <div className="first-purchase-discount-badge" aria-label="3% de desconto na primeira compra"><strong>3%</strong><span>OFF</span></div>
-              <p className="first-purchase-soft-note">O benefício é validado no checkout pelo e-mail e telefone.</p>
+              <p className="first-purchase-soft-note">A elegibilidade é confirmada no checkout pelo e-mail e telefone.</p>
             </div>
             <form className="first-purchase-form" onSubmit={submit}>
               <div className="first-purchase-field">
@@ -156,15 +171,15 @@ export default function FirstPurchaseOffer() {
                 <span>Li e aceito os <a href="/termos" target="_blank" rel="noreferrer">Termos de Uso</a> e a <a href="/privacidade" target="_blank" rel="noreferrer">Política de Privacidade</a>.</span>
               </label>
               {error && <p className="first-purchase-error" role="alert">{error}</p>}
-              <button type="submit" disabled={submitting} className="first-purchase-submit">{submitting ? 'Guardando…' : 'Quero meu desconto'}</button>
-              <small>Sem excesso de mensagens. Você pode sair da lista quando quiser.</small>
+              <button type="submit" disabled={submitting} className="first-purchase-submit">{submitting ? 'Salvando…' : 'Quero meu desconto'}</button>
+              <small>O código fica salvo neste navegador. A validação final acontece antes do pagamento.</small>
             </form>
           </div>
         ) : (
           <div className="first-purchase-success">
             <p className="eyebrow">Pronto</p>
-            <h2 id="first-purchase-title">Seu benefício está guardado.</h2>
-            <p>O código já fica salvo neste aparelho e pode ser validado no checkout.</p>
+            <h2 id="first-purchase-title">Seu código ficou salvo neste navegador.</h2>
+            <p>No checkout, informe o mesmo e-mail e seu telefone para confirmar se o benefício está disponível.</p>
             <button type="button" className="first-purchase-coupon" onClick={copyCoupon} aria-label={`Copiar cupom ${FIRST_PURCHASE_COUPON}`}><strong>{FIRST_PURCHASE_COUPON}</strong><span>{copied ? 'Copiado' : 'Copiar'}</span></button>
             <button type="button" className="first-purchase-continue" onClick={close}>Continuar vendo</button>
           </div>

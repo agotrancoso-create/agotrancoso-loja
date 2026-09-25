@@ -5,7 +5,6 @@ import './globals.css';
 import './ago-beneficios-arte-final-2026.css';
 import './product-purchase-control.css';
 import './ago-photo-interactions.css';
-import './ago-checkout-premium.css';
 import './ago-social-mobile.css';
 import './ago-search-polish-2026.css';
 import './ago-master-system-2026-09-25.css';
@@ -22,7 +21,7 @@ import { SITE_DOMAIN } from '@/lib/config';
 const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-sans' });
 const cormorant = Cormorant_Garamond({ subsets: ['latin'], display: 'swap', variable: '--font-display', weight: ['500', '600', '700'] });
 
-export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#e7cfb5', colorScheme: 'light' };
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#ead7c1', colorScheme: 'light' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),

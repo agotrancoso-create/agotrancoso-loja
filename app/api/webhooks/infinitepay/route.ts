@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     const firstPurchaseOrder = await getFirstPurchaseOrder(orderNsu);
     if (!firstPurchaseOrder) {
       console.error('First purchase order not found for webhook:', { orderNsu });
-      return new Response('Pedido de primeira compra não encontrado', { status: 400 });
+      return new Response('Pedido de primeira compra não encontrado', { status: 503 });
     }
 
     const verificationResponse = await fetch('https://api.checkout.infinitepay.io/payment_check', {
@@ -38,38 +38,29 @@ export async function POST(req: Request) {
         slug: invoiceSlug,
       }),
       cache: 'no-store',
-      signal: AbortSignal.timeout(750),
+      signal: AbortSignal.timeout(8000),
     });
     const verification = await verificationResponse.json().catch(() => ({}));
 
-    if (!verificationResponse.ok || verification?.success !== true || verification?.paid !== true) {
-      console.error('InfinitePay payment verification failed:', {
-        orderNsu,
-        status: verificationResponse.status,
-        success: verification?.success,
-        paid: verification?.paid,
-      });
-      return new Response('Pagamento não confirmado', { status: 400 });
+    if (!verificationResponse.ok) {
+      console.error('InfinitePay payment verification service error:', { orderNsu, status: verificationResponse.status });
+      return new Response('Não foi possível verificar o pagamento', { status: 503 });
+    }
+    if (verification?.success !== true || verification?.paid !== true) {
+      console.error('InfinitePay payment not confirmed:', { orderNsu, success: verification?.success, paid: verification?.paid });
+      return new Response('Pagamento ainda não confirmado', { status: 503 });
     }
 
     const verifiedAmount = Number(verification?.amount);
     if (!Number.isFinite(verifiedAmount) || verifiedAmount !== firstPurchaseOrder.expectedAmountCents) {
-      console.error('InfinitePay amount mismatch:', {
-        orderNsu,
-        expected: firstPurchaseOrder.expectedAmountCents,
-        received: verification?.amount,
-      });
-      return new Response('Valor do pagamento divergente', { status: 400 });
+      console.error('InfinitePay amount mismatch:', { orderNsu, expected: firstPurchaseOrder.expectedAmountCents, received: verification?.amount });
+      return new Response('Valor do pagamento divergente', { status: 422 });
     }
 
     const webhookAmount = data?.amount == null ? null : Number(data.amount);
     if (webhookAmount != null && Number.isFinite(webhookAmount) && webhookAmount !== firstPurchaseOrder.expectedAmountCents) {
-      console.error('InfinitePay webhook amount mismatch:', {
-        orderNsu,
-        expected: firstPurchaseOrder.expectedAmountCents,
-        received: webhookAmount,
-      });
-      return new Response('Valor do webhook divergente', { status: 400 });
+      console.error('InfinitePay webhook amount mismatch:', { orderNsu, expected: firstPurchaseOrder.expectedAmountCents, received: webhookAmount });
+      return new Response('Valor do webhook divergente', { status: 422 });
     }
 
     await markFirstPurchaseAsPaid(orderNsu);
@@ -78,11 +69,11 @@ export async function POST(req: Request) {
     console.error('Invalid InfinitePay webhook:', error);
     const message = error instanceof Error ? error.message : '';
     if (message === 'FIRST_PURCHASE_STORAGE_NOT_CONFIGURED') {
-      return new Response('Storage unavailable', { status: 400 });
+      return new Response('Storage unavailable', { status: 503 });
     }
     if (message.toLowerCase().includes('timeout') || message.toLowerCase().includes('aborted')) {
-      return new Response('Verification timeout', { status: 400 });
+      return new Response('Verification timeout', { status: 504 });
     }
-    return new Response('Webhook error', { status: 400 });
+    return new Response('Webhook error', { status: 500 });
   }
 }
