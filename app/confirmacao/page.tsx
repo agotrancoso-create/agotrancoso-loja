@@ -4,6 +4,7 @@ import ConfirmacaoClient from './ConfirmacaoClient';
 
 export const metadata: Metadata = {
   title: 'Pedido confirmado',
+  alternates: { canonical: '/confirmacao' },
   robots: { index: false, follow: false },
 };
 

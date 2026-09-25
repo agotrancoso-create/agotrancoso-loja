@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import styles from './nossa-essencia.module.css';
 
 export const metadata: Metadata = {
   title: { absolute: 'A Agô | Agô Trancoso' },
@@ -29,13 +30,13 @@ export default function NossaEssenciaPage() {
               <p>A cerâmica está no centro de tudo. É um trabalho feito à mão, peça por peça, com o tempo e o cuidado que esse tipo de trabalho pede.</p>
             </div>
           </section>
-          <div className="essencia-image">
+          <div className={`essencia-image ${styles.frame}`}>
             <Image
               src="/nossa-essencia.jpg"
               alt="Peças de cerâmica da Agô Trancoso"
               fill
               priority
-              className="essencia-image-img"
+              className={`essencia-image-img ${styles.image}`}
               sizes="(max-width: 900px) 100vw, 50vw"
               quality={92}
             />

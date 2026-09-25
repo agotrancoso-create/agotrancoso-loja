@@ -36,9 +36,11 @@ export default function CartDrawer() {
         const first = controls[0];
         const last = controls[controls.length - 1];
         if (event.shiftKey && (document.activeElement === first || !drawerRef.current?.contains(document.activeElement))) {
-          event.preventDefault(); last?.focus();
+          event.preventDefault();
+          last?.focus();
         } else if (!event.shiftKey && (document.activeElement === last || !drawerRef.current?.contains(document.activeElement))) {
-          event.preventDefault(); first?.focus();
+          event.preventDefault();
+          first?.focus();
         }
       }
     };
@@ -76,10 +78,11 @@ export default function CartDrawer() {
       <aside
         ref={drawerRef}
         className={`cart-drawer fixed top-0 right-0 h-full w-full sm:w-[460px] z-50 transform transition-transform duration-300 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        style={{ visibility: isDrawerOpen ? 'visible' : 'hidden' }}
         aria-hidden={!isDrawerOpen}
         aria-labelledby="ago-cart-title"
         role="dialog"
-        aria-modal="true"
+        aria-modal={isDrawerOpen ? true : undefined}
       >
         <div className="cart-header">
           <div className="cart-header-title">
