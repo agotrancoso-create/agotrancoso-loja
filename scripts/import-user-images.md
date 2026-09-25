@@ -1,0 +1,1 @@
+As fotos reais enviadas pela cliente em 25/09/2026 devem substituir as versões antigas de Colar, Ímã, Pretos-Velhos, Miniatura do Quadrado e Móbile. Não usar thumbnails de baixa resolução.
