@@ -12,7 +12,6 @@ const TARGET_SIZE = 960;
 const LOW_RES_ASSETS = new Set([
   '/produtos/galeria/ima-igrejinha-trancoso-2.jpg',
   '/produtos/galeria/casal-pretos-velhos-3.jpg',
-  '/produtos/casal-pretos-velhos.jpg',
 ]);
 
 // Arquivos usados por associações históricas corrigidas em lib/products.ts.
@@ -22,6 +21,7 @@ const EXTRA_ACTIVE_ASSETS = [
   '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   '/produtos/catalogo/casal-pretos-velhos-1.jpg',
   '/produtos/catalogo/casal-pretos-velhos-2.jpg',
+  '/produtos/casal-pretos-velhos.jpg',
 ];
 
 function publicPathToFile(src) {

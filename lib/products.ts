@@ -20,11 +20,13 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
     '/produtos/igreja-quadrado-p.jpg',
   ],
 
-  // A antiga terceira foto vinha de uma miniatura de poucos KB. Mantemos apenas
-  // os dois originais de catálogo, que possuem resolução adequada.
+  // Galeria conferida com o catálogo Meta enviado pela Agô: dois originais de
+  // catálogo e a foto frontal preservada no caminho estável. O thumbnail antigo
+  // em /galeria não é usado, pois é uma versão de baixa resolução.
   'casal-pretos-velhos': [
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
     '/produtos/catalogo/casal-pretos-velhos-2.jpg',
+    '/produtos/casal-pretos-velhos.jpg',
   ],
 };
 
