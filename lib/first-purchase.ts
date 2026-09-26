@@ -18,6 +18,12 @@ export type FirstPurchaseOrderRecord = {
   createdAt: string;
 };
 
+export function isFirstPurchaseStorageConfigured() {
+  const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
+  return Boolean(url && token);
+}
+
 function redisConfig() {
   const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
@@ -67,6 +73,10 @@ export function normalizeCustomerPhone(value: unknown) {
 }
 
 export async function checkFirstPurchaseEligibility(input: { email: unknown; phone: unknown }) {
+  if (!isFirstPurchaseStorageConfigured()) {
+    return { eligible: false, reason: 'O benefício de primeira compra está temporariamente indisponível.' };
+  }
+
   const email = normalizeCustomerEmail(input.email);
   const phone = normalizeCustomerPhone(input.phone);
   if (!email || !phone) {
@@ -87,6 +97,10 @@ export async function reserveFirstPurchaseIdentity(input: {
   expectedAmountCents: number;
   discountCents: number;
 }) {
+  if (!isFirstPurchaseStorageConfigured()) {
+    return { eligible: false, reason: 'O benefício de primeira compra está temporariamente indisponível.' };
+  }
+
   const email = normalizeCustomerEmail(input.email);
   const phone = normalizeCustomerPhone(input.phone);
   if (!email || !phone) {
@@ -125,7 +139,7 @@ export async function reserveFirstPurchaseIdentity(input: {
 }
 
 export async function getFirstPurchaseOrder(orderNsu: string) {
-  if (!orderNsu) return null;
+  if (!orderNsu || !isFirstPurchaseStorageConfigured()) return null;
   const raw = await redisCommand<string | null>(['GET', orderKey(orderNsu)]);
   if (!raw) return null;
   try {
@@ -138,7 +152,7 @@ export async function getFirstPurchaseOrder(orderNsu: string) {
 }
 
 export async function releaseFirstPurchaseReservation(orderNsu: string) {
-  if (!orderNsu) return false;
+  if (!orderNsu || !isFirstPurchaseStorageConfigured()) return false;
   const order = await getFirstPurchaseOrder(orderNsu);
   if (!order) return false;
 
@@ -161,7 +175,7 @@ export async function releaseFirstPurchaseReservation(orderNsu: string) {
 }
 
 export async function markFirstPurchaseAsPaid(orderNsu: string) {
-  if (!orderNsu) return false;
+  if (!orderNsu || !isFirstPurchaseStorageConfigured()) return false;
   const order = await getFirstPurchaseOrder(orderNsu);
   if (!order) return false;
 
