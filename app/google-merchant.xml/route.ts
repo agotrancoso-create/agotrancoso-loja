@@ -32,6 +32,42 @@ const SHOPPING_COPY: Record<string, { title: string; description: string }> = {
   },
 };
 
+const SHOPPING_SHORT_TITLES: Record<string, string> = {
+  'igreja-quadrado-p': 'Igrejinha do Quadrado P',
+  'igreja-quadrado-m': 'Igrejinha do Quadrado M',
+  'igreja-quadrado-gg': 'Igreja do Quadrado GG',
+  'igrejinha-luminaria-trancoso': 'Igrejinha Luminária Trancoso',
+  'ima-igrejinha-trancoso': 'Ímã Igrejinha de Trancoso',
+  'colar-igreja-quadrado': 'Colar Igreja do Quadrado',
+};
+
+const SHOPPING_HIGHLIGHTS: Record<string, string[]> = {
+  'igreja-quadrado-p': [
+    'Miniatura em cerâmica modelada e pintada à mão.',
+    'Fachada inspirada na Igreja de São João Batista de Trancoso.',
+  ],
+  'igreja-quadrado-m': [
+    'Peça de cerâmica feita à mão em tamanho M.',
+    'Fachada inspirada na Igreja de São João Batista de Trancoso.',
+  ],
+  'igreja-quadrado-gg': [
+    'Escultura de cerâmica modelada à mão em versão GG.',
+    'Inspirada na Igreja de São João Batista do Quadrado de Trancoso.',
+  ],
+  'igrejinha-luminaria-trancoso': [
+    'Luminária de cerâmica modelada à mão.',
+    'Pode receber vela LED ou vela pequena no interior.',
+  ],
+  'ima-igrejinha-trancoso': [
+    'Ímã artesanal de cerâmica pintado à mão.',
+    'Inspirado na fachada da Igreja de São João Batista de Trancoso.',
+  ],
+  'colar-igreja-quadrado': [
+    'Pingente de cerâmica modelado à mão.',
+    'Inspirado na fachada da Igreja do Quadrado de Trancoso.',
+  ],
+};
+
 const IGREJA_VARIANTS: Record<string, { size: string; itemGroupId: string }> = {
   'igreja-quadrado-p': { size: 'P', itemGroupId: 'igreja-quadrado-trancoso' },
   'igreja-quadrado-m': { size: 'M', itemGroupId: 'igreja-quadrado-trancoso' },
@@ -82,6 +118,8 @@ export async function GET() {
       const mainImage = product.images?.[0] ? absoluteUrl(product.images[0]) : `${SITE_DOMAIN}/images/placeholder.svg`;
       const additionalImages = (product.images ?? []).slice(1, 10);
       const shoppingCopy = SHOPPING_COPY[product.id];
+      const shortTitle = SHOPPING_SHORT_TITLES[product.id];
+      const highlights = SHOPPING_HIGHLIGHTS[product.id] ?? [];
       const title = shoppingCopy?.title ?? product.name;
       const description = shoppingCopy?.description ?? product.description;
       const variant = IGREJA_VARIANTS[product.id];
@@ -91,7 +129,9 @@ export async function GET() {
         <item>
           <g:id>${escapeXml(product.id)}</g:id>
           <g:title>${escapeXml(title)}</g:title>
+          ${shortTitle ? `<g:short_title>${escapeXml(shortTitle)}</g:short_title>` : ''}
           <g:description>${escapeXml(description)}</g:description>
+          ${highlights.map((highlight) => `<g:product_highlight>${escapeXml(highlight)}</g:product_highlight>`).join('\n          ')}
           <g:link>${escapeXml(`${SITE_DOMAIN}/produtos/${product.id}`)}</g:link>
           <g:mobile_link>${escapeXml(`${SITE_DOMAIN}/produtos/${product.id}`)}</g:mobile_link>
           <g:image_link>${escapeXml(mainImage)}</g:image_link>
