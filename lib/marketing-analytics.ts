@@ -105,3 +105,11 @@ export function trackBeginCheckout(items: MarketingItem[], value: number) {
 export function trackContact(method: string) {
   track('contact', { method });
 }
+
+export function trackProductInteraction(action: 'quick_view' | 'save_product' | 'unsave_product' | 'share_product', item: MarketingItem) {
+  track(action, {
+    currency: 'BRL',
+    value: Number((item.price * item.quantity).toFixed(2)),
+    items: [item],
+  });
+}
