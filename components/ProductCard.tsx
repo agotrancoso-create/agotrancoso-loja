@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import PhotoLightbox from './PhotoLightbox';
+import ProductQuickView from './ProductQuickView';
 import CartIcon from './CartIcon';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -29,7 +29,7 @@ type ProductCardProps = { product: Product; priority?: boolean };
 export default function ProductCard({ product, priority = false }: ProductCardProps) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
-  const [showPhotos, setShowPhotos] = useState(false);
+  const [showQuickView, setShowQuickView] = useState(false);
 
   useEffect(() => {
     if (!added) return;
@@ -41,7 +41,6 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   const secondaryImage = product.images?.[1];
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
-  const hasGallery = (product.images?.length ?? 0) > 1;
   const imageAlt = productImageAlt(product);
 
   const trackView = () => trackViewItem({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category });
@@ -67,8 +66,8 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         </div>
       </Link>
 
-      {hasGallery && <button type="button" className="ago-card-photos" onClick={() => setShowPhotos(true)} aria-label={`Ver outras fotos de ${product.name}`}>Ver fotos</button>}
-      {showPhotos && <PhotoLightbox name={product.name} images={product.images?.length ? product.images : [image]} onClose={() => setShowPhotos(false)} />}
+      <button type="button" className="ago-card-photos ago-card-quick-view" onClick={() => setShowQuickView(true)} aria-label={`Visualizar ${product.name} sem sair da página`}>Ver peça</button>
+      {showQuickView && <ProductQuickView product={product} onClose={() => setShowQuickView(false)} />}
 
       {product.available && (
         <button
