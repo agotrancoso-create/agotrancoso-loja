@@ -17,9 +17,9 @@ const instagramUrl = 'https://www.instagram.com/agotrancoso';
 
 const discovery = [
   { title: 'Trancoso', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
-  { title: 'Casa & decoração', category: 'decoracao', image: '/produtos/esfera-decorativa.jpg' },
+  { title: 'Casa & decoração', category: 'decoracao', image: '/produtos/casinha-luminaria.jpg' },
   { title: 'Fé & devoção', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-1.jpg' },
-  { title: 'Presentes', category: 'presentes', image: '/produtos/catalogo/colar-igreja-quadrado-2.jpg' },
+  { title: 'Presentes', category: 'presentes', image: '/produtos/ima-igrejinha-trancoso.jpg' },
 ];
 
 export default function HomePage() {
@@ -44,7 +44,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div id="pecas-em-destaque" className="ago-container ago-cinematic-products">
+        <div id="pecas-em-destaque" className="ago-container ago-cinematic-products ago-immersive-reveal">
           <div className="ago-cinematic-products-head">
             <div>
               <p className="eyebrow">Em destaque</p>
@@ -59,10 +59,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="ago-premium-editorial ago-home-story" aria-labelledby="story-title">
+      <section className="ago-premium-editorial ago-home-story ago-immersive-reveal" aria-labelledby="story-title">
         <div className="ago-container ago-premium-split">
           <div className="ago-premium-image ago-story-image">
-            <Image src="/nossa-essencia.jpg" alt="Universo visual da Agô Trancoso" fill sizes="(max-width: 900px) 100vw, 56vw" quality={92} className="ago-complementary-photo" />
+            <Image src="/nossa-essencia.jpg" alt="Universo visual da Agô Trancoso" fill sizes="(max-width: 900px) 100vw, 56vw" quality={92} className="ago-complementary-photo ago-parallax-photo" />
           </div>
           <div className="ago-premium-copy">
             <p className="eyebrow">No Quadrado</p>
@@ -73,7 +73,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="ago-premium-discovery" aria-labelledby="discover-title">
+      <section className="ago-premium-discovery ago-immersive-reveal" aria-labelledby="discover-title">
         <div className="ago-container">
           <div className="ago-premium-section-head">
             <div>
@@ -86,7 +86,9 @@ export default function HomePage() {
           <div className="ago-premium-discovery-grid">
             {discovery.map((item) => (
               <Link key={item.category} href={`/produtos?categoria=${item.category}`} className="ago-premium-discovery-card">
-                <div className="ago-premium-discovery-image"><Image src={item.image} alt={item.title} fill quality={88} sizes="(max-width: 767px) 50vw, 25vw" /></div>
+                <div className="ago-premium-discovery-image">
+                  <Image src={item.image} alt={item.title} fill quality={88} sizes="(max-width: 767px) 50vw, 25vw" className="ago-parallax-photo" />
+                </div>
                 <div className="ago-premium-discovery-copy"><span>{item.title}</span></div>
               </Link>
             ))}
@@ -94,7 +96,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="ago-shipping-chapter" aria-labelledby="shipping-title">
+      <section className="ago-shipping-chapter ago-immersive-reveal" aria-labelledby="shipping-title">
         <div className="ago-container ago-shipping-chapter-inner">
           <div>
             <p className="eyebrow">Compra online</p>
@@ -108,10 +110,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-[#7b4d35] text-[#fbf0dd] py-[clamp(72px,9vw,142px)]" aria-labelledby="visit-title">
+      <section className="ago-bahia-visit ago-immersive-reveal py-[clamp(72px,9vw,142px)]" aria-labelledby="visit-title">
         <div className="ago-container grid items-center gap-16 md:grid-cols-[1.35fr_0.65fr] md:gap-20 lg:gap-28">
           <div className="max-w-[680px]">
-            <p className="mb-4 text-[0.72rem] font-extrabold uppercase tracking-[0.24em] text-[#dcb77d]">Se estiver por perto</p>
+            <p className="eyebrow mb-4 text-[0.72rem] font-extrabold uppercase tracking-[0.24em]">Se estiver por perto</p>
             <h2 id="visit-title" className="max-w-[640px] text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.08] tracking-[-0.03em] text-[#fff8ed]">A gente está no Quadrado.</h2>
             <p className="mt-5 max-w-[420px] text-[clamp(0.92rem,1.2vw,1.05rem)] leading-7 text-[#f1dfce]">Passe para ver as peças de perto.</p>
             <div className="mt-7 flex flex-wrap gap-x-8 gap-y-2">
@@ -121,10 +123,10 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="justify-self-start text-center md:justify-self-end" aria-label="Trancoso, Bahia, Brasil">
-            <span className="block text-[0.62rem] font-bold uppercase tracking-[0.28em] text-[#f1d5a8]">Trancoso</span>
-            <strong className="my-1 block font-[var(--font-display)] text-[clamp(3rem,5.8vw,5.4rem)] font-medium leading-[0.95] tracking-[-0.035em] text-[#fff1d0]">Bahia</strong>
-            <span className="block text-[0.6rem] font-bold uppercase tracking-[0.3em] text-[#dfa56d]">Brasil</span>
+          <div className="ago-bahia-wordmark justify-self-start text-center md:justify-self-end" aria-label="Trancoso, Bahia, Brasil">
+            <span className="block text-[0.62rem] font-bold uppercase tracking-[0.28em]">Trancoso</span>
+            <strong className="my-1 block text-[clamp(3rem,5.8vw,5.4rem)] leading-[0.95] tracking-[-0.035em]">Bahia</strong>
+            <span className="block text-[0.6rem] font-bold uppercase tracking-[0.3em]">Brasil</span>
           </div>
         </div>
       </section>
