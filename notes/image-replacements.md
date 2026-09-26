@@ -1,0 +1,1 @@
+Image replacements in progress: Colar, ímã (2), Pretos-Velhos, Miniatura do Quadrado (3), Móbile. Source images supplied by the user on 2026-09-25. Do not infer product identity from historical filenames.
