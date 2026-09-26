@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getAllProducts, getEffectivePrice, getProductById } from '@/lib/products';
 import { SITE_DOMAIN, whatsappLink } from '@/lib/config';
-import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping } from '@/lib/shipping';
+import { FIXED_SHIPPING_PRICE, getShippingPrice, shouldOfferFreeShipping } from '@/lib/shipping';
 import AddToCart from './AddToCart';
 import ProductGallery from '@/components/ProductGallery';
 import ProductViewTracker from '@/components/ProductViewTracker';
@@ -23,27 +23,27 @@ const IGREJINHA_PRODUCT_IDS = new Set([
 
 const PRODUCT_SEO: Record<string, { title: string; description: string }> = {
   'igreja-quadrado-p': {
-    title: 'Igrejinha de Trancoso em Cerâmica P | Agô Trancoso',
-    description: 'Miniatura em cerâmica da Igrejinha de Trancoso, inspirada na Igreja de São João Batista do Quadrado. Feita à mão pela Agô em Trancoso, Bahia.',
+    title: 'Igrejinha do Quadrado de Trancoso em Cerâmica P | Agô',
+    description: 'Miniatura em cerâmica da Igrejinha do Quadrado de Trancoso, a Igreja de São João Batista. Feita à mão pela Agô em Trancoso, Bahia.',
   },
   'igreja-quadrado-m': {
-    title: 'Igrejinha de Trancoso em Cerâmica M | Agô Trancoso',
-    description: 'Igrejinha de Trancoso em cerâmica tamanho M, inspirada na Igreja do Quadrado. Uma peça feita à mão pela Agô em Trancoso, Bahia.',
+    title: 'Igrejinha do Quadrado de Trancoso em Cerâmica M | Agô',
+    description: 'Igrejinha do Quadrado de Trancoso em cerâmica tamanho M, inspirada na Igreja de São João Batista. Uma peça feita à mão pela Agô em Trancoso, Bahia.',
   },
   'igreja-quadrado-gg': {
-    title: 'Igreja do Quadrado em Cerâmica GG | Agô Trancoso',
+    title: 'Igreja do Quadrado de Trancoso em Cerâmica GG | Agô',
     description: 'Escultura em cerâmica da Igreja do Quadrado de Trancoso, a Igreja de São João Batista, modelada à mão pela Agô em Trancoso, Bahia.',
   },
   'igrejinha-luminaria-trancoso': {
-    title: 'Igrejinha de Trancoso Luminária em Cerâmica | Agô Trancoso',
+    title: 'Igrejinha do Quadrado de Trancoso Luminária | Agô',
     description: 'Luminária de cerâmica inspirada na Igrejinha do Quadrado de Trancoso. Feita à mão e criada para receber vela LED ou vela pequena.',
   },
   'ima-igrejinha-trancoso': {
-    title: 'Ímã da Igrejinha de Trancoso em Cerâmica | Agô Trancoso',
+    title: 'Ímã da Igrejinha do Quadrado de Trancoso | Agô',
     description: 'Ímã artesanal em cerâmica inspirado na Igreja de São João Batista, a Igrejinha do Quadrado de Trancoso. Uma lembrança feita à mão na Bahia.',
   },
   'colar-igreja-quadrado': {
-    title: 'Colar da Igreja do Quadrado de Trancoso | Agô Trancoso',
+    title: 'Colar da Igrejinha do Quadrado de Trancoso | Agô',
     description: 'Colar em cerâmica inspirado na Igreja do Quadrado de Trancoso. A fachada da Igrejinha de São João Batista em um acessório feito à mão.',
   },
 };
@@ -102,6 +102,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const waMessage = `Olá! Vim pelo site da Agô Trancoso e tenho interesse em ${product.name}.`;
   const internationalMessage = `Olá! Gostaria de consultar o envio internacional de ${product.name}.`;
   const freeShippingAtProductQuantity = shouldOfferFreeShipping(price);
+  const nationalShippingPrice = getShippingPrice(price);
   const isIgrejinhaProduct = IGREJINHA_PRODUCT_IDS.has(product.id);
   const productUrl = `${SITE_DOMAIN}/produtos/${product.id}`;
 
@@ -112,9 +113,13 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         '@type': 'Product',
         '@id': `${productUrl}#product`,
         name: product.name,
+        ...(isIgrejinhaProduct ? { alternateName: 'Igrejinha do Quadrado de Trancoso em cerâmica' } : {}),
         description: product.description,
         image: images.map((image) => `${SITE_DOMAIN}${image}`),
         sku: product.id,
+        mpn: `AGO-${product.id.toUpperCase()}`,
+        material: 'Cerâmica',
+        category: isIgrejinhaProduct ? 'Igrejinhas do Quadrado de Trancoso' : product.category,
         url: productUrl,
         mainEntityOfPage: productUrl,
         brand: { '@type': 'Brand', name: 'Agô Trancoso' },
@@ -127,6 +132,18 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           availability: product.available ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
           itemCondition: 'https://schema.org/NewCondition',
           seller: { '@id': `${SITE_DOMAIN}#organization` },
+          shippingDetails: {
+            '@type': 'OfferShippingDetails',
+            shippingDestination: {
+              '@type': 'DefinedRegion',
+              addressCountry: 'BR',
+            },
+            shippingRate: {
+              '@type': 'MonetaryAmount',
+              value: nationalShippingPrice.toFixed(2),
+              currency: 'BRL',
+            },
+          },
         },
       },
       {
@@ -136,7 +153,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           { '@type': 'ListItem', position: 1, name: 'Início', item: SITE_DOMAIN },
           { '@type': 'ListItem', position: 2, name: 'Coleção', item: `${SITE_DOMAIN}/produtos` },
           ...(isIgrejinhaProduct
-            ? [{ '@type': 'ListItem', position: 3, name: 'Igrejinha de Trancoso', item: `${SITE_DOMAIN}/igrejinha-de-trancoso` }]
+            ? [{ '@type': 'ListItem', position: 3, name: 'Igrejinha do Quadrado de Trancoso', item: `${SITE_DOMAIN}/igrejinha-de-trancoso` }]
             : []),
           {
             '@type': 'ListItem',
