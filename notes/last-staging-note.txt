@@ -1,0 +1,1 @@
+Do not merge this staging branch. Final image update will be applied atomically from current main.
