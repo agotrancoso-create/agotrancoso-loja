@@ -14,6 +14,25 @@ function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
+const IGREJINHA_IDS = new Set([
+  'igreja-quadrado-p',
+  'igreja-quadrado-m',
+  'igreja-quadrado-gg',
+  'igrejinha-luminaria-trancoso',
+  'ima-igrejinha-trancoso',
+  'colar-igreja-quadrado',
+]);
+
+function productImageAlt(product: Product) {
+  if (product.id === 'igreja-quadrado-p') return 'Igrejinha do Quadrado de Trancoso em cerâmica, tamanho P';
+  if (product.id === 'igreja-quadrado-m') return 'Igrejinha do Quadrado de Trancoso em cerâmica, tamanho M';
+  if (product.id === 'igreja-quadrado-gg') return 'Igreja do Quadrado de Trancoso em cerâmica, tamanho GG';
+  if (product.id === 'igrejinha-luminaria-trancoso') return 'Igrejinha do Quadrado de Trancoso em cerâmica na versão luminária';
+  if (product.id === 'ima-igrejinha-trancoso') return 'Ímã em cerâmica da Igrejinha do Quadrado de Trancoso';
+  if (product.id === 'colar-igreja-quadrado') return 'Colar em cerâmica inspirado na Igrejinha do Quadrado de Trancoso';
+  return product.imageAlt || `${product.name} em cerâmica da Agô Trancoso`;
+}
+
 type ProductCardProps = { product: Product; priority?: boolean };
 
 export default function ProductCard({ product, priority = false }: ProductCardProps) {
@@ -31,14 +50,18 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const hasGallery = (product.images?.length ?? 0) > 1;
+  const imageAlt = productImageAlt(product);
+  const isIgrejinha = IGREJINHA_IDS.has(product.id);
 
   const trackView = () => trackViewItem({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category });
 
   return (
-    <article className="product-card group" data-product-id={product.id}>
-      <Link href={`/produtos/${product.id}`} className="product-card-main" onClick={trackView}>
+    <article className="product-card group" data-product-id={product.id} itemScope itemType="https://schema.org/Product">
+      <meta itemProp="name" content={product.name} />
+      {isIgrejinha && <meta itemProp="category" content="Igrejinha do Quadrado de Trancoso em cerâmica" />}
+      <Link href={`/produtos/${product.id}`} className="product-card-main" onClick={trackView} itemProp="url">
         <div className="product-image-wrap">
-          <Image src={image} alt="" fill quality={86} priority={priority} sizes="(max-width: 900px) 46vw, (max-width: 1400px) 30vw, 424px" className="product-image product-image-primary" />
+          <Image src={image} alt={imageAlt} fill quality={86} priority={priority} sizes="(max-width: 900px) 46vw, (max-width: 1400px) 30vw, 424px" className="product-image product-image-primary" itemProp="image" />
           {hasPromo && <span className="product-badge">Oferta</span>}
           {!product.available && <span className="product-badge">Indisponível</span>}
           <span className="product-view" aria-hidden="true">Ver peça</span>
