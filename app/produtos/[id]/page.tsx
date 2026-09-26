@@ -24,27 +24,27 @@ const IGREJINHA_PRODUCT_IDS = new Set([
 const PRODUCT_SEO: Record<string, { title: string; description: string }> = {
   'igreja-quadrado-p': {
     title: 'Igrejinha do Quadrado de Trancoso em Cerâmica P | Agô',
-    description: 'Miniatura em cerâmica da Igrejinha do Quadrado de Trancoso, a Igreja de São João Batista. Feita à mão pela Agô em Trancoso, Bahia.',
+    description: 'Miniatura em cerâmica da Igrejinha do Quadrado de Trancoso, a Igreja de São João Batista. Peça artesanal disponível na Agô Trancoso, no Quadrado.',
   },
   'igreja-quadrado-m': {
     title: 'Igrejinha do Quadrado de Trancoso em Cerâmica M | Agô',
-    description: 'Igrejinha do Quadrado de Trancoso em cerâmica tamanho M, inspirada na Igreja de São João Batista. Uma peça feita à mão pela Agô em Trancoso, Bahia.',
+    description: 'Igrejinha do Quadrado de Trancoso em cerâmica tamanho M, inspirada na Igreja de São João Batista. Disponível na Agô Trancoso, no Quadrado.',
   },
   'igreja-quadrado-gg': {
     title: 'Igreja do Quadrado de Trancoso em Cerâmica GG | Agô',
-    description: 'Escultura em cerâmica da Igreja do Quadrado de Trancoso, a Igreja de São João Batista, modelada à mão pela Agô em Trancoso, Bahia.',
+    description: 'Escultura em cerâmica inspirada na Igreja do Quadrado de Trancoso, a Igreja de São João Batista. Disponível na Agô Trancoso, no Quadrado.',
   },
   'igrejinha-luminaria-trancoso': {
     title: 'Igrejinha do Quadrado de Trancoso Luminária | Agô',
-    description: 'Luminária de cerâmica inspirada na Igrejinha do Quadrado de Trancoso. Feita à mão e criada para receber vela LED ou vela pequena.',
+    description: 'Luminária de cerâmica inspirada na Igrejinha do Quadrado de Trancoso, disponível na Agô Trancoso. Criada para receber vela LED ou vela pequena.',
   },
   'ima-igrejinha-trancoso': {
     title: 'Ímã da Igrejinha do Quadrado de Trancoso | Agô',
-    description: 'Ímã artesanal em cerâmica inspirado na Igreja de São João Batista, a Igrejinha do Quadrado de Trancoso. Uma lembrança feita à mão na Bahia.',
+    description: 'Ímã artesanal em cerâmica inspirado na Igreja de São João Batista, a Igrejinha do Quadrado de Trancoso. Disponível na Agô Trancoso.',
   },
   'colar-igreja-quadrado': {
     title: 'Colar da Igrejinha do Quadrado de Trancoso | Agô',
-    description: 'Colar em cerâmica inspirado na Igreja do Quadrado de Trancoso. A fachada da Igrejinha de São João Batista em um acessório feito à mão.',
+    description: 'Colar em cerâmica inspirado na Igreja do Quadrado de Trancoso, com a fachada da Igrejinha de São João Batista. Disponível na Agô Trancoso.',
   },
 };
 
@@ -55,7 +55,7 @@ export function generateStaticParams() {
 function metadataImage(name: string, images: string[] | undefined) {
   return (images?.length ? images : ['/images/placeholder.svg']).map((image) => ({
     url: image,
-    alt: `${name} — Agô Trancoso`,
+    alt: `${name} disponível na Agô Trancoso`,
   }));
 }
 
@@ -117,12 +117,10 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         description: product.description,
         image: images.map((image) => `${SITE_DOMAIN}${image}`),
         sku: product.id,
-        mpn: `AGO-${product.id.toUpperCase()}`,
         material: 'Cerâmica',
         category: isIgrejinhaProduct ? 'Igrejinhas do Quadrado de Trancoso' : product.category,
         url: productUrl,
         mainEntityOfPage: productUrl,
-        brand: { '@type': 'Brand', name: 'Agô Trancoso' },
         seller: { '@id': `${SITE_DOMAIN}#organization` },
         offers: {
           '@type': 'Offer',
@@ -191,7 +189,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
           <div className="product-info-column">
             <div className="product-buybox">
-              <p className="eyebrow">{isIgrejinhaProduct ? 'Igrejinha de Trancoso · Cerâmica feita à mão' : 'Cerâmica feita à mão'}</p>
+              <p className="eyebrow">{isIgrejinhaProduct ? 'Igrejinha de Trancoso · Cerâmica artesanal' : 'Cerâmica artesanal'}</p>
               <h1 className="product-detail-title">{product.name}</h1>
 
               {hasPromo ? (
