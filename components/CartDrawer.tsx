@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { useCart } from '@/context/CartContext';
 import { getProductById, getEffectivePrice, getAvailableProducts } from '@/lib/products';
-import { getRelatedProductIds, sortProductsByAttention } from '@/lib/merchandising';
+import { sortProductsByAttention } from '@/lib/merchandising';
 import CartIcon from './CartIcon';
 import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping, FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
 import { trackRemoveFromCart, trackAddToCart } from '@/lib/marketing-analytics';
@@ -71,21 +71,16 @@ export default function CartDrawer() {
   const progressTarget = FREE_SHIPPING_THRESHOLD + 0.01;
   const progress = Math.min(100, (subtotal / progressTarget) * 100);
   const cartIds = new Set(lines.map(({ product }) => product.id));
-  const available = sortProductsByAttention(getAvailableProducts());
-  const availableById = new Map(available.map((product) => [product.id, product]));
 
-  const curatedIds = Array.from(new Set(lines.flatMap(({ product }) => getRelatedProductIds(product.id))));
-  const curated = curatedIds
-    .filter((id) => !cartIds.has(id))
-    .map((id) => availableById.get(id))
-    .filter((product): product is NonNullable<typeof product> => Boolean(product?.available));
-
+  // A sacola usa a mesma ordem editorial/comercial da vitrine principal.
+  // Assim, a experiência permanece coerente: as primeiras sugestões são as
+  // mesmas peças que a loja decidiu destacar, apenas removendo o que já está
+  // na sacola. Isso evita recomendações aleatórias entre desktop e mobile.
   const complementary = lines.length === 0
     ? []
-    : [
-        ...curated,
-        ...available.filter((product) => !cartIds.has(product.id) && !curatedIds.includes(product.id)),
-      ].slice(0, 6);
+    : sortProductsByAttention(getAvailableProducts())
+        .filter((product) => !cartIds.has(product.id))
+        .slice(0, 6);
 
   function scrollComplementary(direction: -1 | 1) {
     const node = complementaryRef.current;
@@ -182,7 +177,7 @@ export default function CartDrawer() {
               <div className="cart-complementary-head">
                 <div>
                   <span>Para acompanhar</span>
-                  <small>Sugestões relacionadas ao que já está na sacola.</small>
+                  <small>Destaques da coleção que combinam com sua seleção.</small>
                 </div>
                 <div className="cart-complementary-nav" aria-label="Navegar pelas sugestões">
                   <button type="button" onClick={() => scrollComplementary(-1)} aria-label="Ver sugestões anteriores">
