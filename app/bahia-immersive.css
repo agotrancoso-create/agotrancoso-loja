@@ -1,0 +1,279 @@
+/* Bahia immersive layer
+   Loaded after the calm layer so the site keeps its reduced information density
+   while restoring deliberate movement, warmth and regional character. */
+
+:root {
+  --bahia-terracotta: #875038;
+  --bahia-umber: #2b201b;
+  --bahia-ochre: #d7b66f;
+  --bahia-olive: #766b45;
+  --bahia-sand: #d4bc94;
+  --bahia-ivory: #fbf1e1;
+  --bahia-cacao: #3d2a22;
+}
+
+.site-header {
+  background: color-mix(in srgb, var(--bahia-olive) 78%, var(--bahia-sand));
+  color: var(--bahia-ivory);
+}
+
+.ago-category-bar {
+  background: color-mix(in srgb, var(--bahia-sand) 86%, var(--bahia-ochre));
+}
+
+.ago-category-bar a,
+.site-header .header-link,
+.site-header .header-icon,
+.site-header .mobile-menu-button {
+  color: var(--bahia-ivory);
+}
+
+.ago-category-bar a {
+  color: var(--bahia-cacao);
+}
+
+.ago-home .ago-premium-editorial {
+  background: #b5815b;
+}
+
+.ago-home .ago-premium-editorial .eyebrow,
+.ago-home .ago-premium-editorial h2,
+.ago-home .ago-premium-editorial p,
+.ago-home .ago-premium-editorial a {
+  color: var(--bahia-ivory);
+}
+
+.ago-home .ago-premium-discovery {
+  background: var(--bahia-olive);
+  color: var(--bahia-ivory);
+}
+
+.ago-home .ago-premium-discovery .eyebrow,
+.ago-home .ago-premium-discovery h2,
+.ago-home .ago-premium-discovery .ago-premium-text-link,
+.ago-home .ago-premium-discovery-copy span {
+  color: var(--bahia-ivory);
+}
+
+.ago-home .ago-premium-discovery .eyebrow,
+.ago-bahia-visit .eyebrow {
+  color: var(--bahia-ochre);
+}
+
+.ago-home .ago-premium-discovery-card {
+  transition: transform .5s cubic-bezier(.2,.72,.2,1), filter .5s ease !important;
+}
+
+.ago-home .ago-premium-discovery-card:hover,
+.ago-home .ago-premium-discovery-card:focus-visible {
+  transform: translateY(-7px) !important;
+}
+
+.ago-home .ago-premium-discovery-image {
+  background: color-mix(in srgb, var(--bahia-ivory) 92%, var(--bahia-sand));
+}
+
+.ago-shipping-chapter {
+  background: var(--bahia-umber) !important;
+}
+
+.ago-bahia-visit {
+  background: var(--bahia-terracotta) !important;
+  color: var(--bahia-ivory) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.ago-bahia-visit::before,
+.ago-bahia-visit::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+  opacity: .18;
+}
+
+.ago-bahia-visit::before {
+  width: 34vw;
+  height: 34vw;
+  min-width: 340px;
+  min-height: 340px;
+  right: -12vw;
+  top: -18vw;
+  background: radial-gradient(circle at center, var(--bahia-ochre), transparent 68%);
+}
+
+.ago-bahia-visit::after {
+  width: 28vw;
+  height: 28vw;
+  min-width: 300px;
+  min-height: 300px;
+  left: -12vw;
+  bottom: -18vw;
+  background: radial-gradient(circle at center, #5d301f, transparent 70%);
+}
+
+.ago-bahia-visit > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ago-bahia-wordmark {
+  letter-spacing: .02em;
+}
+
+.ago-bahia-wordmark strong {
+  color: var(--bahia-ochre) !important;
+  font-family: var(--font-display) !important;
+  font-weight: 500 !important;
+  text-shadow: 0 10px 35px rgba(43,32,27,.15);
+}
+
+.ago-bahia-wordmark span {
+  color: color-mix(in srgb, var(--bahia-ochre) 72%, var(--bahia-ivory)) !important;
+}
+
+/* The imagery moves, but the movement is restrained and tied to user input. */
+.ago-cinematic-image {
+  transform: translate3d(0, calc(var(--ago-hero-shift, 0px) + var(--ago-photo-shift, 0px)), 0) scale(1.055) !important;
+  transition: transform 140ms linear !important;
+  will-change: transform;
+}
+
+.ago-parallax-photo {
+  transform: translate3d(0, var(--ago-photo-shift, 0px), 0) scale(1.035) !important;
+  transition: transform 160ms linear !important;
+  will-change: transform;
+}
+
+.product-card {
+  transition: transform .48s cubic-bezier(.2,.72,.2,1), box-shadow .48s ease !important;
+}
+
+.product-card .product-image-primary {
+  transform: scale(1) !important;
+  transition: transform .72s cubic-bezier(.2,.72,.2,1) !important;
+  will-change: transform;
+}
+
+.product-card:hover,
+.product-card:has(.product-card-main:focus-visible) {
+  transform: translateY(-5px) !important;
+}
+
+.product-card:hover .product-image-primary,
+.product-card:has(.product-card-main:focus-visible) .product-image-primary {
+  transform: scale(1.055) !important;
+}
+
+.product-gallery-main img,
+.product-gallery-thumb img {
+  transform: scale(1) !important;
+  transition: transform .65s cubic-bezier(.2,.72,.2,1), opacity .3s ease !important;
+}
+
+.product-gallery-main:hover img {
+  transform: scale(1.045) !important;
+}
+
+.product-gallery-thumb:hover img,
+.product-gallery-thumb:focus-visible img {
+  transform: scale(1.06) !important;
+}
+
+.ago-story-image {
+  overflow: hidden;
+}
+
+.ago-home-story:hover .ago-story-image .ago-parallax-photo {
+  transform: translate3d(0, var(--ago-photo-shift, 0px), 0) scale(1.065) !important;
+}
+
+.ago-premium-discovery-card:hover .ago-parallax-photo,
+.ago-premium-discovery-card:focus-visible .ago-parallax-photo {
+  transform: translate3d(0, var(--ago-photo-shift, 0px), 0) scale(1.075) !important;
+}
+
+.ago-immersive-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .8s ease, transform .9s cubic-bezier(.2,.72,.2,1) !important;
+}
+
+.ago-immersive-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* CEP feedback is intentionally quiet and inline with the checkout. */
+.ago-cep-status {
+  display: block;
+  min-height: 1.25em;
+  margin-top: 7px;
+  font-size: .76rem;
+  line-height: 1.45;
+  color: var(--leather);
+}
+
+.ago-cep-status.is-loading::before {
+  content: '•';
+  display: inline-block;
+  margin-right: 6px;
+  animation: agoCepPulse 1s ease-in-out infinite;
+}
+
+.ago-cep-status.is-success {
+  color: #4f6038;
+}
+
+.ago-cep-status.is-error {
+  color: #8c3f2e;
+}
+
+@keyframes agoCepPulse {
+  50% { opacity: .3; transform: scale(.8); }
+}
+
+@media (max-width: 900px) {
+  .site-header {
+    background: color-mix(in srgb, var(--bahia-olive) 82%, var(--bahia-sand));
+  }
+
+  .ago-home .ago-premium-discovery {
+    background: var(--bahia-olive) !important;
+  }
+
+  .ago-home .ago-premium-editorial {
+    background: #b5815b !important;
+  }
+
+  .ago-bahia-wordmark strong {
+    font-size: clamp(3.1rem, 17vw, 5.4rem) !important;
+  }
+}
+
+@media (hover: none) {
+  .product-card:hover,
+  .product-card:has(.product-card-main:focus-visible),
+  .ago-home .ago-premium-discovery-card:hover {
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ago-cinematic-image,
+  .ago-parallax-photo,
+  .product-card,
+  .product-image-primary,
+  .product-gallery-main img,
+  .product-gallery-thumb img,
+  .ago-immersive-reveal {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .ago-immersive-reveal {
+    opacity: 1 !important;
+  }
+}
