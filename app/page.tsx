@@ -29,7 +29,7 @@ export default function HomePage() {
           <div className="ago-collection-intro-brand">
             <p className="eyebrow">Agô · Trancoso, Bahia</p>
             <h1 id="featured-title">Peças que ficam por perto.</h1>
-            <p>Trancoso é nossa principal inspiração. A coleção também passa por casa, fé, presentes e outros símbolos brasileiros.</p>
+            <p>Igrejinhas do Quadrado, objetos para casa, símbolos de fé e ideias para presentear. Explore com calma.</p>
             <Link href="/produtos" className="ago-premium-text-link">Ver coleção <span aria-hidden="true">↗</span></Link>
           </div>
 
@@ -89,7 +89,7 @@ export default function HomePage() {
           <div className="ago-premium-copy">
             <p className="eyebrow">Nossa inspiração</p>
             <h2 id="story-title">Começou no Quadrado.</h2>
-            <p>Trancoso inspira boa parte do nosso olhar: as casas, a igreja, as cores e a fé. A coleção também percorre outras referências brasileiras.</p>
+            <p>A Agô está em Trancoso desde 2016. A igreja, as fachadas e as cores do Quadrado convivem aqui com outras referências brasileiras.</p>
             <Link href="/nossa-essencia" className="ago-premium-text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
           </div>
         </div>

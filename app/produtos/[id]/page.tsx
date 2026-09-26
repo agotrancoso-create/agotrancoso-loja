@@ -20,8 +20,9 @@ function metadataImage(images: string[] | undefined) {
   return (images?.length ? images : ['/images/placeholder.svg']).map((image) => ({ url: image, alt: 'Peças da Agô Trancoso' }));
 }
 
-export function generateMetadata({ params }: { params: { id: string } }): Metadata {
-  const product = getProductById(params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const product = getProductById(id);
   if (!product) return {};
   return {
     title: { absolute: `${product.name} | Agô Trancoso` },
@@ -39,8 +40,9 @@ export function generateMetadata({ params }: { params: { id: string } }): Metada
   };
 }
 
-export default function ProductPage({ params }: { params: { id: string } }) {
-  const product = getProductById(params.id);
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const product = getProductById(id);
   if (!product) notFound();
 
   const images = product.images?.length ? product.images : ['/images/placeholder.svg'];
@@ -123,8 +125,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       <section className="product-aftercare">
         <div className="site-container product-aftercare-inner">
           <p className="eyebrow">Continue explorando</p>
-          <h2>Veja outras peças da coleção.</h2>
-          <Link href="/produtos" className="text-link">Explorar coleção <span aria-hidden="true">↗</span></Link>
+          <h2>Há mais para descobrir.</h2>
+          <Link href="/produtos" className="text-link">Ver todas as peças <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
     </div>

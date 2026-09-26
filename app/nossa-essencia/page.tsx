@@ -17,9 +17,9 @@ export default function NossaEssenciaPage() {
             <p className="eyebrow">A Agô</p>
             <h1>O que vemos por aqui ganha outra forma.</h1>
             <div className="essencia-text">
-              <p>A Agô está em Trancoso desde 2016. O lugar é uma das principais inspirações para as referências que aparecem nas nossas peças.</p>
-              <p>A arquitetura, a fé, as cores, o barro e as lembranças desse lugar aparecem nas formas e nos detalhes.</p>
-              <p>A cerâmica está no centro de tudo. É um trabalho feito à mão, peça por peça, com o tempo e o cuidado que esse tipo de trabalho pede.</p>
+              <p>A Agô está em Trancoso desde 2016. A igreja, as casas e as cores do Quadrado inspiram parte do nosso acervo.</p>
+              <p>Há também objetos para casa, símbolos de fé e outras referências brasileiras.</p>
+              <p>O trabalho em cerâmica é manual, com atenção às formas e à pintura.</p>
             </div>
           </section>
           <div className="essencia-image">

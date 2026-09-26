@@ -14,6 +14,15 @@ const LOW_RES_ASSETS = new Set([
   '/produtos/galeria/casal-pretos-velhos-3.jpg',
 ]);
 
+// Fotos com elementos até a borda ou fundo de ateliê: expandir as bordas
+// repetiria a peça ou criaria faixas artificiais. O frontend já as apresenta
+// inteiras numa moldura quadrada, sem alterar os originais.
+const KEEP_ORIGINAL_ASSETS = new Set([
+  '/produtos/casal-pretos-velhos.jpg',
+  '/produtos/mobile-trancoso.jpg',
+  '/produtos/ima-igrejinha-trancoso.jpg',
+]);
+
 // Arquivos usados por associações históricas corrigidas em lib/products.ts.
 const EXTRA_ACTIVE_ASSETS = [
   '/produtos/igrejinha-luminaria-trancoso.jpg',
@@ -83,20 +92,30 @@ async function normalizeImage(src) {
     return { missing: 1, resized: 0, skipped: 0 };
   }
 
-  // A solicitação é normalizar somente imagens que não são quadradas.
-  if (width === height) {
+  if (width === height || KEEP_ORIGINAL_ASSETS.has(src)) {
     return { missing: 0, resized: 0, skipped: 1 };
   }
 
   const background = await cornerColor(base, width, height);
-  let pipeline = base
-    .rotate()
-    .resize(TARGET_SIZE, TARGET_SIZE, {
-      fit: 'contain',
-      position: 'centre',
-      background,
-      withoutEnlargement: false,
-    });
+  const { data: fitted, info } = await base.rotate().resize(TARGET_SIZE, TARGET_SIZE, {
+    fit: 'inside',
+    withoutEnlargement: true,
+  }).toBuffer({ resolveWithObject: true });
+  const left = Math.floor((TARGET_SIZE - info.width) / 2);
+  const top = Math.floor((TARGET_SIZE - info.height) / 2);
+  const right = TARGET_SIZE - info.width - left;
+  const bottom = TARGET_SIZE - info.height - top;
+  const edge = sharp(fitted);
+  const layers = [{ input: fitted, left, top }];
+
+  // Prolonga somente o pixel de cada borda do fundo, preservando a imagem
+  // integral e eliminando a linha causada pela média das quatro quinas.
+  if (left) layers.push({ input: await edge.clone().extract({ left: 0, top: 0, width: 1, height: info.height }).resize(left, info.height, { kernel: 'nearest' }).toBuffer(), left: 0, top });
+  if (right) layers.push({ input: await edge.clone().extract({ left: info.width - 1, top: 0, width: 1, height: info.height }).resize(right, info.height, { kernel: 'nearest' }).toBuffer(), left: left + info.width, top });
+  if (top) layers.push({ input: await edge.clone().extract({ left: 0, top: 0, width: info.width, height: 1 }).resize(info.width, top, { kernel: 'nearest' }).toBuffer(), left, top: 0 });
+  if (bottom) layers.push({ input: await edge.clone().extract({ left: 0, top: info.height - 1, width: info.width, height: 1 }).resize(info.width, bottom, { kernel: 'nearest' }).toBuffer(), left, top: top + info.height });
+
+  let pipeline = sharp({ create: { width: TARGET_SIZE, height: TARGET_SIZE, channels: 3, background } }).composite(layers);
 
   const extension = path.extname(file).toLowerCase();
   if (extension === '.jpg' || extension === '.jpeg') {
@@ -139,7 +158,7 @@ async function main() {
     missing += result.missing;
   }
 
-  console.log(`[960x960] concluído: ${resized} redimensionadas, ${skipped} já quadradas, ${missing} ausentes.`);
+  console.log(`[960x960] concluído: ${resized} redimensionadas, ${skipped} mantidas sem alterações, ${missing} ausentes.`);
 }
 
 main().catch((error) => {

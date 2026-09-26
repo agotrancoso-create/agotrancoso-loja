@@ -1,16 +1,16 @@
 import Link from 'next/link';
 const benefits = [
-  ['feito à mão', 'Cuidado e tradição em cada detalhe.'],
-  ['peças exclusivas', 'Escolhas especiais para quem valoriza o feito à mão.'],
-  ['inspiração brasileira', 'Cores, formas e símbolos da nossa terra.'],
-  ['envio internacional', 'Enviamos para outros países sob consulta.'],
+  ['feito à mão', 'Atenção às formas e à pintura.'],
+  ['peças exclusivas', 'Igrejinhas, objetos para casa e presentes.'],
+  ['inspiração brasileira', 'A igreja, as casas e outros símbolos do Brasil.'],
+  ['envio internacional', 'Cotação conforme o destino e o pedido.'],
 ] as const;
 
 const details = [
-  ['Conheça o trabalho em cerâmica e as referências que fazem parte da Agô.', '/nossa-essencia', 'Conhecer a Agô'],
-  ['Encontre peças para casa, fé e presentes na nossa coleção.', '/produtos', 'Explorar peças'],
-  ['Trancoso é uma das principais inspirações de uma coleção que percorre outros símbolos brasileiros.', '/produtos?categoria=trancoso', 'Ver Trancoso'],
-  ['Fazemos envios internacionais sob consulta, com cotação de acordo com o destino.', '/contato', 'Consultar envio'],
+  ['Conheça a Agô e o que inspira nossa escolha de objetos.', '/nossa-essencia', 'Conhecer a Agô'],
+  ['Veja o acervo completo, dos menores presentes às esculturas.', '/produtos', 'Explorar coleção'],
+  ['Veja as formas e cores que lembram o Quadrado.', '/produtos?categoria=trancoso', 'Ver Trancoso'],
+  ['Para entregas fora do Brasil, fale com a gente antes de comprar.', '/contato', 'Consultar envio'],
 ] as const;
 
 const artwork = { width: 2048, height: 690, cropWidth: 280, cropHeight: 240, top: 140 };

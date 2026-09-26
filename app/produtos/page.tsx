@@ -21,7 +21,7 @@ export default function ProdutosPage() {
             <p className="eyebrow">Coleção Agô</p>
             <h1>Peças para olhar, viver, presentear e guardar.</h1>
           </div>
-          <p>Trancoso ocupa o centro da coleção, sem limitar o que criamos. Aqui também entram objetos para casa, fé, devoção, presentes e outros símbolos brasileiros, sempre feitos à mão.</p>
+          <p>O Quadrado é uma das referências da Agô. Encontre igrejinhas, objetos para casa, símbolos de fé e opções para presentear.</p>
         </header>
 
         <Suspense fallback={<div className="catalog-loading" role="status">Carregando coleção…</div>}>

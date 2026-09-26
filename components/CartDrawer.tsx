@@ -128,7 +128,7 @@ export default function CartDrawer() {
           {lines.length === 0 ? (
             <div className="cart-empty">
               <p>Sua seleção está vazia.</p>
-              <span>Escolha uma peça para levar um pouco de Trancoso para sua casa.</span>
+              <span>Explore a coleção e encontre algo para levar ou presentear.</span>
               <Link href="/produtos" onClick={closeDrawer}>Continuar comprando</Link>
             </div>
           ) : (
@@ -183,7 +183,7 @@ export default function CartDrawer() {
               <div className="cart-complementary-head">
                 <div>
                   <span>Para acompanhar</span>
-                  <small>Peças relacionadas ao que você escolheu.</small>
+                  <small>Outras opções que combinam com sua escolha.</small>
                 </div>
                 <div className="cart-complementary-nav" aria-label="Navegar pelas sugestões">
                   <button type="button" onClick={() => scrollComplementary(-1)} aria-label="Ver sugestões anteriores">

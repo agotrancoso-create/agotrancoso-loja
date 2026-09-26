@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Product, Category } from '@/lib/types';
 import ProductCard from '@/components/ProductCard';
 
@@ -31,6 +31,7 @@ function productPrice(product: Product) {
 }
 
 export default function ProdutosClient({ products, categories }: { products: Product[]; categories: Category[] }) {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('busca') || '');
   const [category, setCategory] = useState(searchParams.get('categoria') || 'todas');
@@ -96,6 +97,15 @@ export default function ProdutosClient({ products, categories }: { products: Pro
     setQuery('');
     setCategory('todas');
     setSort('featured');
+    router.replace('/produtos', { scroll: false });
+  }
+
+  function selectCategory(nextCategory: string) {
+    setCategory(nextCategory);
+    const params = new URLSearchParams();
+    if (query.trim()) params.set('busca', query.trim());
+    if (nextCategory !== 'todas') params.set('categoria', nextCategory);
+    router.replace(`/produtos${params.size ? `?${params}` : ''}`, { scroll: false });
   }
 
   return (
@@ -200,9 +210,9 @@ export default function ProdutosClient({ products, categories }: { products: Pro
       </div>
 
       <div className="catalog-category-row" role="group" aria-label="Filtrar por categoria">
-        <button type="button" aria-pressed={category === 'todas'} className="catalog-category-option" onClick={() => setCategory('todas')}>Todas</button>
+        <button type="button" aria-pressed={category === 'todas'} className="catalog-category-option" onClick={() => selectCategory('todas')}>Todas</button>
         {categories.map((item) => (
-          <button type="button" key={item.id} aria-pressed={category === item.id} className="catalog-category-option" onClick={() => setCategory(item.id)}>{item.name}</button>
+          <button type="button" key={item.id} aria-pressed={category === item.id} className="catalog-category-option" onClick={() => selectCategory(item.id)}>{item.name}</button>
         ))}
       </div>
 
