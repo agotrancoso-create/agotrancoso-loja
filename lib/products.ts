@@ -3,21 +3,20 @@ import { Product, Category, CartItem } from './types';
 
 // -----------------------------------------------------------------------
 // Toda a loja lê nomes, preços, categorias e imagens a partir de products.json.
-// As exceções abaixo existem apenas para corrigir nomes de arquivos históricos
-// que não correspondem ao produto real e para manter somente originais com
-// qualidade suficiente para exibição. Elas não alteram preço, disponibilidade
-// ou categoria.
+// As exceções abaixo existem apenas para corrigir associações históricas e para
+// manter somente originais com qualidade suficiente para exibição. Elas não
+// alteram preço, disponibilidade ou categoria.
 // -----------------------------------------------------------------------
 
 const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
-  // Estes dois arquivos têm nomes históricos invertidos no acervo. A associação
-  // abaixo é a associação visual correta e não deve ser inferida pelo filename.
+  // Associação visual conferida: a Igrejinha P usa a foto da peça P e a
+  // Igrejinha Luminária usa a foto da luminária. Não inverter estes caminhos.
   'igreja-quadrado-p': [
-    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/igreja-quadrado-p.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ],
   'igrejinha-luminaria-trancoso': [
-    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
   ],
 
   // Galeria conferida com o catálogo Meta enviado pela Agô: dois originais de
