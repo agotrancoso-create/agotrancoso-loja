@@ -1,0 +1,146 @@
+/* Calm storefront pass.
+   The Agô experience should feel editorial and quiet: the photography stays still,
+   the same palette is used on every viewport, and secondary interaction clutter is reduced. */
+
+:root {
+  --ago-bg-primary: var(--ivory);
+  --ago-bg-secondary: var(--sand);
+  --ago-bg-editorial: var(--clay);
+  --ago-bg-accent: var(--terracotta);
+  --ago-bg-deep: var(--cacao);
+}
+
+html,
+body,
+main,
+.ago-home,
+.catalog-page,
+.product-page,
+.checkout-page,
+.contact-shell,
+.essencia-shell {
+  background: var(--ago-bg-primary);
+}
+
+.ago-cinematic-commerce { background: var(--ago-bg-secondary); }
+.ago-premium-editorial { background: var(--ago-bg-editorial); }
+.ago-premium-discovery,
+.product-related-selection { background: var(--ago-bg-primary); }
+.ago-shipping-chapter { background: var(--ago-bg-deep); }
+
+/* No cinematic movement, hover zoom, image swapping or arrival animation. */
+.ago-home,
+.catalog-page,
+.product-page,
+.contact-shell,
+.essencia-shell,
+.checkout-page,
+.ago-cinematic-image,
+.product-image,
+.product-image-primary,
+.product-image-secondary,
+.product-card,
+.product-gallery-main,
+.product-gallery-image,
+.product-gallery-thumb,
+.ago-story-image img,
+.ago-premium-image img,
+.ago-premium-discovery-image img,
+.ago-immersive-card-media img,
+.ago-photo-viewport img,
+.ago-photo-canvas img {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.product-image-primary {
+  opacity: 1 !important;
+}
+
+.product-image-secondary {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+.product-card:has(.product-card-main:hover),
+.product-card:has(.product-card-main:focus-visible),
+.product-card:hover,
+.product-gallery-main:hover,
+.product-gallery-thumb:hover,
+.ago-home-story:hover .ago-story-image img,
+.ago-premium-discovery-card:hover img,
+.ago-immersive-card-media:hover img,
+.ago-immersive-card-media:focus-visible img {
+  transform: none !important;
+}
+
+.product-view,
+.ago-card-quick-view {
+  display: none !important;
+}
+
+/* The page itself no longer rises/fades while scrolling. */
+.ago-motion-ready .ago-reveal,
+.ago-motion-ready .ago-reveal.is-visible {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Remove the latest secondary layers that made product pages feel busy. */
+.product-experience-actions,
+.product-order-journey,
+.recently-viewed-section,
+.saved-products-section {
+  display: none !important;
+}
+
+/* Keep the homepage concise and let product photography carry the hierarchy. */
+.ago-home-calm .ago-cinematic-copy > p:not(.eyebrow) {
+  max-width: 520px;
+}
+
+.ago-home-calm .ago-premium-editorial,
+.ago-home-calm .ago-premium-discovery,
+.ago-home-calm .ago-shipping-chapter {
+  padding-block: clamp(58px, 7vw, 92px);
+}
+
+.ago-home-calm .ago-premium-discovery-copy small,
+.ago-home-calm .ago-premium-discovery-copy strong {
+  display: none;
+}
+
+.ago-home-calm .ago-premium-discovery-copy {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.ago-home-calm .ago-premium-discovery-copy span {
+  margin: 0;
+}
+
+.ago-home-calm .ago-shipping-facts {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .ago-home-calm .ago-shipping-facts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .ago-home-calm .ago-premium-editorial,
+  .ago-home-calm .ago-premium-discovery,
+  .ago-home-calm .ago-shipping-chapter {
+    padding-block: 52px;
+  }
+
+  .ago-home-calm .ago-cinematic-products {
+    margin-top: -34px;
+  }
+}
