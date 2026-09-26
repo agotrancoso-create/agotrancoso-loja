@@ -31,8 +31,7 @@ function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-export default function Header() {
-  const [firstPurchaseAvailable, setFirstPurchaseAvailable] = useState(false);
+export default function Header({ firstPurchaseAvailable = false }: { firstPurchaseAvailable?: boolean }) {
   const [query, setQuery] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -64,13 +63,6 @@ export default function Header() {
       .slice(0, 6)
       .map((item) => item.product);
   }, [products, query]);
-
-  useEffect(() => {
-    let active = true;
-    fetch('/api/first-purchase/eligibility', { cache: 'no-store' })
-      .then(response => response.json()).then(data => { if (active) setFirstPurchaseAvailable(data.available === true); }).catch(() => {});
-    return () => { active = false; };
-  }, []);
 
   useEffect(() => {
     setMenuOpen(false);
