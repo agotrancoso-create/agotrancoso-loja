@@ -21,6 +21,10 @@ import { SITE_DOMAIN } from '@/lib/config';
 
 const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-sans' });
 const cormorant = Cormorant_Garamond({ subsets: ['latin'], display: 'swap', variable: '--font-display', weight: ['500', '600', '700'] });
+const firstPurchaseAvailable = Boolean(
+  (process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL) &&
+  (process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN),
+);
 
 export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#eedcc2', colorScheme: 'light' };
 
@@ -119,12 +123,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MarketingAnalytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <CartProvider>
-          <Header />
+          <Header firstPurchaseAvailable={firstPurchaseAvailable} />
           <main id="conteudo-principal" className="min-h-[60vh]">{children}</main>
           <Footer />
           <CartDrawer />
           <SocialFloaters />
-          <FirstPurchaseOffer />
+          {firstPurchaseAvailable && <FirstPurchaseOffer />}
         </CartProvider>
       </body>
     </html>
