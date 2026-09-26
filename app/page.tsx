@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ProductCard from '@/components/ProductCard';
 import Benefits from '@/components/Benefits';
+import ImmersiveJourney from '@/components/ImmersiveJourney';
+import RecentlyViewed from '@/components/RecentlyViewed';
 import { getAvailableProducts } from '@/lib/products';
 import { sortProductsByAttention } from '@/lib/merchandising';
 
@@ -20,11 +22,12 @@ const discovery = [
   { title: 'Trancoso', subtitle: 'Igrejinhas e símbolos do Quadrado', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
   { title: 'Casa & decoração', subtitle: 'Peças para compor a casa', category: 'decoracao', image: '/produtos/esfera-decorativa.jpg' },
   { title: 'Fé & devoção', subtitle: 'Símbolos de fé em cerâmica', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-1.jpg' },
-  { title: 'Presentes', subtitle: 'Pequenas peças para levar', category: 'presentes', image: '/produtos/colar-igreja-quadrado.jpg' },
+  { title: 'Presentes', subtitle: 'Pequenas peças para levar', category: 'presentes', image: '/produtos/catalogo/colar-igreja-quadrado-2.jpg' },
 ];
 
 export default function HomePage() {
-  const featured = sortProductsByAttention(getAvailableProducts()).slice(0, 6);
+  const allProducts = sortProductsByAttention(getAvailableProducts());
+  const featured = allProducts.slice(0, 6);
 
   return (
     <div className="ago-home ago-premium-home">
@@ -63,6 +66,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <ImmersiveJourney />
 
       <section className="ago-journey-chapter ago-reveal" aria-labelledby="feito-mao-title">
         <div className="ago-container ago-journey-heading">
@@ -112,6 +117,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <RecentlyViewed products={allProducts} />
 
       <section className="ago-shipping-chapter ago-reveal" aria-labelledby="shipping-title">
         <div className="ago-container ago-shipping-chapter-inner">
