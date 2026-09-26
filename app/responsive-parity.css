@@ -1,0 +1,346 @@
+/* Responsive parity layer.
+   Goal: keep the same content, commerce features and visual language on
+   desktop, tablet and mobile while adapting only the layout to the viewport. */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/* Keep product imagery and media frames consistent everywhere. */
+.product-image-wrap,
+.product-gallery-main,
+.ago-premium-discovery-image,
+.cart-product-image,
+.cart-complementary-image,
+.checkout-product-image {
+  overflow: hidden;
+}
+
+.product-image-wrap img,
+.product-gallery-main img,
+.ago-premium-discovery-image img,
+.cart-product-image img,
+.cart-complementary-image img,
+.checkout-product-image img {
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Internal scrolling should feel native, not like an old embedded panel. */
+.ago-category-bar-inner,
+.ago-search-suggestions,
+.catalog-search-suggestions,
+.product-gallery-thumbs,
+.cart-body,
+.cart-complementary-list,
+.mobile-menu,
+.ago-photo-viewport {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.ago-category-bar-inner::-webkit-scrollbar,
+.ago-search-suggestions::-webkit-scrollbar,
+.catalog-search-suggestions::-webkit-scrollbar,
+.product-gallery-thumbs::-webkit-scrollbar,
+.cart-body::-webkit-scrollbar,
+.cart-complementary-list::-webkit-scrollbar,
+.mobile-menu::-webkit-scrollbar,
+.ago-photo-viewport::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* Same discreet hero treatment on every viewport. */
+.ago-premium-hero-overlay {
+  background: linear-gradient(90deg, rgba(45, 32, 26, .68), rgba(45, 32, 26, .48) 48%, rgba(45, 32, 26, .22));
+}
+
+/* The same complementary-shopping experience is available on every device. */
+.cart-complementary {
+  display: block;
+  min-width: 0;
+}
+
+.cart-complementary-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cart-complementary-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+
+.cart-complementary-nav button {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--sand);
+}
+
+.cart-complementary-nav svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cart-complementary-list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(250px, 82%);
+  gap: 12px;
+  margin-top: 12px;
+  padding: 2px 2px 8px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: 2px;
+  touch-action: pan-x pan-y;
+}
+
+.cart-complementary-item {
+  min-width: 0;
+  scroll-snap-align: start;
+  padding: 10px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--sand) 55%, var(--ivory));
+}
+
+.cart-complementary-info strong {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* Prevent long labels/prices from causing horizontal overflow. */
+.product-name,
+.cart-item-info h3,
+.cart-complementary-info,
+.checkout-product-name,
+.catalog-intro,
+.product-buybox,
+.ago-footer-group,
+.ago-footer-brand {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1100px) {
+  .ago-premium-discovery-grid,
+  .ago-benefits-grid {
+    align-items: start;
+  }
+}
+
+@media (max-width: 900px) {
+  /* Mobile/tablet keeps the same category navigation instead of removing it. */
+  html {
+    scroll-padding-top: 128px;
+  }
+
+  .ago-category-bar {
+    display: block;
+    overflow: hidden;
+  }
+
+  .ago-category-bar-inner {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding-inline: max(16px, var(--gutter));
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 0 24px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x proximity;
+    touch-action: pan-x;
+  }
+
+  .ago-category-bar a {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  /* Floating contact actions remain floating on mobile as on desktop. */
+  .ago-social-floaters {
+    position: fixed;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    z-index: 30;
+    justify-content: flex-end;
+    padding: 0;
+    background: transparent;
+  }
+
+  .ago-social-button {
+    background: var(--cacao);
+    color: var(--ivory);
+  }
+
+  .product-page-grid,
+  .checkout-layout {
+    width: 100%;
+  }
+
+  .product-gallery {
+    width: 100%;
+  }
+
+  .checkout-summary {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Keep the same cart recommendations and controls on phones. */
+  .cart-complementary {
+    display: block;
+    padding: 18px 0 22px;
+  }
+
+  .cart-complementary-list {
+    grid-auto-columns: minmax(228px, 88%);
+    gap: 10px;
+  }
+
+  .cart-complementary-item {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .cart-complementary-image {
+    width: 64px;
+    height: 64px;
+  }
+
+  .cart-complementary-nav button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .ago-premium-hero-overlay {
+    background: linear-gradient(90deg, rgba(45, 32, 26, .68), rgba(45, 32, 26, .48) 58%, rgba(45, 32, 26, .28));
+  }
+
+  .ago-premium-product-grid,
+  .ago-premium-discovery-grid,
+  .catalog-grid {
+    width: 100%;
+  }
+
+  .product-add,
+  .product-primary-cta,
+  .checkout-next-step,
+  .checkout-submit,
+  .cart-checkout {
+    min-height: 50px;
+  }
+
+  .ago-footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ago-footer-group a,
+  .ago-footer-group p,
+  .ago-footer-group nav > span {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --gutter: 16px;
+  }
+
+  .header-inner {
+    gap: 10px;
+  }
+
+  .header-actions {
+    gap: 4px;
+  }
+
+  .ago-category-bar-inner {
+    padding-inline: 16px;
+    gap: 0 20px;
+  }
+
+  .ago-premium-product-grid,
+  .ago-premium-discovery-grid,
+  .catalog-grid {
+    gap-inline: 10px;
+  }
+
+  .product-name {
+    font-size: .95rem;
+  }
+
+  .checkout-fields-address {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .checkout-progress-step {
+    font-size: .7rem;
+  }
+
+  .cart-header,
+  .cart-body,
+  .cart-summary {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .cart-item {
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+
+  .cart-product-image {
+    width: 64px;
+    height: 64px;
+  }
+
+  .ago-footer-main {
+    gap-inline: 14px;
+  }
+}
+
+@media (max-width: 340px) {
+  .ago-premium-product-grid,
+  .ago-premium-discovery-grid,
+  .catalog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ago-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ago-footer-main {
+    grid-template-columns: 1fr;
+  }
+
+  .ago-footer-brand,
+  .ago-footer-visit-group {
+    grid-column: 1;
+  }
+}
