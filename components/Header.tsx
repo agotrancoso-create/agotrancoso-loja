@@ -17,7 +17,7 @@ const navItems = [
 
 const categoryItems = [
   { href: '/produtos?categoria=trancoso', label: 'Trancoso' },
-  { href: '/produtos?categoria=igrejinhas', label: 'Igrejinhas' },
+  { href: '/igrejinha-de-trancoso', label: 'Igrejinhas' },
   { href: '/produtos?categoria=decoracao', label: 'Decoração' },
   { href: '/produtos?categoria=fe-devocao', label: 'Fé & devoção' },
   { href: '/produtos?categoria=presentes', label: 'Presentes' },
@@ -127,7 +127,7 @@ export default function Header() {
     router.push(`/produtos/${id}`);
   }
 
-  const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
+  const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href.split('?')[0]);
   const showSuggestions = searchFocused && query.trim().length > 0;
 
   return (
@@ -267,38 +267,30 @@ export default function Header() {
         </nav>
 
         {menuOpen && (
-          <div ref={menuRef} id="mobile-navigation" className="mobile-menu ago-container" role="dialog" aria-modal="true" aria-label="Menu">
-            <form onSubmit={handleSearch} role="search" className="mobile-search-form">
-              <label className="sr-only" htmlFor="mobile-search">Buscar na coleção</label>
-              <input id="mobile-search" onKeyDown={(event) => { if (event.key === 'ArrowDown') { event.preventDefault(); menuRef.current?.querySelector<HTMLButtonElement>('.mobile-search-suggestions button')?.focus(); } }} type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar peça..." autoFocus />
+          <div id="mobile-navigation" className="mobile-menu" ref={menuRef}>
+            <form onSubmit={handleSearch} className="mobile-search-form" role="search">
+              <label className="sr-only" htmlFor="mobile-search">Buscar uma peça</label>
+              <input id="mobile-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar na coleção" autoComplete="off" />
               {query.trim() && (
-                <div className="mobile-search-suggestions" aria-label="Sugestões de peças" onKeyDown={(event) => {
-                  const buttons = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>('button'));
-                  const index = buttons.indexOf(event.target as HTMLButtonElement);
-                  if (event.key === 'ArrowDown') { event.preventDefault(); buttons[(index + 1) % buttons.length]?.focus(); }
-                  if (event.key === 'ArrowUp') { event.preventDefault(); if (index > 0) buttons[index - 1]?.focus(); else document.getElementById('mobile-search')?.focus(); }
-                }}>
-                  {suggestions.slice(0, 5).map((product) => (
+                <div className="mobile-search-suggestions">
+                  {suggestions.slice(0, 4).map((product) => (
                     <button type="button" key={product.id} onClick={() => chooseProduct(product.id)}>
-                      <span className="ago-search-suggestion-image"><Image src={product.images[0]} alt="" fill sizes="54px" /></span><span className="ago-search-suggestion-copy"><strong>{product.name}</strong><small>{formatBRL(getEffectivePrice(product))}</small></span>
+                      <span>{product.name}</span><small>{formatBRL(getEffectivePrice(product))}</small>
                     </button>
                   ))}
                 </div>
               )}
             </form>
 
-            <div className="mobile-menu-primary">
-              {navItems.map((item) => (
-                <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)} className={isActive(item.href) ? 'is-active' : undefined} aria-current={isActive(item.href) ? 'page' : undefined}>
-                  {item.label}
-                </Link>
-              ))}
-            </div>
+            <nav className="mobile-menu-primary" aria-label="Navegação móvel">
+              {navItems.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
+            </nav>
 
             <p className="mobile-menu-label">Explorar coleção</p>
-            <div className="mobile-menu-categories">
-              {categoryItems.map((item) => <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}</Link>)}
-            </div>
+            <nav className="mobile-menu-categories" aria-label="Categorias">
+              <Link href="/produtos">Ver tudo</Link>
+              {categoryItems.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
+            </nav>
           </div>
         )}
       </header>
