@@ -1,0 +1,272 @@
+/* Premium experience layer: motion, storytelling and high-intent commerce.
+   Motion is deliberately restrained and fully disabled for reduced motion. */
+
+:root {
+  --ago-cinematic-shift: 0px;
+  --ago-ease: cubic-bezier(.22,.8,.24,1);
+}
+
+/* Route/content entrance */
+.ago-home,
+.catalog-page,
+.product-page,
+.contact-shell,
+.essencia-shell,
+.checkout-page {
+  animation: ago-page-enter .48s var(--ago-ease) both;
+}
+
+@keyframes ago-page-enter {
+  from { opacity: .01; transform: translateY(5px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Scroll reveal: content is always visible without JS. JS adds .ago-motion-ready. */
+.ago-motion-ready .ago-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .7s var(--ago-ease), transform .8s var(--ago-ease);
+}
+
+.ago-motion-ready .ago-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Cinematic entry that still brings the product selection immediately after it. */
+.ago-cinematic-commerce {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(70px, 8vw, 118px) 0 clamp(54px, 7vw, 92px);
+  background: var(--sand);
+  overflow: clip;
+}
+
+.ago-cinematic-media {
+  position: absolute;
+  inset: 0 0 auto;
+  height: min(640px, 72vh);
+  overflow: hidden;
+  z-index: -2;
+}
+
+.ago-cinematic-image {
+  object-fit: cover;
+  object-position: center 48%;
+  transform: scale(1.025) translate3d(0, var(--ago-cinematic-shift), 0);
+  transition: transform .12s linear;
+  will-change: transform;
+}
+
+.ago-cinematic-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(45,32,26,.52), rgba(45,32,26,.30) 54%, rgba(45,32,26,.14));
+}
+
+.ago-cinematic-copy {
+  min-height: clamp(330px, 46vw, 500px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: var(--ivory);
+  padding-bottom: clamp(56px, 8vw, 96px);
+}
+
+.ago-cinematic-copy .eyebrow { color: var(--sand); }
+.ago-cinematic-copy h1 { max-width: 760px; font-size: clamp(2.35rem, 5vw, 4.7rem); line-height: 1.02; }
+.ago-cinematic-copy > p:not(.eyebrow) { max-width: 610px; margin-top: 22px; font-size: clamp(.96rem, 1.25vw, 1.08rem); line-height: 1.75; }
+.ago-cinematic-secondary { min-height: 48px; display: inline-flex; align-items: center; gap: 10px; padding: 0 4px; font-size: .88rem; font-weight: 800; border-bottom: 1px solid currentColor; }
+
+.ago-cinematic-products {
+  position: relative;
+  margin-top: clamp(-72px, -5vw, -48px);
+  padding: clamp(28px, 4vw, 54px);
+  background: color-mix(in srgb, var(--ivory) 96%, white);
+  border-radius: clamp(22px, 3vw, 34px);
+  box-shadow: 0 24px 70px rgba(45,32,26,.12);
+}
+
+.ago-cinematic-products-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.ago-cinematic-products-head h2 { max-width: 640px; }
+
+/* Product cards: second image, framing and tactile feedback. */
+.product-card {
+  transform: translateZ(0);
+  transition: transform .28s var(--ago-ease);
+}
+
+.product-card:has(.product-card-main:hover),
+.product-card:has(.product-card-main:focus-visible) {
+  transform: translateY(-3px);
+}
+
+.product-image-wrap {
+  isolation: isolate;
+  background: color-mix(in srgb, var(--ivory) 72%, var(--sand));
+}
+
+.product-image {
+  transition: opacity .45s var(--ago-ease), transform .7s var(--ago-ease), filter .45s ease;
+  backface-visibility: hidden;
+}
+
+.product-image-primary { opacity: 1; transform: scale(1); }
+.product-image-secondary { opacity: 0; transform: scale(1.018); }
+
+.has-secondary-image .product-card-main:hover .product-image-primary,
+.has-secondary-image .product-card-main:focus-visible .product-image-primary { opacity: 0; transform: scale(1.018); }
+.has-secondary-image .product-card-main:hover .product-image-secondary,
+.has-secondary-image .product-card-main:focus-visible .product-image-secondary { opacity: 1; transform: scale(1); }
+
+.product-card:not(.has-secondary-image) .product-card-main:hover .product-image,
+.product-card:not(.has-secondary-image) .product-card-main:focus-visible .product-image { transform: scale(1.025); }
+
+.product-view {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .28s ease, transform .28s var(--ago-ease);
+}
+
+.product-card-main:hover .product-view,
+.product-card-main:focus-visible .product-view { opacity: 1; transform: none; }
+
+.ago-bag-cta,
+.cart-checkout,
+.product-primary-cta,
+.checkout-submit,
+.checkout-next-step {
+  transition: transform .16s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.ago-bag-cta:active,
+.cart-checkout:active,
+.product-primary-cta:active,
+.checkout-submit:active,
+.checkout-next-step:active { transform: scale(.985); }
+
+.ago-bag-cta.is-added { box-shadow: inset 0 0 0 1px rgba(250,243,232,.45), 0 8px 22px rgba(45,32,26,.14); }
+
+/* Journey chapters */
+.ago-journey-chapter { background: var(--ivory); padding-top: clamp(56px, 7vw, 96px); }
+.ago-journey-heading { display: grid; grid-template-columns: auto minmax(0, 760px); gap: 24px; align-items: start; }
+.ago-journey-heading > div > p:not(.eyebrow) { color: var(--muted); margin-top: 16px; max-width: 620px; }
+.ago-journey-index { display: inline-flex; align-items: center; justify-content: center; min-width: 42px; height: 28px; border: 1px solid color-mix(in srgb, currentColor 32%, transparent); border-radius: 999px; font-size: .68rem; font-weight: 800; letter-spacing: .12em; opacity: .72; margin-bottom: 12px; }
+.ago-journey-chapter .benefits-strip { padding-top: 34px; }
+
+.ago-story-image img { transition: transform 1.15s var(--ago-ease); }
+.ago-home-story:hover .ago-story-image img { transform: scale(1.018); }
+
+.ago-shipping-chapter { background: var(--cacao); color: var(--ivory); padding-block: clamp(62px, 8vw, 104px); }
+.ago-shipping-chapter .eyebrow { color: var(--sand); }
+.ago-shipping-chapter-inner { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(320px,.9fr); gap: clamp(40px,7vw,92px); align-items: end; }
+.ago-shipping-chapter h2 { max-width: 720px; }
+.ago-shipping-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ago-shipping-facts span { min-height: 66px; display: flex; align-items: center; padding: 16px 18px; border: 1px solid rgba(250,243,232,.22); border-radius: 16px; font-size: .84rem; line-height: 1.45; }
+
+/* Product detail: desire before transaction. */
+.product-page-grid-emotional { align-items: start; }
+.product-buybox-emotional { display: grid; gap: 0; }
+.product-desire-intro { padding-bottom: clamp(28px, 4vw, 44px); }
+.product-story-title { margin-top: 20px; font-family: var(--font-display), Georgia, serif; font-size: clamp(1.35rem, 2vw, 1.8rem); line-height: 1.28; color: var(--cacao); }
+.product-story-body { margin-top: 16px; color: var(--muted); line-height: 1.85; }
+.product-material-note { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 22px; font-size: .76rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--leather); }
+.product-material-note i { width: 3px; height: 3px; border-radius: 50%; background: currentColor; }
+
+.product-commerce-block {
+  margin-top: 2px;
+  padding: clamp(24px, 3vw, 34px);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--sand) 60%, var(--ivory));
+}
+.product-commerce-eyebrow { margin-bottom: 10px; font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--terracotta); }
+.product-commerce-block .product-description { margin-top: 18px; }
+.product-related-selection { padding-block: clamp(58px, 7vw, 92px); background: var(--ivory); }
+.product-related-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+
+/* Gallery feels tactile rather than mechanical. */
+.product-gallery-main { transition: box-shadow .28s ease, transform .35s var(--ago-ease); }
+.product-gallery-main:hover { box-shadow: 0 16px 42px rgba(45,32,26,.10); }
+.product-gallery-image { transition: transform .75s var(--ago-ease), opacity .35s ease; }
+.product-gallery-main:hover .product-gallery-image { transform: scale(1.012); }
+.product-gallery-thumb { transition: transform .18s ease, opacity .18s ease; }
+.product-gallery-thumb:hover { transform: translateY(-2px); }
+
+/* Cart as a living selection. */
+.cart-header-title { align-items: flex-start; }
+.cart-header-title small { display: block; margin-top: 3px; color: var(--muted); font-size: .68rem; line-height: 1.35; font-weight: 500; max-width: 250px; }
+.cart-drawer { box-shadow: -24px 0 70px rgba(45,32,26,.16); }
+.cart-item, .cart-complementary-item { transition: background .2s ease, transform .2s var(--ago-ease); }
+.cart-complementary-item:hover { transform: translateY(-2px); }
+.cart-complementary-add { transition: transform .16s ease, background .18s ease; }
+.cart-complementary-add:active { transform: scale(.92); }
+
+/* Image presence. */
+.product-image-wrap img,
+.product-gallery-main img,
+.ago-premium-discovery-image img,
+.ago-premium-image img,
+.ago-cinematic-media img {
+  animation: ago-image-arrive .55s ease both;
+}
+@keyframes ago-image-arrive { from { opacity: .72; filter: saturate(.92); } to { opacity: 1; filter: none; } }
+
+@media (max-width: 900px) {
+  .ago-cinematic-commerce { padding-top: 48px; }
+  .ago-cinematic-media { height: 520px; }
+  .ago-cinematic-copy { min-height: 390px; padding-bottom: 70px; }
+  .ago-cinematic-products { margin-top: -46px; }
+  .ago-shipping-chapter-inner { grid-template-columns: 1fr; align-items: start; }
+  .product-related-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+
+@media (max-width: 600px) {
+  .ago-cinematic-commerce { padding-top: 34px; }
+  .ago-cinematic-media { height: 470px; }
+  .ago-cinematic-copy { min-height: 365px; padding-bottom: 64px; }
+  .ago-cinematic-copy h1 { font-size: clamp(2.18rem, 11vw, 3.2rem); }
+  .ago-cinematic-copy > p:not(.eyebrow) { max-width: 92%; }
+  .ago-cinematic-products { width: calc(100% - 20px); padding: 24px 12px 30px; border-radius: 22px; margin-top: -38px; }
+  .ago-cinematic-products-head { display: block; margin-bottom: 24px; padding-inline: 4px; }
+  .ago-cinematic-products-head .ago-premium-text-link { margin-top: 10px; }
+  .ago-journey-heading { grid-template-columns: 1fr; gap: 4px; }
+  .ago-journey-heading > .ago-journey-index { justify-self: start; }
+  .ago-shipping-facts { grid-template-columns: 1fr; }
+  .ago-shipping-facts span { min-height: 56px; }
+  .product-commerce-block { padding: 22px 16px; border-radius: 18px; }
+  .product-related-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap-inline: 10px; }
+  .product-view { opacity: 1; transform: none; }
+}
+
+@media (max-width: 340px) {
+  .product-related-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ago-home,
+  .catalog-page,
+  .product-page,
+  .contact-shell,
+  .essencia-shell,
+  .checkout-page,
+  .product-image-wrap img,
+  .product-gallery-main img,
+  .ago-premium-discovery-image img,
+  .ago-premium-image img,
+  .ago-cinematic-media img { animation: none !important; }
+
+  .ago-motion-ready .ago-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .ago-cinematic-image,
+  .product-image,
+  .product-card,
+  .product-gallery-image,
+  .ago-story-image img { transform: none !important; transition: none !important; }
+}
