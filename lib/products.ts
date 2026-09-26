@@ -2,8 +2,9 @@ import productsData from '@/data/products.json';
 import { Product, Category, CartItem } from './types';
 
 // Toda a loja lê nomes, preços, categorias e imagens a partir de products.json.
-// As exceções abaixo existem só para preservar as fotografias corretas que a
-// proprietária confirmou. Não alteram preço, disponibilidade ou categoria.
+// As exceções abaixo existem só para preservar fotografias corretas confirmadas
+// pela proprietária e remover associações visuais duvidosas. Não alteram preço,
+// disponibilidade ou categoria.
 const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
   // Os nomes físicos desses dois arquivos ficaram historicamente invertidos.
   // Esta associação visual foi confirmada pela proprietária. Não trocar.
@@ -32,20 +33,38 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
     '/produtos/catalogo/colar-igreja-quadrado-2.jpg',
     '/produtos/colar-igreja-quadrado.jpg',
   ],
+  // A antiga segunda imagem apontava para uma Igreja M e não para o ímã.
+  // Mantemos apenas a fotografia inequivocamente correspondente ao produto.
+  'ima-igrejinha-trancoso': [
+    '/produtos/ima-igrejinha-trancoso.jpg',
+  ],
 };
 
-function normalizeProductImages(product: Product): Product {
+// Revisões editoriais pontuais para corrigir gramática, clareza e afirmações
+// excessivamente específicas sem alterar a identidade ou as informações comerciais.
+const PRODUCT_DESCRIPTION_CORRECTIONS: Record<string, string> = {
+  'igreja-quadrado-m': 'Inspirada na tradicional Igrejinha do Quadrado, esta peça em cerâmica leva para a decoração um dos símbolos mais marcantes de Trancoso. Em tamanho M, é uma representação delicada da arquitetura que torna esse lugar tão especial.',
+  'mobile-trancoso': 'Móbile feito à mão em cerâmica, com casinhas penduradas em fio resistente. Cria movimento suave com a brisa e leva um toque de Trancoso para o ambiente.',
+  'estatueta-iemanja': 'Escultura artesanal de Iemanjá em cerâmica, com detalhes delicados. Ideal para altar ou para compor ambientes de fé e devoção.',
+  'casal-pretos-velhos': 'Dupla de estatuetas em cerâmica representando um casal de Pretos-Velhos. Os detalhes das vestimentas, do banco e do cachimbo são modelados à mão. Uma peça ligada à memória, à sabedoria e à proteção.',
+  'terco-em-ceramica': 'Terço artesanal com contas de cerâmica branca enfileiradas e cruz no final. Composição clássica, ideal para devoção ou como peça decorativa religiosa.',
+  'esfera-decorativa': 'Bola decorativa de cerâmica, com design minimalista. Pode ser usada sobre suportes ou mesas e traz simplicidade sofisticada à decoração.',
+  'ima-igrejinha-trancoso': 'Ímã artesanal em cerâmica representando a Igreja de São João Batista, no Quadrado de Trancoso. Pintado à mão, é uma lembrança delicada para levar um símbolo de Trancoso para o dia a dia.',
+};
+
+function normalizeProduct(product: Product): Product {
   const source = RECOVERED_PRODUCT_GALLERIES[product.id] ?? product.images ?? [];
   const images = Array.from(new Set(source.filter(Boolean)));
   return {
     ...product,
+    description: PRODUCT_DESCRIPTION_CORRECTIONS[product.id] ?? product.description,
     images: images.length ? images : ['/images/placeholder.svg'],
     imageAlt: product.imageAlt || product.name,
   };
 }
 
 export function getAllProducts(): Product[] {
-  return (productsData.products as Product[]).map(normalizeProductImages);
+  return (productsData.products as Product[]).map(normalizeProduct);
 }
 
 export function getAllCategories(): Category[] {
