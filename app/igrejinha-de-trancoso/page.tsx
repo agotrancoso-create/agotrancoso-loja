@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
 import { getEffectivePrice, getProductById } from '@/lib/products';
+import { sortProductsByAttention } from '@/lib/merchandising';
 import { SITE_DOMAIN } from '@/lib/config';
 
 const productIds = [
@@ -60,9 +61,11 @@ export const metadata: Metadata = {
 };
 
 export default function IgrejinhaDeTrancosoPage() {
-  const products = productIds
-    .map((id) => getProductById(id))
-    .filter((product): product is NonNullable<typeof product> => Boolean(product?.available));
+  const products = sortProductsByAttention(
+    productIds
+      .map((id) => getProductById(id))
+      .filter((product): product is NonNullable<typeof product> => Boolean(product?.available))
+  );
 
   const churchProducts = products.filter((product) => churchProductIds.has(product.id));
   const startingPrice = churchProducts.length
@@ -122,7 +125,7 @@ export default function IgrejinhaDeTrancosoPage() {
   };
 
   return (
-    <div className="catalog-page">
+    <div className="catalog-page ago-page-enter">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <div className="site-container catalog-shell">
         <nav className="product-breadcrumb" aria-label="Navegação estrutural">
@@ -131,7 +134,7 @@ export default function IgrejinhaDeTrancosoPage() {
           <span aria-current="page">Igrejinha de Trancoso</span>
         </nav>
 
-        <header className="catalog-intro commerce-catalog-intro">
+        <header className="catalog-intro commerce-catalog-intro ago-reveal is-visible">
           <div>
             <p className="eyebrow">Quadrado de Trancoso</p>
             <h1>Igrejinha de Trancoso em cerâmica</h1>
@@ -141,13 +144,13 @@ export default function IgrejinhaDeTrancosoPage() {
           </p>
         </header>
 
-        <div id="modelos-igrejinha" className="product-grid catalog-grid commerce-first-grid" aria-label="Igrejinhas de Trancoso e peças inspiradas na Igreja do Quadrado">
+        <div id="modelos-igrejinha" className="product-grid catalog-grid commerce-first-grid ago-reveal is-visible" aria-label="Igrejinhas de Trancoso e peças inspiradas na Igreja do Quadrado">
           {products.map((product, index) => (
             <ProductCard key={product.id} product={product} priority={index < 3} />
           ))}
         </div>
 
-        <section className="catalog-buying-answer catalog-buying-answer-after-products" aria-labelledby="onde-comprar-igrejinha">
+        <section className="catalog-buying-answer catalog-buying-answer-after-products ago-reveal" aria-labelledby="onde-comprar-igrejinha">
           <div>
             <p className="eyebrow">Compra online e no Quadrado</p>
             <h2 id="onde-comprar-igrejinha">Onde comprar uma Igrejinha de Trancoso?</h2>
@@ -167,7 +170,7 @@ export default function IgrejinhaDeTrancosoPage() {
         </section>
       </div>
 
-      <section className="product-aftercare" aria-labelledby="igreja-quadrado-contexto">
+      <section className="product-aftercare ago-reveal" aria-labelledby="igreja-quadrado-contexto">
         <div className="site-container product-aftercare-inner">
           <p className="eyebrow">Um símbolo do Quadrado</p>
           <h2 id="igreja-quadrado-contexto">A Igreja de São João Batista como inspiração.</h2>
