@@ -15,69 +15,59 @@ const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.589557
 const whatsappUrl = 'https://wa.me/557398558124?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ag%C3%B4%20Trancoso.';
 const instagramUrl = 'https://www.instagram.com/agotrancoso';
 
-const featuredOrder = ['igreja-quadrado-p', 'igreja-quadrado-m', 'igrejinha-luminaria-trancoso', 'casinha-luminaria', 'miniatura-quadrado-trancoso', 'cruzeiro-do-quadrado'];
+const featuredOrder = [
+  'igreja-quadrado-p',
+  'igreja-quadrado-m',
+  'igrejinha-luminaria-trancoso',
+  'ima-igrejinha-trancoso',
+  'colar-igreja-quadrado',
+  'miniatura-quadrado-trancoso',
+];
 
 const discovery = [
-  { title: 'Trancoso', subtitle: 'Nosso maior repertório', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
-  { title: 'Casa & decoração', subtitle: 'Para viver junto', category: 'decoracao', image: '/produtos/esfera-decorativa.jpg' },
-  { title: 'Fé & devoção', subtitle: 'Símbolos que acompanham', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-1.jpg' },
-  { title: 'Presentes', subtitle: 'Para alguém que veio à cabeça', category: 'presentes', image: '/produtos/colar-igreja-quadrado.jpg' },
+  { title: 'Trancoso', subtitle: 'Igrejinhas e memórias do lugar', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
+  { title: 'Casa & decoração', subtitle: 'Peças para viver com você', category: 'decoracao', image: '/produtos/esfera-decorativa.jpg' },
+  { title: 'Fé & devoção', subtitle: 'Símbolos para acompanhar', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-1.jpg' },
+  { title: 'Presentes', subtitle: 'Escolhas para presentear', category: 'presentes', image: '/produtos/colar-igreja-quadrado.jpg' },
 ];
 
 export default function HomePage() {
   const available = getAvailableProducts();
   const byId = new Map(available.map((product) => [product.id, product]));
-  const featured = featuredOrder.map((id) => byId.get(id) ?? getProductById(id)).filter((product): product is NonNullable<typeof product> => Boolean(product?.available));
+  const featured = featuredOrder
+    .map((id) => byId.get(id) ?? getProductById(id))
+    .filter((product): product is NonNullable<typeof product> => Boolean(product?.available));
 
   return (
     <div className="ago-home ago-premium-home">
       <section className="ago-premium-collection ago-premium-collection-first" aria-labelledby="featured-title">
         <div className="ago-container">
           <div className="ago-collection-intro-brand">
-            <p className="eyebrow">Agô · Trancoso, Bahia</p>
-            <h1 id="featured-title">Peças que ficam por perto.</h1>
-            <p>Igrejinhas do Quadrado, objetos para casa, símbolos de fé e ideias para presentear. Explore com calma.</p>
+            <p className="eyebrow">Seleção Agô · Trancoso, Bahia</p>
+            <h1 id="featured-title">Escolha sua peça de Trancoso.</h1>
+            <p>Igrejinhas do Quadrado, objetos para casa, símbolos de fé e presentes disponíveis para comprar online. Comece pela seleção em destaque.</p>
             <div className="home-hero-actions">
-              <Link href="/igrejinha-de-trancoso" className="ago-premium-text-link">Ver Igrejinhas de Trancoso <span aria-hidden="true">↗</span></Link>
-              <Link href="/produtos" className="ago-premium-text-link">Ver coleção <span aria-hidden="true">↗</span></Link>
+              <Link href="/igrejinha-de-trancoso" className="ago-premium-text-link">Comprar Igrejinhas <span aria-hidden="true">↗</span></Link>
+              <Link href="/produtos" className="ago-premium-text-link">Ver todas as peças <span aria-hidden="true">↗</span></Link>
             </div>
           </div>
 
-          <div className="ago-premium-product-grid ago-premium-product-grid-featured">
+          <div className="ago-premium-product-grid ago-premium-product-grid-featured commerce-first-grid">
             {featured.map((product, index) => <ProductCard key={product.id} product={product} priority={index < 4} />)}
           </div>
 
-          <div className="ago-collection-after-grid">
-            <span>Escolha sem pressa.</span>
-            <Link href="/produtos" className="ago-premium-dark-cta">Ver tudo</Link>
+          <div className="ago-collection-after-grid ago-conversion-after-grid">
+            <span>Envio para todo o Brasil · frete grátis acima de R$ 500</span>
+            <Link href="/produtos" className="ago-premium-dark-cta">Ver coleção completa</Link>
           </div>
-        </div>
-      </section>
-
-      <Benefits />
-
-      <div className="ago-premium-trust" aria-label="Informações da Agô">
-        <div className="ago-container ago-premium-trust-inner">
-          <span>Cerâmica artesanal</span><i aria-hidden="true" /><span>Envio com cuidado</span><i aria-hidden="true" /><span>Pagamento seguro</span><i aria-hidden="true" /><span>Envio internacional</span>
-        </div>
-      </div>
-
-      <section className="ago-premium-hero ago-home-hero" aria-labelledby="hero-title">
-        <Image src="/hero.jpg" alt="Peças de cerâmica disponíveis na Agô Trancoso" fill priority sizes="100vw" className="ago-premium-hero-image" quality={90} />
-        <div className="ago-premium-hero-overlay" aria-hidden="true" />
-        <div className="ago-container ago-premium-hero-content">
-          <p className="eyebrow">Depois da viagem</p>
-          <h2 id="hero-title">Tem lugar que continua com a gente.</h2>
-          <p>Às vezes ele volta numa cor, numa fachada, numa imagem, num objeto.</p>
-          <Link href="/produtos?categoria=trancoso" className="ago-premium-hero-cta">Ver Trancoso</Link>
         </div>
       </section>
 
       <section className="ago-premium-discovery" aria-labelledby="discover-title">
         <div className="ago-container">
           <div className="ago-premium-section-head">
-            <div><p className="eyebrow">A coleção</p><h2 id="discover-title">Escolha por onde entrar.</h2></div>
-            <Link href="/produtos" className="ago-premium-text-link">Ver tudo <span aria-hidden="true">↗</span></Link>
+            <div><p className="eyebrow">A coleção</p><h2 id="discover-title">Continue escolhendo.</h2></div>
+            <Link href="/produtos" className="ago-premium-text-link">Ver todas as peças <span aria-hidden="true">↗</span></Link>
           </div>
 
           <div className="ago-premium-discovery-grid">
@@ -88,6 +78,25 @@ export default function HomePage() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      <div className="ago-premium-trust" aria-label="Informações de compra da Agô">
+        <div className="ago-container ago-premium-trust-inner">
+          <span>Compra online</span><i aria-hidden="true" /><span>Frete grátis acima de R$ 500</span><i aria-hidden="true" /><span>Pagamento seguro</span><i aria-hidden="true" /><span>Envio para todo o Brasil</span>
+        </div>
+      </div>
+
+      <Benefits />
+
+      <section className="ago-premium-hero ago-home-hero" aria-labelledby="hero-title">
+        <Image src="/hero.jpg" alt="Peças de cerâmica disponíveis na Agô Trancoso" fill priority sizes="100vw" className="ago-premium-hero-image" quality={90} />
+        <div className="ago-premium-hero-overlay" aria-hidden="true" />
+        <div className="ago-container ago-premium-hero-content">
+          <p className="eyebrow">Do Quadrado para sua casa</p>
+          <h2 id="hero-title">Trancoso pode continuar por perto.</h2>
+          <p>Escolha uma peça que leve um pouco desse lugar com você.</p>
+          <Link href="/produtos?categoria=trancoso" className="ago-premium-hero-cta">Ver peças de Trancoso</Link>
         </div>
       </section>
 
