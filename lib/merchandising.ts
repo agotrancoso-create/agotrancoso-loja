@@ -2,17 +2,19 @@ import { Product } from './types';
 
 // Ordem editorial e comercial da vitrine.
 // A sequência prioriza, nesta ordem: reconhecimento imediato de Trancoso,
-// contraste visual entre peças, assinatura da marca, variedade de faixa de
-// preço e facilidade de entrada na compra.
+// contraste visual entre peças, faixa de entrada acessível, variedade e
+// facilidade de decisão. Peças de ticket muito alto entram depois da primeira
+// dobra para não criarem uma âncora de preço pesada logo no início.
 export const ATTENTION_PRODUCT_ORDER = [
   'igreja-quadrado-p',
   'igrejinha-luminaria-trancoso',
   'miniatura-quadrado-trancoso',
   'igreja-quadrado-m',
-  'igreja-quadrado-gg',
-  'casinha-luminaria',
   'colar-igreja-quadrado',
   'ima-igrejinha-trancoso',
+  'casinha-luminaria',
+  'cruzeiro-do-quadrado',
+  'igreja-quadrado-gg',
   'mobile-trancoso',
   'estatueta-iemanja',
   'nossa-senhora-grande',
@@ -22,7 +24,6 @@ export const ATTENTION_PRODUCT_ORDER = [
   'divino-espirito-santo',
   'rosario-trancoso',
   'terco-em-ceramica',
-  'cruzeiro-do-quadrado',
   'esfera-decorativa',
 ] as const;
 
