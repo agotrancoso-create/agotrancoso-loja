@@ -27,7 +27,7 @@ export default function SavedProducts({ products }: { products: Product[] }) {
   if (!saved.length) return null;
 
   return (
-    <section className="saved-products-section ago-reveal is-visible" aria-labelledby="saved-products-title">
+    <section className="saved-products-section product-related-selection ago-reveal is-visible" aria-labelledby="saved-products-title">
       <div className="site-container">
         <div className="ago-premium-section-head">
           <div>
