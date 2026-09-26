@@ -15,7 +15,7 @@ const productIds = [
 
 export const metadata: Metadata = {
   title: { absolute: 'Igrejinha de Trancoso em Cerâmica | Agô Trancoso' },
-  description: 'Miniaturas e peças em cerâmica inspiradas na Igreja de São João Batista, a Igrejinha do Quadrado de Trancoso. Conheça a coleção da Agô.',
+  description: 'Conheça e compre igrejinhas de Trancoso em cerâmica, inspiradas na Igreja de São João Batista do Quadrado. Peças feitas à mão pela Agô em Trancoso, Bahia.',
   alternates: { canonical: '/igrejinha-de-trancoso' },
   openGraph: {
     title: 'Igrejinha de Trancoso em Cerâmica | Agô Trancoso',
@@ -90,7 +90,7 @@ export default function IgrejinhaDeTrancosoPage() {
             <h1>Igrejinha de Trancoso em cerâmica</h1>
           </div>
           <p>
-            Miniaturas e peças inspiradas na Igreja de São João Batista, conhecida como Igreja do Quadrado ou Igrejinha de Trancoso. A coleção reúne diferentes formas de levar esse símbolo de Trancoso para casa.
+            Miniaturas e peças inspiradas na Igreja de São João Batista, conhecida como Igreja do Quadrado ou Igrejinha de Trancoso. Escolha entre diferentes versões feitas à mão pela Agô.
           </p>
         </header>
 
@@ -106,9 +106,15 @@ export default function IgrejinhaDeTrancosoPage() {
           <p className="eyebrow">Um símbolo do Quadrado</p>
           <h2 id="igreja-quadrado-contexto">A Igreja do Quadrado como inspiração.</h2>
           <p className="product-description">
-            A Igreja de São João Batista é um dos marcos mais reconhecidos do Quadrado de Trancoso, na Bahia. Na Agô, sua fachada aparece em miniaturas, luminária, ímã e colar de cerâmica, sempre preservando a linguagem artesanal da marca.
+            A Igreja de São João Batista é um dos marcos mais reconhecidos do Quadrado de Trancoso, na Bahia. Na Agô, sua fachada aparece em miniaturas, luminária, ímã e colar de cerâmica, preservando a linguagem artesanal da marca.
           </p>
-          <Link href="/produtos" className="text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
+          <p className="product-description">
+            As igrejinhas podem ser compradas online pelo site e também vistas de perto na Agô, no Quadrado de Trancoso. Enviamos pedidos para todo o Brasil e fazemos cotação internacional sob consulta.
+          </p>
+          <div className="home-hero-actions">
+            <Link href="/contato" className="text-link">Como visitar a Agô <span aria-hidden="true">↗</span></Link>
+            <Link href="/produtos" className="text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
+          </div>
         </div>
       </section>
     </div>
