@@ -134,6 +134,12 @@ main,
 }
 
 @media (max-width: 600px) {
+  /* On phones the menu already contains every category; a second horizontal
+     category strip only competes with the logo, search and bag. */
+  .ago-category-bar {
+    display: none !important;
+  }
+
   .ago-home-calm .ago-premium-editorial,
   .ago-home-calm .ago-premium-discovery,
   .ago-home-calm .ago-shipping-chapter {
