@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Product, Category } from '@/lib/types';
 import ProductCard from '@/components/ProductCard';
+import { sortProductsByAttention } from '@/lib/merchandising';
 
 type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'name';
 
@@ -49,29 +50,29 @@ export default function ProdutosClient({ products, categories }: { products: Pro
     setCategory(urlCategory);
   }, [urlQuery, urlCategory]);
 
+  const attentionProducts = useMemo(() => sortProductsByAttention(products), [products]);
+
   const filtered = useMemo(() => {
     const normalizedQuery = normalize(query);
-    return products
-      .filter((product) => {
-        if (!product.available) return false;
-        const haystack = normalize(`${product.name} ${product.description} ${product.category}`);
-        if (normalizedQuery && !haystack.includes(normalizedQuery)) return false;
-        if (category !== 'todas' && product.category !== category) return false;
-        return true;
-      })
-      .sort((a, b) => {
-        if (sort === 'price-asc') return productPrice(a) - productPrice(b);
-        if (sort === 'price-desc') return productPrice(b) - productPrice(a);
-        if (sort === 'name') return a.name.localeCompare(b.name, 'pt-BR');
-        return products.indexOf(a) - products.indexOf(b);
-      });
-  }, [products, query, category, sort]);
+    const matches = attentionProducts.filter((product) => {
+      if (!product.available) return false;
+      const haystack = normalize(`${product.name} ${product.description} ${product.category}`);
+      if (normalizedQuery && !haystack.includes(normalizedQuery)) return false;
+      if (category !== 'todas' && product.category !== category) return false;
+      return true;
+    });
+
+    if (sort === 'price-asc') return [...matches].sort((a, b) => productPrice(a) - productPrice(b));
+    if (sort === 'price-desc') return [...matches].sort((a, b) => productPrice(b) - productPrice(a));
+    if (sort === 'name') return [...matches].sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
+    return matches;
+  }, [attentionProducts, query, category, sort]);
 
   const suggestions = useMemo(() => {
     const term = normalize(query);
     if (!term) return [];
 
-    return products
+    return attentionProducts
       .filter((product) => product.available && (category === 'todas' || product.category === category))
       .map((product) => {
         const name = normalize(product.name);
@@ -84,10 +85,10 @@ export default function ProdutosClient({ products, categories }: { products: Pro
         return { product, score };
       })
       .filter(({ score }) => score < 99)
-      .sort((a, b) => a.score - b.score || a.product.name.localeCompare(b.product.name, 'pt-BR'))
+      .sort((a, b) => a.score - b.score)
       .slice(0, 6)
       .map(({ product }) => product);
-  }, [products, query, category]);
+  }, [attentionProducts, query, category]);
 
   const hasFilters = Boolean(query.trim()) || category !== 'todas' || sort !== 'featured';
   const selectedSortLabel = sortOptions.find((option) => option.value === sort)?.label ?? 'Destaques';
