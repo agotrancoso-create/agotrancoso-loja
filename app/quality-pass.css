@@ -1,0 +1,64 @@
+/* Final quality pass.
+   This layer is intentionally small: it only resolves layout details that
+   improve product discovery and conversion without changing the Agô identity. */
+
+.product-related-selection {
+  border-top: 1px solid color-mix(in srgb, var(--line) 52%, transparent);
+}
+
+.product-related-selection .ago-premium-section-head {
+  margin-bottom: 28px;
+}
+
+.product-related-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.product-related-selection .product-add {
+  background: var(--cacao);
+  border-color: var(--cacao);
+  color: var(--ivory);
+}
+
+.product-related-selection .product-add:hover,
+.product-related-selection .product-add:focus-visible,
+.product-related-selection .product-add.is-added {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: var(--ivory);
+}
+
+.product-description,
+.ago-cinematic-copy > p:not(.eyebrow),
+.ago-premium-copy > p:not(.eyebrow),
+.contact-copy > p:not(.eyebrow) {
+  text-wrap: pretty;
+}
+
+@media (max-width: 1100px) {
+  .product-related-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .product-related-selection .ago-premium-section-head {
+    margin-bottom: 22px;
+  }
+
+  .product-related-grid {
+    gap-inline: 10px;
+  }
+}
+
+@media (max-width: 340px) {
+  .product-related-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-related-selection .product-add {
+    transition: none !important;
+  }
+}
