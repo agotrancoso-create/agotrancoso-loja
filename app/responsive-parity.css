@@ -237,6 +237,16 @@ body {
     height: 38px;
   }
 
+  /* Do not remove offer information on phones; compact it instead. */
+  .first-purchase-discount-badge {
+    display: flex;
+  }
+
+  .first-purchase-soft-note {
+    display: block;
+    font-size: .8rem;
+  }
+
   .ago-premium-hero-overlay {
     background: linear-gradient(90deg, rgba(45, 32, 26, .68), rgba(45, 32, 26, .48) 58%, rgba(45, 32, 26, .28));
   }
@@ -342,5 +352,20 @@ body {
   .ago-footer-brand,
   .ago-footer-visit-group {
     grid-column: 1;
+  }
+}
+
+@media (max-height: 650px) {
+  /* Keep the shipping benefit visible even on short screens, but compact it. */
+  .cart-shipping-progress-block {
+    display: block;
+  }
+
+  .cart-shipping-progress-labels {
+    margin-bottom: 8px;
+  }
+
+  .cart-summary {
+    padding-top: 10px;
   }
 }
