@@ -7,7 +7,7 @@ import { getAvailableProducts, getProductById } from '@/lib/products';
 
 export const metadata: Metadata = {
   title: { absolute: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso' },
-  description: 'Igrejinhas de Trancoso em cerâmica, peças inspiradas na Igreja do Quadrado e artesanato feito à mão no Quadrado de Trancoso, Bahia.',
+  description: 'Igrejinhas de Trancoso em cerâmica, peças inspiradas na Igreja do Quadrado e uma seleção de artesanato em cerâmica disponível na Agô, no Quadrado de Trancoso, Bahia.',
   alternates: { canonical: '/' },
 };
 
@@ -58,12 +58,12 @@ export default function HomePage() {
 
       <div className="ago-premium-trust" aria-label="Informações da Agô">
         <div className="ago-container ago-premium-trust-inner">
-          <span>Feitas à mão</span><i aria-hidden="true" /><span>Envio com cuidado</span><i aria-hidden="true" /><span>Pagamento seguro</span><i aria-hidden="true" /><span>Envio internacional</span>
+          <span>Cerâmica artesanal</span><i aria-hidden="true" /><span>Envio com cuidado</span><i aria-hidden="true" /><span>Pagamento seguro</span><i aria-hidden="true" /><span>Envio internacional</span>
         </div>
       </div>
 
       <section className="ago-premium-hero ago-home-hero" aria-labelledby="hero-title">
-        <Image src="/hero.jpg" alt="Peças de cerâmica da Agô Trancoso" fill priority sizes="100vw" className="ago-premium-hero-image" quality={90} />
+        <Image src="/hero.jpg" alt="Peças de cerâmica disponíveis na Agô Trancoso" fill priority sizes="100vw" className="ago-premium-hero-image" quality={90} />
         <div className="ago-premium-hero-overlay" aria-hidden="true" />
         <div className="ago-container ago-premium-hero-content">
           <p className="eyebrow">Depois da viagem</p>
