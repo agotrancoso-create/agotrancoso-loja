@@ -21,7 +21,7 @@ function productImageAlt(product: Product) {
   if (product.id === 'igrejinha-luminaria-trancoso') return 'Igrejinha do Quadrado de Trancoso em cerâmica na versão luminária';
   if (product.id === 'ima-igrejinha-trancoso') return 'Ímã em cerâmica da Igrejinha do Quadrado de Trancoso';
   if (product.id === 'colar-igreja-quadrado') return 'Colar em cerâmica inspirado na Igrejinha do Quadrado de Trancoso';
-  return product.imageAlt || `${product.name} em cerâmica da Agô Trancoso`;
+  return product.imageAlt || `${product.name} em cerâmica disponível na Agô Trancoso`;
 }
 
 type ProductCardProps = { product: Product; priority?: boolean };
@@ -67,7 +67,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         </div>
       </Link>
 
-      {hasGallery && <button type="button" className="ago-card-photos" onClick={() => setShowPhotos(true)} aria-label={`Ver detalhes e outras fotos de ${product.name}`}>Ver de perto</button>}
+      {hasGallery && <button type="button" className="ago-card-photos" onClick={() => setShowPhotos(true)} aria-label={`Ver outras fotos de ${product.name}`}>Ver fotos</button>}
       {showPhotos && <PhotoLightbox name={product.name} images={product.images?.length ? product.images : [image]} onClose={() => setShowPhotos(false)} />}
 
       {product.available && (
