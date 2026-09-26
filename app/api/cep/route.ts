@@ -76,6 +76,21 @@ async function fetchOpenCep(cep: string): Promise<Address | null> {
   });
 }
 
+async function fetchCepify(cep: string): Promise<Address | null> {
+  const response = await fetch(`https://cepify.com.br/v1/ceps/${cep}`, {
+    cache: 'no-store',
+    signal: AbortSignal.timeout(4500),
+  });
+  if (!response.ok) return null;
+  const data = await response.json();
+  return normalizeAddress({
+    street: data?.logradouro || data?.street || data?.address,
+    neighborhood: data?.bairro || data?.neighborhood || data?.district,
+    city: data?.localidade || data?.municipio || data?.city,
+    state: data?.uf || data?.state,
+  });
+}
+
 export async function GET(request: NextRequest) {
   const cep = (request.nextUrl.searchParams.get('cep') || '').replace(/\D/g, '');
   if (cep.length !== 8) {
@@ -87,6 +102,7 @@ export async function GET(request: NextRequest) {
       fetchViaCep(cep),
       fetchBrasilApi(cep),
       fetchOpenCep(cep),
+      fetchCepify(cep),
     ]);
 
     const address = mergeAddresses(
