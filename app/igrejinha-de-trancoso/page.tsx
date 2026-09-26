@@ -21,7 +21,7 @@ const churchProductIds = new Set([
   'igrejinha-luminaria-trancoso',
 ]);
 
-const preferredImage = '/produtos/igreja-quadrado-p.jpg';
+const preferredImage = '/produtos/igrejinha-luminaria-trancoso.jpg';
 const preferredImageAlt = 'Igrejinha do Quadrado de Trancoso em cerâmica disponível na Agô Trancoso';
 
 function formatBRL(value: number) {
