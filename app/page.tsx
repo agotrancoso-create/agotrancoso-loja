@@ -37,7 +37,7 @@ export default function HomePage() {
             <p className="eyebrow">Agô · Trancoso, Bahia</p>
             <h1 id="featured-title">Peças que ficam por perto.</h1>
             <p>Igrejinhas do Quadrado, objetos para casa, símbolos de fé e ideias para presentear. Explore com calma.</p>
-            <div className="ago-collection-after-grid" style={{ marginTop: 0, paddingTop: 0 }}>
+            <div className="home-hero-actions">
               <Link href="/igrejinha-de-trancoso" className="ago-premium-text-link">Ver Igrejinhas de Trancoso <span aria-hidden="true">↗</span></Link>
               <Link href="/produtos" className="ago-premium-text-link">Ver coleção <span aria-hidden="true">↗</span></Link>
             </div>
