@@ -9,14 +9,15 @@ import { Product, Category, CartItem } from './types';
 // -----------------------------------------------------------------------
 
 const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
-  // Associação visual conferida: a Igrejinha P usa a foto da peça P e a
-  // Igrejinha Luminária usa a foto da luminária. Não inverter estes caminhos.
+  // Correção visual confirmada pela proprietária: os dois arquivos principais
+  // estavam associados ao produto oposto. Mantemos os caminhos físicos como
+  // estão no repositório, mas apontamos cada produto para a fotografia correta.
   'igreja-quadrado-p': [
-    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ],
   'igrejinha-luminaria-trancoso': [
-    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/igreja-quadrado-p.jpg',
   ],
 
   // Galeria conferida com o catálogo Meta enviado pela Agô: dois originais de
