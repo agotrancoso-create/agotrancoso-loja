@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     default: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso',
     template: '%s | Agô Trancoso',
   },
-  description: 'Igrejinhas de Trancoso em cerâmica, peças inspiradas na Igreja do Quadrado e artesanato feito à mão no Quadrado de Trancoso, Bahia.',
+  description: 'Igrejinhas de Trancoso em cerâmica, peças inspiradas na Igreja do Quadrado e uma seleção de artesanato em cerâmica disponível na Agô, no Quadrado de Trancoso, Bahia.',
   keywords: [
     'Agô Trancoso',
     'igrejinha de Trancoso',
@@ -40,17 +40,17 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   openGraph: {
     title: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso',
-    description: 'Cerâmica feita à mão no Quadrado de Trancoso, com igrejinhas e peças inspiradas em um dos símbolos mais reconhecidos da vila.',
+    description: 'Cerâmica artesanal disponível na Agô Trancoso, com igrejinhas e peças inspiradas em um dos símbolos mais reconhecidos da vila.',
     url: SITE_DOMAIN,
     siteName: 'Agô Trancoso',
     locale: 'pt_BR',
     type: 'website',
-    images: [{ url: '/hero.jpg', alt: 'Cerâmica artesanal da Agô Trancoso' }],
+    images: [{ url: '/hero.jpg', alt: 'Seleção de cerâmica disponível na Agô Trancoso' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica',
-    description: 'Igrejinhas de Trancoso e cerâmica artesanal feita no Quadrado de Trancoso, Bahia.',
+    description: 'Igrejinhas de Trancoso e cerâmica artesanal disponíveis na Agô, no Quadrado de Trancoso, Bahia.',
     images: ['/hero.jpg'],
   },
 };
@@ -67,7 +67,7 @@ const structuredData = {
       url: SITE_DOMAIN,
       logo: `${SITE_DOMAIN}/logo.png`,
       image: `${SITE_DOMAIN}/hero.jpg`,
-      description: 'Cerâmica artesanal feita à mão em Trancoso, Bahia, com peças inspiradas no Quadrado e na Igreja de São João Batista.',
+      description: 'Loja de cerâmica artesanal no Quadrado de Trancoso, Bahia, com peças inspiradas na vila, na Igreja de São João Batista e em outras referências brasileiras.',
       telephone: '+55 73 9855-8124',
       address: {
         '@type': 'PostalAddress',
