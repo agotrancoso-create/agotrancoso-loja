@@ -1,0 +1,169 @@
+/* Conversion-first experience layer.
+   Products stay the first visual priority. The refinements below strengthen
+   purchase confidence and interaction without redesigning the Agô identity. */
+
+.ago-premium-collection-first {
+  padding-top: clamp(24px, 3vw, 40px);
+}
+
+.ago-premium-collection-first .ago-collection-intro-brand {
+  max-width: 720px;
+  margin-bottom: clamp(24px, 3vw, 32px);
+}
+
+.ago-premium-collection-first .ago-collection-intro-brand > p:not(.eyebrow) {
+  max-width: 660px;
+}
+
+.commerce-first-grid .product-card {
+  min-width: 0;
+}
+
+.commerce-first-grid .product-image-wrap {
+  transition: transform .24s ease, box-shadow .24s ease;
+}
+
+.commerce-first-grid .product-image-primary {
+  transition: transform .3s ease;
+}
+
+.commerce-first-grid .product-add {
+  background: var(--cacao);
+  border-color: var(--cacao);
+  color: var(--ivory);
+  box-shadow: 0 6px 18px #42291f12;
+}
+
+.commerce-first-grid .product-add:hover,
+.commerce-first-grid .product-add:focus-visible,
+.commerce-first-grid .product-add.is-added {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: var(--ivory);
+}
+
+.ago-conversion-after-grid {
+  padding-top: 4px;
+}
+
+.ago-conversion-after-grid > span {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.commerce-catalog-intro {
+  margin-bottom: clamp(24px, 3vw, 32px);
+}
+
+.catalog-buying-answer-after-products {
+  margin-top: clamp(40px, 5vw, 64px);
+  margin-bottom: 0;
+  padding: clamp(28px, 4vw, 44px) 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--line) 62%, transparent);
+  border-bottom: 0;
+}
+
+/* Give category choices the same tactile quality as product cards. */
+.ago-premium-discovery-card {
+  border-radius: var(--radius);
+  transition: transform .22s ease;
+}
+
+.ago-premium-discovery-copy strong {
+  transition: transform .2s ease, color .2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .commerce-first-grid .product-card:hover .product-image-wrap {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 34px #42291f17;
+  }
+
+  .commerce-first-grid .product-card:hover .product-image-primary {
+    transform: scale(1.012);
+  }
+
+  .ago-premium-discovery-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .ago-premium-discovery-card:hover .ago-premium-discovery-copy strong {
+    transform: translateX(3px);
+    color: var(--cacao);
+  }
+}
+
+@media (max-width: 900px) {
+  .catalog-buying-answer-after-products {
+    margin-top: 40px;
+    padding-top: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .ago-premium-collection-first {
+    padding-top: 22px;
+  }
+
+  .ago-premium-collection-first .ago-collection-intro-brand {
+    margin-bottom: 20px;
+  }
+
+  .ago-premium-collection-first .home-hero-actions {
+    margin-top: 18px;
+    gap: 6px 18px;
+  }
+
+  .commerce-first-grid .product-add {
+    min-height: 48px;
+    padding-inline: 8px;
+    font-size: .75rem;
+  }
+
+  .ago-conversion-after-grid {
+    align-items: flex-start;
+    margin-top: 28px;
+  }
+
+  .ago-conversion-after-grid > span {
+    max-width: 58%;
+    line-height: 1.55;
+    font-size: .78rem;
+  }
+
+  .commerce-catalog-intro {
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .catalog-buying-answer-after-products {
+    margin-top: 34px;
+    padding-top: 26px;
+  }
+}
+
+@media (max-width: 420px) {
+  .ago-conversion-after-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .ago-conversion-after-grid > span {
+    max-width: none;
+  }
+
+  .ago-conversion-after-grid .ago-premium-dark-cta {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .commerce-first-grid .product-image-wrap,
+  .commerce-first-grid .product-image-primary,
+  .ago-premium-discovery-card,
+  .ago-premium-discovery-copy strong {
+    transition: none !important;
+    transform: none !important;
+  }
+}
