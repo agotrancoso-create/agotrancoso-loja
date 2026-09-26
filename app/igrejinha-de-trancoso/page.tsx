@@ -131,19 +131,25 @@ export default function IgrejinhaDeTrancosoPage() {
           <span aria-current="page">Igrejinha de Trancoso</span>
         </nav>
 
-        <header className="catalog-intro">
+        <header className="catalog-intro commerce-catalog-intro">
           <div>
             <p className="eyebrow">Quadrado de Trancoso</p>
             <h1>Igrejinha de Trancoso em cerâmica</h1>
           </div>
           <p>
-            Quer comprar uma Igrejinha de Trancoso? Na Agô, no próprio Quadrado de Trancoso, você encontra miniaturas em cerâmica inspiradas na Igreja de São João Batista, com compra online e envio para todo o Brasil.
+            Escolha entre diferentes versões da Igrejinha do Quadrado, compre online e receba em qualquer lugar do Brasil.
           </p>
         </header>
 
-        <section className="catalog-buying-answer" aria-labelledby="onde-comprar-igrejinha">
+        <div id="modelos-igrejinha" className="product-grid catalog-grid commerce-first-grid" aria-label="Igrejinhas de Trancoso e peças inspiradas na Igreja do Quadrado">
+          {products.map((product, index) => (
+            <ProductCard key={product.id} product={product} priority={index < 3} />
+          ))}
+        </div>
+
+        <section className="catalog-buying-answer catalog-buying-answer-after-products" aria-labelledby="onde-comprar-igrejinha">
           <div>
-            <p className="eyebrow">Onde comprar</p>
+            <p className="eyebrow">Compra online e no Quadrado</p>
             <h2 id="onde-comprar-igrejinha">Onde comprar uma Igrejinha de Trancoso?</h2>
           </div>
           <div className="catalog-buying-answer-copy">
@@ -154,17 +160,11 @@ export default function IgrejinhaDeTrancosoPage() {
               Há versões P, M e GG, além da Igrejinha Luminária. {startingPrice !== null ? `As igrejinhas em cerâmica disponíveis começam em ${formatBRL(startingPrice)}.` : ''} Também enviamos para todo o Brasil e fazemos cotação internacional sob consulta.
             </p>
             <div className="home-hero-actions">
-              <a href="#modelos-igrejinha" className="text-link">Ver modelos e preços <span aria-hidden="true">↓</span></a>
+              <Link href="/produtos" className="text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
               <Link href="/contato" className="text-link">Visitar a Agô no Quadrado <span aria-hidden="true">↗</span></Link>
             </div>
           </div>
         </section>
-
-        <div id="modelos-igrejinha" className="product-grid catalog-grid" aria-label="Igrejinhas de Trancoso e peças inspiradas na Igreja do Quadrado">
-          {products.map((product, index) => (
-            <ProductCard key={product.id} product={product} priority={index < 3} />
-          ))}
-        </div>
       </div>
 
       <section className="product-aftercare" aria-labelledby="igreja-quadrado-contexto">
