@@ -17,7 +17,6 @@ import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
 import SocialFloaters from '@/components/SocialFloaters';
 import FirstPurchaseOffer from '@/components/FirstPurchaseOffer';
-import InteractiveEnhancements from '@/components/InteractiveEnhancements';
 import { SITE_DOMAIN } from '@/lib/config';
 
 const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-sans' });
@@ -120,7 +119,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MarketingAnalytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <CartProvider>
-          <InteractiveEnhancements />
           <Header />
           <main id="conteudo-principal" className="min-h-[60vh]">{children}</main>
           <Footer />
