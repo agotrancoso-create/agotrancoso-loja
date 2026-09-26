@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import type { Product } from '@/lib/types';
+import { getEffectivePrice } from '@/lib/products';
+import { trackProductInteraction } from '@/lib/marketing-analytics';
 
 const FAVORITES_KEY = 'ago:favorites';
 
@@ -17,6 +19,8 @@ function readFavorites(): string[] {
 export default function ProductExperienceActions({ product }: { product: Product }) {
   const [saved, setSaved] = useState(false);
   const [shareLabel, setShareLabel] = useState('Compartilhar');
+  const price = getEffectivePrice(product);
+  const analyticsItem = { item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category };
 
   useEffect(() => {
     setSaved(readFavorites().includes(product.id));
@@ -24,12 +28,14 @@ export default function ProductExperienceActions({ product }: { product: Product
 
   function toggleSaved() {
     const current = readFavorites();
-    const next = current.includes(product.id)
+    const wasSaved = current.includes(product.id);
+    const next = wasSaved
       ? current.filter((id) => id !== product.id)
       : [product.id, ...current].slice(0, 24);
 
     window.localStorage.setItem(FAVORITES_KEY, JSON.stringify(next));
     setSaved(next.includes(product.id));
+    trackProductInteraction(wasSaved ? 'unsave_product' : 'save_product', analyticsItem);
   }
 
   async function shareProduct() {
@@ -37,9 +43,11 @@ export default function ProductExperienceActions({ product }: { product: Product
     try {
       if (navigator.share) {
         await navigator.share({ title: product.name, text: `${product.name} · Agô Trancoso`, url });
+        trackProductInteraction('share_product', analyticsItem);
         return;
       }
       await navigator.clipboard.writeText(url);
+      trackProductInteraction('share_product', analyticsItem);
       setShareLabel('Link copiado');
       window.setTimeout(() => setShareLabel('Compartilhar'), 1800);
     } catch (error) {
