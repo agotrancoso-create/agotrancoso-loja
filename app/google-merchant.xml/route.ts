@@ -140,6 +140,8 @@ export async function GET() {
           <g:condition>new</g:condition>
           <g:price>${product.price.toFixed(2)} BRL</g:price>
           ${hasSale ? `<g:sale_price>${product.promotionalPrice!.toFixed(2)} BRL</g:sale_price>` : ''}
+          <g:brand>Agô Trancoso</g:brand>
+          <g:identifier_exists>no</g:identifier_exists>
           <g:material>Cerâmica</g:material>
           <g:product_type>${escapeXml(productType(product.category))}</g:product_type>
           ${variant ? `<g:item_group_id>${escapeXml(variant.itemGroupId)}</g:item_group_id>\n          <g:size>${escapeXml(variant.size)}</g:size>` : ''}
