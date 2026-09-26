@@ -1,14 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import ProductQuickView from './ProductQuickView';
 import CartIcon from './CartIcon';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Product } from '@/lib/types';
 import { getEffectivePrice } from '@/lib/products';
 import { useCart } from '@/context/CartContext';
-import { trackAddToCart, trackProductInteraction, trackViewItem } from '@/lib/marketing-analytics';
+import { trackAddToCart, trackViewItem } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -29,7 +28,6 @@ type ProductCardProps = { product: Product; priority?: boolean };
 export default function ProductCard({ product, priority = false }: ProductCardProps) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
-  const [showQuickView, setShowQuickView] = useState(false);
 
   useEffect(() => {
     if (!added) return;
@@ -38,25 +36,19 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   }, [added]);
 
   const image = product.images?.[0] || '/images/placeholder.svg';
-  const secondaryImage = product.images?.[1];
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const imageAlt = productImageAlt(product);
-  const analyticsItem = { item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category };
 
-  const trackView = () => trackViewItem(analyticsItem);
+  const trackView = () => trackViewItem({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category });
 
   return (
-    <article className={`product-card group${secondaryImage ? ' has-secondary-image' : ''}`} data-product-id={product.id}>
+    <article className="product-card group" data-product-id={product.id}>
       <Link href={`/produtos/${product.id}`} className="product-card-main" onClick={trackView}>
         <div className="product-image-wrap">
           <Image src={image} alt={imageAlt} fill quality={88} priority={priority} sizes="(max-width: 900px) 46vw, (max-width: 1400px) 30vw, 424px" className="product-image product-image-primary" />
-          {secondaryImage && (
-            <Image src={secondaryImage} alt="" fill quality={88} sizes="(max-width: 900px) 46vw, (max-width: 1400px) 30vw, 424px" className="product-image product-image-secondary" aria-hidden="true" />
-          )}
           {hasPromo && <span className="product-badge">Oferta</span>}
           {!product.available && <span className="product-badge">Indisponível</span>}
-          <span className="product-view" aria-hidden="true">Ver de perto</span>
         </div>
 
         <div className="product-card-copy">
@@ -67,25 +59,12 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         </div>
       </Link>
 
-      <button
-        type="button"
-        className="ago-card-photos ago-card-quick-view"
-        onClick={() => {
-          setShowQuickView(true);
-          trackProductInteraction('quick_view', analyticsItem);
-        }}
-        aria-label={`Visualizar ${product.name} sem sair da página`}
-      >
-        Ver peça
-      </button>
-      {showQuickView && <ProductQuickView product={product} onClose={() => setShowQuickView(false)} />}
-
       {product.available && (
         <button
           type="button"
           onClick={() => {
             addItem(product.id);
-            trackAddToCart(analyticsItem);
+            trackAddToCart({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category });
             setAdded(true);
           }}
           className={`product-add ago-premium-add ago-bag-cta${added ? ' is-added' : ''}`}
