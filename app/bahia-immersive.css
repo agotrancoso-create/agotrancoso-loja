@@ -205,13 +205,13 @@
   transform: translateY(0);
 }
 
-/* CEP feedback is intentionally quiet and inline with the checkout. */
+/* CEP feedback: explicit enough that the customer knows the lookup worked. */
 .ago-cep-status {
   display: block;
   min-height: 1.25em;
-  margin-top: 7px;
-  font-size: .76rem;
-  line-height: 1.45;
+  margin-top: 8px;
+  font-size: .77rem;
+  line-height: 1.5;
   color: var(--leather);
 }
 
@@ -223,10 +223,25 @@
 }
 
 .ago-cep-status.is-success {
-  color: #4f6038;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, #5d6d42 28%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, #eef1e5 78%, transparent);
+  color: #3f5030;
+  font-weight: 650;
+}
+
+.ago-cep-status.is-success::before {
+  content: '✓';
+  display: inline-block;
+  margin-right: 7px;
+  font-weight: 800;
 }
 
 .ago-cep-status.is-error {
+  padding: 9px 11px;
+  border-radius: 10px;
+  background: color-mix(in srgb, #f6e6e0 72%, transparent);
   color: #8c3f2e;
 }
 
