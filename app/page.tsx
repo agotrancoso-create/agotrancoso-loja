@@ -17,10 +17,10 @@ const whatsappUrl = 'https://wa.me/557398558124?text=Ol%C3%A1!%20Vim%20pelo%20si
 const instagramUrl = 'https://www.instagram.com/agotrancoso';
 
 const discovery = [
-  { title: 'Trancoso', subtitle: 'Igrejinhas e memórias do lugar', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
-  { title: 'Casa & decoração', subtitle: 'Para compor a casa', category: 'decoracao', image: '/produtos/esfera-decorativa.jpg' },
-  { title: 'Fé & devoção', subtitle: 'Símbolos de fé', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-1.jpg' },
-  { title: 'Presentes', subtitle: 'Para levar ou presentear', category: 'presentes', image: '/produtos/colar-igreja-quadrado.jpg' },
+  { title: 'Trancoso', subtitle: 'Igrejinhas e símbolos do Quadrado', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
+  { title: 'Casa & decoração', subtitle: 'Peças para compor a casa', category: 'decoracao', image: '/produtos/esfera-decorativa.jpg' },
+  { title: 'Fé & devoção', subtitle: 'Símbolos de fé em cerâmica', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-1.jpg' },
+  { title: 'Presentes', subtitle: 'Pequenas peças para levar', category: 'presentes', image: '/produtos/colar-igreja-quadrado.jpg' },
 ];
 
 export default function HomePage() {
@@ -36,8 +36,8 @@ export default function HomePage() {
 
         <div className="ago-container ago-cinematic-copy ago-reveal is-visible">
           <p className="eyebrow">Quadrado de Trancoso · Bahia</p>
-          <h1 id="featured-title">Peças que ficam por perto.</h1>
-          <p>Trancoso é nosso começo. Igrejinhas, objetos para casa, símbolos de fé e presentes escolhidos para acompanhar você.</p>
+          <h1 id="featured-title">Trancoso em cerâmica.</h1>
+          <p>Igrejinhas do Quadrado, objetos para casa, símbolos de fé e presentes selecionados pela Agô.</p>
           <div className="home-hero-actions">
             <a href="#pecas-em-destaque" className="ago-premium-hero-cta">Ver peças</a>
             <Link href="/igrejinha-de-trancoso" className="ago-cinematic-secondary">Igrejinhas de Trancoso <span aria-hidden="true">↗</span></Link>
@@ -48,7 +48,7 @@ export default function HomePage() {
           <div className="ago-cinematic-products-head">
             <div>
               <p className="eyebrow">Em destaque</p>
-              <h2>Comece por aqui.</h2>
+              <h2>Destaques da coleção.</h2>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver coleção completa <span aria-hidden="true">↗</span></Link>
           </div>
@@ -69,8 +69,8 @@ export default function HomePage() {
           <span className="ago-journey-index">02</span>
           <div>
             <p className="eyebrow">De perto</p>
-            <h2 id="feito-mao-title">Veja os detalhes.</h2>
-            <p>Texturas, pintura e pequenas diferenças aparecem quando você chega mais perto.</p>
+            <h2 id="feito-mao-title">Veja cada peça de perto.</h2>
+            <p>Texturas, pintura e pequenas diferenças aparecem nos detalhes.</p>
           </div>
         </div>
         <Benefits />
@@ -84,8 +84,8 @@ export default function HomePage() {
           <div className="ago-premium-copy">
             <span className="ago-journey-index">03</span>
             <p className="eyebrow">No Quadrado</p>
-            <h2 id="story-title">Começou no Quadrado.</h2>
-            <p>A Agô está em Trancoso desde 2016. A igreja, as fachadas, as cores e os símbolos do lugar fazem parte da nossa curadoria.</p>
+            <h2 id="story-title">Desde 2016, em Trancoso.</h2>
+            <p>A Agô reúne peças inspiradas na igreja, nas fachadas, nas cores e nos símbolos do lugar.</p>
             <Link href="/nossa-essencia" className="ago-premium-text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function HomePage() {
             <div>
               <span className="ago-journey-index">04</span>
               <p className="eyebrow">A coleção</p>
-              <h2 id="discover-title">Escolha por onde entrar.</h2>
+              <h2 id="discover-title">Explore a coleção.</h2>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver todas as peças <span aria-hidden="true">↗</span></Link>
           </div>
@@ -117,8 +117,8 @@ export default function HomePage() {
         <div className="ago-container ago-shipping-chapter-inner">
           <div>
             <span className="ago-journey-index">05</span>
-            <p className="eyebrow">Da Bahia para sua casa</p>
-            <h2 id="shipping-title">Compre online. A gente organiza o envio.</h2>
+            <p className="eyebrow">Compra online</p>
+            <h2 id="shipping-title">Da Bahia para sua casa.</h2>
           </div>
           <div className="ago-shipping-facts">
             <span>Compra online</span>
