@@ -4,6 +4,7 @@ import './product-photo-integrity.css';
 import './responsive-parity.css';
 import './conversion-experience.css';
 import './premium-experience.css';
+import './quality-pass.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
