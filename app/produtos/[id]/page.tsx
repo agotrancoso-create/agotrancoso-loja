@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { getAllProducts, getEffectivePrice, getProductById } from '@/lib/products';
+import { getAllProducts, getAvailableProducts, getEffectivePrice, getProductById } from '@/lib/products';
+import { getRelatedProductIds, sortProductsByAttention } from '@/lib/merchandising';
 import { SITE_DOMAIN, whatsappLink } from '@/lib/config';
 import { FIXED_SHIPPING_PRICE, getShippingPrice, shouldOfferFreeShipping } from '@/lib/shipping';
 import AddToCart from './AddToCart';
 import ProductGallery from '@/components/ProductGallery';
 import ProductViewTracker from '@/components/ProductViewTracker';
+import ProductCard from '@/components/ProductCard';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -105,6 +107,17 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const nationalShippingPrice = getShippingPrice(price);
   const isIgrejinhaProduct = IGREJINHA_PRODUCT_IDS.has(product.id);
   const productUrl = `${SITE_DOMAIN}/produtos/${product.id}`;
+
+  const relatedIds = getRelatedProductIds(product.id);
+  const availableById = new Map(getAvailableProducts().map((candidate) => [candidate.id, candidate]));
+  const relatedFromMap = relatedIds
+    .map((relatedId) => availableById.get(relatedId))
+    .filter((candidate): candidate is NonNullable<typeof candidate> => Boolean(candidate && candidate.id !== product.id));
+  const relatedSeen = new Set(relatedFromMap.map((candidate) => candidate.id));
+  const related = [
+    ...relatedFromMap,
+    ...sortProductsByAttention(getAvailableProducts()).filter((candidate) => candidate.id !== product.id && !relatedSeen.has(candidate.id)),
+  ].slice(0, 4);
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -224,15 +237,22 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         </div>
       </div>
 
-      <section className="product-aftercare">
-        <div className="site-container product-aftercare-inner">
-          <p className="eyebrow">Continue explorando</p>
-          <h2>{isIgrejinhaProduct ? 'Conheça outras Igrejinhas de Trancoso.' : 'Há mais para descobrir.'}</h2>
-          <Link href={isIgrejinhaProduct ? '/igrejinha-de-trancoso' : '/produtos'} className="text-link">
-            {isIgrejinhaProduct ? 'Ver todas as igrejinhas' : 'Ver todas as peças'} <span aria-hidden="true">↗</span>
-          </Link>
-        </div>
-      </section>
+      {related.length > 0 && (
+        <section className="product-related-selection" aria-labelledby="related-products-title">
+          <div className="site-container">
+            <div className="ago-premium-section-head">
+              <div>
+                <p className="eyebrow">Outras peças</p>
+                <h2 id="related-products-title">Para acompanhar sua escolha.</h2>
+              </div>
+              <Link href="/produtos" className="ago-premium-text-link">Ver coleção completa <span aria-hidden="true">↗</span></Link>
+            </div>
+            <div className="ago-premium-product-grid product-related-grid">
+              {related.map((relatedProduct) => <ProductCard key={relatedProduct.id} product={relatedProduct} />)}
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
