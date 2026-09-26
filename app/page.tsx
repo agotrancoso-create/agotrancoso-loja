@@ -56,11 +56,6 @@ export default function HomePage() {
           <div className="ago-premium-product-grid ago-premium-product-grid-featured commerce-first-grid">
             {featured.map((product, index) => <ProductCard key={product.id} product={product} priority={index < 2} />)}
           </div>
-
-          <div className="ago-collection-after-grid ago-conversion-after-grid">
-            <span>Envio para todo o Brasil · frete grátis acima de R$ 500</span>
-            <Link href="/produtos" className="ago-premium-dark-cta">Ver mais peças</Link>
-          </div>
         </div>
       </section>
 
