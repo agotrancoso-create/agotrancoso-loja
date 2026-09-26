@@ -9,8 +9,6 @@ import AddToCart from './AddToCart';
 import ProductGallery from '@/components/ProductGallery';
 import ProductViewTracker from '@/components/ProductViewTracker';
 import ProductCard from '@/components/ProductCard';
-import ProductExperienceActions from '@/components/ProductExperienceActions';
-import RecentlyViewed from '@/components/RecentlyViewed';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -120,7 +118,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const related = [
     ...relatedFromMap,
     ...attentionProducts.filter((candidate) => candidate.id !== product.id && !relatedSeen.has(candidate.id)),
-  ].slice(0, 4);
+  ].slice(0, 3);
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -196,18 +194,11 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
               <div className="product-purchase"><AddToCart product={product} /></div>
               <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="product-whatsapp">Prefere comprar pelo WhatsApp? <span aria-hidden="true">↗</span></a>
-              <ProductExperienceActions product={product} />
 
               <div className="product-service-grid">
                 <div><strong>Entrega no Brasil</strong><span>{freeShippingAtProductQuantity ? 'Frete grátis nesta peça.' : <>Frete fixo de {formatBRL(FIXED_SHIPPING_PRICE)}.</>}</span></div>
                 <div><strong>Acima de R$ 500</strong><span>Frete grátis para pedidos nacionais.</span></div>
                 <div><strong>Pagamento</strong><span>Ambiente de pagamento seguro pela InfinitePay.</span></div>
-              </div>
-
-              <div className="product-order-journey" aria-label="Etapas da compra">
-                <div><span>01</span><strong>Escolha</strong><small>Selecione a peça e a quantidade.</small></div>
-                <div><span>02</span><strong>Finalize</strong><small>Conclua o pedido no checkout seguro.</small></div>
-                <div><span>03</span><strong>Receba</strong><small>Enviamos para todo o Brasil.</small></div>
               </div>
 
               <div className="product-international-note">
@@ -234,8 +225,6 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           </div>
         </section>
       )}
-
-      <RecentlyViewed products={attentionProducts} currentProductId={product.id} />
     </div>
   );
 }
