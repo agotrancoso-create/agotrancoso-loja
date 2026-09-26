@@ -8,27 +8,27 @@ export const revalidate = 3600;
 const SHOPPING_COPY: Record<string, { title: string; description: string }> = {
   'igreja-quadrado-p': {
     title: 'Igrejinha do Quadrado de Trancoso em Cerâmica P | Agô',
-    description: 'Miniatura artesanal em cerâmica inspirada na Igreja de São João Batista, a famosa Igrejinha do Quadrado de Trancoso, Bahia. Pintada à mão pela Agô Trancoso para decorar, presentear ou guardar como lembrança da vila.',
+    description: 'Miniatura artesanal em cerâmica inspirada na Igreja de São João Batista, a famosa Igrejinha do Quadrado de Trancoso, Bahia. Peça pintada à mão e disponível na Agô Trancoso para decorar, presentear ou guardar como lembrança da vila.',
   },
   'igreja-quadrado-m': {
     title: 'Igrejinha do Quadrado de Trancoso em Cerâmica M | Agô',
-    description: 'Igrejinha do Quadrado de Trancoso em cerâmica tamanho M, inspirada na Igreja de São João Batista. Peça artesanal feita à mão pela Agô Trancoso, com a fachada e os elementos que remetem a um dos símbolos mais conhecidos da vila.',
+    description: 'Igrejinha do Quadrado de Trancoso em cerâmica tamanho M, inspirada na Igreja de São João Batista. Peça artesanal disponível na Agô Trancoso, com a fachada e os elementos que remetem a um dos símbolos mais conhecidos da vila.',
   },
   'igreja-quadrado-gg': {
     title: 'Igreja do Quadrado de Trancoso em Cerâmica GG | Agô',
-    description: 'Escultura artesanal em cerâmica inspirada na Igreja de São João Batista, no Quadrado de Trancoso. Versão GG modelada à mão pela Agô Trancoso, pensada como peça de destaque para decoração e coleção.',
+    description: 'Escultura artesanal em cerâmica inspirada na Igreja de São João Batista, no Quadrado de Trancoso. Versão GG modelada à mão e disponível na Agô Trancoso como peça de destaque para decoração e coleção.',
   },
   'igrejinha-luminaria-trancoso': {
     title: 'Igrejinha do Quadrado de Trancoso Luminária em Cerâmica | Agô',
-    description: 'Luminária artesanal em cerâmica inspirada na Igrejinha do Quadrado de Trancoso. Modelada à mão pela Agô Trancoso e criada para receber vela LED ou vela pequena, trazendo a fachada da igreja para a decoração.',
+    description: 'Luminária artesanal em cerâmica inspirada na Igrejinha do Quadrado de Trancoso. Peça modelada à mão, disponível na Agô Trancoso e criada para receber vela LED ou vela pequena.',
   },
   'ima-igrejinha-trancoso': {
     title: 'Ímã da Igrejinha do Quadrado de Trancoso em Cerâmica | Agô',
-    description: 'Ímã artesanal em cerâmica inspirado na Igreja de São João Batista, a Igrejinha do Quadrado de Trancoso. Uma lembrança pintada à mão pela Agô Trancoso para levar um símbolo da vila para o dia a dia.',
+    description: 'Ímã artesanal em cerâmica inspirado na Igreja de São João Batista, a Igrejinha do Quadrado de Trancoso. Peça pintada à mão e disponível na Agô Trancoso como lembrança da vila.',
   },
   'colar-igreja-quadrado': {
     title: 'Colar da Igrejinha do Quadrado de Trancoso em Cerâmica | Agô',
-    description: 'Colar artesanal em cerâmica inspirado na fachada da Igreja de São João Batista do Quadrado de Trancoso. Uma peça discreta, modelada à mão pela Agô Trancoso, para usar ou presentear.',
+    description: 'Colar artesanal em cerâmica inspirado na fachada da Igreja de São João Batista do Quadrado de Trancoso. Peça modelada à mão e disponível na Agô Trancoso para usar ou presentear.',
   },
 };
 
@@ -140,8 +140,6 @@ export async function GET() {
           <g:condition>new</g:condition>
           <g:price>${product.price.toFixed(2)} BRL</g:price>
           ${hasSale ? `<g:sale_price>${product.promotionalPrice!.toFixed(2)} BRL</g:sale_price>` : ''}
-          <g:brand>Agô Trancoso</g:brand>
-          <g:mpn>${escapeXml(`AGO-${product.id.toUpperCase()}`)}</g:mpn>
           <g:material>Cerâmica</g:material>
           <g:product_type>${escapeXml(productType(product.category))}</g:product_type>
           ${variant ? `<g:item_group_id>${escapeXml(variant.itemGroupId)}</g:item_group_id>\n          <g:size>${escapeXml(variant.size)}</g:size>` : ''}
@@ -160,7 +158,7 @@ export async function GET() {
   <channel>
     <title>Agô Trancoso</title>
     <link>${escapeXml(SITE_DOMAIN)}</link>
-    <description>Cerâmica artesanal, Igrejinhas do Quadrado e lembranças de Trancoso feitas à mão.</description>
+    <description>Cerâmica artesanal, Igrejinhas do Quadrado e lembranças de Trancoso disponíveis na Agô Trancoso.</description>
     ${items}
   </channel>
 </rss>`;
