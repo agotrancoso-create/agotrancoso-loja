@@ -130,19 +130,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="ago-premium-visit ago-reveal" aria-labelledby="visit-title">
-        <div className="ago-container ago-premium-visit-grid">
-          <div>
-            <p className="eyebrow">Se estiver por perto</p>
-            <h2 id="visit-title">A gente está no Quadrado.</h2>
-            <p>Passe para ver as peças de perto e sentir a escala, a textura e a pintura de cada uma.</p>
-            <div className="ago-premium-visit-links">
-              <a href={mapsUrl} target="_blank" rel="noreferrer">Como chegar <span aria-hidden="true">↗</span></a>
-              <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
-              <a href={instagramUrl} target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+      <section className="ago-reveal bg-[#7b4d35] text-[#fbf0dd] py-[clamp(72px,9vw,142px)]" aria-labelledby="visit-title">
+        <div className="ago-container grid items-center gap-16 md:grid-cols-[1.35fr_0.65fr] md:gap-20 lg:gap-28">
+          <div className="max-w-[680px]">
+            <p className="mb-4 text-[0.72rem] font-extrabold uppercase tracking-[0.24em] text-[#dcb77d]">Se estiver por perto</p>
+            <h2 id="visit-title" className="max-w-[640px] text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.08] tracking-[-0.03em] text-[#fff8ed]">A gente está no Quadrado.</h2>
+            <p className="mt-5 max-w-[420px] text-[clamp(0.92rem,1.2vw,1.05rem)] leading-7 text-[#f1dfce]">Passe para ver as peças de perto.</p>
+            <div className="mt-7 flex flex-wrap gap-x-8 gap-y-2">
+              <a href={mapsUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 text-[0.72rem] font-extrabold uppercase tracking-[0.05em] text-[#fff8ed] transition-opacity hover:opacity-70">Como chegar <span aria-hidden="true">↗</span></a>
+              <a href={whatsappUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 text-[0.72rem] font-extrabold uppercase tracking-[0.05em] text-[#fff8ed] transition-opacity hover:opacity-70">WhatsApp <span aria-hidden="true">↗</span></a>
+              <a href={instagramUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 text-[0.72rem] font-extrabold uppercase tracking-[0.05em] text-[#fff8ed] transition-opacity hover:opacity-70">Instagram <span aria-hidden="true">↗</span></a>
             </div>
           </div>
-          <div className="ago-premium-visit-mark" aria-hidden="true"><span>Trancoso</span><strong>Bahia</strong><span>Brasil</span></div>
+
+          <div className="justify-self-start text-center md:justify-self-end" aria-label="Trancoso, Bahia, Brasil">
+            <span className="block text-[0.62rem] font-bold uppercase tracking-[0.28em] text-[#dcb77d]">Trancoso</span>
+            <strong className="my-1 block font-[var(--font-display)] text-[clamp(3rem,5.8vw,5.4rem)] font-medium leading-[0.95] tracking-[-0.035em] text-[#dcb77d]">Bahia</strong>
+            <span className="block text-[0.6rem] font-bold uppercase tracking-[0.3em] text-[#dcb77d]">Brasil</span>
+          </div>
         </div>
       </section>
     </div>
