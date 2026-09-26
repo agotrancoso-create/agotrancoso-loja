@@ -12,8 +12,8 @@ export default function NotFound() {
           Você pode voltar para a coleção e continuar conhecendo as peças da Agô Trancoso.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link href="/produtos" className="btn-primary">Ver coleção</Link>
-          <Link href="/" className="btn-secondary">Voltar ao início</Link>
+          <Link href="/produtos" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[var(--terracotta)] px-6 text-sm font-bold text-white transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--terracotta)]">Ver coleção</Link>
+          <Link href="/" className="inline-flex min-h-12 items-center justify-center rounded-full border border-[color:rgba(66,41,31,0.22)] px-6 text-sm font-bold text-[var(--coffee)] transition-colors hover:bg-[var(--sand)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--terracotta)]">Voltar ao início</Link>
         </div>
       </div>
     </section>
