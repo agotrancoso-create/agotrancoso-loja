@@ -314,26 +314,11 @@ body::-webkit-scrollbar,
     margin-top: 12px;
   }
 
-  /* WhatsApp e Instagram permanecem flutuantes, sem cobrir ações de compra. */
-  .ago-social-floaters {
-    position: fixed;
-    right: 14px;
-    bottom: calc(14px + env(safe-area-inset-bottom));
-    z-index: 30;
-    justify-content: flex-end;
-    padding: 0;
-    background: transparent;
-  }
-  .ago-social-button {
-    width: 48px;
-    height: 48px;
-    background: var(--cacao);
-    color: var(--ivory);
-    box-shadow: 0 10px 30px rgba(45,32,26,.22);
-  }
 }
 
 @media (max-width: 600px) {
+  .ago-back-to-top { display: none; }
+
   /* Mantém no celular o mesmo significado visual do CTA de sacola do desktop. */
   .ago-bag-cta-icon { display: inline-flex; }
 

@@ -127,7 +127,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onFocus={() => setSearchFocused(true)}
-                placeholder="Digite uma inicial ou o nome da peça"
+                placeholder="Nome da peça"
                 autoComplete="off"
                 aria-controls={showSuggestions ? 'catalog-search-suggestions' : undefined}
               />
