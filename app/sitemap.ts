@@ -3,7 +3,6 @@ import { getAllProducts } from '@/lib/products';
 import { SITE_DOMAIN } from '@/lib/config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   const staticRoutes = [
     { path: '', priority: 1 },
     { path: '/igrejinha-de-trancoso', priority: 0.95 },
@@ -16,13 +15,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticRoutes.map(({ path, priority }) => ({
       url: `${SITE_DOMAIN}${path}`,
-      lastModified: now,
       changeFrequency: 'weekly' as const,
       priority,
     })),
     ...productRoutes.map((path) => ({
       url: `${SITE_DOMAIN}${path}`,
-      lastModified: now,
       changeFrequency: 'weekly' as const,
       priority: 0.8,
     })),
