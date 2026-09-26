@@ -14,11 +14,11 @@ const productIds = [
 ];
 
 export const metadata: Metadata = {
-  title: { absolute: 'Igrejinha de Trancoso em Cerâmica | Agô Trancoso' },
-  description: 'Conheça e compre igrejinhas de Trancoso em cerâmica, inspiradas na Igreja de São João Batista do Quadrado. Peças feitas à mão pela Agô em Trancoso, Bahia.',
+  title: { absolute: 'Igrejinha do Quadrado de Trancoso em Cerâmica | Agô' },
+  description: 'Conheça e compre a Igrejinha do Quadrado de Trancoso em cerâmica, inspirada na Igreja de São João Batista. Miniaturas e peças feitas à mão pela Agô em Trancoso, Bahia.',
   alternates: { canonical: '/igrejinha-de-trancoso' },
   openGraph: {
-    title: 'Igrejinha de Trancoso em Cerâmica | Agô Trancoso',
+    title: 'Igrejinha do Quadrado de Trancoso em Cerâmica | Agô',
     description: 'Miniaturas e peças em cerâmica inspiradas na Igreja do Quadrado de Trancoso, Bahia.',
     url: '/igrejinha-de-trancoso',
     siteName: 'Agô Trancoso',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Igrejinha de Trancoso em Cerâmica | Agô Trancoso',
+    title: 'Igrejinha do Quadrado de Trancoso em Cerâmica | Agô',
     description: 'Peças inspiradas na Igreja do Quadrado, feitas pela Agô em Trancoso, Bahia.',
   },
 };
@@ -45,7 +45,8 @@ export default function IgrejinhaDeTrancosoPage() {
         '@type': 'CollectionPage',
         '@id': `${pageUrl}#collection`,
         url: pageUrl,
-        name: 'Igrejinha de Trancoso em Cerâmica',
+        name: 'Igrejinha do Quadrado de Trancoso em Cerâmica',
+        alternateName: ['Igrejinha de Trancoso', 'Igreja do Quadrado em cerâmica', 'Miniatura da Igreja do Quadrado'],
         description: 'Coleção de miniaturas e peças em cerâmica inspiradas na Igreja de São João Batista, conhecida como Igrejinha do Quadrado de Trancoso.',
         isPartOf: { '@id': `${SITE_DOMAIN}#website` },
         about: {
@@ -68,7 +69,7 @@ export default function IgrejinhaDeTrancosoPage() {
         '@id': `${pageUrl}#breadcrumb`,
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Início', item: SITE_DOMAIN },
-          { '@type': 'ListItem', position: 2, name: 'Igrejinha de Trancoso', item: pageUrl },
+          { '@type': 'ListItem', position: 2, name: 'Igrejinha do Quadrado de Trancoso', item: pageUrl },
         ],
       },
     ],
@@ -81,20 +82,20 @@ export default function IgrejinhaDeTrancosoPage() {
         <nav className="product-breadcrumb" aria-label="Navegação estrutural">
           <Link href="/">Início</Link>
           <span aria-hidden="true">/</span>
-          <span aria-current="page">Igrejinha de Trancoso</span>
+          <span aria-current="page">Igrejinha do Quadrado</span>
         </nav>
 
         <header className="catalog-intro">
           <div>
             <p className="eyebrow">Quadrado de Trancoso</p>
-            <h1>Igrejinha de Trancoso em cerâmica</h1>
+            <h1>Igrejinha do Quadrado de Trancoso em cerâmica</h1>
           </div>
           <p>
             Miniaturas e peças inspiradas na Igreja de São João Batista, conhecida como Igreja do Quadrado ou Igrejinha de Trancoso. Escolha entre diferentes versões feitas à mão pela Agô.
           </p>
         </header>
 
-        <div className="product-grid catalog-grid" aria-label="Peças inspiradas na Igrejinha de Trancoso">
+        <div className="product-grid catalog-grid" aria-label="Peças inspiradas na Igrejinha do Quadrado de Trancoso">
           {products.map((product, index) => (
             <ProductCard key={product.id} product={product} priority={index < 3} />
           ))}
@@ -109,7 +110,7 @@ export default function IgrejinhaDeTrancosoPage() {
             A Igreja de São João Batista é um dos marcos mais reconhecidos do Quadrado de Trancoso, na Bahia. Na Agô, sua fachada aparece em miniaturas, luminária, ímã e colar de cerâmica, preservando a linguagem artesanal da marca.
           </p>
           <p className="product-description">
-            As igrejinhas podem ser compradas online pelo site e também vistas de perto na Agô, no Quadrado de Trancoso. Enviamos pedidos para todo o Brasil e fazemos cotação internacional sob consulta.
+            As igrejinhas do Quadrado podem ser compradas online pelo site e também vistas de perto na Agô, no Quadrado de Trancoso. Enviamos pedidos para todo o Brasil e fazemos cotação internacional sob consulta.
           </p>
           <div className="home-hero-actions">
             <Link href="/contato" className="text-link">Como visitar a Agô <span aria-hidden="true">↗</span></Link>
