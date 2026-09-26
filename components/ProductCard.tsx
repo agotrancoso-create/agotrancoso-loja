@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { Product } from '@/lib/types';
 import { getEffectivePrice } from '@/lib/products';
 import { useCart } from '@/context/CartContext';
-import { trackAddToCart, trackViewItem } from '@/lib/marketing-analytics';
+import { trackAddToCart, trackProductInteraction, trackViewItem } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -42,8 +42,9 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const imageAlt = productImageAlt(product);
+  const analyticsItem = { item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category };
 
-  const trackView = () => trackViewItem({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category });
+  const trackView = () => trackViewItem(analyticsItem);
 
   return (
     <article className={`product-card group${secondaryImage ? ' has-secondary-image' : ''}`} data-product-id={product.id}>
@@ -66,7 +67,17 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         </div>
       </Link>
 
-      <button type="button" className="ago-card-photos ago-card-quick-view" onClick={() => setShowQuickView(true)} aria-label={`Visualizar ${product.name} sem sair da página`}>Ver peça</button>
+      <button
+        type="button"
+        className="ago-card-photos ago-card-quick-view"
+        onClick={() => {
+          setShowQuickView(true);
+          trackProductInteraction('quick_view', analyticsItem);
+        }}
+        aria-label={`Visualizar ${product.name} sem sair da página`}
+      >
+        Ver peça
+      </button>
       {showQuickView && <ProductQuickView product={product} onClose={() => setShowQuickView(false)} />}
 
       {product.available && (
@@ -74,7 +85,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
           type="button"
           onClick={() => {
             addItem(product.id);
-            trackAddToCart({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category });
+            trackAddToCart(analyticsItem);
             setAdded(true);
           }}
           className={`product-add ago-premium-add ago-bag-cta${added ? ' is-added' : ''}`}
