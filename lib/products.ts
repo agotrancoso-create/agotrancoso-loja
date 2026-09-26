@@ -15,7 +15,7 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
     '/produtos/igreja-quadrado-p.jpg',
   ],
 
-  // Restaurar como capa a primeira foto original que existia antes.
+  // Capas confirmadas pela proprietária. A ordem abaixo é intencional.
   'casal-pretos-velhos': [
     '/produtos/casal-pretos-velhos.jpg',
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
@@ -29,8 +29,8 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
     '/produtos/catalogo/casinha-luminaria-4.jpg',
   ],
   'colar-igreja-quadrado': [
-    '/produtos/colar-igreja-quadrado.jpg',
     '/produtos/catalogo/colar-igreja-quadrado-2.jpg',
+    '/produtos/colar-igreja-quadrado.jpg',
   ],
 };
 
