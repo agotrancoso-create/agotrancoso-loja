@@ -14,15 +14,15 @@ const productIds = [
 ];
 
 const preferredImage = '/produtos/igrejinha-luminaria-trancoso.jpg';
-const preferredImageAlt = 'Igrejinha do Quadrado de Trancoso em cerâmica feita pela Agô';
+const preferredImageAlt = 'Igrejinha do Quadrado de Trancoso em cerâmica disponível na Agô Trancoso';
 
 export const metadata: Metadata = {
   title: { absolute: 'Igrejinha do Quadrado de Trancoso em Cerâmica | Agô' },
-  description: 'Conheça e compre a Igrejinha do Quadrado de Trancoso em cerâmica, inspirada na Igreja de São João Batista. Miniaturas e peças feitas à mão pela Agô em Trancoso, Bahia.',
+  description: 'Conheça e compre na Agô Trancoso a Igrejinha do Quadrado de Trancoso em cerâmica, inspirada na Igreja de São João Batista. Miniaturas e peças artesanais disponíveis no Quadrado de Trancoso, Bahia.',
   alternates: { canonical: '/igrejinha-de-trancoso' },
   openGraph: {
     title: 'Igrejinha do Quadrado de Trancoso em Cerâmica | Agô',
-    description: 'Miniaturas e peças em cerâmica inspiradas na Igreja do Quadrado de Trancoso, Bahia.',
+    description: 'Miniaturas e peças em cerâmica inspiradas na Igreja do Quadrado de Trancoso, disponíveis na Agô Trancoso.',
     url: '/igrejinha-de-trancoso',
     siteName: 'Agô Trancoso',
     locale: 'pt_BR',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Igrejinha do Quadrado de Trancoso em Cerâmica | Agô',
-    description: 'Peças inspiradas na Igreja do Quadrado, feitas pela Agô em Trancoso, Bahia.',
+    description: 'Peças inspiradas na Igreja do Quadrado disponíveis na Agô Trancoso, no Quadrado de Trancoso, Bahia.',
     images: [preferredImage],
   },
 };
@@ -53,8 +53,9 @@ export default function IgrejinhaDeTrancosoPage() {
         url: pageUrl,
         name: 'Igrejinha do Quadrado de Trancoso em Cerâmica',
         alternateName: ['Igrejinha de Trancoso', 'Igreja do Quadrado em cerâmica', 'Miniatura da Igreja do Quadrado'],
-        description: 'Coleção de miniaturas e peças em cerâmica inspiradas na Igreja de São João Batista, conhecida como Igrejinha do Quadrado de Trancoso.',
+        description: 'Coleção de miniaturas e peças em cerâmica inspiradas na Igreja de São João Batista, conhecida como Igrejinha do Quadrado de Trancoso, disponíveis na Agô Trancoso.',
         isPartOf: { '@id': `${SITE_DOMAIN}#website` },
+        publisher: { '@id': `${SITE_DOMAIN}#organization` },
         primaryImageOfPage: {
           '@type': 'ImageObject',
           contentUrl: preferredImageUrl,
@@ -103,7 +104,7 @@ export default function IgrejinhaDeTrancosoPage() {
             <h1>Igrejinha do Quadrado de Trancoso em cerâmica</h1>
           </div>
           <p>
-            Miniaturas e peças inspiradas na Igreja de São João Batista, conhecida como Igreja do Quadrado ou Igrejinha de Trancoso. Escolha entre diferentes versões feitas à mão pela Agô.
+            Na Agô Trancoso, você encontra e compra diferentes peças em cerâmica inspiradas na Igreja de São João Batista, conhecida como Igreja do Quadrado ou Igrejinha de Trancoso.
           </p>
         </header>
 
@@ -119,7 +120,7 @@ export default function IgrejinhaDeTrancosoPage() {
           <p className="eyebrow">Um símbolo do Quadrado</p>
           <h2 id="igreja-quadrado-contexto">A Igreja do Quadrado como inspiração.</h2>
           <p className="product-description">
-            A Igreja de São João Batista é um dos marcos mais reconhecidos do Quadrado de Trancoso, na Bahia. Na Agô, sua fachada aparece em miniaturas, luminária, ímã e colar de cerâmica, preservando a linguagem artesanal da marca.
+            A Igreja de São João Batista é um dos marcos mais reconhecidos do Quadrado de Trancoso, na Bahia. Na Agô Trancoso, você encontra miniaturas, luminária, ímã e colar de cerâmica inspirados nessa fachada.
           </p>
           <p className="product-description">
             As igrejinhas do Quadrado podem ser compradas online pelo site e também vistas de perto na Agô, no Quadrado de Trancoso. Enviamos pedidos para todo o Brasil e fazemos cotação internacional sob consulta.
