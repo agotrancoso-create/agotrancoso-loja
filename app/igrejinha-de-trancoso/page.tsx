@@ -13,6 +13,9 @@ const productIds = [
   'colar-igreja-quadrado',
 ];
 
+const preferredImage = '/produtos/igrejinha-luminaria-trancoso.jpg';
+const preferredImageAlt = 'Igrejinha do Quadrado de Trancoso em cerâmica feita pela Agô';
+
 export const metadata: Metadata = {
   title: { absolute: 'Igrejinha do Quadrado de Trancoso em Cerâmica | Agô' },
   description: 'Conheça e compre a Igrejinha do Quadrado de Trancoso em cerâmica, inspirada na Igreja de São João Batista. Miniaturas e peças feitas à mão pela Agô em Trancoso, Bahia.',
@@ -24,11 +27,13 @@ export const metadata: Metadata = {
     siteName: 'Agô Trancoso',
     locale: 'pt_BR',
     type: 'website',
+    images: [{ url: preferredImage, alt: preferredImageAlt }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Igrejinha do Quadrado de Trancoso em Cerâmica | Agô',
     description: 'Peças inspiradas na Igreja do Quadrado, feitas pela Agô em Trancoso, Bahia.',
+    images: [preferredImage],
   },
 };
 
@@ -38,6 +43,7 @@ export default function IgrejinhaDeTrancosoPage() {
     .filter((product): product is NonNullable<typeof product> => Boolean(product?.available));
 
   const pageUrl = `${SITE_DOMAIN}/igrejinha-de-trancoso`;
+  const preferredImageUrl = `${SITE_DOMAIN}${preferredImage}`;
   const structuredData = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -49,6 +55,12 @@ export default function IgrejinhaDeTrancosoPage() {
         alternateName: ['Igrejinha de Trancoso', 'Igreja do Quadrado em cerâmica', 'Miniatura da Igreja do Quadrado'],
         description: 'Coleção de miniaturas e peças em cerâmica inspiradas na Igreja de São João Batista, conhecida como Igrejinha do Quadrado de Trancoso.',
         isPartOf: { '@id': `${SITE_DOMAIN}#website` },
+        primaryImageOfPage: {
+          '@type': 'ImageObject',
+          contentUrl: preferredImageUrl,
+          url: preferredImageUrl,
+          caption: preferredImageAlt,
+        },
         about: {
           '@type': 'Thing',
           name: 'Igreja de São João Batista de Trancoso',
