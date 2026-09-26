@@ -29,6 +29,31 @@ body {
   object-position: center;
 }
 
+/* Purchase-intent copy stays editorial and discreet rather than looking like an SEO block. */
+.catalog-buying-answer {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: start;
+  padding: 4px 0 36px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 62%, transparent);
+}
+
+.catalog-buying-answer-copy {
+  max-width: 720px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.catalog-buying-answer-copy p + p {
+  margin-top: 12px;
+}
+
+.catalog-buying-answer .home-hero-actions {
+  margin-top: 18px;
+}
+
 /* Internal scrolling should feel native, not like an old embedded panel. */
 .ago-category-bar-inner,
 .ago-search-suggestions,
@@ -136,6 +161,7 @@ body {
 .cart-complementary-info,
 .checkout-product-name,
 .catalog-intro,
+.catalog-buying-answer,
 .product-buybox,
 .ago-footer-group,
 .ago-footer-brand {
@@ -178,6 +204,13 @@ body {
   .ago-category-bar a {
     flex: 0 0 auto;
     scroll-snap-align: start;
+  }
+
+  .catalog-buying-answer {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding-bottom: 28px;
+    margin-bottom: 32px;
   }
 
   /* Floating contact actions remain floating on mobile as on desktop. */
@@ -302,6 +335,11 @@ body {
 
   .product-name {
     font-size: .95rem;
+  }
+
+  .catalog-buying-answer .home-hero-actions {
+    align-items: flex-start;
+    gap: 6px 18px;
   }
 
   .checkout-fields-address {
