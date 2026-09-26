@@ -174,7 +174,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
           <div className="product-info-column">
             <div className="product-buybox">
-              <p className="eyebrow">Cerâmica feita à mão</p>
+              <p className="eyebrow">{isIgrejinhaProduct ? 'Igrejinha de Trancoso · Cerâmica feita à mão' : 'Cerâmica feita à mão'}</p>
               <h1 className="product-detail-title">{product.name}</h1>
 
               {hasPromo ? (
@@ -212,7 +212,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
       <section className="product-aftercare">
         <div className="site-container product-aftercare-inner">
           <p className="eyebrow">Continue explorando</p>
-          <h2>{isIgrejinhaProduct ? 'Veja outras peças da Igrejinha de Trancoso.' : 'Há mais para descobrir.'}</h2>
+          <h2>{isIgrejinhaProduct ? 'Conheça outras Igrejinhas de Trancoso.' : 'Há mais para descobrir.'}</h2>
           <Link href={isIgrejinhaProduct ? '/igrejinha-de-trancoso' : '/produtos'} className="text-link">
             {isIgrejinhaProduct ? 'Ver todas as igrejinhas' : 'Ver todas as peças'} <span aria-hidden="true">↗</span>
           </Link>
