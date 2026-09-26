@@ -8,9 +8,12 @@ import './quality-pass.css';
 import './immersive-experience.css';
 import './confirmation-experience.css';
 import './calm-experience.css';
+import './bahia-immersive.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
+import ImmersiveMotion from '@/components/ImmersiveMotion';
+import CepAddressAutofill from '@/components/CepAddressAutofill';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -26,7 +29,7 @@ const firstPurchaseAvailable = Boolean(
   (process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN),
 );
 
-export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#eedcc2', colorScheme: 'light' };
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#875038', colorScheme: 'light' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
@@ -121,6 +124,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`}>
       <body>
         <MarketingAnalytics />
+        <ImmersiveMotion />
+        <CepAddressAutofill />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <CartProvider>
           <Header firstPurchaseAvailable={firstPurchaseAvailable} />
