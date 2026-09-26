@@ -10,7 +10,10 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/checkout', '/confirmacao', '/api/'],
       },
     ],
-    sitemap: `${SITE_DOMAIN}/sitemap.xml`,
+    sitemap: [
+      `${SITE_DOMAIN}/sitemap.xml`,
+      `${SITE_DOMAIN}/image-sitemap.xml`,
+    ],
     host: SITE_DOMAIN,
   };
 }
