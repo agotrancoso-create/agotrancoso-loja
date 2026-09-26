@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { useCart } from '@/context/CartContext';
 import { getProductById, getEffectivePrice, getAvailableProducts } from '@/lib/products';
+import { getRelatedProductIds, sortProductsByAttention } from '@/lib/merchandising';
 import CartIcon from './CartIcon';
 import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping, FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
 import { trackRemoveFromCart, trackAddToCart } from '@/lib/marketing-analytics';
@@ -70,26 +71,21 @@ export default function CartDrawer() {
   const progressTarget = FREE_SHIPPING_THRESHOLD + 0.01;
   const progress = Math.min(100, (subtotal / progressTarget) * 100);
   const cartIds = new Set(lines.map(({ product }) => product.id));
-  const cartCategories = new Set(lines.map(({ product }) => product.category));
-  const maxComplementaryPrice = Math.max(500, Math.min(1500, subtotal + 500));
+  const available = sortProductsByAttention(getAvailableProducts());
+  const availableById = new Map(available.map((product) => [product.id, product]));
+
+  const curatedIds = Array.from(new Set(lines.flatMap(({ product }) => getRelatedProductIds(product.id))));
+  const curated = curatedIds
+    .filter((id) => !cartIds.has(id))
+    .map((id) => availableById.get(id))
+    .filter((product): product is NonNullable<typeof product> => Boolean(product?.available));
+
   const complementary = lines.length === 0
     ? []
-    : getAvailableProducts()
-        .filter((product) => !cartIds.has(product.id))
-        .map((product) => {
-          const price = getEffectivePrice(product);
-          let score = 0;
-          if (cartCategories.has(product.category)) score += 6;
-          if (product.category === 'presentes') score += 3;
-          if (product.category === 'trancoso') score += 2;
-          if (price <= 350) score += 2;
-          if (price <= maxComplementaryPrice) score += 1;
-          return { product, price, score };
-        })
-        .filter(({ price }) => price <= maxComplementaryPrice)
-        .sort((a, b) => b.score - a.score || a.price - b.price)
-        .slice(0, 4)
-        .map(({ product }) => product);
+    : [
+        ...curated,
+        ...available.filter((product) => !cartIds.has(product.id) && !curatedIds.includes(product.id)),
+      ].slice(0, 6);
 
   function scrollComplementary(direction: -1 | 1) {
     const node = complementaryRef.current;
@@ -115,7 +111,10 @@ export default function CartDrawer() {
         <div className="cart-header">
           <div className="cart-header-title">
             <CartIcon size={22} />
-            <h2 id="ago-cart-title">Sua seleção</h2>
+            <div>
+              <h2 id="ago-cart-title">Sua seleção</h2>
+              {lines.length > 0 && <small>Uma curadoria que começa com o que você escolheu.</small>}
+            </div>
           </div>
           <button ref={closeRef} type="button" onClick={closeDrawer} aria-label="Fechar sacola" className="cart-close">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -179,11 +178,11 @@ export default function CartDrawer() {
           )}
 
           {complementary.length > 0 && (
-            <div className="cart-complementary" aria-label="Peças que podem acompanhar sua seleção">
+            <div className="cart-complementary" aria-label="Curadoria para acompanhar sua seleção">
               <div className="cart-complementary-head">
                 <div>
-                  <span>Para acompanhar</span>
-                  <small>Outras opções que combinam com sua escolha.</small>
+                  <span>Para acompanhar sua escolha</span>
+                  <small>Peças relacionadas ao que já chamou sua atenção.</small>
                 </div>
                 <div className="cart-complementary-nav" aria-label="Navegar pelas sugestões">
                   <button type="button" onClick={() => scrollComplementary(-1)} aria-label="Ver sugestões anteriores">
@@ -259,7 +258,7 @@ export default function CartDrawer() {
             <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
             <div className="cart-total-row"><span>Total</span><strong>{formatBRL(total)}</strong></div>
             <Link href="/checkout" onClick={closeDrawer} className="cart-checkout">Finalizar pedido</Link>
-            <button type="button" onClick={closeDrawer} className="cart-continue">Continuar comprando</button>
+            <button type="button" onClick={closeDrawer} className="cart-continue">Continuar escolhendo</button>
           </div>
         )}
       </div>
