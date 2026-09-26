@@ -1,8 +1,15 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import ProductCard from '@/components/ProductCard';
 import Benefits from '@/components/Benefits';
 import { getAvailableProducts, getProductById } from '@/lib/products';
+
+export const metadata: Metadata = {
+  title: { absolute: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso' },
+  description: 'Igrejinhas de Trancoso em cerâmica, peças inspiradas na Igreja do Quadrado e artesanato feito à mão no Quadrado de Trancoso, Bahia.',
+  alternates: { canonical: '/' },
+};
 
 const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu';
 const whatsappUrl = 'https://wa.me/557398558124?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ag%C3%B4%20Trancoso.';
@@ -30,7 +37,10 @@ export default function HomePage() {
             <p className="eyebrow">Agô · Trancoso, Bahia</p>
             <h1 id="featured-title">Peças que ficam por perto.</h1>
             <p>Igrejinhas do Quadrado, objetos para casa, símbolos de fé e ideias para presentear. Explore com calma.</p>
-            <Link href="/produtos" className="ago-premium-text-link">Ver coleção <span aria-hidden="true">↗</span></Link>
+            <div className="ago-collection-after-grid" style={{ marginTop: 0, paddingTop: 0 }}>
+              <Link href="/igrejinha-de-trancoso" className="ago-premium-text-link">Ver Igrejinhas de Trancoso <span aria-hidden="true">↗</span></Link>
+              <Link href="/produtos" className="ago-premium-text-link">Ver coleção <span aria-hidden="true">↗</span></Link>
+            </div>
           </div>
 
           <div className="ago-premium-product-grid ago-premium-product-grid-featured">
