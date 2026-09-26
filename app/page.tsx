@@ -2,10 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import ProductCard from '@/components/ProductCard';
-import Benefits from '@/components/Benefits';
-import ImmersiveJourney from '@/components/ImmersiveJourney';
-import RecentlyViewed from '@/components/RecentlyViewed';
-import SavedProducts from '@/components/SavedProducts';
 import { getAvailableProducts } from '@/lib/products';
 import { sortProductsByAttention } from '@/lib/merchandising';
 
@@ -20,10 +16,10 @@ const whatsappUrl = 'https://wa.me/557398558124?text=Ol%C3%A1!%20Vim%20pelo%20si
 const instagramUrl = 'https://www.instagram.com/agotrancoso';
 
 const discovery = [
-  { title: 'Trancoso', subtitle: 'Igrejinhas e símbolos do Quadrado', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
-  { title: 'Casa & decoração', subtitle: 'Peças para compor a casa', category: 'decoracao', image: '/produtos/esfera-decorativa.jpg' },
-  { title: 'Fé & devoção', subtitle: 'Símbolos de fé em cerâmica', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-1.jpg' },
-  { title: 'Presentes', subtitle: 'Pequenas peças para levar', category: 'presentes', image: '/produtos/catalogo/colar-igreja-quadrado-2.jpg' },
+  { title: 'Trancoso', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
+  { title: 'Casa & decoração', category: 'decoracao', image: '/produtos/esfera-decorativa.jpg' },
+  { title: 'Fé & devoção', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-1.jpg' },
+  { title: 'Presentes', category: 'presentes', image: '/produtos/catalogo/colar-igreja-quadrado-2.jpg' },
 ];
 
 export default function HomePage() {
@@ -31,24 +27,24 @@ export default function HomePage() {
   const featured = allProducts.slice(0, 6);
 
   return (
-    <div className="ago-home ago-premium-home">
+    <div className="ago-home ago-premium-home ago-home-calm">
       <section className="ago-cinematic-commerce" aria-labelledby="featured-title">
         <div className="ago-cinematic-media" aria-hidden="true">
           <Image src="/hero.jpg" alt="" fill priority sizes="100vw" className="ago-cinematic-image" quality={92} />
           <div className="ago-cinematic-overlay" />
         </div>
 
-        <div className="ago-container ago-cinematic-copy ago-reveal is-visible">
+        <div className="ago-container ago-cinematic-copy">
           <p className="eyebrow">Quadrado de Trancoso · Bahia</p>
           <h1 id="featured-title">Trancoso em cerâmica.</h1>
-          <p>Igrejinhas do Quadrado, objetos para casa, símbolos de fé e presentes selecionados pela Agô.</p>
+          <p>Igrejinhas do Quadrado e peças selecionadas pela Agô.</p>
           <div className="home-hero-actions">
             <a href="#pecas-em-destaque" className="ago-premium-hero-cta">Ver peças</a>
             <Link href="/igrejinha-de-trancoso" className="ago-cinematic-secondary">Igrejinhas de Trancoso <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
 
-        <div id="pecas-em-destaque" className="ago-container ago-cinematic-products ago-reveal">
+        <div id="pecas-em-destaque" className="ago-container ago-cinematic-products">
           <div className="ago-cinematic-products-head">
             <div>
               <p className="eyebrow">Em destaque</p>
@@ -68,42 +64,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      <ImmersiveJourney />
-
-      <section className="ago-journey-chapter ago-reveal" aria-labelledby="feito-mao-title">
-        <div className="ago-container ago-journey-heading">
-          <span className="ago-journey-index">02</span>
-          <div>
-            <p className="eyebrow">De perto</p>
-            <h2 id="feito-mao-title">Veja cada peça de perto.</h2>
-            <p>Texturas, pintura e pequenas diferenças aparecem nos detalhes.</p>
-          </div>
-        </div>
-        <Benefits />
-      </section>
-
-      <section className="ago-premium-editorial ago-home-story ago-reveal" aria-labelledby="story-title">
+      <section className="ago-premium-editorial ago-home-story" aria-labelledby="story-title">
         <div className="ago-container ago-premium-split">
           <div className="ago-premium-image ago-story-image">
             <Image src="/nossa-essencia.jpg" alt="Universo visual da Agô Trancoso" fill sizes="(max-width: 900px) 100vw, 56vw" quality={92} className="ago-complementary-photo" />
           </div>
           <div className="ago-premium-copy">
-            <span className="ago-journey-index">03</span>
             <p className="eyebrow">No Quadrado</p>
             <h2 id="story-title">Desde 2016, em Trancoso.</h2>
-            <p>A Agô reúne peças inspiradas na igreja, nas fachadas, nas cores e nos símbolos do lugar.</p>
+            <p>Cerâmica inspirada nas formas, cores e símbolos do lugar.</p>
             <Link href="/nossa-essencia" className="ago-premium-text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
       </section>
 
-      <section className="ago-premium-discovery ago-reveal" aria-labelledby="discover-title">
+      <section className="ago-premium-discovery" aria-labelledby="discover-title">
         <div className="ago-container">
           <div className="ago-premium-section-head">
             <div>
-              <span className="ago-journey-index">04</span>
               <p className="eyebrow">A coleção</p>
-              <h2 id="discover-title">Explore a coleção.</h2>
+              <h2 id="discover-title">Escolha por categoria.</h2>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver todas as peças <span aria-hidden="true">↗</span></Link>
           </div>
@@ -112,34 +92,28 @@ export default function HomePage() {
             {discovery.map((item) => (
               <Link key={item.category} href={`/produtos?categoria=${item.category}`} className="ago-premium-discovery-card">
                 <div className="ago-premium-discovery-image"><Image src={item.image} alt={item.title} fill quality={88} sizes="(max-width: 767px) 50vw, 25vw" /></div>
-                <div className="ago-premium-discovery-copy"><small>{item.subtitle}</small><span>{item.title}</span><strong>Ver peças <span aria-hidden="true">↗</span></strong></div>
+                <div className="ago-premium-discovery-copy"><span>{item.title}</span></div>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <SavedProducts products={allProducts} />
-      <RecentlyViewed products={allProducts} />
-
-      <section className="ago-shipping-chapter ago-reveal" aria-labelledby="shipping-title">
+      <section className="ago-shipping-chapter" aria-labelledby="shipping-title">
         <div className="ago-container ago-shipping-chapter-inner">
           <div>
-            <span className="ago-journey-index">05</span>
             <p className="eyebrow">Compra online</p>
             <h2 id="shipping-title">Da Bahia para sua casa.</h2>
           </div>
           <div className="ago-shipping-facts">
-            <span>Compra online</span>
             <span>Pagamento seguro</span>
             <span>Frete grátis acima de R$ 500</span>
             <span>Envio para todo o Brasil</span>
-            <span>Envio internacional sob consulta</span>
           </div>
         </div>
       </section>
 
-      <section className="ago-reveal bg-[#7b4d35] text-[#fbf0dd] py-[clamp(72px,9vw,142px)]" aria-labelledby="visit-title">
+      <section className="bg-[#7b4d35] text-[#fbf0dd] py-[clamp(72px,9vw,142px)]" aria-labelledby="visit-title">
         <div className="ago-container grid items-center gap-16 md:grid-cols-[1.35fr_0.65fr] md:gap-20 lg:gap-28">
           <div className="max-w-[680px]">
             <p className="mb-4 text-[0.72rem] font-extrabold uppercase tracking-[0.24em] text-[#dcb77d]">Se estiver por perto</p>
