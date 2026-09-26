@@ -20,31 +20,89 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1, them
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
-  title: { default: 'Agô Trancoso | Cerâmica brasileira para casa, fé e presente', template: '%s | Agô Trancoso' },
-  description: 'Cerâmica brasileira para casa, fé e presente. Trancoso é a principal inspiração da Agô, em uma coleção que também percorre outros símbolos e referências do Brasil.',
-  keywords: ['Agô Trancoso', 'cerâmica brasileira', 'cerâmica artesanal', 'decoração artesanal', 'presentes artesanais', 'Trancoso', 'Bahia', 'fé e devoção'],
-  alternates: { canonical: SITE_DOMAIN },
+  title: {
+    default: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso',
+    template: '%s | Agô Trancoso',
+  },
+  description: 'Igrejinhas de Trancoso em cerâmica, peças inspiradas na Igreja do Quadrado e artesanato feito à mão no Quadrado de Trancoso, Bahia.',
+  keywords: [
+    'Agô Trancoso',
+    'igrejinha de Trancoso',
+    'Igreja do Quadrado',
+    'Igreja de São João Batista Trancoso',
+    'cerâmica Trancoso',
+    'cerâmica artesanal Trancoso',
+    'artesanato Trancoso',
+    'lembrança de Trancoso',
+    'Quadrado de Trancoso',
+    'Bahia',
+  ],
   robots: { index: true, follow: true },
   openGraph: {
-    title: 'Agô Trancoso | Cerâmica brasileira para casa, fé e presente',
-    description: 'Trancoso é a principal inspiração da Agô e o começo de uma coleção que vai além.',
+    title: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso',
+    description: 'Cerâmica feita à mão no Quadrado de Trancoso, com igrejinhas e peças inspiradas em um dos símbolos mais reconhecidos da vila.',
     url: SITE_DOMAIN,
     siteName: 'Agô Trancoso',
     locale: 'pt_BR',
     type: 'website',
+    images: [{ url: '/hero.jpg', alt: 'Cerâmica artesanal da Agô Trancoso' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Agô Trancoso | Cerâmica brasileira',
-    description: 'Objetos para casa, fé e presente, com Trancoso como principal inspiração.',
+    title: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica',
+    description: 'Igrejinhas de Trancoso e cerâmica artesanal feita no Quadrado de Trancoso, Bahia.',
+    images: ['/hero.jpg'],
   },
 };
+
+const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu';
 
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'Organization', '@id': `${SITE_DOMAIN}#organization`, name: 'Agô Trancoso', url: SITE_DOMAIN, sameAs: ['https://www.instagram.com/agotrancoso', 'https://www.tiktok.com/@agotrancoso'] },
-    { '@type': 'WebSite', '@id': `${SITE_DOMAIN}#website`, name: 'Agô Trancoso', url: SITE_DOMAIN, inLanguage: 'pt-BR', publisher: { '@id': `${SITE_DOMAIN}#organization` } },
+    {
+      '@type': ['Organization', 'Store'],
+      '@id': `${SITE_DOMAIN}#organization`,
+      name: 'Agô Trancoso',
+      url: SITE_DOMAIN,
+      logo: `${SITE_DOMAIN}/logo.png`,
+      image: `${SITE_DOMAIN}/hero.jpg`,
+      description: 'Cerâmica artesanal feita à mão em Trancoso, Bahia, com peças inspiradas no Quadrado e na Igreja de São João Batista.',
+      telephone: '+55 73 9855-8124',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Trancoso',
+        addressRegion: 'BA',
+        addressCountry: 'BR',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: -16.5895579,
+        longitude: -39.0958675,
+      },
+      hasMap: mapsUrl,
+      sameAs: [
+        'https://www.instagram.com/agotrancoso',
+        'https://www.tiktok.com/@agotrancoso',
+        mapsUrl,
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_DOMAIN}#website`,
+      name: 'Agô Trancoso',
+      url: SITE_DOMAIN,
+      inLanguage: 'pt-BR',
+      publisher: { '@id': `${SITE_DOMAIN}#organization` },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${SITE_DOMAIN}/produtos?busca={search_term_string}`,
+        },
+        'query-input': 'required name=search_term_string',
+      },
+    },
   ],
 };
 
