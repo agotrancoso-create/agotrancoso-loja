@@ -90,6 +90,14 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
       </div>
 
       {safeImages.length > 1 && (
+        <div className="product-gallery-dots" aria-label="Posição na galeria">
+          {safeImages.map((_, index) => (
+            <button key={index} type="button" onClick={() => setActive(index)} aria-label={`Ir para foto ${index + 1}`} aria-current={active === index ? 'true' : undefined} className={active === index ? 'is-active' : ''} />
+          ))}
+        </div>
+      )}
+
+      {safeImages.length > 1 && (
         <div className="product-gallery-thumbs" aria-label="Selecionar foto">
           {safeImages.map((src, index) => (
             <button
