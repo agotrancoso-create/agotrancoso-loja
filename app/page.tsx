@@ -5,6 +5,7 @@ import ProductCard from '@/components/ProductCard';
 import Benefits from '@/components/Benefits';
 import ImmersiveJourney from '@/components/ImmersiveJourney';
 import RecentlyViewed from '@/components/RecentlyViewed';
+import SavedProducts from '@/components/SavedProducts';
 import { getAvailableProducts } from '@/lib/products';
 import { sortProductsByAttention } from '@/lib/merchandising';
 
@@ -118,6 +119,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      <SavedProducts products={allProducts} />
       <RecentlyViewed products={allProducts} />
 
       <section className="ago-shipping-chapter ago-reveal" aria-labelledby="shipping-title">
