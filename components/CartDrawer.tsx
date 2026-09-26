@@ -113,7 +113,7 @@ export default function CartDrawer() {
             <CartIcon size={22} />
             <div>
               <h2 id="ago-cart-title">Sua seleção</h2>
-              {lines.length > 0 && <small>Uma curadoria que começa com o que você escolheu.</small>}
+              {lines.length > 0 && <small>Peças escolhidas por você.</small>}
             </div>
           </div>
           <button ref={closeRef} type="button" onClick={closeDrawer} aria-label="Fechar sacola" className="cart-close">
@@ -178,11 +178,11 @@ export default function CartDrawer() {
           )}
 
           {complementary.length > 0 && (
-            <div className="cart-complementary" aria-label="Curadoria para acompanhar sua seleção">
+            <div className="cart-complementary" aria-label="Peças para acompanhar sua seleção">
               <div className="cart-complementary-head">
                 <div>
-                  <span>Para acompanhar sua escolha</span>
-                  <small>Peças relacionadas ao que já chamou sua atenção.</small>
+                  <span>Para acompanhar</span>
+                  <small>Sugestões relacionadas ao que já está na sacola.</small>
                 </div>
                 <div className="cart-complementary-nav" aria-label="Navegar pelas sugestões">
                   <button type="button" onClick={() => scrollComplementary(-1)} aria-label="Ver sugestões anteriores">
