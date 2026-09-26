@@ -20,6 +20,11 @@ function setReactInputValue(input: HTMLInputElement | null, value: string) {
   input.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
+function addressSummary(data: CepPayload) {
+  const locality = [data.city, data.state].filter(Boolean).join('/');
+  return [data.street, data.neighborhood, locality].filter(Boolean).join(' · ');
+}
+
 export default function CepAddressAutofill() {
   const pathname = usePathname();
 
@@ -71,12 +76,18 @@ export default function CepAddressAutofill() {
           setReactInputValue(document.getElementById('city') as HTMLInputElement | null, data.city || '');
           setReactInputValue(document.getElementById('state') as HTMLInputElement | null, data.state || '');
 
-          status.textContent = 'Endereço identificado. Informe o número e o complemento, se houver.';
+          const summary = addressSummary(data);
+          if (data.street) {
+            status.textContent = `Endereço encontrado: ${summary}. Agora informe apenas o número${data.neighborhood ? '' : ' e confira o bairro'}.`;
+          } else {
+            status.textContent = `CEP localizado${summary ? `: ${summary}` : ''}. Este CEP não informa a rua; preencha rua e número.`;
+          }
           status.classList.remove('is-loading', 'is-error');
           status.classList.add('is-success');
 
           window.setTimeout(() => {
-            (document.getElementById('number') as HTMLInputElement | null)?.focus();
+            const targetId = data.street ? 'number' : 'street';
+            (document.getElementById(targetId) as HTMLInputElement | null)?.focus();
           }, 120);
         } catch (error) {
           if (currentRequest !== request) return;
@@ -97,7 +108,7 @@ export default function CepAddressAutofill() {
           status.classList.remove('is-loading', 'is-success', 'is-error');
           return;
         }
-        debounce = window.setTimeout(lookup, 320);
+        debounce = window.setTimeout(lookup, 220);
       };
 
       zip.addEventListener('input', onInput);
