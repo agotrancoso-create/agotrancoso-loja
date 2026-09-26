@@ -1,1 +1,0 @@
-Fotos reais enviadas pela usuária em 26/09/2026 serão associadas aos produtos correspondentes. Arquivo marcador temporário para o lote de atualização.
