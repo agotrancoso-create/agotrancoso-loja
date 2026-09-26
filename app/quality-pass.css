@@ -1,6 +1,6 @@
 /* Final quality pass.
-   This layer is intentionally small: it only resolves layout details that
-   improve product discovery and conversion without changing the Agô identity. */
+   This layer is intentionally conservative: it resolves presentation details
+   that improve product discovery and conversion without changing the Agô identity. */
 
 .product-related-selection {
   border-top: 1px solid color-mix(in srgb, var(--line) 52%, transparent);
@@ -35,9 +35,118 @@
   text-wrap: pretty;
 }
 
+/*
+ * One visual contract for every commerce photograph.
+ * The frame, image and interactive state all inherit the same rounding so no
+ * page, cart or search result can accidentally render a square-corner photo.
+ */
+.product-image-wrap,
+.product-gallery-main,
+.product-gallery-thumb,
+.ago-premium-discovery-image,
+.ago-search-suggestion-image,
+.catalog-search-suggestion-image,
+.cart-product-image,
+.cart-complementary-image,
+.checkout-product-image,
+.ago-photo-canvas {
+  overflow: hidden !important;
+  border-radius: var(--radius) !important;
+  clip-path: inset(0 round var(--radius));
+}
+
+.product-gallery-thumb,
+.ago-search-suggestion-image,
+.catalog-search-suggestion-image,
+.cart-product-image,
+.checkout-product-image {
+  border-radius: var(--radius-sm) !important;
+  clip-path: inset(0 round var(--radius-sm));
+}
+
+.product-image-wrap img,
+.product-gallery-main img,
+.product-gallery-thumb img,
+.ago-premium-discovery-image img,
+.ago-search-suggestion-image img,
+.catalog-search-suggestion-image img,
+.cart-product-image img,
+.cart-complementary-image img,
+.checkout-product-image img,
+.ago-photo-canvas img {
+  border-radius: inherit !important;
+}
+
+/* Cart recommendations use the same calm product framing as the storefront. */
+.cart-complementary-item {
+  border-radius: 18px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--sand) 84%, var(--ivory));
+}
+
+.cart-complementary-image {
+  border-radius: 14px !important;
+  clip-path: inset(0 round 14px);
+  background: color-mix(in srgb, var(--ivory) 88%, var(--sand));
+}
+
+.cart-complementary-image img,
+.cart-product-image img {
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+/* The label is useful with a mouse, but it competes with the product on touch. */
+@media (hover: none), (max-width: 900px) {
+  .product-view {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+
 @media (max-width: 1100px) {
   .product-related-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  /* Mobile/tablet keep exactly the same palette logic as desktop. */
+  body,
+  main,
+  .ago-home,
+  .catalog-page,
+  .product-page,
+  .contact-shell,
+  .essencia-shell,
+  .checkout-page {
+    background-color: var(--ivory);
+  }
+
+  .ago-cinematic-commerce,
+  .ago-premium-collection {
+    background-color: var(--sand);
+  }
+
+  .ago-cinematic-products {
+    background: color-mix(in srgb, var(--ivory) 96%, white);
+  }
+
+  .ago-premium-discovery,
+  .ago-journey-chapter,
+  .product-related-selection,
+  .benefits-strip {
+    background-color: var(--ivory);
+  }
+
+  .ago-premium-editorial {
+    background-color: var(--clay);
+  }
+
+  .ago-premium-visit {
+    background-color: var(--terracotta);
   }
 }
 
@@ -49,11 +158,215 @@
   .product-related-grid {
     gap-inline: 10px;
   }
+
+  /* Product first: the photo is never covered by decorative labels on phones. */
+  .product-image-wrap {
+    border-radius: 16px !important;
+    clip-path: inset(0 round 16px);
+  }
+
+  .product-card-copy {
+    padding-top: 12px;
+  }
+
+  /* Cart suggestions stay compact enough to reveal that there is more to swipe. */
+  .cart-complementary-list {
+    grid-auto-columns: minmax(138px, 44%);
+    gap: 10px;
+    padding-bottom: 6px;
+  }
+
+  .cart-complementary-item {
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .cart-complementary-image {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px !important;
+    clip-path: inset(0 round 12px);
+  }
+
+  .cart-complementary-info {
+    font-size: .72rem;
+    line-height: 1.35;
+  }
+
+  .cart-complementary-info strong {
+    min-height: 2.7em;
+  }
+
+  .cart-complementary-add {
+    width: 38px;
+    height: 38px;
+  }
+
+  /* Intentional mobile footer: compact, aligned and visually related to desktop. */
+  .site-footer {
+    padding-block: 28px 16px;
+  }
+
+  .ago-footer-wrap {
+    width: min(100% - 32px, var(--max));
+  }
+
+  .ago-footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 18px;
+    align-items: start;
+  }
+
+  .ago-footer-brand {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    column-gap: 14px;
+    row-gap: 2px;
+    align-items: center;
+    padding-bottom: 4px;
+  }
+
+  .ago-footer-logo {
+    width: 52px;
+    height: 52px;
+    grid-row: 1 / 4;
+    margin: 0;
+  }
+
+  .ago-footer-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ago-footer-place {
+    margin: 0;
+    font-size: .66rem;
+    letter-spacing: .1em;
+    line-height: 1.3;
+  }
+
+  .ago-footer-brand h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.15;
+  }
+
+  .ago-footer-description {
+    display: block;
+    grid-column: 2;
+    margin: 4px 0 0;
+    max-width: 32ch;
+    font-size: .76rem;
+    line-height: 1.5;
+  }
+
+  .ago-footer-group {
+    min-width: 0;
+  }
+
+  .ago-footer-group h3 {
+    margin: 0 0 8px;
+    font-size: .78rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .ago-footer-group nav {
+    display: grid;
+    gap: 2px;
+  }
+
+  .ago-footer-group a,
+  .ago-footer-group nav > span {
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    font-size: .78rem;
+    line-height: 1.35;
+  }
+
+  .ago-footer-group nav > span {
+    display: none;
+  }
+
+  .ago-footer-group p {
+    margin: 0;
+    font-size: .78rem;
+    line-height: 1.5;
+  }
+
+  .ago-footer-visit-group {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 18px;
+    padding-top: 18px;
+    border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  }
+
+  .ago-footer-visit-group h3 {
+    grid-column: 1 / -1;
+  }
+
+  .ago-footer-visit-group p,
+  .ago-footer-visit-group a {
+    min-width: 0;
+  }
+
+  .ago-footer-legal {
+    margin-top: 22px;
+    padding-top: 14px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    text-align: left;
+    font-size: .7rem;
+    line-height: 1.45;
+  }
+
+  .ago-footer-legal > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+  }
+
+  .ago-footer-legal a {
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .ago-footer-main {
+    gap-inline: 14px;
+  }
+
+  .ago-footer-visit-group {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .ago-footer-visit-group h3 {
+    grid-column: 1;
+  }
 }
 
 @media (max-width: 340px) {
   .product-related-grid {
     grid-template-columns: 1fr;
+  }
+
+  .ago-footer-main {
+    grid-template-columns: 1fr;
+  }
+
+  .ago-footer-brand,
+  .ago-footer-visit-group {
+    grid-column: 1;
   }
 }
 
