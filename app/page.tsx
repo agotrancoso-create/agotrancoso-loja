@@ -18,9 +18,9 @@ const instagramUrl = 'https://www.instagram.com/agotrancoso';
 
 const discovery = [
   { title: 'Trancoso', subtitle: 'Igrejinhas e memórias do lugar', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
-  { title: 'Casa & decoração', subtitle: 'Peças para viver com você', category: 'decoracao', image: '/produtos/esfera-decorativa.jpg' },
-  { title: 'Fé & devoção', subtitle: 'Símbolos para acompanhar', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-1.jpg' },
-  { title: 'Presentes', subtitle: 'Escolhas para presentear', category: 'presentes', image: '/produtos/colar-igreja-quadrado.jpg' },
+  { title: 'Casa & decoração', subtitle: 'Para compor a casa', category: 'decoracao', image: '/produtos/esfera-decorativa.jpg' },
+  { title: 'Fé & devoção', subtitle: 'Símbolos de fé', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-1.jpg' },
+  { title: 'Presentes', subtitle: 'Para levar ou presentear', category: 'presentes', image: '/produtos/colar-igreja-quadrado.jpg' },
 ];
 
 export default function HomePage() {
@@ -36,8 +36,8 @@ export default function HomePage() {
 
         <div className="ago-container ago-cinematic-copy ago-reveal is-visible">
           <p className="eyebrow">Quadrado de Trancoso · Bahia</p>
-          <h1 id="featured-title">Escolha uma peça para levar Trancoso com você.</h1>
-          <p>Uma seleção de cerâmicas que parte do Quadrado e chega à sua casa. As peças vêm primeiro, porque é por elas que a história começa.</p>
+          <h1 id="featured-title">Peças que ficam por perto.</h1>
+          <p>Trancoso é nosso começo. Igrejinhas, objetos para casa, símbolos de fé e presentes escolhidos para acompanhar você.</p>
           <div className="home-hero-actions">
             <a href="#pecas-em-destaque" className="ago-premium-hero-cta">Ver peças</a>
             <Link href="/igrejinha-de-trancoso" className="ago-cinematic-secondary">Igrejinhas de Trancoso <span aria-hidden="true">↗</span></Link>
@@ -47,8 +47,8 @@ export default function HomePage() {
         <div id="pecas-em-destaque" className="ago-container ago-cinematic-products ago-reveal">
           <div className="ago-cinematic-products-head">
             <div>
-              <p className="eyebrow">Seleção Agô</p>
-              <h2>Peças que chamam o olhar primeiro.</h2>
+              <p className="eyebrow">Em destaque</p>
+              <h2>Comece por aqui.</h2>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver coleção completa <span aria-hidden="true">↗</span></Link>
           </div>
@@ -59,7 +59,7 @@ export default function HomePage() {
 
           <div className="ago-collection-after-grid ago-conversion-after-grid">
             <span>Envio para todo o Brasil · frete grátis acima de R$ 500</span>
-            <Link href="/produtos" className="ago-premium-dark-cta">Continuar escolhendo</Link>
+            <Link href="/produtos" className="ago-premium-dark-cta">Ver mais peças</Link>
           </div>
         </div>
       </section>
@@ -69,8 +69,8 @@ export default function HomePage() {
           <span className="ago-journey-index">02</span>
           <div>
             <p className="eyebrow">De perto</p>
-            <h2 id="feito-mao-title">O detalhe feito à mão muda tudo.</h2>
-            <p>Formas, pintura e pequenas diferenças fazem cada peça ter presença própria.</p>
+            <h2 id="feito-mao-title">Veja os detalhes.</h2>
+            <p>Texturas, pintura e pequenas diferenças aparecem quando você chega mais perto.</p>
           </div>
         </div>
         <Benefits />
@@ -84,8 +84,8 @@ export default function HomePage() {
           <div className="ago-premium-copy">
             <span className="ago-journey-index">03</span>
             <p className="eyebrow">No Quadrado</p>
-            <h2 id="story-title">A seleção acontece onde Trancoso pulsa.</h2>
-            <p>A Agô está em Trancoso desde 2016. A igreja, as fachadas, as cores e o ritmo do Quadrado fazem parte do olhar com que escolhemos cada peça.</p>
+            <h2 id="story-title">Começou no Quadrado.</h2>
+            <p>A Agô está em Trancoso desde 2016. A igreja, as fachadas, as cores e os símbolos do lugar fazem parte da nossa curadoria.</p>
             <Link href="/nossa-essencia" className="ago-premium-text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
@@ -96,8 +96,8 @@ export default function HomePage() {
           <div className="ago-premium-section-head">
             <div>
               <span className="ago-journey-index">04</span>
-              <p className="eyebrow">Sua escolha</p>
-              <h2 id="discover-title">Entre pelo que mais combina com você.</h2>
+              <p className="eyebrow">A coleção</p>
+              <h2 id="discover-title">Escolha por onde entrar.</h2>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver todas as peças <span aria-hidden="true">↗</span></Link>
           </div>
@@ -118,7 +118,7 @@ export default function HomePage() {
           <div>
             <span className="ago-journey-index">05</span>
             <p className="eyebrow">Da Bahia para sua casa</p>
-            <h2 id="shipping-title">Você escolhe aqui. A gente cuida do caminho.</h2>
+            <h2 id="shipping-title">Compre online. A gente organiza o envio.</h2>
           </div>
           <div className="ago-shipping-facts">
             <span>Compra online</span>
@@ -144,9 +144,9 @@ export default function HomePage() {
           </div>
 
           <div className="justify-self-start text-center md:justify-self-end" aria-label="Trancoso, Bahia, Brasil">
-            <span className="block text-[0.62rem] font-bold uppercase tracking-[0.28em] text-[#dcb77d]">Trancoso</span>
-            <strong className="my-1 block font-[var(--font-display)] text-[clamp(3rem,5.8vw,5.4rem)] font-medium leading-[0.95] tracking-[-0.035em] text-[#dcb77d]">Bahia</strong>
-            <span className="block text-[0.6rem] font-bold uppercase tracking-[0.3em] text-[#dcb77d]">Brasil</span>
+            <span className="block text-[0.62rem] font-bold uppercase tracking-[0.28em] text-[#f1d5a8]">Trancoso</span>
+            <strong className="my-1 block font-[var(--font-display)] text-[clamp(3rem,5.8vw,5.4rem)] font-medium leading-[0.95] tracking-[-0.035em] text-[#fff1d0]">Bahia</strong>
+            <span className="block text-[0.6rem] font-bold uppercase tracking-[0.3em] text-[#dfa56d]">Brasil</span>
           </div>
         </div>
       </section>

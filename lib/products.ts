@@ -1,17 +1,12 @@
 import productsData from '@/data/products.json';
 import { Product, Category, CartItem } from './types';
 
-// -----------------------------------------------------------------------
 // Toda a loja lê nomes, preços, categorias e imagens a partir de products.json.
-// As exceções abaixo existem apenas para corrigir associações históricas e para
-// manter somente originais com qualidade suficiente para exibição. Elas não
-// alteram preço, disponibilidade ou categoria.
-// -----------------------------------------------------------------------
-
+// As exceções abaixo existem só para preservar as fotografias corretas que a
+// proprietária confirmou. Não alteram preço, disponibilidade ou categoria.
 const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
-  // Correção visual confirmada pela proprietária: os dois arquivos principais
-  // estavam associados ao produto oposto. Mantemos os caminhos físicos como
-  // estão no repositório, mas apontamos cada produto para a fotografia correta.
+  // Os nomes físicos desses dois arquivos ficaram historicamente invertidos.
+  // Esta associação visual foi confirmada pela proprietária. Não trocar.
   'igreja-quadrado-p': [
     '/produtos/igrejinha-luminaria-trancoso.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
@@ -20,13 +15,22 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
     '/produtos/igreja-quadrado-p.jpg',
   ],
 
-  // Galeria conferida com o catálogo Meta enviado pela Agô: dois originais de
-  // catálogo e a foto frontal preservada no caminho estável. O thumbnail antigo
-  // em /galeria não é usado, pois é uma versão de baixa resolução.
+  // Restaurar como capa a primeira foto original que existia antes.
   'casal-pretos-velhos': [
+    '/produtos/casal-pretos-velhos.jpg',
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
     '/produtos/catalogo/casal-pretos-velhos-2.jpg',
-    '/produtos/casal-pretos-velhos.jpg',
+  ],
+  'casinha-luminaria': [
+    '/produtos/casinha-luminaria.jpg',
+    '/produtos/catalogo/casinha-luminaria-1.jpg',
+    '/produtos/catalogo/casinha-luminaria-2.jpg',
+    '/produtos/catalogo/casinha-luminaria-3.jpg',
+    '/produtos/catalogo/casinha-luminaria-4.jpg',
+  ],
+  'colar-igreja-quadrado': [
+    '/produtos/colar-igreja-quadrado.jpg',
+    '/produtos/catalogo/colar-igreja-quadrado-2.jpg',
   ],
 };
 
@@ -65,8 +69,6 @@ export function getEffectivePrice(product: Product): number {
  * Recalcula o valor total de um carrinho a partir do catálogo oficial.
  * Nunca confie em preços ou subtotais enviados pelo navegador: esta função
  * é a fonte da verdade usada pelo backend da API de checkout.
- *
- * Retorna erro se algum produto não existir ou estiver indisponível.
  */
 export function calculateCartTotals(items: CartItem[]) {
   const lines: {
@@ -96,8 +98,8 @@ export function calculateCartTotals(items: CartItem[]) {
     }
 
     const effectivePrice = product.promotionalPrice ?? product.price;
-
     const subtotal = Number((effectivePrice * item.quantity).toFixed(2));
+
     lines.push({
       productId: product.id,
       name: product.name,
@@ -107,7 +109,6 @@ export function calculateCartTotals(items: CartItem[]) {
     });
   }
 
-  const total = Number(lines.reduce((sum, l) => sum + l.subtotal, 0).toFixed(2));
-
+  const total = Number(lines.reduce((sum, line) => sum + line.subtotal, 0).toFixed(2));
   return { lines, total, errors, valid: errors.length === 0 && lines.length > 0 };
 }
