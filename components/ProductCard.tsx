@@ -38,6 +38,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   }, [added]);
 
   const image = product.images?.[0] || '/images/placeholder.svg';
+  const secondaryImage = product.images?.[1];
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const hasGallery = (product.images?.length ?? 0) > 1;
@@ -46,13 +47,16 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   const trackView = () => trackViewItem({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category });
 
   return (
-    <article className="product-card group" data-product-id={product.id}>
+    <article className={`product-card group${secondaryImage ? ' has-secondary-image' : ''}`} data-product-id={product.id}>
       <Link href={`/produtos/${product.id}`} className="product-card-main" onClick={trackView}>
         <div className="product-image-wrap">
-          <Image src={image} alt={imageAlt} fill quality={86} priority={priority} sizes="(max-width: 900px) 46vw, (max-width: 1400px) 30vw, 424px" className="product-image product-image-primary" />
+          <Image src={image} alt={imageAlt} fill quality={88} priority={priority} sizes="(max-width: 900px) 46vw, (max-width: 1400px) 30vw, 424px" className="product-image product-image-primary" />
+          {secondaryImage && (
+            <Image src={secondaryImage} alt="" fill quality={88} sizes="(max-width: 900px) 46vw, (max-width: 1400px) 30vw, 424px" className="product-image product-image-secondary" aria-hidden="true" />
+          )}
           {hasPromo && <span className="product-badge">Oferta</span>}
           {!product.available && <span className="product-badge">Indisponível</span>}
-          <span className="product-view" aria-hidden="true">Ver peça</span>
+          <span className="product-view" aria-hidden="true">Ver de perto</span>
         </div>
 
         <div className="product-card-copy">
@@ -63,7 +67,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         </div>
       </Link>
 
-      {hasGallery && <button type="button" className="ago-card-photos" onClick={() => setShowPhotos(true)} aria-label={`Ver fotos de ${product.name}`}>Ver fotos</button>}
+      {hasGallery && <button type="button" className="ago-card-photos" onClick={() => setShowPhotos(true)} aria-label={`Ver detalhes e outras fotos de ${product.name}`}>Ver de perto</button>}
       {showPhotos && <PhotoLightbox name={product.name} images={product.images?.length ? product.images : [image]} onClose={() => setShowPhotos(false)} />}
 
       {product.available && (
