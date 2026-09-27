@@ -17,7 +17,6 @@ const LOW_RES_ASSETS = new Set([
 // repetiria a peça ou criaria faixas artificiais. O frontend já as apresenta
 // inteiras numa moldura quadrada, sem alterar os originais.
 const KEEP_ORIGINAL_ASSETS = new Set([
-  '/produtos/ima-igrejinha-trancoso.jpg',
 ]);
 
 // Arquivos usados por associações históricas corrigidas em lib/products.ts.

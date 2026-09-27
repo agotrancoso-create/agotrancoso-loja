@@ -19,7 +19,7 @@ const discovery = [
   { title: 'Trancoso', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
   { title: 'Casa & decoração', category: 'decoracao', image: '/produtos/casinha-luminaria.jpg' },
   { title: 'Fé & devoção', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-1.jpg' },
-  { title: 'Presentes', category: 'presentes', image: '/produtos/ima-igrejinha-trancoso.jpg' },
+  { title: 'Presentes', category: 'presentes', image: '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg' },
 ];
 
 export default function HomePage() {

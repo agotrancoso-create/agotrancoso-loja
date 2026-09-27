@@ -33,10 +33,10 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
     '/produtos/catalogo/colar-igreja-quadrado-frente.jpg',
     '/produtos/colar-igreja-quadrado.jpg',
   ],
-  // A antiga segunda imagem apontava para uma Igreja M e não para o ímã.
-  // Mantemos apenas a fotografia inequivocamente correspondente ao produto.
+  // Fotografias do ímã confirmadas pela proprietária: peça individual e conjunto.
   'ima-igrejinha-trancoso': [
-    '/produtos/ima-igrejinha-trancoso.jpg',
+    '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg',
+    '/produtos/catalogo/ima-igrejinha-trancoso-conjunto.jpg',
   ],
 };
 
