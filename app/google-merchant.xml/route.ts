@@ -78,6 +78,21 @@ const SHOPPING_HIGHLIGHTS: Record<string, string[]> = {
   ],
 };
 
+// IDs oficiais da taxonomia Google Product Category. Mantemos as classes
+// específicas apenas quando a natureza da peça é inequívoca; nas demais,
+// usamos uma classe de decoração/religiosa ampla em vez de adivinhar atributos.
+const GOOGLE_PRODUCT_CATEGORY_BY_ID: Record<string, number> = {
+  'colar-igreja-quadrado': 196, // Joias > Colares
+  'ima-igrejinha-trancoso': 5876, // Casa e jardim > Decoração > Ímãs de geladeira
+  'igrejinha-luminaria-trancoso': 4636, // Casa e jardim > Iluminação > Luminárias
+  'casinha-luminaria': 4636,
+  'presepio-em-ceramica': 6531, // Casa e jardim > Decoração de Natal > Presépios
+  'rosario-trancoso': 3923, // Material para cerimônias e eventos religiosos > Itens religiosos > Rosários
+  'terco-em-ceramica': 3923,
+  'mobile-trancoso': 696, // Casa e jardim > Decoração
+  'esfera-decorativa': 696,
+};
+
 const IGREJA_VARIANTS: Record<string, { size: string; itemGroupId: string }> = {
   'igreja-quadrado-p': { size: 'P', itemGroupId: 'igreja-quadrado-trancoso' },
   'igreja-quadrado-m': { size: 'M', itemGroupId: 'igreja-quadrado-trancoso' },
@@ -118,6 +133,13 @@ function productType(category: string) {
   return labels[category] ?? 'Artesanato > Cerâmica artesanal';
 }
 
+function googleProductCategory(product: { id: string; category: string }) {
+  const direct = GOOGLE_PRODUCT_CATEGORY_BY_ID[product.id];
+  if (direct) return direct;
+  if (product.category === 'fe-devocao') return 97; // Itens religiosos
+  return 5609; // Casa e jardim > Decoração > Estatuetas
+}
+
 export async function GET() {
   const items = getAllProducts()
     .filter((product) => product.available)
@@ -135,6 +157,7 @@ export async function GET() {
       const description = shoppingCopy?.description ?? product.description;
       const variant = IGREJA_VARIANTS[product.id];
       const isIgrejinha = IGREJINHA_IDS.has(product.id);
+      const category = googleProductCategory(product);
 
       return `
         <item>
@@ -154,6 +177,7 @@ export async function GET() {
           <g:brand>Agô Trancoso</g:brand>
           <g:identifier_exists>no</g:identifier_exists>
           <g:material>Cerâmica</g:material>
+          <g:google_product_category>${category}</g:google_product_category>
           <g:product_type>${escapeXml(productType(product.category))}</g:product_type>
           ${variant ? `<g:item_group_id>${escapeXml(variant.itemGroupId)}</g:item_group_id>\n          <g:size>${escapeXml(variant.size)}</g:size>` : ''}
           ${isIgrejinha ? '<g:custom_label_0>Igrejinha do Quadrado de Trancoso</g:custom_label_0>' : ''}
