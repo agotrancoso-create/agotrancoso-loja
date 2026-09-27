@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
+import Image from '@/components/ProductImage';
 
 export const metadata: Metadata = {
   title: { absolute: 'A Agô | Agô Trancoso' },
@@ -23,7 +23,7 @@ export default function NossaEssenciaPage() {
             </div>
           </section>
           <div className="essencia-image">
-            <Image src="/nossa-essencia.jpg" alt="Seleção de peças em cerâmica disponível na Agô Trancoso" fill priority className="essencia-image-img" sizes="(max-width: 900px) 100vw, 50vw" quality={92} />
+            <Image src="/nossa-essencia.jpg" alt="Seleção de peças em cerâmica disponível na Agô Trancoso" fill priority className="essencia-image-img" sizes="(max-width: 900px) 100vw, 50vw" quality={100} />
           </div>
         </div>
       </div>
