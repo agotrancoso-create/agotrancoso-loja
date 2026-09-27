@@ -13,6 +13,7 @@ import './luxury-polish.css';
 import './final-overrides.css';
 import './premium-contrast.css';
 import './bahia-luxury-system.css';
+import './signature-commerce.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
@@ -33,7 +34,7 @@ const firstPurchaseAvailable = Boolean(
   (process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN),
 );
 
-export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#875038', colorScheme: 'light' };
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#68483a', colorScheme: 'light' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
