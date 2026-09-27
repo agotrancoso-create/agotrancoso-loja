@@ -14,11 +14,13 @@ import './final-overrides.css';
 import './premium-contrast.css';
 import './bahia-luxury-system.css';
 import './signature-commerce.css';
+import './privacy-consent.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
 import KlaviyoOnsite from '@/components/KlaviyoOnsite';
 import WebVitalsReporter from '@/components/WebVitalsReporter';
+import ConsentManager from '@/components/ConsentManager';
 import ImmersiveMotion from '@/components/ImmersiveMotion';
 import CepAddressAutofill from '@/components/CepAddressAutofill';
 import { CartProvider } from '@/context/CartContext';
@@ -146,6 +148,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SocialFloaters />
           {firstPurchaseAvailable && <FirstPurchaseOffer />}
         </CartProvider>
+        <ConsentManager />
       </body>
     </html>
   );
