@@ -64,6 +64,9 @@ async function run() {
   assert.ok(Number.isInteger(searches.at(-1).ecommerce.result_count));
   pass('catalog search records term and result count');
 
+  // The predictive-search layer intentionally sits over the controls below it while focused.
+  // Close it just as a keyboard user would before testing the separate category-filter action.
+  await search.press('Escape');
   await page.getByRole('button', { name: 'Presentes', exact: true }).first().click();
   await waitFor('catalog_filter');
   const filters = await events('catalog_filter');
