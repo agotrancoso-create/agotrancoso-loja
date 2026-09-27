@@ -1,0 +1,388 @@
+/* Agô Trancoso — final premium polish.
+   Deliberately loaded last. It does not redesign the brand; it protects image
+   fidelity, improves product inspection and removes visual noise. */
+
+/* Hero: preserve source sharpness. A permanent scale transform interpolates the
+   bitmap on large screens and can make a good source photograph look softer. */
+.ago-cinematic-image {
+  transform: none !important;
+  transition: none !important;
+  filter: none !important;
+  will-change: auto !important;
+  image-rendering: auto;
+}
+
+.ago-cinematic-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(43, 32, 27, .50) 0%,
+    rgba(43, 32, 27, .30) 46%,
+    rgba(43, 32, 27, .08) 100%
+  ) !important;
+}
+
+/* Product gallery: photography stays visually dominant. */
+.product-gallery-main {
+  border: 1px solid color-mix(in srgb, var(--line) 42%, transparent);
+  background: color-mix(in srgb, var(--ivory) 92%, white);
+  box-shadow: 0 24px 64px rgba(45, 32, 26, .08);
+  isolation: isolate;
+}
+
+.product-gallery-main img,
+.product-gallery-main:hover img {
+  transform: none !important;
+  filter: none !important;
+}
+
+.product-gallery-image,
+.product-gallery-thumb img {
+  object-fit: contain !important;
+}
+
+.ago-gallery-open { cursor: zoom-in; }
+
+.ago-gallery-zoom-hint,
+.product-gallery-counter,
+.product-gallery-arrow {
+  border: 1px solid rgba(255,255,255,.55) !important;
+  background: rgba(250,243,232,.91) !important;
+  box-shadow: 0 10px 30px rgba(45,32,26,.10) !important;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.product-gallery-arrow {
+  transition: transform .2s ease, background .2s ease !important;
+}
+
+.product-gallery-dots { display: none !important; }
+
+.product-gallery-thumbs {
+  gap: 10px !important;
+  padding-top: 14px !important;
+  scrollbar-width: thin;
+}
+
+.product-gallery-thumb {
+  border: 1px solid color-mix(in srgb, var(--line) 42%, transparent) !important;
+  background: var(--ivory) !important;
+  box-shadow: 0 5px 18px rgba(45,32,26,.05);
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease !important;
+}
+
+.product-gallery-thumb img,
+.product-gallery-thumb:hover img,
+.product-gallery-thumb:focus-visible img {
+  transform: none !important;
+}
+
+.product-gallery-thumb.is-active {
+  outline: none !important;
+  border-color: var(--terracotta) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--terracotta) 18%, transparent), 0 8px 20px rgba(45,32,26,.08);
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .product-gallery-arrow:hover,
+  .product-gallery-arrow:focus-visible {
+    transform: scale(1.06) !important;
+    background: var(--ivory) !important;
+  }
+
+  .product-gallery-thumb:hover,
+  .product-gallery-thumb:focus-visible {
+    transform: translateY(-2px) !important;
+  }
+}
+
+/* Modern product viewer. Initial state is always fit-to-screen: the entire piece
+   is visible before the visitor chooses to inspect details. */
+.ago-photo-dialog {
+  width: min(1180px, calc(100vw - 24px)) !important;
+  height: min(900px, calc(100dvh - 24px)) !important;
+  max-width: 1180px !important;
+  max-height: calc(100dvh - 24px) !important;
+  margin: auto;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(255,255,255,.58) !important;
+  border-radius: 24px !important;
+  background: #fbf8f2 !important;
+  color: var(--coffee);
+  box-shadow: 0 40px 120px rgba(24,16,12,.34) !important;
+}
+
+.ago-photo-dialog[open] {
+  display: grid;
+  grid-template-rows: auto minmax(0,1fr) auto;
+}
+
+.ago-photo-dialog::backdrop {
+  background: rgba(31,22,18,.82) !important;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.ago-photo-header {
+  min-height: 78px;
+  margin: 0 !important;
+  padding: 14px 18px 14px 22px;
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto auto;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 34%, transparent);
+  background: rgba(251,248,242,.97);
+}
+
+.ago-photo-heading { min-width: 0; }
+.ago-photo-kicker {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--terracotta);
+  font-size: .65rem;
+  line-height: 1.4;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.ago-photo-header h2 {
+  max-width: 680px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: clamp(1rem,1.6vw,1.25rem) !important;
+  line-height: 1.25;
+}
+
+.ago-photo-position {
+  min-width: 54px;
+  text-align: center;
+  color: var(--muted);
+  font-size: .78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.ago-photo-close,
+.ago-photo-toolbar button,
+.ago-photo-stage-nav button {
+  border: 1px solid color-mix(in srgb, var(--line) 42%, transparent) !important;
+  background: rgba(250,243,232,.94) !important;
+  color: var(--coffee);
+  box-shadow: 0 8px 24px rgba(45,32,26,.08);
+}
+
+.ago-photo-close {
+  width: 46px;
+  height: 46px;
+  min-width: 46px !important;
+  min-height: 46px !important;
+  padding: 0 !important;
+  display: grid;
+  place-items: center;
+  border-radius: 50% !important;
+}
+
+.ago-photo-close svg,
+.ago-photo-stage-nav svg { width: 21px; height: 21px; }
+
+.ago-photo-stage {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 44%, rgba(255,255,255,.95), rgba(244,239,231,.97) 64%, rgba(237,230,219,.99));
+  touch-action: none;
+  user-select: none;
+  cursor: zoom-in;
+  outline: none;
+}
+
+.ago-photo-stage:focus-visible {
+  box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--terracotta) 72%, transparent);
+}
+
+.ago-photo-stage.is-zoomed { cursor: grab; }
+.ago-photo-stage.is-zoomed:active { cursor: grabbing; }
+
+.ago-photo-image-shell {
+  position: absolute;
+  inset: 0;
+  transform-origin: center center;
+  will-change: transform;
+  transition: transform .18s cubic-bezier(.2,.72,.2,1);
+  pointer-events: none;
+}
+
+.ago-photo-image {
+  object-fit: contain !important;
+  padding: clamp(10px,2vw,28px) !important;
+  transform: none !important;
+  filter: none !important;
+  border-radius: 0 !important;
+}
+
+.ago-photo-stage-nav {
+  position: absolute;
+  z-index: 3;
+  inset: 50% 18px auto;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.ago-photo-stage-nav button {
+  width: 48px;
+  height: 48px;
+  min-width: 48px !important;
+  min-height: 48px !important;
+  padding: 0 !important;
+  display: grid;
+  place-items: center;
+  border-radius: 50% !important;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  pointer-events: auto;
+  transition: transform .2s ease, background .2s ease !important;
+}
+
+.ago-photo-footer {
+  margin: 0;
+  padding: 12px 18px 14px;
+  display: grid;
+  gap: 10px;
+  border-top: 1px solid color-mix(in srgb, var(--line) 34%, transparent);
+  background: rgba(251,248,242,.98);
+}
+
+.ago-photo-toolbar {
+  min-height: 46px;
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center;
+  gap: 8px !important;
+}
+
+.ago-photo-toolbar button {
+  min-width: 42px !important;
+  min-height: 42px !important;
+  padding: 8px 13px !important;
+  border-radius: 999px !important;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.ago-photo-toolbar button:disabled { box-shadow: none; opacity: .42; }
+.ago-photo-zoom-value {
+  min-width: 58px;
+  text-align: center;
+  color: var(--muted);
+  font-size: .78rem !important;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.ago-photo-fit { margin-left: 4px; padding-inline: 16px !important; font-size: .74rem; }
+
+.ago-photo-thumbs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 2px 4px;
+  scrollbar-width: thin;
+}
+
+.ago-photo-thumbs button {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  flex: 0 0 58px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--line) 45%, transparent);
+  border-radius: 12px;
+  background: var(--ivory);
+  opacity: .72;
+  transition: opacity .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.ago-photo-thumbs button img { object-fit: contain !important; transform: none !important; }
+.ago-photo-thumbs button.is-active {
+  border-color: var(--terracotta);
+  opacity: 1;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--terracotta) 18%, transparent);
+}
+
+.ago-photo-help {
+  margin: 0 !important;
+  text-align: center;
+  color: var(--muted);
+  font-size: .72rem !important;
+  line-height: 1.5;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .ago-photo-close:hover,
+  .ago-photo-stage-nav button:hover,
+  .ago-photo-toolbar button:hover:not(:disabled) {
+    background: #fffaf1 !important;
+    transform: translateY(-1px);
+  }
+
+  .ago-photo-thumbs button:hover,
+  .ago-photo-thumbs button:focus-visible {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+/* Subtle consistency pass: premium comes from rhythm, not more decoration. */
+.product-page-grid { gap: clamp(36px,5vw,76px) !important; }
+.product-service-grid,
+.product-international-note { border: 1px solid color-mix(in srgb, var(--line) 34%, transparent); }
+
+@media (max-width:700px) {
+  .ago-cinematic-overlay {
+    background: linear-gradient(180deg, rgba(43,32,27,.18) 0%, rgba(43,32,27,.36) 56%, rgba(43,32,27,.57) 100%) !important;
+  }
+
+  .ago-photo-dialog {
+    width: 100vw !important;
+    height: 100dvh !important;
+    max-width: 100vw !important;
+    max-height: 100dvh !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .ago-photo-header {
+    min-height: 68px;
+    padding: 10px 10px 10px 14px;
+    gap: 8px;
+  }
+
+  .ago-photo-kicker { display: none; }
+  .ago-photo-position { min-width: 44px; font-size: .7rem; }
+  .ago-photo-close { width: 44px; height: 44px; min-width: 44px !important; min-height: 44px !important; }
+  .ago-photo-image { padding: 8px !important; }
+  .ago-photo-stage-nav { inset-inline: 10px; }
+  .ago-photo-stage-nav button { width: 44px; height: 44px; min-width: 44px !important; min-height: 44px !important; }
+  .ago-photo-footer { padding: 9px 10px calc(10px + env(safe-area-inset-bottom)); gap: 7px; }
+  .ago-photo-toolbar { min-height: 42px; gap: 6px !important; }
+  .ago-photo-toolbar button { min-width: 40px !important; min-height: 40px !important; padding: 7px 11px !important; }
+  .ago-photo-fit { font-size: .7rem; padding-inline: 12px !important; }
+  .ago-photo-thumbs { justify-content: flex-start; }
+  .ago-photo-thumbs button { width: 52px; height: 52px; flex-basis: 52px; }
+  .ago-photo-help { font-size: .68rem !important; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .ago-photo-image-shell,
+  .product-gallery-arrow,
+  .product-gallery-thumb,
+  .ago-photo-stage-nav button,
+  .ago-photo-thumbs button { transition: none !important; }
+}
