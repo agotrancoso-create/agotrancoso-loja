@@ -39,3 +39,32 @@ jobs:
 
       - name: Production build
         run: npm run build
+
+      - name: Smoke test critical routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run start -- -p 3000 > /tmp/ago-next.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+
+          ready=0
+          for attempt in {1..30}; do
+            if curl --fail --silent --show-error http://127.0.0.1:3000/api/health > /tmp/ago-health.json; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+
+          if [ "$ready" -ne 1 ]; then
+            cat /tmp/ago-next.log
+            exit 1
+          fi
+
+          for path in / /produtos /produtos/igreja-quadrado-p /checkout /robots.txt /sitemap.xml /manifest.webmanifest; do
+            echo "Checking $path"
+            curl --fail --silent --show-error --output /dev/null "http://127.0.0.1:3000$path"
+          done
+
+          cat /tmp/ago-health.json
