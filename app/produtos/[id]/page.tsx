@@ -188,7 +188,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         </nav>
 
         <div className="product-page-grid">
-          <div className="product-gallery-column"><ProductGallery name={product.name} images={images} /></div>
+          <div className="product-gallery-column"><ProductGallery productId={product.id} name={product.name} images={images} /></div>
 
           <div className="product-info-column">
             <div className="product-buybox">
@@ -237,7 +237,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               <Link href="/produtos" className="ago-premium-text-link">Ver coleção completa <span aria-hidden="true">↗</span></Link>
             </div>
             <div className="ago-premium-product-grid product-related-grid">
-              {related.map((relatedProduct) => <ProductCard key={relatedProduct.id} product={relatedProduct} />)}
+              {related.map((relatedProduct) => <ProductCard key={relatedProduct.id} product={relatedProduct} listName="Produtos relacionados" />)}
             </div>
           </div>
         </section>
