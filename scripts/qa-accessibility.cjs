@@ -3,7 +3,7 @@ const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','
 (async()=>{
  await new Promise(r=>server.stdout.on('data',d=>{if(d.toString().includes('Ready'))r()}));
  browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader']});
- let p=await browser.newPage({reducedMotion:'reduce'});await p.addInitScript(()=>{localStorage.setItem('ago_primeira_compra_v3_vista','1');localStorage.setItem('agotrancoso_carrinho_v1',JSON.stringify([{productId:'igreja-quadrado-p',quantity:1}]));});
+ let p=await browser.newPage({reducedMotion:'reduce'});await p.addInitScript(()=>{localStorage.setItem('ago_primeira_compra_v3_vista','1');localStorage.setItem('ago_privacy_consent_v1','essential');localStorage.setItem('agotrancoso_carrinho_v1',JSON.stringify([{productId:'igreja-quadrado-p',quantity:1}]));});
  await p.route('**/api/first-purchase/eligibility', r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(r.request().method()==='GET'?{available:true}:{eligible:true})}));
  async function audit(label){await p.addScriptTag({path:process.env.AXE_PATH});const result=await p.evaluate(async()=>{const a=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','best-practice']}});return{violations:a.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>({html:n.html,summary:n.failureSummary}))})),incomplete:a.incomplete.map(v=>({id:v.id,count:v.nodes.length})),passes:a.passes.length};});reports.push({label,...result});console.log(label,JSON.stringify(result.violations));}
  for(const width of [390,1440]){
@@ -27,8 +27,8 @@ const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','
    if(route.includes('casal')){await p.getByRole('button',{name:/Ampliar foto de/}).click();await audit(`lightbox@${width}`);await p.keyboard.press('Escape');}
   }
  }
- // Delayed invitation, keyboard close, server error and retry visibility.
  p=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
+ await p.addInitScript(()=>{localStorage.setItem('ago_privacy_consent_v1','essential');});
  await p.route('**/api/first-purchase/eligibility', r=>r.fulfill({status:200,contentType:'application/json',body:'{"available":true}'}));
  await p.clock.install();await p.goto('http://127.0.0.1:3100/',{waitUntil:'domcontentloaded'});
  await p.getByRole('button',{name:'Abrir menu',exact:true}).click();await p.keyboard.press('Escape');
