@@ -42,7 +42,8 @@
 /* Evita que a seta diagonal caia no conjunto de emojis do iOS. */
 .ago-cinematic-secondary span[aria-hidden="true"],
 .ago-premium-text-link span[aria-hidden="true"],
-.ago-bahia-visit a span[aria-hidden="true"] {
+.ago-bahia-visit a span[aria-hidden="true"],
+.info-link span[aria-hidden="true"] {
   font-family: Arial, Helvetica, sans-serif !important;
   font-style: normal !important;
   font-weight: 700 !important;
@@ -84,6 +85,42 @@
   opacity: 1 !important;
 }
 
+/* Páginas institucionais: A Agô e Contato sem fundo colorido.
+   O conteúdo passa a respirar em uma superfície única, clara e editorial. */
+.contact-page,
+.essencia-page {
+  background: #fffaf2 !important;
+}
+
+.contact-shell,
+.essencia-shell,
+.contact-grid,
+.essencia-grid,
+.contact-copy,
+.contact-actions,
+.contact-links,
+.info-panel {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.info-panel {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  border-radius: 0 !important;
+}
+
+.info-link {
+  border-bottom-color: rgba(117, 80, 64, .18) !important;
+}
+
+.essencia-image {
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
 @media (max-width: 700px) {
   .ago-cinematic-overlay {
     background: linear-gradient(
@@ -104,5 +141,10 @@
 
   .ago-cinematic-copy > p:not(.eyebrow) {
     text-shadow: 0 2px 14px rgba(20, 12, 8, .68);
+  }
+
+  .contact-page,
+  .essencia-page {
+    background: #fffaf2 !important;
   }
 }
