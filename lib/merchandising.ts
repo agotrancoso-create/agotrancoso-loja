@@ -50,7 +50,7 @@ export function sortProductsByAttention<T extends Product>(products: T[]): T[] {
  */
 const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
   'igreja-quadrado-p': [
-    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/igreja-quadrado-p.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ],
   'casinha-luminaria': [
