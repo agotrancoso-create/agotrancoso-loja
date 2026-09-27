@@ -230,7 +230,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
           {sortOpen && (
             <div id="catalog-sort-options" ref={sortMenu} className="catalog-sort-menu" role="listbox" aria-label="Ordenar peças" onKeyDown={(event) => {
               const options = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>('[role=option]'));
-              const index = options.indexOf(event.target as HTMLButtonElement>);
+              const index = options.indexOf(event.target as HTMLButtonElement);
               if (event.key === 'Escape') { event.preventDefault(); setSortOpen(false); sortButton.current?.focus(); }
               if (event.key === 'ArrowDown') { event.preventDefault(); options[(index + 1) % options.length]?.focus(); }
               if (event.key === 'ArrowUp') { event.preventDefault(); options[(index - 1 + options.length) % options.length]?.focus(); }
