@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { useCart } from '@/context/CartContext';
 import { getProductById, getEffectivePrice, getAvailableProducts } from '@/lib/products';
-import { sortProductsByAttention } from '@/lib/merchandising';
+import { getAttentionCoverImage, sortProductsByAttention } from '@/lib/merchandising';
 import CartIcon from './CartIcon';
 import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping, FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
 import { trackRemoveFromCart, trackAddToCart } from '@/lib/marketing-analytics';
@@ -131,9 +131,10 @@ export default function CartDrawer() {
                 <li key={item.productId} className="cart-item">
                   <div className="cart-product-image">
                     <Image
-                      src={product.images?.[0] || '/images/placeholder.svg'}
+                      src={getAttentionCoverImage(product)}
                       alt={product.name}
                       fill
+                      quality={100}
                       sizes="82px"
                       className="object-contain"
                     />
@@ -193,9 +194,10 @@ export default function CartDrawer() {
                   <article key={product.id} className="cart-complementary-item">
                     <Link href={`/produtos/${product.id}`} onClick={closeDrawer} className="cart-complementary-image" aria-label={`Ver ${product.name}`}>
                       <Image
-                        src={product.images?.[0] || '/images/placeholder.svg'}
+                        src={getAttentionCoverImage(product)}
                         alt={product.name}
                         fill
+                        quality={100}
                         sizes="(max-width: 600px) 44vw, 190px"
                         className="object-contain"
                       />
