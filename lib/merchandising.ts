@@ -65,7 +65,6 @@ const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
     '/produtos/catalogo/miniatura-quadrado-trancoso-3.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg',
-    '/produtos/miniatura-quadrado-trancoso.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg',
   ],
   'estatueta-iemanja': [
