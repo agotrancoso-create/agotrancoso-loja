@@ -37,6 +37,12 @@ jobs:
       - name: Catalog audit
         run: npm run audit:catalog
 
+      - name: Commerce contract
+        run: node scripts/qa-commerce.cjs
+
+      - name: Payment return contract
+        run: node scripts/qa-payment-return.cjs
+
       - name: Production build
         run: npm run build
 
@@ -62,9 +68,17 @@ jobs:
             exit 1
           fi
 
-          for path in / /produtos /produtos/igreja-quadrado-p /checkout /robots.txt /sitemap.xml /manifest.webmanifest; do
+          for path in / /produtos /produtos/igreja-quadrado-p /produtos/miniatura-quadrado-trancoso /checkout /contato /nossa-essencia /google-merchant.xml /robots.txt /sitemap.xml /manifest.webmanifest; do
             echo "Checking $path"
             curl --fail --silent --show-error --output /dev/null "http://127.0.0.1:3000$path"
           done
+
+          merchant_xml=$(curl --fail --silent --show-error http://127.0.0.1:3000/google-merchant.xml)
+          echo "$merchant_xml" | grep -q '<g:id>miniatura-quadrado-trancoso</g:id>'
+          echo "$merchant_xml" | grep -q 'para Pendurar'
+          if echo "$merchant_xml" | grep -q 'miniatura-quadrado-trancoso.jpg'; then
+            echo 'Retired Miniatura cover is still present in Merchant feed'
+            exit 1
+          fi
 
           cat /tmp/ago-health.json
