@@ -7,17 +7,13 @@ const PUBLIC_DIR = path.join(ROOT, 'public');
 const PRODUCTS_JSON = path.join(ROOT, 'data', 'products.json');
 const TARGET_SIZE = 960;
 
-// Miniaturas antigas de poucos KB. Elas não devem voltar a ser usadas nem ser
-// ampliadas artificialmente, porque upscale não recupera detalhe que não existe.
-const LOW_RES_ASSETS = new Set([
+// Assets antigos ou incorretos que não devem voltar à experiência ativa.
+const RETIRED_ASSETS = new Set([
   '/produtos/galeria/ima-igrejinha-trancoso-2.jpg',
 ]);
 
-// Fotos com elementos até a borda ou fundo de ateliê: expandir as bordas
-// repetiria a peça ou criaria faixas artificiais. O frontend já as apresenta
-// inteiras numa moldura quadrada, sem alterar os originais.
-const KEEP_ORIGINAL_ASSETS = new Set([
-]);
+// Casos que devam permanecer byte-a-byte podem ser adicionados aqui.
+const KEEP_ORIGINAL_ASSETS = new Set([]);
 
 // Arquivos usados por associações históricas corrigidas em lib/products.ts.
 const EXTRA_ACTIVE_ASSETS = [
@@ -27,6 +23,7 @@ const EXTRA_ACTIVE_ASSETS = [
   '/produtos/catalogo/casal-pretos-velhos-1.jpg',
   '/produtos/catalogo/casal-pretos-velhos-2.jpg',
   '/produtos/catalogo/casal-pretos-velhos-3.jpg',
+  '/produtos/casinha-luminaria.jpg',
 ];
 
 function publicPathToFile(src) {
@@ -58,8 +55,8 @@ async function cornerColor(image, width, height) {
       .toBuffer({ resolveWithObject: true });
 
     if (info.channels < 3) {
-      const v = data[0] ?? 255;
-      return [v, v, v];
+      const value = data[0] ?? 255;
+      return [value, value, value];
     }
     return [data[0], data[1], data[2]];
   }));
@@ -88,7 +85,10 @@ async function normalizeImage(src) {
     return { missing: 1, resized: 0, skipped: 0 };
   }
 
-  if (width === height || KEEP_ORIGINAL_ASSETS.has(src)) {
+  // Uma imagem só está pronta quando tem exatamente 960 × 960. Antes, arquivos
+  // quadrados de qualquer tamanho eram ignorados, o que deixava dimensões
+  // inconsistentes na produção.
+  if ((width === TARGET_SIZE && height === TARGET_SIZE) || KEEP_ORIGINAL_ASSETS.has(src)) {
     return { missing: 0, resized: 0, skipped: 1 };
   }
 
@@ -96,7 +96,9 @@ async function normalizeImage(src) {
   const { data: fitted, info } = await base.rotate().resize(TARGET_SIZE, TARGET_SIZE, {
     fit: 'inside',
     withoutEnlargement: true,
+    kernel: sharp.kernel.lanczos3,
   }).toBuffer({ resolveWithObject: true });
+
   const left = Math.floor((TARGET_SIZE - info.width) / 2);
   const top = Math.floor((TARGET_SIZE - info.height) / 2);
   const right = TARGET_SIZE - info.width - left;
@@ -104,8 +106,7 @@ async function normalizeImage(src) {
   const edge = sharp(fitted);
   const layers = [{ input: fitted, left, top }];
 
-  // Prolonga somente o pixel de cada borda do fundo, preservando a imagem
-  // integral e eliminando a linha causada pela média das quatro quinas.
+  // Completa apenas o fundo até o quadrado; nunca corta, estica ou deforma a peça.
   if (left) layers.push({ input: await edge.clone().extract({ left: 0, top: 0, width: 1, height: info.height }).resize(left, info.height, { kernel: 'nearest' }).toBuffer(), left: 0, top });
   if (right) layers.push({ input: await edge.clone().extract({ left: info.width - 1, top: 0, width: 1, height: info.height }).resize(right, info.height, { kernel: 'nearest' }).toBuffer(), left: left + info.width, top });
   if (top) layers.push({ input: await edge.clone().extract({ left: 0, top: 0, width: info.width, height: 1 }).resize(info.width, top, { kernel: 'nearest' }).toBuffer(), left, top: 0 });
@@ -115,18 +116,18 @@ async function normalizeImage(src) {
 
   const extension = path.extname(file).toLowerCase();
   if (extension === '.jpg' || extension === '.jpeg') {
-    pipeline = pipeline.jpeg({ quality: 94, chromaSubsampling: '4:4:4', mozjpeg: true });
+    pipeline = pipeline.jpeg({ quality: 100, chromaSubsampling: '4:4:4', mozjpeg: true });
   } else if (extension === '.png') {
     pipeline = pipeline.png({ compressionLevel: 9, adaptiveFiltering: true });
   } else if (extension === '.webp') {
-    pipeline = pipeline.webp({ quality: 94, smartSubsample: true });
+    pipeline = pipeline.webp({ quality: 100, smartSubsample: true });
   }
 
   const output = await pipeline.toBuffer();
   const temp = `${file}.ago-960.tmp`;
   await fs.writeFile(temp, output);
   await fs.rename(temp, file);
-  console.log(`[960x960] ${src}: ${width}x${height} -> ${TARGET_SIZE}x${TARGET_SIZE}`);
+  console.log(`[960x960] ${src}: ${width}x${height} -> ${TARGET_SIZE}x${TARGET_SIZE} (qualidade máxima)`);
   return { missing: 0, resized: 1, skipped: 0 };
 }
 
@@ -137,12 +138,12 @@ async function main() {
   for (const product of catalog.products ?? []) {
     for (const src of product.images ?? []) {
       if (typeof src !== 'string' || !src.startsWith('/produtos/')) continue;
-      if (LOW_RES_ASSETS.has(src)) continue;
+      if (RETIRED_ASSETS.has(src)) continue;
       active.add(src);
     }
   }
 
-  for (const bad of LOW_RES_ASSETS) active.delete(bad);
+  for (const retired of RETIRED_ASSETS) active.delete(retired);
 
   let resized = 0;
   let skipped = 0;
