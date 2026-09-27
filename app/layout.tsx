@@ -35,6 +35,7 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1, them
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
+  manifest: '/manifest.webmanifest',
   title: {
     default: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso',
     template: '%s | Agô Trancoso',
@@ -125,13 +126,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`}>
       <body>
+        <a href="#conteudo-principal" className="ago-skip-link">Ir para o conteúdo</a>
         <MarketingAnalytics />
         <ImmersiveMotion />
         <CepAddressAutofill />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <CartProvider>
           <Header firstPurchaseAvailable={firstPurchaseAvailable} />
-          <main id="conteudo-principal" className="min-h-[60vh]">{children}</main>
+          <main id="conteudo-principal" className="min-h-[60vh]" tabIndex={-1}>{children}</main>
           <Footer />
           <CartDrawer />
           <SocialFloaters />
