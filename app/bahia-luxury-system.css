@@ -1,0 +1,287 @@
+/* Agô Trancoso — sistema visual Bahia sofisticada.
+   A intenção é lembrar Trancoso pela matéria e pela luz, não por clichês gráficos.
+   Paleta: cal branca, areia quente, argila, madeira e cacau.
+   Esta folha é carregada por último para consolidar o acabamento premium. */
+
+:root {
+  --ago-cal: #fcf9f4;
+  --ago-cal-quente: #f8f1e8;
+  --ago-areia: #efe0ca;
+  --ago-areia-profunda: #dfc29f;
+  --ago-argila: #974a31;
+  --ago-terracota: #82402d;
+  --ago-madeira: #68483a;
+  --ago-cacau: #35241d;
+  --ago-cacau-suave: #4a352c;
+  --ago-texto: #362820;
+  --ago-muted: #715d51;
+  --ago-linha: rgba(104,72,58,.17);
+  --ago-linha-suave: rgba(104,72,58,.10);
+}
+
+html,
+body {
+  background: var(--ago-cal) !important;
+  color: var(--ago-texto) !important;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+.product-detail-title,
+.ago-premium-discovery-copy > span {
+  color: var(--ago-cacau) !important;
+}
+
+p,
+.product-description,
+.product-dimensions,
+.contact-address,
+.essencia-text {
+  color: var(--ago-texto);
+}
+
+.eyebrow {
+  color: var(--ago-argila) !important;
+}
+
+.ago-premium-text-link,
+.text-link,
+.contact-location-button,
+.product-whatsapp {
+  color: var(--ago-terracota) !important;
+}
+
+/* Cabeçalho: madeira aquecida pelo sol, sem marrom pesado demais. */
+.site-header {
+  background: linear-gradient(90deg, #674739 0%, #765242 50%, #674739 100%) !important;
+  color: #fff9ef !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,.06), 0 10px 28px rgba(53,36,29,.08) !important;
+}
+
+.ago-topbar {
+  background: #442b21 !important;
+  color: #fffaf1 !important;
+}
+
+.ago-category-bar {
+  background: #ead5b7 !important;
+  border-top: 1px solid rgba(255,255,255,.14);
+  border-bottom: 1px solid var(--ago-linha-suave);
+}
+
+.ago-category-bar a {
+  color: #4a3228 !important;
+}
+
+/* Home: capítulos tonais inspirados em cal, areia e argila de Trancoso. */
+.ago-home .ago-cinematic-products {
+  background: rgba(252,249,244,.98) !important;
+  border-color: rgba(104,72,58,.08) !important;
+}
+
+.ago-home .ago-premium-discovery {
+  background: #f5eadb !important;
+}
+
+.ago-home .ago-premium-editorial,
+.ago-home-story {
+  background: #e5c5a0 !important;
+  color: var(--ago-cacau) !important;
+}
+
+.ago-home .ago-premium-editorial .eyebrow,
+.ago-home-story .eyebrow {
+  color: #6f3928 !important;
+}
+
+.ago-shipping-chapter {
+  background: #fbf6ef !important;
+  color: var(--ago-cacau) !important;
+  border-block: 1px solid var(--ago-linha-suave);
+}
+
+.ago-bahia-visit {
+  background: linear-gradient(112deg, #8b5038 0%, #74412f 58%, #5f3428 100%) !important;
+}
+
+.ago-bahia-visit h2,
+.ago-bahia-visit .eyebrow,
+.ago-bahia-visit a,
+.ago-bahia-wordmark {
+  color: #fff9ef !important;
+}
+
+/* Cards e superfícies: premium vem de respiro e materialidade, não de contorno pesado. */
+.product-card,
+.product-image-wrap,
+.product-gallery-main,
+.ago-premium-discovery-image,
+.cart-product-image,
+.cart-complementary-image {
+  border-color: var(--ago-linha-suave) !important;
+}
+
+.product-image-wrap,
+.product-gallery-main,
+.ago-premium-discovery-image {
+  background: #fffdfa !important;
+}
+
+.product-card-title,
+.product-card h3,
+.product-current-price {
+  color: var(--ago-cacau) !important;
+}
+
+.product-card-price,
+.product-old-price,
+.product-card-meta {
+  color: var(--ago-muted) !important;
+}
+
+.button,
+.ago-premium-dark-cta {
+  background: var(--ago-cacau) !important;
+  color: #fffaf1 !important;
+}
+
+.ago-premium-hero-cta {
+  background: #fffaf1 !important;
+  color: var(--ago-cacau) !important;
+  border: 1px solid rgba(255,255,255,.42) !important;
+}
+
+/* Institucional: pedido explícito — sem fundos coloridos em A Agô e Contato. */
+.contact-page,
+.essencia-page {
+  background: #fffdfa !important;
+}
+
+.contact-shell,
+.essencia-shell,
+.contact-grid,
+.essencia-grid,
+.contact-copy,
+.contact-actions,
+.contact-links {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.contact-grid,
+.essencia-grid {
+  border: 0 !important;
+}
+
+.info-panel {
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border-top: 1px solid var(--ago-linha) !important;
+  padding: 32px 0 0 !important;
+}
+
+.info-link {
+  color: var(--ago-cacau) !important;
+  border-bottom-color: var(--ago-linha) !important;
+}
+
+.info-link > span[aria-hidden="true"],
+.contact-location-button span[aria-hidden="true"] {
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-variant-emoji: text;
+  color: var(--ago-terracota) !important;
+}
+
+.essencia-image {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 24px !important;
+}
+
+.essencia-image-img {
+  object-fit: cover !important;
+}
+
+/* Footer: contraste profundo, sem preto puro. */
+.site-footer,
+.ago-site-footer {
+  background: #36251e !important;
+  color: #f9eee1 !important;
+}
+
+.ago-footer-description,
+.ago-footer-group p,
+.ago-footer-legal {
+  color: #dfcdbc !important;
+}
+
+.ago-footer-group a,
+.ago-footer-group span,
+.ago-footer-logo,
+.ago-footer-brand h2 {
+  color: #fff8ee !important;
+}
+
+/* Microacabamento: linhas menos duras e foco coerente com argila. */
+:focus-visible {
+  outline-color: var(--ago-argila) !important;
+}
+
+::selection {
+  background: #e6c4a2 !important;
+  color: var(--ago-cacau) !important;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .ago-premium-text-link:hover,
+  .text-link:hover,
+  .info-link:hover,
+  .product-whatsapp:hover {
+    color: #713522 !important;
+  }
+}
+
+@media (max-width:900px) {
+  .site-header {
+    background: #704c3d !important;
+  }
+
+  .contact-page,
+  .essencia-page {
+    background: #fffdfa !important;
+  }
+
+  .contact-shell,
+  .essencia-shell {
+    width: min(100% - 32px, 760px) !important;
+  }
+}
+
+@media (max-width:700px) {
+  .contact-page,
+  .essencia-page {
+    padding-top: clamp(38px, 7vw, 54px) !important;
+  }
+
+  .contact-copy,
+  .essencia-copy {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .info-panel {
+    padding-top: 26px !important;
+  }
+
+  .essencia-image {
+    border-radius: 22px !important;
+  }
+}
