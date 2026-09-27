@@ -1,0 +1,309 @@
+/* Agô Trancoso — Signature Commerce System
+   Última camada visual. Consolida ritmo, legibilidade, touch, produto e checkout
+   sem transformar a marca em um template. Bahia aparece pela matéria: cal,
+   areia, argila, madeira e cacau. */
+
+:root {
+  --ago-signature-bg: #fcf9f4;
+  --ago-signature-surface: #fffdfa;
+  --ago-signature-ink: #35241d;
+  --ago-signature-body: #4a382f;
+  --ago-signature-muted: #715d51;
+  --ago-signature-accent: #8b432e;
+  --ago-signature-line: rgba(104,72,58,.14);
+  --ago-signature-line-soft: rgba(104,72,58,.085);
+  --ago-signature-radius: 20px;
+  --ago-signature-radius-lg: 26px;
+  --ago-signature-shadow: 0 22px 58px rgba(53,36,29,.075);
+  --ago-signature-gutter: clamp(18px,4vw,56px);
+}
+
+body {
+  background: var(--ago-signature-bg) !important;
+  color: var(--ago-signature-body) !important;
+  -webkit-text-size-adjust: 100%;
+}
+
+main { overflow: clip; }
+
+h1, h2, h3,
+.product-detail-title,
+.checkout-title {
+  color: var(--ago-signature-ink) !important;
+  text-wrap: balance;
+}
+
+p { text-wrap: pretty; }
+
+/* Tipografia e micro-hierarquia */
+.eyebrow {
+  color: var(--ago-signature-accent) !important;
+  letter-spacing: .14em;
+}
+
+.product-description,
+.essencia-text,
+.contact-copy > p:not(.eyebrow) {
+  line-height: 1.82 !important;
+}
+
+/* Institucional: deliberadamente neutro. O lugar aparece em fotografia e texto,
+   não em uma moldura bege ao redor da página. */
+.contact-page,
+.essencia-page {
+  background: var(--ago-signature-surface) !important;
+}
+
+.contact-shell,
+.essencia-shell,
+.contact-grid,
+.essencia-grid,
+.contact-copy,
+.contact-actions {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.contact-links { gap: 0 !important; }
+.info-link {
+  min-height: 70px !important;
+  padding: 19px 0 !important;
+  border-bottom: 1px solid var(--ago-signature-line) !important;
+}
+.info-link:first-child { border-top: 1px solid var(--ago-signature-line) !important; }
+.info-link > span:last-child {
+  color: var(--ago-signature-accent) !important;
+  font-family: Arial,Helvetica,sans-serif !important;
+  font-variant-emoji: text;
+}
+.info-panel {
+  background: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid var(--ago-signature-line) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.essencia-image {
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: var(--ago-signature-radius-lg) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.essencia-image-img { object-fit: cover !important; }
+
+/* Cards: a fotografia é o luxo. Contorno e sombra ficam subordinados. */
+.product-card,
+.product-image-wrap,
+.product-gallery-main,
+.ago-premium-discovery-image {
+  border-radius: var(--ago-signature-radius) !important;
+}
+.product-card { background: transparent !important; }
+.product-image-wrap,
+.product-gallery-main,
+.ago-premium-discovery-image {
+  background: var(--ago-signature-surface) !important;
+  border: 1px solid var(--ago-signature-line-soft) !important;
+  box-shadow: 0 14px 38px rgba(53,36,29,.045) !important;
+}
+.product-image-wrap img,
+.product-gallery-main img,
+.product-gallery-thumb img {
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+/* Página de produto: ficha editorial objetiva, sem reescrever descrição. */
+.product-premium-facts {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  margin: 24px 0 4px;
+  border-top: 1px solid var(--ago-signature-line);
+  border-bottom: 1px solid var(--ago-signature-line);
+}
+.product-premium-facts > div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  padding: 14px 0;
+}
+.product-premium-facts > div:nth-child(odd) { padding-right: 18px; }
+.product-premium-facts > div:nth-child(even) {
+  padding-left: 18px;
+  border-left: 1px solid var(--ago-signature-line-soft);
+}
+.product-premium-facts > div:nth-child(n+3) { border-top: 1px solid var(--ago-signature-line-soft); }
+.product-premium-facts dt {
+  color: var(--ago-signature-muted);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.product-premium-facts dd {
+  margin: 0;
+  color: var(--ago-signature-ink);
+  font-size: .86rem;
+  line-height: 1.5;
+  font-weight: 650;
+}
+
+.product-service-grid,
+.product-international-note {
+  border-color: var(--ago-signature-line) !important;
+  box-shadow: none !important;
+}
+
+/* Checkout: reduz ruído, deixa progressão e ação principal óbvias. */
+.checkout-page { background: var(--ago-signature-bg) !important; }
+.checkout-form-panel,
+.checkout-order-panel,
+.checkout-stage {
+  border-color: var(--ago-signature-line) !important;
+  box-shadow: none !important;
+}
+.checkout-input,
+.checkout-field input,
+.checkout-field select,
+.checkout-field textarea {
+  min-height: 50px;
+  background: #fffdfa !important;
+  border-color: rgba(104,72,58,.24) !important;
+  border-radius: 12px !important;
+  font-size: 16px !important; /* evita zoom automático no iOS */
+}
+.checkout-input:focus,
+.checkout-field input:focus,
+.checkout-field select:focus,
+.checkout-field textarea:focus {
+  border-color: var(--ago-signature-accent) !important;
+  box-shadow: 0 0 0 3px rgba(139,67,46,.10) !important;
+  outline: 0 !important;
+}
+.checkout-next-step,
+.checkout-submit,
+.checkout-pay-button {
+  min-height: 52px !important;
+  border-radius: 999px !important;
+}
+.checkout-progress-step { min-height: 48px; }
+
+/* Interação e acessibilidade */
+a, button, input, select, textarea, summary { -webkit-tap-highlight-color: rgba(139,67,46,.10); }
+button, [role="button"], .button, .text-link, .ago-premium-text-link { touch-action: manipulation; }
+:focus-visible {
+  outline: 3px solid rgba(139,67,46,.82) !important;
+  outline-offset: 3px !important;
+}
+[id] { scroll-margin-top: 150px; }
+
+/* Não faça o usuário perseguir botões flutuantes: eles ficam acima da safe area e
+   menores do que a CTA de compra. */
+.ago-social-floaters {
+  right: max(14px,env(safe-area-inset-right)) !important;
+  bottom: calc(16px + env(safe-area-inset-bottom)) !important;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .product-card,
+  .ago-premium-discovery-card { transition: transform .22s ease; }
+  .product-card:hover,
+  .ago-premium-discovery-card:hover { transform: translateY(-2px); }
+}
+
+/* Mobile é tratado como interface própria, não desktop encolhido. */
+@media (max-width: 900px) {
+  :root { --ago-signature-gutter: 18px; }
+  .ago-container,
+  .site-container,
+  .checkout-shell,
+  .contact-shell,
+  .essencia-shell,
+  .legal-shell,
+  .ago-footer-wrap {
+    width: calc(100% - 36px) !important;
+    max-width: none !important;
+  }
+
+  .header-inner { min-height: 78px !important; }
+  .header-logo { width: 58px !important; height: 58px !important; }
+  .header-icon,
+  .mobile-menu-button { min-width: 48px !important; min-height: 48px !important; }
+
+  .contact-page,
+  .essencia-page { padding-block: 42px 64px !important; }
+  .contact-grid,
+  .essencia-grid { gap: 34px !important; }
+
+  .product-page-shell { padding-top: 22px !important; }
+  .product-page-grid { gap: 28px !important; }
+  .product-info-column { min-width: 0; }
+  .product-buybox { padding-inline: 0 !important; }
+
+  .checkout-layout { gap: 22px !important; }
+  .checkout-order-panel { position: static !important; }
+
+  .ago-social-floaters {
+    right: max(12px,env(safe-area-inset-right)) !important;
+    bottom: calc(12px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+@media (max-width: 700px) {
+  h1 { line-height: 1.08 !important; }
+  h2 { line-height: 1.12 !important; }
+
+  .ago-cinematic-copy h1 { font-size: clamp(2.6rem,12vw,4rem) !important; }
+  .ago-cinematic-copy > p:not(.eyebrow) {
+    max-width: 31rem;
+    font-size: 1rem !important;
+    line-height: 1.62 !important;
+  }
+  .home-hero-actions { gap: 12px !important; }
+  .home-hero-actions > * { min-height: 50px !important; }
+
+  .ago-premium-product-grid { gap: 28px 12px !important; }
+  .product-card-title,
+  .product-card h3 { font-size: .98rem !important; line-height: 1.35 !important; }
+
+  .product-premium-facts { grid-template-columns: 1fr; }
+  .product-premium-facts > div,
+  .product-premium-facts > div:nth-child(odd),
+  .product-premium-facts > div:nth-child(even) {
+    padding: 13px 0 !important;
+    border-left: 0 !important;
+  }
+  .product-premium-facts > div + div { border-top: 1px solid var(--ago-signature-line-soft); }
+
+  .checkout-progress {
+    overflow-x: auto;
+    justify-content: flex-start !important;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .checkout-progress::-webkit-scrollbar { display: none; }
+  .checkout-progress-step { flex: 0 0 auto; scroll-snap-align: start; }
+  .checkout-stage { border-radius: 16px !important; }
+
+  .info-link { min-height: 64px !important; }
+  .essencia-image { border-radius: 20px !important; }
+
+  .ago-social-button {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    min-height: 46px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
