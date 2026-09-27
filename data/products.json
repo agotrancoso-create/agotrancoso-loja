@@ -1,5 +1,5 @@
 {
-  "_leiaMe": "Catálogo oficial com os 19 produtos reais da Agô Trancoso, enviados por texto em 12/09/2026. Nomes, preços e descrições são exatamente os fornecidos — nada foi inventado. As categorias foram atribuídas apenas para organizar os filtros do site (não alteram nenhuma informação do produto em si). As fotos ainda são placeholders em /public/produtos/ com o nome de arquivo já definido — quando a foto real de cada peça chegar, basta substituir o arquivo mantendo o mesmo nome (veja o README). As galerias marcadas _fotoMetaConfirmada foram associadas diretamente às capturas disponíveis do Gerenciador de Comércio e aos arquivos originais correspondentes; as demais mantêm a melhor imagem original já presente no projeto para não inventar correspondências.",
+  "_leiaMe": "Catálogo oficial com os 19 produtos reais da Agô Trancoso. Nomes, preços e descrições preservam as informações fornecidas pela marca; ajustes posteriores autorizados pela proprietária também ficam registrados aqui. As categorias servem apenas para organizar os filtros do site. As galerias usam as melhores imagens originais disponíveis no projeto.",
   "categories": [
     {
       "id": "trancoso",
@@ -109,23 +109,22 @@
     },
     {
       "id": "miniatura-quadrado-trancoso",
-      "name": "Miniatura do Quadrado de Trancoso",
-      "description": "Representação do charmoso Quadrado de Trancoso. Escultura em cerâmica com acabamento colorido. Realça qualquer decoração com toque regional.",
+      "name": "Miniatura do Quadrado de Trancoso para Pendurar",
+      "description": "Representação do charmoso Quadrado de Trancoso. Escultura em cerâmica com acabamento colorido. Realça qualquer decoração com toque regional. Peça feita para pendurar na parede.",
       "price": 480,
       "promotionalPrice": null,
       "currency": "BRL",
       "category": "trancoso",
       "images": [
-        "/produtos/miniatura-quadrado-trancoso.jpg",
-        "/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg",
         "/produtos/catalogo/miniatura-quadrado-trancoso-3.jpg",
         "/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg",
-        "/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg"
+        "/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg",
+        "/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg"
       ],
       "dimensions": "",
       "available": true,
       "stock": null,
-      "imageAlt": "Miniatura do Quadrado de Trancoso"
+      "imageAlt": "Miniatura do Quadrado de Trancoso para pendurar na parede"
     },
     {
       "id": "cruzeiro-do-quadrado",
