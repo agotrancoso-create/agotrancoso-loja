@@ -3,8 +3,9 @@
 import Image from '@/components/ProductImage';
 import PhotoLightbox from './PhotoLightbox';
 import { useRef, useState } from 'react';
+import { trackGalleryInteraction } from '@/lib/marketing-analytics';
 
-type ProductGalleryProps = { name: string; images: string[] };
+type ProductGalleryProps = { productId: string; name: string; images: string[] };
 
 function Chevron({ direction }: { direction: 'left' | 'right' }) {
   return (
@@ -23,7 +24,7 @@ function ZoomIcon() {
   );
 }
 
-export default function ProductGallery({ name, images }: ProductGalleryProps) {
+export default function ProductGallery({ productId, name, images }: ProductGalleryProps) {
   const safeImages = images.filter(Boolean).length ? images.filter(Boolean) : ['/images/placeholder.svg'];
   const [active, setActive] = useState(0);
   const [expanded, setExpanded] = useState(false);
@@ -31,7 +32,20 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
   const swiped = useRef(false);
   const touchStart = useRef<number | null>(null);
 
-  const go = (next: number) => setActive((next + safeImages.length) % safeImages.length);
+  function track(action: 'open' | 'next' | 'previous' | 'thumbnail', index: number) {
+    trackGalleryInteraction({ productId, action, photoIndex: index + 1, totalPhotos: safeImages.length });
+  }
+
+  function go(next: number, action: 'next' | 'previous') {
+    const nextIndex = (next + safeImages.length) % safeImages.length;
+    setActive(nextIndex);
+    track(action, nextIndex);
+  }
+
+  function select(index: number) {
+    setActive(index);
+    track('thumbnail', index);
+  }
 
   return (
     <div className="product-gallery" aria-label={`Galeria de ${name}`}>
@@ -42,8 +56,8 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
         aria-label={`Fotos de ${name}`}
         onKeyDown={(event) => {
           if (safeImages.length < 2) return;
-          if (event.key === 'ArrowRight') { event.preventDefault(); go(active + 1); }
-          if (event.key === 'ArrowLeft') { event.preventDefault(); go(active - 1); }
+          if (event.key === 'ArrowRight') { event.preventDefault(); go(active + 1, 'next'); }
+          if (event.key === 'ArrowLeft') { event.preventDefault(); go(active - 1, 'previous'); }
         }}
         onTouchStart={(e) => { touchStart.current = e.changedTouches[0]?.clientX ?? null; touchY.current = e.changedTouches[0]?.clientY ?? 0; swiped.current = false; }}
         onTouchEnd={(e) => {
@@ -54,7 +68,7 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
           const delta = end - start;
           if (Math.abs(delta) > 42 && Math.abs(delta) > Math.abs(e.changedTouches[0].clientY - touchY.current)) {
             swiped.current = true;
-            go(delta < 0 ? active + 1 : active - 1);
+            go(delta < 0 ? active + 1 : active - 1, delta < 0 ? 'next' : 'previous');
           }
         }}
       >
@@ -64,6 +78,7 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
           aria-label={`Ampliar foto de ${name}`}
           onClick={() => {
             if (swiped.current) { swiped.current = false; return; }
+            track('open', active);
             setExpanded(true);
           }}
         >
@@ -83,8 +98,8 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
 
         {safeImages.length > 1 && (
           <div className="product-gallery-arrows" aria-label="Navegar pelas fotos">
-            <button type="button" onClick={() => go(active - 1)} className="product-gallery-arrow" aria-label="Foto anterior"><Chevron direction="left" /></button>
-            <button type="button" onClick={() => go(active + 1)} className="product-gallery-arrow" aria-label="Próxima foto"><Chevron direction="right" /></button>
+            <button type="button" onClick={() => go(active - 1, 'previous')} className="product-gallery-arrow" aria-label="Foto anterior"><Chevron direction="left" /></button>
+            <button type="button" onClick={() => go(active + 1, 'next')} className="product-gallery-arrow" aria-label="Próxima foto"><Chevron direction="right" /></button>
           </div>
         )}
       </div>
@@ -92,7 +107,7 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
       {safeImages.length > 1 && (
         <div className="product-gallery-dots" aria-label="Posição na galeria">
           {safeImages.map((_, index) => (
-            <button key={index} type="button" onClick={() => setActive(index)} aria-label={`Ir para foto ${index + 1}`} aria-current={active === index ? 'true' : undefined} className={active === index ? 'is-active' : ''} />
+            <button key={index} type="button" onClick={() => select(index)} aria-label={`Ir para foto ${index + 1}`} aria-current={active === index ? 'true' : undefined} className={active === index ? 'is-active' : ''} />
           ))}
         </div>
       )}
@@ -103,7 +118,7 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
             <button
               key={`${src}-${index}`}
               type="button"
-              onClick={() => setActive(index)}
+              onClick={() => select(index)}
               aria-label={`Ver foto ${index + 1}`}
               aria-current={active === index ? 'true' : undefined}
               className={`product-gallery-thumb${active === index ? ' is-active' : ''}`}
@@ -114,7 +129,7 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
         </div>
       )}
 
-      {expanded && <PhotoLightbox name={name} images={safeImages} initialIndex={active} onClose={() => setExpanded(false)} />}
+      {expanded && <PhotoLightbox productId={productId} name={name} images={safeImages} initialIndex={active} onClose={() => setExpanded(false)} />}
     </div>
   );
 }
