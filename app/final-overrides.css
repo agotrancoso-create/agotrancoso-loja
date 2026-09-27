@@ -106,6 +106,90 @@
 .ago-social-instagram { background: rgba(117,80,64,.96) !important; }
 .ago-social-whatsapp { background: rgba(61,42,34,.97) !important; }
 
+/* Acessibilidade de nível de produção. O link só aparece para navegação por teclado. */
+.ago-skip-link {
+  position: fixed;
+  left: 14px;
+  top: 12px;
+  z-index: 9999;
+  transform: translateY(-160%);
+  padding: 11px 16px;
+  border-radius: 999px;
+  background: #fff8ed;
+  color: #3d2a22;
+  font-size: .78rem;
+  font-weight: 800;
+  box-shadow: 0 12px 30px rgba(42,28,22,.22);
+  transition: transform .18s ease;
+}
+
+.ago-skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid #875038;
+  outline-offset: 3px;
+}
+
+#conteudo-principal:focus { outline: none; }
+
+/* Estado de carregamento discreto, com a mesma linguagem da marca. */
+.ago-route-loading {
+  min-height: 64vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(48px, 8vw, 96px) 20px;
+  background: #fbf5eb;
+}
+
+.ago-route-loading-inner {
+  width: min(1120px, 100%);
+}
+
+.ago-route-loading-mark {
+  width: 58px;
+  height: 58px;
+  margin-bottom: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #875038, #c28b68);
+  opacity: .92;
+}
+
+.ago-route-loading-line,
+.ago-route-loading-card {
+  background: linear-gradient(90deg, rgba(135,80,56,.08), rgba(135,80,56,.16), rgba(135,80,56,.08));
+  background-size: 220% 100%;
+  animation: agoLoadingSweep 1.35s ease-in-out infinite;
+}
+
+.ago-route-loading-line {
+  width: min(520px, 78%);
+  height: 22px;
+  border-radius: 999px;
+}
+
+.ago-route-loading-line + .ago-route-loading-line {
+  width: min(360px, 58%);
+  height: 12px;
+  margin-top: 13px;
+  opacity: .72;
+}
+
+.ago-route-loading-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.ago-route-loading-card {
+  aspect-ratio: 1;
+  border-radius: 18px;
+}
+
+@keyframes agoLoadingSweep {
+  0% { background-position: 100% 0; }
+  100% { background-position: -120% 0; }
+}
+
 @media (hover:hover) and (pointer:fine) {
   .ago-social-button:hover,
   .ago-social-button:focus-visible {
@@ -122,6 +206,8 @@
   .ago-home .ago-premium-discovery {
     background: #f4e8d7 !important;
   }
+
+  .ago-route-loading-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
 
 @media (max-width:700px) {
@@ -142,8 +228,14 @@
   .ago-premium-discovery-grid {
     gap: 12px !important;
   }
+
+  .ago-route-loading-grid { gap: 10px; }
+  .ago-route-loading-card { border-radius: 14px; }
 }
 
 @media (prefers-reduced-motion:reduce) {
-  .ago-social-button { transition: none !important; }
+  .ago-social-button,
+  .ago-skip-link { transition: none !important; }
+  .ago-route-loading-line,
+  .ago-route-loading-card { animation: none !important; }
 }
