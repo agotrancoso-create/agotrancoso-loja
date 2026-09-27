@@ -154,3 +154,34 @@ export function trackContact(method: string) { track('contact', { method }); }
 export function trackProductInteraction(action: 'quick_view' | 'save_product' | 'unsave_product' | 'share_product', item: MarketingItem) {
   track(action, { currency: 'BRL', value: money(item.price * item.quantity), items: [item] });
 }
+
+/** Eventos de comportamento para CRO. Não são conversões e não alimentam Meta/Klaviyo. */
+export function trackCatalogSearch(searchTerm: string, resultCount: number) {
+  const term = searchTerm.trim();
+  if (!term) return;
+  track('search', { search_term: term, result_count: resultCount });
+}
+
+export function trackCatalogFilter(filterName: string, filterValue: string, resultCount: number) {
+  track('catalog_filter', { filter_name: filterName, filter_value: filterValue, result_count: resultCount });
+}
+
+export function trackCatalogSort(sortValue: string, resultCount: number) {
+  track('catalog_sort', { sort_value: sortValue, result_count: resultCount });
+}
+
+export function trackGalleryInteraction(input: {
+  productId: string;
+  action: 'open' | 'next' | 'previous' | 'thumbnail' | 'zoom_in' | 'zoom_out' | 'fit';
+  photoIndex: number;
+  totalPhotos: number;
+  scale?: number;
+}) {
+  track('product_gallery_interaction', {
+    product_id: input.productId,
+    gallery_action: input.action,
+    photo_index: input.photoIndex,
+    total_photos: input.totalPhotos,
+    ...(input.scale != null ? { zoom_scale: Number(input.scale.toFixed(2)) } : {}),
+  });
+}
