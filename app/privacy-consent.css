@@ -1,0 +1,33 @@
+.ago-consent {
+  position: fixed;
+  z-index: 1200;
+  left: max(16px, env(safe-area-inset-left));
+  right: max(16px, env(safe-area-inset-right));
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  width: min(760px, calc(100% - 32px));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 22px;
+  align-items: end;
+  padding: 20px 22px;
+  background: rgba(255,253,250,.98);
+  border: 1px solid rgba(104,72,58,.14);
+  border-radius: 20px;
+  box-shadow: 0 20px 54px rgba(53,36,29,.12);
+  backdrop-filter: blur(16px);
+}
+.ago-consent-copy { display: grid; gap: 6px; }
+.ago-consent-copy strong { color:#35241d; font: 600 1.25rem/1.15 var(--font-display),Georgia,serif; }
+.ago-consent-copy p { margin:0; max-width:58ch; color:#5e4a3f; font-size:.82rem; line-height:1.55; }
+.ago-consent-copy a { width:max-content; color:#82402d; font-size:.75rem; font-weight:750; text-underline-offset:3px; }
+.ago-consent-actions { display:flex; gap:8px; align-items:center; }
+.ago-consent-actions button { min-height:44px; padding:0 16px; border-radius:999px; font:700 .75rem/1 var(--font-sans),Arial,sans-serif; cursor:pointer; white-space:nowrap; }
+.ago-consent-essential { color:#68483a; background:transparent; border:1px solid rgba(104,72,58,.22); }
+.ago-consent-accept { color:#fffdfa; background:#35241d; border:1px solid #35241d; }
+@media (max-width:700px) {
+  .ago-consent { grid-template-columns:1fr; gap:16px; padding:18px; border-radius:18px; }
+  .ago-consent-actions { display:grid; grid-template-columns:1fr 1fr; }
+  .ago-consent-actions button { padding-inline:10px; white-space:normal; }
+}
+@media (prefers-reduced-motion: reduce) { .ago-consent * { scroll-behavior:auto!important; transition:none!important; } }
