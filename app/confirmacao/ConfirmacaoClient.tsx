@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { INSTAGRAM_URL, whatsappLink } from '@/lib/config';
 import { getEffectivePrice, getProductById } from '@/lib/products';
@@ -37,6 +37,7 @@ export default function ConfirmacaoClient() {
   const slug = params.get('slug') || '';
   const [status, setStatus] = useState<PaymentStatus>('checking');
   const { items, clearCart, hydrated } = useCart();
+  const processedOrderRef = useRef('');
 
   useEffect(() => {
     if (!hydrated) return;
@@ -44,6 +45,7 @@ export default function ConfirmacaoClient() {
       setStatus('missing');
       return;
     }
+    if (processedOrderRef.current === orderId) return;
 
     let active = true;
     fetch('/api/verify-payment', {
@@ -57,6 +59,7 @@ export default function ConfirmacaoClient() {
     }).then(result => {
       if (!active) return;
       if (result.confirmed === true) {
+        processedOrderRef.current = orderId;
         const marketingItems = items.flatMap((item) => {
           const product = getProductById(item.productId);
           return product ? [{
