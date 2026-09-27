@@ -37,6 +37,89 @@ export function sortProductsByAttention<T extends Product>(products: T[]): T[] {
   });
 }
 
+/**
+ * Curadoria fotográfica da vitrine.
+ *
+ * A primeira imagem é sempre a capa. A sequência foi organizada para reduzir
+ * distração e facilitar reconhecimento: primeiro uma leitura clara/frontal da
+ * peça, depois variações/ângulos e por último contexto ou composição de apoio.
+ *
+ * Importante: o mapa só reordena arquivos que já pertencem ao produto; qualquer
+ * nova foto não listada continua aparecendo ao final, sem risco de sumir da
+ * galeria.
+ */
+const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
+  'igreja-quadrado-p': [
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/catalogo/igreja-quadrado-p-2.jpg',
+  ],
+  'casinha-luminaria': [
+    '/produtos/catalogo/casinha-luminaria-1.jpg',
+    '/produtos/catalogo/casinha-luminaria-2.jpg',
+    '/produtos/catalogo/casinha-luminaria-3.jpg',
+    '/produtos/catalogo/casinha-luminaria-4.jpg',
+  ],
+  // A composição com duas miniaturas tem maior presença de cor, simetria e
+  // leitura imediata no card; as fotos unitárias ficam logo depois para inspeção.
+  'miniatura-quadrado-trancoso': [
+    '/produtos/catalogo/miniatura-quadrado-trancoso-3.jpg',
+    '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg',
+    '/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg',
+    '/produtos/miniatura-quadrado-trancoso.jpg',
+    '/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg',
+  ],
+  'estatueta-iemanja': [
+    '/produtos/catalogo/estatueta-iemanja-1.jpg',
+    '/produtos/catalogo/estatueta-iemanja-2.jpg',
+    '/produtos/catalogo/estatueta-iemanja-3.jpg',
+    '/produtos/catalogo/estatueta-iemanja-4.jpg',
+  ],
+  // A foto 2 é a leitura mais limpa para capa e também é a opção usada na
+  // curadoria editorial da home.
+  'nossa-senhora-grande': [
+    '/produtos/catalogo/nossa-senhora-grande-2.jpg',
+    '/produtos/catalogo/nossa-senhora-grande-1.jpg',
+  ],
+  'casal-pretos-velhos': [
+    '/produtos/catalogo/casal-pretos-velhos-1.jpg',
+    '/produtos/catalogo/casal-pretos-velhos-2.jpg',
+    '/produtos/catalogo/casal-pretos-velhos-3.jpg',
+  ],
+  'divino-espirito-santo': [
+    '/produtos/divino-espirito-santo.jpg',
+    '/produtos/catalogo/divino-espirito-santo-2.jpg',
+  ],
+  'esfera-decorativa': [
+    '/produtos/esfera-decorativa.jpg',
+    '/produtos/catalogo/esfera-decorativa-2.jpg',
+  ],
+  'colar-igreja-quadrado': [
+    '/produtos/catalogo/colar-igreja-quadrado-frente.jpg',
+    '/produtos/colar-igreja-quadrado.jpg',
+  ],
+  'ima-igrejinha-trancoso': [
+    '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg',
+    '/produtos/catalogo/ima-igrejinha-trancoso-conjunto.jpg',
+  ],
+};
+
+export function getAttentionOrderedImages(product: Product): string[] {
+  const images = (product.images ?? []).filter(Boolean);
+  if (!images.length) return [];
+
+  const preferred = ATTENTION_IMAGE_ORDER[product.id] ?? [];
+  if (!preferred.length) return images;
+
+  const available = new Set(images);
+  const ordered = preferred.filter((image) => available.has(image));
+  const orderedSet = new Set(ordered);
+  return [...ordered, ...images.filter((image) => !orderedSet.has(image))];
+}
+
+export function getAttentionCoverImage(product: Product): string {
+  return getAttentionOrderedImages(product)[0] ?? '/images/placeholder.svg';
+}
+
 const RELATED_PRODUCTS: Record<string, string[]> = {
   'igreja-quadrado-p': ['colar-igreja-quadrado', 'ima-igrejinha-trancoso', 'igrejinha-luminaria-trancoso', 'miniatura-quadrado-trancoso'],
   'igreja-quadrado-m': ['igrejinha-luminaria-trancoso', 'colar-igreja-quadrado', 'ima-igrejinha-trancoso', 'miniatura-quadrado-trancoso'],
