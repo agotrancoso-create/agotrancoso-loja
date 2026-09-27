@@ -1,0 +1,108 @@
+/* Agô Trancoso — legibilidade premium em mobile e desktop.
+   Corrige apenas contraste e leitura; não altera a fotografia original. */
+
+/* Hero: reforça leitura sem aplicar filtro na foto. */
+.ago-cinematic-copy {
+  color: #fffaf2 !important;
+  text-shadow: 0 2px 18px rgba(20, 12, 8, .46);
+}
+
+.ago-cinematic-copy .eyebrow {
+  color: #fffaf2 !important;
+  text-shadow: 0 1px 12px rgba(20, 12, 8, .62);
+}
+
+.ago-cinematic-copy h1 {
+  color: #fffdf8 !important;
+  text-shadow: 0 2px 22px rgba(20, 12, 8, .52);
+}
+
+.ago-cinematic-copy > p:not(.eyebrow) {
+  color: #fffaf2 !important;
+  text-shadow: 0 2px 16px rgba(20, 12, 8, .58);
+}
+
+.ago-cinematic-secondary {
+  color: #fffdf8 !important;
+  text-shadow: 0 1px 12px rgba(20, 12, 8, .55);
+  border-color: rgba(255, 250, 242, .72) !important;
+}
+
+/* O degradê fica concentrado onde há texto para preservar a foto. */
+.ago-cinematic-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(34, 23, 18, .50) 0%,
+    rgba(34, 23, 18, .34) 42%,
+    rgba(34, 23, 18, .10) 72%,
+    rgba(34, 23, 18, .03) 100%
+  ) !important;
+}
+
+/* Evita que a seta diagonal caia no conjunto de emojis do iOS. */
+.ago-cinematic-secondary span[aria-hidden="true"],
+.ago-premium-text-link span[aria-hidden="true"],
+.ago-bahia-visit a span[aria-hidden="true"] {
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-variant-emoji: text;
+}
+
+/* Menu mobile: o fundo claro exige texto escuro com contraste real. */
+.mobile-menu {
+  background: #f1ddbf !important;
+  color: #3d2a22 !important;
+}
+
+.mobile-menu-primary a {
+  color: #3d2a22 !important;
+  opacity: 1 !important;
+  font-weight: 750 !important;
+}
+
+.mobile-menu-label {
+  color: #6d4a3b !important;
+  opacity: 1 !important;
+  font-weight: 650 !important;
+}
+
+.mobile-menu-categories a {
+  color: #5a3b30 !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+
+.mobile-search-form input {
+  color: #3d2a22 !important;
+  background: #fffaf2 !important;
+  border-color: #8a5b46 !important;
+}
+
+.mobile-search-form input::placeholder {
+  color: #765548 !important;
+  opacity: 1 !important;
+}
+
+@media (max-width: 700px) {
+  .ago-cinematic-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(34, 23, 18, .20) 0%,
+      rgba(34, 23, 18, .34) 42%,
+      rgba(34, 23, 18, .58) 100%
+    ) !important;
+  }
+
+  .ago-cinematic-copy {
+    text-shadow: 0 2px 14px rgba(20, 12, 8, .56);
+  }
+
+  .ago-cinematic-copy h1 {
+    text-shadow: 0 2px 18px rgba(20, 12, 8, .62);
+  }
+
+  .ago-cinematic-copy > p:not(.eyebrow) {
+    text-shadow: 0 2px 14px rgba(20, 12, 8, .68);
+  }
+}
