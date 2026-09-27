@@ -10,7 +10,7 @@ import { getProductById, getEffectivePrice } from '@/lib/products';
 import { calculateCouponDiscount, FIRST_PURCHASE_COUPON, isFirstPurchaseCoupon, normalizeCoupon } from '@/lib/coupons';
 import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping } from '@/lib/shipping';
 import type { CartItem, Product } from '@/lib/types';
-import { trackBeginCheckout } from '@/lib/marketing-analytics';
+import { identifyCRM, trackAddPaymentInfo, trackAddShippingInfo, trackBeginCheckout, type MarketingItem } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -41,6 +41,7 @@ export default function CheckoutPage() {
   const [benefitAvailable, setBenefitAvailable] = useState(false);
   const [couponChecking, setCouponChecking] = useState(false);
   const couponRequest = useRef(0);
+  const checkoutTracked = useRef(false);
   const [appliedCoupon, setAppliedCoupon] = useState('');
   const [benefitConfirmed, setBenefitConfirmed] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string,string>>({});
@@ -72,12 +73,26 @@ export default function CheckoutPage() {
     return product ? [{ item, product }] : [];
   }), [items]);
 
+  const marketingItems = useMemo<MarketingItem[]>(() => lines.map(({ item, product }) => ({
+    item_id: product.id,
+    item_name: product.name,
+    price: getEffectivePrice(product),
+    quantity: item.quantity,
+    item_category: product.category,
+  })), [lines]);
+
   const subtotal = lines.reduce((sum, line) => sum + getEffectivePrice(line.product) * line.item.quantity, 0);
   const discount = calculateCouponDiscount(subtotal, appliedCoupon);
   const discountedSubtotal = Math.max(0, subtotal - discount);
   const freeShipping = shouldOfferFreeShipping(subtotal);
   const shippingValue = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
   const total = discountedSubtotal + shippingValue;
+
+  useEffect(() => {
+    if (!hydrated || !marketingItems.length || checkoutTracked.current) return;
+    checkoutTracked.current = true;
+    trackBeginCheckout(marketingItems, total);
+  }, [hydrated, marketingItems, total]);
 
   const customerComplete = Object.keys(customerErrors(form)).length === 0;
   const deliveryComplete = Object.keys(addressErrors(form)).length === 0;
@@ -125,6 +140,7 @@ export default function CheckoutPage() {
       setStepError('Preencha nome, e-mail e WhatsApp para continuar.');
       return;
     }
+    identifyCRM({ email: form.email, phone: form.phone, firstName: form.name });
     markComplete(1);
     setStep(2);
   }
@@ -138,6 +154,7 @@ export default function CheckoutPage() {
       setStepError('Complete os dados de entrega para continuar.');
       return;
     }
+    trackAddShippingInfo(marketingItems, total, freeShipping ? 'Frete grátis' : 'Frete fixo');
     markComplete(2);
     setStep(3);
   }
@@ -199,7 +216,8 @@ export default function CheckoutPage() {
 
     markComplete(3);
     setLoading(true);
-    trackBeginCheckout(lines.map(({ item, product }) => ({ item_id: product.id, item_name: product.name, price: getEffectivePrice(product), quantity: item.quantity, item_category: product.category })), total);
+    identifyCRM({ email: form.email, phone: form.phone, firstName: form.name });
+    trackAddPaymentInfo(marketingItems, total, 'InfinitePay');
 
     try {
       const response = await fetch('/api/create-checkout', {
@@ -282,6 +300,7 @@ export default function CheckoutPage() {
                 <button type="button" className="checkout-without-coupon" onClick={() => { couponRequest.current += 1; setCouponChecking(false); setCoupon(''); setAppliedCoupon(''); setCouponMessage(null); setBenefitConfirmed(true); markComplete(3); setStep(4); }}>Continuar sem cupom</button>
               </div> : <p className="checkout-stage-locked">{benefitConfirmed ? (appliedCoupon ? `Cupom ${appliedCoupon} aplicado.` : 'Continuar sem cupom.') : 'Conclua a entrega para liberar esta etapa.'}</p>}
             </section>
+
             <section className={`checkout-stage${step === 4 ? ' is-active' : ''}`} aria-labelledby="checkout-payment-title">
               <div className="checkout-stage-head"><div><span>04</span><h2 tabIndex={-1} id="checkout-payment-title">Pagamento</h2></div></div>
               {step === 4 ? <div className="checkout-stage-body">
