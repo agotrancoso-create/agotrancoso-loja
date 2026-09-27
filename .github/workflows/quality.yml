@@ -41,10 +41,7 @@ jobs:
         run: npm run audit:catalog
 
       - name: Commerce contract
-        run: node scripts/qa-commerce.cjs
-
-      - name: Payment return contract
-        run: node scripts/qa-payment-return.cjs
+        run: npm run qa:commerce
 
       - name: Production build
         run: npm run build
@@ -59,7 +56,12 @@ jobs:
         env:
           QA_WIDTHS: 320,390,820,1440
           QA_ARTIFACTS: /tmp/ago-qa
-        run: node scripts/qa-ui.cjs
+        run: npm run qa:ui
+
+      - name: GA4 ecommerce and CRO analytics contract
+        env:
+          QA_ARTIFACTS: /tmp/ago-qa
+        run: npm run qa:analytics
 
       - name: WCAG automated audit
         env:
@@ -102,6 +104,7 @@ jobs:
           printf '%s' "$merchant_xml" | grep -q '<g:brand>Agô Trancoso</g:brand>'
           printf '%s' "$merchant_xml" | grep -q '<g:condition>new</g:condition>'
           printf '%s' "$merchant_xml" | grep -q '<g:identifier_exists>no</g:identifier_exists>'
+          printf '%s' "$merchant_xml" | grep -q '<g:google_product_category>'
           printf '%s' "$merchant_xml" | grep -q '<g:shipping>'
 
           if printf '%s' "$merchant_xml" | grep -q 'miniatura-quadrado-trancoso.jpg'; then
@@ -139,7 +142,7 @@ jobs:
 
           cat /tmp/ago-health.json
 
-      - name: Upload visual and accessibility QA evidence
+      - name: Upload visual, analytics and accessibility QA evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
