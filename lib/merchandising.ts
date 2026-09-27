@@ -59,10 +59,9 @@ const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
     '/produtos/catalogo/casinha-luminaria-3.jpg',
     '/produtos/catalogo/casinha-luminaria-4.jpg',
   ],
-  // A composição com duas miniaturas tem maior presença de cor, simetria e
-  // leitura imediata no card; as fotos unitárias ficam logo depois para inspeção.
+  // Capa anterior removida a pedido da proprietária. A foto 04 passa a ser a
+  // leitura principal; 05 e 02 entram como vistas complementares.
   'miniatura-quadrado-trancoso': [
-    '/produtos/catalogo/miniatura-quadrado-trancoso-3.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg',
@@ -73,8 +72,6 @@ const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
     '/produtos/catalogo/estatueta-iemanja-3.jpg',
     '/produtos/catalogo/estatueta-iemanja-4.jpg',
   ],
-  // A foto 2 é a leitura mais limpa para capa e também é a opção usada na
-  // curadoria editorial da home.
   'nossa-senhora-grande': [
     '/produtos/catalogo/nossa-senhora-grande-2.jpg',
     '/produtos/catalogo/nossa-senhora-grande-1.jpg',
