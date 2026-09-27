@@ -5,6 +5,7 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 type Props = { name: string; images: string[]; initialIndex?: number; onClose: () => void };
 type Point = { x: number; y: number };
+type TouchPoint = { clientX: number; clientY: number };
 type TouchGesture =
   | { mode: 'swipe'; startX: number; startY: number }
   | { mode: 'pan'; startX: number; startY: number; panX: number; panY: number }
@@ -18,7 +19,7 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
-function touchDistance(a: Touch, b: Touch) {
+function touchDistance(a: TouchPoint, b: TouchPoint) {
   return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
 }
 
