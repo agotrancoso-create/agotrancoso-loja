@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/components/ProductImage';
 import { useEffect, useId, useRef, useState } from 'react';
 
 type Props = { name: string; images: string[]; initialIndex?: number; onClose: () => void };

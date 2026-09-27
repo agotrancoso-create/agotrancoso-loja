@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/components/ProductImage';
 import PhotoLightbox from './PhotoLightbox';
 import { useRef, useState } from 'react';
 

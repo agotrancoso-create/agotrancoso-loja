@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import CartIcon from './CartIcon';
-import Image from 'next/image';
+import Image from '@/components/ProductImage';
 import { useEffect, useState } from 'react';
 import { Product } from '@/lib/types';
 import { getEffectivePrice } from '@/lib/products';

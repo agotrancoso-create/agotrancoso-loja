@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ProductImage';
 import ProductCard from '@/components/ProductCard';
 import { getAvailableProducts } from '@/lib/products';
 import { sortProductsByAttention } from '@/lib/merchandising';
