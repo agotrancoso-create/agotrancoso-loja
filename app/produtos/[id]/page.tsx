@@ -40,6 +40,10 @@ const PRODUCT_SEO: Record<string, { title: string; description: string }> = {
     title: 'Igrejinha do Quadrado de Trancoso Luminária | Agô',
     description: 'Luminária de cerâmica inspirada na Igrejinha do Quadrado de Trancoso, disponível na Agô Trancoso. Criada para receber vela LED ou vela pequena.',
   },
+  'miniatura-quadrado-trancoso': {
+    title: 'Miniatura do Quadrado de Trancoso para Pendurar | Agô',
+    description: 'Miniatura artesanal em cerâmica inspirada no Quadrado de Trancoso, criada para pendurar na parede. Disponível na Agô Trancoso, Bahia.',
+  },
   'ima-igrejinha-trancoso': {
     title: 'Ímã da Igrejinha do Quadrado de Trancoso | Agô',
     description: 'Ímã artesanal em cerâmica inspirado na Igreja de São João Batista, a Igrejinha do Quadrado de Trancoso. Disponível na Agô Trancoso.',
@@ -108,6 +112,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const freeShippingAtProductQuantity = shouldOfferFreeShipping(price);
   const nationalShippingPrice = getShippingPrice(price);
   const isIgrejinhaProduct = IGREJINHA_PRODUCT_IDS.has(product.id);
+  const isWallMiniature = product.id === 'miniatura-quadrado-trancoso';
   const productUrl = `${SITE_DOMAIN}/produtos/${product.id}`;
   const attentionProducts = sortProductsByAttention(getAvailableProducts());
 
@@ -138,6 +143,9 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         url: productUrl,
         mainEntityOfPage: productUrl,
         seller: { '@id': `${SITE_DOMAIN}#organization` },
+        ...(isWallMiniature ? {
+          additionalProperty: [{ '@type': 'PropertyValue', name: 'Uso', value: 'Para pendurar na parede' }],
+        } : {}),
         offers: {
           '@type': 'Offer',
           url: productUrl,
@@ -192,7 +200,14 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               ) : <p className="product-current-price">{formatBRL(price)}</p>}
 
               <p className="product-description">{product.description}</p>
-              {product.dimensions && <p className="product-dimensions"><strong>Dimensões</strong><span>{product.dimensions}</span></p>}
+
+              <dl className="product-premium-facts" aria-label="Informações da peça">
+                <div><dt>Material</dt><dd>Cerâmica</dd></div>
+                <div><dt>Seleção</dt><dd>Agô Trancoso · Bahia</dd></div>
+                <div><dt>Disponibilidade</dt><dd>{product.available ? 'Disponível para compra' : 'Indisponível'}</dd></div>
+                {isWallMiniature && <div><dt>Uso</dt><dd>Para pendurar na parede</dd></div>}
+                {product.dimensions && <div><dt>Dimensões</dt><dd>{product.dimensions}</dd></div>}
+              </dl>
 
               <div className="product-purchase"><AddToCart product={product} /></div>
               <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="product-whatsapp">Prefere comprar pelo WhatsApp? <span aria-hidden="true">↗</span></a>
