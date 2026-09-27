@@ -8,7 +8,7 @@ import { getProductById, getEffectivePrice, getAvailableProducts } from '@/lib/p
 import { getAttentionCoverImage, sortProductsByAttention } from '@/lib/merchandising';
 import CartIcon from './CartIcon';
 import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping, FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
-import { trackRemoveFromCart, trackAddToCart } from '@/lib/marketing-analytics';
+import { trackRemoveFromCart, trackAddToCart, trackSelectItem, trackViewCart } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -20,6 +20,7 @@ export default function CartDrawer() {
   const drawerRef = useRef<HTMLDivElement>(null);
   const complementaryRef = useRef<HTMLDivElement>(null);
   const closeDrawerRef = useRef(closeDrawer);
+  const viewCartRef = useRef('');
 
   useEffect(() => { closeDrawerRef.current = closeDrawer; }, [closeDrawer]);
 
@@ -71,11 +72,25 @@ export default function CartDrawer() {
   const progressTarget = FREE_SHIPPING_THRESHOLD + 0.01;
   const progress = Math.min(100, (subtotal / progressTarget) * 100);
   const cartIds = new Set(lines.map(({ product }) => product.id));
+  const cartMarketingItems = lines.map(({ item, product }) => ({
+    item_id: product.id,
+    item_name: product.name,
+    price: getEffectivePrice(product),
+    quantity: item.quantity,
+    item_category: product.category,
+  }));
+  const cartSignature = cartMarketingItems.map(item => `${item.item_id}:${item.quantity}`).join('|');
 
-  // A sacola usa a mesma ordem editorial/comercial da vitrine principal.
-  // Assim, a experiência permanece coerente: as primeiras sugestões são as
-  // mesmas peças que a loja decidiu destacar, apenas removendo o que já está
-  // na sacola. Isso evita recomendações aleatórias entre desktop e mobile.
+  useEffect(() => {
+    if (!isDrawerOpen) {
+      viewCartRef.current = '';
+      return;
+    }
+    if (!cartMarketingItems.length || viewCartRef.current === cartSignature) return;
+    viewCartRef.current = cartSignature;
+    trackViewCart(cartMarketingItems, total);
+  }, [isDrawerOpen, cartSignature, total]);
+
   const complementary = lines.length === 0
     ? []
     : sortProductsByAttention(getAvailableProducts())
@@ -86,10 +101,7 @@ export default function CartDrawer() {
     const node = complementaryRef.current;
     if (!node) return;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    node.scrollBy({
-      left: direction * Math.max(180, node.clientWidth * .72),
-      behavior: reducedMotion ? 'auto' : 'smooth',
-    });
+    node.scrollBy({ left: direction * Math.max(180, node.clientWidth * .72), behavior: reducedMotion ? 'auto' : 'smooth' });
   }
 
   return (
@@ -106,15 +118,10 @@ export default function CartDrawer() {
         <div className="cart-header">
           <div className="cart-header-title">
             <CartIcon size={22} />
-            <div>
-              <h2 id="ago-cart-title">Sua seleção</h2>
-              {lines.length > 0 && <small>Peças escolhidas por você.</small>}
-            </div>
+            <div><h2 id="ago-cart-title">Sua seleção</h2>{lines.length > 0 && <small>Peças escolhidas por você.</small>}</div>
           </div>
           <button ref={closeRef} type="button" onClick={closeDrawer} aria-label="Fechar sacola" className="cart-close">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
           </button>
         </div>
 
@@ -129,17 +136,7 @@ export default function CartDrawer() {
             <ul className="cart-items">
               {lines.map(({ item, product }) => (
                 <li key={item.productId} className="cart-item">
-                  <div className="cart-product-image">
-                    <Image
-                      src={getAttentionCoverImage(product)}
-                      alt={product.name}
-                      fill
-                      quality={100}
-                      sizes="82px"
-                      className="object-contain"
-                    />
-                  </div>
-
+                  <div className="cart-product-image"><Image src={getAttentionCoverImage(product)} alt={product.name} fill quality={100} sizes="82px" className="object-contain" /></div>
                   <div className="cart-item-info">
                     <h3>{product.name}</h3>
                     <p>{formatBRL(getEffectivePrice(product))} / un.</p>
@@ -151,22 +148,13 @@ export default function CartDrawer() {
                         type="button"
                         onClick={() => {
                           removeItem(item.productId);
-                          trackRemoveFromCart({
-                            item_id: product.id,
-                            item_name: product.name,
-                            price: getEffectivePrice(product),
-                            quantity: item.quantity,
-                            item_category: product.category,
-                          });
+                          trackRemoveFromCart({ item_id: product.id, item_name: product.name, price: getEffectivePrice(product), quantity: item.quantity, item_category: product.category });
                         }}
                         aria-label={`Remover ${product.name}`}
                         className="cart-remove"
-                      >
-                        Remover
-                      </button>
+                      >Remover</button>
                     </div>
                   </div>
-
                   <div className="cart-item-total">{formatBRL(getEffectivePrice(product) * item.quantity)}</div>
                 </li>
               ))}
@@ -176,58 +164,34 @@ export default function CartDrawer() {
           {complementary.length > 0 && (
             <div className="cart-complementary" aria-label="Peças para acompanhar sua seleção">
               <div className="cart-complementary-head">
-                <div>
-                  <span>Para acompanhar</span>
-                  <small>Destaques da coleção que combinam com sua seleção.</small>
-                </div>
+                <div><span>Para acompanhar</span><small>Destaques da coleção que combinam com sua seleção.</small></div>
                 <div className="cart-complementary-nav" aria-label="Navegar pelas sugestões">
-                  <button type="button" onClick={() => scrollComplementary(-1)} aria-label="Ver sugestões anteriores">
-                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12.5 4.5-5.5 5.5 5.5 5.5" /></svg>
-                  </button>
-                  <button type="button" onClick={() => scrollComplementary(1)} aria-label="Ver próximas sugestões">
-                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4.5 5.5 5.5-5.5 5.5" /></svg>
-                  </button>
+                  <button type="button" onClick={() => scrollComplementary(-1)} aria-label="Ver sugestões anteriores"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12.5 4.5-5.5 5.5 5.5 5.5" /></svg></button>
+                  <button type="button" onClick={() => scrollComplementary(1)} aria-label="Ver próximas sugestões"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4.5 5.5 5.5-5.5 5.5" /></svg></button>
                 </div>
               </div>
               <div ref={complementaryRef} className="cart-complementary-list" tabIndex={0} aria-label="Sugestões para acompanhar">
-                {complementary.map((product) => (
-                  <article key={product.id} className="cart-complementary-item">
-                    <Link href={`/produtos/${product.id}`} onClick={closeDrawer} className="cart-complementary-image" aria-label={`Ver ${product.name}`}>
-                      <Image
-                        src={getAttentionCoverImage(product)}
-                        alt={product.name}
-                        fill
-                        quality={100}
-                        sizes="(max-width: 600px) 44vw, 190px"
-                        className="object-contain"
-                      />
-                    </Link>
-                    <div className="cart-complementary-info">
-                      <Link href={`/produtos/${product.id}`} onClick={closeDrawer}>
-                        <strong>{product.name}</strong>
+                {complementary.map((product) => {
+                  const price = getEffectivePrice(product);
+                  const item = { item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category };
+                  return (
+                    <article key={product.id} className="cart-complementary-item">
+                      <Link href={`/produtos/${product.id}`} onClick={() => { trackSelectItem(item, 'Sugestões da sacola'); closeDrawer(); }} className="cart-complementary-image" aria-label={`Ver ${product.name}`}>
+                        <Image src={getAttentionCoverImage(product)} alt={product.name} fill quality={100} sizes="(max-width: 600px) 44vw, 190px" className="object-contain" />
                       </Link>
-                      <span>{formatBRL(getEffectivePrice(product))}</span>
-                    </div>
-                    <button
-                      type="button"
-                      className="cart-complementary-add"
-                      onClick={() => {
-                        const price = getEffectivePrice(product);
-                        addItem(product.id);
-                        trackAddToCart({
-                          item_id: product.id,
-                          item_name: product.name,
-                          price,
-                          quantity: 1,
-                          item_category: product.category,
-                        });
-                      }}
-                      aria-label={`Levar ${product.name} para a sacola`}
-                    >
-                      <CartIcon size={18} withPlus />
-                    </button>
-                  </article>
-                ))}
+                      <div className="cart-complementary-info">
+                        <Link href={`/produtos/${product.id}`} onClick={() => { trackSelectItem(item, 'Sugestões da sacola'); closeDrawer(); }}><strong>{product.name}</strong></Link>
+                        <span>{formatBRL(price)}</span>
+                      </div>
+                      <button
+                        type="button"
+                        className="cart-complementary-add"
+                        onClick={() => { addItem(product.id); trackAddToCart(item); }}
+                        aria-label={`Levar ${product.name} para a sacola`}
+                      ><CartIcon size={18} withPlus /></button>
+                    </article>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -236,20 +200,9 @@ export default function CartDrawer() {
         {lines.length > 0 && (
           <div className="cart-summary">
             <div className="cart-shipping-progress-block">
-              {!freeShipping ? (
-                <p className="cart-shipping-message">
-                  Faltam <strong>{formatBRL(remaining)}</strong> para o frete grátis.
-                </p>
-              ) : (
-                <p className="cart-shipping-message is-free">Você ganhou frete grátis neste pedido.</p>
-              )}
-              <div className="cart-shipping-progress" aria-hidden="true">
-                <span style={{ width: progress + '%' }} />
-              </div>
-              <div className="cart-shipping-progress-labels">
-                <span>Frete fixo R$ 39,90</span>
-                <span>Grátis acima de R$ 500</span>
-              </div>
+              {!freeShipping ? <p className="cart-shipping-message">Faltam <strong>{formatBRL(remaining)}</strong> para o frete grátis.</p> : <p className="cart-shipping-message is-free">Você ganhou frete grátis neste pedido.</p>}
+              <div className="cart-shipping-progress" aria-hidden="true"><span style={{ width: progress + '%' }} /></div>
+              <div className="cart-shipping-progress-labels"><span>Frete fixo R$ 39,90</span><span>Grátis acima de R$ 500</span></div>
             </div>
             <div className="cart-summary-row"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
             <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
