@@ -8,7 +8,7 @@ import { Product } from '@/lib/types';
 import { getEffectivePrice } from '@/lib/products';
 import { getAttentionCoverImage } from '@/lib/merchandising';
 import { useCart } from '@/context/CartContext';
-import { trackAddToCart, trackViewItem } from '@/lib/marketing-analytics';
+import { trackAddToCart, trackSelectItem } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -24,9 +24,9 @@ function productImageAlt(product: Product) {
   return product.imageAlt || `${product.name} em cerâmica disponível na Agô Trancoso`;
 }
 
-type ProductCardProps = { product: Product; priority?: boolean };
+type ProductCardProps = { product: Product; priority?: boolean; listName?: string };
 
-export default function ProductCard({ product, priority = false }: ProductCardProps) {
+export default function ProductCard({ product, priority = false, listName = 'Coleção Agô' }: ProductCardProps) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
 
@@ -40,12 +40,15 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const imageAlt = productImageAlt(product);
-
-  const trackView = () => trackViewItem({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category });
+  const marketingItem = { item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category };
 
   return (
     <article className="product-card group" data-product-id={product.id}>
-      <Link href={`/produtos/${product.id}`} className="product-card-main" onClick={trackView}>
+      <Link
+        href={`/produtos/${product.id}`}
+        className="product-card-main"
+        onClick={() => trackSelectItem(marketingItem, listName)}
+      >
         <div className="product-image-wrap">
           <Image src={image} alt={imageAlt} fill quality={100} priority={priority} sizes="(max-width: 900px) 46vw, (max-width: 1400px) 30vw, 424px" className="product-image product-image-primary" />
           {hasPromo && <span className="product-badge">Oferta</span>}
@@ -65,7 +68,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
           type="button"
           onClick={() => {
             addItem(product.id);
-            trackAddToCart({ item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category });
+            trackAddToCart(marketingItem);
             setAdded(true);
           }}
           className={`product-add ago-premium-add ago-bag-cta${added ? ' is-added' : ''}`}
