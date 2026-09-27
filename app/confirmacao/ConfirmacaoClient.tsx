@@ -5,6 +5,10 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { INSTAGRAM_URL, whatsappLink } from '@/lib/config';
+import { getEffectivePrice, getProductById } from '@/lib/products';
+import { calculateCouponDiscount, FIRST_PURCHASE_COUPON } from '@/lib/coupons';
+import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping } from '@/lib/shipping';
+import { trackPurchase } from '@/lib/marketing-analytics';
 
 type PaymentStatus = 'checking' | 'confirmed' | 'unconfirmed' | 'unavailable' | 'missing';
 
@@ -32,7 +36,7 @@ export default function ConfirmacaoClient() {
   const transactionNsu = params.get('transaction_nsu') || '';
   const slug = params.get('slug') || '';
   const [status, setStatus] = useState<PaymentStatus>('checking');
-  const { clearCart, hydrated } = useCart();
+  const { items, clearCart, hydrated } = useCart();
 
   useEffect(() => {
     if (!hydrated) return;
@@ -53,13 +57,32 @@ export default function ConfirmacaoClient() {
     }).then(result => {
       if (!active) return;
       if (result.confirmed === true) {
+        const marketingItems = items.flatMap((item) => {
+          const product = getProductById(item.productId);
+          return product ? [{
+            item_id: product.id,
+            item_name: product.name,
+            price: getEffectivePrice(product),
+            quantity: item.quantity,
+            item_category: product.category,
+          }] : [];
+        });
+        const subtotal = marketingItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        const coupon = orderId.startsWith('AGO-FP-') ? FIRST_PURCHASE_COUPON : '';
+        const discount = calculateCouponDiscount(subtotal, coupon);
+        const shipping = shouldOfferFreeShipping(subtotal) ? 0 : FIXED_SHIPPING_PRICE;
+        const value = Math.max(0, subtotal - discount) + shipping;
+
+        if (marketingItems.length) {
+          trackPurchase({ transactionId: orderId, items: marketingItems, value, shipping, coupon });
+        }
         clearCart();
         setStatus('confirmed');
       } else setStatus('unconfirmed');
     }).catch(() => { if (active) setStatus('unavailable'); });
 
     return () => { active = false; };
-  }, [orderId, expectedOrderId, returnedOrderId, transactionNsu, slug, clearCart, hydrated]);
+  }, [orderId, expectedOrderId, returnedOrderId, transactionNsu, slug, items, clearCart, hydrated]);
 
   const confirmed = status === 'confirmed';
   const checking = status === 'checking';
