@@ -85,7 +85,7 @@ async function run() {
   await p.locator('.product-gallery-main').evaluate(e=>{for(const [type,x] of [['touchstart',250],['touchend',80]]){const ev=new Event(type,{bubbles:true});Object.defineProperty(ev,'changedTouches',{value:[{clientX:x,clientY:100}]});e.dispatchEvent(ev);}});
   await p.waitForFunction(()=>document.querySelector('.product-gallery-counter').textContent.startsWith('03'));
   await p.locator('.product-gallery-main').evaluate(e=>{const ev=new Event('touchstart',{bubbles:true});Object.defineProperty(ev,'changedTouches',{value:[{clientX:100,clientY:100}]});e.dispatchEvent(ev);});
-  await p.getByRole('button',{name:/Ampliar foto de/}).click(); await p.locator('dialog[open]').waitFor(); await p.getByRole('button',{name:'Zoom +',exact:true}).click(); assert.equal(await p.locator('.ago-photo-canvas.is-zoomed').count(),1); await p.keyboard.press('Escape');
+  await p.getByRole('button',{name:/Ampliar foto de/}).click(); await p.locator('dialog[open]').waitFor(); await p.getByRole('button',{name:'Aumentar zoom',exact:true}).click(); assert.equal(await p.locator('.ago-photo-stage.is-zoomed').count(),1); await p.keyboard.press('Escape');
   results.interactions.push('Benefits keyboard expansion, mobile search with photos, gallery keyboard/swipe/zoom/Escape');
   await p.evaluate(()=>localStorage.setItem('agotrancoso_carrinho_v1',JSON.stringify([{productId:'igreja-quadrado-p',quantity:2}])));
   await visit('/checkout');
