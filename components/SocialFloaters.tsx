@@ -1,8 +1,21 @@
-import { whatsappLink } from '@/lib/config';
+import { INSTAGRAM_URL, whatsappLink } from '@/lib/config';
 
 export default function SocialFloaters() {
   return (
     <nav className="ago-social-floaters" aria-label="Falar com a Agô Trancoso">
+      <a
+        href={INSTAGRAM_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Ver Agô Trancoso no Instagram"
+        className="ago-social-button ago-social-instagram"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" shapeRendering="geometricPrecision">
+          <rect x="4.2" y="4.2" width="15.6" height="15.6" rx="4.4" fill="none" stroke="currentColor" strokeWidth="1.7" />
+          <circle cx="12" cy="12" r="3.6" fill="none" stroke="currentColor" strokeWidth="1.7" />
+          <circle cx="17.25" cy="6.85" r="1" fill="currentColor" />
+        </svg>
+      </a>
       <a
         href={whatsappLink('Olá! Vim pelo site da Agô Trancoso e gostaria de consultar as peças.')}
         target="_blank"
