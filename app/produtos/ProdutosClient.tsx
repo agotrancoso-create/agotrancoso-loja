@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Product, Category } from '@/lib/types';
 import ProductCard from '@/components/ProductCard';
 import { sortProductsByAttention } from '@/lib/merchandising';
+import { trackCatalogFilter, trackCatalogSearch, trackCatalogSort, trackViewItemList } from '@/lib/marketing-analytics';
 
 type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'name';
 
@@ -41,6 +42,11 @@ export default function ProdutosClient({ products, categories }: { products: Pro
   const sortButton = useRef<HTMLButtonElement>(null);
   const sortMenu = useRef<HTMLDivElement>(null);
   const [sortOpen, setSortOpen] = useState(false);
+  const lastListEvent = useRef('');
+  const lastSearchEvent = useRef('');
+  const previousCategory = useRef(category);
+  const previousSort = useRef<SortOption>(sort);
+
   useEffect(() => { if (sortOpen) sortMenu.current?.querySelector<HTMLButtonElement>('[aria-selected="true"]')?.focus(); }, [sortOpen]);
   const urlQuery = searchParams.get('busca') || '';
   const urlCategory = searchParams.get('categoria') || 'todas';
@@ -67,6 +73,49 @@ export default function ProdutosClient({ products, categories }: { products: Pro
     if (sort === 'name') return [...matches].sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
     return matches;
   }, [attentionProducts, query, category, sort]);
+
+  const selectedCategoryLabel = category === 'todas'
+    ? 'Toda a coleção'
+    : categories.find((item) => item.id === category)?.name || category;
+  const listName = category === 'todas' ? 'Coleção Agô' : `Coleção Agô · ${selectedCategoryLabel}`;
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const listKey = `${category}|${sort}|${normalize(query)}|${filtered.map((product) => product.id).join(',')}`;
+      if (lastListEvent.current !== listKey) {
+        lastListEvent.current = listKey;
+        trackViewItemList(filtered.map((product) => ({
+          item_id: product.id,
+          item_name: product.name,
+          price: productPrice(product),
+          quantity: 1,
+          item_category: product.category,
+        })), listName);
+      }
+
+      const term = query.trim();
+      if (term.length >= 2) {
+        const searchKey = `${normalize(term)}|${filtered.length}`;
+        if (lastSearchEvent.current !== searchKey) {
+          lastSearchEvent.current = searchKey;
+          trackCatalogSearch(term, filtered.length);
+        }
+      }
+    }, 550);
+    return () => window.clearTimeout(timer);
+  }, [category, filtered, listName, query, sort]);
+
+  useEffect(() => {
+    if (previousCategory.current === category) return;
+    previousCategory.current = category;
+    trackCatalogFilter('categoria', selectedCategoryLabel, filtered.length);
+  }, [category, selectedCategoryLabel, filtered.length]);
+
+  useEffect(() => {
+    if (previousSort.current === sort) return;
+    previousSort.current = sort;
+    trackCatalogSort(sort, filtered.length);
+  }, [sort, filtered.length]);
 
   const suggestions = useMemo(() => {
     const term = normalize(query);
@@ -181,7 +230,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
           {sortOpen && (
             <div id="catalog-sort-options" ref={sortMenu} className="catalog-sort-menu" role="listbox" aria-label="Ordenar peças" onKeyDown={(event) => {
               const options = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>('[role=option]'));
-              const index = options.indexOf(event.target as HTMLButtonElement);
+              const index = options.indexOf(event.target as HTMLButtonElement>);
               if (event.key === 'Escape') { event.preventDefault(); setSortOpen(false); sortButton.current?.focus(); }
               if (event.key === 'ArrowDown') { event.preventDefault(); options[(index + 1) % options.length]?.focus(); }
               if (event.key === 'ArrowUp') { event.preventDefault(); options[(index - 1 + options.length) % options.length]?.focus(); }
@@ -231,7 +280,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
         </div>
       ) : (
         <div className="product-grid catalog-grid">
-          {filtered.map((product) => <ProductCard key={product.id} product={product} />)}
+          {filtered.map((product) => <ProductCard key={product.id} product={product} listName={listName} />)}
         </div>
       )}
     </div>
