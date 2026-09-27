@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getAllProducts, getAvailableProducts, getEffectivePrice, getProductById } from '@/lib/products';
-import { getRelatedProductIds, sortProductsByAttention } from '@/lib/merchandising';
+import { getAttentionOrderedImages, getRelatedProductIds, sortProductsByAttention } from '@/lib/merchandising';
 import { SITE_DOMAIN, whatsappLink } from '@/lib/config';
 import { FIXED_SHIPPING_PRICE, getShippingPrice, shouldOfferFreeShipping } from '@/lib/shipping';
 import AddToCart from './AddToCart';
@@ -66,6 +66,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const product = getProductById(id);
   if (!product) return {};
 
+  const images = getAttentionOrderedImages(product);
   const seo = PRODUCT_SEO[product.id] ?? {
     title: `${product.name} | Agô Trancoso`,
     description: product.description,
@@ -82,13 +83,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       siteName: 'Agô Trancoso',
       locale: 'pt_BR',
       type: 'website',
-      images: metadataImage(product.name, product.images),
+      images: metadataImage(product.name, images),
     },
     twitter: {
       card: 'summary_large_image',
       title: seo.title,
       description: seo.description,
-      images: product.images?.length ? [product.images[0]] : undefined,
+      images: images.length ? [images[0]] : undefined,
     },
   };
 }
@@ -98,7 +99,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const product = getProductById(id);
   if (!product) notFound();
 
-  const images = product.images?.length ? product.images : ['/images/placeholder.svg'];
+  const orderedImages = getAttentionOrderedImages(product);
+  const images = orderedImages.length ? orderedImages : ['/images/placeholder.svg'];
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const waMessage = `Olá! Vim pelo site da Agô Trancoso e tenho interesse em ${product.name}.`;
@@ -157,7 +159,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Início', item: SITE_DOMAIN },
           { '@type': 'ListItem', position: 2, name: 'Coleção', item: `${SITE_DOMAIN}/produtos` },
-          ...(isIgrejinhaProduct ? [{ '@type': 'ListItem', position: 3, name: 'Igrejinha do Quadrado de Trancoso', item: `${SITE_DOMAIN}/igrejinha-de-trancoso` }] : []),
+          ...(isIgrejinhaProduct ? [{ '@type': 'ListItem', position: 3, name: 'Igrejinha de Trancoso', item: `${SITE_DOMAIN}/igrejinha-de-trancoso` }] : []),
           { '@type': 'ListItem', position: isIgrejinhaProduct ? 4 : 3, name: product.name, item: productUrl },
         ],
       },
