@@ -18,7 +18,7 @@ const instagramUrl = 'https://www.instagram.com/agotrancoso';
 const discovery = [
   { title: 'Trancoso', category: 'trancoso', image: '/produtos/miniatura-quadrado-trancoso.jpg' },
   { title: 'Casa & decoração', category: 'decoracao', image: '/produtos/casinha-luminaria.jpg' },
-  { title: 'Fé & devoção', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-1.jpg' },
+  { title: 'Fé & devoção', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-2.jpg' },
   { title: 'Presentes', category: 'presentes', image: '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg' },
 ];
 
@@ -30,7 +30,7 @@ export default function HomePage() {
     <div className="ago-home ago-premium-home ago-home-calm">
       <section className="ago-cinematic-commerce" aria-labelledby="featured-title">
         <div className="ago-cinematic-media" aria-hidden="true">
-          <Image src="/hero.jpg" alt="" fill priority sizes="100vw" className="ago-cinematic-image" quality={92} />
+          <Image src="/hero.jpg" alt="" fill priority sizes="100vw" className="ago-cinematic-image" quality={100} />
           <div className="ago-cinematic-overlay" />
         </div>
 
@@ -62,7 +62,7 @@ export default function HomePage() {
       <section className="ago-premium-editorial ago-home-story ago-immersive-reveal" aria-labelledby="story-title">
         <div className="ago-container ago-premium-split">
           <div className="ago-premium-image ago-story-image">
-            <Image src="/nossa-essencia.jpg" alt="Universo visual da Agô Trancoso" fill sizes="(max-width: 900px) 100vw, 56vw" quality={92} className="ago-complementary-photo ago-parallax-photo" />
+            <Image src="/nossa-essencia.jpg" alt="Universo visual da Agô Trancoso" fill sizes="(max-width: 900px) 100vw, 56vw" quality={100} className="ago-complementary-photo ago-parallax-photo" />
           </div>
           <div className="ago-premium-copy">
             <p className="eyebrow">No Quadrado</p>
@@ -78,7 +78,7 @@ export default function HomePage() {
           <div className="ago-premium-section-head">
             <div>
               <p className="eyebrow">A coleção</p>
-              <h2 id="discover-title">Escolha por categoria.</h2>
+              <h2 id="discover-title">Escolha por onde entrar.</h2>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver todas as peças <span aria-hidden="true">↗</span></Link>
           </div>
@@ -87,7 +87,7 @@ export default function HomePage() {
             {discovery.map((item) => (
               <Link key={item.category} href={`/produtos?categoria=${item.category}`} className="ago-premium-discovery-card">
                 <div className="ago-premium-discovery-image">
-                  <Image src={item.image} alt={item.title} fill quality={88} sizes="(max-width: 767px) 50vw, 25vw" className="ago-parallax-photo" />
+                  <Image src={item.image} alt={item.title} fill quality={100} sizes="(max-width: 767px) 50vw, 25vw" className="ago-parallax-photo" />
                 </div>
                 <div className="ago-premium-discovery-copy"><span>{item.title}</span></div>
               </Link>
