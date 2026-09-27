@@ -2,8 +2,9 @@
 
 import Image from '@/components/ProductImage';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import { trackGalleryInteraction } from '@/lib/marketing-analytics';
 
-type Props = { name: string; images: string[]; initialIndex?: number; onClose: () => void };
+type Props = { productId: string; name: string; images: string[]; initialIndex?: number; onClose: () => void };
 type Point = { x: number; y: number };
 type TouchPoint = { clientX: number; clientY: number };
 type TouchGesture =
@@ -39,7 +40,7 @@ function CloseIcon() {
   );
 }
 
-export default function PhotoLightbox({ name, images, initialIndex = 0, onClose }: Props) {
+export default function PhotoLightbox({ productId, name, images, initialIndex = 0, onClose }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
   const viewport = useRef<HTMLDivElement>(null);
   const titleId = useId();
@@ -62,6 +63,16 @@ export default function PhotoLightbox({ name, images, initialIndex = 0, onClose 
     };
   }, []);
 
+  const record = useCallback((action: 'next' | 'previous' | 'thumbnail' | 'zoom_in' | 'zoom_out' | 'fit', nextScale = scale, index = active) => {
+    trackGalleryInteraction({
+      productId,
+      action,
+      photoIndex: index + 1,
+      totalPhotos: images.length,
+      scale: nextScale,
+    });
+  }, [active, images.length, productId, scale]);
+
   const clampPan = useCallback((point: Point, nextScale: number): Point => {
     const node = viewport.current;
     if (!node || nextScale <= MIN_SCALE) return { x: 0, y: 0 };
@@ -74,6 +85,7 @@ export default function PhotoLightbox({ name, images, initialIndex = 0, onClose 
     const normalized = clamp(Number(nextScale.toFixed(2)), MIN_SCALE, MAX_SCALE);
     setScale(normalized);
     setPan((current) => clampPan(current, normalized));
+    return normalized;
   }, [clampPan]);
 
   const resetView = useCallback(() => {
@@ -81,14 +93,34 @@ export default function PhotoLightbox({ name, images, initialIndex = 0, onClose 
     setPan({ x: 0, y: 0 });
   }, []);
 
-  const select = useCallback((index: number) => {
-    setActive((index + images.length) % images.length);
+  const select = useCallback((index: number, action: 'next' | 'previous' | 'thumbnail' = 'thumbnail') => {
+    const nextIndex = (index + images.length) % images.length;
+    setActive(nextIndex);
     resetView();
-  }, [images.length, resetView]);
+    trackGalleryInteraction({ productId, action, photoIndex: nextIndex + 1, totalPhotos: images.length, scale: MIN_SCALE });
+  }, [images.length, productId, resetView]);
 
-  const zoomIn = () => setZoom(scale + ZOOM_STEP);
-  const zoomOut = () => setZoom(scale - ZOOM_STEP);
-  const toggleZoom = () => setZoom(scale > MIN_SCALE ? MIN_SCALE : 2.5);
+  const zoomIn = () => {
+    const next = setZoom(scale + ZOOM_STEP);
+    record('zoom_in', next);
+  };
+  const zoomOut = () => {
+    const next = setZoom(scale - ZOOM_STEP);
+    record('zoom_out', next);
+  };
+  const fit = () => {
+    resetView();
+    record('fit', MIN_SCALE);
+  };
+  const toggleZoom = () => {
+    if (scale > MIN_SCALE) {
+      const next = setZoom(MIN_SCALE);
+      record('zoom_out', next);
+    } else {
+      const next = setZoom(2.5);
+      record('zoom_in', next);
+    }
+  };
 
   return (
     <dialog
@@ -98,11 +130,11 @@ export default function PhotoLightbox({ name, images, initialIndex = 0, onClose 
       onCancel={(event) => { event.preventDefault(); onClose(); }}
       onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}
       onKeyDown={(event) => {
-        if (event.key === 'ArrowRight' && scale === MIN_SCALE && images.length > 1) { event.preventDefault(); select(active + 1); }
-        if (event.key === 'ArrowLeft' && scale === MIN_SCALE && images.length > 1) { event.preventDefault(); select(active - 1); }
+        if (event.key === 'ArrowRight' && scale === MIN_SCALE && images.length > 1) { event.preventDefault(); select(active + 1, 'next'); }
+        if (event.key === 'ArrowLeft' && scale === MIN_SCALE && images.length > 1) { event.preventDefault(); select(active - 1, 'previous'); }
         if (event.key === '+' || event.key === '=') { event.preventDefault(); zoomIn(); }
         if (event.key === '-') { event.preventDefault(); zoomOut(); }
-        if (event.key === '0') { event.preventDefault(); resetView(); }
+        if (event.key === '0') { event.preventDefault(); fit(); }
       }}
     >
       <header className="ago-photo-header">
@@ -171,7 +203,7 @@ export default function PhotoLightbox({ name, images, initialIndex = 0, onClose 
           if (!point) return;
           const dx = point.clientX - gesture.startX;
           const dy = point.clientY - gesture.startY;
-          if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) select(active + (dx < 0 ? 1 : -1));
+          if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) select(active + (dx < 0 ? 1 : -1), dx < 0 ? 'next' : 'previous');
         }}
       >
         <div className="ago-photo-image-shell" style={{ transform: `translate3d(${pan.x}px, ${pan.y}px, 0) scale(${scale})` }}>
@@ -189,8 +221,8 @@ export default function PhotoLightbox({ name, images, initialIndex = 0, onClose 
 
         {images.length > 1 && scale === MIN_SCALE && (
           <div className="ago-photo-stage-nav" aria-label="Navegar pelas fotos">
-            <button type="button" onClick={() => select(active - 1)} aria-label="Foto anterior"><Chevron direction="left" /></button>
-            <button type="button" onClick={() => select(active + 1)} aria-label="Próxima foto"><Chevron direction="right" /></button>
+            <button type="button" onClick={() => select(active - 1, 'previous')} aria-label="Foto anterior"><Chevron direction="left" /></button>
+            <button type="button" onClick={() => select(active + 1, 'next')} aria-label="Próxima foto"><Chevron direction="right" /></button>
           </div>
         )}
       </div>
@@ -200,7 +232,7 @@ export default function PhotoLightbox({ name, images, initialIndex = 0, onClose 
           <button type="button" onClick={zoomOut} disabled={scale <= MIN_SCALE} aria-label="Reduzir zoom">−</button>
           <span className="ago-photo-zoom-value" aria-live="polite">{Math.round(scale * 100)}%</span>
           <button type="button" onClick={zoomIn} disabled={scale >= MAX_SCALE} aria-label="Aumentar zoom">+</button>
-          <button type="button" className="ago-photo-fit" onClick={resetView} disabled={scale === MIN_SCALE && pan.x === 0 && pan.y === 0}>Ver peça inteira</button>
+          <button type="button" className="ago-photo-fit" onClick={fit} disabled={scale === MIN_SCALE && pan.x === 0 && pan.y === 0}>Ver peça inteira</button>
         </div>
 
         {images.length > 1 && (
@@ -210,7 +242,7 @@ export default function PhotoLightbox({ name, images, initialIndex = 0, onClose 
                 key={`${src}-${index}`}
                 type="button"
                 className={index === active ? 'is-active' : ''}
-                onClick={() => select(index)}
+                onClick={() => select(index, 'thumbnail')}
                 aria-label={`Ver foto ${index + 1}`}
                 aria-current={index === active ? 'true' : undefined}
               >
