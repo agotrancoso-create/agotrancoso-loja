@@ -1,18 +1,13 @@
 import Image, { type ImageProps } from 'next/image';
 
-// Fotografias enviadas pela proprietária: usar a qualidade máxima do otimizador.
-const MAX_QUALITY_PHOTOS = new Set([
-  '/produtos/catalogo/casal-pretos-velhos-3.jpg',
-  '/produtos/catalogo/colar-igreja-quadrado-frente.jpg',
-  '/produtos/catalogo/mobile-trancoso-fundo-branco.jpg',
-  '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg',
-  '/produtos/catalogo/ima-igrejinha-trancoso-conjunto.jpg',
-]);
+// Fotografia é o principal ativo visual da Agô. Hero e imagens de produto usam
+// sempre a qualidade máxima permitida pelo otimizador do Next. O dimensionamento
+// responsivo continua ativo para não sacrificar performance desnecessariamente.
+function shouldUseMaximumQuality(src: ImageProps['src']) {
+  return typeof src === 'string' && (src === '/hero.jpg' || src.startsWith('/produtos/'));
+}
 
 export default function ProductImage(props: ImageProps) {
-  const quality = typeof props.src === 'string' && MAX_QUALITY_PHOTOS.has(props.src)
-    ? 100
-    : props.quality;
-
+  const quality = shouldUseMaximumQuality(props.src) ? 100 : props.quality;
   return <Image {...props} quality={quality} />;
 }
