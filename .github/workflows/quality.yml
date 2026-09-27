@@ -16,7 +16,7 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,7 +34,10 @@ jobs:
       - name: TypeScript
         run: npm run typecheck
 
-      - name: Catalog audit
+      - name: Normalize all active product photography
+        run: node scripts/normalize-product-images.mjs
+
+      - name: Catalog and photography contract
         run: npm run audit:catalog
 
       - name: Commerce contract
@@ -46,7 +49,25 @@ jobs:
       - name: Production build
         run: npm run build
 
-      - name: Smoke test critical routes
+      - name: Install browser QA runtime
+        run: |
+          npm install --no-save --no-audit --no-fund playwright axe-core
+          npx playwright install --with-deps chromium
+          mkdir -p /tmp/ago-qa
+
+      - name: Mobile and desktop interaction QA
+        env:
+          QA_WIDTHS: 320,390,820,1440
+          QA_ARTIFACTS: /tmp/ago-qa
+        run: node scripts/qa-ui.cjs
+
+      - name: WCAG automated audit
+        env:
+          AXE_PATH: node_modules/axe-core/axe.min.js
+          QA_ARTIFACTS: /tmp/ago-qa
+        run: node scripts/qa-accessibility.cjs
+
+      - name: Smoke test critical routes and Merchant feed
         shell: bash
         run: |
           set -euo pipefail
@@ -68,19 +89,26 @@ jobs:
             exit 1
           fi
 
-          for path in / /produtos /produtos/igreja-quadrado-p /produtos/miniatura-quadrado-trancoso /checkout /contato /nossa-essencia /google-merchant.xml /robots.txt /sitemap.xml /manifest.webmanifest; do
+          for path in / /produtos /produtos/igreja-quadrado-p /produtos/miniatura-quadrado-trancoso /checkout /contato /nossa-essencia /google-merchant.xml /robots.txt /sitemap.xml /image-sitemap.xml /manifest.webmanifest; do
             echo "Checking $path"
             curl --fail --silent --show-error --output /dev/null "http://127.0.0.1:3000$path"
           done
 
           merchant_xml=$(curl --fail --silent --show-error http://127.0.0.1:3000/google-merchant.xml)
-          echo "$merchant_xml" | grep -q '<g:id>miniatura-quadrado-trancoso</g:id>'
-          echo "$merchant_xml" | grep -q 'para Pendurar'
-          if echo "$merchant_xml" | grep -q 'miniatura-quadrado-trancoso.jpg'; then
+          item_count=$(printf '%s' "$merchant_xml" | grep -o '<item>' | wc -l | tr -d ' ')
+          test "$item_count" = "19"
+          printf '%s' "$merchant_xml" | grep -q '<g:id>miniatura-quadrado-trancoso</g:id>'
+          printf '%s' "$merchant_xml" | grep -q 'para Pendurar'
+          printf '%s' "$merchant_xml" | grep -q '<g:brand>Agô Trancoso</g:brand>'
+          printf '%s' "$merchant_xml" | grep -q '<g:condition>new</g:condition>'
+          printf '%s' "$merchant_xml" | grep -q '<g:identifier_exists>no</g:identifier_exists>'
+          printf '%s' "$merchant_xml" | grep -q '<g:shipping>'
+
+          if printf '%s' "$merchant_xml" | grep -q 'miniatura-quadrado-trancoso.jpg'; then
             echo 'Retired Miniatura base cover is still present in Merchant feed'
             exit 1
           fi
-          if echo "$merchant_xml" | grep -q 'miniatura-quadrado-trancoso-3.jpg'; then
+          if printf '%s' "$merchant_xml" | grep -q 'miniatura-quadrado-trancoso-3.jpg'; then
             echo 'Retired Miniatura photo 03 is still present in Merchant feed'
             exit 1
           fi
@@ -89,4 +117,33 @@ jobs:
             exit 1
           fi
 
+          python3 - <<'PY'
+          import re, subprocess, sys
+          from urllib.parse import urlparse
+          from urllib.request import urlopen
+
+          xml = urlopen('http://127.0.0.1:3000/google-merchant.xml', timeout=10).read().decode('utf-8')
+          urls = set(re.findall(r'<g:(?:image_link|additional_image_link)>(.*?)</g:', xml))
+          failures = []
+          for url in urls:
+              path = urlparse(url).path
+              local = 'http://127.0.0.1:3000' + path
+              result = subprocess.run(['curl','--fail','--silent','--show-error','--output','/dev/null',local])
+              if result.returncode:
+                  failures.append(path)
+          if failures:
+              print('Broken Merchant image URLs:', failures)
+              sys.exit(1)
+          print(f'Merchant images OK: {len(urls)} URLs')
+          PY
+
           cat /tmp/ago-health.json
+
+      - name: Upload visual and accessibility QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ago-quality-evidence
+          path: /tmp/ago-qa
+          if-no-files-found: ignore
+          retention-days: 14
