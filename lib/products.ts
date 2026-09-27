@@ -30,7 +30,7 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
     '/produtos/catalogo/casinha-luminaria-4.jpg',
   ],
   'colar-igreja-quadrado': [
-    '/produtos/catalogo/colar-igreja-quadrado-2.jpg',
+    '/produtos/catalogo/colar-igreja-quadrado-frente.jpg',
     '/produtos/colar-igreja-quadrado.jpg',
   ],
   // A antiga segunda imagem apontava para uma Igreja M e não para o ímã.
