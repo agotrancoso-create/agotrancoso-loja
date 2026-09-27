@@ -15,7 +15,7 @@ async function run() {
   await new Promise((resolve,reject) => { server.stdout.on('data', d => { if (d.toString().includes('Ready')) resolve(); }); server.on('exit', c => reject(new Error(`Server exited ${c}`))); });
   browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH, args: ['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--disable-gpu-sandbox'] });
   const p = await browser.newPage({ reducedMotion:'reduce' });
-  await p.addInitScript(() => { localStorage.setItem('ago_primeira_compra_v3_vista','1'); });
+  await p.addInitScript(() => { localStorage.setItem('ago_primeira_compra_v3_vista','1'); localStorage.setItem('ago_privacy_consent_v1','essential'); });
   await p.route('**/api/first-purchase/eligibility', route => route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(route.request().method()==='GET'?{available:true}:{eligible:true})}));
   p.on('pageerror', e => results.errors.push(e.message));
   async function visit(path) { await p.goto(base+path,{waitUntil:'domcontentloaded'}); await p.locator('h1').first().waitFor(); }
@@ -37,9 +37,7 @@ async function run() {
       if (path==='/contato') assert.ok(await p.locator('.contact-copy > p').last().evaluate(e=>parseFloat(getComputedStyle(e).lineHeight)>=28));
       if ([320,390,820,1440].includes(width)&&['/','/contato','/produtos/colar-igreja-quadrado'].includes(path)) await p.screenshot({path:`${artifacts}/${path==='/'?'home':path.split('/').pop()}-${width}.png`,fullPage:true});
     }
-    // Bag count variants, quantities, shipping thresholds, narrow screens.
     for (const count of [1,4,9,10,12,99,100,120]) {
-      // Use a known second ID from the actual catalogue, not a fixture name.
       await p.evaluate(({n,second})=>localStorage.setItem('agotrancoso_carrinho_v1',JSON.stringify(n<=99?[{productId:'igreja-quadrado-p',quantity:n}]:[{productId:'igreja-quadrado-p',quantity:99},{productId:second,quantity:n-99}])),{n:count,second:products.find(x=>x.price===50).id});
       await visit('/'); await p.locator('.cart-count').waitFor();
       assert.equal(await p.locator('.cart-count').innerText(),String(count));
@@ -56,7 +54,6 @@ async function run() {
     if([320,390,820,1440].includes(width)) await p.screenshot({path:`${artifacts}/checkout-${width}.png`,fullPage:true});
     console.log('PASS layout and bag',width);
   }
-  // All catalogue images, including third Pretos-Velhos photo, must decode.
   await p.setViewportSize({width:1440,height:1000});
   for (const product of products) {
     await visit('/produtos/'+product.id);
@@ -87,11 +84,9 @@ async function run() {
   await visit('/produtos/casal-pretos-velhos'); await p.locator('.product-gallery-main').press('ArrowRight'); assert.ok((await p.locator('.product-gallery-counter').innerText()).startsWith('02'));
   await p.locator('.product-gallery-main').evaluate(e=>{for(const [type,x] of [['touchstart',250],['touchend',80]]){const ev=new Event(type,{bubbles:true});Object.defineProperty(ev,'changedTouches',{value:[{clientX:x,clientY:100}]});e.dispatchEvent(ev);}});
   await p.waitForFunction(()=>document.querySelector('.product-gallery-counter').textContent.startsWith('03'));
-  // A new tap clears swipe suppression.
   await p.locator('.product-gallery-main').evaluate(e=>{const ev=new Event('touchstart',{bubbles:true});Object.defineProperty(ev,'changedTouches',{value:[{clientX:100,clientY:100}]});e.dispatchEvent(ev);});
   await p.getByRole('button',{name:/Ampliar foto de/}).click(); await p.locator('dialog[open]').waitFor(); await p.getByRole('button',{name:'Zoom +',exact:true}).click(); assert.equal(await p.locator('.ago-photo-canvas.is-zoomed').count(),1); await p.keyboard.press('Escape');
   results.interactions.push('Benefits keyboard expansion, mobile search with photos, gallery keyboard/swipe/zoom/Escape');
-  // Complete checkout, without performing a real purchase or creating a live lead.
   await p.evaluate(()=>localStorage.setItem('agotrancoso_carrinho_v1',JSON.stringify([{productId:'igreja-quadrado-p',quantity:2}])));
   await visit('/checkout');
   assert.ok((await p.locator('.checkout-total').innerText()).includes('539,90'));
