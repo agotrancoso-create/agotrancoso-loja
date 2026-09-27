@@ -13,6 +13,11 @@ const RETIRED_MINIATURA_IMAGES = new Set([
   '/produtos/catalogo/miniatura-quadrado-trancoso-3.jpg',
 ]);
 
+const EXPECTED_COVER_IMAGES = new Map([
+  ['igreja-quadrado-p', '/produtos/igreja-quadrado-p.jpg'],
+  ['igrejinha-luminaria-trancoso', '/produtos/igrejinha-luminaria-trancoso.jpg'],
+]);
+
 function fail(message) {
   throw new Error(`[catalog-audit] ${message}`);
 }
@@ -83,6 +88,11 @@ for (const product of products) {
     continue;
   }
 
+  const expectedCover = EXPECTED_COVER_IMAGES.get(id);
+  if (expectedCover && images[0] !== expectedCover) {
+    issues.push(`${id}: capa incorreta; esperado ${expectedCover}, encontrado ${images[0]}`);
+  }
+
   const gallerySeen = new Set();
   for (const image of images) {
     if (typeof image !== 'string' || !image.startsWith('/produtos/')) {
@@ -126,3 +136,4 @@ if (issues.length) {
 
 console.log(`[catalog-audit] OK: ${products.length} produtos, ${categories.length} categorias, ${referencedImages.size} imagens ativas, todas ${EXPECTED_IMAGE_SIZE}x${EXPECTED_IMAGE_SIZE}.`);
 console.log('[catalog-audit] Miniatura do Quadrado: uso na parede presente no titulo/texto e fotos aposentadas ausentes.');
+console.log('[catalog-audit] Igrejinha P e Igrejinha Luminaria: capas corretas e protegidas contra troca.');
