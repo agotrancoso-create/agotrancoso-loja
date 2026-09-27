@@ -6,6 +6,7 @@ import Image from '@/components/ProductImage';
 import { useEffect, useState } from 'react';
 import { Product } from '@/lib/types';
 import { getEffectivePrice } from '@/lib/products';
+import { getAttentionCoverImage } from '@/lib/merchandising';
 import { useCart } from '@/context/CartContext';
 import { trackAddToCart, trackViewItem } from '@/lib/marketing-analytics';
 
@@ -35,7 +36,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
     return () => window.clearTimeout(timer);
   }, [added]);
 
-  const image = product.images?.[0] || '/images/placeholder.svg';
+  const image = getAttentionCoverImage(product);
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const imageAlt = productImageAlt(product);
@@ -46,7 +47,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
     <article className="product-card group" data-product-id={product.id}>
       <Link href={`/produtos/${product.id}`} className="product-card-main" onClick={trackView}>
         <div className="product-image-wrap">
-          <Image src={image} alt={imageAlt} fill quality={88} priority={priority} sizes="(max-width: 900px) 46vw, (max-width: 1400px) 30vw, 424px" className="product-image product-image-primary" />
+          <Image src={image} alt={imageAlt} fill quality={100} priority={priority} sizes="(max-width: 900px) 46vw, (max-width: 1400px) 30vw, 424px" className="product-image product-image-primary" />
           {hasPromo && <span className="product-badge">Oferta</span>}
           {!product.available && <span className="product-badge">Indisponível</span>}
         </div>
