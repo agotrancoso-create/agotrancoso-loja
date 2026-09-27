@@ -18,9 +18,9 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
 
   // Capas confirmadas pela proprietária. A ordem abaixo é intencional.
   'casal-pretos-velhos': [
-    '/produtos/casal-pretos-velhos.jpg',
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
     '/produtos/catalogo/casal-pretos-velhos-2.jpg',
+    '/produtos/catalogo/casal-pretos-velhos-3.jpg',
   ],
   'casinha-luminaria': [
     '/produtos/casinha-luminaria.jpg',

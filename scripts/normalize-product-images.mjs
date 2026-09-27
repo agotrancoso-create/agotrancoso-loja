@@ -11,14 +11,12 @@ const TARGET_SIZE = 960;
 // ampliadas artificialmente, porque upscale não recupera detalhe que não existe.
 const LOW_RES_ASSETS = new Set([
   '/produtos/galeria/ima-igrejinha-trancoso-2.jpg',
-  '/produtos/galeria/casal-pretos-velhos-3.jpg',
 ]);
 
 // Fotos com elementos até a borda ou fundo de ateliê: expandir as bordas
 // repetiria a peça ou criaria faixas artificiais. O frontend já as apresenta
 // inteiras numa moldura quadrada, sem alterar os originais.
 const KEEP_ORIGINAL_ASSETS = new Set([
-  '/produtos/casal-pretos-velhos.jpg',
   '/produtos/mobile-trancoso.jpg',
   '/produtos/ima-igrejinha-trancoso.jpg',
 ]);
@@ -30,7 +28,7 @@ const EXTRA_ACTIVE_ASSETS = [
   '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   '/produtos/catalogo/casal-pretos-velhos-1.jpg',
   '/produtos/catalogo/casal-pretos-velhos-2.jpg',
-  '/produtos/casal-pretos-velhos.jpg',
+  '/produtos/catalogo/casal-pretos-velhos-3.jpg',
 ];
 
 function publicPathToFile(src) {
