@@ -72,7 +72,7 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
             alt={`${name}, foto ${active + 1} de ${safeImages.length}`}
             fill
             priority={active === 0}
-            quality={95}
+            quality={100}
             sizes="(max-width: 960px) 100vw, 960px"
             className="product-gallery-image"
           />
@@ -108,7 +108,7 @@ export default function ProductGallery({ name, images }: ProductGalleryProps) {
               aria-current={active === index ? 'true' : undefined}
               className={`product-gallery-thumb${active === index ? ' is-active' : ''}`}
             >
-              <Image src={src} alt="" fill quality={88} sizes="88px" aria-hidden="true" />
+              <Image src={src} alt="" fill quality={100} sizes="88px" aria-hidden="true" />
             </button>
           ))}
         </div>
