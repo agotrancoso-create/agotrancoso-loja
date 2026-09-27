@@ -77,7 +77,15 @@ jobs:
           echo "$merchant_xml" | grep -q '<g:id>miniatura-quadrado-trancoso</g:id>'
           echo "$merchant_xml" | grep -q 'para Pendurar'
           if echo "$merchant_xml" | grep -q 'miniatura-quadrado-trancoso.jpg'; then
-            echo 'Retired Miniatura cover is still present in Merchant feed'
+            echo 'Retired Miniatura base cover is still present in Merchant feed'
+            exit 1
+          fi
+          if echo "$merchant_xml" | grep -q 'miniatura-quadrado-trancoso-3.jpg'; then
+            echo 'Retired Miniatura photo 03 is still present in Merchant feed'
+            exit 1
+          fi
+          if grep -R --line-number --exclude-dir=.next --exclude-dir=node_modules 'miniatura-quadrado-trancoso-3.jpg' app data lib components; then
+            echo 'Retired Miniatura photo 03 is still referenced by application code'
             exit 1
           fi
 
