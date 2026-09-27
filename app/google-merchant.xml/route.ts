@@ -1,4 +1,5 @@
 import { getAllProducts, getEffectivePrice } from '@/lib/products';
+import { getAttentionOrderedImages } from '@/lib/merchandising';
 import { SITE_DOMAIN } from '@/lib/config';
 import { getShippingPrice } from '@/lib/shipping';
 
@@ -22,6 +23,10 @@ const SHOPPING_COPY: Record<string, { title: string; description: string }> = {
     title: 'Igrejinha do Quadrado de Trancoso Luminária em Cerâmica | Agô',
     description: 'Luminária artesanal em cerâmica inspirada na Igrejinha do Quadrado de Trancoso. Peça modelada à mão, disponível na Agô Trancoso e criada para receber vela LED ou vela pequena.',
   },
+  'miniatura-quadrado-trancoso': {
+    title: 'Miniatura do Quadrado de Trancoso para Pendurar | Agô',
+    description: 'Miniatura artesanal em cerâmica inspirada no Quadrado de Trancoso, Bahia. Peça colorida feita para pendurar na parede e levar uma referência do Quadrado para a decoração.',
+  },
   'ima-igrejinha-trancoso': {
     title: 'Ímã da Igrejinha do Quadrado de Trancoso em Cerâmica | Agô',
     description: 'Ímã artesanal em cerâmica inspirado na Igreja de São João Batista, a Igrejinha do Quadrado de Trancoso. Peça pintada à mão e disponível na Agô Trancoso como lembrança da vila.',
@@ -37,6 +42,7 @@ const SHOPPING_SHORT_TITLES: Record<string, string> = {
   'igreja-quadrado-m': 'Igrejinha do Quadrado M',
   'igreja-quadrado-gg': 'Igreja do Quadrado GG',
   'igrejinha-luminaria-trancoso': 'Igrejinha Luminária Trancoso',
+  'miniatura-quadrado-trancoso': 'Miniatura Quadrado de Trancoso',
   'ima-igrejinha-trancoso': 'Ímã Igrejinha de Trancoso',
   'colar-igreja-quadrado': 'Colar Igreja do Quadrado',
 };
@@ -57,6 +63,10 @@ const SHOPPING_HIGHLIGHTS: Record<string, string[]> = {
   'igrejinha-luminaria-trancoso': [
     'Luminária de cerâmica modelada à mão.',
     'Pode receber vela LED ou vela pequena no interior.',
+  ],
+  'miniatura-quadrado-trancoso': [
+    'Peça de cerâmica inspirada no Quadrado de Trancoso.',
+    'Criada para pendurar na parede.',
   ],
   'ima-igrejinha-trancoso': [
     'Ímã artesanal de cerâmica pintado à mão.',
@@ -115,8 +125,9 @@ export async function GET() {
       const hasSale = product.promotionalPrice != null && product.promotionalPrice < product.price;
       const effectivePrice = getEffectivePrice(product);
       const shippingPrice = getShippingPrice(effectivePrice);
-      const mainImage = product.images?.[0] ? absoluteUrl(product.images[0]) : `${SITE_DOMAIN}/images/placeholder.svg`;
-      const additionalImages = (product.images ?? []).slice(1, 10);
+      const curatedImages = getAttentionOrderedImages(product);
+      const mainImage = curatedImages[0] ? absoluteUrl(curatedImages[0]) : `${SITE_DOMAIN}/images/placeholder.svg`;
+      const additionalImages = curatedImages.slice(1, 10);
       const shoppingCopy = SHOPPING_COPY[product.id];
       const shortTitle = SHOPPING_SHORT_TITLES[product.id];
       const highlights = SHOPPING_HIGHLIGHTS[product.id] ?? [];
@@ -146,6 +157,7 @@ export async function GET() {
           <g:product_type>${escapeXml(productType(product.category))}</g:product_type>
           ${variant ? `<g:item_group_id>${escapeXml(variant.itemGroupId)}</g:item_group_id>\n          <g:size>${escapeXml(variant.size)}</g:size>` : ''}
           ${isIgrejinha ? '<g:custom_label_0>Igrejinha do Quadrado de Trancoso</g:custom_label_0>' : ''}
+          ${product.id === 'miniatura-quadrado-trancoso' ? '<g:custom_label_1>Decoração de parede</g:custom_label_1>' : ''}
           <g:shipping>
             <g:country>BR</g:country>
             <g:service>Entrega nacional</g:service>
