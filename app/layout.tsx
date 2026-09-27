@@ -17,6 +17,8 @@ import './signature-commerce.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
+import KlaviyoOnsite from '@/components/KlaviyoOnsite';
+import WebVitalsReporter from '@/components/WebVitalsReporter';
 import ImmersiveMotion from '@/components/ImmersiveMotion';
 import CepAddressAutofill from '@/components/CepAddressAutofill';
 import { CartProvider } from '@/context/CartContext';
@@ -131,6 +133,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <a href="#conteudo-principal" className="ago-skip-link">Ir para o conteúdo</a>
         <MarketingAnalytics />
+        <KlaviyoOnsite />
+        <WebVitalsReporter />
         <ImmersiveMotion />
         <CepAddressAutofill />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
