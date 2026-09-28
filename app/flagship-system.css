@@ -1,0 +1,257 @@
+/* Agô Trancoso — Flagship System
+   Camada final para percepção de marca, conversão e mobile-first sem efeitos gratuitos. */
+
+:root {
+  --ago-flagship-ivory: #fffaf3;
+  --ago-flagship-sand: #f4e3c7;
+  --ago-flagship-clay: #9b4a31;
+  --ago-flagship-wood: #6a4638;
+  --ago-flagship-cocoa: #2f211b;
+  --ago-flagship-line: rgba(74, 50, 40, .13);
+  --ago-flagship-soft-line: rgba(74, 50, 40, .08);
+  --ago-flagship-max: 1440px;
+}
+
+/* Preserva velocidade em páginas longas sem alterar layout acima da dobra. */
+.ago-premium-editorial,
+.ago-premium-discovery,
+.ago-shipping-chapter,
+.ago-bahia-visit,
+.ago-flagship-manifesto,
+.product-related-selection {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+
+/* Hero: contraste editorial localizado, sem “filtro pesado” sobre a fotografia. */
+.ago-cinematic-copy {
+  isolation: isolate;
+}
+.ago-cinematic-copy::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -36px -44px -42px -36px;
+  width: min(760px, 82vw);
+  border-radius: 28px;
+  background: radial-gradient(circle at 20% 46%, rgba(38, 26, 21, .38), rgba(38, 26, 21, .17) 48%, transparent 76%);
+  pointer-events: none;
+}
+.ago-cinematic-copy h1,
+.ago-cinematic-copy > p:not(.eyebrow),
+.ago-cinematic-copy .eyebrow {
+  text-shadow: 0 2px 18px rgba(24, 16, 13, .34);
+}
+
+/* Manifesto de marca: usa espaço e tipografia como luxo, sem inventar elementos decorativos. */
+.ago-flagship-manifesto {
+  background: var(--ago-flagship-ivory);
+  border-top: 1px solid var(--ago-flagship-soft-line);
+  border-bottom: 1px solid var(--ago-flagship-soft-line);
+}
+.ago-flagship-manifesto-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, .55fr);
+  gap: clamp(48px, 8vw, 132px);
+  align-items: end;
+  padding-block: clamp(80px, 10vw, 154px);
+}
+.ago-flagship-manifesto-copy h2 {
+  max-width: 900px;
+  margin: 10px 0 0;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.7rem, 6vw, 6.6rem);
+  font-weight: 600;
+  line-height: .96;
+  letter-spacing: -.045em;
+  color: var(--ago-flagship-cocoa);
+}
+.ago-flagship-manifesto-copy > p:last-child {
+  max-width: 580px;
+  margin: 28px 0 0;
+  font-size: clamp(1rem, 1.25vw, 1.16rem);
+  line-height: 1.75;
+  color: #5c463b;
+}
+.ago-flagship-proof {
+  display: grid;
+  border-top: 1px solid var(--ago-flagship-line);
+}
+.ago-flagship-proof > div {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  padding: 19px 0;
+  border-bottom: 1px solid var(--ago-flagship-line);
+}
+.ago-flagship-proof span {
+  color: var(--ago-flagship-clay);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+.ago-flagship-proof strong {
+  color: var(--ago-flagship-cocoa);
+  font-size: .9rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+/* PDP com mais sensação de showroom editorial. */
+.product-page-grid {
+  align-items: start;
+}
+.product-buybox {
+  max-width: 620px;
+}
+.product-detail-title {
+  font-size: clamp(2.4rem, 4.4vw, 5rem) !important;
+  line-height: .98 !important;
+  letter-spacing: -.045em !important;
+}
+.product-description {
+  max-width: 60ch;
+}
+.product-service-grid > div {
+  min-height: 110px;
+}
+.product-international-note {
+  background: transparent !important;
+}
+
+/* Compra rápida somente no mobile; a CTA principal continua sendo a referência no desktop. */
+.ago-mobile-purchase-dock {
+  display: none;
+}
+
+/* Checkout: reforça uma única hierarquia visual e reduz sensação de formulário genérico. */
+.checkout-form-panel,
+.checkout-order-panel {
+  background: rgba(255, 253, 250, .96) !important;
+}
+.checkout-stage.is-active {
+  border-color: rgba(139, 67, 46, .22) !important;
+  box-shadow: 0 18px 42px rgba(53, 36, 29, .055) !important;
+}
+.checkout-progress-step.is-active span,
+.checkout-progress-step.is-complete span {
+  background: var(--ago-flagship-clay) !important;
+  color: #fffaf3 !important;
+}
+
+/* Cartões e imagens: cantos, linha e superfície passam a obedecer a um único sistema. */
+.product-image-wrap,
+.product-gallery-main,
+.product-gallery-thumb,
+.ago-premium-discovery-image {
+  border-color: var(--ago-flagship-soft-line) !important;
+}
+.product-card-title,
+.product-card h3 {
+  text-wrap: balance;
+}
+
+@supports (view-transition-name: none) {
+  .product-gallery-main { view-transition-name: product-gallery; }
+  .site-header { view-transition-name: site-header; }
+}
+
+@media (max-width: 900px) {
+  .ago-cinematic-copy::before {
+    inset: -28px -24px -34px -22px;
+    width: min(620px, 96vw);
+    background: radial-gradient(circle at 26% 44%, rgba(34, 23, 19, .42), rgba(34, 23, 19, .18) 54%, transparent 82%);
+  }
+
+  .ago-flagship-manifesto-inner {
+    grid-template-columns: 1fr;
+    gap: 42px;
+    padding-block: 72px 78px;
+  }
+  .ago-flagship-manifesto-copy h2 {
+    max-width: 10ch;
+    font-size: clamp(3rem, 13vw, 5.4rem);
+  }
+
+  .product-detail-title {
+    font-size: clamp(2.55rem, 12vw, 4.2rem) !important;
+  }
+
+  .ago-mobile-purchase-dock {
+    position: fixed;
+    z-index: 46;
+    left: 12px;
+    right: 12px;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    display: grid;
+    grid-template-columns: minmax(0, .7fr) minmax(154px, 1.3fr);
+    align-items: center;
+    gap: 12px;
+    min-height: 68px;
+    padding: 9px 9px 9px 16px;
+    border: 1px solid rgba(255, 255, 255, .7);
+    border-radius: 22px;
+    background: rgba(255, 250, 243, .94);
+    box-shadow: 0 18px 52px rgba(47, 33, 27, .19);
+    -webkit-backdrop-filter: blur(18px) saturate(1.08);
+    backdrop-filter: blur(18px) saturate(1.08);
+  }
+  .ago-mobile-purchase-copy {
+    min-width: 0;
+    display: grid;
+    gap: 2px;
+  }
+  .ago-mobile-purchase-kicker {
+    color: #7b6255;
+    font-size: .61rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .ago-mobile-purchase-copy strong {
+    color: var(--ago-flagship-cocoa);
+    font-size: .98rem;
+    white-space: nowrap;
+  }
+  .ago-mobile-purchase-button {
+    min-height: 50px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--ago-flagship-cocoa);
+    color: #fffaf3;
+    font: inherit;
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .01em;
+  }
+  .ago-mobile-purchase-button.is-added {
+    background: var(--ago-flagship-clay);
+  }
+
+  body:has(.ago-mobile-purchase-dock) .ago-social-floaters {
+    bottom: calc(92px + env(safe-area-inset-bottom)) !important;
+  }
+  body:has(.ago-mobile-purchase-dock) .product-page {
+    padding-bottom: calc(92px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 520px) {
+  .ago-flagship-manifesto-inner {
+    padding-block: 64px 70px;
+  }
+  .ago-flagship-proof > div {
+    padding: 17px 0;
+  }
+  .ago-mobile-purchase-dock {
+    grid-template-columns: minmax(0, .68fr) minmax(146px, 1.32fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ago-mobile-purchase-dock,
+  .ago-mobile-purchase-button {
+    transition: none !important;
+  }
+}
