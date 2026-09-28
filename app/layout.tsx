@@ -15,6 +15,7 @@ import './premium-contrast.css';
 import './bahia-luxury-system.css';
 import './signature-commerce.css';
 import './privacy-consent.css';
+import './flagship-system.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
