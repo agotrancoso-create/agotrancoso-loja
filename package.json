@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/normalize-product-images.mjs && node scripts/audit-catalog.mjs",
+    "prebuild": "node scripts/normalize-product-images.mjs && node scripts/fix-pretos-velhos-images.mjs && node scripts/audit-catalog.mjs",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
