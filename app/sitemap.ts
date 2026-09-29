@@ -5,6 +5,7 @@ import { SITE_DOMAIN } from '@/lib/config';
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     { path: '', priority: 1 },
+    { path: '/trancoso', priority: 0.98 },
     { path: '/igrejinha-de-trancoso', priority: 0.95 },
     { path: '/produtos', priority: 0.9 },
     { path: '/nossa-essencia', priority: 0.7 },
