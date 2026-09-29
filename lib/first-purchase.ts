@@ -1,5 +1,6 @@
 import 'server-only';
 import { createHash } from 'node:crypto';
+import { normalizeBrazilianDocument, isValidBrazilianDocument } from './checkout-validation';
 
 const RESERVATION_TTL_SECONDS = 2 * 60 * 60;
 const ORDER_TTL_SECONDS = 30 * 24 * 60 * 60;
@@ -13,6 +14,7 @@ type IdentityRecord = {
 export type FirstPurchaseOrderRecord = {
   emailKey: string;
   phoneKey: string;
+  documentKey?: string;
   expectedAmountCents: number;
   discountCents: number;
   createdAt: string;
@@ -58,6 +60,10 @@ function phoneKey(phone: string) {
   return `ago:first-purchase:phone:${hashIdentity(phone)}`;
 }
 
+function documentKey(document: string) {
+  return `ago:first-purchase:document:${hashIdentity(document)}`;
+}
+
 function orderKey(orderNsu: string) {
   return `ago:first-purchase:order:${orderNsu}`;
 }
@@ -72,20 +78,26 @@ export function normalizeCustomerPhone(value: unknown) {
   return digits.length === 10 || digits.length === 11 ? digits : '';
 }
 
-export async function checkFirstPurchaseEligibility(input: { email: unknown; phone: unknown }) {
+function normalizeCustomerDocument(value: unknown) {
+  const document = normalizeBrazilianDocument(value);
+  return isValidBrazilianDocument(document) ? document : '';
+}
+
+export async function checkFirstPurchaseEligibility(input: { email: unknown; phone: unknown; document: unknown }) {
   if (!isFirstPurchaseStorageConfigured()) {
     return { eligible: false, reason: 'O benefício de primeira compra está temporariamente indisponível.' };
   }
 
   const email = normalizeCustomerEmail(input.email);
   const phone = normalizeCustomerPhone(input.phone);
-  if (!email || !phone) {
-    return { eligible: false, reason: 'Informe um e-mail e telefone válidos para usar o benefício.' };
+  const document = normalizeCustomerDocument(input.document);
+  if (!email || !phone || !document) {
+    return { eligible: false, reason: 'Informe e-mail, telefone e CPF/CNPJ válidos para confirmar o benefício.' };
   }
 
-  const existing = await redisCommand<(string | null)[]>(['MGET', emailKey(email), phoneKey(phone)]);
+  const existing = await redisCommand<(string | null)[]>(['MGET', emailKey(email), phoneKey(phone), documentKey(document)]);
   if (existing?.some(Boolean)) {
-    return { eligible: false, reason: 'O benefício de 3% OFF da primeira compra já foi utilizado ou está reservado para estes dados.' };
+    return { eligible: false, reason: 'Este benefício é exclusivo para a primeira compra neste cadastro.' };
   }
   return { eligible: true as const };
 }
@@ -94,6 +106,7 @@ export async function reserveFirstPurchaseIdentity(input: {
   orderNsu: string;
   email: unknown;
   phone: unknown;
+  document: unknown;
   expectedAmountCents: number;
   discountCents: number;
 }) {
@@ -103,37 +116,40 @@ export async function reserveFirstPurchaseIdentity(input: {
 
   const email = normalizeCustomerEmail(input.email);
   const phone = normalizeCustomerPhone(input.phone);
-  if (!email || !phone) {
-    return { eligible: false, reason: 'Informe um e-mail e telefone válidos para usar o benefício.' };
+  const document = normalizeCustomerDocument(input.document);
+  if (!email || !phone || !document) {
+    return { eligible: false, reason: 'Informe e-mail, telefone e CPF/CNPJ válidos para confirmar o benefício.' };
   }
 
-  const keys = [emailKey(email), phoneKey(phone), orderKey(input.orderNsu)];
+  const keys = [emailKey(email), phoneKey(phone), documentKey(document), orderKey(input.orderNsu)];
   const now = new Date().toISOString();
   const identity: IdentityRecord = { orderNsu: input.orderNsu, status: 'reserved', createdAt: now };
   const order: FirstPurchaseOrderRecord = {
     emailKey: keys[0],
     phoneKey: keys[1],
+    documentKey: keys[2],
     expectedAmountCents: Math.max(0, Math.round(input.expectedAmountCents)),
     discountCents: Math.max(0, Math.round(input.discountCents)),
     createdAt: now,
   };
 
   const script = `
-    if redis.call('EXISTS', KEYS[1]) == 1 or redis.call('EXISTS', KEYS[2]) == 1 then
+    if redis.call('EXISTS', KEYS[1]) == 1 or redis.call('EXISTS', KEYS[2]) == 1 or redis.call('EXISTS', KEYS[3]) == 1 then
       return 0
     end
     redis.call('SET', KEYS[1], ARGV[1], 'EX', ARGV[2])
     redis.call('SET', KEYS[2], ARGV[1], 'EX', ARGV[2])
-    redis.call('SET', KEYS[3], ARGV[3], 'EX', ARGV[4])
+    redis.call('SET', KEYS[3], ARGV[1], 'EX', ARGV[2])
+    redis.call('SET', KEYS[4], ARGV[3], 'EX', ARGV[4])
     return 1
   `;
   const reserved = await redisCommand<number>([
-    'EVAL', script, '3', ...keys,
+    'EVAL', script, '4', ...keys,
     JSON.stringify(identity), String(RESERVATION_TTL_SECONDS), JSON.stringify(order), String(ORDER_TTL_SECONDS),
   ]);
 
   if (Number(reserved) !== 1) {
-    return { eligible: false, reason: 'O benefício de 3% OFF da primeira compra já foi utilizado ou existe um pagamento iniciado com estes dados.' };
+    return { eligible: false, reason: 'Este benefício é exclusivo para a primeira compra neste cadastro.' };
   }
   return { eligible: true as const };
 }
@@ -156,21 +172,23 @@ export async function releaseFirstPurchaseReservation(orderNsu: string) {
   const order = await getFirstPurchaseOrder(orderNsu);
   if (!order) return false;
 
+  const identityKeys = [order.emailKey, order.phoneKey, order.documentKey].filter((key): key is string => Boolean(key));
+  const redisKeys = [...identityKeys, orderKey(orderNsu)];
   const script = `
-    local function release(key, orderNsu)
-      local raw = redis.call('GET', key)
-      if not raw then return end
-      local ok, record = pcall(cjson.decode, raw)
-      if ok and record['orderNsu'] == orderNsu and record['status'] == 'reserved' then
-        redis.call('DEL', key)
+    local orderNsu = ARGV[1]
+    for i = 1, #KEYS - 1 do
+      local raw = redis.call('GET', KEYS[i])
+      if raw then
+        local ok, record = pcall(cjson.decode, raw)
+        if ok and record['orderNsu'] == orderNsu and record['status'] == 'reserved' then
+          redis.call('DEL', KEYS[i])
+        end
       end
     end
-    release(KEYS[1], ARGV[1])
-    release(KEYS[2], ARGV[1])
-    redis.call('DEL', KEYS[3])
+    redis.call('DEL', KEYS[#KEYS])
     return 1
   `;
-  await redisCommand(['EVAL', script, '3', order.emailKey, order.phoneKey, orderKey(orderNsu), orderNsu]);
+  await redisCommand(['EVAL', script, String(redisKeys.length), ...redisKeys, orderNsu]);
   return true;
 }
 
@@ -181,12 +199,15 @@ export async function markFirstPurchaseAsPaid(orderNsu: string) {
 
   const record: IdentityRecord = { orderNsu, status: 'paid', createdAt: new Date().toISOString() };
   const value = JSON.stringify(record);
+  const identityKeys = [order.emailKey, order.phoneKey, order.documentKey].filter((key): key is string => Boolean(key));
+  const redisKeys = [...identityKeys, orderKey(orderNsu)];
   const script = `
-    redis.call('SET', KEYS[1], ARGV[1])
-    redis.call('SET', KEYS[2], ARGV[1])
-    redis.call('EXPIRE', KEYS[3], ARGV[2])
+    for i = 1, #KEYS - 1 do
+      redis.call('SET', KEYS[i], ARGV[1])
+    end
+    redis.call('EXPIRE', KEYS[#KEYS], ARGV[2])
     return 1
   `;
-  await redisCommand(['EVAL', script, '3', order.emailKey, order.phoneKey, orderKey(orderNsu), value, String(ORDER_TTL_SECONDS)]);
+  await redisCommand(['EVAL', script, String(redisKeys.length), ...redisKeys, value, String(ORDER_TTL_SECONDS)]);
   return true;
 }
