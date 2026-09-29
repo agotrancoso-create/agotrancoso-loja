@@ -41,8 +41,8 @@ const PRODUCT_SEO: Record<string, { title: string; description: string }> = {
     description: 'Luminária de cerâmica inspirada na Igrejinha do Quadrado de Trancoso, disponível na Agô Trancoso. Criada para receber vela LED ou vela pequena.',
   },
   'miniatura-quadrado-trancoso': {
-    title: 'Miniatura do Quadrado de Trancoso para Pendurar | Agô',
-    description: 'Miniatura artesanal em cerâmica inspirada no Quadrado de Trancoso, criada para pendurar na parede. Disponível na Agô Trancoso, Bahia.',
+    title: 'Miniatura do Quadrado de Trancoso em Cerâmica | Agô',
+    description: 'Miniatura artesanal em cerâmica inspirada no Quadrado de Trancoso. Pode ser pendurada na parede ou apoiada sobre móveis e superfícies na decoração.',
   },
   'ima-igrejinha-trancoso': {
     title: 'Ímã da Igrejinha do Quadrado de Trancoso | Agô',
@@ -112,7 +112,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const freeShippingAtProductQuantity = shouldOfferFreeShipping(price);
   const nationalShippingPrice = getShippingPrice(price);
   const isIgrejinhaProduct = IGREJINHA_PRODUCT_IDS.has(product.id);
-  const isWallMiniature = product.id === 'miniatura-quadrado-trancoso';
+  const isDecorativeMiniature = product.id === 'miniatura-quadrado-trancoso';
   const productUrl = `${SITE_DOMAIN}/produtos/${product.id}`;
   const attentionProducts = sortProductsByAttention(getAvailableProducts());
 
@@ -143,8 +143,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         url: productUrl,
         mainEntityOfPage: productUrl,
         seller: { '@id': `${SITE_DOMAIN}#organization` },
-        ...(isWallMiniature ? {
-          additionalProperty: [{ '@type': 'PropertyValue', name: 'Uso', value: 'Para pendurar na parede' }],
+        ...(isDecorativeMiniature ? {
+          additionalProperty: [{ '@type': 'PropertyValue', name: 'Uso', value: 'Pode ser pendurada na parede ou apoiada sobre móveis e superfícies' }],
         } : {}),
         offers: {
           '@type': 'Offer',
@@ -205,7 +205,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                 <div><dt>Material</dt><dd>Cerâmica</dd></div>
                 <div><dt>Seleção</dt><dd>Agô Trancoso · Bahia</dd></div>
                 <div><dt>Disponibilidade</dt><dd>{product.available ? 'Disponível para compra' : 'Indisponível'}</dd></div>
-                {isWallMiniature && <div><dt>Uso</dt><dd>Para pendurar na parede</dd></div>}
+                {isDecorativeMiniature && <div><dt>Uso</dt><dd>Para pendurar ou apoiar na decoração</dd></div>}
                 {product.dimensions && <div><dt>Dimensões</dt><dd>{product.dimensions}</dd></div>}
               </dl>
 
