@@ -22,7 +22,7 @@ const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','
    }
    if(route==='/'){
     await p.getByRole('button',{name:/Abrir sacola/}).click();await audit(`bag@${width}`);await p.keyboard.press('Escape');
-    if(width===390){await p.getByRole('button',{name:'Abrir menu',exact:true}).click();await p.getByLabel('Buscar na coleção').fill('i');await audit('mobile-menu-search');await p.keyboard.press('Escape');}
+    if(width===390){await p.getByRole('button',{name:'Abrir menu',exact:true}).click();await p.getByLabel('Buscar uma peça').fill('i');await audit('mobile-menu-search');await p.keyboard.press('Escape');}
    }
    if(route.includes('casal')){await p.getByRole('button',{name:/Ampliar foto de/}).click();await audit(`lightbox@${width}`);await p.keyboard.press('Escape');}
   }
