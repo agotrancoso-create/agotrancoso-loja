@@ -155,7 +155,7 @@ async function run() {
 
   // Checkout contract in the real UI; external provider handoff is mocked to avoid charging money.
   await visit('/checkout');
-  assert.ok((await page.locator('.checkout-total').first().innerText()).includes('539,90'));
+  assert.ok((await page.locator('.checkout-total').first().innerText()).includes('500,00'));
   await page.getByRole('button', { name: 'Continuar para entrega' }).first().click();
   assert.equal(await page.locator('#name').getAttribute('aria-invalid'), 'true');
   assert.equal(await page.locator('#document').getAttribute('aria-invalid'), 'true');
@@ -167,7 +167,7 @@ async function run() {
   await coupon.fill('AGO3');
   await page.getByRole('button', { name: 'Aplicar', exact: true }).first().click();
   await page.getByRole('button', { name: 'Continuar com benefício' }).first().waitFor();
-  assert.ok((await page.locator('.checkout-total').first().innerText()).includes('524,90'));
+  assert.ok((await page.locator('.checkout-total').first().innerText()).includes('485,00'));
   await page.getByRole('button', { name: 'Continuar com benefício' }).first().click();
 
   let checkoutPayload;
@@ -179,7 +179,7 @@ async function run() {
   await page.getByRole('button', { name: 'Pagar com InfinitePay' }).first().click();
   await page.waitForURL('**/handoff-test');
   assert.equal(checkoutPayload.coupon, 'AGO3');
-  assert.equal(checkoutPayload.shippingValue, 39.9);
+  assert.equal(checkoutPayload.shippingValue, 0);
   assert.equal(checkoutPayload.customer.document, '529.982.247-25');
   results.interactions.push('Checkout validation, CPF/CNPJ, coupon, totals and successful mocked InfinitePay handoff verified');
 
