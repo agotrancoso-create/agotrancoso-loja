@@ -100,8 +100,13 @@ async function run() {
   assert.equal((await events('add_to_cart')).at(-1).ecommerce.items[0].item_id, selectedId);
   pass('add_to_cart carries product identity');
 
+  // Adding from the PDP may open the cart drawer automatically. Only click the header
+  // trigger when the drawer is still closed so the test reflects either valid UX path.
+  const cartDrawer = page.locator('.cart-drawer').first();
   const cartButton = page.getByRole('button', { name: /Abrir sacola/ }).first();
-  await cartButton.click();
+  if ((await cartDrawer.getAttribute('aria-hidden')) !== 'false') {
+    await cartButton.click();
+  }
   await waitFor('view_cart');
   const viewCart = (await events('view_cart')).at(-1);
   assert.ok(viewCart.ecommerce.value > 0);
