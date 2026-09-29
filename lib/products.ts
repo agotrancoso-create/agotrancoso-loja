@@ -2,14 +2,17 @@ import productsData from '@/data/products.json';
 import { Product, Category, CartItem } from './types';
 
 const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
-  // REGRA DE INTEGRIDADE — estes dois produtos não podem ter as fotos trocadas.
-  // A galeria abaixo foi definida pela proprietária e deve permanecer exatamente assim.
+  // REGRA VISUAL APROVADA PELA PROPRIETÁRIA.
+  // Os nomes históricos dos arquivos NÃO correspondem ao produto fotografado.
+  // Portanto, não “corrigir” esta associação pelo nome do arquivo:
+  // - a foto /produtos/igrejinha-luminaria-trancoso.jpg é visualmente a Igrejinha P;
+  // - a foto /produtos/igreja-quadrado-p.jpg é visualmente a Igrejinha Luminária.
   'igreja-quadrado-p': [
-    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ],
   'igrejinha-luminaria-trancoso': [
-    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/igreja-quadrado-p.jpg',
   ],
   'casal-pretos-velhos': [
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
@@ -31,7 +34,6 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
     '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg',
     '/produtos/catalogo/ima-igrejinha-trancoso-conjunto.jpg',
   ],
-  // Ordem pensada para chamar atenção e incentivar o swipe antes da compra.
   'miniatura-quadrado-trancoso': [
     '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-6.webp',
