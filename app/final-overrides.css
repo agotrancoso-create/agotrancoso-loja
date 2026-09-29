@@ -78,6 +78,41 @@
   object-position: center !important;
 }
 
+/* Pretos-Velhos: pedido específico da proprietária.
+   A fotografia deve aparecer inteira e centralizada, sem moldura, borda,
+   arredondamento ou sombra visual em volta da imagem. */
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-main,
+.product-gallery[data-product-id="casal-pretos-velhos"] .ago-gallery-open,
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-thumb {
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: #fff !important;
+}
+
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-main {
+  overflow: hidden !important;
+}
+
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-image,
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-thumb img {
+  object-fit: contain !important;
+  object-position: center center !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-thumb.is-active {
+  border: 0 !important;
+  box-shadow: inset 0 -3px 0 #875038 !important;
+}
+
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-thumb:focus-visible {
+  outline: 2px solid #875038 !important;
+  outline-offset: 3px !important;
+}
+
 /* Balões flutuantes: dois atalhos discretos e legíveis. */
 .ago-social-floaters {
   position: fixed !important;
