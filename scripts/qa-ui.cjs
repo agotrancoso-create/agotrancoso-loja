@@ -34,6 +34,7 @@ async function run() {
   await page.addInitScript(() => {
     localStorage.setItem('ago_primeira_compra_v3_vista', '1');
     localStorage.setItem('ago_privacy_consent_v1', 'essential');
+    localStorage.setItem('agotrancoso_carrinho_v1', JSON.stringify([{ productId: 'igreja-quadrado-p', quantity: 2 }]));
   });
   await page.route('**/api/first-purchase/eligibility', route => route.fulfill({
     status: 200,
@@ -72,7 +73,6 @@ async function run() {
     }
 
     // Cart drawer must remain usable at every release width.
-    await page.evaluate(() => localStorage.setItem('agotrancoso_carrinho_v1', JSON.stringify([{ productId: 'igreja-quadrado-p', quantity: 2 }])));
     await visit('/');
     const cartButton = page.getByRole('button', { name: /Abrir sacola com 2/ }).first();
     await cartButton.click();
@@ -154,7 +154,6 @@ async function run() {
   results.interactions.push('Gallery keyboard navigation, premium lightbox zoom/reset and Escape verified');
 
   // Checkout contract in the real UI; external provider handoff is mocked to avoid charging money.
-  await page.evaluate(() => localStorage.setItem('agotrancoso_carrinho_v1', JSON.stringify([{ productId: 'igreja-quadrado-p', quantity: 2 }])));
   await visit('/checkout');
   assert.ok((await page.locator('.checkout-total').first().innerText()).includes('539,90'));
   await page.getByRole('button', { name: 'Continuar para entrega' }).first().click();
