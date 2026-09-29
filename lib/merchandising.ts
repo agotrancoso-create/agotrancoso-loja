@@ -41,17 +41,19 @@ export function sortProductsByAttention<T extends Product>(products: T[]): T[] {
  * Curadoria fotográfica da vitrine.
  * A primeira imagem de cada lista é a capa aprovada para a vitrine.
  *
- * IMPORTANTE — associação visual conferida pela proprietária:
- * os nomes físicos históricos dos arquivos da Igrejinha P e da Luminária ficaram
- * invertidos. Não alterar estas duas associações pelo nome do arquivo.
+ * IMPORTANTE — associação aprovada pela proprietária:
+ * Igrejinha P usa /produtos/igreja-quadrado-p.jpg como capa e mantém
+ * /produtos/catalogo/igreja-quadrado-p-2.jpg como segunda foto.
+ * A Luminária usa somente /produtos/igrejinha-luminaria-trancoso.jpg.
+ * Não inverter essas associações novamente.
  */
 const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
   'igreja-quadrado-p': [
-    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/igreja-quadrado-p.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ],
   'igrejinha-luminaria-trancoso': [
-    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
   ],
   'casinha-luminaria': [
     '/produtos/casinha-luminaria.jpg',
