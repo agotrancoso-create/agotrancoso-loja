@@ -3,7 +3,7 @@
 import Image from '@/components/ProductImage';
 import Link from 'next/link';
 import { whatsappLink } from '@/lib/config';
-import { customerErrors, addressErrors } from '@/lib/checkout-validation';
+import { customerErrors, addressErrors, normalizeBrazilianDocument } from '@/lib/checkout-validation';
 import { useEffect, useMemo, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import { useCart } from '@/context/CartContext';
 import { getProductById, getEffectivePrice } from '@/lib/products';
@@ -16,10 +16,29 @@ function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
+function formatDocumentInput(value: string) {
+  const clean = normalizeBrazilianDocument(value);
+  const isCnpj = clean.length > 11 || /[A-Z]/.test(clean);
+  if (isCnpj) {
+    return clean
+      .replace(/^(.{2})(.)/, '$1.$2')
+      .replace(/^(.{2})\.(.{3})(.)/, '$1.$2.$3')
+      .replace(/^(.{2})\.(.{3})\.(.{3})(.)/, '$1.$2.$3/$4')
+      .replace(/^(.{2})\.(.{3})\.(.{3})\/(.{4})(.)/, '$1.$2.$3/$4-$5')
+      .slice(0, 18);
+  }
+  return clean
+    .replace(/^(\d{3})(\d)/, '$1.$2')
+    .replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3')
+    .replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4')
+    .slice(0, 14);
+}
+
 type FormState = {
   name: string;
   email: string;
   phone: string;
+  document: string;
   street: string;
   number: string;
   complement: string;
@@ -50,7 +69,7 @@ export default function CheckoutPage() {
   const [couponMessage, setCouponMessage] = useState<string | null>(null);
   const [step, setStep] = useState<CheckoutStep>(1);
   const [completedSteps, setCompletedSteps] = useState<CheckoutStep[]>([]);
-  const [form, setForm] = useState<FormState>({ name: '', email: '', phone: '', street: '', number: '', complement: '', neighborhood: '', city: '', state: '', zip: '' });
+  const [form, setForm] = useState<FormState>({ name: '', email: '', phone: '', document: '', street: '', number: '', complement: '', neighborhood: '', city: '', state: '', zip: '' });
 
   useEffect(() => {
     try {
@@ -123,9 +142,18 @@ export default function CheckoutPage() {
       setAppliedCoupon(''); setBenefitConfirmed(false); setCouponChecking(false);
       if (coupon) setCouponMessage('Confirme o cupom novamente após alterar seus dados.');
     }
-    setForm((current) => ({ ...current, [name]: name === 'zip' ? value.replace(/\D/g, '').slice(0, 8) : name === 'state' ? value.toUpperCase().slice(0, 2) : value }));
+    setForm((current) => ({
+      ...current,
+      [name]: name === 'zip'
+        ? value.replace(/\D/g, '').slice(0, 8)
+        : name === 'state'
+          ? value.toUpperCase().slice(0, 2)
+          : name === 'document'
+            ? formatDocumentInput(value)
+            : value,
+    }));
     setFieldErrors((current) => { const next = { ...current }; delete next[name]; return next; });
-    setCompletedSteps((current) => current.filter((n) => n < (['name','email','phone'].includes(name) ? 1 : 2)));
+    setCompletedSteps((current) => current.filter((n) => n < (['name','email','phone','document'].includes(name) ? 1 : 2)));
     setStepError(null);
     if (name === 'zip') setShippingError(null);
   }
@@ -137,7 +165,7 @@ export default function CheckoutPage() {
   function goToDelivery() {
     setStepError(null);
     if (!validateStage('customer')) {
-      setStepError('Preencha nome, e-mail e WhatsApp para continuar.');
+      setStepError('Preencha nome, e-mail, WhatsApp e CPF/CNPJ para continuar.');
       return;
     }
     identifyCRM({ email: form.email, phone: form.phone, firstName: form.name });
@@ -228,7 +256,7 @@ export default function CheckoutPage() {
           coupon: normalizeCoupon(appliedCoupon),
           shippingValue,
           shippingName: freeShipping ? 'Frete grátis' : 'Frete fixo',
-          customer: { name: form.name, email: form.email, phone: form.phone, address: { street: form.street, number: form.number, complement: form.complement, neighborhood: form.neighborhood, city: form.city, state: form.state, zip: form.zip } },
+          customer: { name: form.name, email: form.email, phone: form.phone, document: form.document, address: { street: form.street, number: form.number, complement: form.complement, neighborhood: form.neighborhood, city: form.city, state: form.state, zip: form.zip } },
         }),
       });
       const data = await response.json();
@@ -271,9 +299,10 @@ export default function CheckoutPage() {
               {step === 1 ? <div className="checkout-stage-body">
                 <div className="checkout-fields-two"><div className="checkout-field"><label htmlFor="name">Nome completo</label><input className="checkout-input" id="name" {...fieldProps('name')} required name="name" placeholder="Seu nome" value={form.name} onChange={change} autoComplete="name" />{fieldError('name')}</div><div className="checkout-field"><label htmlFor="email">E-mail</label><input className="checkout-input" id="email" {...fieldProps('email')} required type="email" name="email" placeholder="seu@email.com" value={form.email} onChange={change} autoComplete="email" />{fieldError('email')}</div></div>
                 <div className="checkout-field"><label htmlFor="phone">Telefone / WhatsApp</label><input className="checkout-input" id="phone" {...fieldProps('phone')} required name="phone" inputMode="tel" placeholder="(00) 00000-0000" value={form.phone} onChange={change} autoComplete="tel" />{fieldError('phone')}</div>
+                <div className="checkout-field"><label htmlFor="document">CPF ou CNPJ <span>(para o envio)</span></label><input className="checkout-input" id="document" {...fieldProps('document')} required name="document" inputMode="text" autoCapitalize="characters" spellCheck={false} autoComplete="off" placeholder="CPF ou CNPJ" value={form.document} onChange={change} />{fieldError('document')}<p className="checkout-field-help">Necessário para emissão e postagem do pedido.</p></div>
                 {stepError && <p className="checkout-error" role="alert">{stepError}</p>}
                 <button type="button" className="checkout-next-step" onClick={goToDelivery}>Continuar para entrega</button>
-              </div> : customerComplete ? <p className="checkout-stage-summary">{form.name} · {form.email} · {form.phone}</p> : null}
+              </div> : customerComplete ? <p className="checkout-stage-summary">{form.name} · {form.email} · {form.phone} · CPF/CNPJ informado</p> : null}
             </section>
 
             <section className={`checkout-stage${step === 2 ? ' is-active' : ''}${completedSteps.includes(2) ? ' is-complete' : ''}`} aria-labelledby="checkout-address-title">
