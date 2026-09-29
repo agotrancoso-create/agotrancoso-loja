@@ -48,17 +48,29 @@
   filter: none !important;
 }
 
-/* Hero limpa: remove a mancha/borrado escuro sem alterar a foto original. */
+/* Hero limpa: mantém apenas um overlay linear muito leve, sem manchas ou blur. */
 .ago-home .ago-cinematic-overlay {
-  background: linear-gradient(90deg, rgba(43, 30, 24, .10) 0%, rgba(43, 30, 24, .035) 42%, transparent 72%) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(35, 24, 18, 0.08) 0%,
+    rgba(35, 24, 18, 0.03) 38%,
+    transparent 70%
+  ) !important;
+
   filter: none !important;
-  -webkit-filter: none !important;
   backdrop-filter: none !important;
+  -webkit-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
 
 .ago-home .ago-cinematic-copy::before,
-.ago-home .ago-cinematic-copy::after,
+.ago-home .ago-cinematic-copy::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  filter: none !important;
+}
+
 .ago-home .ago-cinematic-commerce::before,
 .ago-home .ago-cinematic-commerce::after {
   content: none !important;
