@@ -17,6 +17,7 @@ import './signature-commerce.css';
 import './privacy-consent.css';
 import './flagship-system.css';
 import './proportion-fix.css';
+import './offer-premium.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
