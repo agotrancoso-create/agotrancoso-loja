@@ -105,7 +105,7 @@
 
 .product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-thumb.is-active {
   border: 0 !important;
-  box-shadow: inset 0 -3px 0 #875038 !important;
+  box-shadow: none !important;
 }
 
 .product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-thumb:focus-visible {
