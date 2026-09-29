@@ -2,12 +2,15 @@ import productsData from '@/data/products.json';
 import { Product, Category, CartItem } from './types';
 
 const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
+  // ATENÇÃO: os nomes físicos históricos destes dois arquivos ficaram invertidos.
+  // A associação abaixo foi conferida visualmente pela proprietária e não deve ser
+  // "normalizada" pelo nome do arquivo novamente.
   'igreja-quadrado-p': [
-    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ],
   'igrejinha-luminaria-trancoso': [
-    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/igreja-quadrado-p.jpg',
   ],
   'casal-pretos-velhos': [
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
@@ -30,16 +33,19 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
     '/produtos/catalogo/ima-igrejinha-trancoso-conjunto.jpg',
   ],
   // A antiga foto 03 foi retirada da experiência de compra a pedido da proprietária.
-  // A nova capa é a foto 04 e a galeria mostra apenas as imagens aprovadas.
+  // A foto 04 continua como capa. As duas novas fotos aprovadas entram logo depois
+  // para criar profundidade visual e incentivar o cliente a avançar pela galeria.
   'miniatura-quadrado-trancoso': [
     '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg',
+    '/produtos/catalogo/miniatura-quadrado-trancoso-6.webp',
+    '/produtos/catalogo/miniatura-quadrado-trancoso-7.webp',
     '/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg',
   ],
 };
 
 const PRODUCT_NAME_CORRECTIONS: Record<string, string> = {
-  'miniatura-quadrado-trancoso': 'Miniatura do Quadrado de Trancoso',
+  'miniatura-quadrado-trancoso': 'Miniatura do Quadrado de Trancoso para Pendurar',
 };
 
 const PRODUCT_DESCRIPTION_CORRECTIONS: Record<string, string> = {
@@ -50,7 +56,7 @@ const PRODUCT_DESCRIPTION_CORRECTIONS: Record<string, string> = {
   'terco-em-ceramica': 'Terço artesanal com contas de cerâmica branca enfileiradas e cruz no final. Composição clássica, ideal para devoção ou como peça decorativa religiosa.',
   'esfera-decorativa': 'Bola decorativa de cerâmica, com design minimalista. Pode ser usada sobre suportes ou mesas e traz simplicidade sofisticada à decoração.',
   'ima-igrejinha-trancoso': 'Ímã artesanal em cerâmica representando a Igreja de São João Batista, no Quadrado de Trancoso. Pintado à mão, é uma lembrança delicada para levar um símbolo de Trancoso para o dia a dia.',
-  'miniatura-quadrado-trancoso': 'Representação artesanal do charmoso Quadrado de Trancoso em cerâmica, com acabamento colorido. Pode ser pendurada na parede ou apoiada sobre aparadores, estantes, prateleiras e outras superfícies para compor a decoração.',
+  'miniatura-quadrado-trancoso': 'Representação do charmoso Quadrado de Trancoso em cerâmica com acabamento colorido. Realça qualquer decoração com toque regional. Pode ser pendurada na parede ou apoiada sobre aparadores, estantes, prateleiras e outras superfícies para compor a decoração.',
 };
 
 const PRODUCT_IMAGE_ALT_CORRECTIONS: Record<string, string> = {
