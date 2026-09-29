@@ -17,10 +17,11 @@ function formatBRL(value: number) {
 function productImageAlt(product: Product) {
   if (product.id === 'igreja-quadrado-p') return 'Igrejinha do Quadrado de Trancoso em cerâmica, tamanho P';
   if (product.id === 'igreja-quadrado-m') return 'Igrejinha do Quadrado de Trancoso em cerâmica, tamanho M';
-  if (product.id === 'igreja-quadrado-gg') return 'Igreja do Quadrado de Trancoso em cerâmica, tamanho GG';
+  if (product.id === 'igreja-quadrado-gg') return 'Igreja do Quadrado de Trancoso em cerâmica, tamanho GG e versão luminária';
   if (product.id === 'igrejinha-luminaria-trancoso') return 'Igrejinha do Quadrado de Trancoso em cerâmica na versão luminária';
   if (product.id === 'ima-igrejinha-trancoso') return 'Ímã em cerâmica da Igrejinha do Quadrado de Trancoso';
   if (product.id === 'colar-igreja-quadrado') return 'Colar em cerâmica inspirado na Igrejinha do Quadrado de Trancoso';
+  if (product.id === 'casal-pretos-velhos') return 'Casal de Pretos-Velhos em cerâmica artesanal da Agô Trancoso, Bahia';
   return product.imageAlt || `${product.name} em cerâmica disponível na Agô Trancoso`;
 }
 
