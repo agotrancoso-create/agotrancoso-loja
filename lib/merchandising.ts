@@ -63,7 +63,7 @@ const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
   'miniatura-quadrado-trancoso': [
     '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-6.webp',
-    '/produtos/catalogo/miniatura-quadrado-trancoso-7.webp',
+    '/produtos/catalogo/miniatura-quadrado-trancoso-7.avif',
     '/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg',
   ],
