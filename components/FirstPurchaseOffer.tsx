@@ -38,14 +38,14 @@ export default function FirstPurchaseOffer() {
       window.removeEventListener('scroll', handleScroll);
     };
     const showOffer = () => {
-      if (!active || triggered || Date.now() - started < 30000 || document.querySelector('.cart-drawer[aria-hidden="false"], dialog[open], .mobile-menu') || /INPUT|TEXTAREA/.test(document.activeElement?.tagName || '')) return;
+      if (!active || triggered || Date.now() - started < 22000 || document.querySelector('.cart-drawer[aria-hidden="false"], dialog[open], .mobile-menu') || /INPUT|TEXTAREA/.test(document.activeElement?.tagName || '')) return;
       triggered = true;
       setOpen(true);
       closeListeners();
     };
     const handleScroll = () => {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollable > 0 && (window.scrollY || 0) / scrollable >= 0.45) showOffer();
+      if (scrollable > 0 && (window.scrollY || 0) / scrollable >= 0.34) showOffer();
     };
 
     async function prepareOffer() {
@@ -61,7 +61,7 @@ export default function FirstPurchaseOffer() {
         return;
       }
 
-      timer = window.setTimeout(handleScroll, 30000);
+      timer = window.setTimeout(handleScroll, 22000);
       window.addEventListener('scroll', handleScroll, { passive: true });
     }
 
@@ -160,12 +160,13 @@ export default function FirstPurchaseOffer() {
           <div className="first-purchase-layout">
             <div className="first-purchase-brand-panel">
               <p className="eyebrow">Primeira compra</p>
-              <h2 id="first-purchase-title">Um pequeno presente para começar.</h2>
-              <p className="first-purchase-lead">3% OFF na sua primeira compra.</p>
+              <h2 id="first-purchase-title">Seu primeiro pedido merece um benefício especial.</h2>
+              <p className="first-purchase-lead">3% OFF para começar sua coleção Agô.</p>
               <div className="first-purchase-discount-badge" aria-label="3% de desconto na primeira compra"><strong>3%</strong><span>OFF</span></div>
-              <p className="first-purchase-soft-note">A elegibilidade é confirmada no checkout pelo e-mail e telefone.</p>
+              <p className="first-purchase-soft-note">Exclusivo para a primeira compra. A elegibilidade é confirmada com segurança no checkout.</p>
             </div>
             <form className="first-purchase-form" onSubmit={submit}>
+              <p className="first-purchase-form-intro">Informe seu e-mail para guardar o benefício neste navegador. No checkout, confirmamos os dados antes do pagamento.</p>
               <div className="first-purchase-field">
                 <label htmlFor="first-purchase-email">Seu e-mail</label>
                 <input id="first-purchase-email" required type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" placeholder="voce@email.com" />
@@ -175,17 +176,18 @@ export default function FirstPurchaseOffer() {
                 <span>Li e aceito os <a href="/termos" target="_blank" rel="noreferrer">Termos de Uso</a> e a <a href="/privacidade" target="_blank" rel="noreferrer">Política de Privacidade</a>.</span>
               </label>
               {error && <p className="checkout-error" role="alert">{error}</p>}
-              <button type="submit" disabled={submitting} className="first-purchase-submit">{submitting ? 'Salvando…' : 'Quero meu desconto'}</button>
-              <small>O código fica salvo neste navegador. A validação final acontece antes do pagamento.</small>
+              <button type="submit" disabled={submitting} className="first-purchase-submit">{submitting ? 'Salvando…' : 'Quero meu benefício'}</button>
+              <button type="button" className="first-purchase-skip" onClick={close}>Continuar sem benefício</button>
+              <small>Válido somente para clientes elegíveis na primeira compra.</small>
             </form>
           </div>
         ) : (
           <div className="first-purchase-success">
-            <p className="eyebrow">Pronto</p>
-            <h2 id="first-purchase-title">Seu código ficou salvo neste navegador.</h2>
-            <p>No checkout, informe o mesmo e-mail e seu telefone para confirmar se o benefício está disponível.</p>
+            <p className="eyebrow">Seu benefício</p>
+            <h2 id="first-purchase-title">Guardamos seu benefício.</h2>
+            <p>Use o mesmo e-mail no checkout. A confirmação final considera seus dados antes do pagamento.</p>
             <button type="button" className="first-purchase-coupon" onClick={copyCoupon} aria-label={`Copiar cupom ${FIRST_PURCHASE_COUPON}`}><strong>{FIRST_PURCHASE_COUPON}</strong><span>{copied ? 'Copiado' : 'Copiar'}</span></button>
-            <button type="button" className="first-purchase-continue" onClick={close}>Continuar vendo</button>
+            <button type="button" className="first-purchase-continue" onClick={close}>Continuar escolhendo</button>
           </div>
         )}
       </section>
