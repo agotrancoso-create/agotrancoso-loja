@@ -11,7 +11,16 @@ Module._resolveFilename = function(request,...rest) { return resolve.call(this,r
 require.extensions['.ts'] = (module,filename) => module._compile(ts.transpileModule(fs.readFileSync(filename,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,esModuleInterop:true}}).outputText,filename);
 let eligible = true, releases = 0;
 const identityPath = path.join(root,'lib/first-purchase.ts');
-require.cache[identityPath] = { id:identityPath, filename:identityPath, loaded:true, exports:{reserveFirstPurchaseIdentity:async()=>({eligible,reason:'Benefício já utilizado.'}),releaseFirstPurchaseReservation:async()=>{releases++;return true;}} };
+require.cache[identityPath] = {
+  id: identityPath,
+  filename: identityPath,
+  loaded: true,
+  exports: {
+    reserveFirstPurchaseIdentity: async () => ({ eligible, reason: 'Benefício já utilizado.' }),
+    releaseFirstPurchaseReservation: async () => { releases++; return true; },
+    registerPurchaseOrder: async () => true,
+  },
+};
 const {POST} = require('../app/api/create-checkout/route.ts');
 const {getAllProducts} = require('../lib/products.ts');
 const {shouldOfferFreeShipping} = require('../lib/shipping.ts');
