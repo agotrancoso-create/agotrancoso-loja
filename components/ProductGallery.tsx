@@ -48,7 +48,7 @@ export default function ProductGallery({ productId, name, images }: ProductGalle
   }
 
   return (
-    <div className="product-gallery" aria-label={`Galeria de ${name}`}>
+    <div className="product-gallery" data-product-id={productId} aria-label={`Galeria de ${name}`}>
       <div
         className="product-gallery-main"
         role="group"
