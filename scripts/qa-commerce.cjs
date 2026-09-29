@@ -47,20 +47,22 @@ async function checkout(items,coupon='',overrides={}) {
   assert.equal(isValidCNPJ('00.000.000/E08G-12'),true);
   assert.equal(getBrazilianDocumentType('00.000.000/E08G-12'),'CNPJ');
   assert.equal(isValidCNPJ('00.000.000/E08G-13'),false);
-  assert.equal(shouldOfferFreeShipping(500),false);assert.equal(shouldOfferFreeShipping(500.01),true);
+  assert.equal(shouldOfferFreeShipping(460.10),false);
+  assert.equal(shouldOfferFreeShipping(460.11),true);
+  assert.equal(shouldOfferFreeShipping(480),true);
   let cases=0;
   for (const price of [50,250,8500]) for (const quantity of [1,4,12]) for(const coupon of ['', 'AGO3']) {
     const product=getAllProducts().find(p=>p.price===price);assert.ok(product);
     const {status,data}=await checkout([{productId:product.id,quantity}],coupon,{shippingValue:0});
     assert.equal(status,200);const subtotal=(product.promotionalPrice??price)*quantity;const discount=coupon?Number((subtotal*.03).toFixed(2)):0;
-    assert.equal(data.subtotal,subtotal);assert.equal(data.discount,discount);assert.equal(data.shippingValue,subtotal>500?0:39.9);
+    assert.equal(data.subtotal,subtotal);assert.equal(data.discount,discount);assert.equal(data.shippingValue,shouldOfferFreeShipping(subtotal)?0:39.9);
     assert.equal(payload.items.reduce((sum,i)=>sum+i.quantity*i.price,0),Math.round((subtotal-discount+data.shippingValue)*100));
     assert.equal(payload.customer.phone_number,'+5573999999999');assert.equal(payload.address.complement,'CPF/CNPJ: 52998224725');assert.ok(payload.redirect_url.includes('/confirmacao?pedido='));assert.ok(payload.webhook_url.endsWith('/api/webhooks/infinitepay'));
     cases++;
   }
   const id=getAllProducts()[0].id;
-  assert.equal((await checkout([{productId:id,quantity:2}])).data.total,539.9);
-  assert.equal((await checkout([{productId:id,quantity:2}],'AGO3')).data.total,524.9);
+  assert.equal((await checkout([{productId:id,quantity:2}])).data.total,500);
+  assert.equal((await checkout([{productId:id,quantity:2}],'AGO3')).data.total,485);
   assert.equal((await checkout([{productId:id,quantity:0}])).status,400);
   assert.equal((await checkout([{productId:'not-real',quantity:1}])).status,400);
   assert.equal((await checkout([{productId:id,quantity:1}],'NOPE')).status,400);
