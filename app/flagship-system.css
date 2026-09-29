@@ -23,13 +23,19 @@
   contain-intrinsic-size: 900px;
 }
 
-/* Hero: mantém a fotografia limpa; a leitura vem apenas de sombra tipográfica discreta. */
+/* Hero: contraste editorial localizado, sem “filtro pesado” sobre a fotografia. */
 .ago-cinematic-copy {
   isolation: isolate;
 }
 .ago-cinematic-copy::before {
-  display: none !important;
-  content: none !important;
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -36px -44px -42px -36px;
+  width: min(760px, 82vw);
+  border-radius: 28px;
+  background: radial-gradient(circle at 20% 46%, rgba(38, 26, 21, .38), rgba(38, 26, 21, .17) 48%, transparent 76%);
+  pointer-events: none;
 }
 .ago-cinematic-copy h1,
 .ago-cinematic-copy > p:not(.eyebrow),
@@ -152,6 +158,12 @@
 }
 
 @media (max-width: 900px) {
+  .ago-cinematic-copy::before {
+    inset: -28px -24px -34px -22px;
+    width: min(620px, 96vw);
+    background: radial-gradient(circle at 26% 44%, rgba(34, 23, 19, .42), rgba(34, 23, 19, .18) 54%, transparent 82%);
+  }
+
   .ago-flagship-manifesto-inner {
     grid-template-columns: 1fr;
     gap: 42px;
