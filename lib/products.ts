@@ -46,10 +46,12 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
 
 const PRODUCT_NAME_CORRECTIONS: Record<string, string> = {
   'miniatura-quadrado-trancoso': 'Miniatura do Quadrado de Trancoso para Pendurar',
+  'igreja-quadrado-gg': 'Igreja do Quadrado (GG) — Luminária',
 };
 
 const PRODUCT_DESCRIPTION_CORRECTIONS: Record<string, string> = {
   'igreja-quadrado-m': 'Inspirada na tradicional Igrejinha do Quadrado, esta peça em cerâmica leva para a decoração um dos símbolos mais marcantes de Trancoso. Em tamanho M, é uma representação delicada da arquitetura que torna esse lugar tão especial.',
+  'igreja-quadrado-gg': 'Escultura em cerâmica inspirada na Igreja de São João Batista, no Quadrado de Trancoso. Modelada à mão, reproduz com fidelidade a arquitetura e os detalhes que tornam esse cartão-postal um dos símbolos mais conhecidos da Bahia. A peça também funciona como luminária, criando uma luz ambiente acolhedora.',
   'mobile-trancoso': 'Móbile feito à mão em cerâmica, com casinhas penduradas em fio resistente. Cria movimento suave com a brisa e leva um toque de Trancoso para o ambiente.',
   'estatueta-iemanja': 'Escultura artesanal de Iemanjá em cerâmica, com detalhes delicados. Ideal para altar ou para compor ambientes de fé e devoção.',
   'casal-pretos-velhos': 'Dupla de estatuetas em cerâmica representando um casal de Pretos-Velhos. Os detalhes das vestimentas, do banco e do cachimbo são modelados à mão. Uma peça ligada à memória, à sabedoria e à proteção.',
