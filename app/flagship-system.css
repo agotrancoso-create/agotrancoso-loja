@@ -12,30 +12,23 @@
   --ago-flagship-max: 1440px;
 }
 
-/* Preserva velocidade em páginas longas sem alterar layout acima da dobra. */
-.ago-premium-editorial,
-.ago-premium-discovery,
-.ago-shipping-chapter,
-.ago-bahia-visit,
-.ago-flagship-manifesto,
+/* Não adia a pintura das seções da home. Conteúdo precisa existir visualmente
+   desde o primeiro paint, inclusive se JavaScript ou animações falharem. */
 .product-related-selection {
   content-visibility: auto;
   contain-intrinsic-size: 900px;
 }
 
-/* Hero: contraste editorial localizado, sem “filtro pesado” sobre a fotografia. */
+/* Hero: a fotografia permanece natural. Legibilidade vem apenas do overlay linear leve. */
 .ago-cinematic-copy {
   isolation: isolate;
 }
-.ago-cinematic-copy::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: -36px -44px -42px -36px;
-  width: min(760px, 82vw);
-  border-radius: 28px;
-  background: radial-gradient(circle at 20% 46%, rgba(38, 26, 21, .38), rgba(38, 26, 21, .17) 48%, transparent 76%);
-  pointer-events: none;
+.ago-cinematic-copy::before,
+.ago-cinematic-copy::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  filter: none !important;
 }
 .ago-cinematic-copy h1,
 .ago-cinematic-copy > p:not(.eyebrow),
@@ -158,12 +151,6 @@
 }
 
 @media (max-width: 900px) {
-  .ago-cinematic-copy::before {
-    inset: -28px -24px -34px -22px;
-    width: min(620px, 96vw);
-    background: radial-gradient(circle at 26% 44%, rgba(34, 23, 19, .42), rgba(34, 23, 19, .18) 54%, transparent 82%);
-  }
-
   .ago-flagship-manifesto-inner {
     grid-template-columns: 1fr;
     gap: 42px;
