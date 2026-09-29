@@ -47,37 +47,41 @@ async function writeNormalized(file, output) {
   await fs.rename(temp, file);
 }
 
+async function encodeBytesForFile(decoded, file) {
+  const extension = path.extname(file).toLowerCase();
+  if (extension === '.webp') return sharp(decoded).webp({ quality: 100, smartSubsample: true }).toBuffer();
+  if (extension === '.avif') return sharp(decoded).avif({ quality: 95, effort: 6 }).toBuffer();
+  if (extension === '.jpg' || extension === '.jpeg') return sharp(decoded).jpeg({ quality: 100, chromaSubsampling: '4:4:4', mozjpeg: true }).toBuffer();
+  if (extension === '.png') return sharp(decoded).png({ compressionLevel: 9, adaptiveFiltering: true }).toBuffer();
+  return decoded;
+}
+
 async function decodeAccidentalBase64Image(file, src) {
-  const raw = await fs.readFile(file);
+  const original = await fs.readFile(file);
+  let candidate = original;
 
-  try {
-    const metadata = await sharp(raw, { failOn: 'none' }).metadata();
-    if (metadata.width && metadata.height) return raw;
-  } catch {}
+  // Tenta a imagem original e, se necessário, até três camadas de base64.
+  for (let depth = 0; depth <= 3; depth += 1) {
+    try {
+      const metadata = await sharp(candidate, { failOn: 'none' }).metadata();
+      if (metadata.width && metadata.height) {
+        if (depth === 0) return candidate;
+        const normalized = await encodeBytesForFile(candidate, file);
+        await writeNormalized(file, normalized);
+        const repaired = await sharp(normalized, { failOn: 'none' }).metadata();
+        console.log(`[imagem] ${src}: ${depth} camada(s) base64 removida(s), imagem recuperada (${repaired.width}x${repaired.height})`);
+        return normalized;
+      }
+    } catch {}
 
-  const text = raw.toString('utf8').replace(/\s+/g, '');
-  if (!/^[A-Za-z0-9+/=]+$/.test(text) || text.length < 100) return raw;
-
-  const decoded = Buffer.from(text, 'base64');
-  try {
-    const metadata = await sharp(decoded, { failOn: 'none' }).metadata();
-    if (!metadata.width || !metadata.height) return raw;
-
-    const extension = path.extname(file).toLowerCase();
-    let output = decoded;
-    // Garante que os bytes realmente correspondam à extensão/MIME publicada.
-    if (extension === '.webp') output = await sharp(decoded).webp({ quality: 100, smartSubsample: true }).toBuffer();
-    else if (extension === '.avif') output = await sharp(decoded).avif({ quality: 95, effort: 6 }).toBuffer();
-    else if (extension === '.jpg' || extension === '.jpeg') output = await sharp(decoded).jpeg({ quality: 100, chromaSubsampling: '4:4:4', mozjpeg: true }).toBuffer();
-    else if (extension === '.png') output = await sharp(decoded).png({ compressionLevel: 9, adaptiveFiltering: true }).toBuffer();
-
-    await writeNormalized(file, output);
-    const repaired = await sharp(output, { failOn: 'none' }).metadata();
-    console.log(`[imagem] ${src}: base64 textual recuperado para ${extension || 'imagem'} binário (${repaired.width}x${repaired.height})`);
-    return output;
-  } catch {
-    return raw;
+    const text = candidate.toString('utf8').replace(/[^A-Za-z0-9+/=]/g, '');
+    if (text.length < 100) break;
+    const decoded = Buffer.from(text, 'base64');
+    if (!decoded.length || decoded.equals(candidate)) break;
+    candidate = decoded;
   }
+
+  return original;
 }
 
 async function cornerColor(image, width, height) {
