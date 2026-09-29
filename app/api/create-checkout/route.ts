@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { customerErrors, addressErrors } from '@/lib/checkout-validation';
+import { customerErrors, addressErrors, normalizeBrazilianDocument } from '@/lib/checkout-validation';
 import { getProductById, getEffectivePrice, calculateCartTotals } from '@/lib/products';
 import { calculateCouponDiscount, isFirstPurchaseCoupon, normalizeCoupon } from '@/lib/coupons';
 import { getShippingPrice, shouldOfferFreeShipping, FIXED_SHIPPING_PRICE } from '@/lib/shipping';
@@ -70,7 +70,22 @@ export async function POST(req: Request) {
     const coupon = normalizeCoupon(body.coupon);
     const customer = body.customer ?? {};
     const address = customer.address ?? {};
-    const validation = { ...customerErrors({ name: String(customer.name ?? ''), email: String(customer.email ?? ''), phone: String(customer.phone ?? '') }), ...addressErrors({ zip: String(address.zip ?? ''), street: String(address.street ?? ''), number: String(address.number ?? ''), neighborhood: String(address.neighborhood ?? ''), city: String(address.city ?? ''), state: String(address.state ?? '') }) };
+    const validation = {
+      ...customerErrors({
+        name: String(customer.name ?? ''),
+        email: String(customer.email ?? ''),
+        phone: String(customer.phone ?? ''),
+        document: String(customer.document ?? ''),
+      }),
+      ...addressErrors({
+        zip: String(address.zip ?? ''),
+        street: String(address.street ?? ''),
+        number: String(address.number ?? ''),
+        neighborhood: String(address.neighborhood ?? ''),
+        city: String(address.city ?? ''),
+        state: String(address.state ?? ''),
+      }),
+    };
     if (Object.keys(validation).length) return NextResponse.json({ error: Object.values(validation)[0], fields: validation }, { status: 400 });
 
     if (!items.length) return NextResponse.json({ error: 'Sua sacola está vazia.' }, { status: 400 });
@@ -79,6 +94,7 @@ export async function POST(req: Request) {
     }
 
     const normalizedPhone = cleanPhone(customer.phone);
+    const normalizedDocument = normalizeBrazilianDocument(customer.document);
     if (!customer.email || !normalizedPhone) {
       return NextResponse.json({ error: 'Informe um e-mail e telefone válidos.' }, { status: 400 });
     }
@@ -150,6 +166,11 @@ export async function POST(req: Request) {
     }
 
     const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || SITE_DOMAIN).replace(/\/$/, '');
+    const originalComplement = String(address.complement ?? '').trim();
+    // A API documentada da InfinitePay não possui campo próprio para CPF/CNPJ.
+    // Mantemos o documento exclusivamente nos dados suportados de entrega para que ele acompanhe o pedido.
+    const deliveryComplement = [originalComplement, `CPF/CNPJ: ${normalizedDocument}`].filter(Boolean).join(' · ');
+
     const payload = {
       handle: INFINITEPAY_HANDLE,
       items: checkoutItems.map((item) => ({
@@ -168,7 +189,7 @@ export async function POST(req: Request) {
       address: {
         street: address.street,
         number: address.number,
-        complement: address.complement || undefined,
+        complement: deliveryComplement,
         neighborhood: address.neighborhood,
         city: address.city,
         state: address.state,
