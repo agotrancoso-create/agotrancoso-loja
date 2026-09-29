@@ -74,7 +74,7 @@ function normalizeProduct(product: Product): Product {
     description: PRODUCT_DESCRIPTION_CORRECTIONS[product.id] ?? product.description,
     dimensions: PRODUCT_DIMENSIONS_CORRECTIONS[product.id] ?? product.dimensions,
     images: images.length ? images : ['/images/placeholder.svg'],
-    imageAlt: PRODUCT_IMAGE_ALT_CORRECTIONS[product.id] ?? product.imageAlt || product.name,
+    imageAlt: (PRODUCT_IMAGE_ALT_CORRECTIONS[product.id] ?? product.imageAlt) || product.name,
   };
 }
 
