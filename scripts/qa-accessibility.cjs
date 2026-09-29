@@ -27,20 +27,21 @@ const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','
    if(route.includes('casal')){await p.getByRole('button',{name:/Ampliar foto de/}).click();await audit(`lightbox@${width}`);await p.keyboard.press('Escape');}
   }
  }
- p=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
- await p.addInitScript(()=>{localStorage.removeItem('ago_primeira_compra_v3_vista');localStorage.removeItem('ago_primeira_compra_v3_cadastro');localStorage.setItem('ago_privacy_consent_v1','essential');});
- await p.route('**/api/first-purchase/eligibility', r=>r.fulfill({status:200,contentType:'application/json',body:'{"available":true}'}));
- await p.goto('http://127.0.0.1:3100/',{waitUntil:'domcontentloaded'});
- await p.getByRole('button',{name:'Abrir menu',exact:true}).waitFor();
- await p.getByRole('button',{name:'Abrir menu',exact:true}).click();await p.keyboard.press('Escape');
- await p.evaluate(()=>window.scrollTo(0,document.documentElement.scrollHeight*.6));
+
+ const offerContext=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});
+ p=await offerContext.newPage();
+ await p.addInitScript(()=>{localStorage.setItem('ago_privacy_consent_v1','essential');});
+ await p.route('**/api/first-purchase/eligibility', r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(r.request().method()==='GET'?{available:true}:{eligible:true})}));
+ const eligibilityReady=p.waitForResponse(r=>r.url().includes('/api/first-purchase/eligibility')&&r.request().method()==='GET');
+ await p.goto('http://127.0.0.1:3100/',{waitUntil:'domcontentloaded'});await eligibilityReady;
+ await p.evaluate(()=>window.scrollTo(0,document.documentElement.scrollHeight*.65));
  await p.waitForTimeout(31000);
  await p.evaluate(()=>{window.scrollTo(0,document.documentElement.scrollHeight*.7);window.dispatchEvent(new Event('scroll'));});
- await p.locator('.first-purchase-modal').waitFor();
+ await p.locator('.first-purchase-modal').waitFor({state:'visible'});
  await audit('first-purchase-offer');
  await p.evaluate(()=>{const original=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k==='ago_primeira_compra_v3_cadastro') throw new Error('Storage unavailable for test');return original.call(this,k,v);};});
  await p.getByLabel('Seu e-mail',{exact:true}).fill('teste@example.com');await p.getByRole('checkbox').check();await p.getByRole('button',{name:'Quero meu desconto'}).click();await p.getByRole('alert').filter({hasText:'Não foi possível'}).waitFor();await audit('first-purchase-error');
- await p.keyboard.press('Escape');assert.equal(await p.locator('.first-purchase-modal').count(),0);
+ await p.keyboard.press('Escape');assert.equal(await p.locator('.first-purchase-modal').count(),0);await offerContext.close();
  fs.writeFileSync((process.env.QA_ARTIFACTS||'/tmp/ago-qa')+'/accessibility.json',JSON.stringify(reports,null,2));
  assert.equal(reports.reduce((n,r)=>n+r.violations.length,0),0,'Accessibility violations require review');
 })().catch(e=>{console.error(e);fs.writeFileSync((process.env.QA_ARTIFACTS||'/tmp/ago-qa')+'/accessibility.json',JSON.stringify(reports,null,2));process.exitCode=1}).finally(async()=>{await browser?.close();server.kill()});
