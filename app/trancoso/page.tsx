@@ -80,7 +80,7 @@ export default function TrancosoPage() {
   };
 
   return (
-    <main className="catalog-page">
+    <div className="catalog-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <div className="site-container catalog-shell">
         <nav className="product-breadcrumb" aria-label="Navegação estrutural">
@@ -112,6 +112,8 @@ export default function TrancosoPage() {
             <p>Quem procura artesanato, decoração ou uma lembrança de Trancoso pode conhecer as peças presencialmente no Quadrado. Para outras cidades do Brasil, a coleção também está disponível para compra online.</p>
             <div className="home-hero-actions">
               <Link href="/igrejinha-de-trancoso" className="text-link">Ver Igrejinhas de Trancoso <span aria-hidden="true">↗</span></Link>
+              <Link href="/artesanato-em-trancoso" className="text-link">Artesanato em Trancoso ↗</Link>
+              <Link href="/lembrancas-de-trancoso" className="text-link">Presentes e lembranças ↗</Link>
               <Link href="/contato" className="text-link">Visitar a Agô <span aria-hidden="true">↗</span></Link>
             </div>
           </div>
@@ -126,6 +128,6 @@ export default function TrancosoPage() {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

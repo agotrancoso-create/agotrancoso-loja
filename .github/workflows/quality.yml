@@ -105,7 +105,7 @@ jobs:
             exit 1
           fi
 
-          for path in / /produtos /produtos/igreja-quadrado-p /produtos/miniatura-quadrado-trancoso /checkout /contato /nossa-essencia /google-merchant.xml /robots.txt /sitemap.xml /image-sitemap.xml /manifest.webmanifest; do
+          for path in / /trancoso /artesanato-em-trancoso /lembrancas-de-trancoso /igrejinha-de-trancoso /produtos /produtos/igreja-quadrado-p /produtos/miniatura-quadrado-trancoso /checkout /contato /nossa-essencia /google-merchant.xml /robots.txt /sitemap.xml /image-sitemap.xml /manifest.webmanifest; do
             echo "Checking $path"
             curl --fail --silent --show-error --output /dev/null "http://127.0.0.1:3000$path"
           done

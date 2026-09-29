@@ -8,6 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/trancoso', priority: 0.98 },
     { path: '/igrejinha-de-trancoso', priority: 0.95 },
     { path: '/produtos', priority: 0.9 },
+    { path: '/artesanato-em-trancoso', priority: 0.9 },
+    { path: '/lembrancas-de-trancoso', priority: 0.9 },
     { path: '/nossa-essencia', priority: 0.7 },
     { path: '/contato', priority: 0.7 },
   ];

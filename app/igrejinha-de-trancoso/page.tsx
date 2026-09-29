@@ -115,7 +115,7 @@ export default function IgrejinhaDeTrancosoPage() {
         <section className="igrejinha-model-guide ago-reveal" aria-labelledby="compare-modelos-title">
           <div className="igrejinha-model-guide-head">
             <div><p className="eyebrow">Compare sem sair da página</p><h2 id="compare-modelos-title">Encontre o modelo certo.</h2></div>
-            <p>Os cartões abaixo usam apenas nomes e preços reais do catálogo. Abra qualquer modelo para ver fotos e detalhes.</p>
+            <p>Compare os tamanhos e valores. Abra cada modelo para ver as fotos e encontrar o que combina com seu espaço.</p>
           </div>
           <div className="igrejinha-model-guide-grid">
             {churchProducts.map((church) => (

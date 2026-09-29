@@ -16,10 +16,10 @@ const whatsappUrl = 'https://wa.me/557398558124?text=Ol%C3%A1!%20Vim%20pelo%20si
 const instagramUrl = 'https://www.instagram.com/agotrancoso';
 
 const discovery = [
-  { title: 'Trancoso', category: 'trancoso', image: '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg' },
+  { title: 'Trancoso', category: 'trancoso', href: '/artesanato-em-trancoso', image: '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg' },
   { title: 'Casa & decoração', category: 'decoracao', image: '/produtos/casinha-luminaria.jpg' },
   { title: 'Fé & devoção', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-2.jpg' },
-  { title: 'Presentes', category: 'presentes', image: '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg' },
+  { title: 'Presentes', category: 'presentes', href: '/lembrancas-de-trancoso', image: '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg' },
 ];
 
 export default function HomePage() {
@@ -85,7 +85,7 @@ export default function HomePage() {
 
           <div className="ago-premium-discovery-grid">
             {discovery.map((item) => (
-              <Link key={item.category} href={`/produtos?categoria=${item.category}`} className="ago-premium-discovery-card">
+              <Link key={item.category} href={item.href ?? `/produtos?categoria=${item.category}`} className="ago-premium-discovery-card">
                 <div className="ago-premium-discovery-image">
                   <Image src={item.image} alt="" fill quality={100} sizes="(max-width: 767px) 50vw, 25vw" className="ago-parallax-photo" />
                 </div>
