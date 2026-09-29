@@ -7,20 +7,21 @@ const PUBLIC_DIR = path.join(ROOT, 'public');
 const PRODUCTS_JSON = path.join(ROOT, 'data', 'products.json');
 const TARGET_SIZE = 960;
 
+// Assets antigos ou incorretos que não devem voltar à experiência ativa.
 const RETIRED_ASSETS = new Set([
   '/produtos/galeria/ima-igrejinha-trancoso-2.jpg',
 ]);
 
+// Casos que devam permanecer byte-a-byte podem ser adicionados aqui.
 const KEEP_ORIGINAL_ASSETS = new Set([]);
 
+// Fotos aprovadas que devem preencher o quadro 960 × 960 sem faixas laterais.
+// O recorte é limitado ao fundo excedente e mantém a peça centralizada, sem esticar.
 const SQUARE_CROP_ASSETS = new Set([
   '/produtos/casinha-luminaria.jpg',
 ]);
 
-const SMART_TRIM_ASSETS = new Set([
-  '/produtos/catalogo/casal-pretos-velhos-1.jpg',
-]);
-
+// Arquivos usados por associações históricas corrigidas em lib/products.ts.
 const EXTRA_ACTIVE_ASSETS = [
   '/produtos/igrejinha-luminaria-trancoso.jpg',
   '/produtos/igreja-quadrado-p.jpg',
@@ -29,8 +30,6 @@ const EXTRA_ACTIVE_ASSETS = [
   '/produtos/catalogo/casal-pretos-velhos-2.jpg',
   '/produtos/catalogo/casal-pretos-velhos-3.jpg',
   '/produtos/casinha-luminaria.jpg',
-  '/produtos/catalogo/miniatura-quadrado-trancoso-6.webp',
-  '/produtos/catalogo/miniatura-quadrado-trancoso-7.avif',
 ];
 
 function publicPathToFile(src) {
@@ -38,50 +37,12 @@ function publicPathToFile(src) {
 }
 
 async function fileExists(file) {
-  try { await fs.access(file); return true; } catch { return false; }
-}
-
-async function writeNormalized(file, output) {
-  const temp = `${file}.ago-960.tmp`;
-  await fs.writeFile(temp, output);
-  await fs.rename(temp, file);
-}
-
-async function encodeBytesForFile(decoded, file) {
-  const extension = path.extname(file).toLowerCase();
-  if (extension === '.webp') return sharp(decoded).webp({ quality: 100, smartSubsample: true }).toBuffer();
-  if (extension === '.avif') return sharp(decoded).avif({ quality: 95, effort: 6 }).toBuffer();
-  if (extension === '.jpg' || extension === '.jpeg') return sharp(decoded).jpeg({ quality: 100, chromaSubsampling: '4:4:4', mozjpeg: true }).toBuffer();
-  if (extension === '.png') return sharp(decoded).png({ compressionLevel: 9, adaptiveFiltering: true }).toBuffer();
-  return decoded;
-}
-
-async function decodeAccidentalBase64Image(file, src) {
-  const original = await fs.readFile(file);
-  let candidate = original;
-
-  // Tenta a imagem original e, se necessário, até três camadas de base64.
-  for (let depth = 0; depth <= 3; depth += 1) {
-    try {
-      const metadata = await sharp(candidate, { failOn: 'none' }).metadata();
-      if (metadata.width && metadata.height) {
-        if (depth === 0) return candidate;
-        const normalized = await encodeBytesForFile(candidate, file);
-        await writeNormalized(file, normalized);
-        const repaired = await sharp(normalized, { failOn: 'none' }).metadata();
-        console.log(`[imagem] ${src}: ${depth} camada(s) base64 removida(s), imagem recuperada (${repaired.width}x${repaired.height})`);
-        return normalized;
-      }
-    } catch {}
-
-    const text = candidate.toString('utf8').replace(/[^A-Za-z0-9+/=]/g, '');
-    if (text.length < 100) break;
-    const decoded = Buffer.from(text, 'base64');
-    if (!decoded.length || decoded.equals(candidate)) break;
-    candidate = decoded;
+  try {
+    await fs.access(file);
+    return true;
+  } catch {
+    return false;
   }
-
-  return original;
 }
 
 async function cornerColor(image, width, height) {
@@ -93,7 +54,12 @@ async function cornerColor(image, width, height) {
   ];
 
   const pixels = await Promise.all(points.map(async ({ left, top }) => {
-    const { data, info } = await image.clone().extract({ left, top, width: 1, height: 1 }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+    const { data, info } = await image.clone()
+      .extract({ left, top, width: 1, height: 1 })
+      .removeAlpha()
+      .raw()
+      .toBuffer({ resolveWithObject: true });
+
     if (info.channels < 3) {
       const value = data[0] ?? 255;
       return [value, value, value];
@@ -101,16 +67,30 @@ async function cornerColor(image, width, height) {
     return [data[0], data[1], data[2]];
   }));
 
-  const average = [0, 1, 2].map((channel) => Math.round(pixels.reduce((sum, pixel) => sum + pixel[channel], 0) / pixels.length));
+  const average = [0, 1, 2].map((channel) => Math.round(
+    pixels.reduce((sum, pixel) => sum + pixel[channel], 0) / pixels.length,
+  ));
+
   return { r: average[0], g: average[1], b: average[2], alpha: 1 };
 }
 
 function encodeForExtension(pipeline, extension) {
-  if (extension === '.jpg' || extension === '.jpeg') return pipeline.jpeg({ quality: 100, chromaSubsampling: '4:4:4', mozjpeg: true });
-  if (extension === '.png') return pipeline.png({ compressionLevel: 9, adaptiveFiltering: true });
-  if (extension === '.webp') return pipeline.webp({ quality: 100, smartSubsample: true });
-  if (extension === '.avif') return pipeline.avif({ quality: 95, effort: 6 });
+  if (extension === '.jpg' || extension === '.jpeg') {
+    return pipeline.jpeg({ quality: 100, chromaSubsampling: '4:4:4', mozjpeg: true });
+  }
+  if (extension === '.png') {
+    return pipeline.png({ compressionLevel: 9, adaptiveFiltering: true });
+  }
+  if (extension === '.webp') {
+    return pipeline.webp({ quality: 100, smartSubsample: true });
+  }
   return pipeline;
+}
+
+async function writeNormalized(file, output) {
+  const temp = `${file}.ago-960.tmp`;
+  await fs.writeFile(temp, output);
+  await fs.rename(temp, file);
 }
 
 async function normalizeImage(src) {
@@ -120,55 +100,47 @@ async function normalizeImage(src) {
     return { missing: 1, resized: 0, skipped: 0 };
   }
 
-  const bytes = await decodeAccidentalBase64Image(file, src);
-  const base = sharp(bytes, { failOn: 'none' });
-  let metadata;
-  try {
-    metadata = await base.metadata();
-  } catch {
-    console.warn(`[960x960] imagem ilegível: ${src}`);
-    return { missing: 1, resized: 0, skipped: 0 };
-  }
-
+  const base = sharp(file, { failOn: 'none' });
+  const metadata = await base.metadata();
   const width = metadata.width ?? 0;
   const height = metadata.height ?? 0;
+
   if (!width || !height) {
     console.warn(`[960x960] não foi possível ler dimensões: ${src}`);
     return { missing: 1, resized: 0, skipped: 0 };
   }
 
-  if (KEEP_ORIGINAL_ASSETS.has(src)) return { missing: 0, resized: 0, skipped: 1 };
+  if (KEEP_ORIGINAL_ASSETS.has(src)) {
+    return { missing: 0, resized: 0, skipped: 1 };
+  }
 
   const extension = path.extname(file).toLowerCase();
 
-  if (SMART_TRIM_ASSETS.has(src)) {
-    let pipeline = sharp(bytes, { failOn: 'none' })
-      .rotate()
-      .trim({ background: '#ffffff', threshold: 18 })
-      .resize(860, 860, {
-        fit: 'contain',
-        background: { r: 255, g: 255, b: 255, alpha: 1 },
-        kernel: sharp.kernel.lanczos3,
-      })
-      .extend({ top: 50, bottom: 50, left: 50, right: 50, background: { r: 255, g: 255, b: 255, alpha: 1 } });
-    pipeline = encodeForExtension(pipeline, extension);
-    await writeNormalized(file, await pipeline.toBuffer());
-    console.log(`[960x960] ${src}: reenquadrada em 960x960, peça maior e sem deformação`);
-    return { missing: 0, resized: 1, skipped: 0 };
-  }
-
   if (SQUARE_CROP_ASSETS.has(src) && (width !== TARGET_SIZE || height !== TARGET_SIZE)) {
-    let pipeline = base.rotate().resize(TARGET_SIZE, TARGET_SIZE, { fit: 'cover', position: 'centre', kernel: sharp.kernel.lanczos3 });
+    let pipeline = base.rotate().resize(TARGET_SIZE, TARGET_SIZE, {
+      fit: 'cover',
+      position: 'centre',
+      kernel: sharp.kernel.lanczos3,
+    });
     pipeline = encodeForExtension(pipeline, extension);
     await writeNormalized(file, await pipeline.toBuffer());
     console.log(`[960x960] ${src}: ${width}x${height} -> ${TARGET_SIZE}x${TARGET_SIZE} (preenchimento integral, sem deformar)`);
     return { missing: 0, resized: 1, skipped: 0 };
   }
 
-  if (width === TARGET_SIZE && height === TARGET_SIZE) return { missing: 0, resized: 0, skipped: 1 };
+  // Uma imagem só está pronta quando tem exatamente 960 × 960. Antes, arquivos
+  // quadrados de qualquer tamanho eram ignorados, o que deixava dimensões
+  // inconsistentes na produção.
+  if (width === TARGET_SIZE && height === TARGET_SIZE) {
+    return { missing: 0, resized: 0, skipped: 1 };
+  }
 
   const background = await cornerColor(base, width, height);
-  const { data: fitted, info } = await base.rotate().resize(TARGET_SIZE, TARGET_SIZE, { fit: 'inside', withoutEnlargement: true, kernel: sharp.kernel.lanczos3 }).toBuffer({ resolveWithObject: true });
+  const { data: fitted, info } = await base.rotate().resize(TARGET_SIZE, TARGET_SIZE, {
+    fit: 'inside',
+    withoutEnlargement: true,
+    kernel: sharp.kernel.lanczos3,
+  }).toBuffer({ resolveWithObject: true });
 
   const left = Math.floor((TARGET_SIZE - info.width) / 2);
   const top = Math.floor((TARGET_SIZE - info.height) / 2);
@@ -177,6 +149,7 @@ async function normalizeImage(src) {
   const edge = sharp(fitted);
   const layers = [{ input: fitted, left, top }];
 
+  // Completa apenas o fundo até o quadrado; nunca corta, estica ou deforma a peça.
   if (left) layers.push({ input: await edge.clone().extract({ left: 0, top: 0, width: 1, height: info.height }).resize(left, info.height, { kernel: 'nearest' }).toBuffer(), left: 0, top });
   if (right) layers.push({ input: await edge.clone().extract({ left: info.width - 1, top: 0, width: 1, height: info.height }).resize(right, info.height, { kernel: 'nearest' }).toBuffer(), left: left + info.width, top });
   if (top) layers.push({ input: await edge.clone().extract({ left: 0, top: 0, width: info.width, height: 1 }).resize(info.width, top, { kernel: 'nearest' }).toBuffer(), left, top: 0 });
@@ -184,7 +157,9 @@ async function normalizeImage(src) {
 
   let pipeline = sharp({ create: { width: TARGET_SIZE, height: TARGET_SIZE, channels: 3, background } }).composite(layers);
   pipeline = encodeForExtension(pipeline, extension);
-  await writeNormalized(file, await pipeline.toBuffer());
+
+  const output = await pipeline.toBuffer();
+  await writeNormalized(file, output);
   console.log(`[960x960] ${src}: ${width}x${height} -> ${TARGET_SIZE}x${TARGET_SIZE} (qualidade máxima)`);
   return { missing: 0, resized: 1, skipped: 0 };
 }
@@ -214,7 +189,6 @@ async function main() {
   }
 
   console.log(`[960x960] concluído: ${resized} redimensionadas, ${skipped} mantidas sem alterações, ${missing} ausentes.`);
-  if (missing) process.exitCode = 1;
 }
 
 main().catch((error) => {

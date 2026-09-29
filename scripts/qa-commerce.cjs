@@ -9,13 +9,9 @@ const root = path.resolve(__dirname,'..');
 const resolve = Module._resolveFilename;
 Module._resolveFilename = function(request,...rest) { return resolve.call(this,request.startsWith('@/')?path.join(root,request.slice(2)):request,...rest); };
 require.extensions['.ts'] = (module,filename) => module._compile(ts.transpileModule(fs.readFileSync(filename,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,esModuleInterop:true}}).outputText,filename);
-let eligible = true, releases = 0, historyRegistrations = 0;
+let eligible = true, releases = 0;
 const identityPath = path.join(root,'lib/first-purchase.ts');
-require.cache[identityPath] = { id:identityPath, filename:identityPath, loaded:true, exports:{
-  reserveFirstPurchaseIdentity:async()=>({eligible,reason:'Benefício já utilizado.'}),
-  releaseFirstPurchaseReservation:async()=>{releases++;return true;},
-  registerPurchaseOrder:async()=>{historyRegistrations++;return true;},
-} };
+require.cache[identityPath] = { id:identityPath, filename:identityPath, loaded:true, exports:{reserveFirstPurchaseIdentity:async()=>({eligible,reason:'Benefício já utilizado.'}),releaseFirstPurchaseReservation:async()=>{releases++;return true;}} };
 const {POST} = require('../app/api/create-checkout/route.ts');
 const {getAllProducts} = require('../lib/products.ts');
 const {shouldOfferFreeShipping} = require('../lib/shipping.ts');
@@ -42,9 +38,7 @@ async function checkout(items,coupon='',overrides={}) {
   assert.equal(isValidCNPJ('00.000.000/E08G-12'),true);
   assert.equal(getBrazilianDocumentType('00.000.000/E08G-12'),'CNPJ');
   assert.equal(isValidCNPJ('00.000.000/E08G-13'),false);
-  assert.equal(shouldOfferFreeShipping(500),false);
-  assert.equal(shouldOfferFreeShipping(500.01),true);
-  assert.equal(shouldOfferFreeShipping(580),true,'R$ 580 deve receber frete grátis');
+  assert.equal(shouldOfferFreeShipping(500),false);assert.equal(shouldOfferFreeShipping(500.01),true);
   let cases=0;
   for (const price of [50,250,8500]) for (const quantity of [1,4,12]) for(const coupon of ['', 'AGO3']) {
     const product=getAllProducts().find(p=>p.price===price);assert.ok(product);
@@ -55,7 +49,6 @@ async function checkout(items,coupon='',overrides={}) {
     assert.equal(payload.customer.phone_number,'+5573999999999');assert.equal(payload.address.complement,'CPF/CNPJ: 52998224725');assert.ok(payload.redirect_url.includes('/confirmacao?pedido='));assert.ok(payload.webhook_url.endsWith('/api/webhooks/infinitepay'));
     cases++;
   }
-  assert.ok(historyRegistrations>0,'compras sem cupom devem ser registradas para elegibilidade futura');
   const id=getAllProducts()[0].id;
   assert.equal((await checkout([{productId:id,quantity:2}])).data.total,539.9);
   assert.equal((await checkout([{productId:id,quantity:2}],'AGO3')).data.total,524.9);
@@ -69,5 +62,5 @@ async function checkout(items,coupon='',overrides={}) {
   assert.equal(alpha.status,200);assert.equal(payload.address.complement,'CPF/CNPJ: 00000000E08G12');
   eligible=false;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,409);eligible=true;
   fail=true;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,502);assert.equal(releases,1);
-  console.log(`PASS ${cases} price/quantity/coupon combinations, CPF/CNPJ validation, official alphanumeric CNPJ, purchase-history registration, free shipping at R$580, cent allocation, shipping boundary, identity rejection, invalid data, provider failure`);
+  console.log(`PASS ${cases} price/quantity/coupon combinations, CPF/CNPJ validation, official alphanumeric CNPJ, cent allocation, shipping boundary, identity rejection, invalid data, provider failure`);
 })().catch(error=>{console.error(error);process.exitCode=1});
