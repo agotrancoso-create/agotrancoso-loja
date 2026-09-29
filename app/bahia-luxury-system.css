@@ -99,6 +99,13 @@ p,
   color: #6f3928 !important;
 }
 
+/* O antigo layer imersivo deixava o corpo do editorial claro sobre areia clara.
+   Mantemos a mesma paleta e apenas restauramos contraste legível. */
+.ago-home .ago-premium-editorial p:not(.eyebrow),
+.ago-home-story p:not(.eyebrow) {
+  color: var(--ago-cacau-suave) !important;
+}
+
 .ago-shipping-chapter {
   background: #fbf6ef !important;
   color: var(--ago-cacau) !important;
@@ -225,7 +232,9 @@ p,
 .ago-footer-group a,
 .ago-footer-group span,
 .ago-footer-logo,
-.ago-footer-brand h2 {
+.ago-footer-brand h2,
+.ago-footer-place,
+.ago-footer-group h3 {
   color: #fff8ee !important;
 }
 
