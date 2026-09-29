@@ -28,15 +28,18 @@
   border-color: rgba(255, 250, 242, .72) !important;
 }
 
-/* O degradê fica concentrado onde há texto para preservar a foto. */
+/* Hero natural: apenas um véu linear mínimo para preservar leitura. */
 .ago-cinematic-overlay {
   background: linear-gradient(
     90deg,
-    rgba(34, 23, 18, .50) 0%,
-    rgba(34, 23, 18, .34) 42%,
-    rgba(34, 23, 18, .10) 72%,
-    rgba(34, 23, 18, .03) 100%
+    rgba(35, 24, 18, .08) 0%,
+    rgba(35, 24, 18, .03) 38%,
+    transparent 70%
   ) !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 /* Evita que a seta diagonal caia no conjunto de emojis do iOS. */
@@ -124,10 +127,10 @@
 @media (max-width: 700px) {
   .ago-cinematic-overlay {
     background: linear-gradient(
-      180deg,
-      rgba(34, 23, 18, .20) 0%,
-      rgba(34, 23, 18, .34) 42%,
-      rgba(34, 23, 18, .58) 100%
+      90deg,
+      rgba(35, 24, 18, .08) 0%,
+      rgba(35, 24, 18, .03) 38%,
+      transparent 70%
     ) !important;
   }
 
