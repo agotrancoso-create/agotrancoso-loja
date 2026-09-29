@@ -11,7 +11,7 @@ const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','
   for(const route of ['/','/produtos','/contato','/nossa-essencia','/produtos/casal-pretos-velhos','/checkout','/confirmacao']){
    await p.goto('http://127.0.0.1:3100'+route,{waitUntil:'domcontentloaded'});await p.locator('h1').first().waitFor();await audit(`${route}@${width}`);
    if(route==='/checkout'){
-    for(const [id,value] of Object.entries({name:'Pessoa Teste',email:'teste@example.com',phone:'73999999999'})) await p.locator('#'+id).fill(value);
+    for(const [id,value] of Object.entries({name:'Pessoa Teste',email:'teste@example.com',phone:'73999999999',document:'52998224725'})) await p.locator('#'+id).fill(value);
     await p.getByRole('button',{name:'Continuar para entrega'}).click();await audit(`delivery@${width}`);
     for(const [id,value] of Object.entries({zip:'45818000',street:'Rua Teste',number:'10',neighborhood:'Centro',city:'Porto Seguro',state:'BA'})) await p.locator('#'+id).fill(value);
     await p.getByRole('button',{name:'Continuar para benefício'}).click();await audit(`benefit@${width}`);
