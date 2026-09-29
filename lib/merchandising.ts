@@ -1,26 +1,26 @@
 import { Product } from './types';
 
 // Ordem editorial e comercial da vitrine.
-// A sequência prioriza, nesta ordem: reconhecimento imediato de Trancoso,
-// contraste visual entre peças, faixa de entrada acessível, variedade e
-// facilidade de decisão. Peças de ticket muito alto entram depois da primeira
-// dobra para não criarem uma âncora de preço pesada logo no início.
+// Prioriza reconhecimento imediato de Trancoso, força visual da fotografia,
+// variedade de formatos, entrada de preço acessível e progressão de ticket.
+// A intenção é fazer o olhar alternar entre peças icônicas, luminárias e presentes,
+// evitando uma sequência visual repetitiva.
 export const ATTENTION_PRODUCT_ORDER = [
+  'miniatura-quadrado-trancoso',
   'igreja-quadrado-p',
   'igrejinha-luminaria-trancoso',
-  'miniatura-quadrado-trancoso',
   'igreja-quadrado-m',
-  'colar-igreja-quadrado',
-  'ima-igrejinha-trancoso',
   'casinha-luminaria',
+  'ima-igrejinha-trancoso',
+  'colar-igreja-quadrado',
   'cruzeiro-do-quadrado',
   'igreja-quadrado-gg',
   'mobile-trancoso',
-  'estatueta-iemanja',
   'nossa-senhora-grande',
+  'estatueta-iemanja',
   'presepio-em-ceramica',
-  'casal-pretos-velhos',
   'nossa-senhora-aparecida',
+  'casal-pretos-velhos',
   'divino-espirito-santo',
   'rosario-trancoso',
   'terco-em-ceramica',
@@ -40,16 +40,21 @@ export function sortProductsByAttention<T extends Product>(products: T[]): T[] {
 /**
  * Curadoria fotográfica da vitrine.
  * A primeira imagem de cada lista é a capa aprovada para a vitrine.
+ *
+ * IMPORTANTE — associação visual conferida pela proprietária:
+ * os nomes físicos históricos dos arquivos da Igrejinha P e da Luminária ficaram
+ * invertidos. Não alterar estas duas associações pelo nome do arquivo.
  */
 const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
   'igreja-quadrado-p': [
-    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ],
   'igrejinha-luminaria-trancoso': [
-    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/igreja-quadrado-p.jpg',
   ],
   'casinha-luminaria': [
+    '/produtos/casinha-luminaria.jpg',
     '/produtos/catalogo/casinha-luminaria-1.jpg',
     '/produtos/catalogo/casinha-luminaria-2.jpg',
     '/produtos/catalogo/casinha-luminaria-3.jpg',
@@ -57,6 +62,8 @@ const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
   ],
   'miniatura-quadrado-trancoso': [
     '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg',
+    '/produtos/catalogo/miniatura-quadrado-trancoso-6.webp',
+    '/produtos/catalogo/miniatura-quadrado-trancoso-7.webp',
     '/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg',
   ],
@@ -111,15 +118,15 @@ export function getAttentionCoverImage(product: Product): string {
 }
 
 const RELATED_PRODUCTS: Record<string, string[]> = {
-  'igreja-quadrado-p': ['colar-igreja-quadrado', 'ima-igrejinha-trancoso', 'igrejinha-luminaria-trancoso', 'miniatura-quadrado-trancoso'],
-  'igreja-quadrado-m': ['igrejinha-luminaria-trancoso', 'colar-igreja-quadrado', 'ima-igrejinha-trancoso', 'miniatura-quadrado-trancoso'],
-  'igreja-quadrado-gg': ['igrejinha-luminaria-trancoso', 'miniatura-quadrado-trancoso', 'mobile-trancoso', 'colar-igreja-quadrado'],
-  'igrejinha-luminaria-trancoso': ['igreja-quadrado-p', 'casinha-luminaria', 'colar-igreja-quadrado', 'ima-igrejinha-trancoso'],
-  'miniatura-quadrado-trancoso': ['igreja-quadrado-p', 'cruzeiro-do-quadrado', 'colar-igreja-quadrado', 'ima-igrejinha-trancoso'],
+  'igreja-quadrado-p': ['miniatura-quadrado-trancoso', 'igrejinha-luminaria-trancoso', 'colar-igreja-quadrado', 'ima-igrejinha-trancoso'],
+  'igreja-quadrado-m': ['miniatura-quadrado-trancoso', 'igrejinha-luminaria-trancoso', 'colar-igreja-quadrado', 'ima-igrejinha-trancoso'],
+  'igreja-quadrado-gg': ['igrejinha-luminaria-trancoso', 'miniatura-quadrado-trancoso', 'mobile-trancoso', 'casinha-luminaria'],
+  'igrejinha-luminaria-trancoso': ['miniatura-quadrado-trancoso', 'igreja-quadrado-p', 'casinha-luminaria', 'colar-igreja-quadrado'],
+  'miniatura-quadrado-trancoso': ['igreja-quadrado-p', 'igrejinha-luminaria-trancoso', 'cruzeiro-do-quadrado', 'colar-igreja-quadrado'],
   'casinha-luminaria': ['igrejinha-luminaria-trancoso', 'miniatura-quadrado-trancoso', 'esfera-decorativa', 'mobile-trancoso'],
-  'colar-igreja-quadrado': ['igreja-quadrado-p', 'ima-igrejinha-trancoso', 'miniatura-quadrado-trancoso', 'igrejinha-luminaria-trancoso'],
-  'ima-igrejinha-trancoso': ['colar-igreja-quadrado', 'igreja-quadrado-p', 'miniatura-quadrado-trancoso', 'cruzeiro-do-quadrado'],
-  'mobile-trancoso': ['casinha-luminaria', 'miniatura-quadrado-trancoso', 'igreja-quadrado-m', 'esfera-decorativa'],
+  'colar-igreja-quadrado': ['miniatura-quadrado-trancoso', 'igreja-quadrado-p', 'ima-igrejinha-trancoso', 'igrejinha-luminaria-trancoso'],
+  'ima-igrejinha-trancoso': ['miniatura-quadrado-trancoso', 'igreja-quadrado-p', 'colar-igreja-quadrado', 'cruzeiro-do-quadrado'],
+  'mobile-trancoso': ['miniatura-quadrado-trancoso', 'casinha-luminaria', 'igreja-quadrado-m', 'esfera-decorativa'],
   'estatueta-iemanja': ['nossa-senhora-aparecida', 'divino-espirito-santo', 'terco-em-ceramica', 'rosario-trancoso'],
   'nossa-senhora-grande': ['terco-em-ceramica', 'divino-espirito-santo', 'nossa-senhora-aparecida', 'rosario-trancoso'],
   'presepio-em-ceramica': ['nossa-senhora-aparecida', 'divino-espirito-santo', 'terco-em-ceramica', 'nossa-senhora-grande'],
