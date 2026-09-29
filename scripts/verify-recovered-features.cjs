@@ -11,8 +11,19 @@ const firstPurchase = fs.readFileSync('lib/first-purchase.ts','utf8');
 const checkoutValidation = fs.readFileSync('lib/checkout-validation.ts','utf8');
 const paymentCss = fs.readFileSync('app/offer-premium.css','utf8');
 
-assert.ok(products.includes("'/produtos/igreja-quadrado-p.jpg'"));
-assert.ok(products.includes("'/produtos/igrejinha-luminaria-trancoso.jpg'"));
+const pBlock = products.match(/'igreja-quadrado-p': \[(.*?)\],/s)?.[1] ?? '';
+const luminariaBlock = products.match(/'igrejinha-luminaria-trancoso': \[(.*?)\],/s)?.[1] ?? '';
+const merchPBlock = merch.match(/'igreja-quadrado-p': \[(.*?)\],/s)?.[1] ?? '';
+const merchLuminariaBlock = merch.match(/'igrejinha-luminaria-trancoso': \[(.*?)\],/s)?.[1] ?? '';
+
+// Associação VISUAL aprovada: os nomes históricos dos dois arquivos estão invertidos.
+assert.ok(pBlock.includes("/produtos/igrejinha-luminaria-trancoso.jpg"));
+assert.ok(!pBlock.includes("/produtos/igreja-quadrado-p.jpg"));
+assert.ok(luminariaBlock.includes("/produtos/igreja-quadrado-p.jpg"));
+assert.ok(!luminariaBlock.includes("/produtos/igrejinha-luminaria-trancoso.jpg"));
+assert.ok(merchPBlock.includes("/produtos/igrejinha-luminaria-trancoso.jpg"));
+assert.ok(merchLuminariaBlock.includes("/produtos/igreja-quadrado-p.jpg"));
+
 assert.ok(products.includes('Miniatura do Quadrado de Trancoso para Pendurar'));
 assert.ok(products.includes('miniatura-quadrado-trancoso-6.webp'));
 assert.ok(products.includes('miniatura-quadrado-trancoso-7.webp'));
@@ -21,9 +32,15 @@ assert.ok(merch.indexOf("'casal-pretos-velhos'") < merch.indexOf("'casinha-lumin
 assert.ok(shipping.includes('subtotalCents + FIXED_SHIPPING_PRICE_CENTS > FREE_SHIPPING_THRESHOLD_CENTS'));
 assert.ok(trancoso.includes('Artesanato e Cerâmica em Trancoso'));
 assert.ok(footer.includes('href="/trancoso"'));
-assert.ok(pretos.includes("isThirdPhoto ? 'centre' : 'attention'"));
+
+// Pretos-Velhos: mostrar a peça inteira, centralizada e sem recorte por cover.
+assert.ok(pretos.includes("fit: 'contain'"));
+assert.ok(pretos.includes("position: 'centre'"));
+assert.ok(pretos.includes('top: 50'));
+assert.ok(!pretos.includes("fit: 'cover'"));
+
 assert.ok(popup.includes('Seu primeiro pedido merece um benefício especial.'));
 assert.ok(firstPurchase.includes('documentKey'));
 assert.ok(checkoutValidation.includes('isValidCNPJ'));
 assert.ok(paymentCss.includes('Pix Copia e Cola'));
-console.log('PASS recovered failed-deploy intentions and current business rules');
+console.log('PASS recovered failed-deploy intentions, visual mappings and current business rules');
