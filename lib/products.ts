@@ -31,11 +31,10 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
     '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg',
     '/produtos/catalogo/ima-igrejinha-trancoso-conjunto.jpg',
   ],
-  // A foto 04 continua como capa. As duas novas fotos aprovadas entram logo depois
-  // para criar profundidade visual e incentivar o cliente a avançar pela galeria.
+  // Mantém apenas arquivos válidos na experiência pública. A capa aprovada continua
+  // intacta e a nova foto AVIF permanece logo depois para dar profundidade à galeria.
   'miniatura-quadrado-trancoso': [
     '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg',
-    '/produtos/catalogo/miniatura-quadrado-trancoso-6.webp',
     '/produtos/catalogo/miniatura-quadrado-trancoso-7.avif',
     '/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg',
