@@ -4,7 +4,7 @@ import { getProductById, getEffectivePrice, calculateCartTotals } from '@/lib/pr
 import { calculateCouponDiscount, isFirstPurchaseCoupon, normalizeCoupon } from '@/lib/coupons';
 import { getShippingPrice, shouldOfferFreeShipping, FIXED_SHIPPING_PRICE } from '@/lib/shipping';
 import { SITE_DOMAIN } from '@/lib/config';
-import { releaseFirstPurchaseReservation, reserveFirstPurchaseIdentity } from '@/lib/first-purchase';
+import { releaseFirstPurchaseReservation, reserveFirstPurchaseIdentity, registerPurchaseOrder } from '@/lib/first-purchase';
 import type { CartItem } from '@/lib/types';
 
 const INFINITEPAY_HANDLE = process.env.INFINITEPAY_HANDLE || 'ago-trancoso';
@@ -145,6 +145,16 @@ export async function POST(req: Request) {
       if (response.status === 401 || response.status === 403) return NextResponse.json({ error: 'O Checkout Integrado da InfinitePay não está habilitado ou a InfiniteTag configurada não tem acesso ao checkout.' }, { status: 502 });
       const detail = typeof data?.message === 'string' ? data.message : typeof data?.error === 'string' ? data.error : '';
       return NextResponse.json({ error: detail ? `A InfinitePay recusou a criação do pagamento: ${detail}` : 'Não foi possível iniciar o pagamento pela InfinitePay. Tente novamente.' }, { status: 502 });
+    }
+
+    if (!firstPurchaseOrder) {
+      await registerPurchaseOrder({
+        orderNsu,
+        email: customer.email,
+        phone: customer.phone,
+        document: customer.document,
+        expectedAmountCents,
+      }).catch((historyError) => console.error('Purchase history registration error:', historyError));
     }
 
     return NextResponse.json({ orderId: orderNsu, checkoutUrl: data.url, subtotal, discount, discountedSubtotal, shippingValue, total: Number((discountedSubtotal + shippingValue).toFixed(2)) });
