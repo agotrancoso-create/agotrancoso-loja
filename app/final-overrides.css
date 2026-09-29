@@ -15,6 +15,16 @@
   color: #fbf1e1 !important;
 }
 
+/* O campo usa superfície clara, então texto e placeholder permanecem escuros. */
+.site-header .header-search {
+  color: #3d2a22 !important;
+}
+
+.site-header .header-search::placeholder {
+  color: #685043 !important;
+  opacity: 1 !important;
+}
+
 /* Barra de categorias segue neutra e quente. */
 .ago-category-bar {
   background: #e3cba7 !important;
