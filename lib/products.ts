@@ -3,11 +3,11 @@ import { Product, Category, CartItem } from './types';
 
 const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
   'igreja-quadrado-p': [
-    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/igreja-quadrado-p.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ],
   'igrejinha-luminaria-trancoso': [
-    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
   ],
   'casal-pretos-velhos': [
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
@@ -38,6 +38,10 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
   ],
 };
 
+const PRODUCT_NAME_CORRECTIONS: Record<string, string> = {
+  'miniatura-quadrado-trancoso': 'Miniatura do Quadrado de Trancoso',
+};
+
 const PRODUCT_DESCRIPTION_CORRECTIONS: Record<string, string> = {
   'igreja-quadrado-m': 'Inspirada na tradicional Igrejinha do Quadrado, esta peça em cerâmica leva para a decoração um dos símbolos mais marcantes de Trancoso. Em tamanho M, é uma representação delicada da arquitetura que torna esse lugar tão especial.',
   'mobile-trancoso': 'Móbile feito à mão em cerâmica, com casinhas penduradas em fio resistente. Cria movimento suave com a brisa e leva um toque de Trancoso para o ambiente.',
@@ -46,6 +50,11 @@ const PRODUCT_DESCRIPTION_CORRECTIONS: Record<string, string> = {
   'terco-em-ceramica': 'Terço artesanal com contas de cerâmica branca enfileiradas e cruz no final. Composição clássica, ideal para devoção ou como peça decorativa religiosa.',
   'esfera-decorativa': 'Bola decorativa de cerâmica, com design minimalista. Pode ser usada sobre suportes ou mesas e traz simplicidade sofisticada à decoração.',
   'ima-igrejinha-trancoso': 'Ímã artesanal em cerâmica representando a Igreja de São João Batista, no Quadrado de Trancoso. Pintado à mão, é uma lembrança delicada para levar um símbolo de Trancoso para o dia a dia.',
+  'miniatura-quadrado-trancoso': 'Representação artesanal do charmoso Quadrado de Trancoso em cerâmica, com acabamento colorido. Pode ser pendurada na parede ou apoiada sobre aparadores, estantes, prateleiras e outras superfícies para compor a decoração.',
+};
+
+const PRODUCT_IMAGE_ALT_CORRECTIONS: Record<string, string> = {
+  'miniatura-quadrado-trancoso': 'Miniatura do Quadrado de Trancoso em cerâmica para pendurar ou apoiar na decoração',
 };
 
 const PRODUCT_DIMENSIONS_CORRECTIONS: Record<string, string> = {
@@ -61,10 +70,11 @@ function normalizeProduct(product: Product): Product {
   const images = Array.from(new Set(source.filter(Boolean)));
   return {
     ...product,
+    name: PRODUCT_NAME_CORRECTIONS[product.id] ?? product.name,
     description: PRODUCT_DESCRIPTION_CORRECTIONS[product.id] ?? product.description,
     dimensions: PRODUCT_DIMENSIONS_CORRECTIONS[product.id] ?? product.dimensions,
     images: images.length ? images : ['/images/placeholder.svg'],
-    imageAlt: product.imageAlt || product.name,
+    imageAlt: PRODUCT_IMAGE_ALT_CORRECTIONS[product.id] ?? product.imageAlt || product.name,
   };
 }
 
