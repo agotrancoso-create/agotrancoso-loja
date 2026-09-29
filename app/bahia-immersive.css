@@ -194,15 +194,14 @@
   transform: translate3d(0, var(--ago-photo-shift, 0px), 0) scale(1.075) !important;
 }
 
-.ago-immersive-reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity .8s ease, transform .9s cubic-bezier(.2,.72,.2,1) !important;
-}
-
+/* Fail-safe first: reveal classes never control content visibility.
+   Motion is enhancement only; if JavaScript or an observer fails, the page stays readable. */
+.ago-immersive-reveal,
 .ago-immersive-reveal.is-revealed {
   opacity: 1;
-  transform: translateY(0);
+  visibility: visible;
+  transform: none;
+  transition: none !important;
 }
 
 /* CEP feedback: explicit enough that the customer knows the lookup worked. */
@@ -290,5 +289,6 @@
 
   .ago-immersive-reveal {
     opacity: 1 !important;
+    visibility: visible !important;
   }
 }
