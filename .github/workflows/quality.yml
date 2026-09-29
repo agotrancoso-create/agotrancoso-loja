@@ -44,7 +44,21 @@ jobs:
         run: npm run qa:commerce
 
       - name: Production build
-        run: npm run build
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2; do
+            echo "Production build attempt $attempt/2"
+            if npm run build; then
+              exit 0
+            fi
+            if [ "$attempt" -eq 1 ]; then
+              echo "Build failed once; clearing .next and retrying to tolerate transient next/font network failures."
+              rm -rf .next
+              sleep 2
+            fi
+          done
+          exit 1
 
       - name: Install browser QA runtime
         run: |
