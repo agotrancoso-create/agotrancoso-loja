@@ -31,9 +31,10 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
     '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg',
     '/produtos/catalogo/ima-igrejinha-trancoso-conjunto.jpg',
   ],
-  // Mantém somente arquivos de imagem válidos na experiência pública.
+  // Ordem pensada para chamar atenção e incentivar o swipe antes da compra.
   'miniatura-quadrado-trancoso': [
     '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg',
+    '/produtos/catalogo/miniatura-quadrado-trancoso-6.webp',
     '/produtos/catalogo/miniatura-quadrado-trancoso-7.avif',
     '/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg',
