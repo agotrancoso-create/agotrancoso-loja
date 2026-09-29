@@ -30,7 +30,9 @@ const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','
  p=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
  await p.addInitScript(()=>{localStorage.setItem('ago_privacy_consent_v1','essential');});
  await p.route('**/api/first-purchase/eligibility', r=>r.fulfill({status:200,contentType:'application/json',body:'{"available":true}'}));
- await p.clock.install();await p.goto('http://127.0.0.1:3100/',{waitUntil:'domcontentloaded'});
+ await p.clock.install();
+ const eligibilityReady=p.waitForResponse(r=>r.url().includes('/api/first-purchase/eligibility')&&r.request().method()==='GET');
+ await p.goto('http://127.0.0.1:3100/',{waitUntil:'domcontentloaded'});await eligibilityReady;await p.clock.fastForward(100);
  await p.getByRole('button',{name:'Abrir menu',exact:true}).click();await p.keyboard.press('Escape');
  await p.evaluate(()=>window.scrollTo(0,document.documentElement.scrollHeight*.6));
  await p.clock.fastForward(31000);
