@@ -51,7 +51,7 @@ const PRODUCT_DESCRIPTION_CORRECTIONS: Record<string, string> = {
   'igreja-quadrado-gg': 'Escultura em cerâmica inspirada na Igreja de São João Batista, no Quadrado de Trancoso. Modelada à mão, reproduz com fidelidade a arquitetura e os detalhes que tornam esse cartão-postal um dos símbolos mais conhecidos da Bahia. A peça também funciona como luminária, criando uma luz ambiente acolhedora.',
   'mobile-trancoso': 'Móbile feito à mão em cerâmica, com casinhas penduradas em fio resistente. Cria movimento suave com a brisa e leva um toque de Trancoso para o ambiente.',
   'estatueta-iemanja': 'Escultura artesanal de Iemanjá em cerâmica, com detalhes delicados. Ideal para altar ou para compor ambientes de fé e devoção.',
-  'casal-pretos-velhos': 'Dupla de estatuetas em cerâmica representando um casal de Pretos-Velhos. Os detalhes das vestimentas, do banco e do cachimbo são modelados à mão. Uma peça ligada à memória, à sabedoria e à proteção.',
+  'casal-pretos-velhos': 'Dupla de estatuetas em cerâmica representando um casal de Pretos-Velhos, disponível na Agô Trancoso, no Quadrado de Trancoso, Bahia. Os detalhes das vestimentas, do banco e do cachimbo são modelados à mão. Uma peça ligada à memória, à sabedoria e à proteção.',
   'terco-em-ceramica': 'Terço artesanal com contas de cerâmica branca enfileiradas e cruz no final. Composição clássica, ideal para devoção ou como peça decorativa religiosa.',
   'esfera-decorativa': 'Bola decorativa de cerâmica, com design minimalista. Pode ser usada sobre suportes ou mesas e traz simplicidade sofisticada à decoração.',
   'ima-igrejinha-trancoso': 'Ímã artesanal em cerâmica representando a Igreja de São João Batista, no Quadrado de Trancoso. Pintado à mão, é uma lembrança delicada para levar um símbolo de Trancoso para o dia a dia.',
@@ -60,6 +60,7 @@ const PRODUCT_DESCRIPTION_CORRECTIONS: Record<string, string> = {
 
 const PRODUCT_IMAGE_ALT_CORRECTIONS: Record<string, string> = {
   'miniatura-quadrado-trancoso': 'Miniatura do Quadrado de Trancoso em cerâmica para pendurar ou apoiar na decoração',
+  'casal-pretos-velhos': 'Casal de Pretos-Velhos em cerâmica artesanal da Agô Trancoso, Bahia',
 };
 
 const PRODUCT_DIMENSIONS_CORRECTIONS: Record<string, string> = {
