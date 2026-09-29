@@ -1,14 +1,51 @@
-export type CheckoutCustomer = { name: string; email: string; phone: string };
+export type CheckoutCustomer = { name: string; email: string; phone: string; document: string };
 export type CheckoutAddress = { zip: string; street: string; number: string; neighborhood: string; city: string; state: string };
+
 const states = new Set('AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO'.split(' '));
+
+export function normalizeBrazilianDocument(value: unknown) {
+  return String(value ?? '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 14);
+}
+
+function documentDigit(chars: string, weights: number[]) {
+  const sum = chars.split('').reduce((total, char, index) => total + (char.charCodeAt(0) - 48) * weights[index], 0);
+  const remainder = sum % 11;
+  return remainder === 0 || remainder === 1 ? 0 : 11 - remainder;
+}
+
+export function isValidCPF(value: unknown) {
+  const cpf = normalizeBrazilianDocument(value);
+  if (!/^\d{11}$/.test(cpf) || /^(\d)\1{10}$/.test(cpf)) return false;
+
+  const first = documentDigit(cpf.slice(0, 9), [10, 9, 8, 7, 6, 5, 4, 3, 2]);
+  const second = documentDigit(cpf.slice(0, 9) + String(first), [11, 10, 9, 8, 7, 6, 5, 4, 3, 2]);
+  return cpf.endsWith(`${first}${second}`);
+}
+
+export function isValidCNPJ(value: unknown) {
+  const cnpj = normalizeBrazilianDocument(value);
+  if (!/^[A-Z0-9]{12}\d{2}$/.test(cnpj) || /^([A-Z0-9])\1{11}\d{2}$/.test(cnpj)) return false;
+
+  const first = documentDigit(cnpj.slice(0, 12), [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]);
+  const second = documentDigit(cnpj.slice(0, 12) + String(first), [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]);
+  return cnpj.endsWith(`${first}${second}`);
+}
+
+export function isValidBrazilianDocument(value: unknown) {
+  const document = normalizeBrazilianDocument(value);
+  return document.length === 11 ? isValidCPF(document) : document.length === 14 ? isValidCNPJ(document) : false;
+}
+
 export function customerErrors(customer: CheckoutCustomer): Record<string, string> {
   const errors: Record<string, string> = {};
   if (customer.name.trim().length < 2) errors.name = 'Informe seu nome completo.';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customer.email.trim())) errors.email = 'Informe um e-mail válido.';
   const phone = customer.phone.replace(/\D/g, '');
   if (!([10, 11].includes(phone.length) || (phone.startsWith('55') && [12, 13].includes(phone.length)))) errors.phone = 'Informe telefone com DDD, por exemplo (73) 99999-9999.';
+  if (!isValidBrazilianDocument(customer.document)) errors.document = 'Informe um CPF ou CNPJ válido.';
   return errors;
 }
+
 export function addressErrors(address: CheckoutAddress): Record<string, string> {
   const errors: Record<string, string> = {};
   if (!/^\d{8}$/.test(address.zip.replace(/\D/g, ''))) errors.zip = 'Informe um CEP com 8 dígitos.';
