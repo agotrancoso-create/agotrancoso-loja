@@ -3,13 +3,14 @@ import { Product } from './types';
 // Ordem editorial e comercial da vitrine.
 // Prioriza reconhecimento imediato de Trancoso, força visual da fotografia,
 // variedade de formatos, entrada de preço acessível e progressão de ticket.
-// A intenção é fazer o olhar alternar entre peças icônicas, luminárias e presentes,
-// evitando uma sequência visual repetitiva.
+// O Casal de Pretos-Velhos sobe na curadoria para ganhar mais descoberta sem
+// substituir as peças-símbolo de Trancoso no topo da coleção.
 export const ATTENTION_PRODUCT_ORDER = [
   'miniatura-quadrado-trancoso',
   'igreja-quadrado-p',
   'igrejinha-luminaria-trancoso',
   'igreja-quadrado-m',
+  'casal-pretos-velhos',
   'casinha-luminaria',
   'ima-igrejinha-trancoso',
   'colar-igreja-quadrado',
@@ -20,7 +21,6 @@ export const ATTENTION_PRODUCT_ORDER = [
   'estatueta-iemanja',
   'presepio-em-ceramica',
   'nossa-senhora-aparecida',
-  'casal-pretos-velhos',
   'divino-espirito-santo',
   'rosario-trancoso',
   'terco-em-ceramica',
@@ -65,7 +65,7 @@ const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
   'miniatura-quadrado-trancoso': [
     '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-6.webp',
-    '/produtos/catalogo/miniatura-quadrado-trancoso-7.avif',
+    '/produtos/catalogo/miniatura-quadrado-trancoso-7.webp',
     '/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg',
   ],
