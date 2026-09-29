@@ -33,13 +33,7 @@ function buildDiscountedUnits(
     const unitCents = Math.round(line.unitPrice * 100);
     for (let index = 0; index < line.quantity; index += 1) {
       const exactDiscount = totalCents > 0 ? (discountCents * unitCents) / totalCents : 0;
-      units.push({
-        id: line.id,
-        name: line.name,
-        originalCents: unitCents,
-        exactDiscount,
-        discountCents: Math.floor(exactDiscount),
-      });
+      units.push({ id: line.id, name: line.name, originalCents: unitCents, exactDiscount, discountCents: Math.floor(exactDiscount) });
     }
   }
 
@@ -48,17 +42,9 @@ function buildDiscountedUnits(
   units
     .sort((a, b) => (b.exactDiscount - Math.floor(b.exactDiscount)) - (a.exactDiscount - Math.floor(a.exactDiscount)))
     .slice(0, remaining)
-    .forEach((unit) => {
-      unit.discountCents += 1;
-      assigned += 1;
-    });
+    .forEach((unit) => { unit.discountCents += 1; assigned += 1; });
 
-  return units.map((unit) => ({
-    id: unit.id,
-    name: unit.name,
-    price: Math.max(1, unit.originalCents - unit.discountCents),
-    quantity: 1,
-  }));
+  return units.map((unit) => ({ id: unit.id, name: unit.name, price: Math.max(1, unit.originalCents - unit.discountCents), quantity: 1 }));
 }
 
 export async function POST(req: Request) {
@@ -71,53 +57,27 @@ export async function POST(req: Request) {
     const customer = body.customer ?? {};
     const address = customer.address ?? {};
     const validation = {
-      ...customerErrors({
-        name: String(customer.name ?? ''),
-        email: String(customer.email ?? ''),
-        phone: String(customer.phone ?? ''),
-        document: String(customer.document ?? ''),
-      }),
-      ...addressErrors({
-        zip: String(address.zip ?? ''),
-        street: String(address.street ?? ''),
-        number: String(address.number ?? ''),
-        neighborhood: String(address.neighborhood ?? ''),
-        city: String(address.city ?? ''),
-        state: String(address.state ?? ''),
-      }),
+      ...customerErrors({ name: String(customer.name ?? ''), email: String(customer.email ?? ''), phone: String(customer.phone ?? ''), document: String(customer.document ?? '') }),
+      ...addressErrors({ zip: String(address.zip ?? ''), street: String(address.street ?? ''), number: String(address.number ?? ''), neighborhood: String(address.neighborhood ?? ''), city: String(address.city ?? ''), state: String(address.state ?? '') }),
     };
     if (Object.keys(validation).length) return NextResponse.json({ error: Object.values(validation)[0], fields: validation }, { status: 400 });
 
     if (!items.length) return NextResponse.json({ error: 'Sua sacola está vazia.' }, { status: 400 });
-    if (coupon && !isFirstPurchaseCoupon(coupon)) {
-      return NextResponse.json({ error: 'Cupom não encontrado. Confira o código e tente novamente.' }, { status: 400 });
-    }
+    if (coupon && !isFirstPurchaseCoupon(coupon)) return NextResponse.json({ error: 'Cupom não encontrado. Confira o código e tente novamente.' }, { status: 400 });
 
     const normalizedPhone = cleanPhone(customer.phone);
     const normalizedDocument = normalizeBrazilianDocument(customer.document);
-    if (!customer.email || !normalizedPhone) {
-      return NextResponse.json({ error: 'Informe um e-mail e telefone válidos.' }, { status: 400 });
-    }
+    if (!customer.email || !normalizedPhone) return NextResponse.json({ error: 'Informe um e-mail e telefone válidos.' }, { status: 400 });
 
     const totals = calculateCartTotals(items);
-    if (!totals.valid) {
-      return NextResponse.json({ error: totals.errors[0] || 'Não foi possível validar sua sacola.' }, { status: 400 });
-    }
+    if (!totals.valid) return NextResponse.json({ error: totals.errors[0] || 'Não foi possível validar sua sacola.' }, { status: 400 });
 
     const checkoutLines = items.map((item) => {
       const product = getProductById(item.productId);
       const quantity = Number(item.quantity);
-      if (!product || !product.available || !Number.isInteger(quantity) || quantity < 1) {
-        throw new Error(`Produto indisponível: ${item.productId}`);
-      }
+      if (!product || !product.available || !Number.isInteger(quantity) || quantity < 1) throw new Error(`Produto indisponível: ${item.productId}`);
       const unitPrice = getEffectivePrice(product);
-      return {
-        id: product.id,
-        name: product.name,
-        unitPrice,
-        quantity,
-        subtotal: Number((unitPrice * quantity).toFixed(2)),
-      };
+      return { id: product.id, name: product.name, unitPrice, quantity, subtotal: Number((unitPrice * quantity).toFixed(2)) };
     });
 
     const subtotal = Number(totals.total.toFixed(2));
@@ -128,24 +88,13 @@ export async function POST(req: Request) {
 
     const freeShipping = shouldOfferFreeShipping(subtotal);
     const shippingValue = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
-    if (shippingValue !== getShippingPrice(subtotal)) {
-      return NextResponse.json({ error: 'Não foi possível validar o frete. Tente novamente.' }, { status: 422 });
-    }
+    if (shippingValue !== getShippingPrice(subtotal)) return NextResponse.json({ error: 'Não foi possível validar o frete. Tente novamente.' }, { status: 422 });
 
     const destinationCep = cleanCep(address.zip);
-    if (destinationCep.length !== 8) {
-      return NextResponse.json({ error: 'Informe um CEP válido para a entrega.' }, { status: 400 });
-    }
+    if (destinationCep.length !== 8) return NextResponse.json({ error: 'Informe um CEP válido para a entrega.' }, { status: 400 });
 
     const checkoutItems: CheckoutUnit[] = [...discountedUnits];
-    if (shippingValue > 0) {
-      checkoutItems.push({
-        id: 'frete',
-        name: `Frete fixo R$ ${shippingValue.toFixed(2).replace('.', ',')}`,
-        price: Math.round(shippingValue * 100),
-        quantity: 1,
-      });
-    }
+    if (shippingValue > 0) checkoutItems.push({ id: 'frete', name: `Frete fixo R$ ${shippingValue.toFixed(2).replace('.', ',')}`, price: Math.round(shippingValue * 100), quantity: 1 });
 
     const orderPrefix = firstPurchaseOrder ? 'AGO-FP' : 'AGO';
     const orderNsu = `${orderPrefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
@@ -156,45 +105,26 @@ export async function POST(req: Request) {
         orderNsu,
         email: customer.email,
         phone: customer.phone,
+        document: customer.document,
         expectedAmountCents,
         discountCents: Math.round(discount * 100),
       });
-      if (!eligibility.eligible) {
-        return NextResponse.json({ error: eligibility.reason }, { status: 409 });
-      }
+      if (!eligibility.eligible) return NextResponse.json({ error: eligibility.reason }, { status: 409 });
       reservedOrderNsu = orderNsu;
     }
 
     const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || SITE_DOMAIN).replace(/\/$/, '');
     const originalComplement = String(address.complement ?? '').trim();
-    // A API documentada da InfinitePay não possui campo próprio para CPF/CNPJ.
-    // Mantemos o documento exclusivamente nos dados suportados de entrega para que ele acompanhe o pedido.
     const deliveryComplement = [originalComplement, `CPF/CNPJ: ${normalizedDocument}`].filter(Boolean).join(' · ');
 
     const payload = {
       handle: INFINITEPAY_HANDLE,
-      items: checkoutItems.map((item) => ({
-        quantity: item.quantity,
-        price: item.price,
-        description: item.name,
-      })),
+      items: checkoutItems.map((item) => ({ quantity: item.quantity, price: item.price, description: item.name })),
       order_nsu: orderNsu,
       redirect_url: `${siteUrl}/confirmacao?pedido=${encodeURIComponent(orderNsu)}`,
       webhook_url: `${siteUrl}/api/webhooks/infinitepay`,
-      customer: {
-        name: customer.name || undefined,
-        email: customer.email || undefined,
-        phone_number: normalizedPhone,
-      },
-      address: {
-        street: address.street,
-        number: address.number,
-        complement: deliveryComplement,
-        neighborhood: address.neighborhood,
-        city: address.city,
-        state: address.state,
-        cep: destinationCep,
-      },
+      customer: { name: customer.name || undefined, email: customer.email || undefined, phone_number: normalizedPhone },
+      address: { street: address.street, number: address.number, complement: deliveryComplement, neighborhood: address.neighborhood, city: address.city, state: address.state, cep: destinationCep },
     };
 
     const response = await fetch('https://api.checkout.infinitepay.io/links', {
@@ -208,46 +138,22 @@ export async function POST(req: Request) {
 
     if (!response.ok || !data.url) {
       if (reservedOrderNsu) {
-        await releaseFirstPurchaseReservation(reservedOrderNsu).catch((releaseError) => {
-          console.error('First purchase reservation release error:', releaseError);
-        });
+        await releaseFirstPurchaseReservation(reservedOrderNsu).catch((releaseError) => console.error('First purchase reservation release error:', releaseError));
         reservedOrderNsu = '';
       }
-
       console.error('InfinitePay checkout error:', { status: response.status, data });
-      if (response.status === 401 || response.status === 403) {
-        return NextResponse.json({ error: 'O Checkout Integrado da InfinitePay não está habilitado ou a InfiniteTag configurada não tem acesso ao checkout.' }, { status: 502 });
-      }
+      if (response.status === 401 || response.status === 403) return NextResponse.json({ error: 'O Checkout Integrado da InfinitePay não está habilitado ou a InfiniteTag configurada não tem acesso ao checkout.' }, { status: 502 });
       const detail = typeof data?.message === 'string' ? data.message : typeof data?.error === 'string' ? data.error : '';
-      return NextResponse.json({
-        error: detail ? `A InfinitePay recusou a criação do pagamento: ${detail}` : 'Não foi possível iniciar o pagamento pela InfinitePay. Tente novamente.',
-      }, { status: 502 });
+      return NextResponse.json({ error: detail ? `A InfinitePay recusou a criação do pagamento: ${detail}` : 'Não foi possível iniciar o pagamento pela InfinitePay. Tente novamente.' }, { status: 502 });
     }
 
-    return NextResponse.json({
-      orderId: orderNsu,
-      checkoutUrl: data.url,
-      subtotal,
-      discount,
-      discountedSubtotal,
-      shippingValue,
-      total: Number((discountedSubtotal + shippingValue).toFixed(2)),
-    });
+    return NextResponse.json({ orderId: orderNsu, checkoutUrl: data.url, subtotal, discount, discountedSubtotal, shippingValue, total: Number((discountedSubtotal + shippingValue).toFixed(2)) });
   } catch (error) {
-    if (reservedOrderNsu) {
-      await releaseFirstPurchaseReservation(reservedOrderNsu).catch((releaseError) => {
-        console.error('First purchase reservation release error:', releaseError);
-      });
-    }
-
+    if (reservedOrderNsu) await releaseFirstPurchaseReservation(reservedOrderNsu).catch((releaseError) => console.error('First purchase reservation release error:', releaseError));
     console.error('Checkout preparation error:', error);
     const message = error instanceof Error ? error.message : '';
-    if (message === 'FIRST_PURCHASE_STORAGE_NOT_CONFIGURED') {
-      return NextResponse.json({ error: 'O benefício de primeira compra está temporariamente indisponível. Você pode continuar sem o cupom.' }, { status: 503 });
-    }
-    if (message.toLowerCase().includes('timeout') || message.toLowerCase().includes('aborted')) {
-      return NextResponse.json({ error: 'A InfinitePay demorou para responder. Tente novamente em alguns segundos.' }, { status: 504 });
-    }
+    if (message === 'FIRST_PURCHASE_STORAGE_NOT_CONFIGURED') return NextResponse.json({ error: 'O benefício de primeira compra está temporariamente indisponível. Você pode continuar sem o cupom.' }, { status: 503 });
+    if (message.toLowerCase().includes('timeout') || message.toLowerCase().includes('aborted')) return NextResponse.json({ error: 'A InfinitePay demorou para responder. Tente novamente em alguns segundos.' }, { status: 504 });
     return NextResponse.json({ error: 'Não foi possível preparar o pagamento. Tente novamente ou fale conosco pelo WhatsApp.' }, { status: 500 });
   }
 }
