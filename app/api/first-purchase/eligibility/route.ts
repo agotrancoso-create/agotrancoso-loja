@@ -19,7 +19,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const result = await checkFirstPurchaseEligibility({ email: body?.email, phone: body?.phone });
+    const result = await checkFirstPurchaseEligibility({ email: body?.email, phone: body?.phone, document: body?.document });
     return NextResponse.json(result, { status: 200, headers: { 'Cache-Control': 'no-store, max-age=0' } });
   } catch (error) {
     console.error('First purchase eligibility error:', error);
