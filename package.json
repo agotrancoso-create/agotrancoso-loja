@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/normalize-product-images.mjs && node scripts/fix-pretos-velhos-images.mjs && node scripts/audit-catalog.mjs",
+    "prebuild": "node scripts/normalize-product-images.mjs && node scripts/fix-pretos-velhos-images.mjs && node scripts/audit-catalog.mjs && node scripts/verify-recovered-features.cjs",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
@@ -12,7 +12,8 @@
     "qa:commerce": "node scripts/qa-commerce.cjs && node scripts/qa-payment-return.cjs",
     "qa:ui": "node scripts/qa-ui.cjs",
     "qa:analytics": "node scripts/qa-analytics.cjs",
-    "verify": "npm run typecheck && npm run audit:catalog && npm run build",
+    "verify:recovered": "node scripts/verify-recovered-features.cjs",
+    "verify": "npm run typecheck && npm run audit:catalog && npm run verify:recovered && npm run build",
     "lint": "next lint"
   },
   "dependencies": {
