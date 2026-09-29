@@ -159,7 +159,8 @@ async function run() {
   assert.ok((await page.locator('.checkout-total').first().innerText()).includes('539,90'));
   await page.getByRole('button', { name: 'Continuar para entrega' }).first().click();
   assert.equal(await page.locator('#name').getAttribute('aria-invalid'), 'true');
-  for (const [id, value] of Object.entries({ name: 'Pessoa Teste', email: 'teste@example.com', phone: '73999999999' })) await page.locator('#' + id).fill(value);
+  assert.equal(await page.locator('#document').getAttribute('aria-invalid'), 'true');
+  for (const [id, value] of Object.entries({ name: 'Pessoa Teste', email: 'teste@example.com', phone: '73999999999', document: '52998224725' })) await page.locator('#' + id).fill(value);
   await page.getByRole('button', { name: 'Continuar para entrega' }).first().click();
   for (const [id, value] of Object.entries({ zip: '45818000', number: '10', street: 'Rua de Teste', neighborhood: 'Centro', city: 'Porto Seguro', state: 'BA' })) await page.locator('#' + id).fill(value);
   await page.getByRole('button', { name: 'Continuar para benefício' }).first().click();
@@ -180,7 +181,8 @@ async function run() {
   await page.waitForURL('**/handoff-test');
   assert.equal(checkoutPayload.coupon, 'AGO3');
   assert.equal(checkoutPayload.shippingValue, 39.9);
-  results.interactions.push('Checkout validation, coupon, totals and successful mocked InfinitePay handoff verified');
+  assert.equal(checkoutPayload.customer.document, '529.982.247-25');
+  results.interactions.push('Checkout validation, CPF/CNPJ, coupon, totals and successful mocked InfinitePay handoff verified');
 
   assert.deepEqual(results.errors, [], `Uncaught JS errors: ${results.errors.join('; ')}`);
   fs.writeFileSync(`${artifacts}/results.json`, JSON.stringify(results, null, 2));
