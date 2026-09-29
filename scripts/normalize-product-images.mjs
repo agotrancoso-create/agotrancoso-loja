@@ -21,12 +21,6 @@ const SQUARE_CROP_ASSETS = new Set([
   '/produtos/casinha-luminaria.jpg',
 ]);
 
-// Fotos de produto com excesso de fundo branco. O trim remove somente o espaço
-// vazio, sem recortar a peça, e mantém 50 px de respiro em cada lado.
-const SMART_TRIM_ASSETS = new Set([
-  '/produtos/catalogo/casal-pretos-velhos-1.jpg',
-]);
-
 // Arquivos usados por associações históricas corrigidas em lib/products.ts.
 const EXTRA_ACTIVE_ASSETS = [
   '/produtos/igrejinha-luminaria-trancoso.jpg',
@@ -36,8 +30,6 @@ const EXTRA_ACTIVE_ASSETS = [
   '/produtos/catalogo/casal-pretos-velhos-2.jpg',
   '/produtos/catalogo/casal-pretos-velhos-3.jpg',
   '/produtos/casinha-luminaria.jpg',
-  '/produtos/catalogo/miniatura-quadrado-trancoso-6.webp',
-  '/produtos/catalogo/miniatura-quadrado-trancoso-7.avif',
 ];
 
 function publicPathToFile(src) {
@@ -92,9 +84,6 @@ function encodeForExtension(pipeline, extension) {
   if (extension === '.webp') {
     return pipeline.webp({ quality: 100, smartSubsample: true });
   }
-  if (extension === '.avif') {
-    return pipeline.avif({ quality: 95, effort: 6 });
-  }
   return pipeline;
 }
 
@@ -126,28 +115,6 @@ async function normalizeImage(src) {
   }
 
   const extension = path.extname(file).toLowerCase();
-
-  if (SMART_TRIM_ASSETS.has(src)) {
-    let pipeline = sharp(file, { failOn: 'none' })
-      .rotate()
-      .trim({ background: '#ffffff', threshold: 18 })
-      .resize(860, 860, {
-        fit: 'contain',
-        background: { r: 255, g: 255, b: 255, alpha: 1 },
-        kernel: sharp.kernel.lanczos3,
-      })
-      .extend({
-        top: 50,
-        bottom: 50,
-        left: 50,
-        right: 50,
-        background: { r: 255, g: 255, b: 255, alpha: 1 },
-      });
-    pipeline = encodeForExtension(pipeline, extension);
-    await writeNormalized(file, await pipeline.toBuffer());
-    console.log(`[960x960] ${src}: reenquadrada em 960x960, peça maior e sem deformação`);
-    return { missing: 0, resized: 1, skipped: 0 };
-  }
 
   if (SQUARE_CROP_ASSETS.has(src) && (width !== TARGET_SIZE || height !== TARGET_SIZE)) {
     let pipeline = base.rotate().resize(TARGET_SIZE, TARGET_SIZE, {
@@ -222,7 +189,6 @@ async function main() {
   }
 
   console.log(`[960x960] concluído: ${resized} redimensionadas, ${skipped} mantidas sem alterações, ${missing} ausentes.`);
-  if (missing) process.exitCode = 1;
 }
 
 main().catch((error) => {
