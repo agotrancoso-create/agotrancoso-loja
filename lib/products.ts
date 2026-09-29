@@ -48,12 +48,21 @@ const PRODUCT_DESCRIPTION_CORRECTIONS: Record<string, string> = {
   'ima-igrejinha-trancoso': 'Ímã artesanal em cerâmica representando a Igreja de São João Batista, no Quadrado de Trancoso. Pintado à mão, é uma lembrança delicada para levar um símbolo de Trancoso para o dia a dia.',
 };
 
+const PRODUCT_DIMENSIONS_CORRECTIONS: Record<string, string> = {
+  'miniatura-quadrado-trancoso': 'Comprimento: 19 cm · Altura com a cruz da igrejinha do meio: 6,5 cm',
+  'igreja-quadrado-p': 'Altura: 3,5 cm · Largura: 4 cm',
+  'igreja-quadrado-m': 'Altura: 4,5 cm · Largura: 5 cm',
+  'igrejinha-luminaria-trancoso': 'Altura: 6,5 cm · Largura: 7,5 cm',
+  'igreja-quadrado-gg': 'Altura: 16 cm · Largura: 23 cm',
+};
+
 function normalizeProduct(product: Product): Product {
   const source = RECOVERED_PRODUCT_GALLERIES[product.id] ?? product.images ?? [];
   const images = Array.from(new Set(source.filter(Boolean)));
   return {
     ...product,
     description: PRODUCT_DESCRIPTION_CORRECTIONS[product.id] ?? product.description,
+    dimensions: PRODUCT_DIMENSIONS_CORRECTIONS[product.id] ?? product.dimensions,
     images: images.length ? images : ['/images/placeholder.svg'],
     imageAlt: product.imageAlt || product.name,
   };
