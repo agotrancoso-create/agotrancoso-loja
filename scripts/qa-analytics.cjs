@@ -64,8 +64,6 @@ async function run() {
   assert.ok(Number.isInteger(searches.at(-1).ecommerce.result_count));
   pass('catalog search records term and result count');
 
-  // The predictive-search layer intentionally sits over the controls below it while focused.
-  // Close it just as a keyboard user would before testing the separate category-filter action.
   await search.press('Escape');
   await page.getByRole('button', { name: 'Presentes', exact: true }).first().click();
   await waitFor('catalog_filter');
@@ -100,8 +98,6 @@ async function run() {
   assert.equal((await events('add_to_cart')).at(-1).ecommerce.items[0].item_id, selectedId);
   pass('add_to_cart carries product identity');
 
-  // Adding from the PDP may open the cart drawer automatically. Only click the header
-  // trigger when the drawer is still closed so the test reflects either valid UX path.
   const cartDrawer = page.locator('.cart-drawer').first();
   const cartButton = page.getByRole('button', { name: /Abrir sacola/ }).first();
   if ((await cartDrawer.getAttribute('aria-hidden')) !== 'false') {
@@ -121,7 +117,7 @@ async function run() {
   assert.ok(begin.ecommerce.items.length >= 1);
   pass('begin_checkout records value and line items');
 
-  for (const [id, value] of Object.entries({ name: 'Pessoa Teste', email: 'qa-analytics@example.com', phone: '73999999999' })) await page.locator('#' + id).fill(value);
+  for (const [id, value] of Object.entries({ name: 'Pessoa Teste', email: 'qa-analytics@example.com', phone: '73999999999', document: '52998224725' })) await page.locator('#' + id).fill(value);
   await page.getByRole('button', { name: 'Continuar para entrega' }).first().click();
   for (const [id, value] of Object.entries({ zip: '45818000', number: '10', street: 'Rua Teste', neighborhood: 'Centro', city: 'Porto Seguro', state: 'BA' })) await page.locator('#' + id).fill(value);
   await page.getByRole('button', { name: 'Continuar para benefício' }).first().click();
