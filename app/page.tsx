@@ -87,7 +87,7 @@ export default function HomePage() {
             {discovery.map((item) => (
               <Link key={item.category} href={`/produtos?categoria=${item.category}`} className="ago-premium-discovery-card">
                 <div className="ago-premium-discovery-image">
-                  <Image src={item.image} alt={item.title} fill quality={100} sizes="(max-width: 767px) 50vw, 25vw" className="ago-parallax-photo" />
+                  <Image src={item.image} alt="" fill quality={100} sizes="(max-width: 767px) 50vw, 25vw" className="ago-parallax-photo" />
                 </div>
                 <div className="ago-premium-discovery-copy"><span>{item.title}</span></div>
               </Link>
