@@ -15,7 +15,7 @@ require.cache[identityPath] = { id:identityPath, filename:identityPath, loaded:t
 const {POST} = require('../app/api/create-checkout/route.ts');
 const {getAllProducts} = require('../lib/products.ts');
 const {shouldOfferFreeShipping} = require('../lib/shipping.ts');
-const {isValidCPF,isValidCNPJ} = require('../lib/checkout-validation.ts');
+const {isValidCPF,isValidCNPJ,getBrazilianDocumentType} = require('../lib/checkout-validation.ts');
 let payload, fail=false;
 global.fetch = async(url,options) => {
   assert.equal(url,'https://api.checkout.infinitepay.io/links');
@@ -29,9 +29,15 @@ async function checkout(items,coupon='',overrides={}) {
 }
 (async()=>{
   assert.equal(isValidCPF('529.982.247-25'),true);
+  assert.equal(getBrazilianDocumentType('529.982.247-25'),'CPF');
   assert.equal(isValidCPF('111.111.111-11'),false);
   assert.equal(isValidCNPJ('11.222.333/0001-81'),true);
+  assert.equal(getBrazilianDocumentType('11.222.333/0001-81'),'CNPJ');
   assert.equal(isValidCNPJ('12.ABC.345/01DE-35'),true);
+  // Primeiro CNPJ alfanumérico oficial gerado pela Receita Federal em 31/07/2026.
+  assert.equal(isValidCNPJ('00.000.000/E08G-12'),true);
+  assert.equal(getBrazilianDocumentType('00.000.000/E08G-12'),'CNPJ');
+  assert.equal(isValidCNPJ('00.000.000/E08G-13'),false);
   assert.equal(shouldOfferFreeShipping(500),false);assert.equal(shouldOfferFreeShipping(500.01),true);
   let cases=0;
   for (const price of [50,250,8500]) for (const quantity of [1,4,12]) for(const coupon of ['', 'AGO3']) {
@@ -52,9 +58,9 @@ async function checkout(items,coupon='',overrides={}) {
   assert.equal((await checkout([{productId:id,quantity:1}],'',{customer:{...customer,email:'bad'}})).status,400);
   assert.equal((await checkout([{productId:id,quantity:1}],'',{customer:{...customer,document:'11111111111'}})).status,400);
   assert.equal((await checkout([{productId:id,quantity:1}],'',{customer:{...customer,address:{...customer.address,state:'ZZ'}}})).status,400);
-  const alpha = await checkout([{productId:id,quantity:1}],'',{customer:{...customer,document:'12.ABC.345/01DE-35'}});
-  assert.equal(alpha.status,200);assert.equal(payload.address.complement,'CPF/CNPJ: 12ABC34501DE35');
+  const alpha = await checkout([{productId:id,quantity:1}],'',{customer:{...customer,document:'00.000.000/E08G-12'}});
+  assert.equal(alpha.status,200);assert.equal(payload.address.complement,'CPF/CNPJ: 00000000E08G12');
   eligible=false;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,409);eligible=true;
   fail=true;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,502);assert.equal(releases,1);
-  console.log(`PASS ${cases} price/quantity/coupon combinations, CPF/CNPJ validation, alphanumeric CNPJ, cent allocation, shipping boundary, identity rejection, invalid data, provider failure`);
+  console.log(`PASS ${cases} price/quantity/coupon combinations, CPF/CNPJ validation, official alphanumeric CNPJ, cent allocation, shipping boundary, identity rejection, invalid data, provider failure`);
 })().catch(error=>{console.error(error);process.exitCode=1});
