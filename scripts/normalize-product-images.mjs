@@ -15,6 +15,12 @@ const RETIRED_ASSETS = new Set([
 // Casos que devam permanecer byte-a-byte podem ser adicionados aqui.
 const KEEP_ORIGINAL_ASSETS = new Set([]);
 
+// Fotos aprovadas que devem preencher o quadro 960 × 960 sem faixas laterais.
+// O recorte é limitado ao fundo excedente e mantém a peça centralizada, sem esticar.
+const SQUARE_CROP_ASSETS = new Set([
+  '/produtos/casinha-luminaria.jpg',
+]);
+
 // Arquivos usados por associações históricas corrigidas em lib/products.ts.
 const EXTRA_ACTIVE_ASSETS = [
   '/produtos/igrejinha-luminaria-trancoso.jpg',
@@ -68,6 +74,25 @@ async function cornerColor(image, width, height) {
   return { r: average[0], g: average[1], b: average[2], alpha: 1 };
 }
 
+function encodeForExtension(pipeline, extension) {
+  if (extension === '.jpg' || extension === '.jpeg') {
+    return pipeline.jpeg({ quality: 100, chromaSubsampling: '4:4:4', mozjpeg: true });
+  }
+  if (extension === '.png') {
+    return pipeline.png({ compressionLevel: 9, adaptiveFiltering: true });
+  }
+  if (extension === '.webp') {
+    return pipeline.webp({ quality: 100, smartSubsample: true });
+  }
+  return pipeline;
+}
+
+async function writeNormalized(file, output) {
+  const temp = `${file}.ago-960.tmp`;
+  await fs.writeFile(temp, output);
+  await fs.rename(temp, file);
+}
+
 async function normalizeImage(src) {
   const file = publicPathToFile(src);
   if (!(await fileExists(file))) {
@@ -85,10 +110,28 @@ async function normalizeImage(src) {
     return { missing: 1, resized: 0, skipped: 0 };
   }
 
+  if (KEEP_ORIGINAL_ASSETS.has(src)) {
+    return { missing: 0, resized: 0, skipped: 1 };
+  }
+
+  const extension = path.extname(file).toLowerCase();
+
+  if (SQUARE_CROP_ASSETS.has(src) && (width !== TARGET_SIZE || height !== TARGET_SIZE)) {
+    let pipeline = base.rotate().resize(TARGET_SIZE, TARGET_SIZE, {
+      fit: 'cover',
+      position: 'centre',
+      kernel: sharp.kernel.lanczos3,
+    });
+    pipeline = encodeForExtension(pipeline, extension);
+    await writeNormalized(file, await pipeline.toBuffer());
+    console.log(`[960x960] ${src}: ${width}x${height} -> ${TARGET_SIZE}x${TARGET_SIZE} (preenchimento integral, sem deformar)`);
+    return { missing: 0, resized: 1, skipped: 0 };
+  }
+
   // Uma imagem só está pronta quando tem exatamente 960 × 960. Antes, arquivos
   // quadrados de qualquer tamanho eram ignorados, o que deixava dimensões
   // inconsistentes na produção.
-  if ((width === TARGET_SIZE && height === TARGET_SIZE) || KEEP_ORIGINAL_ASSETS.has(src)) {
+  if (width === TARGET_SIZE && height === TARGET_SIZE) {
     return { missing: 0, resized: 0, skipped: 1 };
   }
 
@@ -113,20 +156,10 @@ async function normalizeImage(src) {
   if (bottom) layers.push({ input: await edge.clone().extract({ left: 0, top: info.height - 1, width: info.width, height: 1 }).resize(info.width, bottom, { kernel: 'nearest' }).toBuffer(), left, top: top + info.height });
 
   let pipeline = sharp({ create: { width: TARGET_SIZE, height: TARGET_SIZE, channels: 3, background } }).composite(layers);
-
-  const extension = path.extname(file).toLowerCase();
-  if (extension === '.jpg' || extension === '.jpeg') {
-    pipeline = pipeline.jpeg({ quality: 100, chromaSubsampling: '4:4:4', mozjpeg: true });
-  } else if (extension === '.png') {
-    pipeline = pipeline.png({ compressionLevel: 9, adaptiveFiltering: true });
-  } else if (extension === '.webp') {
-    pipeline = pipeline.webp({ quality: 100, smartSubsample: true });
-  }
+  pipeline = encodeForExtension(pipeline, extension);
 
   const output = await pipeline.toBuffer();
-  const temp = `${file}.ago-960.tmp`;
-  await fs.writeFile(temp, output);
-  await fs.rename(temp, file);
+  await writeNormalized(file, output);
   console.log(`[960x960] ${src}: ${width}x${height} -> ${TARGET_SIZE}x${TARGET_SIZE} (qualidade máxima)`);
   return { missing: 0, resized: 1, skipped: 0 };
 }
