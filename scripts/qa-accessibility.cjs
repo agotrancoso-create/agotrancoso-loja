@@ -28,7 +28,7 @@ const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','
   }
  }
  p=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
- await p.addInitScript(()=>{localStorage.setItem('ago_privacy_consent_v1','essential');});
+ await p.addInitScript(()=>{localStorage.removeItem('ago_primeira_compra_v3_vista');localStorage.removeItem('ago_primeira_compra_v3_cadastro');localStorage.setItem('ago_privacy_consent_v1','essential');});
  await p.route('**/api/first-purchase/eligibility', r=>r.fulfill({status:200,contentType:'application/json',body:'{"available":true}'}));
  await p.goto('http://127.0.0.1:3100/',{waitUntil:'domcontentloaded'});
  await p.getByRole('button',{name:'Abrir menu',exact:true}).waitFor();
