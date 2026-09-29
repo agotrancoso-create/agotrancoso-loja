@@ -49,9 +49,11 @@ export function sortProductsByAttention<T extends Product>(products: T[]): T[] {
  * galeria.
  */
 const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
+  // A foto de catálogo é a capa aprovada da Igrejinha P. A outra imagem fica
+  // apenas como vista complementar para evitar confusão com a luminária.
   'igreja-quadrado-p': [
-    '/produtos/igreja-quadrado-p.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
+    '/produtos/igreja-quadrado-p.jpg',
   ],
   'casinha-luminaria': [
     '/produtos/catalogo/casinha-luminaria-1.jpg',
