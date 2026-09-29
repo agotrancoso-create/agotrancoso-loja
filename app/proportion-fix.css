@@ -1,43 +1,99 @@
 /* Agô Trancoso — ajuste de proporção das seções.
-   Mantém identidade e conteúdo; corrige apenas ritmo vertical e escala visual. */
+   Mantém identidade e conteúdo; corrige apenas ritmo vertical, escala visual
+   e paridade cromática entre desktop e mobile. */
 
-.ago-home .ago-premium-editorial,
-.ago-home .ago-premium-discovery,
-.ago-home .ago-bahia-visit {
-  padding-block: clamp(64px, 7vw, 104px) !important;
+/* Paleta final: os mesmos tons precisam aparecer em qualquer viewport. */
+.site-header {
+  background: linear-gradient(90deg, #674739 0%, #765242 50%, #674739 100%) !important;
 }
 
-.ago-home .ago-shipping-chapter {
-  padding-block: clamp(48px, 5.5vw, 78px) !important;
+.ago-topbar {
+  background: #442b21 !important;
+}
+
+.ago-category-bar {
+  background: #ead5b7 !important;
 }
 
 .ago-home .ago-cinematic-products {
-  padding-top: clamp(52px, 6vw, 88px) !important;
-  padding-bottom: clamp(64px, 7vw, 104px) !important;
+  background: rgba(252, 249, 244, .98) !important;
 }
 
-.ago-home .ago-premium-section-head,
-.ago-home .ago-cinematic-products-head {
-  margin-bottom: clamp(28px, 3.5vw, 48px) !important;
+.ago-home .ago-premium-editorial,
+.ago-home-story {
+  background: #e5c5a0 !important;
 }
 
-.ago-home .ago-premium-split {
-  align-items: center !important;
-  gap: clamp(36px, 6vw, 88px) !important;
+.ago-home .ago-premium-discovery {
+  background: #f5eadb !important;
 }
 
-.ago-home .ago-story-image {
-  min-height: 0 !important;
-  aspect-ratio: 4 / 3 !important;
+.ago-home .ago-shipping-chapter {
+  background: #fbf6ef !important;
 }
 
-.ago-home .ago-premium-discovery-image {
-  aspect-ratio: 1 / 1 !important;
-  min-height: 0 !important;
+.ago-home .ago-bahia-visit {
+  background: linear-gradient(112deg, #8b5038 0%, #74412f 58%, #5f3428 100%) !important;
 }
 
-.ago-home .ago-shipping-chapter-inner {
-  gap: clamp(28px, 5vw, 72px) !important;
+.site-footer,
+.ago-site-footer {
+  background: #36251e !important;
+  border-top: 0 !important;
+  box-shadow: none !important;
+}
+
+.ago-home .ago-bahia-visit {
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+.contact-page,
+.essencia-page {
+  background: #fffdfa !important;
+}
+
+/* Desktop: reduz excesso de altura e deixa os capítulos com cadência mais
+   proporcional sem achatar o conteúdo nem mudar a estrutura da home. */
+@media (min-width: 901px) {
+  .ago-home .ago-premium-editorial,
+  .ago-home .ago-premium-discovery,
+  .ago-home .ago-bahia-visit {
+    padding-block: clamp(60px, 4.5vw, 82px) !important;
+  }
+
+  .ago-home .ago-shipping-chapter {
+    padding-block: clamp(38px, 3.1vw, 54px) !important;
+  }
+
+  .ago-home .ago-cinematic-products {
+    padding-top: clamp(48px, 4vw, 70px) !important;
+    padding-bottom: clamp(60px, 4.8vw, 84px) !important;
+  }
+
+  .ago-home .ago-premium-section-head,
+  .ago-home .ago-cinematic-products-head {
+    margin-bottom: clamp(26px, 2.5vw, 36px) !important;
+  }
+
+  .ago-home .ago-premium-split {
+    align-items: center !important;
+    gap: clamp(40px, 5vw, 72px) !important;
+  }
+
+  .ago-home .ago-story-image {
+    min-height: 0 !important;
+    aspect-ratio: 16 / 10 !important;
+  }
+
+  .ago-home .ago-premium-discovery-image {
+    aspect-ratio: 1 / 1 !important;
+    min-height: 0 !important;
+  }
+
+  .ago-home .ago-shipping-chapter-inner {
+    gap: clamp(28px, 4vw, 58px) !important;
+  }
 }
 
 /* Falha segura: nenhuma seção principal pode desaparecer por causa de animação. */
@@ -84,7 +140,19 @@
   -webkit-filter: none !important;
 }
 
+/* O separador entre capítulos não deve aparecer na transição para o rodapé. */
+.site-footer::before,
+.ago-site-footer::before {
+  content: none !important;
+  display: none !important;
+}
+
 @media (max-width: 900px) {
+  /* Apenas layout muda no mobile; a paleta acima permanece idêntica. */
+  .site-header {
+    background: linear-gradient(90deg, #674739 0%, #765242 50%, #674739 100%) !important;
+  }
+
   .ago-home .ago-premium-editorial,
   .ago-home .ago-premium-discovery,
   .ago-home .ago-bahia-visit {
