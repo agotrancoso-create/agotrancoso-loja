@@ -7,25 +7,20 @@ const PUBLIC_DIR = path.join(ROOT, 'public');
 const PRODUCTS_JSON = path.join(ROOT, 'data', 'products.json');
 const TARGET_SIZE = 960;
 
-// Assets antigos ou incorretos que não devem voltar à experiência ativa.
 const RETIRED_ASSETS = new Set([
   '/produtos/galeria/ima-igrejinha-trancoso-2.jpg',
 ]);
 
 const KEEP_ORIGINAL_ASSETS = new Set([]);
 
-// Fotos que devem preencher o quadro sem deformar.
 const SQUARE_CROP_ASSETS = new Set([
   '/produtos/casinha-luminaria.jpg',
 ]);
 
-// Fotos com excesso de fundo branco. O trim remove somente o fundo excedente,
-// preserva a peça e a reenquadra com respiro dentro do quadro 960 x 960.
 const SMART_TRIM_ASSETS = new Set([
   '/produtos/catalogo/casal-pretos-velhos-1.jpg',
 ]);
 
-// Arquivos usados por associações históricas corrigidas em lib/products.ts.
 const EXTRA_ACTIVE_ASSETS = [
   '/produtos/igrejinha-luminaria-trancoso.jpg',
   '/produtos/igreja-quadrado-p.jpg',
@@ -46,15 +41,20 @@ async function fileExists(file) {
   try { await fs.access(file); return true; } catch { return false; }
 }
 
+async function writeNormalized(file, output) {
+  const temp = `${file}.ago-960.tmp`;
+  await fs.writeFile(temp, output);
+  await fs.rename(temp, file);
+}
+
 async function decodeAccidentalBase64Image(file, src) {
   const raw = await fs.readFile(file);
+
   try {
-    await sharp(raw, { failOn: 'none' }).metadata();
-    return raw;
+    const metadata = await sharp(raw, { failOn: 'none' }).metadata();
+    if (metadata.width && metadata.height) return raw;
   } catch {}
 
-  // Algumas imagens enviadas pela API do GitHub podem ter sido gravadas como o
-  // texto base64 da imagem. Detectamos esse caso e recuperamos os bytes reais.
   const text = raw.toString('utf8').replace(/\s+/g, '');
   if (!/^[A-Za-z0-9+/=]+$/.test(text) || text.length < 100) return raw;
 
@@ -62,9 +62,19 @@ async function decodeAccidentalBase64Image(file, src) {
   try {
     const metadata = await sharp(decoded, { failOn: 'none' }).metadata();
     if (!metadata.width || !metadata.height) return raw;
-    await writeNormalized(file, decoded);
-    console.log(`[imagem] ${src}: base64 textual recuperado para imagem binária (${metadata.width}x${metadata.height})`);
-    return decoded;
+
+    const extension = path.extname(file).toLowerCase();
+    let output = decoded;
+    // Garante que os bytes realmente correspondam à extensão/MIME publicada.
+    if (extension === '.webp') output = await sharp(decoded).webp({ quality: 100, smartSubsample: true }).toBuffer();
+    else if (extension === '.avif') output = await sharp(decoded).avif({ quality: 95, effort: 6 }).toBuffer();
+    else if (extension === '.jpg' || extension === '.jpeg') output = await sharp(decoded).jpeg({ quality: 100, chromaSubsampling: '4:4:4', mozjpeg: true }).toBuffer();
+    else if (extension === '.png') output = await sharp(decoded).png({ compressionLevel: 9, adaptiveFiltering: true }).toBuffer();
+
+    await writeNormalized(file, output);
+    const repaired = await sharp(output, { failOn: 'none' }).metadata();
+    console.log(`[imagem] ${src}: base64 textual recuperado para ${extension || 'imagem'} binário (${repaired.width}x${repaired.height})`);
+    return output;
   } catch {
     return raw;
   }
@@ -97,12 +107,6 @@ function encodeForExtension(pipeline, extension) {
   if (extension === '.webp') return pipeline.webp({ quality: 100, smartSubsample: true });
   if (extension === '.avif') return pipeline.avif({ quality: 95, effort: 6 });
   return pipeline;
-}
-
-async function writeNormalized(file, output) {
-  const temp = `${file}.ago-960.tmp`;
-  await fs.writeFile(temp, output);
-  await fs.rename(temp, file);
 }
 
 async function normalizeImage(src) {
