@@ -13,15 +13,15 @@ const RETIRED_MINIATURA_IMAGES = new Set([
   '/produtos/catalogo/miniatura-quadrado-trancoso-3.jpg',
 ]);
 
-// Essas associações são visuais e foram conferidas pela proprietária. Os nomes
-// históricos dos arquivos P/Luminária estão invertidos e não devem ditar a capa.
+// Associações aprovadas pela proprietária. Não inferir produto pelo conteúdo ou
+// nome histórico de outro arquivo: estas galerias são contrato de regressão.
 const RUNTIME_GALLERIES = new Map([
   ['igreja-quadrado-p', [
-    '/produtos/igrejinha-luminaria-trancoso.jpg',
+    '/produtos/igreja-quadrado-p.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ]],
   ['igrejinha-luminaria-trancoso', [
-    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
   ]],
   ['miniatura-quadrado-trancoso', [
     '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg',
@@ -33,8 +33,8 @@ const RUNTIME_GALLERIES = new Map([
 ]);
 
 const EXPECTED_COVER_IMAGES = new Map([
-  ['igreja-quadrado-p', '/produtos/igrejinha-luminaria-trancoso.jpg'],
-  ['igrejinha-luminaria-trancoso', '/produtos/igreja-quadrado-p.jpg'],
+  ['igreja-quadrado-p', '/produtos/igreja-quadrado-p.jpg'],
+  ['igrejinha-luminaria-trancoso', '/produtos/igrejinha-luminaria-trancoso.jpg'],
   ['miniatura-quadrado-trancoso', '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg'],
 ]);
 
@@ -82,9 +82,11 @@ for (const product of products) {
   const expectedCover = EXPECTED_COVER_IMAGES.get(id);
   if (expectedCover && images[0] !== expectedCover) issues.push(`${id}: capa incorreta; esperado ${expectedCover}, encontrado ${images[0]}`);
 
-  if (id === 'miniatura-quadrado-trancoso') {
-    const expected = RUNTIME_GALLERIES.get(id);
-    if (!expected?.every((image, index) => images[index] === image)) issues.push(`${id}: ordem aprovada da galeria foi alterada`);
+  const expectedGallery = RUNTIME_GALLERIES.get(id);
+  if (expectedGallery) {
+    if (images.length !== expectedGallery.length || !expectedGallery.every((image, index) => images[index] === image)) {
+      issues.push(`${id}: galeria aprovada foi alterada`);
+    }
   }
 
   const gallerySeen = new Set();
@@ -119,4 +121,4 @@ if (issues.length) {
 
 console.log(`[catalog-audit] OK: ${products.length} produtos, ${categories.length} categorias, ${referencedImages.size} imagens ativas, todas ${EXPECTED_IMAGE_SIZE}x${EXPECTED_IMAGE_SIZE}.`);
 console.log('[catalog-audit] Miniatura do Quadrado: novas fotos existem e ordem aprovada está protegida.');
-console.log('[catalog-audit] Igrejinha P e Igrejinha Luminaria: associacoes visuais corretas e protegidas contra troca.');
+console.log('[catalog-audit] Igrejinha P e Igrejinha Luminaria: galerias corretas e protegidas contra troca.');
