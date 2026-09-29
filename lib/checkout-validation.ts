@@ -1,5 +1,6 @@
 export type CheckoutCustomer = { name: string; email: string; phone: string; document: string };
 export type CheckoutAddress = { zip: string; street: string; number: string; neighborhood: string; city: string; state: string };
+export type BrazilianDocumentType = 'CPF' | 'CNPJ' | null;
 
 const states = new Set('AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO'.split(' '));
 
@@ -8,6 +9,8 @@ export function normalizeBrazilianDocument(value: unknown) {
 }
 
 function documentDigit(chars: string, weights: number[]) {
+  // Regra oficial do CNPJ alfanumérico: para letras, usa-se o valor ASCII - 48.
+  // Para dígitos, a mesma operação preserva o valor numérico tradicional.
   const sum = chars.split('').reduce((total, char, index) => total + (char.charCodeAt(0) - 48) * weights[index], 0);
   const remainder = sum % 11;
   return remainder === 0 || remainder === 1 ? 0 : 11 - remainder;
@@ -24,6 +27,8 @@ export function isValidCPF(value: unknown) {
 
 export function isValidCNPJ(value: unknown) {
   const cnpj = normalizeBrazilianDocument(value);
+  // Desde 2026, as 12 primeiras posições podem ser A-Z ou 0-9; os dois DVs
+  // continuam obrigatoriamente numéricos. CNPJs antigos, só numéricos, seguem válidos.
   if (!/^[A-Z0-9]{12}\d{2}$/.test(cnpj) || /^([A-Z0-9])\1{11}\d{2}$/.test(cnpj)) return false;
 
   const first = documentDigit(cnpj.slice(0, 12), [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]);
@@ -31,9 +36,15 @@ export function isValidCNPJ(value: unknown) {
   return cnpj.endsWith(`${first}${second}`);
 }
 
-export function isValidBrazilianDocument(value: unknown) {
+export function getBrazilianDocumentType(value: unknown): BrazilianDocumentType {
   const document = normalizeBrazilianDocument(value);
-  return document.length === 11 ? isValidCPF(document) : document.length === 14 ? isValidCNPJ(document) : false;
+  if (document.length === 11 && isValidCPF(document)) return 'CPF';
+  if (document.length === 14 && isValidCNPJ(document)) return 'CNPJ';
+  return null;
+}
+
+export function isValidBrazilianDocument(value: unknown) {
+  return getBrazilianDocumentType(value) !== null;
 }
 
 export function customerErrors(customer: CheckoutCustomer): Record<string, string> {
@@ -42,7 +53,7 @@ export function customerErrors(customer: CheckoutCustomer): Record<string, strin
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customer.email.trim())) errors.email = 'Informe um e-mail válido.';
   const phone = customer.phone.replace(/\D/g, '');
   if (!([10, 11].includes(phone.length) || (phone.startsWith('55') && [12, 13].includes(phone.length)))) errors.phone = 'Informe telefone com DDD, por exemplo (73) 99999-9999.';
-  if (!isValidBrazilianDocument(customer.document)) errors.document = 'Informe um CPF ou CNPJ válido.';
+  if (!isValidBrazilianDocument(customer.document)) errors.document = 'Informe um CPF ou CNPJ válido. CNPJ numérico e alfanumérico são aceitos.';
   return errors;
 }
 
