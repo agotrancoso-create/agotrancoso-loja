@@ -17,6 +17,7 @@ export type FirstPurchaseOrderRecord = {
   documentKey?: string;
   expectedAmountCents: number;
   discountCents: number;
+  firstPurchase?: boolean;
   createdAt: string;
 };
 
@@ -83,19 +84,30 @@ function normalizeCustomerDocument(value: unknown) {
   return isValidBrazilianDocument(document) ? document : '';
 }
 
-export async function checkFirstPurchaseEligibility(input: { email: unknown; phone: unknown; document: unknown }) {
-  if (!isFirstPurchaseStorageConfigured()) {
-    return { eligible: false, reason: 'O benefício de primeira compra está temporariamente indisponível.' };
-  }
-
+function normalizedIdentity(input: { email: unknown; phone: unknown; document: unknown }) {
   const email = normalizeCustomerEmail(input.email);
   const phone = normalizeCustomerPhone(input.phone);
   const document = normalizeCustomerDocument(input.document);
-  if (!email || !phone || !document) {
+  if (!email || !phone || !document) return null;
+  return {
+    email,
+    phone,
+    document,
+    keys: [emailKey(email), phoneKey(phone), documentKey(document)] as const,
+  };
+}
+
+export async function checkFirstPurchaseEligibility(input: { email: unknown; phone: unknown; document: unknown }) {
+  if (!isFirstPurchaseStorageConfigured()) {
+    return { eligible: false, reason: 'A validação segura do benefício está temporariamente indisponível.' };
+  }
+
+  const identity = normalizedIdentity(input);
+  if (!identity) {
     return { eligible: false, reason: 'Informe e-mail, telefone e CPF/CNPJ válidos para confirmar o benefício.' };
   }
 
-  const existing = await redisCommand<(string | null)[]>(['MGET', emailKey(email), phoneKey(phone), documentKey(document)]);
+  const existing = await redisCommand<(string | null)[]>(['MGET', ...identity.keys]);
   if (existing?.some(Boolean)) {
     return { eligible: false, reason: 'Este benefício é exclusivo para a primeira compra neste cadastro.' };
   }
@@ -111,25 +123,25 @@ export async function reserveFirstPurchaseIdentity(input: {
   discountCents: number;
 }) {
   if (!isFirstPurchaseStorageConfigured()) {
-    return { eligible: false, reason: 'O benefício de primeira compra está temporariamente indisponível.' };
+    return { eligible: false, reason: 'A validação segura do benefício está temporariamente indisponível.' };
   }
 
-  const email = normalizeCustomerEmail(input.email);
-  const phone = normalizeCustomerPhone(input.phone);
-  const document = normalizeCustomerDocument(input.document);
-  if (!email || !phone || !document) {
+  const identity = normalizedIdentity(input);
+  if (!identity) {
     return { eligible: false, reason: 'Informe e-mail, telefone e CPF/CNPJ válidos para confirmar o benefício.' };
   }
 
-  const keys = [emailKey(email), phoneKey(phone), documentKey(document), orderKey(input.orderNsu)];
+  const [emailIdentityKey, phoneIdentityKey, documentIdentityKey] = identity.keys;
+  const keys = [emailIdentityKey, phoneIdentityKey, documentIdentityKey, orderKey(input.orderNsu)];
   const now = new Date().toISOString();
-  const identity: IdentityRecord = { orderNsu: input.orderNsu, status: 'reserved', createdAt: now };
+  const identityRecord: IdentityRecord = { orderNsu: input.orderNsu, status: 'reserved', createdAt: now };
   const order: FirstPurchaseOrderRecord = {
-    emailKey: keys[0],
-    phoneKey: keys[1],
-    documentKey: keys[2],
+    emailKey: emailIdentityKey,
+    phoneKey: phoneIdentityKey,
+    documentKey: documentIdentityKey,
     expectedAmountCents: Math.max(0, Math.round(input.expectedAmountCents)),
     discountCents: Math.max(0, Math.round(input.discountCents)),
+    firstPurchase: true,
     createdAt: now,
   };
 
@@ -145,13 +157,40 @@ export async function reserveFirstPurchaseIdentity(input: {
   `;
   const reserved = await redisCommand<number>([
     'EVAL', script, '4', ...keys,
-    JSON.stringify(identity), String(RESERVATION_TTL_SECONDS), JSON.stringify(order), String(ORDER_TTL_SECONDS),
+    JSON.stringify(identityRecord), String(RESERVATION_TTL_SECONDS), JSON.stringify(order), String(ORDER_TTL_SECONDS),
   ]);
 
   if (Number(reserved) !== 1) {
     return { eligible: false, reason: 'Este benefício é exclusivo para a primeira compra neste cadastro.' };
   }
   return { eligible: true as const };
+}
+
+/* Pedidos sem cupom também precisam entrar no histórico. Eles não bloqueiam o
+   cliente enquanto o pagamento está pendente; o bloqueio só ocorre após a
+   InfinitePay confirmar o pagamento pelo webhook. */
+export async function registerPurchaseOrder(input: {
+  orderNsu: string;
+  email: unknown;
+  phone: unknown;
+  document: unknown;
+  expectedAmountCents: number;
+}) {
+  if (!isFirstPurchaseStorageConfigured()) return false;
+  const identity = normalizedIdentity(input);
+  if (!identity) return false;
+  const [emailIdentityKey, phoneIdentityKey, documentIdentityKey] = identity.keys;
+  const order: FirstPurchaseOrderRecord = {
+    emailKey: emailIdentityKey,
+    phoneKey: phoneIdentityKey,
+    documentKey: documentIdentityKey,
+    expectedAmountCents: Math.max(0, Math.round(input.expectedAmountCents)),
+    discountCents: 0,
+    firstPurchase: false,
+    createdAt: new Date().toISOString(),
+  };
+  await redisCommand(['SET', orderKey(input.orderNsu), JSON.stringify(order), 'EX', String(ORDER_TTL_SECONDS)]);
+  return true;
 }
 
 export async function getFirstPurchaseOrder(orderNsu: string) {
@@ -170,7 +209,7 @@ export async function getFirstPurchaseOrder(orderNsu: string) {
 export async function releaseFirstPurchaseReservation(orderNsu: string) {
   if (!orderNsu || !isFirstPurchaseStorageConfigured()) return false;
   const order = await getFirstPurchaseOrder(orderNsu);
-  if (!order) return false;
+  if (!order || order.firstPurchase === false) return false;
 
   const identityKeys = [order.emailKey, order.phoneKey, order.documentKey].filter((key): key is string => Boolean(key));
   const redisKeys = [...identityKeys, orderKey(orderNsu)];
