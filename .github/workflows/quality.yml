@@ -54,7 +54,7 @@ jobs:
 
       - name: Mobile and desktop interaction QA
         env:
-          QA_WIDTHS: 320,390,820,1440
+          QA_WIDTHS: 320,390,820,1440,1920
           QA_ARTIFACTS: /tmp/ago-qa
         run: npm run qa:ui
 
