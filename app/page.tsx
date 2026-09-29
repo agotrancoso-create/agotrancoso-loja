@@ -4,6 +4,7 @@ import Image from '@/components/ProductImage';
 import ProductCard from '@/components/ProductCard';
 import { getAvailableProducts } from '@/lib/products';
 import { sortProductsByAttention } from '@/lib/merchandising';
+import { SITE_DOMAIN } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: { absolute: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso' },
@@ -26,8 +27,18 @@ export default function HomePage() {
   const allProducts = sortProductsByAttention(getAvailableProducts());
   const featured = allProducts.slice(0, 6);
 
+  const structuredData = {
+    '@context': 'https://schema.org', '@type': 'CollectionPage',
+    '@id': `${SITE_DOMAIN}/#page`, url: SITE_DOMAIN,
+    name: 'Agô Trancoso — Igrejinhas do Quadrado e cerâmica artesanal',
+    isPartOf: { '@id': `${SITE_DOMAIN}#website` },
+    primaryImageOfPage: { '@type': 'ImageObject', url: `${SITE_DOMAIN}/produtos/igreja-quadrado-p.jpg`, contentUrl: `${SITE_DOMAIN}/produtos/igreja-quadrado-p.jpg`, width: 960, height: 960, caption: 'Igrejinha do Quadrado de Trancoso em cerâmica' },
+    mainEntity: { '@type': 'ItemList', itemListElement: featured.map((product, index) => ({ '@type': 'ListItem', position: index + 1, name: product.name, url: `${SITE_DOMAIN}/produtos/${product.id}` })) },
+  };
+
   return (
     <div className="ago-home ago-premium-home ago-home-calm">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
       <section className="ago-cinematic-commerce" aria-labelledby="featured-title">
         <div className="ago-cinematic-media" aria-hidden="true">
           <Image src="/hero.jpg" alt="" fill priority sizes="100vw" className="ago-cinematic-image" quality={100} />

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { useCart } from '@/context/CartContext';
 import { getProductById, getEffectivePrice, getAvailableProducts } from '@/lib/products';
-import { getAttentionCoverImage, sortProductsByAttention } from '@/lib/merchandising';
+import { getAttentionCoverImage, sortProductsByAttention, getRelatedProductIds } from '@/lib/merchandising';
 import CartIcon from './CartIcon';
 import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping, FREE_SHIPPING_SUBTOTAL_MINIMUM } from '@/lib/shipping';
 import { trackRemoveFromCart, trackAddToCart, trackSelectItem, trackViewCart } from '@/lib/marketing-analytics';
@@ -91,11 +91,16 @@ export default function CartDrawer() {
     trackViewCart(cartMarketingItems, total);
   }, [isDrawerOpen, cartSignature, total]);
 
-  const complementary = lines.length === 0
-    ? []
-    : sortProductsByAttention(getAvailableProducts())
-        .filter((product) => !cartIds.has(product.id))
-        .slice(0, 6);
+  const relatedIds = new Set(lines.flatMap(({ product }) => getRelatedProductIds(product.id)));
+  const complementary = lines.length === 0 ? [] : sortProductsByAttention(getAvailableProducts())
+    .filter(product => !cartIds.has(product.id))
+    .sort((a, b) => {
+      // Keep recommendations relevant; among related pieces, surface accessible complements first.
+      const relatedDifference = Number(relatedIds.has(b.id)) - Number(relatedIds.has(a.id));
+      if (relatedDifference) return relatedDifference;
+      return getEffectivePrice(a) - getEffectivePrice(b);
+    })
+    .slice(0, 6);
 
   function scrollComplementary(direction: -1 | 1) {
     const node = complementaryRef.current;
@@ -182,6 +187,7 @@ export default function CartDrawer() {
                       <div className="cart-complementary-info">
                         <Link href={`/produtos/${product.id}`} onClick={() => { trackSelectItem(item, 'Sugestões da sacola'); closeDrawer(); }}><strong>{product.name}</strong></Link>
                         <span>{formatBRL(price)}</span>
+                        {!freeShipping && shouldOfferFreeShipping(subtotal + price) && <small>Com esta peça, seu pedido ganha frete grátis.</small>}
                       </div>
                       <button
                         type="button"
@@ -208,6 +214,7 @@ export default function CartDrawer() {
             <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
             <div className="cart-total-row"><span>Total</span><strong>{formatBRL(total)}</strong></div>
             <Link href="/checkout" onClick={closeDrawer} className="cart-checkout">Finalizar pedido</Link>
+            <p className="cart-checkout-reassurance">Sem criar conta · Pagamento pela InfinitePay</p>
             <button type="button" onClick={closeDrawer} className="cart-continue">Continuar escolhendo</button>
           </div>
         )}

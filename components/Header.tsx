@@ -7,6 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { getAvailableProducts, getEffectivePrice } from '@/lib/products';
 import CartIcon from './CartIcon';
+import { productSearchScore } from '@/lib/product-search';
 
 const navItems = [
   { href: '/', label: 'Início' },
@@ -49,13 +50,7 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
 
     return products
       .map((product) => {
-        const name = normalize(product.name);
-        const words = name.split(/\s+/);
-        let score = 0;
-        if (name.startsWith(needle)) score = 100;
-        else if (words.some((word) => word.startsWith(needle))) score = 80;
-        else if (name.includes(needle)) score = 60;
-        else if (normalize(`${product.description} ${product.category}`).includes(needle)) score = 35;
+        const score = productSearchScore(product, query);
         return { product, score };
       })
       .filter((item) => item.score > 0)

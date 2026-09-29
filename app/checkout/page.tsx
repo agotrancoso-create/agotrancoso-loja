@@ -279,7 +279,7 @@ export default function CheckoutPage() {
         <header className="ago-clean-checkout-head">
           <p className="eyebrow">Seu pedido</p>
           <h1 className="checkout-title">Finalizar compra</h1>
-          <p>Quatro etapas curtas. Você vê o pedido o tempo todo.</p>
+          <p>Compre sem criar uma conta. Confira seu pedido antes de seguir para o pagamento seguro.</p>
         </header>
 
         <nav className="checkout-progress" aria-label="Etapas da compra">

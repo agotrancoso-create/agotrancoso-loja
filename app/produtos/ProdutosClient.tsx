@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Product, Category } from '@/lib/types';
 import ProductCard from '@/components/ProductCard';
+import { productSearchScore } from '@/lib/product-search';
 import { sortProductsByAttention } from '@/lib/merchandising';
 import { trackCatalogFilter, trackCatalogSearch, trackCatalogSort, trackViewItemList } from '@/lib/marketing-analytics';
 
@@ -62,8 +63,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
     const normalizedQuery = normalize(query);
     const matches = attentionProducts.filter((product) => {
       if (!product.available) return false;
-      const haystack = normalize(`${product.name} ${product.description} ${product.category}`);
-      if (normalizedQuery && !haystack.includes(normalizedQuery)) return false;
+      if (normalizedQuery && !productSearchScore(product, query)) return false;
       if (category !== 'todas' && product.category !== category) return false;
       return true;
     });
@@ -124,13 +124,8 @@ export default function ProdutosClient({ products, categories }: { products: Pro
     return attentionProducts
       .filter((product) => product.available && (category === 'todas' || product.category === category))
       .map((product) => {
-        const name = normalize(product.name);
-        const words = name.split(/\s+/);
-        let score = 99;
-        if (name.startsWith(term)) score = 0;
-        else if (words.some((word) => word.startsWith(term))) score = 1;
-        else if (name.includes(term)) score = 2;
-        else if (normalize(`${product.description} ${product.category}`).includes(term)) score = 3;
+        const match = productSearchScore(product, query);
+        const score = match ? 100 - match : 999;
         return { product, score };
       })
       .filter(({ score }) => score < 99)

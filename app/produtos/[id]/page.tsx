@@ -9,6 +9,7 @@ import AddToCart from './AddToCart';
 import ProductGallery from '@/components/ProductGallery';
 import ProductViewTracker from '@/components/ProductViewTracker';
 import ProductCard from '@/components/ProductCard';
+import RecentlyViewed from '@/components/RecentlyViewed';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -242,6 +243,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           </div>
         </section>
       )}
+      <RecentlyViewed products={attentionProducts} currentProductId={product.id} />
     </div>
   );
 }
