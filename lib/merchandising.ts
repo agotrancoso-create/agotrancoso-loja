@@ -39,21 +39,15 @@ export function sortProductsByAttention<T extends Product>(products: T[]): T[] {
 
 /**
  * Curadoria fotográfica da vitrine.
- *
- * A primeira imagem é sempre a capa. A sequência foi organizada para reduzir
- * distração e facilitar reconhecimento: primeiro uma leitura clara/frontal da
- * peça, depois variações/ângulos e por último contexto ou composição de apoio.
- *
- * Importante: o mapa só reordena arquivos que já pertencem ao produto; qualquer
- * nova foto não listada continua aparecendo ao final, sem risco de sumir da
- * galeria.
+ * A primeira imagem de cada lista é a capa aprovada para a vitrine.
  */
 const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
-  // A foto de catálogo é a capa aprovada da Igrejinha P. A outra imagem fica
-  // apenas como vista complementar para evitar confusão com a luminária.
   'igreja-quadrado-p': [
-    '/produtos/catalogo/igreja-quadrado-p-2.jpg',
     '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/catalogo/igreja-quadrado-p-2.jpg',
+  ],
+  'igrejinha-luminaria-trancoso': [
+    '/produtos/igrejinha-luminaria-trancoso.jpg',
   ],
   'casinha-luminaria': [
     '/produtos/catalogo/casinha-luminaria-1.jpg',
@@ -61,8 +55,6 @@ const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
     '/produtos/catalogo/casinha-luminaria-3.jpg',
     '/produtos/catalogo/casinha-luminaria-4.jpg',
   ],
-  // Capa anterior removida a pedido da proprietária. A foto 04 passa a ser a
-  // leitura principal; 05 e 02 entram como vistas complementares.
   'miniatura-quadrado-trancoso': [
     '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg',
     '/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg',
