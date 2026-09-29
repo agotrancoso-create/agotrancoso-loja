@@ -21,6 +21,12 @@ const SQUARE_CROP_ASSETS = new Set([
   '/produtos/casinha-luminaria.jpg',
 ]);
 
+// Fotos com excesso de fundo branco: amplia a peça dentro do quadro 960×960 sem
+// esticar nem cortar a cerâmica.
+const SMART_TRIM_ASSETS = new Set([
+  '/produtos/catalogo/casal-pretos-velhos-1.jpg',
+]);
+
 // Arquivos usados por associações históricas corrigidas em lib/products.ts.
 const EXTRA_ACTIVE_ASSETS = [
   '/produtos/igrejinha-luminaria-trancoso.jpg',
@@ -116,6 +122,28 @@ async function normalizeImage(src) {
 
   const extension = path.extname(file).toLowerCase();
 
+  if (SMART_TRIM_ASSETS.has(src)) {
+    let pipeline = sharp(file, { failOn: 'none' })
+      .rotate()
+      .trim({ background: '#ffffff', threshold: 18 })
+      .resize(860, 860, {
+        fit: 'contain',
+        background: { r: 255, g: 255, b: 255, alpha: 1 },
+        kernel: sharp.kernel.lanczos3,
+      })
+      .extend({
+        top: 50,
+        bottom: 50,
+        left: 50,
+        right: 50,
+        background: { r: 255, g: 255, b: 255, alpha: 1 },
+      });
+    pipeline = encodeForExtension(pipeline, extension);
+    await writeNormalized(file, await pipeline.toBuffer());
+    console.log(`[960x960] ${src}: reenquadrada em 960x960, peça maior e sem deformação`);
+    return { missing: 0, resized: 1, skipped: 0 };
+  }
+
   if (SQUARE_CROP_ASSETS.has(src) && (width !== TARGET_SIZE || height !== TARGET_SIZE)) {
     let pipeline = base.rotate().resize(TARGET_SIZE, TARGET_SIZE, {
       fit: 'cover',
@@ -128,9 +156,6 @@ async function normalizeImage(src) {
     return { missing: 0, resized: 1, skipped: 0 };
   }
 
-  // Uma imagem só está pronta quando tem exatamente 960 × 960. Antes, arquivos
-  // quadrados de qualquer tamanho eram ignorados, o que deixava dimensões
-  // inconsistentes na produção.
   if (width === TARGET_SIZE && height === TARGET_SIZE) {
     return { missing: 0, resized: 0, skipped: 1 };
   }
@@ -149,7 +174,6 @@ async function normalizeImage(src) {
   const edge = sharp(fitted);
   const layers = [{ input: fitted, left, top }];
 
-  // Completa apenas o fundo até o quadrado; nunca corta, estica ou deforma a peça.
   if (left) layers.push({ input: await edge.clone().extract({ left: 0, top: 0, width: 1, height: info.height }).resize(left, info.height, { kernel: 'nearest' }).toBuffer(), left: 0, top });
   if (right) layers.push({ input: await edge.clone().extract({ left: info.width - 1, top: 0, width: 1, height: info.height }).resize(right, info.height, { kernel: 'nearest' }).toBuffer(), left: left + info.width, top });
   if (top) layers.push({ input: await edge.clone().extract({ left: 0, top: 0, width: info.width, height: 1 }).resize(info.width, top, { kernel: 'nearest' }).toBuffer(), left, top: 0 });
@@ -189,6 +213,7 @@ async function main() {
   }
 
   console.log(`[960x960] concluído: ${resized} redimensionadas, ${skipped} mantidas sem alterações, ${missing} ausentes.`);
+  if (missing) process.exitCode = 1;
 }
 
 main().catch((error) => {
