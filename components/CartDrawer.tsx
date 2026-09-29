@@ -7,7 +7,7 @@ import { useCart } from '@/context/CartContext';
 import { getProductById, getEffectivePrice, getAvailableProducts } from '@/lib/products';
 import { getAttentionCoverImage, sortProductsByAttention } from '@/lib/merchandising';
 import CartIcon from './CartIcon';
-import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping, FREE_SHIPPING_THRESHOLD } from '@/lib/shipping';
+import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping, FREE_SHIPPING_SUBTOTAL_MINIMUM } from '@/lib/shipping';
 import { trackRemoveFromCart, trackAddToCart, trackSelectItem, trackViewCart } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) {
@@ -68,8 +68,8 @@ export default function CartDrawer() {
   const freeShipping = shouldOfferFreeShipping(subtotal);
   const shipping = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
   const total = subtotal + shipping;
-  const remaining = Math.max(0, (FREE_SHIPPING_THRESHOLD + 0.01) - subtotal);
-  const progressTarget = FREE_SHIPPING_THRESHOLD + 0.01;
+  const remaining = Math.max(0, FREE_SHIPPING_SUBTOTAL_MINIMUM - subtotal);
+  const progressTarget = FREE_SHIPPING_SUBTOTAL_MINIMUM;
   const progress = Math.min(100, (subtotal / progressTarget) * 100);
   const cartIds = new Set(lines.map(({ product }) => product.id));
   const cartMarketingItems = lines.map(({ item, product }) => ({
@@ -202,7 +202,7 @@ export default function CartDrawer() {
             <div className="cart-shipping-progress-block">
               {!freeShipping ? <p className="cart-shipping-message">Faltam <strong>{formatBRL(remaining)}</strong> para o frete grátis.</p> : <p className="cart-shipping-message is-free">Você ganhou frete grátis neste pedido.</p>}
               <div className="cart-shipping-progress" aria-hidden="true"><span style={{ width: progress + '%' }} /></div>
-              <div className="cart-shipping-progress-labels"><span>Frete fixo R$ 39,90</span><span>Grátis acima de R$ 500</span></div>
+              <div className="cart-shipping-progress-labels"><span>Frete fixo R$ 39,90</span><span>Grátis acima de R$ 500 no total do pedido</span></div>
             </div>
             <div className="cart-summary-row"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
             <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
