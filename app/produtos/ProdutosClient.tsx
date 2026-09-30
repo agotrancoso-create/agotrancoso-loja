@@ -7,11 +7,21 @@ import { useRouter } from 'next/navigation';
 import { Product, Category } from '@/lib/types';
 import ProductCard from '@/components/ProductCard';
 import { productSearchScore } from '@/lib/product-search';
-import { sortProductsByAttention } from '@/lib/merchandising';
+import { getAttentionCoverImage, sortProductsByAttention } from '@/lib/merchandising';
 import { trackCatalogFilter, trackCatalogSearch, trackCatalogSort, trackViewItemList } from '@/lib/marketing-analytics';
 
-const budgets = ['150', '300', '500', '1000'] as const;
-function readBudget(value: string | null) { return budgets.some(budget => budget === value) ? value! : ''; }
+const budgetOptions = [
+  { value: '150', label: 'Até R$ 150' },
+  { value: '300', label: 'Até R$ 300' },
+  { value: '500', label: 'Até R$ 500' },
+  { value: '1000', label: 'Até R$ 1.000' },
+  { value: '1500', label: 'Até R$ 1.500' },
+  { value: '3000', label: 'Até R$ 3.000' },
+  { value: 'above-3000', label: 'Acima de R$ 3.000' },
+] as const;
+type BudgetFilter = '' | (typeof budgetOptions)[number]['value'];
+const budgetValues = new Set<string>(budgetOptions.map(option => option.value));
+function readBudget(value: string | null): BudgetFilter { return value && budgetValues.has(value) ? value as BudgetFilter : ''; }
 
 type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'name';
 
@@ -36,11 +46,22 @@ function productPrice(product: Product) {
     : product.price;
 }
 
+function matchesBudget(product: Product, budget: BudgetFilter) {
+  if (!budget) return true;
+  const price = productPrice(product);
+  return budget === 'above-3000' ? price > 3000 : price <= Number(budget);
+}
+
+function budgetLabel(value: BudgetFilter) {
+  if (!value) return 'Todos os valores';
+  return budgetOptions.find(option => option.value === value)?.label ?? value;
+}
+
 export default function ProdutosClient({ products, categories, initialFilters }: { products: Product[]; categories: Category[]; initialFilters: { query: string; category: string; budget: string } }) {
   const router = useRouter();
   const [query, setQuery] = useState(initialFilters.query);
   const [category, setCategory] = useState(initialFilters.category);
-  const [budget, setBudget] = useState(readBudget(initialFilters.budget));
+  const [budget, setBudget] = useState<BudgetFilter>(readBudget(initialFilters.budget));
   const [sort, setSort] = useState<SortOption>('featured');
   const [searchFocused, setSearchFocused] = useState(false);
   const sortButton = useRef<HTMLButtonElement>(null);
@@ -68,7 +89,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
     const normalizedQuery = normalize(query);
     const matches = attentionProducts.filter((product) => {
       if (!product.available) return false;
-      if (budget && productPrice(product) > Number(budget)) return false;
+      if (!matchesBudget(product, budget)) return false;
       if (normalizedQuery && !productSearchScore(product, query)) return false;
       if (category !== 'todas' && product.category !== category) return false;
       return true;
@@ -128,7 +149,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
     if (!term) return [];
 
     return attentionProducts
-      .filter((product) => product.available && (category === 'todas' || product.category === category) && (!budget || productPrice(product) <= Number(budget)))
+      .filter((product) => product.available && (category === 'todas' || product.category === category) && matchesBudget(product, budget))
       .map((product) => {
         const match = productSearchScore(product, query);
         const score = match ? 100 - match : 999;
@@ -169,7 +190,8 @@ export default function ProdutosClient({ products, categories, initialFilters }:
     if (category !== 'todas') params.set('categoria', category);
     if (nextBudget) params.set('ate', nextBudget);
     router.replace(`/produtos${params.size ? `?${params}` : ''}`, { scroll: false });
-    trackCatalogFilter('preco_maximo', nextBudget || 'Todos', products.filter(product => product.available && (!nextBudget || productPrice(product) <= Number(nextBudget)) && (category === 'todas' || product.category === category) && productSearchScore(product, query)).length);
+    const matchingCount = products.filter(product => product.available && matchesBudget(product, nextBudget) && (category === 'todas' || product.category === category) && productSearchScore(product, query)).length;
+    trackCatalogFilter('faixa_preco', budgetLabel(nextBudget), matchingCount);
   }
 
   return (
@@ -201,7 +223,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
             {showSuggestions && (
               <div id="catalog-search-suggestions" className="catalog-search-suggestions" role="navigation" aria-label="Sugestões de peças">
                 {suggestions.map((product) => {
-                  const image = product.images?.[0] || '/images/placeholder.svg';
+                  const image = getAttentionCoverImage(product);
                   return (
                     <Link key={product.id} href={`/produtos/${product.id}`} className="catalog-search-suggestion">
                       <span className="catalog-search-suggestion-image">
@@ -284,9 +306,9 @@ export default function ProdutosClient({ products, categories, initialFilters }:
         <span id="catalog-budget-label">Faixa de preço</span>
         <div className="catalog-budget-options">
           <button type="button" aria-pressed={!budget} onClick={() => selectBudget('')}>Todos os valores</button>
-          {budgets.map(value => (
-            <button type="button" key={value} aria-pressed={budget === value} onClick={() => selectBudget(value)}>
-              Até R$ {Number(value).toLocaleString('pt-BR')}
+          {budgetOptions.map(option => (
+            <button type="button" key={option.value} aria-pressed={budget === option.value} onClick={() => selectBudget(option.value)}>
+              {option.label}
             </button>
           ))}
         </div>
