@@ -76,6 +76,7 @@ export default function HomePage() {
         </div>
 
         <section className="ago-container mt-[clamp(34px,5vw,68px)] pb-[clamp(44px,6vw,82px)]" aria-label="Por que escolher a Agô Trancoso">
+          <h2 className="sr-only">Por que escolher a Agô Trancoso</h2>
           <div className="grid gap-px overflow-hidden rounded-[20px] border border-[#68483a1f] bg-[#68483a1f] md:grid-cols-3">
             {confidence.map((item) => (
               <div key={item.title} className="bg-[#fbf5eb] px-6 py-6 md:px-7 md:py-7">
