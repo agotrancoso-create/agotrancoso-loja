@@ -54,7 +54,7 @@ async function run() {
     results.routes.push(`${label}@${width}`);
   }
 
-  // Mobile and desktop are treated as separate release surfaces.
+  // Mobile e desktop são superfícies de release diferentes, mas mantêm a mesma identidade.
   for (const width of widths) {
     const height = width < 600 ? 844 : 1000;
     await page.setViewportSize({ width, height });
@@ -63,9 +63,14 @@ async function run() {
       await assertNoOverflow(route, width);
       if (route === '/') {
         const storyImage = page.locator('.ago-story-static-photo').first();
-        const storyStyle = await storyImage.evaluate(node => ({ fit: getComputedStyle(node).objectFit, transform: getComputedStyle(node).transform }));
+        const storyStyle = await storyImage.evaluate(node => ({ fit: getComputedStyle(node).objectFit, transform: getComputedStyle(node).transform, border: getComputedStyle(node).borderWidth, radius: getComputedStyle(node).borderRadius }));
         assert.equal(storyStyle.fit, 'contain');
         assert.equal(storyStyle.transform, 'none');
+        assert.equal(storyStyle.border, '0px');
+        assert.equal(storyStyle.radius, '0px');
+        const heroTitle = page.locator('.ago-cinematic-copy h1').first();
+        const heroStyle = await heroTitle.evaluate(node => ({ color: getComputedStyle(node).color, shadow: getComputedStyle(node).textShadow }));
+        assert.notEqual(heroStyle.shadow, 'none');
       }
       if (route.includes('colar-igreja-quadrado')) {
         const gallery = page.locator('.product-gallery-main').first();
@@ -78,16 +83,15 @@ async function run() {
       }
     }
 
-    // Cart drawer must remain usable at every release width and R$500 must not
-    // qualify for free shipping; the boundary is strictly above R$500.
+    // Sacola: R$ 500,00 em produtos já qualifica para frete grátis.
     await visit('/');
     const cartButton = page.getByRole('button', { name: /Abrir sacola com 2/ }).first();
     await cartButton.click();
     const drawer = page.locator('.cart-drawer[aria-hidden=false]').first();
     await drawer.waitFor();
-    assert.match(await drawer.locator('.cart-shipping-message').innerText(), /0,01/);
+    assert.match(await drawer.locator('.cart-shipping-message').innerText(), /frete grátis/i);
     const shippingRow = drawer.locator('.cart-summary-row').filter({ hasText: 'Frete' }).first();
-    assert.match(await shippingRow.innerText(), /39,90/);
+    assert.match(await shippingRow.innerText(), /Grátis/i);
     const checkoutCta = drawer.locator('.cart-checkout').first();
     const ctaBox = await checkoutCta.boundingBox();
     assert.ok(ctaBox && ctaBox.y >= 0 && ctaBox.y + ctaBox.height <= height + 1, `Cart CTA outside viewport at ${width}`);
@@ -166,15 +170,17 @@ async function run() {
   const pretosThumbs = page.locator('.product-gallery-thumbs .product-gallery-thumb');
   await pretosThumbs.nth(2).click();
   assert.match(await page.locator('.product-gallery-counter').first().innerText(), /^03/);
+  assert.equal(await mobileGallery.getAttribute('data-photo-index'), '3');
   const thirdPretos = mobileGallery.locator('img').first();
-  const thirdStyle = await thirdPretos.evaluate(node => ({ fit: getComputedStyle(node).objectFit, border: getComputedStyle(node).borderWidth }));
+  const thirdStyle = await thirdPretos.evaluate(node => ({ fit: getComputedStyle(node).objectFit, border: getComputedStyle(node).borderWidth, radius: getComputedStyle(node).borderRadius }));
   assert.equal(thirdStyle.fit, 'contain');
   assert.equal(thirdStyle.border, '0px');
+  assert.equal(thirdStyle.radius, '0px');
   results.interactions.push('Gallery keyboard navigation, original-master zoom, Pretos-Velhos photo 3 and Escape verified');
 
   // Checkout contract in the real UI; external provider handoff is mocked to avoid charging money.
   await visit('/checkout');
-  assert.ok((await page.locator('.checkout-total').first().innerText()).includes('539,90'));
+  assert.ok((await page.locator('.checkout-total').first().innerText()).includes('500,00'));
   await page.getByRole('button', { name: 'Continuar para entrega' }).first().click();
   assert.equal(await page.locator('#name').getAttribute('aria-invalid'), 'true');
   assert.equal(await page.locator('#document').getAttribute('aria-invalid'), 'true');
@@ -186,7 +192,7 @@ async function run() {
   await coupon.fill('AGO3');
   await page.getByRole('button', { name: 'Aplicar', exact: true }).first().click();
   await page.getByRole('button', { name: 'Continuar com benefício' }).first().waitFor();
-  assert.ok((await page.locator('.checkout-total').first().innerText()).includes('524,90'));
+  assert.ok((await page.locator('.checkout-total').first().innerText()).includes('485,00'));
   await page.getByRole('button', { name: 'Continuar com benefício' }).first().click();
 
   let checkoutPayload;
@@ -198,9 +204,9 @@ async function run() {
   await page.getByRole('button', { name: 'Pagar com InfinitePay' }).first().click();
   await page.waitForURL('**/handoff-test');
   assert.equal(checkoutPayload.coupon, 'AGO3');
-  assert.equal(checkoutPayload.shippingValue, 39.9);
+  assert.equal(checkoutPayload.shippingValue, 0);
   assert.equal(checkoutPayload.customer.document, '529.982.247-25');
-  results.interactions.push('Checkout validation, CPF/CNPJ, strict shipping threshold, coupon, totals and successful mocked InfinitePay handoff verified');
+  results.interactions.push('Checkout validation, CPF/CNPJ, R$500 shipping threshold, coupon, totals and successful mocked InfinitePay handoff verified');
 
   assert.deepEqual(results.errors, [], `Uncaught JS errors: ${results.errors.join('; ')}`);
   fs.writeFileSync(`${artifacts}/results.json`, JSON.stringify(results, null, 2));
