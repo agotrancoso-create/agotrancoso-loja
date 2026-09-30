@@ -1,0 +1,331 @@
+/* Agô Trancoso — camada final de consistência, conversão e atenção.
+   Cores não mudam entre desktop, tablet e mobile; apenas a geometria responde
+   ao viewport. Esta camada não altera frete, preços, catálogo ou fotografia. */
+:root {
+  --ago-canvas: #fcf9f4;
+  --ago-canvas-soft: #f7f1e6;
+  --ago-canvas-warm: #e8d5b8;
+  --ago-panel: #fffdfa;
+  --ago-ink: #35241d;
+  --ago-muted: #685043;
+  --ago-accent: #8b432e;
+  --ago-line-soft: rgba(117, 75, 55, .22);
+  --ago-page-gutter: clamp(18px, 4vw, 56px);
+  --ago-content-max: 1240px;
+  --ago-reading-max: 620px;
+}
+
+html,
+body,
+main {
+  background: var(--ago-canvas);
+}
+
+/* Um eixo comum para as páginas de marca, conteúdo e home. */
+.ago-home .ago-cinematic-products,
+.ago-home .ago-premium-editorial > .ago-container,
+.ago-home .ago-premium-discovery > .ago-container,
+.ago-home .ago-home-faq > .ago-container,
+.ago-home .ago-bahia-visit > .ago-container,
+.contact-shell,
+.essencia-shell {
+  width: min(var(--ago-content-max), calc(100% - (var(--ago-page-gutter) * 2))) !important;
+  margin-inline: auto !important;
+}
+
+/* Fundos institucionais: exatamente o mesmo tom em todos os viewports. */
+.contact-page,
+.essencia-page,
+.ago-institutional-page {
+  background: var(--ago-canvas) !important;
+  background-image: none !important;
+  color: var(--ago-ink);
+}
+
+.contact-page,
+.essencia-page {
+  padding-block: clamp(52px, 6vw, 88px) !important;
+}
+
+.contact-grid,
+.essencia-grid {
+  gap: clamp(38px, 6vw, 84px) !important;
+}
+
+.contact-copy,
+.essencia-copy {
+  max-width: var(--ago-reading-max);
+  min-width: 0;
+}
+
+.contact-copy h1,
+.essencia-copy h1 {
+  max-width: 14ch;
+  line-height: 1.03;
+  letter-spacing: -.035em;
+}
+
+.contact-copy > p:not(.eyebrow),
+.essencia-text {
+  color: var(--ago-muted);
+}
+
+.essencia-grid {
+  align-items: center !important;
+}
+
+.essencia-image,
+.info-panel {
+  background: var(--ago-panel) !important;
+}
+
+.essencia-image {
+  width: 100%;
+  max-width: 620px;
+  justify-self: end;
+  border-radius: 18px !important;
+  overflow: hidden;
+}
+
+.essencia-image-img {
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+.info-panel {
+  border: 1px solid var(--ago-line-soft);
+  box-shadow: none !important;
+}
+
+.info-link {
+  align-items: center;
+  color: var(--ago-ink);
+  border-bottom-color: var(--ago-line-soft) !important;
+}
+
+.institutional-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin-top: 28px;
+}
+
+.institutional-actions .button {
+  margin: 0;
+}
+
+/* Home: menos redundância, uma leitura por capítulo e eixo visual constante. */
+.ago-home .ago-cinematic-products,
+.ago-home .ago-benefits-reference,
+.ago-home .ago-home-faq {
+  background: var(--ago-canvas) !important;
+  background-image: none !important;
+}
+
+.ago-home .ago-premium-editorial.ago-home-story,
+.ago-home .ago-home-story {
+  background: var(--ago-canvas-warm) !important;
+  background-image: none !important;
+}
+
+.ago-home .ago-premium-discovery {
+  background: var(--ago-canvas-soft) !important;
+  background-image: none !important;
+}
+
+.ago-home .ago-cinematic-products-head,
+.ago-home .ago-premium-section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.ago-home .ago-cinematic-products-head > div,
+.ago-home .ago-premium-section-head > div {
+  min-width: 0;
+  max-width: 720px;
+}
+
+.ago-home .ago-premium-editorial,
+.ago-home .ago-premium-discovery,
+.ago-home .ago-home-faq {
+  padding-block: clamp(52px, 5.5vw, 82px) !important;
+}
+
+.ago-home .ago-premium-copy {
+  max-width: 520px;
+}
+
+.ago-home .ago-premium-copy > p:not(.eyebrow) {
+  max-width: 42ch;
+}
+
+/* FAQ curta: reduz objeções sem transformar a home em uma central de ajuda. */
+.ago-home-faq-grid {
+  display: grid;
+  grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
+  gap: clamp(42px, 7vw, 104px);
+  align-items: start;
+}
+
+.ago-home-faq-intro {
+  max-width: 430px;
+}
+
+.ago-home-faq-intro h2 {
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.04;
+  letter-spacing: -.035em;
+}
+
+.ago-home-faq-intro > p:not(.eyebrow) {
+  margin-top: 16px;
+  max-width: 32ch;
+  color: var(--ago-muted);
+  line-height: 1.7;
+}
+
+.ago-home-faq-list {
+  border-top: 1px solid var(--ago-line-soft);
+}
+
+.ago-home-faq-list details {
+  border-bottom: 1px solid var(--ago-line-soft);
+}
+
+.ago-home-faq-list summary {
+  min-height: 62px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  color: var(--ago-ink);
+  font-weight: 750;
+}
+
+.ago-home-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.ago-home-faq-list summary span {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--ago-line-soft);
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform .18s ease;
+}
+
+.ago-home-faq-list details[open] summary span {
+  transform: rotate(45deg);
+}
+
+.ago-home-faq-list details > p {
+  max-width: 64ch;
+  padding: 0 48px 20px 0;
+  color: var(--ago-muted);
+  line-height: 1.72;
+}
+
+/* Visita: preserva o contraste, mas alinha links e assinatura ao mesmo eixo. */
+.ago-home .ago-bahia-visit-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  margin-top: 18px;
+}
+
+.ago-home .ago-bahia-wordmark {
+  justify-self: end;
+  text-align: center;
+}
+
+/* Links e CTAs: um alvo confortável sem aumentar o ruído visual. */
+.institutional-actions a,
+.ago-home-faq-list summary,
+.contact-location-button,
+.info-link {
+  min-height: 44px;
+}
+
+@media (max-width: 900px) {
+  .contact-grid,
+  .essencia-grid,
+  .ago-home-faq-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .contact-grid,
+  .essencia-grid {
+    gap: 34px !important;
+  }
+
+  .essencia-image {
+    justify-self: start;
+    max-width: 680px;
+  }
+
+  .ago-home-faq-grid {
+    gap: 26px;
+  }
+
+  .ago-home-faq-intro {
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 700px) {
+  .contact-page,
+  .essencia-page {
+    padding-block: 42px !important;
+  }
+
+  .ago-home .ago-cinematic-products-head,
+  .ago-home .ago-premium-section-head {
+    display: grid;
+    align-items: start;
+    gap: 12px;
+  }
+
+  .ago-home .ago-premium-editorial,
+  .ago-home .ago-premium-discovery,
+  .ago-home .ago-home-faq {
+    padding-block: 44px !important;
+  }
+
+  .institutional-actions {
+    align-items: flex-start;
+    gap: 8px 18px;
+    margin-top: 24px;
+  }
+
+  .ago-home-faq-list summary {
+    min-height: 58px;
+    gap: 14px;
+    font-size: .94rem;
+    line-height: 1.45;
+  }
+
+  .ago-home-faq-list details > p {
+    padding-right: 0;
+    font-size: .9rem;
+  }
+
+  .ago-home .ago-bahia-wordmark {
+    justify-self: start;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ago-home-faq-list summary span {
+    transition: none;
+  }
+}
