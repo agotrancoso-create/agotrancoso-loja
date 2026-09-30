@@ -12,7 +12,6 @@ export default function SocialFloaters() {
         rel="noopener noreferrer"
         aria-label="Ver Agô Trancoso no Instagram"
         className="ago-social-button ago-social-instagram"
-        onClick={() => trackContact('instagram_float')}
       >
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" shapeRendering="geometricPrecision">
           <rect x="4.2" y="4.2" width="15.6" height="15.6" rx="4.4" fill="none" stroke="currentColor" strokeWidth="1.7" />
