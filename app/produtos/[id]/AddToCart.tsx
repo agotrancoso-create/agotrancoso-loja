@@ -56,7 +56,7 @@ export default function AddToCart({ product }: { product: Product }) {
       <strong>Esta seleção com frete: {formatBRL(selectionSubtotal + shipping)}</strong>
       <small>Entrega no Brasil. O total da sacola é atualizado ao adicionar outras peças.</small>
     </div>
-    <p className="purchase-selection-help">Compra sem cadastro · Pagamento pela InfinitePay</p>
+    <p className="purchase-selection-help">Compra sem cadastro · Pagamento seguro pela InfinitePay · Envio para todo o Brasil</p>
     <Link href="/contato" className="text-link">Consultar prazo de entrega</Link>
     </div>
   );
