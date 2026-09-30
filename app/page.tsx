@@ -23,6 +23,12 @@ const discovery = [
   { title: 'Presentes', category: 'presentes', href: '/lembrancas-de-trancoso', image: '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg' },
 ];
 
+const confidence = [
+  { title: 'Feito à mão', text: 'Cerâmica artesanal com atenção às formas e à pintura.' },
+  { title: 'Desde 2016 no Quadrado', text: 'Uma história construída em Trancoso.' },
+  { title: 'Compra online', text: 'Pagamento seguro e envio para todo o Brasil.' },
+];
+
 export default function HomePage() {
   const allProducts = sortProductsByAttention(getAvailableProducts());
   const featured = allProducts.slice(0, 6);
@@ -48,7 +54,7 @@ export default function HomePage() {
         <div className="ago-container ago-cinematic-copy">
           <p className="eyebrow">Quadrado de Trancoso · Bahia</p>
           <h1 id="featured-title">Trancoso em cerâmica.</h1>
-          <p>Igrejinhas do Quadrado e peças selecionadas pela Agô.</p>
+          <p>Cerâmica artesanal inspirada em Trancoso, desde 2016 no Quadrado.</p>
           <div className="home-hero-actions">
             <a href="#pecas-em-destaque" className="ago-premium-hero-cta">Ver peças</a>
             <Link href="/igrejinha-de-trancoso" className="ago-cinematic-secondary">Igrejinhas de Trancoso <span aria-hidden="true">↗</span></Link>
@@ -68,6 +74,18 @@ export default function HomePage() {
             {featured.map((product, index) => <ProductCard key={product.id} product={product} priority={index < 2} />)}
           </div>
         </div>
+
+        <section className="ago-container mt-[clamp(34px,5vw,68px)] pb-[clamp(44px,6vw,82px)]" aria-label="Por que escolher a Agô Trancoso">
+          <h2 className="sr-only">Por que escolher a Agô Trancoso</h2>
+          <div className="grid gap-px overflow-hidden rounded-[20px] border border-[#68483a1f] bg-[#68483a1f] md:grid-cols-3">
+            {confidence.map((item) => (
+              <div key={item.title} className="bg-[#fbf5eb] px-6 py-6 md:px-7 md:py-7">
+                <h3 className="text-[0.72rem] font-extrabold uppercase tracking-[0.12em] text-[#875038]">{item.title}</h3>
+                <p className="mt-2 max-w-[28rem] text-[0.9rem] leading-6 text-[#5d493f]">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </section>
 
       <section className="ago-premium-editorial ago-home-story ago-immersive-reveal" aria-labelledby="story-title">
