@@ -1,1 +1,1 @@
-Agô Trancoso — versão de produção refinada em 26/09/2026.
+Agô Trancoso — recuperação visual da banca e jornada de compra — 2026-09-30
