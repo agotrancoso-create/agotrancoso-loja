@@ -180,3 +180,36 @@
   .ago-home .ago-story-image { max-width: 480px; }
   .ago-sertao-sun { width: 72px; height: 38px; margin-bottom: 18px; }
 }
+
+/* Visualizador ampliado: mantém o mesmo acabamento das peças, inclusive durante
+   zoom/pan. A foto continua inteira no estado inicial e usa a fonte original. */
+.ago-photo-stage {
+  padding: clamp(8px, 1.6vw, 18px) !important;
+}
+
+.ago-photo-image-shell {
+  inset: clamp(8px, 1.6vw, 18px) !important;
+  overflow: hidden !important;
+  border-radius: 18px !important;
+  clip-path: inset(0 round 18px);
+  background: transparent !important;
+}
+
+.ago-photo-image {
+  padding: 0 !important;
+  border-radius: 18px !important;
+  clip-path: inset(0 round 18px);
+  object-fit: contain !important;
+  object-position: center center !important;
+  image-rendering: auto;
+}
+
+.ago-photo-thumbs button,
+.ago-photo-thumbs button img {
+  border-radius: 12px !important;
+}
+
+@media (max-width: 700px) {
+  .ago-photo-stage { padding: 8px !important; }
+  .ago-photo-image-shell { inset: 8px !important; }
+}
