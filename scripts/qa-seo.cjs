@@ -18,6 +18,10 @@ function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags
   const filtered=await html('/produtos?ate=150&categoria=decoracao');
   assert.equal((filtered.match(/<article\b/g)||[]).length,1,'Server filters must match the client');
   assert.ok(filtered.includes('href="/produtos/esfera-decorativa"'));
+  const premium=await html('/produtos?ate=above-3000');
+  assert.equal((premium.match(/<article\b/g)||[]).length,1,'Above R$ 3.000 filter must render server-side');
+  assert.ok(premium.includes('href="/produtos/igreja-quadrado-gg"'));
+  assert.ok(!premium.includes('href="/produtos/nossa-senhora-grande"'),'R$ 3.000 belongs to the up-to-R$3.000 range');
   for(const path of ['/produtos','/nossa-essencia','/contato','/produtos/estatueta-iemanja','/produtos/miniatura-quadrado-trancoso']){
     const page=await html(path);
     assert.ok(meta(page,'og:image')?.includes('https://www.agotrancoso.com.br/'),`Missing absolute social image: ${path}`);
@@ -32,5 +36,5 @@ function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags
     assert.equal(product.offers.shippingDetails.shippingRate.value,'39.90',`Google shipping: ${id}`);
     assert.ok(page.includes('Compartilhar esta peça'));
   }
-  console.log('PASS server-rendered catalog and filters; social images, canonical URLs, product sharing and Google shipping metadata');
+  console.log('PASS server-rendered catalog, complete price ranges and filters; social images, canonical URLs, product sharing and Google shipping metadata');
 })().catch(error=>{console.error(error);process.exitCode=1;}).finally(()=>server.kill());
