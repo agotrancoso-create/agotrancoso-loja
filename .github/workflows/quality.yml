@@ -113,19 +113,19 @@ jobs:
           merchant_xml=$(curl --fail --silent --show-error http://127.0.0.1:3000/google-merchant.xml)
           item_count=$(printf '%s' "$merchant_xml" | grep -o '<item>' | wc -l | tr -d ' ')
           test "$item_count" = "19"
-          printf '%s' "$merchant_xml" | grep -q '<g:id>miniatura-quadrado-trancoso</g:id>'
-          printf '%s' "$merchant_xml" | grep -q 'para Pendurar'
-          printf '%s' "$merchant_xml" | grep -q '<g:brand>Agô Trancoso</g:brand>'
-          printf '%s' "$merchant_xml" | grep -q '<g:condition>new</g:condition>'
-          printf '%s' "$merchant_xml" | grep -q '<g:identifier_exists>no</g:identifier_exists>'
-          printf '%s' "$merchant_xml" | grep -q '<g:google_product_category>'
-          printf '%s' "$merchant_xml" | grep -q '<g:shipping>'
+          grep -q '<g:id>miniatura-quadrado-trancoso</g:id>' <<< "$merchant_xml"
+          grep -q 'para Pendurar' <<< "$merchant_xml"
+          grep -q '<g:brand>Agô Trancoso</g:brand>' <<< "$merchant_xml"
+          grep -q '<g:condition>new</g:condition>' <<< "$merchant_xml"
+          grep -q '<g:identifier_exists>no</g:identifier_exists>' <<< "$merchant_xml"
+          grep -q '<g:google_product_category>' <<< "$merchant_xml"
+          grep -q '<g:shipping>' <<< "$merchant_xml"
 
-          if printf '%s' "$merchant_xml" | grep -q 'miniatura-quadrado-trancoso.jpg'; then
+          if grep -q 'miniatura-quadrado-trancoso.jpg' <<< "$merchant_xml"; then
             echo 'Retired Miniatura base cover is still present in Merchant feed'
             exit 1
           fi
-          if printf '%s' "$merchant_xml" | grep -q 'miniatura-quadrado-trancoso-3.jpg'; then
+          if grep -q 'miniatura-quadrado-trancoso-3.jpg' <<< "$merchant_xml"; then
             echo 'Retired Miniatura photo 03 is still present in Merchant feed'
             exit 1
           fi
