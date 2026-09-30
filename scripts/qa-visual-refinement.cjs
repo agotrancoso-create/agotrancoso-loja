@@ -77,7 +77,8 @@ async function main() {
         viewport: innerWidth,
         removedShippingChapter: document.querySelectorAll('.ago-shipping-chapter').length,
         removedShippingHeading: document.body.innerText.includes('Da Bahia para sua casa.'),
-        faqCount: document.querySelectorAll('.ago-home-faq details').length,
+        faqListCount: document.querySelectorAll('.ago-home-faq-list').length,
+        faqCount: document.querySelectorAll('.ago-home-faq-list > details').length,
         faqBackground: faq ? getComputedStyle(faq).backgroundColor : '',
         faqImage: faq ? getComputedStyle(faq).backgroundImage : '',
         visitBackground: visit ? getComputedStyle(visit).backgroundColor : '',
@@ -92,7 +93,8 @@ async function main() {
     assert.ok(state.scrollWidth <= width + 1, `home@${width}: horizontal overflow ${JSON.stringify(state)}`);
     assert.equal(state.removedShippingChapter, 0, `home@${width}: redundant shipping chapter returned`);
     assert.equal(state.removedShippingHeading, false, `home@${width}: removed shipping heading returned`);
-    assert.equal(state.faqCount, 3, `home@${width}: compact buying FAQ must keep exactly 3 questions`);
+    assert.equal(state.faqListCount, 1, `home@${width}: compact buying FAQ list duplicated`);
+    assert.equal(state.faqCount, 3, `home@${width}: compact buying FAQ must keep exactly 3 direct questions`);
     assert.equal(state.faqImage, 'none', `FAQ background must be solid at ${width}`);
     assert.equal(state.visitImage, 'none', `visit background must be solid at ${width}`);
     assert.equal(state.axes.length, 5, `home@${width}: missing one shared alignment container`);
