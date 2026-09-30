@@ -22,6 +22,7 @@ import './purchase-clarity.css';
 import './visual-refinement.css';
 import './site-growth-consistency.css';
 import './reference-terracotta.css';
+import './home-self-selling.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
@@ -80,137 +81,30 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica',
-    description: 'Igrejinhas de Trancoso e cerâmica artesanal disponíveis na Agô, no Quadrado de Trancoso, Bahia.',
+    title: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso',
+    description: 'Cerâmica artesanal inspirada em Trancoso, disponível para compra online.',
     images: ['/produtos/igreja-quadrado-p.jpg'],
   },
 };
 
-const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu';
-
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': ['Organization', 'Store'],
-      '@id': `${SITE_DOMAIN}#organization`,
-      name: 'Agô Trancoso',
-      url: SITE_DOMAIN,
-      logo: `${SITE_DOMAIN}/logo.png`,
-      image: `${SITE_DOMAIN}/produtos/igreja-quadrado-p.jpg`,
-      description: 'Loja de cerâmica artesanal no Quadrado de Trancoso, Bahia, com peças inspiradas na vila, na Igreja de São João Batista e em outras referências brasileiras.',
-      foundingDate: '2016',
-      areaServed: { '@type': 'Country', name: 'Brasil' },
-      telephone: '+55 73 9855-8124',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'Quadrado de Trancoso',
-        addressLocality: 'Trancoso',
-        addressRegion: 'BA',
-        addressCountry: 'BR',
-      },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: -16.5895579,
-        longitude: -39.0958675,
-      },
-      hasMap: mapsUrl,
-      sameAs: [
-        'https://www.instagram.com/agotrancoso',
-        'https://www.tiktok.com/@agotrancoso',
-        mapsUrl,
-      ],
-    },
-    {
-      '@type': 'WebSite',
-      '@id': `${SITE_DOMAIN}#website`,
-      name: 'Agô Trancoso',
-      url: SITE_DOMAIN,
-      inLanguage: 'pt-BR',
-      publisher: { '@id': `${SITE_DOMAIN}#organization` },
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: {
-          '@type': 'EntryPoint',
-          urlTemplate: `${SITE_DOMAIN}/produtos?busca={search_term_string}`,
-        },
-        'query-input': 'required name=search_term_string',
-      },
-    },
-  ],
-};
-
-const versionGuardScript = `
-(function () {
-  var current = ${JSON.stringify(buildVersion)};
-  if (!current) return;
-  var checking = false;
-  var reloading = false;
-
-  function cleanVersionParam() {
-    try {
-      var url = new URL(window.location.href);
-      if (url.searchParams.get('__ago_v') === current) {
-        url.searchParams.delete('__ago_v');
-        history.replaceState(history.state, '', url.pathname + url.search + url.hash);
-      }
-    } catch (_) {}
-  }
-
-  async function checkVersion() {
-    if (checking || reloading || document.visibilityState === 'hidden') return;
-    checking = true;
-    try {
-      var response = await fetch('/api/health?build=' + Date.now(), {
-        cache: 'no-store',
-        headers: { 'Cache-Control': 'no-cache' }
-      });
-      if (!response.ok) return;
-      var data = await response.json();
-      var live = data && data.version;
-      if (live && live !== current) {
-        reloading = true;
-        var next = new URL(window.location.href);
-        next.searchParams.set('__ago_v', live);
-        window.location.replace(next.toString());
-      }
-    } catch (_) {
-    } finally {
-      checking = false;
-    }
-  }
-
-  cleanVersionParam();
-  window.addEventListener('focus', checkVersion);
-  document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState === 'visible') checkVersion();
-  });
-  window.setInterval(checkVersion, 30000);
-  window.setTimeout(checkVersion, 1500);
-})();
-`;
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`} data-build-version={buildVersion || undefined}>
-      <body>
-        <a href="#conteudo-principal" className="ago-skip-link">Ir para o conteúdo</a>
-        <MarketingAnalytics />
-        <KlaviyoOnsite />
-        <WebVitalsReporter />
-        <ImmersiveMotion />
-        <CepAddressAutofill />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+    <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`}>
+      <body className="min-h-screen bg-[#fcf9f4] text-[#35241d] antialiased">
         <CartProvider>
-          <Header firstPurchaseAvailable={firstPurchaseAvailable} />
-          <main id="conteudo-principal" className="min-h-[60vh]" tabIndex={-1}>{children}</main>
+          <ConsentManager />
+          <MarketingAnalytics />
+          <KlaviyoOnsite />
+          <WebVitalsReporter />
+          <ImmersiveMotion />
+          <CepAddressAutofill />
+          <Header />
+          <main>{children}</main>
           <Footer />
           <CartDrawer />
           <SocialFloaters />
           {firstPurchaseAvailable && <FirstPurchaseOffer />}
         </CartProvider>
-        <ConsentManager />
-        <script id="ago-version-guard" dangerouslySetInnerHTML={{ __html: versionGuardScript }} />
       </body>
     </html>
   );
