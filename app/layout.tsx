@@ -41,6 +41,7 @@ const firstPurchaseAvailable = Boolean(
   (process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL) &&
   (process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN),
 );
+const buildVersion = process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 12) || '';
 
 export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#68483a', colorScheme: 'light' };
 
@@ -133,9 +134,59 @@ const structuredData = {
   ],
 };
 
+const versionGuardScript = `
+(function () {
+  var current = ${JSON.stringify(buildVersion)};
+  if (!current) return;
+  var checking = false;
+  var reloading = false;
+
+  function cleanVersionParam() {
+    try {
+      var url = new URL(window.location.href);
+      if (url.searchParams.get('__ago_v') === current) {
+        url.searchParams.delete('__ago_v');
+        history.replaceState(history.state, '', url.pathname + url.search + url.hash);
+      }
+    } catch (_) {}
+  }
+
+  async function checkVersion() {
+    if (checking || reloading || document.visibilityState === 'hidden') return;
+    checking = true;
+    try {
+      var response = await fetch('/api/health?build=' + Date.now(), {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      });
+      if (!response.ok) return;
+      var data = await response.json();
+      var live = data && data.version;
+      if (live && live !== current) {
+        reloading = true;
+        var next = new URL(window.location.href);
+        next.searchParams.set('__ago_v', live);
+        window.location.replace(next.toString());
+      }
+    } catch (_) {
+    } finally {
+      checking = false;
+    }
+  }
+
+  cleanVersionParam();
+  window.addEventListener('focus', checkVersion);
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') checkVersion();
+  });
+  window.setInterval(checkVersion, 30000);
+  window.setTimeout(checkVersion, 1500);
+})();
+`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`}>
+    <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`} data-build-version={buildVersion || undefined}>
       <body>
         <a href="#conteudo-principal" className="ago-skip-link">Ir para o conteúdo</a>
         <MarketingAnalytics />
@@ -153,6 +204,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {firstPurchaseAvailable && <FirstPurchaseOffer />}
         </CartProvider>
         <ConsentManager />
+        <script id="ago-version-guard" dangerouslySetInnerHTML={{ __html: versionGuardScript }} />
       </body>
     </html>
   );
