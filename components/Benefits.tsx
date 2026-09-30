@@ -16,7 +16,7 @@ const benefits = [
   },
   {
     title: 'Envio para todo o Brasil',
-    text: 'Da Agô até você',
+    text: 'Frete grátis a partir de R$ 500 em produtos',
     icon: 'box',
   },
 ] as const;
