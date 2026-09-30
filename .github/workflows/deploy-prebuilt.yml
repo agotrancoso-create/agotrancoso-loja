@@ -1,35 +1,17 @@
-name: Deploy prebuilt production
+name: Live production QA 2dc6885
 
 on:
   push:
-    branches: [main]
-    paths:
-      - '.github/workflows/deploy-prebuilt.yml'
-  workflow_dispatch:
+    branches: ['qa/live-production-2dc6885']
 
 permissions:
   contents: read
 
-concurrency:
-  group: ago-prebuilt-production
-  cancel-in-progress: false
-
 jobs:
-  deploy:
+  verify-live-production:
     runs-on: ubuntu-latest
-    env:
-      VERCEL_ORG_ID: team_JMr3tbyWPEuHBxBpCQlKxy38
-      VERCEL_PROJECT_ID: prj_LBBeHK0hMgy7hxmxMI2GJKCunlhV
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    timeout-minutes: 12
     steps:
-      - name: Check Vercel credential
-        shell: bash
-        run: |
-          if [ -z "$VERCEL_TOKEN" ]; then
-            echo "VERCEL_TOKEN secret is not configured in this repository."
-            exit 1
-          fi
-
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
@@ -37,56 +19,134 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Install dependencies
-        run: npm install --no-audit --no-fund
-
-      - name: Pull production environment
-        run: npx --yes vercel@latest pull --yes --environment=production --token="$VERCEL_TOKEN"
-
-      - name: Build production outside Vercel build queue
-        env:
-          VERCEL_GIT_COMMIT_SHA: ${{ github.sha }}
-        run: npx --yes vercel@latest build --prod --token="$VERCEL_TOKEN"
-
-      - name: Deploy prebuilt output to production
-        id: deploy
+      - name: Verify exact production SHA and apex domain
         shell: bash
         run: |
-          url=$(npx --yes vercel@latest deploy --prebuilt --prod --token="$VERCEL_TOKEN")
-          echo "url=$url" >> "$GITHUB_OUTPUT"
-          echo "Production deployment: $url"
-
-      - name: Verify deployed URL
-        shell: bash
-        env:
-          DEPLOY_URL: ${{ steps.deploy.outputs.url }}
-        run: |
-          expected="${GITHUB_SHA:0:12}"
-          for attempt in {1..30}; do
-            body=$(curl --fail --silent --show-error "$DEPLOY_URL/api/health" || true)
-            version=$(printf '%s' "$body" | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{process.stdout.write(JSON.parse(s).version||'')}catch{}})")
-            if [ "$version" = "$expected" ]; then
-              echo "Deployment URL is serving $version"
-              exit 0
-            fi
-            sleep 2
-          done
-          echo "Deployment URL did not expose expected build version $expected"
-          exit 1
-
-      - name: Verify public domains
-        shell: bash
-        run: |
-          expected="${GITHUB_SHA:0:12}"
-          www=$(curl --fail --silent --show-error -H 'Cache-Control: no-cache' "https://www.agotrancoso.com.br/api/health?build=${GITHUB_RUN_ID}" || true)
-          www_version=$(printf '%s' "$www" | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{process.stdout.write(JSON.parse(s).version||'')}catch{}})")
+          expected="2dc688576f38"
+          www=$(curl --fail --silent --show-error -H 'Cache-Control: no-cache' "https://www.agotrancoso.com.br/api/health?build=${GITHUB_RUN_ID}")
+          www_version=$(printf '%s' "$www" | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>process.stdout.write(JSON.parse(s).version||''))")
           test "$www_version" = "$expected"
 
-          apex_final=$(curl --fail --silent --show-error -L -o /tmp/ago-apex-health.json -w '%{url_effective}' "https://agotrancoso.com.br/api/health?build=${GITHUB_RUN_ID}")
-          apex_version=$(node -e "const fs=require('fs');try{process.stdout.write(JSON.parse(fs.readFileSync('/tmp/ago-apex-health.json','utf8')).version||'')}catch{}")
+          final=$(curl --fail --silent --show-error -L -o /tmp/apex-health.json -w '%{url_effective}' "https://agotrancoso.com.br/api/health?build=${GITHUB_RUN_ID}")
+          apex_version=$(node -e "const fs=require('fs');process.stdout.write(JSON.parse(fs.readFileSync('/tmp/apex-health.json','utf8')).version||'')")
           test "$apex_version" = "$expected"
-          case "$apex_final" in
+          case "$final" in
             https://www.agotrancoso.com.br/*) ;;
-            *) echo "Apex did not canonicalize to www: $apex_final"; exit 1;;
+            *) echo "Apex did not canonicalize to www. Final URL: $final"; exit 1;;
           esac
-          echo "Both public domains serve $expected; apex canonicalizes to www."
+          echo "Domains OK: apex -> www, both on $expected"
+
+      - name: Install browser runtime
+        run: |
+          npm install --no-save --no-audit --no-fund playwright
+          npx playwright install --with-deps chromium
+
+      - name: Verify requested live UI
+        shell: bash
+        run: |
+          node <<'NODE'
+          const assert = require('node:assert/strict');
+          const { chromium } = require('playwright');
+          const base = 'https://www.agotrancoso.com.br';
+          const widths = [320, 390, 820, 1440];
+          const normalize = value => value.replace(/\s+/g, ' ').trim();
+
+          (async () => {
+            const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-dev-shm-usage'] });
+            const overlays = [];
+            try {
+              for (const width of widths) {
+                const height = width < 600 ? 844 : 1000;
+                const page = await browser.newPage({ viewport: { width, height }, reducedMotion: 'reduce' });
+                await page.addInitScript(() => {
+                  localStorage.setItem('ago_primeira_compra_v3_vista', '1');
+                  localStorage.setItem('ago_privacy_consent_v1', 'essential');
+                  localStorage.setItem('agotrancoso_carrinho_v1', JSON.stringify([{ productId: 'miniatura-quadrado-trancoso', quantity: 1 }]));
+                });
+
+                await page.goto(base + '/', { waitUntil: 'domcontentloaded' });
+                await page.locator('h1').first().waitFor();
+                assert.equal(await page.locator('html').getAttribute('data-build-version'), '2dc688576f38');
+                assert.ok(await page.getByText(/Frete grátis quando o pedido com frete atinge R\$ 500/).count() > 0);
+
+                const overflow = await page.evaluate(() => ({ inner: innerWidth, scroll: document.documentElement.scrollWidth }));
+                assert.ok(overflow.scroll <= width + 1, `overflow @${width}`);
+
+                const story = page.locator('.ago-story-static-photo').first();
+                const storyStyle = await story.evaluate(node => {
+                  const s = getComputedStyle(node);
+                  return { fit: s.objectFit, transform: s.transform, border: s.borderWidth, radius: s.borderRadius, shadow: s.boxShadow, animation: s.animationName };
+                });
+                assert.deepEqual(storyStyle, { fit: 'contain', transform: 'none', border: '0px', radius: '18px', shadow: 'none', animation: 'none' }, `story @${width}`);
+
+                const heroImage = page.locator('img[src="/hero.jpg"]').first();
+                const hero = await heroImage.evaluate(node => ({ filter: getComputedStyle(node).filter, w: node.naturalWidth, h: node.naturalHeight, src: node.getAttribute('src') }));
+                assert.deepEqual({ filter: hero.filter, src: hero.src }, { filter: 'none', src: '/hero.jpg' });
+                assert.ok(hero.w > 0 && hero.h > 0);
+
+                const overlay = page.locator('.ago-cinematic-overlay').first();
+                const overlayStyle = await overlay.evaluate(node => {
+                  const s = getComputedStyle(node);
+                  return { background: s.backgroundImage, filter: s.filter, backdrop: s.backdropFilter || 'none' };
+                });
+                assert.equal(overlayStyle.filter, 'none');
+                assert.equal(overlayStyle.backdrop, 'none');
+                assert.match(overlayStyle.background, /0\.08/);
+                assert.match(overlayStyle.background, /0\.03/);
+                overlays.push(overlayStyle.background);
+
+                const copy = page.locator('.ago-cinematic-copy').first();
+                const pseudo = await copy.evaluate(node => ({ before: getComputedStyle(node, '::before').display, after: getComputedStyle(node, '::after').display }));
+                assert.equal(pseudo.before, 'none');
+                assert.equal(pseudo.after, 'none');
+                assert.notEqual(await page.locator('.ago-cinematic-copy h1').first().evaluate(node => getComputedStyle(node).textShadow), 'none');
+
+                await page.getByRole('button', { name: /Abrir sacola com 1 item/ }).first().click();
+                const drawer = page.locator('.cart-drawer[aria-hidden=false]').first();
+                await drawer.waitFor();
+                const rows = drawer.locator('.cart-summary-row');
+                const subtotal = normalize(await rows.filter({ hasText: 'Subtotal' }).first().innerText());
+                const shipping = normalize(await rows.filter({ hasText: 'Frete' }).first().innerText());
+                const total = normalize(await drawer.locator('.cart-total-row').first().innerText());
+                assert.match(subtotal, /^Subtotal R\$\s?480,00$/);
+                assert.equal(shipping, 'Frete Grátis');
+                assert.match(total, /^Total R\$\s?480,00$/);
+
+                await page.goto(base + '/checkout', { waitUntil: 'domcontentloaded' });
+                const checkout = normalize(await page.locator('.checkout-summary').first().innerText());
+                assert.match(checkout, /Subtotal R\$\s?480,00/);
+                assert.match(checkout, /Frete Grátis/);
+                assert.match(checkout, /Total R\$\s?480,00/);
+
+                await page.goto(base + '/produtos/miniatura-quadrado-trancoso', { waitUntil: 'domcontentloaded' });
+                const purchase = normalize(await page.locator('.purchase-selection-summary').first().innerText());
+                assert.match(purchase, /1 peça: R\$\s?480,00 · Frete grátis/);
+                assert.match(purchase, /Esta seleção com frete: R\$\s?480,00/);
+
+                await page.goto(base + '/produtos/casal-pretos-velhos', { waitUntil: 'domcontentloaded' });
+                const thumbs = page.locator('.product-gallery-thumbs .product-gallery-thumb');
+                assert.ok(await thumbs.count() >= 3);
+                for (let i = 0; i < 2; i++) {
+                  await thumbs.nth(i).click();
+                  const img = page.locator('.product-gallery-main img').first();
+                  await img.evaluate(node => node.decode());
+                  assert.ok(await img.evaluate(node => node.naturalWidth > 0));
+                }
+                await thumbs.nth(2).click();
+                const gallery = page.locator('.product-gallery-main').first();
+                assert.equal(await gallery.getAttribute('data-photo-index'), '3');
+                const thirdStyle = await gallery.locator('img').first().evaluate(node => {
+                  const s = getComputedStyle(node);
+                  return { fit: s.objectFit, border: s.borderWidth, radius: s.borderRadius, shadow: s.boxShadow };
+                });
+                assert.deepEqual(thirdStyle, { fit: 'contain', border: '0px', radius: '0px', shadow: 'none' }, `pretos 3 @${width}`);
+                await page.close();
+              }
+
+              assert.ok(overlays.every(v => v === overlays[0]), `hero overlay differs: ${JSON.stringify(overlays)}`);
+              console.log('PASS LIVE A-F at 320/390/820/1440');
+            } finally {
+              await browser.close();
+            }
+          })().catch(error => { console.error(error); process.exit(1); });
+          NODE
