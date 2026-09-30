@@ -51,6 +51,7 @@ export default function ProductGallery({ productId, name, images }: ProductGalle
     <div className="product-gallery" data-product-id={productId} aria-label={`Galeria de ${name}`}>
       <div
         className="product-gallery-main"
+        data-photo-index={active + 1}
         role="group"
         tabIndex={0}
         aria-label={`Fotos de ${name}`}
@@ -118,6 +119,7 @@ export default function ProductGallery({ productId, name, images }: ProductGalle
             <button
               key={`${src}-${index}`}
               type="button"
+              data-photo-index={index + 1}
               onClick={() => select(index)}
               aria-label={`Ver foto ${index + 1}`}
               aria-current={active === index ? 'true' : undefined}
