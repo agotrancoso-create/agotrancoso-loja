@@ -54,10 +54,12 @@ assert.ok(finalLastCss.includes('data-photo-index="3"'));
 assert.ok(finalLastCss.includes('border-radius: 0 !important'));
 assert.ok(finalLastCss.includes('object-fit: contain !important'));
 
-// Frete: se subtotal + R$ 39,90 atingir R$ 500,00, o frete é grátis.
-assert.ok(shipping.includes('subtotalCents + FIXED_SHIPPING_PRICE_CENTS >= FREE_SHIPPING_THRESHOLD_CENTS'));
-assert.ok(shipping.includes('FREE_SHIPPING_SUBTOTAL_MINIMUM = Number((FREE_SHIPPING_THRESHOLD - FIXED_SHIPPING_PRICE).toFixed(2))'));
-assert.ok(shipping.includes('R$ 480,00 + R$ 39,90 = R$ 519,90'));
+// Frete: se produtos + R$ 39,90 atingiriam R$ 500,00, o frete é grátis.
+// A fronteira equivalente é R$ 460,10 em produtos e é comparada diretamente em centavos.
+assert.ok(shipping.includes('FREE_SHIPPING_SUBTOTAL_MINIMUM = 460.10'));
+assert.ok(shipping.includes('FREE_SHIPPING_SUBTOTAL_MINIMUM_CENTS = 46010'));
+assert.ok(shipping.includes('subtotalCents >= FREE_SHIPPING_SUBTOTAL_MINIMUM_CENTS'));
+assert.ok(shipping.includes('R$ 480,00 em produtos => frete grátis'));
 
 // Zoom: preserva o master original antes da normalização e usa o arquivo sem recompressão no lightbox.
 assert.ok(normalizer.includes('preserveZoomMaster'));
