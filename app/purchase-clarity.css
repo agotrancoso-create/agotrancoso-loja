@@ -6,3 +6,112 @@
 .cart-checkout-reassurance { text-align:center; margin:8px 0 0; }
 .cart-complementary-info small { display:block; margin-top:6px; font-size:.72rem; line-height:1.5; color:#654335; }
 .purchase-selection .quantity-control button:disabled { opacity:.45; cursor:not-allowed; }
+
+/* Correções finais pedidas pela proprietária — esta é a última camada CSS carregada. */
+
+/* Hero: mesma fotografia e mesma leitura em desktop e mobile. A imagem não recebe
+   filtro, blur ou recompressão visual; o contraste vem do texto, preservando a foto. */
+.ago-home .ago-cinematic-image {
+  object-fit: cover !important;
+  object-position: center center !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  transform: none !important;
+}
+
+.ago-home .ago-cinematic-overlay {
+  background: linear-gradient(90deg, rgba(35,24,18,.08) 0%, rgba(35,24,18,.03) 38%, transparent 70%) !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.ago-home .ago-cinematic-copy::before,
+.ago-home .ago-cinematic-copy::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  filter: none !important;
+}
+
+.ago-home .ago-cinematic-copy,
+.ago-home .ago-cinematic-copy .eyebrow,
+.ago-home .ago-cinematic-copy h1,
+.ago-home .ago-cinematic-copy > p,
+.ago-home .ago-cinematic-secondary {
+  color: #fffaf1 !important;
+}
+
+.ago-home .ago-cinematic-copy .eyebrow,
+.ago-home .ago-cinematic-copy h1,
+.ago-home .ago-cinematic-copy > p,
+.ago-home .ago-cinematic-secondary {
+  text-shadow: 0 2px 18px rgba(22,13,9,.92), 0 1px 3px rgba(22,13,9,.95) !important;
+}
+
+.ago-home .ago-premium-hero-cta {
+  box-shadow: 0 8px 28px rgba(22,13,9,.22) !important;
+}
+
+/* A foto complementar fica inteira, imóvel e sem qualquer moldura visual. */
+.ago-home .ago-story-image,
+.ago-home .ago-story-image .ago-complementary-photo,
+.ago-home .ago-story-image .ago-story-static-photo {
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.ago-home .ago-story-image {
+  background: transparent !important;
+}
+
+.ago-home .ago-story-image .ago-story-static-photo,
+.ago-home .ago-story-image:hover .ago-story-static-photo {
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
+  translate: none !important;
+  scale: 1 !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Pretos-Velhos: a 3ª foto é explicitamente sem borda, arredondamento ou sombra. */
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-main[data-photo-index="3"],
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-main[data-photo-index="3"] .ago-gallery-open,
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-main[data-photo-index="3"] .product-gallery-image,
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-thumb[data-photo-index="3"],
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-thumb[data-photo-index="3"] img {
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-main[data-photo-index="3"] .product-gallery-image,
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-thumb[data-photo-index="3"] img {
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+/* Paridade visual: o mobile adapta medidas, não muda a identidade. */
+.site-header {
+  background: linear-gradient(90deg, #684638 0%, #755040 52%, #684638 100%) !important;
+}
+
+@media (max-width: 900px) {
+  .ago-home .ago-cinematic-image {
+    object-position: center center !important;
+  }
+
+  .ago-home .ago-cinematic-overlay {
+    background: linear-gradient(90deg, rgba(35,24,18,.08) 0%, rgba(35,24,18,.03) 38%, transparent 70%) !important;
+  }
+
+  .site-header {
+    background: linear-gradient(90deg, #684638 0%, #755040 52%, #684638 100%) !important;
+  }
+}
