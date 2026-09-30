@@ -20,6 +20,7 @@ import './proportion-fix.css';
 import './offer-premium.css';
 import './purchase-clarity.css';
 import './visual-refinement.css';
+import './site-growth-consistency.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
@@ -97,6 +98,8 @@ const structuredData = {
       logo: `${SITE_DOMAIN}/logo.png`,
       image: `${SITE_DOMAIN}/produtos/igreja-quadrado-p.jpg`,
       description: 'Loja de cerâmica artesanal no Quadrado de Trancoso, Bahia, com peças inspiradas na vila, na Igreja de São João Batista e em outras referências brasileiras.',
+      foundingDate: '2016',
+      areaServed: { '@type': 'Country', name: 'Brasil' },
       telephone: '+55 73 9855-8124',
       address: {
         '@type': 'PostalAddress',
