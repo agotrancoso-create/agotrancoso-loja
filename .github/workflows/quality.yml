@@ -75,6 +75,11 @@ jobs:
           QA_ARTIFACTS: /tmp/ago-qa
         run: npm run qa:ui
 
+      - name: Visual refinement parity and rounded zoom QA
+        env:
+          QA_ARTIFACTS: /tmp/ago-qa
+        run: node scripts/qa-visual-refinement.cjs
+
       - name: Exact Miniatura R$ 480 shipping UI contract
         run: node scripts/qa-shipping-480.cjs
 
