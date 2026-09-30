@@ -14,15 +14,13 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
   openGraph: {
     images: [{
-      url: '/banca/banca-quadrado-noite-2026.webp',
-      width: 1080,
-      height: 809,
-      alt: 'Peças de cerâmica na banca da Agô, no Quadrado de Trancoso',
+      url: '/hero.jpg',
+      alt: 'Peças de cerâmica da Agô no Quadrado de Trancoso',
     }],
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/banca/banca-quadrado-noite-2026.webp'],
+    images: ['/hero.jpg'],
   },
 };
 
@@ -58,11 +56,9 @@ export default function HomePage() {
         isPartOf: { '@id': `${SITE_DOMAIN}#website` },
         primaryImageOfPage: {
           '@type': 'ImageObject',
-          url: `${SITE_DOMAIN}/banca/hero-quadrado-2026.webp`,
-          contentUrl: `${SITE_DOMAIN}/banca/hero-quadrado-2026.webp`,
-          width: 1122,
-          height: 1402,
-          caption: 'Cerâmicas da Agô com a Igreja do Quadrado de Trancoso ao fundo',
+          url: `${SITE_DOMAIN}/hero.jpg`,
+          contentUrl: `${SITE_DOMAIN}/hero.jpg`,
+          caption: 'Cerâmicas da Agô no Quadrado de Trancoso',
         },
         mainEntity: {
           '@type': 'ItemList',
@@ -84,11 +80,10 @@ export default function HomePage() {
       <section className="ago-cinematic-commerce ago-home-hero-2026" aria-labelledby="featured-title">
         <div className="ago-cinematic-media" aria-hidden="true">
           <Image
-            src="/banca/hero-quadrado-2026.webp"
+            src="/hero.jpg"
             alt=""
             fill
             priority
-            unoptimized
             sizes="100vw"
             className="ago-cinematic-image ago-home-hero-photo-2026"
             quality={100}
@@ -193,13 +188,12 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="ago-banca-visit-gallery" aria-label="Fotografias reais da banca da Agô no Quadrado de Trancoso">
+          <div className="ago-banca-visit-gallery" aria-label="Fotografias reais da banca e das peças da Agô no Quadrado de Trancoso">
             <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-banca-photo ago-banca-photo-wide" aria-label="Abrir a localização da banca no Google Maps">
               <Image
-                src="/banca/banca-quadrado-noite-2026.webp"
-                alt="Peças da Agô expostas na banca no Quadrado de Trancoso à noite"
+                src="/hero.jpg"
+                alt="Peças da Agô expostas no Quadrado de Trancoso"
                 fill
-                unoptimized
                 quality={100}
                 sizes="(max-width: 760px) 92vw, 40vw"
               />
@@ -207,10 +201,9 @@ export default function HomePage() {
             </a>
             <Link href="/igrejinha-de-trancoso" className="ago-banca-photo ago-banca-photo-tall">
               <Image
-                src="/banca/banca-igreja-luminaria-2026.webp"
+                src="/complementar.jpg"
                 alt="Igrejinha luminária e peças em cerâmica na banca da Agô"
                 fill
-                unoptimized
                 quality={100}
                 sizes="(max-width: 760px) 72vw, 25vw"
               />
@@ -223,7 +216,7 @@ export default function HomePage() {
       <section className="ago-home-final-cta ago-immersive-reveal" aria-labelledby="home-final-title">
         <div className="ago-container">
           <div className="ago-home-final-card">
-            <Image src="/hero.jpg" alt="" fill quality={100} sizes="(max-width: 900px) 92vw, 1180px" className="ago-home-final-photo" />
+            <Image src="/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg" alt="" fill quality={100} sizes="(max-width: 900px) 92vw, 1180px" className="ago-home-final-photo" />
             <div className="ago-home-final-overlay" aria-hidden="true" />
             <div className="ago-home-final-copy">
               <p className="eyebrow">Da viagem para a casa</p>
