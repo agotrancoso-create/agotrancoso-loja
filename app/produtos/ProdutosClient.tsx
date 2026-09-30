@@ -3,7 +3,7 @@
 import Image from '@/components/ProductImage';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Product, Category } from '@/lib/types';
 import ProductCard from '@/components/ProductCard';
 import { productSearchScore } from '@/lib/product-search';
@@ -36,12 +36,11 @@ function productPrice(product: Product) {
     : product.price;
 }
 
-export default function ProdutosClient({ products, categories }: { products: Product[]; categories: Category[] }) {
+export default function ProdutosClient({ products, categories, initialFilters }: { products: Product[]; categories: Category[]; initialFilters: { query: string; category: string; budget: string } }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const [query, setQuery] = useState(searchParams.get('busca') || '');
-  const [category, setCategory] = useState(searchParams.get('categoria') || 'todas');
-  const [budget, setBudget] = useState(readBudget(searchParams.get('ate')));
+  const [query, setQuery] = useState(initialFilters.query);
+  const [category, setCategory] = useState(initialFilters.category);
+  const [budget, setBudget] = useState(readBudget(initialFilters.budget));
   const [sort, setSort] = useState<SortOption>('featured');
   const [searchFocused, setSearchFocused] = useState(false);
   const sortButton = useRef<HTMLButtonElement>(null);
@@ -53,9 +52,9 @@ export default function ProdutosClient({ products, categories }: { products: Pro
   const previousSort = useRef<SortOption>(sort);
 
   useEffect(() => { if (sortOpen) sortMenu.current?.querySelector<HTMLButtonElement>('[aria-selected="true"]')?.focus(); }, [sortOpen]);
-  const urlQuery = searchParams.get('busca') || '';
-  const urlCategory = searchParams.get('categoria') || 'todas';
-  const urlBudget = readBudget(searchParams.get('ate'));
+  const urlQuery = initialFilters.query;
+  const urlCategory = initialFilters.category;
+  const urlBudget = readBudget(initialFilters.budget);
 
   useEffect(() => {
     setQuery(urlQuery);

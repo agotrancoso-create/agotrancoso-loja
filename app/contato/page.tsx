@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { whatsappLink, INSTAGRAM_URL, INSTAGRAM_HANDLE } from '@/lib/config';
 
-const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu&g_ep=EgoyMDI2MDkxMy4wIKXMDSoASAFQAw%3D%3D';
+const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu&g_ep=EgoyMDI2MDkxMy4wIKXMDSoASAFQAw%3D%3D';
 
 export const metadata: Metadata = {
   title: { absolute: 'Contato | Agô Trancoso' },
@@ -14,7 +14,9 @@ export const metadata: Metadata = {
     siteName: 'Agô Trancoso',
     locale: 'pt_BR',
     type: 'website',
+    images: [{ url: '/nossa-essencia.jpg', width: 1800, height: 1800, alt: 'Cerâmica artesanal da Agô no Quadrado de Trancoso' }],
   },
+  twitter: { card: 'summary_large_image', title: 'Contato | Agô Trancoso', description: 'Nossa banca no Quadrado e os canais oficiais da Agô.', images: ['/nossa-essencia.jpg'] },
 };
 
 export default function ContatoPage() {

@@ -62,3 +62,10 @@
 .ago-photo-image { padding:0!important; border-radius:0!important; clip-path:none!important; object-fit:contain!important; object-position:center!important; image-rendering:auto; }
 .ago-photo-thumbs button,.ago-photo-thumbs button img { border-radius:12px!important; }
 @media(max-width:700px){.ago-photo-stage{padding:8px!important}.ago-photo-image-frame{inset:8px;border-radius:18px!important;clip-path:inset(0 round 18px)}}
+
+.product-share { margin-top: 16px; color: #654a3b; }
+.product-share button { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; font-size: .8rem; text-decoration: underline; text-underline-offset: 4px; }
+.product-share svg { width: 18px; height: 18px; }
+.product-share span { display: block; font-size: .75rem; line-height: 1.6; }
+.product-share input { display: block; width: 100%; margin-top: 8px; padding: 12px; border: 1px solid #bda68f; border-radius: 8px; background: #fffaf2; font-size: .8rem; }
+.product-share button:focus-visible { outline: 2px solid #754b37; outline-offset: 3px; }

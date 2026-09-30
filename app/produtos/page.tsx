@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import { getAllProducts, getAllCategories } from '@/lib/products';
 import ProdutosClient from './ProdutosClient';
 
@@ -14,10 +13,15 @@ export const metadata: Metadata = {
     siteName: 'Agô Trancoso',
     locale: 'pt_BR',
     type: 'website',
+    images: [{ url: '/produtos/igrejinha-luminaria-trancoso.jpg', width: 960, height: 960, alt: 'Igrejinha do Quadrado de Trancoso em cerâmica' }],
   },
+  twitter: { card: 'summary_large_image', title: 'Coleção de cerâmica | Agô Trancoso', description: 'Igrejinhas, decoração e presentes em cerâmica. Conheça a coleção e compre online.', images: ['/produtos/igrejinha-luminaria-trancoso.jpg'] },
 };
 
-export default function ProdutosPage() {
+export default async function ProdutosPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const params = await searchParams;
+  const first = (value: string | string[] | undefined) => typeof value === 'string' ? value : value?.[0] || '';
+  const initialFilters = { query: first(params.busca), category: first(params.categoria) || 'todas', budget: first(params.ate) };
   const products = getAllProducts();
   const categories = getAllCategories();
 
@@ -32,9 +36,7 @@ export default function ProdutosPage() {
           <p>O Quadrado é uma das referências da Agô. Encontre igrejinhas de Trancoso, objetos para casa, símbolos de fé e opções para presentear.</p>
         </header>
 
-        <Suspense fallback={<div className="catalog-loading" role="status">Carregando coleção…</div>}>
-          <ProdutosClient products={products} categories={categories} />
-        </Suspense>
+        <ProdutosClient products={products} categories={categories} initialFilters={initialFilters} />
       </div>
     </div>
   );

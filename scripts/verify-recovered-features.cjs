@@ -15,7 +15,8 @@ const gallery = fs.readFileSync('components/ProductGallery.tsx','utf8');
 const lightbox = fs.readFileSync('components/PhotoLightbox.tsx','utf8');
 const cart = fs.readFileSync('components/CartDrawer.tsx','utf8');
 const finalCss = fs.readFileSync('app/final-overrides.css','utf8');
-const finalLastCss = fs.readFileSync('app/purchase-clarity.css','utf8');
+// Whitespace is not a visual contract: accept expanded or compact CSS.
+const finalLastCss = fs.readFileSync('app/purchase-clarity.css','utf8').replace(/:\s*/g, ': ').replace(/\s*!important/g, ' !important');
 const popup = fs.readFileSync('components/FirstPurchaseOffer.tsx','utf8');
 const firstPurchase = fs.readFileSync('lib/first-purchase.ts','utf8');
 const checkoutValidation = fs.readFileSync('lib/checkout-validation.ts','utf8');

@@ -5,7 +5,8 @@ export const metadata: Metadata = {
   title: { absolute: 'A Agô | Agô Trancoso' },
   description: 'Conheça a Agô Trancoso, loja de cerâmica artesanal no Quadrado de Trancoso, e as referências de Trancoso, Bahia, presentes em parte do acervo.',
   alternates: { canonical: '/nossa-essencia' },
-  openGraph: { title: 'A Agô | Agô Trancoso', description: 'Conheça a Agô Trancoso, loja de cerâmica artesanal no Quadrado de Trancoso, Bahia.', url: '/nossa-essencia', siteName: 'Agô Trancoso', locale: 'pt_BR', type: 'website' },
+  openGraph: { title: 'A Agô | Agô Trancoso', description: 'Conheça a Agô Trancoso, loja de cerâmica artesanal no Quadrado de Trancoso, Bahia.', url: '/nossa-essencia', siteName: 'Agô Trancoso', locale: 'pt_BR', type: 'website', images: [{ url: '/nossa-essencia.jpg', width: 1800, height: 1800, alt: 'Peças de cerâmica da Agô Trancoso' }] },
+  twitter: { card: 'summary_large_image', title: 'A Agô | Agô Trancoso', description: 'Cerâmica artesanal no Quadrado de Trancoso desde 2016.', images: ['/nossa-essencia.jpg'] },
 };
 
 export default function NossaEssenciaPage() {

@@ -99,6 +99,7 @@ const structuredData = {
       telephone: '+55 73 9855-8124',
       address: {
         '@type': 'PostalAddress',
+        streetAddress: 'Quadrado de Trancoso',
         addressLocality: 'Trancoso',
         addressRegion: 'BA',
         addressCountry: 'BR',

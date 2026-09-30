@@ -60,6 +60,9 @@ jobs:
           done
           exit 1
 
+      - name: Crawlable catalog and social metadata
+        run: node scripts/qa-seo.cjs
+
       - name: Install browser QA runtime
         run: |
           npm install --no-save --no-audit --no-fund playwright axe-core

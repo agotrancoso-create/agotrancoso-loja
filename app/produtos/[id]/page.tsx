@@ -11,6 +11,7 @@ import ProductViewTracker from '@/components/ProductViewTracker';
 import ProductCard from '@/components/ProductCard';
 import RecentlyViewed from '@/components/RecentlyViewed';
 import PurchaseQuestions from '@/components/PurchaseQuestions';
+import ProductShare from '@/components/ProductShare';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -60,12 +61,6 @@ export function generateStaticParams() {
   return getAllProducts().map((product) => ({ id: product.id }));
 }
 
-function metadataImage(name: string, images: string[] | undefined) {
-  return (images?.length ? images : ['/images/placeholder.svg']).map((image) => ({
-    url: image,
-    alt: `${name} disponível na Agô Trancoso`,
-  }));
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -73,6 +68,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   if (!product) return {};
 
   const images = getAttentionOrderedImages(product);
+  const shareImage = images.find(image => /\.(jpe?g|png)$/i.test(image)) || images[0];
   const seo = PRODUCT_SEO[product.id] ?? {
     title: `${product.name} | Agô Trancoso`,
     description: product.description,
@@ -89,13 +85,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       siteName: 'Agô Trancoso',
       locale: 'pt_BR',
       type: 'website',
-      images: metadataImage(product.name, images),
+      images: shareImage ? [{url: shareImage, alt: `${product.name} disponível na Agô Trancoso`, width: 960, height: 960}] : undefined,
     },
     twitter: {
       card: 'summary_large_image',
       title: seo.title,
       description: seo.description,
-      images: images.length ? [images[0]] : undefined,
+      images: shareImage ? [shareImage] : undefined,
     },
   };
 }
@@ -211,7 +207,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                 {product.dimensions && <div><dt>Dimensões</dt><dd>{product.dimensions}</dd></div>}
               </dl>
 
-              <div className="product-purchase"><AddToCart product={product} /></div>
+              <div className="product-purchase"><AddToCart product={product} />
+              <ProductShare name={product.name} url={productUrl} /></div>
               <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="product-whatsapp">Prefere comprar pelo WhatsApp? <span aria-hidden="true">↗</span></a>
 
               <div className="product-service-grid">
