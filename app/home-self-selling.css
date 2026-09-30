@@ -1,0 +1,483 @@
+/* Agô Trancoso — recuperação do melhor do site antigo dentro da loja atual.
+   Fotografia real, compra fácil, benefícios claros e visita útil.
+   Esta camada não altera preços, frete, checkout ou catálogo. */
+:root {
+  --ago-home-canvas: #fcf9f4;
+  --ago-home-ivory: #fffaf3;
+  --ago-home-ink: #35241d;
+  --ago-home-muted: #715d51;
+  --ago-home-clay: #7d4d35;
+  --ago-home-clay-deep: #2a1e18;
+  --ago-home-gold: #dec08a;
+  --ago-home-proof: #f7f1e6;
+  --ago-home-radius: 22px;
+  --ago-home-ease: cubic-bezier(.22,.8,.24,1);
+}
+
+/* HERO — fotografia real enviada pela proprietária, sem filtro de cor. */
+.ago-home-hero-2026 .ago-cinematic-media {
+  height: clamp(540px, 68vh, 720px) !important;
+  background: #211713 !important;
+}
+
+.ago-home-hero-2026 .ago-home-hero-photo-2026 {
+  object-fit: cover !important;
+  object-position: 50% 38% !important;
+  filter: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.ago-home-hero-2026 .ago-cinematic-overlay {
+  background: linear-gradient(90deg, rgba(27,17,13,.78) 0%, rgba(27,17,13,.58) 38%, rgba(27,17,13,.24) 68%, rgba(27,17,13,.12) 100%) !important;
+}
+
+.ago-home-hero-2026 .ago-cinematic-copy {
+  min-height: clamp(410px, 47vw, 540px) !important;
+  justify-content: center !important;
+}
+
+.ago-home-hero-2026 .ago-cinematic-copy h1 {
+  max-width: 760px;
+  color: var(--ago-home-ivory) !important;
+  font-size: clamp(3.1rem, 6vw, 5.8rem) !important;
+  line-height: .95 !important;
+  letter-spacing: -.045em !important;
+  text-wrap: balance;
+  text-shadow: 0 2px 24px rgba(20,12,9,.35) !important;
+}
+
+.ago-home-hero-2026 .ago-cinematic-copy > p:not(.eyebrow) {
+  max-width: 520px;
+  margin-top: 18px;
+  color: rgba(255,250,243,.92) !important;
+  font-size: clamp(.98rem, 1.25vw, 1.08rem);
+  line-height: 1.68;
+}
+
+.ago-home-hero-2026 .ago-cinematic-copy .eyebrow { color: #f2dfc6 !important; }
+.ago-home-hero-2026 .ago-premium-hero-cta { background: var(--ago-home-ivory) !important; color: var(--ago-home-ink) !important; }
+.ago-home-hero-2026 .ago-cinematic-secondary { color: var(--ago-home-ivory) !important; }
+
+/* ÍCONES — o melhor da faixa antiga, agora com sinais úteis à compra online. */
+.ago-benefits-icons-2026 {
+  padding-block: clamp(30px, 3.4vw, 48px) !important;
+  background: var(--ago-home-canvas) !important;
+  background-image: none !important;
+  border-top: 1px solid rgba(117,75,55,.12);
+}
+
+.ago-benefits-icon-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 0 !important;
+}
+
+.ago-benefit-icon-item {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 48px minmax(0,1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 8px clamp(16px, 2.2vw, 30px);
+  border-right: 1px solid rgba(117,75,55,.13);
+}
+
+.ago-benefit-icon-item:first-child { padding-left: 0; }
+.ago-benefit-icon-item:last-child { border-right: 0; padding-right: 0; }
+
+.ago-benefit-line-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(139,67,46,.28);
+  border-radius: 50%;
+  color: #8b432e;
+}
+
+.ago-benefit-line-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 1.55;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ago-benefit-icon-copy { min-width: 0; display: grid; gap: 4px; }
+.ago-benefit-icon-copy strong { color: var(--ago-home-ink); font-size: .82rem; line-height: 1.35; font-weight: 800; }
+.ago-benefit-icon-copy small { color: var(--ago-home-muted); font-size: .72rem; line-height: 1.45; }
+
+/* HISTÓRIA — uma mensagem por vez + três intenções reais de compra. */
+.ago-home .ago-home-story .ago-premium-copy > p:not(.eyebrow) {
+  max-width: 43ch;
+  line-height: 1.72;
+}
+
+.ago-story-reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 24px 0 18px;
+}
+
+.ago-story-reasons a {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 14px;
+  border: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+  border-radius: 999px;
+  color: inherit;
+  font-size: .72rem;
+  line-height: 1;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .055em;
+  text-decoration: none;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+
+/* CATEGORIAS — nunca podem voltar a virar cartões bege vazios. */
+.ago-home .ago-premium-discovery-card,
+.ago-home .ago-premium-discovery-image,
+.ago-home .ago-premium-discovery-image img {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.ago-home .ago-premium-discovery-image {
+  position: relative;
+  overflow: hidden;
+  background: #efe4d4 !important;
+}
+
+.ago-home .ago-premium-discovery-image img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  filter: none !important;
+}
+
+.ago-home .ago-premium-discovery-card {
+  isolation: isolate;
+  transition: transform .32s var(--ago-home-ease), box-shadow .32s ease !important;
+}
+
+/* BANCA + VISITA — substitui o antigo Trancoso/Bahia decorativo por prova real e orientação. */
+.ago-banca-visit {
+  padding-block: clamp(66px, 8vw, 116px);
+  background: var(--ago-home-clay) !important;
+  background-image: none !important;
+  color: var(--ago-home-ivory);
+  overflow: hidden;
+}
+
+.ago-banca-visit-layout {
+  display: grid;
+  grid-template-columns: minmax(260px,.64fr) minmax(0,1.36fr);
+  gap: clamp(42px, 7vw, 104px);
+  align-items: center;
+}
+
+.ago-banca-visit-copy { max-width: 500px; }
+.ago-banca-visit .eyebrow { color: var(--ago-home-gold) !important; }
+
+.ago-banca-visit h2 {
+  max-width: 9ch;
+  margin: 0;
+  color: var(--ago-home-ivory) !important;
+  font-size: clamp(2.7rem, 4.8vw, 5rem) !important;
+  line-height: .96 !important;
+  letter-spacing: -.045em !important;
+  text-wrap: balance;
+}
+
+.ago-banca-visit-copy > p:not(.eyebrow) {
+  max-width: 40ch;
+  margin-top: 20px;
+  color: rgba(255,250,243,.82);
+  line-height: 1.72;
+}
+
+.ago-banca-visit-address {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  color: var(--ago-home-ivory);
+}
+
+.ago-banca-visit-address > span {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,250,243,.28);
+  border-radius: 50%;
+  font-size: 1rem;
+}
+
+.ago-banca-visit-address > div { display: grid; gap: 3px; }
+.ago-banca-visit-address strong { font-size: .84rem; line-height: 1.25; }
+.ago-banca-visit-address small { color: rgba(255,250,243,.66); font-size: .7rem; line-height: 1.35; }
+
+.ago-banca-visit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  margin-top: 28px;
+}
+
+.ago-banca-visit .ago-premium-light-cta {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--ago-home-ivory);
+  color: var(--ago-home-ink);
+  font-size: .76rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.ago-banca-visit .ago-premium-text-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--ago-home-ivory) !important;
+  border-bottom: 1px solid rgba(255,250,243,.38);
+}
+
+.ago-banca-visit-gallery {
+  display: grid;
+  grid-template-columns: minmax(0,1.24fr) minmax(210px,.76fr);
+  gap: 16px;
+  min-width: 0;
+  align-items: stretch;
+}
+
+.ago-banca-photo {
+  position: relative;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--ago-home-radius);
+  background: var(--ago-home-clay-deep);
+  isolation: isolate;
+  box-shadow: 0 22px 62px rgba(31,19,14,.17);
+}
+
+.ago-banca-photo-wide { aspect-ratio: 4 / 3; }
+.ago-banca-photo-tall { aspect-ratio: 3 / 4; }
+
+.ago-banca-photo img {
+  object-fit: cover !important;
+  object-position: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+  transition: transform .55s var(--ago-home-ease), filter .3s ease;
+}
+
+.ago-banca-photo::after {
+  content: '';
+  position: absolute;
+  inset: 42% 0 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(24,15,12,.58));
+}
+
+.ago-banca-photo > span {
+  position: absolute;
+  z-index: 2;
+  left: 18px;
+  right: 18px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ago-home-ivory);
+  font-size: .78rem;
+  line-height: 1.35;
+  font-weight: 800;
+}
+
+.ago-banca-photo > span b { font: inherit; transition: transform .2s ease; }
+
+/* CTA FINAL — recupera a ideia antiga de levar Trancoso para casa, com compra online real. */
+.ago-home-final-cta {
+  padding-block: clamp(54px, 7vw, 96px);
+  background: var(--ago-home-canvas) !important;
+  background-image: none !important;
+}
+
+.ago-home-final-card {
+  position: relative;
+  min-height: clamp(310px, 34vw, 470px);
+  overflow: hidden;
+  border-radius: clamp(22px, 3vw, 34px);
+  background: var(--ago-home-clay-deep);
+  isolation: isolate;
+}
+
+.ago-home-final-photo {
+  object-fit: cover !important;
+  object-position: center 52% !important;
+  filter: none !important;
+  transition: transform .7s var(--ago-home-ease);
+}
+
+.ago-home-final-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(34,22,17,.82), rgba(34,22,17,.52) 52%, rgba(34,22,17,.18));
+}
+
+.ago-home-final-copy {
+  position: relative;
+  z-index: 2;
+  min-height: inherit;
+  width: min(620px, 76%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(34px, 5vw, 72px);
+  color: var(--ago-home-ivory);
+}
+
+.ago-home-final-copy .eyebrow { color: #ead6b7 !important; }
+.ago-home-final-copy h2 {
+  max-width: 12ch;
+  color: var(--ago-home-ivory) !important;
+  font-size: clamp(2.55rem, 4.7vw, 5rem) !important;
+  line-height: .97 !important;
+  letter-spacing: -.045em !important;
+  text-wrap: balance;
+}
+
+.ago-home-final-copy > p:not(.eyebrow) {
+  max-width: 42ch;
+  margin-top: 18px;
+  color: rgba(255,250,243,.82);
+  line-height: 1.7;
+}
+
+.ago-home-final-copy .home-hero-actions { margin-top: 28px; }
+.ago-home-final-copy .ago-premium-hero-cta { background: var(--ago-home-ivory) !important; color: var(--ago-home-ink) !important; }
+.ago-home-final-copy .ago-cinematic-secondary { color: var(--ago-home-ivory) !important; }
+
+@media (hover:hover) and (pointer:fine) {
+  .ago-story-reasons a:hover,
+  .ago-story-reasons a:focus-visible { transform: translateY(-2px); background: rgba(255,255,255,.08); }
+  .ago-home .ago-premium-discovery-card:hover,
+  .ago-home .ago-premium-discovery-card:focus-visible { transform: translateY(-5px) !important; box-shadow: 0 16px 40px rgba(35,24,19,.12); }
+  .ago-banca-photo:hover img,
+  .ago-banca-photo:focus-visible img { transform: scale(1.026); filter: saturate(1.035) !important; }
+  .ago-banca-photo:hover > span b,
+  .ago-banca-photo:focus-visible > span b { transform: translate(2px,-2px); }
+  .ago-home-final-card:hover .ago-home-final-photo { transform: scale(1.018); }
+  .ago-benefit-icon-item { transition: transform .2s ease; }
+  .ago-benefit-icon-item:hover { transform: translateY(-2px); }
+}
+
+@media (max-width: 980px) {
+  .ago-benefits-icon-grid { grid-template-columns: repeat(2,minmax(0,1fr)); row-gap: 24px !important; }
+  .ago-benefit-icon-item:nth-child(2) { border-right: 0; padding-right: 0; }
+  .ago-benefit-icon-item:nth-child(3) { padding-left: 0; }
+  .ago-banca-visit-layout { grid-template-columns: 1fr; gap: 36px; }
+  .ago-banca-visit-copy { max-width: 660px; }
+  .ago-banca-visit h2 { max-width: 12ch; }
+}
+
+@media (max-width: 700px) {
+  .ago-home-hero-2026 .ago-cinematic-media { height: clamp(510px, 74svh, 670px) !important; }
+  .ago-home-hero-2026 .ago-home-hero-photo-2026 { object-position: 50% 42% !important; }
+  .ago-home-hero-2026 .ago-cinematic-overlay { background: linear-gradient(180deg, rgba(27,17,13,.18) 0%, rgba(27,17,13,.34) 42%, rgba(27,17,13,.82) 100%) !important; }
+  .ago-home-hero-2026 .ago-cinematic-copy { min-height: 455px !important; justify-content: flex-end !important; padding-bottom: 60px !important; }
+  .ago-home-hero-2026 .ago-cinematic-copy h1 { max-width: 8.2ch; font-size: clamp(2.9rem, 14vw, 4.45rem) !important; }
+
+  .ago-benefits-icons-2026 { padding-block: 28px !important; }
+  .ago-benefits-icon-grid { grid-template-columns: 1fr 1fr; gap: 18px 8px !important; }
+  .ago-benefit-icon-item,
+  .ago-benefit-icon-item:first-child,
+  .ago-benefit-icon-item:nth-child(3),
+  .ago-benefit-icon-item:last-child {
+    grid-template-columns: 38px minmax(0,1fr);
+    gap: 10px;
+    padding: 0 10px !important;
+    border-right: 0;
+  }
+  .ago-benefit-line-icon { width: 38px; height: 38px; }
+  .ago-benefit-line-icon svg { width: 20px; height: 20px; }
+  .ago-benefit-icon-copy strong { font-size: .73rem; }
+  .ago-benefit-icon-copy small { font-size: .65rem; }
+
+  .ago-story-reasons { gap: 7px; }
+  .ago-story-reasons a { min-height: 40px; padding-inline: 12px; font-size: .66rem; }
+
+  .ago-banca-visit { padding-block: 60px; }
+  .ago-banca-visit-layout { gap: 30px; }
+  .ago-banca-visit h2 { max-width: 10ch; font-size: clamp(2.5rem, 12vw, 3.9rem) !important; }
+  .ago-banca-visit-gallery {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .ago-banca-visit-gallery::-webkit-scrollbar { display: none; }
+  .ago-banca-photo { flex: 0 0 82%; scroll-snap-align: start; }
+  .ago-banca-photo-wide,
+  .ago-banca-photo-tall { aspect-ratio: 4 / 5; }
+
+  .ago-home-final-cta { padding-block: 42px 56px; }
+  .ago-home-final-card { min-height: 430px; }
+  .ago-home-final-photo { object-position: 58% center !important; }
+  .ago-home-final-overlay { background: linear-gradient(180deg, rgba(34,22,17,.2) 0%, rgba(34,22,17,.42) 42%, rgba(34,22,17,.86) 100%); }
+  .ago-home-final-copy {
+    width: 100%;
+    justify-content: flex-end;
+    padding: 28px 22px 32px;
+  }
+  .ago-home-final-copy h2 { max-width: 9ch; font-size: clamp(2.45rem, 12vw, 3.75rem) !important; }
+}
+
+@media (max-width: 420px) {
+  .ago-benefits-icon-grid { grid-template-columns: 1fr; gap: 15px !important; }
+  .ago-benefit-icon-item,
+  .ago-benefit-icon-item:first-child,
+  .ago-benefit-icon-item:nth-child(3),
+  .ago-benefit-icon-item:last-child { padding: 0 !important; }
+  .ago-banca-photo { flex-basis: 88%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ago-home-hero-photo-2026,
+  .ago-premium-discovery-card,
+  .ago-premium-discovery-image img,
+  .ago-banca-photo,
+  .ago-banca-photo img,
+  .ago-home-final-photo,
+  .ago-story-reasons a,
+  .ago-benefit-icon-item {
+    transition: none !important;
+    transform: none !important;
+  }
+}
