@@ -20,6 +20,10 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
+function zoomSource(src: string) {
+  return src.startsWith('/produtos/') ? `/zoom${src}` : src;
+}
+
 function touchDistance(a: TouchPoint, b: TouchPoint) {
   return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
 }
@@ -208,9 +212,10 @@ export default function PhotoLightbox({ productId, name, images, initialIndex = 
       >
         <div className="ago-photo-image-shell" style={{ transform: `translate3d(${pan.x}px, ${pan.y}px, 0) scale(${scale})` }}>
           <Image
-            src={images[active]}
+            src={zoomSource(images[active])}
             alt={`${name}, foto ${active + 1} de ${images.length}`}
             fill
+            unoptimized
             quality={100}
             sizes="100vw"
             priority

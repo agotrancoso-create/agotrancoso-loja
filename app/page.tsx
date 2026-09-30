@@ -73,7 +73,7 @@ export default function HomePage() {
       <section className="ago-premium-editorial ago-home-story ago-immersive-reveal" aria-labelledby="story-title">
         <div className="ago-container ago-premium-split">
           <div className="ago-premium-image ago-story-image">
-            <Image src="/nossa-essencia.jpg" alt="Universo visual da Agô Trancoso" fill sizes="(max-width: 900px) 100vw, 56vw" quality={100} className="ago-complementary-photo ago-parallax-photo" />
+            <Image src="/nossa-essencia.jpg" alt="Universo visual da Agô Trancoso" fill sizes="(max-width: 900px) 100vw, 56vw" quality={100} className="ago-complementary-photo ago-story-static-photo" />
           </div>
           <div className="ago-premium-copy">
             <p className="eyebrow">No Quadrado</p>

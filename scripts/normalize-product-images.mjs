@@ -21,13 +21,8 @@ const SQUARE_CROP_ASSETS = new Set([
   '/produtos/casinha-luminaria.jpg',
 ]);
 
-// Fotos com excesso de fundo branco: amplia a peça dentro do quadro 960×960 sem
-// esticar nem cortar a cerâmica.
-const SMART_TRIM_ASSETS = new Set([
-  '/produtos/catalogo/casal-pretos-velhos-1.jpg',
-]);
-
-// Arquivos usados por associações históricas corrigidas em lib/products.ts.
+// Arquivos usados por associações históricas corrigidas em lib/products.ts ou
+// por curadoria fotográfica que não aparece diretamente no JSON-base.
 const EXTRA_ACTIVE_ASSETS = [
   '/produtos/igrejinha-luminaria-trancoso.jpg',
   '/produtos/igreja-quadrado-p.jpg',
@@ -36,10 +31,16 @@ const EXTRA_ACTIVE_ASSETS = [
   '/produtos/catalogo/casal-pretos-velhos-2.jpg',
   '/produtos/catalogo/casal-pretos-velhos-3.jpg',
   '/produtos/casinha-luminaria.jpg',
+  '/produtos/catalogo/miniatura-quadrado-trancoso-6.avif',
+  '/produtos/catalogo/miniatura-quadrado-trancoso-7.avif',
 ];
 
 function publicPathToFile(src) {
   return path.join(PUBLIC_DIR, src.replace(/^\/+/, ''));
+}
+
+function zoomMasterFile(src) {
+  return path.join(PUBLIC_DIR, 'zoom', src.replace(/^\/+/, ''));
 }
 
 async function fileExists(file) {
@@ -49,6 +50,14 @@ async function fileExists(file) {
   } catch {
     return false;
   }
+}
+
+async function preserveZoomMaster(src, file) {
+  const zoomFile = zoomMasterFile(src);
+  if (await fileExists(zoomFile)) return;
+  await fs.mkdir(path.dirname(zoomFile), { recursive: true });
+  await fs.copyFile(file, zoomFile);
+  console.log(`[zoom] master original preservado: ${src}`);
 }
 
 async function cornerColor(image, width, height) {
@@ -90,6 +99,9 @@ function encodeForExtension(pipeline, extension) {
   if (extension === '.webp') {
     return pipeline.webp({ quality: 100, smartSubsample: true });
   }
+  if (extension === '.avif') {
+    return pipeline.avif({ quality: 100, chromaSubsampling: '4:4:4' });
+  }
   return pipeline;
 }
 
@@ -106,6 +118,11 @@ async function normalizeImage(src) {
     return { missing: 1, resized: 0, skipped: 0 };
   }
 
+  // O lightbox usa este master para não ampliar uma versão já redimensionada.
+  // A cópia acontece antes de qualquer transformação e não é sobrescrita numa
+  // segunda passagem do prebuild.
+  await preserveZoomMaster(src, file);
+
   const base = sharp(file, { failOn: 'none' });
   const metadata = await base.metadata();
   const width = metadata.width ?? 0;
@@ -121,28 +138,6 @@ async function normalizeImage(src) {
   }
 
   const extension = path.extname(file).toLowerCase();
-
-  if (SMART_TRIM_ASSETS.has(src)) {
-    let pipeline = sharp(file, { failOn: 'none' })
-      .rotate()
-      .trim({ background: '#ffffff', threshold: 18 })
-      .resize(860, 860, {
-        fit: 'contain',
-        background: { r: 255, g: 255, b: 255, alpha: 1 },
-        kernel: sharp.kernel.lanczos3,
-      })
-      .extend({
-        top: 50,
-        bottom: 50,
-        left: 50,
-        right: 50,
-        background: { r: 255, g: 255, b: 255, alpha: 1 },
-      });
-    pipeline = encodeForExtension(pipeline, extension);
-    await writeNormalized(file, await pipeline.toBuffer());
-    console.log(`[960x960] ${src}: reenquadrada em 960x960, peça maior e sem deformação`);
-    return { missing: 0, resized: 1, skipped: 0 };
-  }
 
   if (SQUARE_CROP_ASSETS.has(src) && (width !== TARGET_SIZE || height !== TARGET_SIZE)) {
     let pipeline = base.rotate().resize(TARGET_SIZE, TARGET_SIZE, {

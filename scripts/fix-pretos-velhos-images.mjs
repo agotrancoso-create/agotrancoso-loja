@@ -4,9 +4,10 @@ import { rename } from 'node:fs/promises';
 
 const ROOT = process.cwd();
 const TARGET_SIZE = 960;
+
+// Pedido específico da proprietária: somente a terceira foto recebe o
+// reenquadramento especial. As fotos 1 e 2 não são alteradas por este script.
 const IMAGES = [
-  'public/produtos/catalogo/casal-pretos-velhos-1.jpg',
-  'public/produtos/catalogo/casal-pretos-velhos-2.jpg',
   'public/produtos/catalogo/casal-pretos-velhos-3.jpg',
 ];
 
@@ -14,9 +15,9 @@ for (const relativePath of IMAGES) {
   const file = path.join(ROOT, relativePath);
   const temp = `${file}.ago-square.jpg`;
 
-  // Remove apenas o excesso de fundo branco externo e preserva a peça inteira.
-  // Não adiciona moldura/padding artificial. O próprio fundo branco da foto
-  // completa o quadrado apenas quando a proporção original exigir.
+  // Remove o excesso de fundo externo, amplia a peça até o máximo que cabe no
+  // quadrado e preserva 100% da cerâmica. Não cria moldura, padding decorativo,
+  // recorte da peça ou deformação.
   await sharp(file, { failOn: 'error' })
     .rotate()
     .trim({ background: '#ffffff', threshold: 18 })
@@ -31,5 +32,5 @@ for (const relativePath of IMAGES) {
     .toFile(temp);
 
   await rename(temp, file);
-  console.log(`[Pretos-Velhos] ${relativePath} -> ${TARGET_SIZE}x${TARGET_SIZE}, peça inteira, centralizada e sem borda artificial`);
+  console.log(`[Pretos-Velhos] foto 3 -> ${TARGET_SIZE}x${TARGET_SIZE}, completa, centralizada, preenchida ao máximo e sem borda`);
 }

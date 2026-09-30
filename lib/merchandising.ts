@@ -1,24 +1,24 @@
 import { Product } from './types';
 
-// Ordem editorial e comercial da vitrine.
-// Prioriza reconhecimento imediato de Trancoso, força visual da fotografia,
-// variedade de formatos, entrada de preço acessível e progressão de ticket.
-// O Casal de Pretos-Velhos sobe na curadoria para ganhar mais descoberta sem
-// substituir as peças-símbolo de Trancoso no topo da coleção.
+// Ordem editorial e comercial baseada em princípios de saliência visual:
+// reconhecimento imediato de Trancoso, formas humanas/faciais, contraste,
+// variedade de silhuetas e progressão de ticket. O objetivo é captar atenção
+// sem sacrificar coerência de marca nem transformar a coleção em uma vitrine
+// puramente de preço.
 export const ATTENTION_PRODUCT_ORDER = [
-  'miniatura-quadrado-trancoso',
   'igreja-quadrado-p',
+  'miniatura-quadrado-trancoso',
   'igrejinha-luminaria-trancoso',
-  'igreja-quadrado-m',
   'casal-pretos-velhos',
   'casinha-luminaria',
+  'mobile-trancoso',
+  'igreja-quadrado-m',
   'ima-igrejinha-trancoso',
   'colar-igreja-quadrado',
   'cruzeiro-do-quadrado',
   'igreja-quadrado-gg',
-  'mobile-trancoso',
-  'nossa-senhora-grande',
   'estatueta-iemanja',
+  'nossa-senhora-grande',
   'presepio-em-ceramica',
   'nossa-senhora-aparecida',
   'divino-espirito-santo',
@@ -45,7 +45,7 @@ export function sortProductsByAttention<T extends Product>(products: T[]): T[] {
  * os nomes históricos de dois arquivos estão invertidos em relação ao que
  * realmente aparece nas fotos. A P usa visualmente o arquivo chamado
  * igrejinha-luminaria-trancoso.jpg e a Luminária usa visualmente o arquivo
- * chamado igreja-quadrado-p.jpg. Não inverter esta regra pelo nome do arquivo.
+ * igreja-quadrado-p.jpg. Não inverter esta regra pelo nome do arquivo.
  */
 const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
   'igreja-quadrado-p': [

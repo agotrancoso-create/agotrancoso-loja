@@ -58,6 +58,24 @@
   background: #fbf5eb !important;
 }
 
+/* Foto institucional: composição completa e imóvel. Não herda parallax, hover
+   de zoom ou recorte cover das outras imagens editoriais. */
+.ago-home .ago-story-image {
+  background: #f4e8d7 !important;
+  overflow: hidden !important;
+}
+
+.ago-home .ago-story-image .ago-story-static-photo,
+.ago-home .ago-story-image:hover .ago-story-static-photo {
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
+  translate: none !important;
+  scale: 1 !important;
+  animation: none !important;
+  transition: none !important;
+}
+
 /* Fotos de produto e capas: cantos consistentes sem cortar a peça. */
 .product-image-wrap,
 .product-gallery-main,
