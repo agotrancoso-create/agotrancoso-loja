@@ -67,7 +67,7 @@ async function run() {
         assert.equal(storyStyle.fit, 'contain');
         assert.equal(storyStyle.transform, 'none');
         assert.equal(storyStyle.border, '0px');
-        assert.equal(storyStyle.radius, '0px');
+        assert.equal(storyStyle.radius, '18px');
         const heroTitle = page.locator('.ago-cinematic-copy h1').first();
         const heroStyle = await heroTitle.evaluate(node => ({ color: getComputedStyle(node).color, shadow: getComputedStyle(node).textShadow }));
         assert.notEqual(heroStyle.shadow, 'none');
