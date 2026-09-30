@@ -3,7 +3,6 @@
 import Image from '@/components/ProductImage';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Product, Category } from '@/lib/types';
 import ProductCard from '@/components/ProductCard';
 import { productSearchScore } from '@/lib/product-search';
@@ -57,8 +56,12 @@ function budgetLabel(value: BudgetFilter) {
   return budgetOptions.find(option => option.value === value)?.label ?? value;
 }
 
+function replaceCatalogUrl(params: URLSearchParams) {
+  const href = `/produtos${params.size ? `?${params.toString()}` : ''}`;
+  window.history.replaceState(window.history.state, '', href);
+}
+
 export default function ProdutosClient({ products, categories, initialFilters }: { products: Product[]; categories: Category[]; initialFilters: { query: string; category: string; budget: string } }) {
-  const router = useRouter();
   const [query, setQuery] = useState(initialFilters.query);
   const [category, setCategory] = useState(initialFilters.category);
   const [budget, setBudget] = useState<BudgetFilter>(readBudget(initialFilters.budget));
@@ -170,7 +173,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
     setCategory('todas');
     setSort('featured');
     setBudget('');
-    router.replace('/produtos', { scroll: false });
+    replaceCatalogUrl(new URLSearchParams());
   }
 
   function selectCategory(nextCategory: string) {
@@ -179,7 +182,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
     if (query.trim()) params.set('busca', query.trim());
     if (nextCategory !== 'todas') params.set('categoria', nextCategory);
     if (budget) params.set('ate', budget);
-    router.replace(`/produtos${params.size ? `?${params}` : ''}`, { scroll: false });
+    replaceCatalogUrl(params);
   }
 
   function selectBudget(value: string) {
@@ -189,7 +192,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
     if (query.trim()) params.set('busca', query.trim());
     if (category !== 'todas') params.set('categoria', category);
     if (nextBudget) params.set('ate', nextBudget);
-    router.replace(`/produtos${params.size ? `?${params}` : ''}`, { scroll: false });
+    replaceCatalogUrl(params);
     const matchingCount = products.filter(product => product.available && matchesBudget(product, nextBudget) && (category === 'todas' || product.category === category) && productSearchScore(product, query)).length;
     trackCatalogFilter('faixa_preco', budgetLabel(nextBudget), matchingCount);
   }
