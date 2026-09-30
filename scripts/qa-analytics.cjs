@@ -115,7 +115,22 @@ async function run() {
   const begin = (await events('begin_checkout')).at(-1);
   assert.ok(begin.ecommerce.value > 0);
   assert.ok(begin.ecommerce.items.length >= 1);
-  pass('begin_checkout records value and line items');
+  const recoveryUrl = new URL(begin.ecommerce.recovery_url);
+  assert.equal(recoveryUrl.origin, base);
+  assert.match(recoveryUrl.searchParams.get('retomar') || '', new RegExp(`${selectedId}:1`));
+  pass('begin_checkout includes a canonical recovery URL without prices or personal data');
+
+  // Simula a abertura do e-mail em outro aparelho: sem localStorage de carrinho.
+  await page.evaluate(() => localStorage.removeItem('agotrancoso_carrinho_v1'));
+  await page.goto(recoveryUrl.toString(), { waitUntil: 'domcontentloaded' });
+  await page.getByRole('heading', { name: 'Finalizar compra' }).waitFor();
+  await page.waitForFunction(() => !new URL(location.href).searchParams.has('retomar'));
+  await waitFor('begin_checkout');
+  const recoveredBegin = (await events('begin_checkout')).at(-1);
+  assert.equal(recoveredBegin.ecommerce.items[0].item_id, selectedId);
+  assert.equal(recoveredBegin.ecommerce.items[0].quantity, 1);
+  assert.ok(recoveredBegin.ecommerce.value > 0);
+  pass('recovery URL rebuilds the cart from canonical catalog data on a fresh device');
 
   for (const [id, value] of Object.entries({ name: 'Pessoa Teste', email: 'qa-analytics@example.com', phone: '73999999999', document: '52998224725' })) await page.locator('#' + id).fill(value);
   await page.getByRole('button', { name: 'Continuar para entrega' }).first().click();
