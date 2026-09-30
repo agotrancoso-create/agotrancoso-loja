@@ -1,0 +1,119 @@
+/* Approved screenshot: warm clay, spacious visit section and dark cacao footer.
+   Keep identical colors across viewports and preserve the product photographs. */
+:root {
+  --ago-home-story-bg: #a77b57;
+  --ago-home-visit-bg: #7d4d35;
+  --ago-home-visit-ink: #fff8ed;
+  --ago-home-visit-muted: #f3e3d4;
+  --ago-home-gold: #dec08a;
+}
+.ago-home .ago-home-story {
+  background: var(--ago-home-story-bg) !important;
+}
+.ago-home .ago-home-story .ago-premium-copy h2,
+.ago-home .ago-home-story .ago-premium-copy p,
+.ago-home .ago-home-story .ago-premium-copy a {
+  color: #24170f !important;
+}
+.ago-home .ago-home-story .ago-premium-copy .eyebrow {
+  color: #302016 !important;
+}
+.ago-home .ago-bahia-visit {
+  background: var(--ago-home-visit-bg) !important;
+  padding-block: clamp(80px, 9vw, 144px) !important;
+}
+.ago-home .ago-bahia-visit > .ago-container {
+  grid-template-columns: minmax(0, 1fr) minmax(180px, .32fr) !important;
+  gap: 64px !important;
+}
+.ago-home .ago-bahia-visit h2 {
+  max-width: 24ch !important;
+  font-size: clamp(32px, 3vw, 48px) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.025em !important;
+}
+.ago-home .ago-bahia-visit .eyebrow {
+  color: var(--ago-home-gold) !important;
+  font-size: 12px !important;
+  letter-spacing: .22em !important;
+}
+.ago-home .ago-bahia-visit h2 + p {
+  margin-top: 18px !important;
+  color: var(--ago-home-visit-muted) !important;
+}
+.ago-home .ago-bahia-visit .ago-bahia-visit-links {
+  margin-top: 30px !important;
+  gap: 8px 32px !important;
+}
+.ago-home .ago-bahia-visit-links a {
+  text-transform: uppercase;
+  letter-spacing: .09em !important;
+  text-decoration: none !important;
+  min-height: 44px !important;
+}
+.ago-home .ago-bahia-visit-links a:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 6px;
+}
+.ago-home .ago-bahia-wordmark {
+  justify-self: end !important;
+  text-align: center !important;
+  color: var(--ago-home-gold) !important;
+}
+.ago-home .ago-bahia-wordmark strong {
+  display: block;
+  font-family: var(--font-display), Georgia, serif !important;
+  font-size: clamp(46px, 4vw, 64px) !important;
+  line-height: 1 !important;
+  font-weight: 500 !important;
+  letter-spacing: -.04em !important;
+  text-transform: uppercase !important;
+  color: var(--ago-home-gold) !important;
+}
+.ago-home .ago-bahia-wordmark span {
+  display: block;
+  color: #efdbc0 !important;
+  font-size: 10px !important;
+  letter-spacing: .18em !important;
+  text-transform: uppercase;
+  margin-block: 8px !important;
+}
+.site-footer.ago-site-footer {
+  background: #291e18 !important;
+  background-image: none !important;
+  color: #eee0d1 !important;
+  border-top: 0 !important;
+}
+.ago-site-footer .ago-footer-main {
+  padding-block: clamp(40px, 4.5vw, 72px) !important;
+}
+.ago-site-footer .ago-footer-group h3,
+.ago-site-footer .ago-footer-place {
+  color: #dfc4a3 !important;
+  letter-spacing: .12em !important;
+}
+.ago-site-footer .ago-footer-group p,
+.ago-site-footer .ago-footer-group a,
+.ago-site-footer .ago-footer-group span,
+.ago-site-footer .ago-footer-description,
+.ago-site-footer .ago-footer-legal {
+  color: #eee0d1 !important;
+}
+.ago-site-footer a:focus-visible,
+.ago-home .ago-bahia-visit a:focus-visible {
+  outline: 2px solid #fff8ed !important;
+  outline-offset: 5px !important;
+  border-radius: 3px;
+}
+@media (max-width: 700px) {
+  .ago-home .ago-bahia-visit { padding-block: 64px !important; }
+  .ago-home .ago-bahia-visit > .ago-container {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+  .ago-home .ago-bahia-wordmark { justify-self: start !important; }
+  .ago-home .ago-bahia-visit .ago-bahia-visit-links {
+    gap: 6px 22px !important;
+    margin-top: 22px !important;
+  }
+}
