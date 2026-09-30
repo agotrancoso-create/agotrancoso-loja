@@ -68,7 +68,7 @@ async function main() {
     await hero.evaluate(img => img.decode());
     assert.ok(await hero.evaluate(img => img.naturalWidth > 0 && img.naturalHeight > 0), `hero failed at ${width}`);
     const heroSource = `${await hero.getAttribute('src') || ''} ${await hero.evaluate(img => img.currentSrc || '')}`;
-    assert.match(heroSource, /\/banca\/hero-quadrado-2026\.webp/, `real hero missing at ${width}`);
+    assert.match(heroSource, /\/hero\.jpg/, `real high-quality hero missing at ${width}`);
 
     // Scroll naturally to lazy sections before validating their pixels.
     await waitForImages(page, '.ago-premium-discovery', 4);
@@ -101,8 +101,8 @@ async function main() {
       naturalHeight: img.naturalHeight,
     })));
     assert.equal(bancaState.length, 2, `banca photo count differs at ${width}`);
-    assert.ok(bancaState.some(x => x.src.includes('/banca/banca-quadrado-noite-2026.webp')), `horizontal banca photo missing at ${width}`);
-    assert.ok(bancaState.some(x => x.src.includes('/banca/banca-igreja-luminaria-2026.webp')), `vertical banca photo missing at ${width}`);
+    assert.ok(bancaState.some(x => x.src.includes('/hero.jpg')), `contextual banca photo missing at ${width}`);
+    assert.ok(bancaState.some(x => x.src.includes('/complementar.jpg')), `original luminaria/banca photo missing at ${width}`);
     bancaState.forEach((image, index) => assert.ok(image.naturalWidth > 0 && image.naturalHeight > 0, `banca photo ${index + 1} failed at ${width}`));
 
     const state = await page.evaluate(() => {
