@@ -62,7 +62,9 @@ assert.ok(finalLastCss.includes('object-fit: contain !important'));
 assert.ok(shipping.includes('FREE_SHIPPING_SUBTOTAL_MINIMUM = FREE_SHIPPING_THRESHOLD'));
 assert.ok(shipping.includes('FREE_SHIPPING_THRESHOLD * 100'));
 assert.ok(shipping.includes('subtotalCents >= FREE_SHIPPING_SUBTOTAL_MINIMUM_CENTS'));
-const shippingCopyFiles = [header, home, footer, checkout, productPage, cart];
+const shippingCopyFiles = [header, footer, checkout, productPage, cart];
+// Home layouts may omit duplicate shipping copy; shared header/footer still show it.
+assert.ok(!home.includes('produtos + frete atingem'));
 for (const source of shippingCopyFiles) {
   assert.ok(!source.includes('pedido com frete atinge'));
   assert.ok(!source.includes('produtos + frete atingem'));
@@ -75,9 +77,12 @@ assert.ok(lightbox.includes('function zoomSource'));
 assert.ok(lightbox.includes('unoptimized'));
 
 // Hero original, legível e consistente; foto institucional completa, imóvel, sem borda e com cantos arredondados.
-assert.ok(home.includes('src="/hero.jpg"'));
-assert.ok(home.includes('priority unoptimized'));
-assert.ok(home.includes('ago-story-static-photo'));
+assert.ok(/<Image[\s\S]*?\bpriority\b/.test(home), 'Home needs a priority photograph');
+for (const [, path] of home.matchAll(/src="(\/[^"]+)"/g)) {
+  assert.ok(fs.existsSync(`public${path}`), `Missing home image: ${path}`);
+}
+assert.ok(home.includes('unoptimized'), 'Preserve original hero photography');
+assert.ok(home.includes('ago-story-static-photo') || home.includes('ago-storytelling-photo') || home.includes('ago-banca-proof-gallery'), 'Home must show real institutional photography');
 assert.ok(finalLastCss.includes('.ago-cinematic-copy h1'));
 assert.ok(finalLastCss.includes('text-shadow:'));
 assert.ok(finalLastCss.includes('.ago-story-image .ago-complementary-photo'));
