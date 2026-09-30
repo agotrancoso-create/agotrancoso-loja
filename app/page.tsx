@@ -7,6 +7,7 @@ import { sortProductsByAttention } from '@/lib/merchandising';
 import { SITE_DOMAIN } from '@/lib/config';
 import ResumeCart from '@/components/ResumeCart';
 import Benefits from '@/components/Benefits';
+import buyStyles from './home-how-to-buy.module.css';
 
 export const metadata: Metadata = {
   title: { absolute: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso' },
@@ -39,6 +40,21 @@ const reasons = [
   { label: 'Decorar', href: '/decoracao-em-ceramica' },
   { label: 'Presentear', href: '/lembrancas-de-trancoso' },
   { label: 'Guardar Trancoso', href: '/artesanato-em-trancoso' },
+] as const;
+
+const buyingSteps = [
+  {
+    title: 'Escolha a sua peça',
+    copy: 'Veja fotos, preço, medidas e detalhes de cada peça antes de adicionar à sacola.',
+  },
+  {
+    title: 'Finalize no site',
+    copy: 'Revise a sacola e conclua o pagamento no checkout, sem depender do WhatsApp para comprar.',
+  },
+  {
+    title: 'Receba em casa',
+    copy: 'Enviamos para todo o Brasil. O frete fixo é R$ 39,90 e fica grátis a partir de R$ 500 em produtos.',
+  },
 ] as const;
 
 export default function HomePage() {
@@ -171,7 +187,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="ago-banca-visit ago-immersive-reveal" aria-labelledby="visit-title">
+      <section id="como-comprar" className={`${buyStyles.section} ago-immersive-reveal`} aria-labelledby="como-comprar-title">
+        <div className={`ago-container ${buyStyles.layout}`}>
+          <div className={buyStyles.intro}>
+            <p className="eyebrow">Compra simples</p>
+            <h2 id="como-comprar-title">Como levar uma peça da Agô para casa.</h2>
+            <p>Da escolha ao envio, o caminho fica claro sem tirar a atenção da peça.</p>
+            <Link href="/produtos" className="ago-premium-text-link">Ver peças <span aria-hidden="true">↗</span></Link>
+          </div>
+          <ol className={buyStyles.steps}>
+            {buyingSteps.map((step, index) => (
+              <li key={step.title} className={buyStyles.step}>
+                <span className={buyStyles.number}>{String(index + 1).padStart(2, '0')}</span>
+                <div className={buyStyles.copy}>
+                  <h3>{step.title}</h3>
+                  <p>{step.copy}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section id="banca" className="ago-banca-visit ago-immersive-reveal" aria-labelledby="visit-title">
         <div className="ago-container ago-banca-visit-layout">
           <div className="ago-banca-visit-copy">
             <p className="eyebrow">Se estiver por perto</p>
