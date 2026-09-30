@@ -68,6 +68,7 @@ async function checkout(items,coupon='',overrides={}) {
     assert.equal(data.shippingValue, 39.9);
     assert.equal(data.total, 519.9);
     assert.equal(payload.items.reduce((sum, item)=>sum+item.quantity*item.price,0), 51990);
+    assert.equal(payload.items.at(-1).description,'Frete de entrega do pedido');
   }
 
   let cases=0;
@@ -77,7 +78,7 @@ async function checkout(items,coupon='',overrides={}) {
     assert.equal(status,200);const subtotal=(product.promotionalPrice??price)*quantity;const discount=coupon?Number((subtotal*.03).toFixed(2)):0;
     assert.equal(data.subtotal,subtotal);assert.equal(data.discount,discount);assert.equal(data.shippingValue,shouldOfferFreeShipping(subtotal)?0:39.9);
     assert.equal(payload.items.reduce((sum,i)=>sum+i.quantity*i.price,0),Math.round((subtotal-discount+data.shippingValue)*100));
-    assert.equal(payload.customer.phone_number,'+5573999999999');assert.equal(payload.address.complement,'CPF/CNPJ: 52998224725');assert.ok(payload.redirect_url.includes('/confirmacao?pedido='));assert.ok(payload.webhook_url.endsWith('/api/webhooks/infinitepay'));
+    assert.equal(payload.customer.name,'Pessoa Teste');assert.equal(payload.customer.phone_number,'+5573999999999');assert.equal(payload.address.complement,'Destinatário: Pessoa Teste · CPF/CNPJ: 52998224725');assert.ok(payload.redirect_url.includes('/confirmacao?pedido='));assert.ok(payload.webhook_url.endsWith('/api/webhooks/infinitepay'));
     cases++;
   }
   const id=getAllProducts()[0].id;
@@ -90,8 +91,8 @@ async function checkout(items,coupon='',overrides={}) {
   assert.equal((await checkout([{productId:id,quantity:1}],'',{customer:{...customer,document:'11111111111'}})).status,400);
   assert.equal((await checkout([{productId:id,quantity:1}],'',{customer:{...customer,address:{...customer.address,state:'ZZ'}}})).status,400);
   const alpha = await checkout([{productId:id,quantity:1}],'',{customer:{...customer,document:'00.000.000/E08G-12'}});
-  assert.equal(alpha.status,200);assert.equal(payload.address.complement,'CPF/CNPJ: 00000000E08G12');
+  assert.equal(alpha.status,200);assert.equal(payload.address.complement,'Destinatário: Pessoa Teste · CPF/CNPJ: 00000000E08G12');
   eligible=false;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,409);eligible=true;
   fail=true;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,502);assert.equal(releases,1);
-  console.log(`PASS ${cases} price/quantity/coupon combinations, CPF/CNPJ validation, official alphanumeric CNPJ, R$500 products-only shipping boundary, Iemanjá and Miniatura R$519.90 totals, cent allocation, identity rejection, invalid data, provider failure`);
+  console.log(`PASS ${cases} price/quantity/coupon combinations, recipient + CPF/CNPJ payload, official alphanumeric CNPJ, R$500 products-only shipping boundary, Iemanjá and Miniatura R$519.90 totals, clear shipping line, cent allocation, identity rejection, invalid data, provider failure`);
 })().catch(error=>{console.error(error);process.exitCode=1});
