@@ -25,62 +25,32 @@ const discovery = [
   { title: 'Presentes', category: 'presentes', href: '/lembrancas-de-trancoso', image: '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg' },
 ];
 
-const faqItems = [
-  {
-    question: 'Onde comprar cerâmica artesanal em Trancoso?',
-    answer: 'A Agô está no Quadrado de Trancoso desde 2016. Você pode conhecer as peças na banca ou comprar diretamente pelo site.',
-  },
-  {
-    question: 'Vocês enviam as peças para todo o Brasil?',
-    answer: 'Sim. Enviamos para todo o Brasil, com frete grátis a partir de R$ 500 em produtos.',
-  },
-  {
-    question: 'Quais peças mais lembram Trancoso?',
-    answer: 'As igrejinhas, a miniatura do Quadrado, os ímãs e outras peças inspiradas nas formas e símbolos de Trancoso são as escolhas mais ligadas ao lugar.',
-  },
-] as const;
-
 export default function HomePage() {
   const allProducts = sortProductsByAttention(getAvailableProducts());
   const featured = allProducts.slice(0, 6);
 
   const structuredData = {
     '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'CollectionPage',
-        '@id': `${SITE_DOMAIN}/#page`,
-        url: SITE_DOMAIN,
-        name: 'Agô Trancoso — Igrejinhas do Quadrado e cerâmica artesanal',
-        isPartOf: { '@id': `${SITE_DOMAIN}#website` },
-        primaryImageOfPage: {
-          '@type': 'ImageObject',
-          url: `${SITE_DOMAIN}/produtos/igreja-quadrado-p.jpg`,
-          contentUrl: `${SITE_DOMAIN}/produtos/igreja-quadrado-p.jpg`,
-          width: 960,
-          height: 960,
-          caption: 'Igrejinha do Quadrado de Trancoso em cerâmica',
-        },
-        mainEntity: {
-          '@type': 'ItemList',
-          itemListElement: featured.map((product, index) => ({
-            '@type': 'ListItem',
-            position: index + 1,
-            name: product.name,
-            url: `${SITE_DOMAIN}/produtos/${product.id}`,
-          })),
-        },
-      },
-      {
-        '@type': 'FAQPage',
-        '@id': `${SITE_DOMAIN}/#duvidas`,
-        mainEntity: faqItems.map((item) => ({
-          '@type': 'Question',
-          name: item.question,
-          acceptedAnswer: { '@type': 'Answer', text: item.answer },
-        })),
-      },
-    ],
+    '@type': 'CollectionPage',
+    '@id': `${SITE_DOMAIN}/#page`,
+    url: SITE_DOMAIN,
+    name: 'Agô Trancoso — Igrejinhas do Quadrado e cerâmica artesanal',
+    isPartOf: { '@id': `${SITE_DOMAIN}#website` },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: `${SITE_DOMAIN}/hero.jpg`,
+      contentUrl: `${SITE_DOMAIN}/hero.jpg`,
+      caption: 'Cerâmica artesanal da Agô no Quadrado de Trancoso',
+    },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: featured.map((product, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: product.name,
+        url: `${SITE_DOMAIN}/produtos/${product.id}`,
+      })),
+    },
   };
 
   return (
@@ -123,18 +93,24 @@ export default function HomePage() {
       <ResumeCart />
 
       <section className="ago-premium-editorial ago-home-story ago-immersive-reveal" aria-labelledby="story-title">
-        <div className="ago-container ago-premium-split">
-          <div className="ago-premium-image ago-story-image">
-            <Image src="/nossa-essencia.jpg" alt="Igrejinhas e peças de cerâmica da Agô no Quadrado de Trancoso" width={1800} height={1800} sizes="(max-width: 900px) 100vw, 56vw" quality={100} className="ago-complementary-photo ago-story-static-photo" />
+        <div className="ago-container ago-storytelling-layout">
+          <div className="ago-storytelling-images" aria-label="Agô no Quadrado de Trancoso">
+            <div className="ago-storytelling-image ago-storytelling-image-primary">
+              <Image src="/nossa-essencia.jpg" alt="Peças de cerâmica da Agô no Quadrado de Trancoso" fill sizes="(max-width: 900px) 100vw, 42vw" quality={100} className="ago-storytelling-photo" />
+            </div>
+            <div className="ago-storytelling-image ago-storytelling-image-secondary">
+              <Image src="/complementar.jpg" alt="Detalhes da banca e das peças de cerâmica da Agô em Trancoso" fill sizes="(max-width: 900px) 54vw, 22vw" quality={100} className="ago-storytelling-photo" />
+            </div>
           </div>
-          <div className="ago-premium-copy">
-            <svg className="ago-sertao-sun" viewBox="0 0 100 52" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true" focusable="false">
-              <path d="M6 44h88M29 44a21 21 0 0 1 42 0M50 4v9M22 14l6 7M78 14l-6 7M7 30l9 3M93 30l-9 3" />
-            </svg>
+
+          <div className="ago-premium-copy ago-storytelling-copy">
             <p className="eyebrow">No Quadrado</p>
             <h2 id="story-title">Desde 2016, em Trancoso.</h2>
-            <p>Cerâmica inspirada nas formas, cores e símbolos do lugar.</p>
-            <Link href="/nossa-essencia" className="ago-premium-text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
+            <p>Peças feitas à mão, inspiradas nas formas, cores e símbolos que fazem parte do lugar.</p>
+            <div className="ago-storytelling-links">
+              <Link href="/nossa-essencia" className="ago-premium-text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
+              <Link href="/produtos" className="ago-premium-text-link ago-premium-text-link-secondary">Ver coleção <span aria-hidden="true">↗</span></Link>
+            </div>
           </div>
         </div>
       </section>
@@ -154,49 +130,31 @@ export default function HomePage() {
               <Link key={item.category} href={item.href ?? `/produtos?categoria=${item.category}`} className="ago-premium-discovery-card">
                 <div className="ago-premium-discovery-image">
                   <Image src={item.image} alt="" fill quality={100} sizes="(max-width: 767px) 50vw, 25vw" className="ago-parallax-photo" />
+                  <span className="ago-discovery-veil" aria-hidden="true" />
                 </div>
-                <div className="ago-premium-discovery-copy"><span>{item.title}</span></div>
+                <div className="ago-premium-discovery-copy"><span>{item.title}</span><i aria-hidden="true">↗</i></div>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="ago-home-faq ago-immersive-reveal" aria-labelledby="faq-title">
-        <div className="ago-container ago-home-faq-grid">
-          <div className="ago-home-faq-intro">
-            <p className="eyebrow">Para escolher com calma</p>
-            <h2 id="faq-title">Dúvidas rápidas.</h2>
-            <p>O essencial para comprar sem precisar sair do site.</p>
+      <section className="ago-visit-editorial ago-immersive-reveal" aria-labelledby="visit-title">
+        <div className="ago-container ago-visit-editorial-grid">
+          <div className="ago-visit-editorial-media">
+            <Image src="/complementar.jpg" alt="Banca da Agô no Quadrado de Trancoso" fill sizes="(max-width: 900px) 100vw, 52vw" quality={100} className="ago-visit-editorial-photo" />
           </div>
-          <div className="ago-home-faq-list">
-            {faqItems.map((item) => (
-              <details key={item.question}>
-                <summary>{item.question}<span aria-hidden="true">+</span></summary>
-                <p>{item.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      <section className="ago-bahia-visit ago-immersive-reveal" aria-labelledby="visit-title">
-        <div className="ago-container">
-          <div>
-            <p className="eyebrow">Se estiver por perto</p>
+          <div className="ago-visit-editorial-copy">
+            <p className="eyebrow">Trancoso · Bahia</p>
             <h2 id="visit-title">A gente está no Quadrado.</h2>
             <p>Passe para ver as peças de perto.</p>
-            <div className="ago-bahia-visit-links">
-              <a href={mapsUrl} target="_blank" rel="noreferrer">Como chegar <span aria-hidden="true">↗</span></a>
+            <div className="ago-visit-editorial-links">
+              <a className="ago-visit-primary" href={mapsUrl} target="_blank" rel="noreferrer">Como chegar <span aria-hidden="true">↗</span></a>
               <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
               <a href={instagramUrl} target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
             </div>
-          </div>
-
-          <div className="ago-bahia-wordmark" aria-label="Trancoso, Bahia, Brasil">
-            <span>Trancoso</span>
-            <strong>Bahia</strong>
-            <span>Brasil</span>
+            <p className="ago-visit-address">Quadrado de Trancoso · Porto Seguro · Bahia</p>
           </div>
         </div>
       </section>
