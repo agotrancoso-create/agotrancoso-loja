@@ -5,7 +5,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const products = require('../data/products.json').products;
-const widths = process.env.QA_WIDTHS ? process.env.QA_WIDTHS.split(',').map(Number) : [320,390,820,1440];
+const widths = process.env.QA_WIDTHS ? process.env.QA_WIDTHS.split(',').map(Number) : [320,390,820,1440,1920];
 const artifacts = process.env.QA_ARTIFACTS || '/tmp/ago-qa';
 const base = 'http://127.0.0.1:3100';
 const results = { widths, routes: [], interactions: [], errors: [] };
@@ -83,7 +83,7 @@ async function run() {
       if (route === '/produtos') {
         const budgets = page.getByRole('group', {name:'Faixa de preço', exact:true});
         await budgets.waitFor();
-        assert.equal(await budgets.getByRole('button').count(), 5);
+        assert.equal(await budgets.getByRole('button').count(), 8);
         const priceButton = budgets.getByRole('button', {name:'Até R$ 150', exact:true});
         await priceButton.click();
         await page.getByText('3 peças encontradas', {exact:true}).waitFor();
@@ -94,6 +94,15 @@ async function run() {
         await page.getByRole('button', {name:'Limpar filtros', exact:true}).click();
         await page.getByText('19 peças encontradas', {exact:true}).waitFor();
         assert.equal(await budgets.getByRole('button', {name:'Todos os valores'}).getAttribute('aria-pressed'), 'true');
+
+        const premiumButton = budgets.getByRole('button', {name:'Acima de R$ 3.000', exact:true});
+        await premiumButton.click();
+        await page.getByText('1 peça encontrada', {exact:true}).waitFor();
+        assert.equal(await premiumButton.getAttribute('aria-pressed'), 'true');
+        assert.equal(await page.locator('.catalog-grid article').count(), 1);
+        assert.equal(await page.locator('.catalog-grid article').first().getAttribute('data-product-id'), 'igreja-quadrado-gg');
+        await page.getByRole('button', {name:'Limpar filtros', exact:true}).click();
+        await page.getByText('19 peças encontradas', {exact:true}).waitFor();
         await assertNoOverflow('catalog price filters', width);
       }
       if (route.includes('colar-igreja-quadrado')) {
@@ -129,7 +138,7 @@ async function run() {
       await page.screenshot({ path: `${artifacts}/checkout-${width}.png`, fullPage: true });
     }
   }
-  results.interactions.push('Responsive home/catalog/PDP/cart/checkout verified at 320, 390, 820 and 1440');
+  results.interactions.push('Responsive home/catalog/PDP/cart/checkout verified at 320, 390, 820, 1440 and 1920');
 
   // All 19 product pages and every visible gallery photo must decode.
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -171,7 +180,7 @@ async function run() {
   await page.getByRole('option', { name: 'Menor preço', exact: true }).first().click();
   const cheapest = products.reduce((a, b) => (a.price < b.price ? a : b)).id;
   assert.equal(await page.locator('.catalog-grid .product-card').first().getAttribute('data-product-id'), cheapest);
-  results.interactions.push('Predictive search, no-results recovery, every category and sorting verified');
+  results.interactions.push('Predictive search, complete price ranges, no-results recovery, every category and sorting verified');
 
   // Modern gallery: keyboard navigation + full-piece lightbox + zoom + reset + Escape.
   await page.setViewportSize({ width: 390, height: 844 });

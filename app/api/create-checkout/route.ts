@@ -56,8 +56,9 @@ export async function POST(req: Request) {
     const coupon = normalizeCoupon(body.coupon);
     const customer = body.customer ?? {};
     const address = customer.address ?? {};
+    const customerName = String(customer.name ?? '').trim();
     const validation = {
-      ...customerErrors({ name: String(customer.name ?? ''), email: String(customer.email ?? ''), phone: String(customer.phone ?? ''), document: String(customer.document ?? '') }),
+      ...customerErrors({ name: customerName, email: String(customer.email ?? ''), phone: String(customer.phone ?? ''), document: String(customer.document ?? '') }),
       ...addressErrors({ zip: String(address.zip ?? ''), street: String(address.street ?? ''), number: String(address.number ?? ''), neighborhood: String(address.neighborhood ?? ''), city: String(address.city ?? ''), state: String(address.state ?? '') }),
     };
     if (Object.keys(validation).length) return NextResponse.json({ error: Object.values(validation)[0], fields: validation }, { status: 400 });
@@ -94,7 +95,7 @@ export async function POST(req: Request) {
     if (destinationCep.length !== 8) return NextResponse.json({ error: 'Informe um CEP válido para a entrega.' }, { status: 400 });
 
     const checkoutItems: CheckoutUnit[] = [...discountedUnits];
-    if (shippingValue > 0) checkoutItems.push({ id: 'frete', name: `Frete fixo R$ ${shippingValue.toFixed(2).replace('.', ',')}`, price: Math.round(shippingValue * 100), quantity: 1 });
+    if (shippingValue > 0) checkoutItems.push({ id: 'frete', name: 'Frete de entrega do pedido', price: Math.round(shippingValue * 100), quantity: 1 });
 
     const orderPrefix = firstPurchaseOrder ? 'AGO-FP' : 'AGO';
     const orderNsu = `${orderPrefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
@@ -115,7 +116,7 @@ export async function POST(req: Request) {
 
     const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || SITE_DOMAIN).replace(/\/$/, '');
     const originalComplement = String(address.complement ?? '').trim();
-    const deliveryComplement = [originalComplement, `CPF/CNPJ: ${normalizedDocument}`].filter(Boolean).join(' · ');
+    const deliveryComplement = [`Destinatário: ${customerName}`, originalComplement, `CPF/CNPJ: ${normalizedDocument}`].filter(Boolean).join(' · ');
 
     const payload = {
       handle: INFINITEPAY_HANDLE,
@@ -123,7 +124,7 @@ export async function POST(req: Request) {
       order_nsu: orderNsu,
       redirect_url: `${siteUrl}/confirmacao?pedido=${encodeURIComponent(orderNsu)}`,
       webhook_url: `${siteUrl}/api/webhooks/infinitepay`,
-      customer: { name: customer.name || undefined, email: customer.email || undefined, phone_number: normalizedPhone },
+      customer: { name: customerName || undefined, email: customer.email || undefined, phone_number: normalizedPhone },
       address: { street: address.street, number: address.number, complement: deliveryComplement, neighborhood: address.neighborhood, city: address.city, state: address.state, cep: destinationCep },
     };
 
