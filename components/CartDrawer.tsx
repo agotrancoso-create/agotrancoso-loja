@@ -95,8 +95,6 @@ export default function CartDrawer() {
   const complementary = lines.length === 0 ? [] : sortProductsByAttention(getAvailableProducts())
     .filter(product => !cartIds.has(product.id))
     .sort((a, b) => {
-      // Relacionados vêm primeiro; dentro de cada grupo preservamos a ordem
-      // visual/comercial de ATTENTION_PRODUCT_ORDER em vez de reordenar por preço.
       const relatedDifference = Number(relatedIds.has(b.id)) - Number(relatedIds.has(a.id));
       if (relatedDifference) return relatedDifference;
       return 0;
@@ -209,7 +207,7 @@ export default function CartDrawer() {
             <div className="cart-shipping-progress-block">
               {!freeShipping ? <p className="cart-shipping-message">Faltam <strong>{formatBRL(remaining)}</strong> para o frete grátis.</p> : <p className="cart-shipping-message is-free">Você ganhou frete grátis neste pedido.</p>}
               <div className="cart-shipping-progress" aria-hidden="true"><span style={{ width: progress + '%' }} /></div>
-              <div className="cart-shipping-progress-labels"><span>Frete fixo R$ 39,90</span><span>Grátis em pedidos de R$ 500 ou mais</span></div>
+              <div className="cart-shipping-progress-labels"><span>Frete fixo R$ 39,90</span><span>Grátis quando produtos + frete atingem R$ 500</span></div>
             </div>
             <div className="cart-summary-row"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
             <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>

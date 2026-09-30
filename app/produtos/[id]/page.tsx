@@ -215,7 +215,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
               <div className="product-service-grid">
                 <div><strong>Entrega no Brasil</strong><span>{freeShippingAtProductQuantity ? 'Frete grátis nesta peça.' : <>Frete fixo de {formatBRL(FIXED_SHIPPING_PRICE)}.</>}</span></div>
-                <div><strong>Acima de R$ 500</strong><span>Frete grátis para pedidos nacionais.</span></div>
+                <div><strong>Regra de frete</strong><span>Grátis quando o pedido com frete atinge R$ 500.</span></div>
                 <div><strong>Pagamento</strong><span>Ambiente de pagamento seguro pela InfinitePay.</span></div>
               </div>
 

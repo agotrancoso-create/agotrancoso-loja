@@ -115,7 +115,7 @@ export default function HomePage() {
           </div>
           <div className="ago-shipping-facts">
             <span>Pagamento seguro</span>
-            <span>Frete grátis em pedidos de R$ 500 ou mais</span>
+            <span>Frete grátis quando o pedido com frete atinge R$ 500</span>
             <span>Envio para todo o Brasil</span>
           </div>
         </div>

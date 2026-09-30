@@ -123,7 +123,7 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
 
       <div className="ago-topbar" role="region" aria-label="Informações comerciais">
         {firstPurchaseAvailable && <><span className="ago-topbar-offer">3% OFF na 1ª compra</span><i aria-hidden="true" /></>}
-        <span>Frete grátis em pedidos de R$ 500 ou mais</span>
+        <span>Frete grátis quando o pedido com frete atinge R$ 500</span>
       </div>
 
       <header className="site-header sticky top-0 z-40">

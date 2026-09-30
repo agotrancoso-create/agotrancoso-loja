@@ -72,6 +72,9 @@ jobs:
           QA_ARTIFACTS: /tmp/ago-qa
         run: npm run qa:ui
 
+      - name: Exact Miniatura R$ 480 shipping UI contract
+        run: node scripts/qa-shipping-480.cjs
+
       - name: GA4 ecommerce and CRO analytics contract
         env:
           QA_ARTIFACTS: /tmp/ago-qa

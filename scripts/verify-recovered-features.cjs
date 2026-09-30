@@ -5,7 +5,10 @@ const merch = fs.readFileSync('lib/merchandising.ts','utf8');
 const shipping = fs.readFileSync('lib/shipping.ts','utf8');
 const trancoso = fs.readFileSync('app/trancoso/page.tsx','utf8');
 const home = fs.readFileSync('app/page.tsx','utf8');
+const header = fs.readFileSync('components/Header.tsx','utf8');
 const footer = fs.readFileSync('components/Footer.tsx','utf8');
+const checkout = fs.readFileSync('app/checkout/page.tsx','utf8');
+const productPage = fs.readFileSync('app/produtos/[id]/page.tsx','utf8');
 const pretos = fs.readFileSync('scripts/fix-pretos-velhos-images.mjs','utf8');
 const normalizer = fs.readFileSync('scripts/normalize-product-images.mjs','utf8');
 const gallery = fs.readFileSync('components/ProductGallery.tsx','utf8');
@@ -61,6 +64,19 @@ assert.ok(shipping.includes('FREE_SHIPPING_SUBTOTAL_MINIMUM_CENTS = 46010'));
 assert.ok(shipping.includes('subtotalCents >= FREE_SHIPPING_SUBTOTAL_MINIMUM_CENTS'));
 assert.ok(shipping.includes('R$ 480,00 em produtos => frete grátis'));
 
+// A comunicação comercial precisa descrever a regra real, sem o antigo “pedidos de R$ 500 ou mais”.
+const shippingCopyFiles = [header, home, footer, checkout, productPage, cart];
+for (const source of shippingCopyFiles) {
+  assert.ok(!source.includes('Frete grátis em pedidos de R$ 500 ou mais'));
+  assert.ok(!source.includes('Acima de R$ 500'));
+}
+assert.ok(header.includes('Frete grátis quando o pedido com frete atinge R$ 500'));
+assert.ok(home.includes('Frete grátis quando o pedido com frete atinge R$ 500'));
+assert.ok(footer.includes('Frete grátis quando o pedido com frete atinge R$ 500'));
+assert.ok(checkout.includes('Frete grátis quando o pedido com frete atinge R$ 500'));
+assert.ok(productPage.includes('Grátis quando o pedido com frete atinge R$ 500'));
+assert.ok(cart.includes('Grátis quando produtos + frete atingem R$ 500'));
+
 // Zoom: preserva o master original antes da normalização e usa o arquivo sem recompressão no lightbox.
 assert.ok(normalizer.includes('preserveZoomMaster'));
 assert.ok(lightbox.includes('function zoomSource'));
@@ -80,7 +96,6 @@ assert.ok(finalLastCss.includes('object-fit: contain !important'));
 // SEO/localidade e intenção comercial.
 assert.ok(trancoso.includes('Artesanato e Cerâmica em Trancoso'));
 assert.ok(footer.includes('href="/trancoso"'));
-assert.ok(footer.includes('R$ 500 ou mais'));
 
 // Primeira compra, documentos brasileiros e orientação de Pix continuam protegidos.
 assert.ok(popup.includes('Seu primeiro pedido merece um benefício especial.'));
