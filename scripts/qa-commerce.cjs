@@ -49,8 +49,8 @@ async function checkout(items,coupon='',overrides={}) {
   assert.equal(isValidCNPJ('00.000.000/E08G-13'),false);
 
   // Fronteira comercial: só o subtotal dos produtos conta.
-  assert.equal(shouldOfferFreeShipping(480),false);
-  assert.equal(shouldOfferFreeShipping(500),false);
+  assert.equal(shouldOfferFreeShipping(499.99),false);
+  assert.equal(shouldOfferFreeShipping(500),true);
   assert.equal(shouldOfferFreeShipping(500.01),true);
 
   let cases=0;
@@ -64,8 +64,8 @@ async function checkout(items,coupon='',overrides={}) {
     cases++;
   }
   const id=getAllProducts()[0].id;
-  assert.equal((await checkout([{productId:id,quantity:2}])).data.total,539.9);
-  assert.equal((await checkout([{productId:id,quantity:2}],'AGO3')).data.total,524.9);
+  assert.equal((await checkout([{productId:id,quantity:2}])).data.total,500);
+  assert.equal((await checkout([{productId:id,quantity:2}],'AGO3')).data.total,485);
   assert.equal((await checkout([{productId:id,quantity:0}])).status,400);
   assert.equal((await checkout([{productId:'not-real',quantity:1}])).status,400);
   assert.equal((await checkout([{productId:id,quantity:1}],'NOPE')).status,400);
@@ -76,5 +76,5 @@ async function checkout(items,coupon='',overrides={}) {
   assert.equal(alpha.status,200);assert.equal(payload.address.complement,'CPF/CNPJ: 00000000E08G12');
   eligible=false;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,409);eligible=true;
   fail=true;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,502);assert.equal(releases,1);
-  console.log(`PASS ${cases} price/quantity/coupon combinations, CPF/CNPJ validation, official alphanumeric CNPJ, R$500.01 shipping boundary, cent allocation, identity rejection, invalid data, provider failure`);
+  console.log(`PASS ${cases} price/quantity/coupon combinations, CPF/CNPJ validation, official alphanumeric CNPJ, R$500 shipping boundary, cent allocation, identity rejection, invalid data, provider failure`);
 })().catch(error=>{console.error(error);process.exitCode=1});
