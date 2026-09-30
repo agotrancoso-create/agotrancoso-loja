@@ -281,13 +281,16 @@ export default function ProdutosClient({ products, categories }: { products: Pro
         ))}
       </div>
 
-      <div className="catalog-budget-control">
-        <label htmlFor="catalog-budget">Faixa de preço</label>
-        <select id="catalog-budget" value={budget} onChange={event => selectBudget(event.target.value)}>
-          <option value="">Todos os valores</option>
-          {budgets.map(value => <option key={value} value={value}>Até {formatBRL(Number(value))}</option>)}
-        </select>
-        {budget && <button type="button" onClick={() => selectBudget('')}>Remover limite de preço</button>}
+      <div className="catalog-budget-control" role="group" aria-labelledby="catalog-budget-label">
+        <span id="catalog-budget-label">Faixa de preço</span>
+        <div className="catalog-budget-options">
+          <button type="button" aria-pressed={!budget} onClick={() => selectBudget('')}>Todos os valores</button>
+          {budgets.map(value => (
+            <button type="button" key={value} aria-pressed={budget === value} onClick={() => selectBudget(value)}>
+              Até R$ {Number(value).toLocaleString('pt-BR')}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="catalog-results-meta" aria-live="polite">

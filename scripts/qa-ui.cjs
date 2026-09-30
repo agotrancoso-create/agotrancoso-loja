@@ -68,9 +68,33 @@ async function run() {
         assert.equal(storyStyle.transform, 'none');
         assert.equal(storyStyle.border, '0px');
         assert.equal(storyStyle.radius, '18px');
+        const photoGeometry = await storyImage.evaluate(node => {
+          const box = node.getBoundingClientRect();
+          const frame = node.parentElement.getBoundingClientRect();
+          return {ratio: box.width / box.height, naturalRatio: node.naturalWidth / node.naturalHeight, frameRatio: frame.width / frame.height};
+        });
+        assert.ok(Math.abs(photoGeometry.ratio - 1) < .01, `Photo must fill its rounded square frame at ${width}`);
+        assert.ok(Math.abs(photoGeometry.frameRatio - 1) < .01, `No letterboxing inside frame at ${width}`);
+
         const heroTitle = page.locator('.ago-cinematic-copy h1').first();
         const heroStyle = await heroTitle.evaluate(node => ({ color: getComputedStyle(node).color, shadow: getComputedStyle(node).textShadow }));
         assert.notEqual(heroStyle.shadow, 'none');
+      }
+      if (route === '/produtos') {
+        const budgets = page.getByRole('group', {name:'Faixa de preço', exact:true});
+        await budgets.waitFor();
+        assert.equal(await budgets.getByRole('button').count(), 5);
+        const priceButton = budgets.getByRole('button', {name:'Até R$ 150', exact:true});
+        await priceButton.click();
+        await page.getByText('3 peças encontradas', {exact:true}).waitFor();
+        assert.equal(await priceButton.getAttribute('aria-pressed'), 'true');
+        assert.equal(await page.locator('.catalog-grid article').count(), 3);
+        await page.getByRole('group', {name:'Filtrar por categoria'}).getByRole('button', {name:'Decoração', exact:true}).click();
+        await page.getByText('1 peça encontrada', {exact:true}).waitFor();
+        await page.getByRole('button', {name:'Limpar filtros', exact:true}).click();
+        await page.getByText('19 peças encontradas', {exact:true}).waitFor();
+        assert.equal(await budgets.getByRole('button', {name:'Todos os valores'}).getAttribute('aria-pressed'), 'true');
+        await assertNoOverflow('catalog price filters', width);
       }
       if (route.includes('colar-igreja-quadrado')) {
         const gallery = page.locator('.product-gallery-main').first();

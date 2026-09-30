@@ -65,6 +65,13 @@
 
 .ago-home .ago-story-image {
   background: transparent !important;
+  /* The frame follows the square photograph, so its visible corners are clipped. */
+  aspect-ratio: 1 / 1 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  width: 100%;
+  max-width: 520px;
+  justify-self: center;
   border-radius: 18px !important;
   overflow: hidden !important;
 }
@@ -72,6 +79,10 @@
 .ago-home .ago-story-image .ago-complementary-photo,
 .ago-home .ago-story-image .ago-story-static-photo {
   border-radius: 18px !important;
+  display: block;
+  position: relative !important;
+  width: 100% !important;
+  height: auto !important;
 }
 
 .ago-home .ago-story-image .ago-story-static-photo,
@@ -123,10 +134,14 @@
 }
 
 /* Discreet tools for product choice and returning shoppers. */
-.catalog-budget-control { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin:20px 0; color:#523e33; font-size:.85rem; }
-.catalog-budget-control label { font-weight:600; }
-.catalog-budget-control select { min-height:44px; padding:10px 36px 10px 12px; border:1px solid #bdab99; border-radius:8px; background:#fffaf2; color:#38271e; font:inherit; }
-.catalog-budget-control button { min-height:44px; text-decoration:underline; }
+.catalog-budget-control { display:flex; flex-wrap:wrap; gap:14px 24px; align-items:center; margin:24px 0; padding-block:20px; border-block:1px solid #dfd0bd; color:#654a3b; }
+.catalog-budget-control > span { font-size:.72rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+.catalog-budget-options { display:flex; flex-wrap:wrap; gap:8px; }
+.catalog-budget-options button { display:inline-flex; justify-content:center; align-items:center; min-height:44px; padding:10px 17px; border:1px solid #d2bda6; border-radius:999px; background:transparent; color:#593e30; font-size:.8rem; font-weight:500; line-height:1.4; transition:background-color .18s ease, border-color .18s ease; }
+.catalog-budget-options button[aria-pressed="true"] { background:#754b37; color:#fff8ef; border-color:#754b37; }
+@media (hover:hover) { .catalog-budget-options button:not([aria-pressed="true"]):hover { background:#efe2cf; border-color:#a17b5d; } }
+.catalog-budget-options button:focus-visible { outline:2px solid #754b37; outline-offset:3px; }
+@media (prefers-reduced-motion:reduce) { .catalog-budget-options button { transition:none; } }
 .resume-cart { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; padding-top:24px; padding-bottom:24px; border-bottom:1px solid #d9c8b8; }
 .resume-cart p { margin:6px 0 0; font-size:.86rem; line-height:1.6; }
 .resume-cart-actions { display:flex; flex-wrap:wrap; gap:20px; align-items:center; }
@@ -138,4 +153,30 @@
 .purchase-questions summary { cursor:pointer; padding:16px 4px; font-size:.88rem; font-weight:600; line-height:1.6; }
 .purchase-questions p { margin:0 0 16px; font-size:.86rem; line-height:1.75; }
 .purchase-questions a { text-decoration:underline; }
-.catalog-budget-control select:focus-visible,.purchase-questions summary:focus-visible { outline:2px solid #684638; outline-offset:4px; }
+.purchase-questions summary:focus-visible { outline:2px solid #684638; outline-offset:4px; }
+
+/* Sertão: cal, palha e barro, com desenho leve e superfícies sem excesso. */
+.ago-home .ago-benefits-reference {
+  padding-block: clamp(36px, 4vw, 64px);
+  background: #f7efe2;
+  border-block: 1px solid #dfccb4;
+}
+.ago-home .ago-benefits-grid { gap: 28px; }
+.ago-home .ago-benefit-art { width: 88px; margin-bottom: 14px; }
+.ago-home .ago-benefit-copy h3 { font-size: clamp(1.15rem, 1.6vw, 1.45rem); }
+.ago-home .ago-benefit-copy p { font-size: .8rem; max-width: 210px; }
+.ago-home .ago-benefit-more { color: #75452f; font-size: .72rem; font-weight: 500; }
+.ago-home .ago-benefit-item summary:focus-visible { outline: 2px solid #75452f; outline-offset: 6px; }
+.ago-home .ago-premium-editorial.ago-home-story {
+  background: #e8d5b8 !important;
+  background-image: radial-gradient(ellipse at 80% 20%, #f1e4cc 0%, transparent 70%) !important;
+}
+.ago-sertao-sun { display: block; width: 90px; height: 47px; margin-bottom: 24px; color: #875039; }
+.ago-home .ago-premium-discovery { background: #f7f1e6 !important; }
+@media (max-width: 767px) {
+  .ago-home .ago-benefits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 18px; }
+  .ago-home .ago-benefit-art { width: 72px; }
+  .ago-home .ago-benefit-copy p { font-size: .76rem; }
+  .ago-home .ago-story-image { max-width: 480px; }
+  .ago-sertao-sun { width: 72px; height: 38px; margin-bottom: 18px; }
+}

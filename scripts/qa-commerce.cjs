@@ -23,7 +23,8 @@ require.cache[identityPath] = {
 };
 const {POST} = require('../app/api/create-checkout/route.ts');
 const {getAllProducts} = require('../lib/products.ts');
-const {shouldOfferFreeShipping} = require('../lib/shipping.ts');
+const {shouldOfferFreeShipping, getShippingPrice} = require('../lib/shipping.ts');
+const {POST: quoteShipping} = require('../app/api/frete/route.ts');
 const {isValidCPF,isValidCNPJ,getBrazilianDocumentType} = require('../lib/checkout-validation.ts');
 let payload, fail=false;
 global.fetch = async(url,options) => {
@@ -48,11 +49,26 @@ async function checkout(items,coupon='',overrides={}) {
   assert.equal(getBrazilianDocumentType('00.000.000/E08G-12'),'CNPJ');
   assert.equal(isValidCNPJ('00.000.000/E08G-13'),false);
 
-  // Fronteira comercial: subtotal + frete fixo de R$ 39,90 atingindo R$ 500 já libera o frete.
-  assert.equal(shouldOfferFreeShipping(460.09),false);
-  assert.equal(shouldOfferFreeShipping(460.10),true);
-  assert.equal(shouldOfferFreeShipping(480),true);
-  assert.equal(shouldOfferFreeShipping(500),true);
+  // Somente o subtotal dos produtos define o frete, nunca o total com entrega.
+  for (const subtotal of [0, 460.09, 460.10, 480, 499.99]) {
+    assert.equal(shouldOfferFreeShipping(subtotal), false);
+    assert.equal(getShippingPrice(subtotal), 39.9);
+  }
+  for (const subtotal of [500, 500.01, 960]) assert.equal(getShippingPrice(subtotal), 0);
+  for (const subtotal of [NaN, Infinity, -1]) assert.equal(shouldOfferFreeShipping(subtotal), false);
+  for (const productId of ['estatueta-iemanja', 'miniatura-quadrado-trancoso']) {
+    const items = [{productId, quantity:1}];
+    const quote = await quoteShipping(new Request('http://localhost/api/frete', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({cep:'45818000', items})}));
+    const quoted = await quote.json();
+    assert.equal(quoted.freeShipping, false);
+    assert.equal(quoted.options[0].price, 39.9);
+    const {status, data} = await checkout(items, '', {shippingValue:0});
+    assert.equal(status, 200);
+    assert.equal(data.subtotal, 480);
+    assert.equal(data.shippingValue, 39.9);
+    assert.equal(data.total, 519.9);
+    assert.equal(payload.items.reduce((sum, item)=>sum+item.quantity*item.price,0), 51990);
+  }
 
   let cases=0;
   for (const price of [50,250,8500]) for (const quantity of [1,4,12]) for(const coupon of ['', 'AGO3']) {
@@ -77,5 +93,5 @@ async function checkout(items,coupon='',overrides={}) {
   assert.equal(alpha.status,200);assert.equal(payload.address.complement,'CPF/CNPJ: 00000000E08G12');
   eligible=false;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,409);eligible=true;
   fail=true;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,502);assert.equal(releases,1);
-  console.log(`PASS ${cases} price/quantity/coupon combinations, CPF/CNPJ validation, official alphanumeric CNPJ, R$500 total-with-shipping boundary, cent allocation, identity rejection, invalid data, provider failure`);
+  console.log(`PASS ${cases} price/quantity/coupon combinations, CPF/CNPJ validation, official alphanumeric CNPJ, R$500 products-only shipping boundary, Iemanjá and Miniatura R$519.90 totals, cent allocation, identity rejection, invalid data, provider failure`);
 })().catch(error=>{console.error(error);process.exitCode=1});

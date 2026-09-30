@@ -6,6 +6,7 @@ import { getAvailableProducts } from '@/lib/products';
 import { sortProductsByAttention } from '@/lib/merchandising';
 import { SITE_DOMAIN } from '@/lib/config';
 import ResumeCart from '@/components/ResumeCart';
+import Benefits from '@/components/Benefits';
 
 export const metadata: Metadata = {
   title: { absolute: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso' },
@@ -22,12 +23,6 @@ const discovery = [
   { title: 'Casa & decoração', category: 'decoracao', image: '/produtos/casinha-luminaria.jpg' },
   { title: 'Fé & devoção', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-2.jpg' },
   { title: 'Presentes', category: 'presentes', href: '/lembrancas-de-trancoso', image: '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg' },
-];
-
-const confidence = [
-  { title: 'Feito à mão', text: 'Cerâmica artesanal com atenção às formas e à pintura.' },
-  { title: 'Desde 2016 no Quadrado', text: 'Uma história construída em Trancoso.' },
-  { title: 'Compra online', text: 'Pagamento seguro e envio para todo o Brasil.' },
 ];
 
 export default function HomePage() {
@@ -76,17 +71,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <section className="ago-container mt-[clamp(34px,5vw,68px)] pb-[clamp(44px,6vw,82px)]" aria-label="Por que escolher a Agô Trancoso">
-          <h2 className="sr-only">Por que escolher a Agô Trancoso</h2>
-          <div className="grid gap-px overflow-hidden rounded-[20px] border border-[#68483a1f] bg-[#68483a1f] md:grid-cols-3">
-            {confidence.map((item) => (
-              <div key={item.title} className="bg-[#fbf5eb] px-6 py-6 md:px-7 md:py-7">
-                <h3 className="text-[0.72rem] font-extrabold uppercase tracking-[0.12em] text-[#875038]">{item.title}</h3>
-                <p className="mt-2 max-w-[28rem] text-[0.9rem] leading-6 text-[#5d493f]">{item.text}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        <Benefits />
       </section>
 
       <ResumeCart />
@@ -94,9 +79,12 @@ export default function HomePage() {
       <section className="ago-premium-editorial ago-home-story ago-immersive-reveal" aria-labelledby="story-title">
         <div className="ago-container ago-premium-split">
           <div className="ago-premium-image ago-story-image">
-            <Image src="/nossa-essencia.jpg" alt="Universo visual da Agô Trancoso" fill sizes="(max-width: 900px) 100vw, 56vw" quality={100} className="ago-complementary-photo ago-story-static-photo" />
+            <Image src="/nossa-essencia.jpg" alt="Igrejinhas e peças de cerâmica da Agô no Quadrado de Trancoso" width={1800} height={1800} sizes="(max-width: 900px) 100vw, 56vw" quality={100} className="ago-complementary-photo ago-story-static-photo" />
           </div>
           <div className="ago-premium-copy">
+            <svg className="ago-sertao-sun" viewBox="0 0 100 52" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true" focusable="false">
+              <path d="M6 44h88M29 44a21 21 0 0 1 42 0M50 4v9M22 14l6 7M78 14l-6 7M7 30l9 3M93 30l-9 3" />
+            </svg>
             <p className="eyebrow">No Quadrado</p>
             <h2 id="story-title">Desde 2016, em Trancoso.</h2>
             <p>Cerâmica inspirada nas formas, cores e símbolos do lugar.</p>
@@ -136,7 +124,7 @@ export default function HomePage() {
           </div>
           <div className="ago-shipping-facts">
             <span>Pagamento seguro</span>
-            <span>Frete grátis quando o pedido com frete atinge R$ 500</span>
+            <span>Frete grátis a partir de R$ 500 em produtos</span>
             <span>Envio para todo o Brasil</span>
           </div>
         </div>

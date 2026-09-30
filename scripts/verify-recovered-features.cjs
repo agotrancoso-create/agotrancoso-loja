@@ -57,25 +57,16 @@ assert.ok(finalLastCss.includes('data-photo-index="3"'));
 assert.ok(finalLastCss.includes('border-radius: 0 !important'));
 assert.ok(finalLastCss.includes('object-fit: contain !important'));
 
-// Frete: se produtos + R$ 39,90 atingiriam R$ 500,00, o frete é grátis.
-// A fronteira equivalente é R$ 460,10 em produtos e é comparada diretamente em centavos.
-assert.ok(shipping.includes('FREE_SHIPPING_SUBTOTAL_MINIMUM = 460.10'));
-assert.ok(shipping.includes('FREE_SHIPPING_SUBTOTAL_MINIMUM_CENTS = 46010'));
+// Frete: somente produtos contam para o mínimo de R$ 500,00.
+assert.ok(shipping.includes('FREE_SHIPPING_SUBTOTAL_MINIMUM = FREE_SHIPPING_THRESHOLD'));
+assert.ok(shipping.includes('FREE_SHIPPING_THRESHOLD * 100'));
 assert.ok(shipping.includes('subtotalCents >= FREE_SHIPPING_SUBTOTAL_MINIMUM_CENTS'));
-assert.ok(shipping.includes('R$ 480,00 em produtos => frete grátis'));
-
-// A comunicação comercial precisa descrever a regra real, sem o antigo “pedidos de R$ 500 ou mais”.
 const shippingCopyFiles = [header, home, footer, checkout, productPage, cart];
 for (const source of shippingCopyFiles) {
-  assert.ok(!source.includes('Frete grátis em pedidos de R$ 500 ou mais'));
-  assert.ok(!source.includes('Acima de R$ 500'));
+  assert.ok(!source.includes('pedido com frete atinge'));
+  assert.ok(!source.includes('produtos + frete atingem'));
+  assert.ok(source.includes('a partir de R$ 500 em produtos'));
 }
-assert.ok(header.includes('Frete grátis quando o pedido com frete atinge R$ 500'));
-assert.ok(home.includes('Frete grátis quando o pedido com frete atinge R$ 500'));
-assert.ok(footer.includes('Frete grátis quando o pedido com frete atinge R$ 500'));
-assert.ok(checkout.includes('Frete grátis quando o pedido com frete atinge R$ 500'));
-assert.ok(productPage.includes('Grátis quando o pedido com frete atinge R$ 500'));
-assert.ok(cart.includes('Grátis quando produtos + frete atingem R$ 500'));
 
 // Zoom: preserva o master original antes da normalização e usa o arquivo sem recompressão no lightbox.
 assert.ok(normalizer.includes('preserveZoomMaster'));

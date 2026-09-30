@@ -1,7 +1,7 @@
 import Link from 'next/link';
 const benefits = [
   ['feito à mão', 'Atenção às formas e à pintura.'],
-  ['peças exclusivas', 'Igrejinhas, objetos para casa e presentes.'],
+  ['peças para guardar', 'Objetos para viver e presentear.'],
   ['inspiração brasileira', 'A igreja, as casas e outros símbolos do Brasil.'],
   ['envio internacional', 'Cotação conforme o destino e o pedido.'],
 ] as const;
@@ -18,9 +18,9 @@ const iconLeft = [80, 580, 1108, 1618] as const;
 
 export default function Benefits() {
   return (
-    <section className="benefits-strip ago-benefits-reference" aria-labelledby="benefits-title">
+    <section className="benefits-strip ago-benefits-reference" aria-label="Por que escolher a Agô Trancoso">
       <div className="ago-container ago-benefits-reference-inner">
-        <h2 id="benefits-title" className="sr-only">Benefícios da Agô Trancoso</h2>
+        <h2 id="benefits-title" className="sr-only">Por que escolher a Agô Trancoso</h2>
         <div className="ago-benefits-grid">
           {benefits.map(([title, text], index) => (
             <details className="ago-benefit-item" key={title}>

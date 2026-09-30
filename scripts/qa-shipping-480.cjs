@@ -62,7 +62,7 @@ async function run() {
     assert.deepEqual(order, { heroBeforeFeatured: true, featuredBeforeConfidence: true }, `home hierarchy@${width}`);
     assert.match(normalize(await hero.innerText()), /Cerâmica artesanal inspirada em Trancoso, desde 2016 no Quadrado/);
     assert.match(normalize(await confidence.innerText()), /Feito à mão/i);
-    assert.match(normalize(await confidence.innerText()), /Pagamento seguro e envio para todo o Brasil/i);
+    assert.match(normalize(await confidence.innerText()), /inspiração brasileira/i);
 
     await page.getByRole('button', { name: /Abrir sacola com 1 item/ }).first().click();
     const drawer = page.locator('.cart-drawer[aria-hidden=false]').first();
@@ -73,28 +73,29 @@ async function run() {
     const shipping = normalize(await summaryRows.filter({ hasText: 'Frete' }).first().innerText());
     const total = normalize(await drawer.locator('.cart-total-row').first().innerText());
     assert.match(subtotal, /^Subtotal R\$\s?480,00$/, `subtotal@${width}: ${subtotal}`);
-    assert.equal(shipping, 'Frete Grátis', `shipping@${width}: ${shipping}`);
-    assert.match(total, /^Total R\$\s?480,00$/, `total@${width}: ${total}`);
+    assert.match(shipping, /^Frete R\$\s?39,90$/, `shipping@${width}: ${shipping}`);
+    assert.match(total, /^Total R\$\s?519,90$/, `total@${width}: ${total}`);
 
     await page.goto(base + '/produtos', { waitUntil: 'domcontentloaded' });
     const miniaturaCard = page.locator('article[data-product-id="miniatura-quadrado-trancoso"]').first();
     const igrejaMCard = page.locator('article[data-product-id="igreja-quadrado-m"]').first();
     await miniaturaCard.waitFor();
     await igrejaMCard.waitFor();
-    assert.match(normalize(await miniaturaCard.innerText()), /Cerâmica artesanal · Frete grátis/i);
+    assert.doesNotMatch(normalize(await miniaturaCard.innerText()), /Frete grátis/i);
+    assert.doesNotMatch(normalize(await page.locator('article[data-product-id="estatueta-iemanja"]').innerText()), /Frete grátis/i);
     assert.doesNotMatch(normalize(await igrejaMCard.innerText()), /Frete grátis/i);
 
     await page.goto(base + '/checkout', { waitUntil: 'domcontentloaded' });
     await page.locator('.checkout-summary').first().waitFor();
     const checkoutText = normalize(await page.locator('.checkout-summary').first().innerText());
     assert.match(checkoutText, /Subtotal R\$\s?480,00/);
-    assert.match(checkoutText, /Frete Grátis/i);
-    assert.match(checkoutText, /Total R\$\s?480,00/);
+    assert.match(checkoutText, /Frete R\$\s?39,90/i);
+    assert.match(checkoutText, /Total R\$\s?519,90/);
 
     await page.goto(base + '/produtos/miniatura-quadrado-trancoso', { waitUntil: 'domcontentloaded' });
     const purchaseText = normalize(await page.locator('.purchase-selection-summary').first().innerText());
-    assert.match(purchaseText, /1 peça: R\$\s?480,00 · Frete grátis/i);
-    assert.match(purchaseText, /Esta seleção com frete: R\$\s?480,00/i);
+    assert.match(purchaseText, /1 peça: R\$\s?480,00 · Frete: R\$\s?39,90/i);
+    assert.match(purchaseText, /Esta seleção com frete: R\$\s?519,90/i);
     assert.match(normalize(await page.locator('.purchase-selection-help').first().innerText()), /Compra sem cadastro · Pagamento seguro pela InfinitePay · Envio para todo o Brasil/i);
 
     await page.close();
