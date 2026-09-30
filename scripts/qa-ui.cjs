@@ -1,10 +1,13 @@
 // Production interaction QA for Agô Trancoso.
-// Runs against a real production build, but mocks only external payment/eligibility services.
+// Runs against a real production build and mocks only external handoffs.
+// Visible-card waits avoid counting React/Next transition trees that can coexist
+// for a few milliseconds while native-history filters settle.
 const { spawn } = require('node:child_process');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const products = require('../data/products.json').products;
+const categories = require('../data/products.json').categories;
 const widths = process.env.QA_WIDTHS ? process.env.QA_WIDTHS.split(',').map(Number) : [320,390,820,1440,1920];
 const artifacts = process.env.QA_ARTIFACTS || '/tmp/ago-qa';
 const base = 'http://127.0.0.1:3100';
@@ -54,16 +57,37 @@ async function run() {
     results.routes.push(`${label}@${width}`);
   }
 
-  // Mobile e desktop são superfícies de release diferentes, mas mantêm a mesma identidade.
+  async function waitForVisibleProductCount(expected) {
+    await page.waitForFunction((count) => {
+      const cards = [...document.querySelectorAll('.catalog-grid article')];
+      const visible = cards.filter((node) => {
+        const style = getComputedStyle(node);
+        const rect = node.getBoundingClientRect();
+        return style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) > 0 && rect.width > 0 && rect.height > 0;
+      });
+      return visible.length === count;
+    }, expected, { timeout: 6000 });
+    const visibleCount = await page.locator('.catalog-grid article:visible').count();
+    assert.equal(visibleCount, expected);
+  }
+
+  // Mobile, tablet and desktop release surfaces.
   for (const width of widths) {
     const height = width < 600 ? 844 : 1000;
     await page.setViewportSize({ width, height });
+
     for (const route of ['/', '/produtos', '/produtos/colar-igreja-quadrado', '/checkout', '/contato', '/nossa-essencia']) {
       await visit(route);
       await assertNoOverflow(route, width);
+
       if (route === '/') {
         const storyImage = page.locator('.ago-story-static-photo').first();
-        const storyStyle = await storyImage.evaluate(node => ({ fit: getComputedStyle(node).objectFit, transform: getComputedStyle(node).transform, border: getComputedStyle(node).borderWidth, radius: getComputedStyle(node).borderRadius }));
+        const storyStyle = await storyImage.evaluate(node => ({
+          fit: getComputedStyle(node).objectFit,
+          transform: getComputedStyle(node).transform,
+          border: getComputedStyle(node).borderWidth,
+          radius: getComputedStyle(node).borderRadius,
+        }));
         assert.equal(storyStyle.fit, 'contain');
         assert.equal(storyStyle.transform, 'none');
         assert.equal(storyStyle.border, '0px');
@@ -71,40 +95,47 @@ async function run() {
         const photoGeometry = await storyImage.evaluate(node => {
           const box = node.getBoundingClientRect();
           const frame = node.parentElement.getBoundingClientRect();
-          return {ratio: box.width / box.height, naturalRatio: node.naturalWidth / node.naturalHeight, frameRatio: frame.width / frame.height};
+          return { ratio: box.width / box.height, frameRatio: frame.width / frame.height };
         });
-        assert.ok(Math.abs(photoGeometry.ratio - 1) < .01, `Photo must fill its rounded square frame at ${width}`);
-        assert.ok(Math.abs(photoGeometry.frameRatio - 1) < .01, `No letterboxing inside frame at ${width}`);
-
+        assert.ok(Math.abs(photoGeometry.ratio - 1) < .01, `Story photo must fill square frame at ${width}`);
+        assert.ok(Math.abs(photoGeometry.frameRatio - 1) < .01, `Story frame must stay square at ${width}`);
         const heroTitle = page.locator('.ago-cinematic-copy h1').first();
-        const heroStyle = await heroTitle.evaluate(node => ({ color: getComputedStyle(node).color, shadow: getComputedStyle(node).textShadow }));
-        assert.notEqual(heroStyle.shadow, 'none');
+        assert.notEqual(await heroTitle.evaluate(node => getComputedStyle(node).textShadow), 'none');
       }
+
       if (route === '/produtos') {
-        const budgets = page.getByRole('group', {name:'Faixa de preço', exact:true});
+        const budgets = page.getByRole('group', { name: 'Faixa de preço', exact: true });
         await budgets.waitFor();
         assert.equal(await budgets.getByRole('button').count(), 8);
-        const priceButton = budgets.getByRole('button', {name:'Até R$ 150', exact:true});
-        await priceButton.click();
-        await page.getByText('3 peças encontradas', {exact:true}).waitFor();
-        assert.equal(await priceButton.getAttribute('aria-pressed'), 'true');
-        assert.equal(await page.locator('.catalog-grid article').count(), 3);
-        await page.getByRole('group', {name:'Filtrar por categoria'}).getByRole('button', {name:'Decoração', exact:true}).click();
-        await page.getByText('1 peça encontrada', {exact:true}).waitFor();
-        await page.getByRole('button', {name:'Limpar filtros', exact:true}).click();
-        await page.getByText('19 peças encontradas', {exact:true}).waitFor();
-        assert.equal(await budgets.getByRole('button', {name:'Todos os valores'}).getAttribute('aria-pressed'), 'true');
 
-        const premiumButton = budgets.getByRole('button', {name:'Acima de R$ 3.000', exact:true});
+        const priceButton = budgets.getByRole('button', { name: 'Até R$ 150', exact: true });
+        await priceButton.click();
+        await page.getByText('3 peças encontradas', { exact: true }).waitFor();
+        await waitForVisibleProductCount(3);
+        assert.equal(await priceButton.getAttribute('aria-pressed'), 'true');
+
+        await page.getByRole('group', { name: 'Filtrar por categoria' }).getByRole('button', { name: 'Decoração', exact: true }).click();
+        await page.getByText('1 peça encontrada', { exact: true }).waitFor();
+        await waitForVisibleProductCount(1);
+
+        await page.getByRole('button', { name: 'Limpar filtros', exact: true }).click();
+        await page.getByText('19 peças encontradas', { exact: true }).waitFor();
+        await waitForVisibleProductCount(19);
+        assert.equal(await budgets.getByRole('button', { name: 'Todos os valores' }).getAttribute('aria-pressed'), 'true');
+
+        const premiumButton = budgets.getByRole('button', { name: 'Acima de R$ 3.000', exact: true });
         await premiumButton.click();
-        await page.getByText('1 peça encontrada', {exact:true}).waitFor();
+        await page.getByText('1 peça encontrada', { exact: true }).waitFor();
+        await waitForVisibleProductCount(1);
         assert.equal(await premiumButton.getAttribute('aria-pressed'), 'true');
-        assert.equal(await page.locator('.catalog-grid article').count(), 1);
-        assert.equal(await page.locator('.catalog-grid article').first().getAttribute('data-product-id'), 'igreja-quadrado-gg');
-        await page.getByRole('button', {name:'Limpar filtros', exact:true}).click();
-        await page.getByText('19 peças encontradas', {exact:true}).waitFor();
+        assert.equal(await page.locator('.catalog-grid article:visible').first().getAttribute('data-product-id'), 'igreja-quadrado-gg');
+
+        await page.getByRole('button', { name: 'Limpar filtros', exact: true }).click();
+        await page.getByText('19 peças encontradas', { exact: true }).waitFor();
+        await waitForVisibleProductCount(19);
         await assertNoOverflow('catalog price filters', width);
       }
+
       if (route.includes('colar-igreja-quadrado')) {
         const gallery = page.locator('.product-gallery-main').first();
         const box = await gallery.boundingBox();
@@ -116,7 +147,7 @@ async function run() {
       }
     }
 
-    // Sacola: R$ 500,00 em produtos já qualifica para frete grátis.
+    // Cart: existing R$500 product-subtotal shipping contract.
     await visit('/');
     const cartButton = page.getByRole('button', { name: /Abrir sacola com 2/ }).first();
     await cartButton.click();
@@ -140,7 +171,7 @@ async function run() {
   }
   results.interactions.push('Responsive home/catalog/PDP/cart/checkout verified at 320, 390, 820, 1440 and 1920');
 
-  // All 19 product pages and every visible gallery photo must decode.
+  // Every product route and gallery image decodes.
   await page.setViewportSize({ width: 1440, height: 1000 });
   for (const product of products) {
     await visit(`/produtos/${product.id}`);
@@ -157,7 +188,7 @@ async function run() {
   }
   results.interactions.push('19 product routes and every rendered gallery image decode');
 
-  // Catalog discovery: search, no-results recovery, categories and sorting.
+  // Search, categories, recovery and sorting.
   await visit('/produtos');
   const search = page.getByLabel('Encontre uma peça').first();
   await search.fill('igreja');
@@ -166,23 +197,25 @@ async function run() {
   await search.fill('zzzznotfound');
   await page.locator('.catalog-empty').first().waitFor();
   await page.getByRole('button', { name: 'Ver toda a coleção' }).first().click();
-  for (const category of require('../data/products.json').categories) {
+  await waitForVisibleProductCount(19);
+  for (const category of categories) {
     await page.getByRole('button', { name: category.name, exact: true }).first().click();
-    assert.ok(await page.locator('.catalog-grid .product-card').count() > 0, `Empty category: ${category.id}`);
+    await page.waitForFunction(() => document.querySelectorAll('.catalog-grid article:where(*)').length > 0);
+    assert.ok(await page.locator('.catalog-grid .product-card:visible').count() > 0, `Empty category: ${category.id}`);
   }
   await page.getByRole('button', { name: 'Todas', exact: true }).first().click();
   const sort = page.getByRole('button', { name: /Ordenar por:/ }).first();
   await sort.click();
   await page.getByRole('option', { name: 'Maior preço', exact: true }).first().click();
   const mostExpensive = products.reduce((a, b) => (a.price > b.price ? a : b)).id;
-  assert.equal(await page.locator('.catalog-grid .product-card').first().getAttribute('data-product-id'), mostExpensive);
+  assert.equal(await page.locator('.catalog-grid .product-card:visible').first().getAttribute('data-product-id'), mostExpensive);
   await sort.click();
   await page.getByRole('option', { name: 'Menor preço', exact: true }).first().click();
   const cheapest = products.reduce((a, b) => (a.price < b.price ? a : b)).id;
-  assert.equal(await page.locator('.catalog-grid .product-card').first().getAttribute('data-product-id'), cheapest);
+  assert.equal(await page.locator('.catalog-grid .product-card:visible').first().getAttribute('data-product-id'), cheapest);
   results.interactions.push('Predictive search, complete price ranges, no-results recovery, every category and sorting verified');
 
-  // Modern gallery: keyboard navigation + full-piece lightbox + zoom + reset + Escape.
+  // Gallery and original-master lightbox.
   await page.setViewportSize({ width: 390, height: 844 });
   await visit('/produtos/casal-pretos-velhos');
   const mobileGallery = page.locator('.product-gallery-main').first();
@@ -204,14 +237,17 @@ async function run() {
   await pretosThumbs.nth(2).click();
   assert.match(await page.locator('.product-gallery-counter').first().innerText(), /^03/);
   assert.equal(await mobileGallery.getAttribute('data-photo-index'), '3');
-  const thirdPretos = mobileGallery.locator('img').first();
-  const thirdStyle = await thirdPretos.evaluate(node => ({ fit: getComputedStyle(node).objectFit, border: getComputedStyle(node).borderWidth, radius: getComputedStyle(node).borderRadius }));
+  const thirdStyle = await mobileGallery.locator('img').first().evaluate(node => ({
+    fit: getComputedStyle(node).objectFit,
+    border: getComputedStyle(node).borderWidth,
+    radius: getComputedStyle(node).borderRadius,
+  }));
   assert.equal(thirdStyle.fit, 'contain');
   assert.equal(thirdStyle.border, '0px');
   assert.equal(thirdStyle.radius, '0px');
   results.interactions.push('Gallery keyboard navigation, original-master zoom, Pretos-Velhos photo 3 and Escape verified');
 
-  // Checkout contract in the real UI; external provider handoff is mocked to avoid charging money.
+  // Checkout contract; InfinitePay handoff remains mocked to avoid charging money.
   await visit('/checkout');
   assert.ok((await page.locator('.checkout-total').first().innerText()).includes('500,00'));
   await page.getByRole('button', { name: 'Continuar para entrega' }).first().click();
