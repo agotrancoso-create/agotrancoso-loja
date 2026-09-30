@@ -48,10 +48,11 @@ async function checkout(items,coupon='',overrides={}) {
   assert.equal(getBrazilianDocumentType('00.000.000/E08G-12'),'CNPJ');
   assert.equal(isValidCNPJ('00.000.000/E08G-13'),false);
 
-  // Fronteira comercial: só o subtotal dos produtos conta.
-  assert.equal(shouldOfferFreeShipping(499.99),false);
+  // Fronteira comercial: subtotal + frete fixo de R$ 39,90 atingindo R$ 500 já libera o frete.
+  assert.equal(shouldOfferFreeShipping(460.09),false);
+  assert.equal(shouldOfferFreeShipping(460.10),true);
+  assert.equal(shouldOfferFreeShipping(480),true);
   assert.equal(shouldOfferFreeShipping(500),true);
-  assert.equal(shouldOfferFreeShipping(500.01),true);
 
   let cases=0;
   for (const price of [50,250,8500]) for (const quantity of [1,4,12]) for(const coupon of ['', 'AGO3']) {
@@ -76,5 +77,5 @@ async function checkout(items,coupon='',overrides={}) {
   assert.equal(alpha.status,200);assert.equal(payload.address.complement,'CPF/CNPJ: 00000000E08G12');
   eligible=false;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,409);eligible=true;
   fail=true;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,502);assert.equal(releases,1);
-  console.log(`PASS ${cases} price/quantity/coupon combinations, CPF/CNPJ validation, official alphanumeric CNPJ, R$500 shipping boundary, cent allocation, identity rejection, invalid data, provider failure`);
+  console.log(`PASS ${cases} price/quantity/coupon combinations, CPF/CNPJ validation, official alphanumeric CNPJ, R$500 total-with-shipping boundary, cent allocation, identity rejection, invalid data, provider failure`);
 })().catch(error=>{console.error(error);process.exitCode=1});

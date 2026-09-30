@@ -54,18 +54,24 @@
   box-shadow: 0 8px 28px rgba(22,13,9,.22) !important;
 }
 
-/* A foto complementar fica inteira, imóvel e sem qualquer moldura visual. */
+/* A foto complementar fica inteira, imóvel, sem borda e com cantos arredondados. */
 .ago-home .ago-story-image,
 .ago-home .ago-story-image .ago-complementary-photo,
 .ago-home .ago-story-image .ago-story-static-photo {
   border: 0 !important;
-  border-radius: 0 !important;
   outline: 0 !important;
   box-shadow: none !important;
 }
 
 .ago-home .ago-story-image {
   background: transparent !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+
+.ago-home .ago-story-image .ago-complementary-photo,
+.ago-home .ago-story-image .ago-story-static-photo {
+  border-radius: 0 !important;
 }
 
 .ago-home .ago-story-image .ago-story-static-photo,

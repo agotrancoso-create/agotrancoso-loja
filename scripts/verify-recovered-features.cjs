@@ -54,17 +54,17 @@ assert.ok(finalLastCss.includes('data-photo-index="3"'));
 assert.ok(finalLastCss.includes('border-radius: 0 !important'));
 assert.ok(finalLastCss.includes('object-fit: contain !important'));
 
-// Frete: subtotal de R$ 500,00 ou mais qualifica. O frete em si nunca entra no limiar.
-assert.ok(shipping.includes('subtotalCents >= FREE_SHIPPING_THRESHOLD_CENTS'));
-assert.ok(shipping.includes('FREE_SHIPPING_SUBTOTAL_MINIMUM = 500'));
-assert.ok(!shipping.includes('subtotalCents + FIXED_SHIPPING_PRICE_CENTS'));
+// Frete: se subtotal + R$ 39,90 atingir R$ 500,00, o frete é grátis.
+assert.ok(shipping.includes('subtotalCents + FIXED_SHIPPING_PRICE_CENTS >= FREE_SHIPPING_THRESHOLD_CENTS'));
+assert.ok(shipping.includes('FREE_SHIPPING_SUBTOTAL_MINIMUM = Number((FREE_SHIPPING_THRESHOLD - FIXED_SHIPPING_PRICE).toFixed(2))'));
+assert.ok(shipping.includes('R$ 480,00 + R$ 39,90 = R$ 519,90'));
 
 // Zoom: preserva o master original antes da normalização e usa o arquivo sem recompressão no lightbox.
 assert.ok(normalizer.includes('preserveZoomMaster'));
 assert.ok(lightbox.includes('function zoomSource'));
 assert.ok(lightbox.includes('unoptimized'));
 
-// Hero original, legível e consistente; foto institucional completa, imóvel e sem moldura.
+// Hero original, legível e consistente; foto institucional completa, imóvel, sem borda e com cantos arredondados.
 assert.ok(home.includes('src="/hero.jpg"'));
 assert.ok(home.includes('priority unoptimized'));
 assert.ok(home.includes('ago-story-static-photo'));
@@ -72,6 +72,8 @@ assert.ok(finalLastCss.includes('.ago-cinematic-copy h1'));
 assert.ok(finalLastCss.includes('text-shadow:'));
 assert.ok(finalLastCss.includes('.ago-story-image .ago-complementary-photo'));
 assert.ok(finalLastCss.includes('border: 0 !important'));
+assert.ok(finalLastCss.includes('border-radius: 18px !important'));
+assert.ok(finalLastCss.includes('object-fit: contain !important'));
 
 // SEO/localidade e intenção comercial.
 assert.ok(trancoso.includes('Artesanato e Cerâmica em Trancoso'));
