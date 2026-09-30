@@ -1,447 +1,105 @@
 /* Agô Trancoso — refinamento final de proporção, tipografia e paridade cromática.
-   Esta camada é intencionalmente pequena e carregada por último: ela não redesenha
-   o site; consolida apenas os pontos visuais ainda pendentes entre viewports. */
-
+   Camada final pequena: não redesenha, apenas consolida os pontos ainda pendentes. */
 :root {
-  --ago-home-products-bg: #fcf9f4;
-  --ago-home-benefits-bg: #f7efe2;
-  --ago-home-story-bg: #e8d5b8;
-  --ago-home-discovery-bg: #f7f1e6;
-  --ago-home-shipping-bg: #615739;
-  --ago-home-visit-bg: #684735;
-  --ago-home-visit-ink: #fff8ed;
-  --ago-home-visit-muted: #f0dfcf;
-  --ago-home-gold: #d9bd79;
-  --ago-section-compact: clamp(36px, 3.6vw, 54px);
-  --ago-section-regular: clamp(50px, 5vw, 76px);
-  --ago-home-title: clamp(2rem, 3.05vw, 3.15rem);
-  --ago-home-title-mobile: clamp(2rem, 9.5vw, 2.7rem);
+  --ago-home-products-bg:#fcf9f4;
+  --ago-home-benefits-bg:#f7efe2;
+  --ago-home-story-bg:#e8d5b8;
+  --ago-home-discovery-bg:#f7f1e6;
+  --ago-home-shipping-bg:#615739;
+  --ago-home-visit-bg:#684735;
+  --ago-home-visit-ink:#fff8ed;
+  --ago-home-visit-muted:#f0dfcf;
+  --ago-home-gold:#d9bd79;
+  --ago-section-compact:clamp(36px,3.6vw,54px);
+  --ago-section-regular:clamp(50px,5vw,76px);
+  --ago-home-title:clamp(2rem,3.05vw,3.15rem);
+  --ago-home-title-mobile:clamp(2rem,9.5vw,2.7rem);
 }
 
 /* Mesma matéria/cor em desktop, tablet e celular: muda a geometria, não o tom. */
-.ago-home .ago-cinematic-products {
-  background: var(--ago-home-products-bg) !important;
-  background-image: none !important;
-}
+.ago-home .ago-cinematic-products{background:var(--ago-home-products-bg)!important;background-image:none!important}
+.ago-home .ago-benefits-reference{background:var(--ago-home-benefits-bg)!important;background-image:none!important;padding-block:clamp(30px,3.2vw,48px)!important}
+.ago-home .ago-premium-editorial.ago-home-story,.ago-home .ago-home-story{background:var(--ago-home-story-bg)!important;background-image:none!important}
+.ago-home .ago-premium-discovery{background:var(--ago-home-discovery-bg)!important;background-image:none!important}
+.ago-home .ago-shipping-chapter{background:var(--ago-home-shipping-bg)!important;background-image:none!important;color:var(--ago-home-visit-ink)!important;padding-block:var(--ago-section-compact)!important;border:0!important;box-shadow:none!important}
+.ago-home .ago-bahia-visit{background:var(--ago-home-visit-bg)!important;background-image:none!important;color:var(--ago-home-visit-ink)!important;padding-block:var(--ago-section-regular)!important;border:0!important;box-shadow:none!important}
+.ago-home .ago-bahia-visit::before,.ago-home .ago-bahia-visit::after{content:none!important;display:none!important}
 
-.ago-home .ago-benefits-reference {
-  background: var(--ago-home-benefits-bg) !important;
-  background-image: none !important;
-  padding-block: clamp(30px, 3.2vw, 48px) !important;
-}
+/* Tipografia: mantém Cormorant + Manrope e corrige escala, leading e tracking. */
+.ago-home .eyebrow{margin-bottom:12px!important;font-family:var(--font-sans),Arial,sans-serif!important;font-size:clamp(.68rem,.63vw,.74rem)!important;line-height:1.4!important;font-weight:800!important;letter-spacing:.15em!important;text-transform:uppercase}
+.ago-home h1,.ago-home h2,.ago-home h3{text-wrap:balance}
+.ago-home p{text-wrap:pretty}
+.ago-home .ago-cinematic-products-head h2,.ago-home .ago-premium-section-head h2,.ago-home .ago-premium-copy h2{line-height:1.08!important;letter-spacing:-.03em!important}
 
-.ago-home .ago-premium-editorial.ago-home-story,
-.ago-home .ago-home-story {
-  background: var(--ago-home-story-bg) !important;
-  background-image: none !important;
-}
+/* Compra online: uma composição editorial, não três cards. */
+.ago-home .ago-shipping-chapter-inner{display:grid!important;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)!important;align-items:center!important;gap:clamp(36px,5vw,76px)!important}
+.ago-home .ago-shipping-chapter .eyebrow{color:#ead9b0!important;margin-bottom:10px!important}
+.ago-home .ago-shipping-chapter h2{max-width:13ch;color:var(--ago-home-visit-ink)!important;font-size:clamp(2rem,2.65vw,2.75rem)!important;line-height:1.04!important;letter-spacing:-.032em!important}
+.ago-home .ago-shipping-facts{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;align-items:center!important;gap:clamp(18px,2.4vw,34px)!important}
+.ago-home .ago-shipping-facts span{display:block!important;max-width:19ch!important;min-height:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#f6ecdf!important;font-size:clamp(.82rem,.84vw,.94rem)!important;line-height:1.48!important;font-weight:500!important}
 
-.ago-home .ago-premium-discovery {
-  background: var(--ago-home-discovery-bg) !important;
-  background-image: none !important;
-}
-
-.ago-home .ago-shipping-chapter {
-  background: var(--ago-home-shipping-bg) !important;
-  background-image: none !important;
-  color: var(--ago-home-visit-ink) !important;
-  padding-block: var(--ago-section-compact) !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-.ago-home .ago-bahia-visit {
-  background: var(--ago-home-visit-bg) !important;
-  background-image: none !important;
-  color: var(--ago-home-visit-ink) !important;
-  padding-block: var(--ago-section-regular) !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-.ago-home .ago-bahia-visit::before,
-.ago-home .ago-bahia-visit::after {
-  content: none !important;
-  display: none !important;
-}
-
-/* Sistema tipográfico da home: Cormorant para títulos, Manrope para leitura. */
-.ago-home .eyebrow {
-  margin-bottom: 12px !important;
-  font-family: var(--font-sans), Arial, sans-serif !important;
-  font-size: clamp(.68rem, .63vw, .74rem) !important;
-  line-height: 1.4 !important;
-  font-weight: 800 !important;
-  letter-spacing: .15em !important;
-  text-transform: uppercase;
-}
-
-.ago-home h1,
-.ago-home h2,
-.ago-home h3 {
-  text-wrap: balance;
-}
-
-.ago-home p {
-  text-wrap: pretty;
-}
-
-.ago-home .ago-cinematic-products-head h2,
-.ago-home .ago-premium-section-head h2,
-.ago-home .ago-premium-copy h2 {
-  line-height: 1.08 !important;
-  letter-spacing: -.03em !important;
-}
-
-/* Compra online: composição única, compacta e legível. */
-.ago-home .ago-shipping-chapter-inner {
-  display: grid !important;
-  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr) !important;
-  align-items: center !important;
-  gap: clamp(36px, 5vw, 76px) !important;
-}
-
-.ago-home .ago-shipping-chapter .eyebrow {
-  color: #ead9b0 !important;
-  margin-bottom: 10px !important;
-}
-
-.ago-home .ago-shipping-chapter h2 {
-  max-width: 13ch;
-  color: var(--ago-home-visit-ink) !important;
-  font-size: clamp(2rem, 2.65vw, 2.75rem) !important;
-  line-height: 1.04 !important;
-  letter-spacing: -.032em !important;
-}
-
-.ago-home .ago-shipping-facts {
-  display: grid !important;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  align-items: center !important;
-  gap: clamp(18px, 2.4vw, 34px) !important;
-}
-
-.ago-home .ago-shipping-facts span {
-  display: block;
-  max-width: 19ch;
-  color: #f6ecdf !important;
-  font-size: clamp(.82rem, .84vw, .94rem) !important;
-  line-height: 1.48 !important;
-  font-weight: 500 !important;
-}
-
-/* Visita ao Quadrado: aproxima assinatura territorial sem competir com o título. */
-.ago-home .ago-bahia-visit > .ago-container {
-  width: min(1180px, calc(100% - var(--gutter) * 2)) !important;
-  display: grid !important;
-  grid-template-columns: minmax(0, 1.18fr) minmax(210px, .52fr) !important;
-  align-items: center !important;
-  gap: clamp(38px, 5vw, 70px) !important;
-}
-
-.ago-home .ago-bahia-visit > .ago-container > div:first-child {
-  max-width: 650px !important;
-}
-
-.ago-home .ago-bahia-visit .eyebrow {
-  margin-bottom: 14px !important;
-  color: #ead9b0 !important;
-  letter-spacing: .17em !important;
-}
-
-.ago-home .ago-bahia-visit h2 {
-  max-width: 16ch !important;
-  color: var(--ago-home-visit-ink) !important;
-  font-size: var(--ago-home-title) !important;
-  line-height: 1.02 !important;
-  letter-spacing: -.035em !important;
-}
-
-.ago-home .ago-bahia-visit h2 + p {
-  max-width: 36ch !important;
-  margin-top: 18px !important;
-  color: var(--ago-home-visit-muted) !important;
-  font-size: clamp(.94rem, .95vw, 1.04rem) !important;
-  line-height: 1.58 !important;
-}
-
-.ago-home .ago-bahia-visit h2 + p + div {
-  margin-top: 20px !important;
-  column-gap: 24px !important;
-  row-gap: 4px !important;
-}
-
-.ago-home .ago-bahia-visit a {
-  min-height: 44px !important;
-  color: var(--ago-home-visit-ink) !important;
-  font-size: .7rem !important;
-  line-height: 1.2 !important;
-  font-weight: 800 !important;
-  letter-spacing: .055em !important;
-  text-underline-offset: 5px;
-}
-
-.ago-home .ago-bahia-visit a:first-child {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-}
-
-.ago-home .ago-bahia-wordmark {
-  min-width: 220px;
-  justify-self: end !important;
-  align-self: center !important;
-  text-align: center !important;
-}
-
-.ago-home .ago-bahia-wordmark span {
-  color: #e1ca91 !important;
-  font-size: .61rem !important;
-  line-height: 1.35 !important;
-  font-weight: 800 !important;
-  letter-spacing: .26em !important;
-}
-
-.ago-home .ago-bahia-wordmark strong {
-  margin-block: 5px !important;
-  color: var(--ago-home-gold) !important;
-  font-family: var(--font-display), Georgia, serif !important;
-  font-size: clamp(3.15rem, 4.65vw, 4.7rem) !important;
-  line-height: .92 !important;
-  font-weight: 500 !important;
-  letter-spacing: -.035em !important;
-  text-shadow: none !important;
-}
+/* Visita ao Quadrado: a assinatura territorial apoia o título em vez de competir. */
+.ago-home .ago-bahia-visit>.ago-container{width:min(1180px,calc(100% - var(--gutter)*2))!important;display:grid!important;grid-template-columns:minmax(0,1.18fr) minmax(210px,.52fr)!important;align-items:center!important;gap:clamp(38px,5vw,70px)!important}
+.ago-home .ago-bahia-visit>.ago-container>div:first-child{max-width:650px!important}
+.ago-home .ago-bahia-visit .eyebrow{margin-bottom:14px!important;color:#ead9b0!important;letter-spacing:.17em!important}
+.ago-home .ago-bahia-visit h2{max-width:16ch!important;color:var(--ago-home-visit-ink)!important;font-size:var(--ago-home-title)!important;line-height:1.02!important;letter-spacing:-.035em!important}
+.ago-home .ago-bahia-visit h2+p{max-width:36ch!important;margin-top:18px!important;color:var(--ago-home-visit-muted)!important;font-size:clamp(.94rem,.95vw,1.04rem)!important;line-height:1.58!important}
+.ago-home .ago-bahia-visit h2+p+div{margin-top:20px!important;column-gap:24px!important;row-gap:4px!important}
+.ago-home .ago-bahia-visit a{min-height:44px!important;color:var(--ago-home-visit-ink)!important;font-size:.7rem!important;line-height:1.2!important;font-weight:800!important;letter-spacing:.055em!important;text-underline-offset:5px}
+.ago-home .ago-bahia-visit a:first-child{text-decoration:underline;text-decoration-thickness:1px}
+.ago-home .ago-bahia-wordmark{min-width:220px;justify-self:end!important;align-self:center!important;text-align:center!important}
+.ago-home .ago-bahia-wordmark span{color:#e1ca91!important;font-size:.61rem!important;line-height:1.35!important;font-weight:800!important;letter-spacing:.26em!important}
+.ago-home .ago-bahia-wordmark strong{margin-block:5px!important;color:var(--ago-home-gold)!important;font-family:var(--font-display),Georgia,serif!important;font-size:clamp(3.15rem,4.65vw,4.7rem)!important;line-height:.92!important;font-weight:500!important;letter-spacing:-.035em!important;text-shadow:none!important}
 
 /* Benefícios: menos altura, mesma confiança. */
-.ago-home .ago-benefits-grid {
-  gap: clamp(18px, 2.4vw, 30px) !important;
+.ago-home .ago-benefits-grid{gap:clamp(18px,2.4vw,30px)!important}
+.ago-home .ago-benefit-art{width:clamp(68px,5vw,82px)!important;margin-bottom:12px!important}
+.ago-home .ago-benefit-copy h3{font-size:clamp(1.08rem,1.35vw,1.3rem)!important;line-height:1.2!important}
+.ago-home .ago-benefit-copy p{margin-top:8px!important;font-size:.79rem!important;line-height:1.55!important}
+
+/* Lightbox: o tamanho da máscara vem do menor eixo real do palco. Container query
+   units evitam o retângulo 720×590 que aparecia no desktop. O zoom acontece dentro. */
+.ago-photo-stage{--ago-photo-gap:clamp(14px,2vw,28px);--ago-photo-gap2:clamp(28px,4vw,56px);container-type:size;display:grid!important;place-items:center!important;padding:var(--ago-photo-gap)!important}
+.ago-photo-image-frame{position:relative!important;inset:auto!important;width:min(calc(100cqw - var(--ago-photo-gap2)),calc(100cqh - var(--ago-photo-gap2)))!important;height:min(calc(100cqw - var(--ago-photo-gap2)),calc(100cqh - var(--ago-photo-gap2)))!important;max-width:100%!important;max-height:100%!important;overflow:hidden!important;border-radius:22px!important;clip-path:inset(0 round 22px)!important;background:#fffdfa!important;isolation:isolate}
+.ago-photo-image-shell{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;overflow:visible!important;border-radius:0!important;clip-path:none!important;transform-origin:center center!important}
+.ago-photo-image{width:100%!important;height:100%!important;padding:0!important;border-radius:0!important;clip-path:none!important;object-fit:contain!important;object-position:center!important;image-rendering:auto}
+.ago-photo-thumbs button,.ago-photo-thumbs button img{border-radius:12px!important}
+
+@media(hover:hover) and (pointer:fine){.ago-home .ago-bahia-visit a{transition:opacity .18s ease,text-decoration-color .18s ease!important}.ago-home .ago-bahia-visit a:hover{opacity:.76}}
+
+@media(max-width:1024px){
+  .ago-home .ago-bahia-visit>.ago-container{width:min(100% - 40px,920px)!important;grid-template-columns:minmax(0,1.25fr) minmax(190px,.55fr)!important;gap:clamp(30px,5vw,54px)!important}
+  .ago-home .ago-shipping-chapter-inner{gap:34px!important}
+  .ago-home .ago-shipping-facts{gap:16px!important}
 }
 
-.ago-home .ago-benefit-art {
-  width: clamp(68px, 5vw, 82px) !important;
-  margin-bottom: 12px !important;
+/* Mobile: composição própria, mas os mesmos tokens de cor. */
+@media(max-width:700px){
+  .ago-home .ago-cinematic-products{background:var(--ago-home-products-bg)!important}
+  .ago-home .ago-benefits-reference{background:var(--ago-home-benefits-bg)!important}
+  .ago-home .ago-premium-editorial.ago-home-story,.ago-home .ago-home-story{background:var(--ago-home-story-bg)!important;background-image:none!important}
+  .ago-home .ago-premium-discovery{background:var(--ago-home-discovery-bg)!important;background-image:none!important}
+  .ago-home .ago-shipping-chapter{background:var(--ago-home-shipping-bg)!important;background-image:none!important;padding-block:36px!important}
+  .ago-home .ago-bahia-visit{background:var(--ago-home-visit-bg)!important;background-image:none!important;padding-block:46px!important}
+  .ago-home .ago-shipping-chapter-inner{grid-template-columns:1fr!important;gap:24px!important}
+  .ago-home .ago-shipping-chapter h2{max-width:15ch;font-size:clamp(1.9rem,8.3vw,2.35rem)!important;line-height:1.04!important}
+  .ago-home .ago-shipping-facts{grid-template-columns:1fr!important;gap:0!important}
+  .ago-home .ago-shipping-facts span{max-width:none!important;min-height:42px!important;display:flex!important;align-items:center!important;padding-block:10px!important;border:0!important;border-top:1px solid rgba(255,248,237,.16)!important;font-size:.82rem!important;line-height:1.42!important}
+  .ago-home .ago-shipping-facts span:last-child{border-bottom:1px solid rgba(255,248,237,.16)!important}
+  .ago-home .ago-bahia-visit>.ago-container{width:calc(100% - 40px)!important;grid-template-columns:1fr!important;gap:26px!important;align-items:start!important}
+  .ago-home .ago-bahia-visit .eyebrow{margin-bottom:12px!important}
+  .ago-home .ago-bahia-visit h2{max-width:13ch!important;font-size:var(--ago-home-title-mobile)!important;line-height:1.01!important}
+  .ago-home .ago-bahia-visit h2+p{margin-top:16px!important;font-size:.94rem!important;line-height:1.55!important}
+  .ago-home .ago-bahia-visit h2+p+div{margin-top:18px!important;gap:2px 18px!important}
+  .ago-home .ago-bahia-wordmark{min-width:0!important;justify-self:start!important;text-align:left!important;margin-top:2px!important}
+  .ago-home .ago-bahia-wordmark strong{font-size:clamp(2.75rem,14vw,3.65rem)!important;line-height:.94!important}
+  .ago-home .ago-bahia-wordmark span{font-size:.58rem!important;letter-spacing:.23em!important}
+  .ago-home .ago-benefits-reference{padding-block:30px!important}
+  .ago-home .ago-benefits-grid{gap:22px 16px!important}
+  .ago-home .ago-benefit-art{width:68px!important}
+  .ago-photo-stage{--ago-photo-gap:8px;--ago-photo-gap2:16px;padding:var(--ago-photo-gap)!important}
+  .ago-photo-image-frame{width:min(calc(100cqw - var(--ago-photo-gap2)),calc(100cqh - var(--ago-photo-gap2)))!important;height:min(calc(100cqw - var(--ago-photo-gap2)),calc(100cqh - var(--ago-photo-gap2)))!important;border-radius:18px!important;clip-path:inset(0 round 18px)!important}
 }
 
-.ago-home .ago-benefit-copy h3 {
-  font-size: clamp(1.08rem, 1.35vw, 1.3rem) !important;
-  line-height: 1.2 !important;
-}
-
-.ago-home .ago-benefit-copy p {
-  margin-top: 8px !important;
-  font-size: .79rem !important;
-  line-height: 1.55 !important;
-}
-
-/* Lightbox: o recorte precisa coincidir com a fotografia quadrada normalizada,
-   não apenas com a área inteira do palco. O transform acontece dentro da máscara. */
-.ago-photo-stage {
-  display: grid !important;
-  place-items: center !important;
-  padding: clamp(14px, 2vw, 28px) !important;
-}
-
-.ago-photo-image-frame {
-  position: relative !important;
-  inset: auto !important;
-  width: min(100%, 72vh) !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
-  aspect-ratio: 1 / 1 !important;
-  overflow: hidden !important;
-  border-radius: 22px !important;
-  clip-path: inset(0 round 22px) !important;
-  background: #fffdfa !important;
-  isolation: isolate;
-}
-
-.ago-photo-image-shell {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  overflow: visible !important;
-  border-radius: 0 !important;
-  clip-path: none !important;
-  transform-origin: center center !important;
-}
-
-.ago-photo-image {
-  width: 100% !important;
-  height: 100% !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
-  clip-path: none !important;
-  object-fit: contain !important;
-  object-position: center !important;
-  image-rendering: auto;
-}
-
-.ago-photo-thumbs button,
-.ago-photo-thumbs button img {
-  border-radius: 12px !important;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .ago-home .ago-bahia-visit a {
-    transition: opacity .18s ease, text-decoration-color .18s ease !important;
-  }
-  .ago-home .ago-bahia-visit a:hover {
-    opacity: .76;
-  }
-}
-
-/* Tablet: mantém duas colunas enquanto houver largura real para respirar. */
-@media (max-width: 1024px) {
-  .ago-home .ago-bahia-visit > .ago-container {
-    width: min(100% - 40px, 920px) !important;
-    grid-template-columns: minmax(0, 1.25fr) minmax(190px, .55fr) !important;
-    gap: clamp(30px, 5vw, 54px) !important;
-  }
-
-  .ago-home .ago-shipping-chapter-inner {
-    gap: 34px !important;
-  }
-
-  .ago-home .ago-shipping-facts {
-    gap: 16px !important;
-  }
-}
-
-/* Mobile é uma composição própria, preservando exatamente os mesmos fundos. */
-@media (max-width: 700px) {
-  .ago-home .ago-cinematic-products { background: var(--ago-home-products-bg) !important; }
-  .ago-home .ago-benefits-reference { background: var(--ago-home-benefits-bg) !important; }
-  .ago-home .ago-premium-editorial.ago-home-story,
-  .ago-home .ago-home-story { background: var(--ago-home-story-bg) !important; background-image: none !important; }
-  .ago-home .ago-premium-discovery { background: var(--ago-home-discovery-bg) !important; background-image: none !important; }
-  .ago-home .ago-shipping-chapter { background: var(--ago-home-shipping-bg) !important; background-image: none !important; }
-  .ago-home .ago-bahia-visit { background: var(--ago-home-visit-bg) !important; background-image: none !important; }
-
-  .ago-home .ago-shipping-chapter {
-    padding-block: 36px !important;
-  }
-
-  .ago-home .ago-shipping-chapter-inner {
-    grid-template-columns: 1fr !important;
-    gap: 24px !important;
-  }
-
-  .ago-home .ago-shipping-chapter h2 {
-    max-width: 15ch;
-    font-size: clamp(1.9rem, 8.3vw, 2.35rem) !important;
-    line-height: 1.04 !important;
-  }
-
-  .ago-home .ago-shipping-facts {
-    grid-template-columns: 1fr !important;
-    gap: 0 !important;
-  }
-
-  .ago-home .ago-shipping-facts span {
-    max-width: none !important;
-    min-height: 42px;
-    display: flex;
-    align-items: center;
-    padding-block: 10px;
-    border-top: 1px solid rgba(255, 248, 237, .16);
-    font-size: .82rem !important;
-    line-height: 1.42 !important;
-  }
-
-  .ago-home .ago-shipping-facts span:last-child {
-    border-bottom: 1px solid rgba(255, 248, 237, .16);
-  }
-
-  .ago-home .ago-bahia-visit {
-    padding-block: 46px !important;
-  }
-
-  .ago-home .ago-bahia-visit > .ago-container {
-    width: calc(100% - 40px) !important;
-    grid-template-columns: 1fr !important;
-    gap: 26px !important;
-    align-items: start !important;
-  }
-
-  .ago-home .ago-bahia-visit .eyebrow {
-    margin-bottom: 12px !important;
-  }
-
-  .ago-home .ago-bahia-visit h2 {
-    max-width: 13ch !important;
-    font-size: var(--ago-home-title-mobile) !important;
-    line-height: 1.01 !important;
-  }
-
-  .ago-home .ago-bahia-visit h2 + p {
-    margin-top: 16px !important;
-    font-size: .94rem !important;
-    line-height: 1.55 !important;
-  }
-
-  .ago-home .ago-bahia-visit h2 + p + div {
-    margin-top: 18px !important;
-    gap: 2px 18px !important;
-  }
-
-  .ago-home .ago-bahia-wordmark {
-    min-width: 0 !important;
-    justify-self: start !important;
-    text-align: left !important;
-    margin-top: 2px !important;
-  }
-
-  .ago-home .ago-bahia-wordmark strong {
-    font-size: clamp(2.75rem, 14vw, 3.65rem) !important;
-    line-height: .94 !important;
-  }
-
-  .ago-home .ago-bahia-wordmark span {
-    font-size: .58rem !important;
-    letter-spacing: .23em !important;
-  }
-
-  .ago-home .ago-benefits-reference {
-    padding-block: 30px !important;
-  }
-
-  .ago-home .ago-benefits-grid {
-    gap: 22px 16px !important;
-  }
-
-  .ago-home .ago-benefit-art {
-    width: 68px !important;
-  }
-
-  .ago-photo-stage {
-    padding: 8px !important;
-  }
-
-  .ago-photo-image-frame {
-    width: min(100%, calc(100dvh - 250px)) !important;
-    border-radius: 18px !important;
-    clip-path: inset(0 round 18px) !important;
-  }
-}
-
-@media (max-width: 360px) {
-  .ago-home .ago-bahia-visit > .ago-container {
-    width: calc(100% - 32px) !important;
-  }
-
-  .ago-home .ago-bahia-visit h2 + p + div {
-    column-gap: 14px !important;
-  }
-
-  .ago-home .ago-bahia-visit a {
-    font-size: .67rem !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ago-home .ago-bahia-visit a,
-  .ago-photo-image-shell {
-    transition: none !important;
-  }
-}
+@media(max-width:360px){.ago-home .ago-bahia-visit>.ago-container{width:calc(100% - 32px)!important}.ago-home .ago-bahia-visit h2+p+div{column-gap:14px!important}.ago-home .ago-bahia-visit a{font-size:.67rem!important}}
+@media(prefers-reduced-motion:reduce){.ago-home .ago-bahia-visit a,.ago-photo-image-shell{transition:none!important}}
