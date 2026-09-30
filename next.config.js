@@ -13,6 +13,16 @@ const nextConfig = {
       { protocol: 'https', hostname: 'scontent.xx.fbcdn.net', pathname: '/**' },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'agotrancoso.com.br' }],
+        destination: 'https://www.agotrancoso.com.br/:path*',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     const securityHeaders = [
       { key: 'X-Content-Type-Options', value: 'nosniff' },
