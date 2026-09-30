@@ -12,9 +12,10 @@ import { productSearchScore } from '@/lib/product-search';
 
 const navItems = [
   { href: '/', label: 'Início' },
-  { href: '/produtos', label: 'Coleção' },
+  { href: '/produtos', label: 'Peças' },
+  { href: '/#como-comprar', label: 'Como comprar' },
+  { href: '/#banca', label: 'Banca' },
   { href: '/nossa-essencia', label: 'A Agô' },
-  { href: '/contato', label: 'Contato' },
 ];
 
 const categoryItems = [
@@ -115,7 +116,11 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
     router.push(`/produtos/${id}`);
   }
 
-  const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href.split('?')[0]);
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    const pathOnly = href.split('#')[0].split('?')[0];
+    return pathOnly !== '/' && pathname.startsWith(pathOnly);
+  };
   const showSuggestions = searchFocused && query.trim().length > 0;
 
   return (
