@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import Image from '@/components/ProductImage';
+import { SITE_DOMAIN } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: { absolute: 'A Agô | Agô Trancoso' },
@@ -10,8 +12,19 @@ export const metadata: Metadata = {
 };
 
 export default function NossaEssenciaPage() {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    '@id': `${SITE_DOMAIN}/nossa-essencia#page`,
+    url: `${SITE_DOMAIN}/nossa-essencia`,
+    name: 'A Agô — Agô Trancoso',
+    about: { '@id': `${SITE_DOMAIN}#organization` },
+    mainEntity: { '@id': `${SITE_DOMAIN}#organization` },
+  };
+
   return (
-    <div className="essencia-page">
+    <div className="essencia-page ago-institutional-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
       <div className="essencia-shell">
         <div className="essencia-grid">
           <section className="essencia-copy">
@@ -21,6 +34,10 @@ export default function NossaEssenciaPage() {
               <p>A Agô está em Trancoso desde 2016 e reúne uma seleção de peças em cerâmica artesanal.</p>
               <p>A igreja, as casas e as cores do Quadrado inspiram parte do acervo. Há também objetos para casa, símbolos de fé e outras referências brasileiras.</p>
               <p>Na loja e no site, você encontra as peças para conhecer, escolher e comprar.</p>
+            </div>
+            <div className="institutional-actions">
+              <Link href="/produtos" className="button">Ver coleção</Link>
+              <Link href="/contato" className="ago-premium-text-link">Visitar ou falar com a Agô <span aria-hidden="true">↗</span></Link>
             </div>
           </section>
           <div className="essencia-image">
