@@ -1,0 +1,431 @@
+/* Agô Trancoso — storytelling visual final.
+   Esta camada existe para manter a fotografia real como protagonista, restaurar
+   os ícones de confiança e resolver a seção de visita sem alterar frete,
+   preços, catálogo ou checkout. Cores são idênticas entre breakpoints. */
+
+:root {
+  --ago-story-terracotta: #875038;
+  --ago-story-olive: #766b45;
+  --ago-story-ochre: #d7b66f;
+  --ago-story-ivory: #fbf1e1;
+  --ago-story-cacao: #35241d;
+  --ago-story-line: rgba(53, 36, 29, .18);
+}
+
+/* Hero: a fotografia continua inteira e nítida; apenas a leitura do texto recebe proteção. */
+.ago-home .ago-cinematic-overlay {
+  background: linear-gradient(90deg, rgba(27, 20, 17, .58) 0%, rgba(27, 20, 17, .32) 46%, rgba(27, 20, 17, .10) 76%, transparent 100%) !important;
+}
+
+.ago-home .ago-cinematic-copy h1 {
+  text-wrap: balance;
+  text-shadow: 0 2px 24px rgba(20, 14, 11, .22);
+}
+
+/* Ícones de confiança: visuais, curtos e sem acordeões ou blocos pesados. */
+.ago-benefits-icons {
+  background: var(--ago-canvas) !important;
+  color: var(--ago-story-cacao);
+  padding: clamp(30px, 4vw, 48px) 0 !important;
+  border-top: 1px solid var(--ago-story-line);
+  border-bottom: 1px solid var(--ago-story-line);
+}
+
+.ago-benefits-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+}
+
+.ago-benefit-icon-item {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 10px clamp(16px, 2.3vw, 30px);
+  border-left: 1px solid var(--ago-story-line);
+}
+
+.ago-benefit-icon-item:first-child { border-left: 0; padding-left: 0; }
+.ago-benefit-icon-item:last-child { padding-right: 0; }
+
+.ago-benefit-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  color: var(--ago-accent);
+}
+
+.ago-benefit-icon svg {
+  width: 38px;
+  height: 38px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.55;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ago-benefit-icon-item h3 {
+  margin: 0;
+  color: var(--ago-story-cacao);
+  font-size: clamp(.78rem, .82vw, .9rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -.01em;
+}
+
+.ago-benefit-icon-item p {
+  margin: 5px 0 0;
+  max-width: 30ch;
+  color: var(--ago-muted);
+  font-size: clamp(.72rem, .72vw, .8rem);
+  line-height: 1.5;
+}
+
+/* História: duas fotografias reais, sem filtros artificiais. */
+.ago-home .ago-home-story {
+  background: var(--ago-canvas-warm) !important;
+  color: var(--ago-story-cacao) !important;
+}
+
+.ago-storytelling-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.34fr) minmax(300px, .66fr);
+  gap: clamp(40px, 7vw, 96px);
+  align-items: center;
+}
+
+.ago-storytelling-images {
+  position: relative;
+  min-height: clamp(460px, 50vw, 650px);
+}
+
+.ago-storytelling-image {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 22px;
+  background: var(--ago-panel);
+  box-shadow: 0 18px 45px rgba(53, 36, 29, .10);
+}
+
+.ago-storytelling-image-primary {
+  inset: 0 16% 7% 0;
+}
+
+.ago-storytelling-image-secondary {
+  width: 36%;
+  height: 45%;
+  right: 0;
+  bottom: 0;
+  border: 8px solid var(--ago-canvas-warm);
+  border-radius: 20px;
+}
+
+.ago-storytelling-photo {
+  object-fit: cover !important;
+  object-position: center !important;
+  transform: scale(1.001);
+  transition: transform .75s cubic-bezier(.2,.72,.2,1), filter .45s ease;
+}
+
+.ago-storytelling-image:hover .ago-storytelling-photo {
+  transform: scale(1.035);
+}
+
+.ago-storytelling-copy {
+  max-width: 500px !important;
+}
+
+.ago-storytelling-copy .eyebrow,
+.ago-storytelling-copy h2,
+.ago-storytelling-copy p,
+.ago-storytelling-copy a {
+  color: var(--ago-story-cacao) !important;
+}
+
+.ago-storytelling-copy h2 {
+  font-size: clamp(2.3rem, 4vw, 4.2rem);
+  line-height: 1.00;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+}
+
+.ago-storytelling-copy > p:not(.eyebrow) {
+  margin-top: 20px;
+  color: var(--ago-muted) !important;
+  line-height: 1.72;
+}
+
+.ago-storytelling-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 28px;
+}
+
+.ago-premium-text-link-secondary { opacity: .72; }
+
+/* Categorias: nunca esconder a foto atrás do tom de fundo. */
+.ago-home .ago-premium-discovery {
+  background: var(--ago-canvas-soft) !important;
+  color: var(--ago-story-cacao) !important;
+}
+
+.ago-home .ago-premium-discovery .eyebrow,
+.ago-home .ago-premium-discovery h2,
+.ago-home .ago-premium-discovery .ago-premium-text-link {
+  color: var(--ago-story-cacao) !important;
+}
+
+.ago-home .ago-premium-discovery-grid {
+  gap: clamp(12px, 1.5vw, 22px) !important;
+}
+
+.ago-home .ago-premium-discovery-card {
+  position: relative;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 18px !important;
+  background: var(--ago-panel) !important;
+  box-shadow: 0 12px 30px rgba(53, 36, 29, .08);
+  isolation: isolate;
+}
+
+.ago-home .ago-premium-discovery-image {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  aspect-ratio: 4 / 5;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  background: #ede2d2 !important;
+}
+
+.ago-home .ago-premium-discovery-image img,
+.ago-home .ago-premium-discovery-image .ago-parallax-photo {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+  z-index: 0 !important;
+}
+
+.ago-discovery-veil {
+  position: absolute;
+  inset: 42% 0 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgba(32, 22, 18, .50));
+}
+
+.ago-home .ago-premium-discovery-copy {
+  position: absolute !important;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 18px 16px !important;
+  background: transparent !important;
+}
+
+.ago-home .ago-premium-discovery-copy span,
+.ago-home .ago-premium-discovery-copy i {
+  color: #fff !important;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, .25);
+}
+
+.ago-home .ago-premium-discovery-copy span {
+  font-weight: 800;
+  letter-spacing: -.015em;
+}
+
+.ago-home .ago-premium-discovery-copy i {
+  font-style: normal;
+  transition: transform .22s ease;
+}
+
+.ago-home .ago-premium-discovery-card:hover,
+.ago-home .ago-premium-discovery-card:focus-visible {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 18px 42px rgba(53, 36, 29, .13);
+}
+
+.ago-home .ago-premium-discovery-card:hover .ago-premium-discovery-copy i,
+.ago-home .ago-premium-discovery-card:focus-visible .ago-premium-discovery-copy i {
+  transform: translate(2px, -2px);
+}
+
+/* Visita: fotografia + localização. O antigo wordmark gigante de Bahia deixa de competir com a mensagem. */
+.ago-visit-editorial {
+  background: var(--ago-story-terracotta);
+  color: var(--ago-story-ivory);
+  padding-block: clamp(52px, 6vw, 84px);
+}
+
+.ago-visit-editorial-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(320px, .88fr);
+  gap: clamp(38px, 6vw, 82px);
+  align-items: stretch;
+}
+
+.ago-visit-editorial-media {
+  position: relative;
+  min-height: clamp(390px, 40vw, 560px);
+  overflow: hidden;
+  border-radius: 22px;
+  background: #4d3025;
+}
+
+.ago-visit-editorial-photo {
+  object-fit: cover !important;
+  object-position: center !important;
+  transition: transform .8s cubic-bezier(.2,.72,.2,1);
+}
+
+.ago-visit-editorial:hover .ago-visit-editorial-photo {
+  transform: scale(1.025);
+}
+
+.ago-visit-editorial-copy {
+  align-self: center;
+  max-width: 510px;
+  padding-block: 18px;
+}
+
+.ago-visit-editorial-copy .eyebrow {
+  color: color-mix(in srgb, var(--ago-story-ochre) 82%, white) !important;
+}
+
+.ago-visit-editorial-copy h2 {
+  margin-top: 12px;
+  max-width: 10ch;
+  color: var(--ago-story-ivory) !important;
+  font-size: clamp(2.6rem, 4.2vw, 4.9rem);
+  line-height: .98;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+
+.ago-visit-editorial-copy > p:not(.eyebrow):not(.ago-visit-address) {
+  margin-top: 20px;
+  color: color-mix(in srgb, var(--ago-story-ivory) 86%, transparent);
+  font-size: clamp(.95rem, 1.1vw, 1.08rem);
+  line-height: 1.65;
+}
+
+.ago-visit-editorial-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 22px;
+  margin-top: 30px;
+}
+
+.ago-visit-editorial-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ago-story-ivory);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(251, 241, 225, .42);
+}
+
+.ago-visit-editorial-links .ago-visit-primary {
+  padding: 0 18px;
+  border: 1px solid rgba(251, 241, 225, .55);
+  border-radius: 999px;
+  background: rgba(251, 241, 225, .10);
+}
+
+.ago-visit-address {
+  margin-top: 34px !important;
+  padding-top: 18px;
+  border-top: 1px solid rgba(251, 241, 225, .22);
+  color: rgba(251, 241, 225, .66) !important;
+  font-size: .72rem !important;
+  line-height: 1.5 !important;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1000px) {
+  .ago-benefits-icon-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ago-benefit-icon-item { border-left: 0; border-top: 1px solid var(--ago-story-line); padding: 18px 12px; }
+  .ago-benefit-icon-item:nth-child(-n+2) { border-top: 0; }
+  .ago-benefit-icon-item:nth-child(odd) { padding-left: 0; }
+  .ago-benefit-icon-item:nth-child(even) { padding-right: 0; }
+
+  .ago-storytelling-layout,
+  .ago-visit-editorial-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ago-storytelling-copy { max-width: 640px !important; }
+  .ago-visit-editorial-copy { max-width: 640px; }
+  .ago-visit-editorial-copy h2 { max-width: 12ch; }
+}
+
+@media (max-width: 700px) {
+  .ago-benefits-icons { padding-block: 20px !important; }
+  .ago-benefits-icon-grid { grid-template-columns: 1fr; }
+  .ago-benefit-icon-item,
+  .ago-benefit-icon-item:nth-child(odd),
+  .ago-benefit-icon-item:nth-child(even) {
+    grid-template-columns: 40px minmax(0, 1fr);
+    padding: 14px 0;
+    border-top: 1px solid var(--ago-story-line);
+  }
+  .ago-benefit-icon-item:first-child { border-top: 0; }
+  .ago-benefit-icon { width: 38px; height: 38px; }
+  .ago-benefit-icon svg { width: 34px; height: 34px; }
+
+  .ago-storytelling-layout { gap: 30px; }
+  .ago-storytelling-images { min-height: clamp(390px, 118vw, 530px); }
+  .ago-storytelling-image-primary { inset: 0 12% 10% 0; }
+  .ago-storytelling-image-secondary { width: 39%; height: 42%; border-width: 6px; }
+  .ago-storytelling-copy h2 { font-size: clamp(2.25rem, 11vw, 3.45rem); }
+
+  .ago-home .ago-premium-discovery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+  .ago-home .ago-premium-discovery-card { border-radius: 15px !important; }
+  .ago-home .ago-premium-discovery-copy { padding: 13px 12px !important; }
+  .ago-home .ago-premium-discovery-copy span { font-size: .78rem; line-height: 1.25; }
+  .ago-home .ago-premium-discovery-copy i { font-size: .8rem; }
+
+  .ago-visit-editorial { padding-block: 44px; }
+  .ago-visit-editorial-grid { gap: 30px; }
+  .ago-visit-editorial-media { min-height: min(112vw, 470px); border-radius: 18px; }
+  .ago-visit-editorial-copy { padding-block: 0; }
+  .ago-visit-editorial-copy h2 { font-size: clamp(2.35rem, 12vw, 3.5rem); max-width: 11ch; }
+  .ago-visit-editorial-links { gap: 7px 18px; margin-top: 24px; }
+  .ago-visit-address { margin-top: 26px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ago-storytelling-photo,
+  .ago-visit-editorial-photo,
+  .ago-home .ago-premium-discovery-card,
+  .ago-home .ago-premium-discovery-copy i {
+    transition: none !important;
+    transform: none !important;
+  }
+}
