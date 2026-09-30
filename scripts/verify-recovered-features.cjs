@@ -5,6 +5,7 @@ const merch = fs.readFileSync('lib/merchandising.ts','utf8');
 const shipping = fs.readFileSync('lib/shipping.ts','utf8');
 const trancoso = fs.readFileSync('app/trancoso/page.tsx','utf8');
 const home = fs.readFileSync('app/page.tsx','utf8');
+const benefits = fs.readFileSync('components/Benefits.tsx','utf8');
 const header = fs.readFileSync('components/Header.tsx','utf8');
 const footer = fs.readFileSync('components/Footer.tsx','utf8');
 const checkout = fs.readFileSync('app/checkout/page.tsx','utf8');
@@ -62,7 +63,7 @@ assert.ok(finalLastCss.includes('object-fit: contain !important'));
 assert.ok(shipping.includes('FREE_SHIPPING_SUBTOTAL_MINIMUM = FREE_SHIPPING_THRESHOLD'));
 assert.ok(shipping.includes('FREE_SHIPPING_THRESHOLD * 100'));
 assert.ok(shipping.includes('subtotalCents >= FREE_SHIPPING_SUBTOTAL_MINIMUM_CENTS'));
-const shippingCopyFiles = [header, home, footer, checkout, productPage, cart];
+const shippingCopyFiles = [header, benefits, footer, checkout, productPage, cart];
 for (const source of shippingCopyFiles) {
   assert.ok(!source.includes('pedido com frete atinge'));
   assert.ok(!source.includes('produtos + frete atingem'));
@@ -74,10 +75,18 @@ assert.ok(normalizer.includes('preserveZoomMaster'));
 assert.ok(lightbox.includes('function zoomSource'));
 assert.ok(lightbox.includes('unoptimized'));
 
-// Hero original, legível e consistente; foto institucional completa, imóvel, sem borda e com cantos arredondados.
-assert.ok(home.includes('src="/hero.jpg"'));
-assert.ok(home.includes('priority unoptimized'));
+// Hero real enviada pela marca, sem recompressão no componente; foto institucional permanece protegida.
+assert.ok(home.includes('src="/banca/hero-quadrado-2026.webp"'));
+assert.ok(home.includes('priority'));
+assert.ok(home.includes('unoptimized'));
+assert.ok(home.includes('quality={100}'));
 assert.ok(home.includes('ago-story-static-photo'));
+assert.ok(home.includes('/banca/banca-quadrado-noite-2026.webp'));
+assert.ok(home.includes('/banca/banca-igreja-luminaria-2026.webp'));
+assert.ok(!home.includes('Dúvidas rápidas.'));
+assert.ok(!home.includes('ago-bahia-wordmark'));
+assert.ok(home.includes('ago-location-signature'));
+assert.ok(benefits.includes('ago-benefit-line-icon'));
 assert.ok(finalLastCss.includes('.ago-cinematic-copy h1'));
 assert.ok(finalLastCss.includes('text-shadow:'));
 assert.ok(finalLastCss.includes('.ago-story-image .ago-complementary-photo'));
@@ -95,4 +104,4 @@ assert.ok(firstPurchase.includes('documentKey'));
 assert.ok(checkoutValidation.includes('isValidCNPJ'));
 assert.ok(paymentCss.includes('Pix Copia e Cola'));
 
-console.log('PASS recovered failed-deploy intentions, visual mappings and current business rules');
+console.log('PASS recovered failed-deploy intentions, real-photo home, visual mappings and current business rules');
