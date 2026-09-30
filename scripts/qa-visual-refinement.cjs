@@ -1,6 +1,6 @@
-// Visual regression contract for the final Agô refinement pass.
-// Verifies background parity across all requested widths and that the lightbox
-// clips the real square photograph instead of only the outer viewer.
+// Visual regression contract for Agô's final growth/consistency pass.
+// Verifies background parity, shared alignment axes and the real rounded
+// photograph mask in the lightbox. Shipping rules are intentionally untouched.
 const { spawn } = require('node:child_process');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -29,6 +29,10 @@ function waitForServer() {
   });
 }
 
+function near(a, b, tolerance = 2) {
+  return Math.abs(a - b) <= tolerance;
+}
+
 async function main() {
   await waitForServer();
   browser = await chromium.launch({
@@ -43,6 +47,7 @@ async function main() {
 
   let referenceColors;
   const evidenceWidths = new Set([320, 390, 820, 1440, 1920]);
+  const institutionalEvidenceWidths = new Set([390, 820, 1440]);
 
   for (const width of widths) {
     const height = width <= 430 ? 844 : 1000;
@@ -51,49 +56,122 @@ async function main() {
     await page.locator('h1').first().waitFor();
 
     const state = await page.evaluate(() => {
-      const shipping = document.querySelector('.ago-shipping-chapter');
+      const faq = document.querySelector('.ago-home-faq');
       const visit = document.querySelector('.ago-bahia-visit');
-      const shippingTitle = shipping?.querySelector('h2');
       const visitTitle = visit?.querySelector('h2');
       const wordmark = visit?.querySelector('.ago-bahia-wordmark strong');
       const root = document.documentElement;
+      const axes = [
+        document.querySelector('.ago-cinematic-products'),
+        document.querySelector('.ago-premium-editorial > .ago-container'),
+        document.querySelector('.ago-premium-discovery > .ago-container'),
+        document.querySelector('.ago-home-faq > .ago-container'),
+        document.querySelector('.ago-bahia-visit > .ago-container'),
+      ].filter(Boolean).map((node) => {
+        const rect = node.getBoundingClientRect();
+        return { left: rect.left, right: rect.right, width: rect.width };
+      });
+
       return {
         scrollWidth: root.scrollWidth,
         viewport: innerWidth,
-        shippingBackground: shipping ? getComputedStyle(shipping).backgroundColor : '',
-        shippingImage: shipping ? getComputedStyle(shipping).backgroundImage : '',
+        removedShippingChapter: document.querySelectorAll('.ago-shipping-chapter').length,
+        removedShippingHeading: document.body.innerText.includes('Da Bahia para sua casa.'),
+        faqCount: document.querySelectorAll('.ago-home-faq details').length,
+        faqBackground: faq ? getComputedStyle(faq).backgroundColor : '',
+        faqImage: faq ? getComputedStyle(faq).backgroundImage : '',
         visitBackground: visit ? getComputedStyle(visit).backgroundColor : '',
         visitImage: visit ? getComputedStyle(visit).backgroundImage : '',
-        shippingTitleSize: shippingTitle ? parseFloat(getComputedStyle(shippingTitle).fontSize) : 0,
-        shippingTitleLineHeight: shippingTitle ? parseFloat(getComputedStyle(shippingTitle).lineHeight) : 0,
         visitTitleSize: visitTitle ? parseFloat(getComputedStyle(visitTitle).fontSize) : 0,
         visitTitleLineHeight: visitTitle ? parseFloat(getComputedStyle(visitTitle).lineHeight) : 0,
         wordmarkSize: wordmark ? parseFloat(getComputedStyle(wordmark).fontSize) : 0,
+        axes,
       };
     });
 
     assert.ok(state.scrollWidth <= width + 1, `home@${width}: horizontal overflow ${JSON.stringify(state)}`);
-    assert.equal(state.shippingImage, 'none', `shipping background must be solid at ${width}`);
+    assert.equal(state.removedShippingChapter, 0, `home@${width}: redundant shipping chapter returned`);
+    assert.equal(state.removedShippingHeading, false, `home@${width}: removed shipping heading returned`);
+    assert.equal(state.faqCount, 3, `home@${width}: compact buying FAQ must keep exactly 3 questions`);
+    assert.equal(state.faqImage, 'none', `FAQ background must be solid at ${width}`);
     assert.equal(state.visitImage, 'none', `visit background must be solid at ${width}`);
+    assert.equal(state.axes.length, 5, `home@${width}: missing one shared alignment container`);
+
+    const axisLeft = state.axes[0].left;
+    const axisRight = state.axes[0].right;
+    for (const axis of state.axes.slice(1)) {
+      assert.ok(near(axis.left, axisLeft), `home@${width}: left alignment drift ${JSON.stringify(state.axes)}`);
+      assert.ok(near(axis.right, axisRight), `home@${width}: right alignment drift ${JSON.stringify(state.axes)}`);
+    }
 
     if (!referenceColors) {
       referenceColors = {
-        shippingBackground: state.shippingBackground,
+        faqBackground: state.faqBackground,
         visitBackground: state.visitBackground,
       };
     } else {
-      assert.equal(state.shippingBackground, referenceColors.shippingBackground, `shipping tone differs at ${width}`);
+      assert.equal(state.faqBackground, referenceColors.faqBackground, `FAQ tone differs at ${width}`);
       assert.equal(state.visitBackground, referenceColors.visitBackground, `visit tone differs at ${width}`);
     }
 
-    assert.ok(state.shippingTitleSize >= 28 && state.shippingTitleSize <= 46, `shipping title scale out of range at ${width}`);
     assert.ok(state.visitTitleSize >= 30 && state.visitTitleSize <= 54, `visit title scale out of range at ${width}`);
-    assert.ok(state.shippingTitleLineHeight / state.shippingTitleSize >= .98 && state.shippingTitleLineHeight / state.shippingTitleSize <= 1.12, `shipping title leading out of range at ${width}`);
     assert.ok(state.visitTitleLineHeight / state.visitTitleSize >= .98 && state.visitTitleLineHeight / state.visitTitleSize <= 1.12, `visit title leading out of range at ${width}`);
     assert.ok(state.wordmarkSize >= 42 && state.wordmarkSize <= 76, `Bahia wordmark scale out of range at ${width}`);
 
     if (evidenceWidths.has(width)) {
       await page.screenshot({ path: `${artifacts}/refinement-home-${width}.png`, fullPage: true });
+    }
+
+    await page.goto(base + '/contato', { waitUntil: 'domcontentloaded' });
+    await page.locator('h1').first().waitFor();
+    const contact = await page.evaluate(() => {
+      const pageNode = document.querySelector('.contact-page');
+      const shell = document.querySelector('.contact-shell');
+      const rect = shell?.getBoundingClientRect();
+      return {
+        scrollWidth: document.documentElement.scrollWidth,
+        background: pageNode ? getComputedStyle(pageNode).backgroundColor : '',
+        backgroundImage: pageNode ? getComputedStyle(pageNode).backgroundImage : '',
+        shell: rect ? { left: rect.left, right: rect.right, width: rect.width } : null,
+      };
+    });
+    assert.ok(contact.scrollWidth <= width + 1, `contact@${width}: horizontal overflow`);
+    assert.equal(contact.backgroundImage, 'none', `contact@${width}: background must be solid`);
+    assert.ok(contact.shell, `contact@${width}: shell missing`);
+
+    if (institutionalEvidenceWidths.has(width)) {
+      await page.screenshot({ path: `${artifacts}/refinement-contact-${width}.png`, fullPage: true });
+    }
+
+    await page.goto(base + '/nossa-essencia', { waitUntil: 'domcontentloaded' });
+    await page.locator('h1').first().waitFor();
+    const essence = await page.evaluate(() => {
+      const pageNode = document.querySelector('.essencia-page');
+      const shell = document.querySelector('.essencia-shell');
+      const rect = shell?.getBoundingClientRect();
+      return {
+        scrollWidth: document.documentElement.scrollWidth,
+        background: pageNode ? getComputedStyle(pageNode).backgroundColor : '',
+        backgroundImage: pageNode ? getComputedStyle(pageNode).backgroundImage : '',
+        shell: rect ? { left: rect.left, right: rect.right, width: rect.width } : null,
+      };
+    });
+    assert.ok(essence.scrollWidth <= width + 1, `essence@${width}: horizontal overflow`);
+    assert.equal(essence.backgroundImage, 'none', `essence@${width}: background must be solid`);
+    assert.ok(essence.shell, `essence@${width}: shell missing`);
+    assert.equal(essence.background, contact.background, `institutional page tone differs at ${width}`);
+    assert.ok(near(essence.shell.left, contact.shell.left), `institutional left alignment differs at ${width}`);
+    assert.ok(near(essence.shell.right, contact.shell.right), `institutional right alignment differs at ${width}`);
+
+    if (!referenceColors.institutionalBackground) {
+      referenceColors.institutionalBackground = contact.background;
+    } else {
+      assert.equal(contact.background, referenceColors.institutionalBackground, `contact tone differs across viewports at ${width}`);
+      assert.equal(essence.background, referenceColors.institutionalBackground, `A Agô tone differs across viewports at ${width}`);
+    }
+
+    if (institutionalEvidenceWidths.has(width)) {
+      await page.screenshot({ path: `${artifacts}/refinement-essencia-${width}.png`, fullPage: true });
     }
   }
 
