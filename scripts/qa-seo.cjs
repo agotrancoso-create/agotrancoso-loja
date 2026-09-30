@@ -22,7 +22,7 @@ function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags
   assert.equal((premium.match(/<article\b/g)||[]).length,1,'Above R$ 3.000 filter must render server-side');
   assert.ok(premium.includes('href="/produtos/igreja-quadrado-gg"'));
   assert.ok(!premium.includes('href="/produtos/nossa-senhora-grande"'),'R$ 3.000 belongs to the up-to-R$3.000 range');
-  for(const path of ['/produtos','/nossa-essencia','/contato','/produtos/estatueta-iemanja','/produtos/miniatura-quadrado-trancoso']){
+  for(const path of ['/decoracao-em-ceramica','/produtos','/nossa-essencia','/contato','/produtos/estatueta-iemanja','/produtos/miniatura-quadrado-trancoso']){
     const page=await html(path);
     assert.ok(meta(page,'og:image')?.includes('https://www.agotrancoso.com.br/'),`Missing absolute social image: ${path}`);
     assert.ok(meta(page,'twitter:image'),`Missing Twitter image: ${path}`);
