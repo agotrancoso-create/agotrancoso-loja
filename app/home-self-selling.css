@@ -1,0 +1,515 @@
+/* Agô Trancoso — home que se explica e se vende pela fotografia real.
+   Esta camada é propositalmente final: não altera preços, frete, checkout ou catálogo. */
+:root {
+  --ago-visit-earth: #704938;
+  --ago-proof-bg: #f7f1e6;
+  --ago-proof-ink: #35241d;
+  --ago-proof-muted: #6f594c;
+}
+
+/* Hero: nova fotografia real, sem filtros que mudem a peça. */
+.ago-home-hero-2026 .ago-cinematic-media {
+  height: clamp(520px, 66vh, 700px) !important;
+  background: #211713 !important;
+}
+
+.ago-home-hero-2026 .ago-home-hero-photo-2026 {
+  object-fit: cover !important;
+  object-position: 50% 38% !important;
+  filter: none !important;
+}
+
+.ago-home-hero-2026 .ago-cinematic-overlay {
+  background: linear-gradient(90deg, rgba(28,18,14,.78) 0%, rgba(28,18,14,.58) 38%, rgba(28,18,14,.22) 68%, rgba(28,18,14,.14) 100%) !important;
+}
+
+.ago-home-hero-2026 .ago-cinematic-copy {
+  min-height: clamp(390px, 46vw, 520px) !important;
+  align-content: center;
+}
+
+.ago-home-hero-2026 .ago-cinematic-copy h1 {
+  color: #fffaf3 !important;
+  max-width: 760px;
+  font-size: clamp(3rem, 6vw, 5.8rem) !important;
+  line-height: .94 !important;
+  letter-spacing: -.045em !important;
+  text-shadow: 0 2px 24px rgba(20,12,9,.34) !important;
+}
+
+.ago-home-hero-2026 .ago-cinematic-copy > p:not(.eyebrow) {
+  max-width: 520px;
+  margin-top: 18px;
+  color: rgba(255,250,243,.92) !important;
+  font-size: clamp(.98rem, 1.25vw, 1.08rem);
+  line-height: 1.7;
+}
+
+.ago-home-hero-2026 .ago-cinematic-copy .eyebrow {
+  color: #f2dfc6 !important;
+}
+
+.ago-home-hero-2026 .ago-premium-hero-cta {
+  background: #fffaf3 !important;
+  color: #35241d !important;
+}
+
+.ago-home-hero-2026 .ago-cinematic-secondary {
+  color: #fffaf3 !important;
+}
+
+/* Benefícios voltam como ícones claros, sem acordeões e sem texto sobrando. */
+.ago-benefits-icons-2026 {
+  padding-block: clamp(30px, 3.4vw, 48px) !important;
+  background: var(--ago-canvas, #fcf9f4) !important;
+  background-image: none !important;
+  border-top: 1px solid rgba(117,75,55,.12);
+}
+
+.ago-benefits-icon-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 0 !important;
+}
+
+.ago-benefit-icon-item {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 48px minmax(0,1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 8px clamp(16px, 2.2vw, 30px);
+  border-right: 1px solid rgba(117,75,55,.13);
+}
+
+.ago-benefit-icon-item:first-child { padding-left: 0; }
+.ago-benefit-icon-item:last-child { border-right: 0; padding-right: 0; }
+
+.ago-benefit-line-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(139,67,46,.26);
+  border-radius: 50%;
+  color: #8b432e;
+}
+
+.ago-benefit-line-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 1.55;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ago-benefit-icon-copy {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.ago-benefit-icon-copy strong {
+  color: #35241d;
+  font-size: .82rem;
+  line-height: 1.35;
+  font-weight: 800;
+}
+
+.ago-benefit-icon-copy small {
+  color: #715d51;
+  font-size: .72rem;
+  line-height: 1.45;
+}
+
+/* Prova visual: duas fotografias reais da banca, editorial no desktop e swipe no mobile. */
+.ago-banca-proof {
+  padding-block: clamp(58px, 7vw, 104px);
+  background: var(--ago-proof-bg) !important;
+  background-image: none !important;
+  color: var(--ago-proof-ink);
+  overflow: hidden;
+}
+
+.ago-banca-proof-layout {
+  display: grid;
+  grid-template-columns: minmax(260px,.58fr) minmax(0,1.42fr);
+  gap: clamp(42px, 7vw, 104px);
+  align-items: center;
+}
+
+.ago-banca-proof-copy {
+  max-width: 430px;
+}
+
+.ago-banca-proof-copy h2 {
+  max-width: 10ch;
+  color: var(--ago-proof-ink) !important;
+  font-size: clamp(2.6rem, 4.7vw, 5rem) !important;
+  line-height: .96 !important;
+  letter-spacing: -.045em !important;
+}
+
+.ago-banca-proof-copy > p:not(.eyebrow) {
+  max-width: 38ch;
+  margin-top: 20px;
+  color: var(--ago-proof-muted);
+  line-height: 1.75;
+}
+
+.ago-banca-proof-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  align-items: center;
+  margin-top: 26px;
+}
+
+.ago-banca-proof-actions .ago-premium-dark-cta {
+  margin: 0;
+  background: #35241d !important;
+  color: #fffaf3 !important;
+}
+
+.ago-banca-proof-gallery {
+  display: grid;
+  grid-template-columns: minmax(0,1.28fr) minmax(220px,.72fr);
+  gap: 16px;
+  min-width: 0;
+  align-items: stretch;
+}
+
+.ago-banca-proof-card {
+  position: relative;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #35241d;
+  isolation: isolate;
+  box-shadow: 0 20px 54px rgba(53,36,29,.09);
+}
+
+.ago-banca-proof-card-wide { aspect-ratio: 4 / 3; }
+.ago-banca-proof-card-tall { aspect-ratio: 3 / 4; }
+
+.ago-banca-proof-card img {
+  object-fit: cover !important;
+  object-position: center !important;
+  transition: transform .55s cubic-bezier(.22,.8,.24,1), filter .3s ease;
+}
+
+.ago-banca-proof-card::after {
+  content: '';
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(180deg, transparent, rgba(24,15,12,.56));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ago-banca-proof-card > span {
+  position: absolute;
+  z-index: 2;
+  left: 18px;
+  right: 18px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #fffaf3;
+  font-size: .79rem;
+  line-height: 1.35;
+  font-weight: 800;
+  letter-spacing: .01em;
+}
+
+.ago-banca-proof-card > span b {
+  font: inherit;
+  transition: transform .2s ease;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .ago-banca-proof-card:hover img,
+  .ago-banca-proof-card:focus-visible img {
+    transform: scale(1.025);
+    filter: saturate(1.035);
+  }
+  .ago-banca-proof-card:hover > span b,
+  .ago-banca-proof-card:focus-visible > span b {
+    transform: translate(2px,-2px);
+  }
+  .ago-benefit-icon-item {
+    transition: transform .2s ease;
+  }
+  .ago-benefit-icon-item:hover { transform: translateY(-2px); }
+}
+
+/* Visita: remove o antigo Bahia gigante e transforma localização em assinatura útil. */
+.ago-home .ago-bahia-visit {
+  padding-block: clamp(58px, 6vw, 88px) !important;
+  background: var(--ago-visit-earth) !important;
+  background-image: none !important;
+  color: #fffaf3 !important;
+}
+
+.ago-visit-2026-layout {
+  display: grid;
+  grid-template-columns: minmax(0,1.25fr) minmax(300px,.75fr);
+  gap: clamp(44px, 8vw, 128px);
+  align-items: center;
+}
+
+.ago-visit-2026-copy {
+  max-width: 720px;
+}
+
+.ago-home .ago-bahia-visit .eyebrow {
+  color: #e8d5b8 !important;
+}
+
+.ago-home .ago-bahia-visit h2 {
+  max-width: 720px;
+  color: #fffaf3 !important;
+  font-size: clamp(2.55rem, 4.4vw, 4.8rem) !important;
+  line-height: .98 !important;
+  letter-spacing: -.045em !important;
+}
+
+.ago-home .ago-bahia-visit .ago-visit-2026-copy > p:not(.eyebrow) {
+  margin-top: 16px;
+  color: rgba(255,250,243,.82);
+  line-height: 1.7;
+}
+
+.ago-home .ago-bahia-visit-links {
+  margin-top: 22px !important;
+  gap: 4px 26px !important;
+}
+
+.ago-home .ago-bahia-visit-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: #fffaf3;
+  font-size: .77rem;
+  font-weight: 800;
+  letter-spacing: .015em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,250,243,.44);
+}
+
+.ago-location-signature {
+  min-height: 166px;
+  display: grid;
+  grid-template-columns: 54px minmax(0,1fr) auto;
+  gap: 18px;
+  align-items: center;
+  padding: 26px 28px;
+  border: 1px solid rgba(255,250,243,.24);
+  border-radius: 22px;
+  background: rgba(255,250,243,.055);
+  color: #fffaf3;
+  transition: background .22s ease, transform .22s ease, border-color .22s ease;
+}
+
+.ago-location-signature-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,250,243,.34);
+  border-radius: 50%;
+}
+
+.ago-location-signature-icon svg {
+  width: 26px;
+  height: 26px;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ago-location-signature-copy {
+  min-width: 0;
+  display: grid;
+}
+
+.ago-location-signature-copy small,
+.ago-location-signature-copy em {
+  font-family: var(--font-sans),Arial,sans-serif;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+.ago-location-signature-copy small {
+  color: #e8d5b8;
+  font-size: .62rem;
+  font-weight: 800;
+}
+
+.ago-location-signature-copy strong {
+  margin: 5px 0 3px;
+  font-family: var(--font-display),Georgia,serif;
+  font-size: clamp(2rem, 3.6vw, 3.3rem);
+  font-weight: 600;
+  line-height: .94;
+  letter-spacing: -.035em;
+}
+
+.ago-location-signature-copy em {
+  color: rgba(255,250,243,.7);
+  font-size: .58rem;
+  font-weight: 700;
+}
+
+.ago-location-signature-arrow {
+  align-self: start;
+  font-size: 1rem;
+  transition: transform .2s ease;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .ago-location-signature:hover,
+  .ago-location-signature:focus-visible {
+    transform: translateY(-2px);
+    background: rgba(255,250,243,.09);
+    border-color: rgba(255,250,243,.36);
+  }
+  .ago-location-signature:hover .ago-location-signature-arrow,
+  .ago-location-signature:focus-visible .ago-location-signature-arrow {
+    transform: translate(2px,-2px);
+  }
+}
+
+@media (max-width: 980px) {
+  .ago-benefits-icon-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    row-gap: 24px !important;
+  }
+  .ago-benefit-icon-item:nth-child(2) { border-right: 0; padding-right: 0; }
+  .ago-benefit-icon-item:nth-child(3) { padding-left: 0; }
+
+  .ago-banca-proof-layout,
+  .ago-visit-2026-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ago-banca-proof-layout { gap: 34px; }
+  .ago-banca-proof-copy { max-width: 620px; }
+  .ago-banca-proof-copy h2 { max-width: 13ch; }
+
+  .ago-visit-2026-layout { gap: 30px; }
+  .ago-location-signature { width: min(520px,100%); }
+}
+
+@media (max-width: 700px) {
+  .ago-home-hero-2026 .ago-cinematic-media {
+    height: clamp(500px, 72svh, 660px) !important;
+  }
+
+  .ago-home-hero-2026 .ago-home-hero-photo-2026 {
+    object-position: 50% 42% !important;
+  }
+
+  .ago-home-hero-2026 .ago-cinematic-overlay {
+    background: linear-gradient(180deg, rgba(28,18,14,.2) 0%, rgba(28,18,14,.36) 42%, rgba(28,18,14,.78) 100%) !important;
+  }
+
+  .ago-home-hero-2026 .ago-cinematic-copy {
+    min-height: 440px !important;
+    align-content: end;
+    padding-bottom: 58px !important;
+  }
+
+  .ago-home-hero-2026 .ago-cinematic-copy h1 {
+    max-width: 8.5ch;
+    font-size: clamp(2.9rem, 14vw, 4.45rem) !important;
+  }
+
+  .ago-benefits-icons-2026 { padding-block: 30px !important; }
+  .ago-benefits-icon-grid { gap: 22px 12px !important; }
+  .ago-benefit-icon-item {
+    grid-template-columns: 40px minmax(0,1fr);
+    gap: 10px;
+    padding: 0 12px;
+    border-right: 0;
+  }
+  .ago-benefit-icon-item:nth-child(odd) { padding-left: 0; }
+  .ago-benefit-icon-item:nth-child(even) { padding-right: 0; }
+  .ago-benefit-line-icon { width: 40px; height: 40px; }
+  .ago-benefit-line-icon svg { width: 21px; height: 21px; }
+  .ago-benefit-icon-copy strong { font-size: .76rem; }
+  .ago-benefit-icon-copy small { font-size: .66rem; }
+
+  .ago-banca-proof { padding-block: 52px; }
+  .ago-banca-proof-copy h2 {
+    max-width: 11ch;
+    font-size: clamp(2.55rem, 12vw, 4rem) !important;
+  }
+
+  .ago-banca-proof-gallery {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    grid-auto-columns: minmax(260px, 84vw);
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    padding: 0 var(--ago-page-gutter,18px) 5px;
+    margin-inline: calc(var(--ago-page-gutter,18px) * -1);
+  }
+  .ago-banca-proof-gallery::-webkit-scrollbar { display: none; }
+  .ago-banca-proof-card { scroll-snap-align: center; }
+  .ago-banca-proof-card-wide,
+  .ago-banca-proof-card-tall { aspect-ratio: 4 / 5; }
+
+  .ago-home .ago-bahia-visit {
+    padding-block: 50px !important;
+  }
+  .ago-home .ago-bahia-visit h2 {
+    max-width: 9ch;
+    font-size: clamp(2.65rem, 12vw, 4rem) !important;
+  }
+  .ago-home .ago-bahia-visit-links {
+    gap: 2px 20px !important;
+  }
+  .ago-location-signature {
+    min-height: 132px;
+    grid-template-columns: 46px minmax(0,1fr) auto;
+    gap: 14px;
+    padding: 20px;
+    border-radius: 18px;
+  }
+  .ago-location-signature-icon { width: 44px; height: 44px; }
+  .ago-location-signature-copy strong { font-size: clamp(2rem, 10vw, 2.8rem); }
+}
+
+@media (max-width: 380px) {
+  .ago-benefits-icon-grid { grid-template-columns: 1fr; gap: 16px !important; }
+  .ago-benefit-icon-item,
+  .ago-benefit-icon-item:nth-child(n) {
+    padding: 0 !important;
+    grid-template-columns: 42px 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ago-banca-proof-card img,
+  .ago-banca-proof-card > span b,
+  .ago-location-signature,
+  .ago-location-signature-arrow,
+  .ago-benefit-icon-item {
+    transition: none !important;
+  }
+}

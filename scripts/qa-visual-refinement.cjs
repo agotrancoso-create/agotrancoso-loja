@@ -1,6 +1,7 @@
-// Visual regression contract for Agô's final growth/consistency pass.
-// Verifies background parity, shared alignment axes and the real rounded
-// photograph mask in the lightbox. Shipping rules are intentionally untouched.
+// Visual regression contract for Agô's final home and consistency pass.
+// Verifies real-photo hero, restored benefit icons, the banca proof section,
+// background parity, shared alignment axes and the rounded photograph mask.
+// Shipping rules are intentionally untouched.
 const { spawn } = require('node:child_process');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -56,36 +57,52 @@ async function main() {
     await page.locator('h1').first().waitFor();
 
     const state = await page.evaluate(() => {
-      const faq = document.querySelector('.ago-home-faq');
+      const proof = document.querySelector('.ago-banca-proof');
       const visit = document.querySelector('.ago-bahia-visit');
       const visitTitle = visit?.querySelector('h2');
-      const wordmark = visit?.querySelector('.ago-bahia-wordmark strong');
+      const locationSignature = visit?.querySelector('.ago-location-signature');
+      const locationName = locationSignature?.querySelector('strong');
+      const heroImage = document.querySelector('.ago-home-hero-photo-2026');
       const root = document.documentElement;
       const axes = [
         document.querySelector('.ago-cinematic-products'),
         document.querySelector('.ago-premium-editorial > .ago-container'),
         document.querySelector('.ago-premium-discovery > .ago-container'),
-        document.querySelector('.ago-home-faq > .ago-container'),
+        document.querySelector('.ago-banca-proof > .ago-container'),
         document.querySelector('.ago-bahia-visit > .ago-container'),
       ].filter(Boolean).map((node) => {
         const rect = node.getBoundingClientRect();
         return { left: rect.left, right: rect.right, width: rect.width };
       });
 
+      const proofImages = [...document.querySelectorAll('.ago-banca-proof-card img')].map((image) => ({
+        src: image.getAttribute('src') || '',
+        currentSrc: image.currentSrc || '',
+      }));
+
       return {
         scrollWidth: root.scrollWidth,
         viewport: innerWidth,
         removedShippingChapter: document.querySelectorAll('.ago-shipping-chapter').length,
         removedShippingHeading: document.body.innerText.includes('Da Bahia para sua casa.'),
-        faqListCount: document.querySelectorAll('.ago-home-faq-list').length,
-        faqCount: document.querySelectorAll('.ago-home-faq-list > details').length,
-        faqBackground: faq ? getComputedStyle(faq).backgroundColor : '',
-        faqImage: faq ? getComputedStyle(faq).backgroundImage : '',
+        removedFaq: document.querySelectorAll('.ago-home-faq').length,
+        removedFaqText: document.body.innerText.includes('Dúvidas rápidas.'),
+        benefitIconCount: document.querySelectorAll('.ago-benefit-line-icon svg').length,
+        heroSrc: heroImage?.getAttribute('src') || '',
+        heroCurrentSrc: heroImage?.currentSrc || '',
+        proofCount: document.querySelectorAll('.ago-banca-proof').length,
+        proofCardCount: document.querySelectorAll('.ago-banca-proof-card').length,
+        proofImages,
+        proofBackground: proof ? getComputedStyle(proof).backgroundColor : '',
+        proofImage: proof ? getComputedStyle(proof).backgroundImage : '',
         visitBackground: visit ? getComputedStyle(visit).backgroundColor : '',
         visitImage: visit ? getComputedStyle(visit).backgroundImage : '',
         visitTitleSize: visitTitle ? parseFloat(getComputedStyle(visitTitle).fontSize) : 0,
         visitTitleLineHeight: visitTitle ? parseFloat(getComputedStyle(visitTitle).lineHeight) : 0,
-        wordmarkSize: wordmark ? parseFloat(getComputedStyle(wordmark).fontSize) : 0,
+        legacyWordmarkCount: document.querySelectorAll('.ago-bahia-wordmark').length,
+        locationSignatureCount: document.querySelectorAll('.ago-location-signature').length,
+        locationName: locationName?.textContent?.trim() || '',
+        locationNameSize: locationName ? parseFloat(getComputedStyle(locationName).fontSize) : 0,
         axes,
       };
     });
@@ -93,10 +110,19 @@ async function main() {
     assert.ok(state.scrollWidth <= width + 1, `home@${width}: horizontal overflow ${JSON.stringify(state)}`);
     assert.equal(state.removedShippingChapter, 0, `home@${width}: redundant shipping chapter returned`);
     assert.equal(state.removedShippingHeading, false, `home@${width}: removed shipping heading returned`);
-    assert.equal(state.faqListCount, 1, `home@${width}: compact buying FAQ list duplicated`);
-    assert.equal(state.faqCount, 3, `home@${width}: compact buying FAQ must keep exactly 3 direct questions`);
-    assert.equal(state.faqImage, 'none', `FAQ background must be solid at ${width}`);
+    assert.equal(state.removedFaq, 0, `home@${width}: disliked FAQ returned`);
+    assert.equal(state.removedFaqText, false, `home@${width}: disliked FAQ copy returned`);
+    assert.equal(state.benefitIconCount, 4, `home@${width}: exactly four benefit icons must be visible`);
+    assert.ok((state.heroSrc + state.heroCurrentSrc).includes('/banca/hero-quadrado-2026.webp'), `home@${width}: new real-photo hero missing`);
+    assert.equal(state.proofCount, 1, `home@${width}: banca proof section must exist once`);
+    assert.equal(state.proofCardCount, 2, `home@${width}: banca proof must contain the two real photographs`);
+    assert.ok(state.proofImages.some((image) => (image.src + image.currentSrc).includes('/banca/banca-quadrado-noite-2026.webp')), `home@${width}: horizontal banca photo missing`);
+    assert.ok(state.proofImages.some((image) => (image.src + image.currentSrc).includes('/banca/banca-igreja-luminaria-2026.webp')), `home@${width}: vertical banca photo missing`);
+    assert.equal(state.proofImage, 'none', `banca proof background must be solid at ${width}`);
     assert.equal(state.visitImage, 'none', `visit background must be solid at ${width}`);
+    assert.equal(state.legacyWordmarkCount, 0, `home@${width}: old giant Trancoso/Bahia wordmark returned`);
+    assert.equal(state.locationSignatureCount, 1, `home@${width}: compact Quadrado location signature missing`);
+    assert.equal(state.locationName, 'Quadrado', `home@${width}: location signature must focus on Quadrado`);
     assert.equal(state.axes.length, 5, `home@${width}: missing one shared alignment container`);
 
     const axisLeft = state.axes[0].left;
@@ -108,17 +134,17 @@ async function main() {
 
     if (!referenceColors) {
       referenceColors = {
-        faqBackground: state.faqBackground,
+        proofBackground: state.proofBackground,
         visitBackground: state.visitBackground,
       };
     } else {
-      assert.equal(state.faqBackground, referenceColors.faqBackground, `FAQ tone differs at ${width}`);
+      assert.equal(state.proofBackground, referenceColors.proofBackground, `banca proof tone differs at ${width}`);
       assert.equal(state.visitBackground, referenceColors.visitBackground, `visit tone differs at ${width}`);
     }
 
-    assert.ok(state.visitTitleSize >= 30 && state.visitTitleSize <= 54, `visit title scale out of range at ${width}`);
-    assert.ok(state.visitTitleLineHeight / state.visitTitleSize >= .98 && state.visitTitleLineHeight / state.visitTitleSize <= 1.12, `visit title leading out of range at ${width}`);
-    assert.ok(state.wordmarkSize >= 42 && state.wordmarkSize <= 76, `Bahia wordmark scale out of range at ${width}`);
+    assert.ok(state.visitTitleSize >= 30 && state.visitTitleSize <= 78, `visit title scale out of range at ${width}`);
+    assert.ok(state.visitTitleLineHeight / state.visitTitleSize >= .93 && state.visitTitleLineHeight / state.visitTitleSize <= 1.08, `visit title leading out of range at ${width}`);
+    assert.ok(state.locationNameSize >= 30 && state.locationNameSize <= 54, `Quadrado signature scale out of range at ${width}`);
 
     if (evidenceWidths.has(width)) {
       await page.screenshot({ path: `${artifacts}/refinement-home-${width}.png`, fullPage: true });

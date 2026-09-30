@@ -25,7 +25,7 @@ main {
 .ago-home .ago-cinematic-products,
 .ago-home .ago-premium-editorial > .ago-container,
 .ago-home .ago-premium-discovery > .ago-container,
-.ago-home .ago-home-faq > .ago-container,
+.ago-home .ago-banca-proof > .ago-container,
 .ago-home .ago-bahia-visit > .ago-container,
 .contact-shell,
 .essencia-shell {
@@ -117,8 +117,7 @@ main {
 
 /* Home: menos redundância, uma leitura por capítulo e eixo visual constante. */
 .ago-home .ago-cinematic-products,
-.ago-home .ago-benefits-reference,
-.ago-home .ago-home-faq {
+.ago-home .ago-benefits-reference {
   background: var(--ago-canvas) !important;
   background-image: none !important;
 }
@@ -149,8 +148,7 @@ main {
 }
 
 .ago-home .ago-premium-editorial,
-.ago-home .ago-premium-discovery,
-.ago-home .ago-home-faq {
+.ago-home .ago-premium-discovery {
   padding-block: clamp(52px, 5.5vw, 82px) !important;
 }
 
@@ -162,79 +160,7 @@ main {
   max-width: 42ch;
 }
 
-/* FAQ curta: reduz objeções sem transformar a home em uma central de ajuda. */
-.ago-home-faq-grid {
-  display: grid;
-  grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
-  gap: clamp(42px, 7vw, 104px);
-  align-items: start;
-}
-
-.ago-home-faq-intro {
-  max-width: 430px;
-}
-
-.ago-home-faq-intro h2 {
-  font-size: clamp(2rem, 3vw, 3rem);
-  line-height: 1.04;
-  letter-spacing: -.035em;
-}
-
-.ago-home-faq-intro > p:not(.eyebrow) {
-  margin-top: 16px;
-  max-width: 32ch;
-  color: var(--ago-muted);
-  line-height: 1.7;
-}
-
-.ago-home-faq-list {
-  border-top: 1px solid var(--ago-line-soft);
-}
-
-.ago-home-faq-list details {
-  border-bottom: 1px solid var(--ago-line-soft);
-}
-
-.ago-home-faq-list summary {
-  min-height: 62px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 20px;
-  align-items: center;
-  cursor: pointer;
-  list-style: none;
-  color: var(--ago-ink);
-  font-weight: 750;
-}
-
-.ago-home-faq-list summary::-webkit-details-marker {
-  display: none;
-}
-
-.ago-home-faq-list summary span {
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  border: 1px solid var(--ago-line-soft);
-  font-size: 1rem;
-  line-height: 1;
-  transition: transform .18s ease;
-}
-
-.ago-home-faq-list details[open] summary span {
-  transform: rotate(45deg);
-}
-
-.ago-home-faq-list details > p {
-  max-width: 64ch;
-  padding: 0 48px 20px 0;
-  color: var(--ago-muted);
-  line-height: 1.72;
-}
-
-/* Visita: preserva o contraste, mas alinha links e assinatura ao mesmo eixo. */
+/* Visita: links e assinatura compartilham o mesmo eixo do restante da home. */
 .ago-home .ago-bahia-visit-links {
   display: flex;
   flex-wrap: wrap;
@@ -242,14 +168,8 @@ main {
   margin-top: 18px;
 }
 
-.ago-home .ago-bahia-wordmark {
-  justify-self: end;
-  text-align: center;
-}
-
-/* Links e CTAs: um alvo confortável sem aumentar o ruído visual. */
+/* Links e CTAs: alvo confortável sem aumentar o ruído visual. */
 .institutional-actions a,
-.ago-home-faq-list summary,
 .contact-location-button,
 .info-link {
   min-height: 44px;
@@ -257,8 +177,7 @@ main {
 
 @media (max-width: 900px) {
   .contact-grid,
-  .essencia-grid,
-  .ago-home-faq-grid {
+  .essencia-grid {
     grid-template-columns: 1fr !important;
   }
 
@@ -270,14 +189,6 @@ main {
   .essencia-image {
     justify-self: start;
     max-width: 680px;
-  }
-
-  .ago-home-faq-grid {
-    gap: 26px;
-  }
-
-  .ago-home-faq-intro {
-    max-width: 560px;
   }
 }
 
@@ -295,8 +206,7 @@ main {
   }
 
   .ago-home .ago-premium-editorial,
-  .ago-home .ago-premium-discovery,
-  .ago-home .ago-home-faq {
+  .ago-home .ago-premium-discovery {
     padding-block: 44px !important;
   }
 
@@ -304,28 +214,5 @@ main {
     align-items: flex-start;
     gap: 8px 18px;
     margin-top: 24px;
-  }
-
-  .ago-home-faq-list summary {
-    min-height: 58px;
-    gap: 14px;
-    font-size: .94rem;
-    line-height: 1.45;
-  }
-
-  .ago-home-faq-list details > p {
-    padding-right: 0;
-    font-size: .9rem;
-  }
-
-  .ago-home .ago-bahia-wordmark {
-    justify-self: start;
-    text-align: left;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ago-home-faq-list summary span {
-    transition: none;
   }
 }
