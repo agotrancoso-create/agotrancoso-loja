@@ -10,6 +10,7 @@ import ProductGallery from '@/components/ProductGallery';
 import ProductViewTracker from '@/components/ProductViewTracker';
 import ProductCard from '@/components/ProductCard';
 import RecentlyViewed from '@/components/RecentlyViewed';
+import PurchaseQuestions from '@/components/PurchaseQuestions';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -218,6 +219,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                 <div><strong>Regra de frete</strong><span>Grátis quando o pedido com frete atinge R$ 500.</span></div>
                 <div><strong>Pagamento</strong><span>Ambiente de pagamento seguro pela InfinitePay.</span></div>
               </div>
+
+              <PurchaseQuestions />
 
               <div className="product-international-note">
                 <p className="eyebrow">International shipping</p>

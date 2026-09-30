@@ -122,6 +122,8 @@ export default function IgrejinhaDeTrancosoPage() {
               <Link key={church.id} href={`/produtos/${church.id}`}>
                 <strong>{church.name}</strong>
                 <span>{formatBRL(getEffectivePrice(church))}</span>
+                {church.dimensions && <small className="church-comparison-dimensions">{church.dimensions}</small>}
+                <small>{church.id.includes("luminaria") || church.id.endsWith("gg") ? "Peça decorativa e luminária" : "Miniatura decorativa"}</small>
               </Link>
             ))}
           </div>

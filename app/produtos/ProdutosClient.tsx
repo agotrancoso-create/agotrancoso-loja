@@ -10,6 +10,9 @@ import { productSearchScore } from '@/lib/product-search';
 import { sortProductsByAttention } from '@/lib/merchandising';
 import { trackCatalogFilter, trackCatalogSearch, trackCatalogSort, trackViewItemList } from '@/lib/marketing-analytics';
 
+const budgets = ['150', '300', '500', '1000'] as const;
+function readBudget(value: string | null) { return budgets.some(budget => budget === value) ? value! : ''; }
+
 type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'name';
 
 const sortOptions: Array<{ value: SortOption; label: string }> = [
@@ -38,6 +41,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('busca') || '');
   const [category, setCategory] = useState(searchParams.get('categoria') || 'todas');
+  const [budget, setBudget] = useState(readBudget(searchParams.get('ate')));
   const [sort, setSort] = useState<SortOption>('featured');
   const [searchFocused, setSearchFocused] = useState(false);
   const sortButton = useRef<HTMLButtonElement>(null);
@@ -51,11 +55,13 @@ export default function ProdutosClient({ products, categories }: { products: Pro
   useEffect(() => { if (sortOpen) sortMenu.current?.querySelector<HTMLButtonElement>('[aria-selected="true"]')?.focus(); }, [sortOpen]);
   const urlQuery = searchParams.get('busca') || '';
   const urlCategory = searchParams.get('categoria') || 'todas';
+  const urlBudget = readBudget(searchParams.get('ate'));
 
   useEffect(() => {
     setQuery(urlQuery);
     setCategory(urlCategory);
-  }, [urlQuery, urlCategory]);
+    setBudget(urlBudget);
+  }, [urlQuery, urlCategory, urlBudget]);
 
   const attentionProducts = useMemo(() => sortProductsByAttention(products), [products]);
 
@@ -63,6 +69,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
     const normalizedQuery = normalize(query);
     const matches = attentionProducts.filter((product) => {
       if (!product.available) return false;
+      if (budget && productPrice(product) > Number(budget)) return false;
       if (normalizedQuery && !productSearchScore(product, query)) return false;
       if (category !== 'todas' && product.category !== category) return false;
       return true;
@@ -72,7 +79,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
     if (sort === 'price-desc') return [...matches].sort((a, b) => productPrice(b) - productPrice(a));
     if (sort === 'name') return [...matches].sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
     return matches;
-  }, [attentionProducts, query, category, sort]);
+  }, [attentionProducts, query, category, sort, budget]);
 
   const selectedCategoryLabel = category === 'todas'
     ? 'Toda a coleção'
@@ -81,7 +88,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
-      const listKey = `${category}|${sort}|${normalize(query)}|${filtered.map((product) => product.id).join(',')}`;
+      const listKey = `${category}|${sort}|${budget}|${normalize(query)}|${filtered.map((product) => product.id).join(',')}`;
       if (lastListEvent.current !== listKey) {
         lastListEvent.current = listKey;
         trackViewItemList(filtered.map((product) => ({
@@ -103,7 +110,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
       }
     }, 550);
     return () => window.clearTimeout(timer);
-  }, [category, filtered, listName, query, sort]);
+  }, [category, filtered, listName, query, sort, budget]);
 
   useEffect(() => {
     if (previousCategory.current === category) return;
@@ -122,7 +129,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
     if (!term) return [];
 
     return attentionProducts
-      .filter((product) => product.available && (category === 'todas' || product.category === category))
+      .filter((product) => product.available && (category === 'todas' || product.category === category) && (!budget || productPrice(product) <= Number(budget)))
       .map((product) => {
         const match = productSearchScore(product, query);
         const score = match ? 100 - match : 999;
@@ -132,9 +139,9 @@ export default function ProdutosClient({ products, categories }: { products: Pro
       .sort((a, b) => a.score - b.score)
       .slice(0, 6)
       .map(({ product }) => product);
-  }, [attentionProducts, query, category]);
+  }, [attentionProducts, query, category, budget]);
 
-  const hasFilters = Boolean(query.trim()) || category !== 'todas' || sort !== 'featured';
+  const hasFilters = Boolean(query.trim()) || category !== 'todas' || sort !== 'featured' || Boolean(budget);
   const selectedSortLabel = sortOptions.find((option) => option.value === sort)?.label ?? 'Destaques';
   const showSuggestions = searchFocused && Boolean(query.trim()) && suggestions.length > 0;
 
@@ -142,6 +149,7 @@ export default function ProdutosClient({ products, categories }: { products: Pro
     setQuery('');
     setCategory('todas');
     setSort('featured');
+    setBudget('');
     router.replace('/produtos', { scroll: false });
   }
 
@@ -150,7 +158,19 @@ export default function ProdutosClient({ products, categories }: { products: Pro
     const params = new URLSearchParams();
     if (query.trim()) params.set('busca', query.trim());
     if (nextCategory !== 'todas') params.set('categoria', nextCategory);
+    if (budget) params.set('ate', budget);
     router.replace(`/produtos${params.size ? `?${params}` : ''}`, { scroll: false });
+  }
+
+  function selectBudget(value: string) {
+    const nextBudget = readBudget(value);
+    setBudget(nextBudget);
+    const params = new URLSearchParams();
+    if (query.trim()) params.set('busca', query.trim());
+    if (category !== 'todas') params.set('categoria', category);
+    if (nextBudget) params.set('ate', nextBudget);
+    router.replace(`/produtos${params.size ? `?${params}` : ''}`, { scroll: false });
+    trackCatalogFilter('preco_maximo', nextBudget || 'Todos', products.filter(product => product.available && (!nextBudget || productPrice(product) <= Number(nextBudget)) && (category === 'todas' || product.category === category) && productSearchScore(product, query)).length);
   }
 
   return (
@@ -259,6 +279,15 @@ export default function ProdutosClient({ products, categories }: { products: Pro
         {categories.map((item) => (
           <button type="button" key={item.id} aria-pressed={category === item.id} className="catalog-category-option" onClick={() => selectCategory(item.id)}>{item.name}</button>
         ))}
+      </div>
+
+      <div className="catalog-budget-control">
+        <label htmlFor="catalog-budget">Faixa de preço</label>
+        <select id="catalog-budget" value={budget} onChange={event => selectBudget(event.target.value)}>
+          <option value="">Todos os valores</option>
+          {budgets.map(value => <option key={value} value={value}>Até {formatBRL(Number(value))}</option>)}
+        </select>
+        {budget && <button type="button" onClick={() => selectBudget('')}>Remover limite de preço</button>}
       </div>
 
       <div className="catalog-results-meta" aria-live="polite">

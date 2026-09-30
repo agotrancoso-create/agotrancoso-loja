@@ -5,6 +5,7 @@ import ProductCard from '@/components/ProductCard';
 import { getAvailableProducts } from '@/lib/products';
 import { sortProductsByAttention } from '@/lib/merchandising';
 import { SITE_DOMAIN } from '@/lib/config';
+import ResumeCart from '@/components/ResumeCart';
 
 export const metadata: Metadata = {
   title: { absolute: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso' },
@@ -87,6 +88,8 @@ export default function HomePage() {
           </div>
         </section>
       </section>
+
+      <ResumeCart />
 
       <section className="ago-premium-editorial ago-home-story ago-immersive-reveal" aria-labelledby="story-title">
         <div className="ago-container ago-premium-split">

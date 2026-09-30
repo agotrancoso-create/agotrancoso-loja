@@ -121,3 +121,21 @@
     background: linear-gradient(90deg, #684638 0%, #755040 52%, #684638 100%) !important;
   }
 }
+
+/* Discreet tools for product choice and returning shoppers. */
+.catalog-budget-control { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin:20px 0; color:#523e33; font-size:.85rem; }
+.catalog-budget-control label { font-weight:600; }
+.catalog-budget-control select { min-height:44px; padding:10px 36px 10px 12px; border:1px solid #bdab99; border-radius:8px; background:#fffaf2; color:#38271e; font:inherit; }
+.catalog-budget-control button { min-height:44px; text-decoration:underline; }
+.resume-cart { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; padding-top:24px; padding-bottom:24px; border-bottom:1px solid #d9c8b8; }
+.resume-cart p { margin:6px 0 0; font-size:.86rem; line-height:1.6; }
+.resume-cart-actions { display:flex; flex-wrap:wrap; gap:20px; align-items:center; }
+.resume-cart-actions a,.resume-cart-actions button { min-height:44px; display:inline-flex; align-items:center; text-decoration:underline; font-weight:600; font-size:.85rem; }
+.church-comparison-dimensions { display:block; line-height:1.6; margin-top:8px; }
+.purchase-questions { margin-top:24px; color:#523e33; }
+.purchase-questions h2 { font-size:1.35rem; margin-bottom:12px; }
+.purchase-questions details { border-top:1px solid #d9c8b8; }
+.purchase-questions summary { cursor:pointer; padding:16px 4px; font-size:.88rem; font-weight:600; line-height:1.6; }
+.purchase-questions p { margin:0 0 16px; font-size:.86rem; line-height:1.75; }
+.purchase-questions a { text-decoration:underline; }
+.catalog-budget-control select:focus-visible,.purchase-questions summary:focus-visible { outline:2px solid #684638; outline-offset:4px; }
