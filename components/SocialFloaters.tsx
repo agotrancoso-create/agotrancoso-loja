@@ -1,4 +1,7 @@
+'use client';
+
 import { INSTAGRAM_URL, whatsappLink } from '@/lib/config';
+import { trackContact } from '@/lib/marketing-analytics';
 
 export default function SocialFloaters() {
   return (
@@ -9,6 +12,7 @@ export default function SocialFloaters() {
         rel="noopener noreferrer"
         aria-label="Ver Agô Trancoso no Instagram"
         className="ago-social-button ago-social-instagram"
+        onClick={() => trackContact('instagram_float')}
       >
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" shapeRendering="geometricPrecision">
           <rect x="4.2" y="4.2" width="15.6" height="15.6" rx="4.4" fill="none" stroke="currentColor" strokeWidth="1.7" />
@@ -22,6 +26,7 @@ export default function SocialFloaters() {
         rel="noopener noreferrer"
         aria-label="Falar com a Agô Trancoso pelo WhatsApp"
         className="ago-social-button ago-social-whatsapp"
+        onClick={() => trackContact('whatsapp_float')}
       >
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" shapeRendering="geometricPrecision">
           <path d="M12 3.2a8.55 8.55 0 0 0-7.3 12.95L3.6 20.4l4.38-1.04A8.55 8.55 0 1 0 12 3.2Z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
