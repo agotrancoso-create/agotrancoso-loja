@@ -12,6 +12,11 @@ async function html(path){const response=await fetch(base+path,{headers:{'User-A
 function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags.find(tag=>tag.includes(`property="${key}"`)||tag.includes(`name="${key}"`));}
 (async()=>{
   await ready;
+  const home=await html('/');
+  const contact=await html('/contato');
+  assert.ok(home.includes('https://wa.me/5573998558124?'), 'Home must use the complete business WhatsApp');
+  assert.ok(home.includes('\"telephone\":\"+5573998558124\"'), 'Google must receive the same contact number');
+  assert.ok(!contact.includes('46098-000'), 'Do not display an unverified postal code');
   const catalog=await html('/produtos');
   assert.equal((catalog.match(/<article\b/g)||[]).length,19,'Catalog must include 19 product cards in server HTML');
   assert.ok(catalog.includes('href="/produtos/estatueta-iemanja"'));

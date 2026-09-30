@@ -58,7 +58,7 @@ export default function ContatoPage() {
               <h2>Quadrado de Trancoso</h2>
               <address className="contact-address">
                 <span>Praça São João Batista, Trancoso</span>
-                <span>Porto Seguro, BA, 46098-000</span>
+                <span>Porto Seguro · Bahia</span>
               </address>
               <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="contact-location-button">Ver localização</a>
             </div>

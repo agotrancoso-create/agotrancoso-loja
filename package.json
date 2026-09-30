@@ -9,7 +9,7 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "audit:catalog": "node scripts/audit-catalog.mjs",
-    "qa:commerce": "node scripts/qa-commerce.cjs && node scripts/qa-payment-return.cjs",
+    "qa:commerce": "node scripts/qa-commerce.cjs && node scripts/qa-payment-return.cjs && node scripts/qa-version-guard.cjs",
     "qa:ui": "node scripts/qa-ui.cjs",
     "qa:analytics": "node scripts/qa-analytics.cjs",
     "verify:recovered": "node scripts/verify-recovered-features.cjs",

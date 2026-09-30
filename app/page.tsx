@@ -4,7 +4,7 @@ import Image from '@/components/ProductImage';
 import ProductCard from '@/components/ProductCard';
 import { getAvailableProducts } from '@/lib/products';
 import { sortProductsByAttention } from '@/lib/merchandising';
-import { SITE_DOMAIN } from '@/lib/config';
+import { SITE_DOMAIN, whatsappLink } from '@/lib/config';
 import ResumeCart from '@/components/ResumeCart';
 import Benefits from '@/components/Benefits';
 
@@ -15,12 +15,12 @@ export const metadata: Metadata = {
 };
 
 const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu';
-const whatsappUrl = 'https://wa.me/557398558124?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ag%C3%B4%20Trancoso.';
+const whatsappUrl = whatsappLink('Olá! Vim pelo site da Agô Trancoso.');
 const instagramUrl = 'https://www.instagram.com/agotrancoso';
 
 const discovery = [
   { title: 'Trancoso', category: 'trancoso', href: '/artesanato-em-trancoso', image: '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg' },
-  { title: 'Casa & decoração', category: 'decoracao', image: '/produtos/casinha-luminaria.jpg' },
+  { title: 'Casa & decoração', category: 'decoracao', href: '/decoracao-em-ceramica', image: '/produtos/casinha-luminaria.jpg' },
   { title: 'Fé & devoção', category: 'fe-devocao', image: '/produtos/catalogo/nossa-senhora-grande-2.jpg' },
   { title: 'Presentes', category: 'presentes', href: '/lembrancas-de-trancoso', image: '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg' },
 ];

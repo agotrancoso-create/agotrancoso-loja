@@ -36,7 +36,7 @@ import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
 import SocialFloaters from '@/components/SocialFloaters';
 import FirstPurchaseOffer from '@/components/FirstPurchaseOffer';
-import { SITE_DOMAIN } from '@/lib/config';
+import { SITE_DOMAIN, WHATSAPP_NUMBER } from '@/lib/config';
 
 const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-sans' });
 const cormorant = Cormorant_Garamond({ subsets: ['latin'], display: 'swap', variable: '--font-display', weight: ['500', '600', '700'] });
@@ -101,7 +101,7 @@ const structuredData = {
       description: 'Loja de cerâmica artesanal no Quadrado de Trancoso, Bahia, com peças inspiradas na vila, na Igreja de São João Batista e em outras referências brasileiras.',
       foundingDate: '2016',
       areaServed: { '@type': 'Country', name: 'Brasil' },
-      telephone: '+55 73 9855-8124',
+      telephone: `+${WHATSAPP_NUMBER}`,
       address: {
         '@type': 'PostalAddress',
         streetAddress: 'Quadrado de Trancoso',
@@ -159,6 +159,10 @@ const versionGuardScript = `
 
   async function checkVersion() {
     if (checking || reloading || document.visibilityState === 'hidden') return;
+    // Never interrupt a purchase or discard an unfinished form after a deploy.
+    if (/^\\/(checkout|confirmacao)(\\/|$)/.test(window.location.pathname)) return;
+    var focused = document.activeElement;
+    if (focused && (focused.matches('input, textarea, select') || focused.isContentEditable)) return;
     checking = true;
     try {
       var response = await fetch('/api/health?build=' + Date.now(), {
