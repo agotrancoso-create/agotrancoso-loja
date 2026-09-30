@@ -81,7 +81,10 @@ assert.ok(/<Image[\s\S]*?\bpriority\b/.test(home), 'Home needs a priority photog
 for (const [, path] of home.matchAll(/src="(\/[^"]+)"/g)) {
   assert.ok(fs.existsSync(`public${path}`), `Missing home image: ${path}`);
 }
-assert.ok(home.includes('unoptimized'), 'Preserve original hero photography');
+assert.ok(home.includes('src="/hero.jpg"'), 'Preserve the original hero photograph');
+assert.ok(/src="\/hero\.jpg"[\s\S]*?\bpriority\b[\s\S]*?quality=\{100\}/.test(home), 'Hero must keep priority and maximum image quality');
+assert.ok(fs.statSync('public/hero.jpg').size > 1_000_000, 'Hero source must remain the high-quality original');
+assert.ok(fs.statSync('public/complementar.jpg').size > 2_000_000, 'Banca/luminaria source must remain the high-quality original');
 assert.ok(home.includes('ago-story-static-photo') || home.includes('ago-storytelling-photo') || home.includes('ago-banca-proof-gallery'), 'Home must show real institutional photography');
 assert.ok(finalLastCss.includes('.ago-cinematic-copy h1'));
 assert.ok(finalLastCss.includes('text-shadow:'));
