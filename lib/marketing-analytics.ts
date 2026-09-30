@@ -34,6 +34,20 @@ function metaPayload(ecommerce?: Record<string, unknown>) {
   };
 }
 
+function buildRecoveryUrl(items: MarketingItem[]): string | undefined {
+  if (typeof window === 'undefined' || !items.length) return undefined;
+  const tokens = items.flatMap((item) => {
+    const productId = String(item.item_id || '').trim();
+    const quantity = Number(item.quantity);
+    if (!/^[a-z0-9-]+$/.test(productId) || !Number.isInteger(quantity) || quantity < 1) return [];
+    return [`${productId}:${Math.min(99, quantity)}`];
+  });
+  if (!tokens.length) return undefined;
+  const url = new URL('/checkout', window.location.origin);
+  url.searchParams.set('retomar', tokens.join(','));
+  return url.toString();
+}
+
 function klaviyoTrack(event: string, ecommerce?: Record<string, unknown>) {
   if (typeof window === 'undefined') return;
   window._learnq = window._learnq || [];
@@ -58,6 +72,7 @@ function klaviyoTrack(event: string, ecommerce?: Record<string, unknown>) {
     Shipping: payload.shipping,
     ShippingTier: payload.shipping_tier,
     PaymentType: payload.payment_type,
+    RecoveryURL: payload.recovery_url,
     Items: items.map((item) => ({
       ProductID: item.item_id,
       ProductName: item.item_name,
@@ -125,7 +140,12 @@ export function trackViewCart(items: MarketingItem[], value: number) {
   track('view_cart', { currency: 'BRL', value: money(value), items });
 }
 export function trackBeginCheckout(items: MarketingItem[], value: number) {
-  track('begin_checkout', { currency: 'BRL', value: money(value), items });
+  track('begin_checkout', {
+    currency: 'BRL',
+    value: money(value),
+    recovery_url: buildRecoveryUrl(items),
+    items,
+  });
 }
 export function trackAddShippingInfo(items: MarketingItem[], value: number, shippingTier: string) {
   track('add_shipping_info', { currency: 'BRL', value: money(value), shipping_tier: shippingTier, items });
