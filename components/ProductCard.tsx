@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Product } from '@/lib/types';
 import { getEffectivePrice } from '@/lib/products';
 import { getAttentionCoverImage } from '@/lib/merchandising';
+import { shouldOfferFreeShipping } from '@/lib/shipping';
 import { useCart } from '@/context/CartContext';
 import { trackAddToCart, trackSelectItem } from '@/lib/marketing-analytics';
 
@@ -40,6 +41,7 @@ export default function ProductCard({ product, priority = false, listName = 'Col
   const image = getAttentionCoverImage(product);
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
+  const freeShipping = shouldOfferFreeShipping(price);
   const imageAlt = productImageAlt(product);
   const marketingItem = { item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category };
 
@@ -61,6 +63,9 @@ export default function ProductCard({ product, priority = false, listName = 'Col
           {hasPromo ? (
             <div className="price-row"><span className="old-price">{formatBRL(product.price)}</span><span className="current-price">{formatBRL(price)}</span></div>
           ) : <p className="current-price">{formatBRL(price)}</p>}
+          <p className="mt-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-[#765e52]">
+            Cerâmica artesanal{freeShipping ? ' · Frete grátis' : ''}
+          </p>
         </div>
       </Link>
 
