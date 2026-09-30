@@ -25,22 +25,68 @@ const discovery = [
   { title: 'Presentes', category: 'presentes', href: '/lembrancas-de-trancoso', image: '/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg' },
 ];
 
+const faqItems = [
+  {
+    question: 'Onde comprar cerâmica artesanal em Trancoso?',
+    answer: 'A Agô está no Quadrado de Trancoso desde 2016. Você pode conhecer as peças na banca ou comprar diretamente pelo site.',
+  },
+  {
+    question: 'Vocês enviam as peças para todo o Brasil?',
+    answer: 'Sim. Enviamos para todo o Brasil, com frete grátis a partir de R$ 500 em produtos.',
+  },
+  {
+    question: 'Quais peças mais lembram Trancoso?',
+    answer: 'As igrejinhas, a miniatura do Quadrado, os ímãs e outras peças inspiradas nas formas e símbolos de Trancoso são as escolhas mais ligadas ao lugar.',
+  },
+] as const;
+
 export default function HomePage() {
   const allProducts = sortProductsByAttention(getAvailableProducts());
   const featured = allProducts.slice(0, 6);
 
   const structuredData = {
-    '@context': 'https://schema.org', '@type': 'CollectionPage',
-    '@id': `${SITE_DOMAIN}/#page`, url: SITE_DOMAIN,
-    name: 'Agô Trancoso — Igrejinhas do Quadrado e cerâmica artesanal',
-    isPartOf: { '@id': `${SITE_DOMAIN}#website` },
-    primaryImageOfPage: { '@type': 'ImageObject', url: `${SITE_DOMAIN}/produtos/igreja-quadrado-p.jpg`, contentUrl: `${SITE_DOMAIN}/produtos/igreja-quadrado-p.jpg`, width: 960, height: 960, caption: 'Igrejinha do Quadrado de Trancoso em cerâmica' },
-    mainEntity: { '@type': 'ItemList', itemListElement: featured.map((product, index) => ({ '@type': 'ListItem', position: index + 1, name: product.name, url: `${SITE_DOMAIN}/produtos/${product.id}` })) },
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${SITE_DOMAIN}/#page`,
+        url: SITE_DOMAIN,
+        name: 'Agô Trancoso — Igrejinhas do Quadrado e cerâmica artesanal',
+        isPartOf: { '@id': `${SITE_DOMAIN}#website` },
+        primaryImageOfPage: {
+          '@type': 'ImageObject',
+          url: `${SITE_DOMAIN}/produtos/igreja-quadrado-p.jpg`,
+          contentUrl: `${SITE_DOMAIN}/produtos/igreja-quadrado-p.jpg`,
+          width: 960,
+          height: 960,
+          caption: 'Igrejinha do Quadrado de Trancoso em cerâmica',
+        },
+        mainEntity: {
+          '@type': 'ItemList',
+          itemListElement: featured.map((product, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: product.name,
+            url: `${SITE_DOMAIN}/produtos/${product.id}`,
+          })),
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${SITE_DOMAIN}/#duvidas`,
+        mainEntity: faqItems.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
+      },
+    ],
   };
 
   return (
     <div className="ago-home ago-premium-home ago-home-calm">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
+
       <section className="ago-cinematic-commerce" aria-labelledby="featured-title">
         <div className="ago-cinematic-media" aria-hidden="true">
           <Image src="/hero.jpg" alt="" fill priority unoptimized sizes="100vw" className="ago-cinematic-image" quality={100} />
@@ -98,7 +144,7 @@ export default function HomePage() {
           <div className="ago-premium-section-head">
             <div>
               <p className="eyebrow">A coleção</p>
-              <h2 id="discover-title">Escolha por onde entrar.</h2>
+              <h2 id="discover-title">Escolha por categoria.</h2>
             </div>
             <Link href="/produtos" className="ago-premium-text-link">Ver todas as peças <span aria-hidden="true">↗</span></Link>
           </div>
@@ -116,37 +162,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="ago-shipping-chapter ago-immersive-reveal" aria-labelledby="shipping-title">
-        <div className="ago-container ago-shipping-chapter-inner">
-          <div>
-            <p className="eyebrow">Compra online</p>
-            <h2 id="shipping-title">Da Bahia para sua casa.</h2>
+      <section className="ago-home-faq ago-immersive-reveal" aria-labelledby="faq-title">
+        <div className="ago-container ago-home-faq-grid">
+          <div className="ago-home-faq-intro">
+            <p className="eyebrow">Para escolher com calma</p>
+            <h2 id="faq-title">Dúvidas rápidas.</h2>
+            <p>O essencial para comprar sem precisar sair do site.</p>
           </div>
-          <div className="ago-shipping-facts">
-            <span>Pagamento seguro</span>
-            <span>Frete grátis a partir de R$ 500 em produtos</span>
-            <span>Envio para todo o Brasil</span>
+          <div className="ago-home-faq-list">
+            {faqItems.map((item) => (
+              <details key={item.question}>
+                <summary>{item.question}<span aria-hidden="true">+</span></summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="ago-bahia-visit ago-immersive-reveal py-[clamp(72px,9vw,142px)]" aria-labelledby="visit-title">
-        <div className="ago-container grid items-center gap-16 md:grid-cols-[1.35fr_0.65fr] md:gap-20 lg:gap-28">
-          <div className="max-w-[680px]">
-            <p className="eyebrow mb-4 text-[0.72rem] font-extrabold uppercase tracking-[0.24em]">Se estiver por perto</p>
-            <h2 id="visit-title" className="max-w-[640px] text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.08] tracking-[-0.03em] text-[#fff8ed]">A gente está no Quadrado.</h2>
-            <p className="mt-5 max-w-[420px] text-[clamp(0.92rem,1.2vw,1.05rem)] leading-7 text-[#f1dfce]">Passe para ver as peças de perto.</p>
-            <div className="mt-7 flex flex-wrap gap-x-8 gap-y-2">
-              <a href={mapsUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 text-[0.72rem] font-extrabold uppercase tracking-[0.05em] text-[#fff8ed] transition-opacity hover:opacity-70">Como chegar <span aria-hidden="true">↗</span></a>
-              <a href={whatsappUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 text-[0.72rem] font-extrabold uppercase tracking-[0.05em] text-[#fff8ed] transition-opacity hover:opacity-70">WhatsApp <span aria-hidden="true">↗</span></a>
-              <a href={instagramUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 text-[0.72rem] font-extrabold uppercase tracking-[0.05em] text-[#fff8ed] transition-opacity hover:opacity-70">Instagram <span aria-hidden="true">↗</span></a>
+      <section className="ago-bahia-visit ago-immersive-reveal" aria-labelledby="visit-title">
+        <div className="ago-container">
+          <div>
+            <p className="eyebrow">Se estiver por perto</p>
+            <h2 id="visit-title">A gente está no Quadrado.</h2>
+            <p>Passe para ver as peças de perto.</p>
+            <div className="ago-bahia-visit-links">
+              <a href={mapsUrl} target="_blank" rel="noreferrer">Como chegar <span aria-hidden="true">↗</span></a>
+              <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
+              <a href={instagramUrl} target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
             </div>
           </div>
 
-          <div className="ago-bahia-wordmark justify-self-start text-center md:justify-self-end" aria-label="Trancoso, Bahia, Brasil">
-            <span className="block text-[0.62rem] font-bold uppercase tracking-[0.28em]">Trancoso</span>
-            <strong className="my-1 block text-[clamp(3rem,5.8vw,5.4rem)] leading-[0.95] tracking-[-0.035em]">Bahia</strong>
-            <span className="block text-[0.6rem] font-bold uppercase tracking-[0.3em]">Brasil</span>
+          <div className="ago-bahia-wordmark" aria-label="Trancoso, Bahia, Brasil">
+            <span>Trancoso</span>
+            <strong>Bahia</strong>
+            <span>Brasil</span>
           </div>
         </div>
       </section>
