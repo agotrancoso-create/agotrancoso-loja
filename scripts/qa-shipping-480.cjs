@@ -1,4 +1,4 @@
-// Browser QA for the exact R$ 480 Miniatura shipping contract.
+// Browser QA for the exact R$ 480 Miniatura shipping contract and conversion cues.
 const { spawn } = require('node:child_process');
 const assert = require('node:assert/strict');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
@@ -43,6 +43,27 @@ async function run() {
     await page.route('**/api/first-purchase/eligibility', route => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ available: false }) }));
 
     await page.goto(base + '/', { waitUntil: 'domcontentloaded' });
+    const hero = page.locator('.ago-cinematic-copy').first();
+    const featured = page.locator('#pecas-em-destaque').first();
+    const confidence = page.locator('section[aria-label="Por que escolher a Agô Trancoso"]').first();
+    await hero.waitFor();
+    await featured.waitFor();
+    await confidence.waitFor();
+    const order = await page.evaluate(() => {
+      const heroNode = document.querySelector('.ago-cinematic-copy');
+      const featuredNode = document.querySelector('#pecas-em-destaque');
+      const confidenceNode = document.querySelector('section[aria-label="Por que escolher a Agô Trancoso"]');
+      if (!heroNode || !featuredNode || !confidenceNode) return null;
+      return {
+        heroBeforeFeatured: Boolean(heroNode.compareDocumentPosition(featuredNode) & Node.DOCUMENT_POSITION_FOLLOWING),
+        featuredBeforeConfidence: Boolean(featuredNode.compareDocumentPosition(confidenceNode) & Node.DOCUMENT_POSITION_FOLLOWING),
+      };
+    });
+    assert.deepEqual(order, { heroBeforeFeatured: true, featuredBeforeConfidence: true }, `home hierarchy@${width}`);
+    assert.match(normalize(await hero.innerText()), /Cerâmica artesanal inspirada em Trancoso, desde 2016 no Quadrado/);
+    assert.match(normalize(await confidence.innerText()), /Feito à mão/);
+    assert.match(normalize(await confidence.innerText()), /Pagamento seguro e envio para todo o Brasil/);
+
     await page.getByRole('button', { name: /Abrir sacola com 1 item/ }).first().click();
     const drawer = page.locator('.cart-drawer[aria-hidden=false]').first();
     await drawer.waitFor();
@@ -55,6 +76,14 @@ async function run() {
     assert.equal(shipping, 'Frete Grátis', `shipping@${width}: ${shipping}`);
     assert.match(total, /^Total R\$\s?480,00$/, `total@${width}: ${total}`);
 
+    await page.goto(base + '/produtos', { waitUntil: 'domcontentloaded' });
+    const miniaturaCard = page.locator('article[data-product-id="miniatura-quadrado-trancoso"]').first();
+    const igrejaMCard = page.locator('article[data-product-id="igreja-quadrado-m"]').first();
+    await miniaturaCard.waitFor();
+    await igrejaMCard.waitFor();
+    assert.match(normalize(await miniaturaCard.innerText()), /Cerâmica artesanal · Frete grátis/);
+    assert.doesNotMatch(normalize(await igrejaMCard.innerText()), /Frete grátis/);
+
     await page.goto(base + '/checkout', { waitUntil: 'domcontentloaded' });
     await page.locator('.checkout-summary').first().waitFor();
     const checkoutText = normalize(await page.locator('.checkout-summary').first().innerText());
@@ -66,11 +95,12 @@ async function run() {
     const purchaseText = normalize(await page.locator('.purchase-selection-summary').first().innerText());
     assert.match(purchaseText, /1 peça: R\$\s?480,00 · Frete grátis/);
     assert.match(purchaseText, /Esta seleção com frete: R\$\s?480,00/);
+    assert.match(normalize(await page.locator('.purchase-selection-help').first().innerText()), /Compra sem cadastro · Pagamento seguro pela InfinitePay · Envio para todo o Brasil/);
 
     await page.close();
   }
 
-  console.log('PASS Miniatura R$ 480 => Subtotal R$ 480, Frete Grátis, Total R$ 480 at 320/390/820/1440 and checkout/PDP');
+  console.log('PASS conversion hierarchy + Miniatura R$ 480 shipping at 320/390/820/1440; card threshold copy and PDP reassurance verified');
 }
 
 run().catch(error => {
