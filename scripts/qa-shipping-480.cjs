@@ -77,12 +77,15 @@ async function run() {
     assert.match(total, /^Total R\$\s?519,90$/, `total@${width}: ${total}`);
 
     await page.goto(base + '/produtos', { waitUntil: 'domcontentloaded' });
-    const miniaturaCard = page.locator('article[data-product-id="miniatura-quadrado-trancoso"]').first();
-    const igrejaMCard = page.locator('article[data-product-id="igreja-quadrado-m"]').first();
+    const catalog = page.locator('.catalog-grid').first();
+    const miniaturaCard = catalog.locator('article[data-product-id="miniatura-quadrado-trancoso"]').first();
+    const iemanjaCard = catalog.locator('article[data-product-id="estatueta-iemanja"]').first();
+    const igrejaMCard = catalog.locator('article[data-product-id="igreja-quadrado-m"]').first();
     await miniaturaCard.waitFor();
+    await iemanjaCard.waitFor();
     await igrejaMCard.waitFor();
     assert.doesNotMatch(normalize(await miniaturaCard.innerText()), /Frete grátis/i);
-    assert.doesNotMatch(normalize(await page.locator('article[data-product-id="estatueta-iemanja"]').innerText()), /Frete grátis/i);
+    assert.doesNotMatch(normalize(await iemanjaCard.innerText()), /Frete grátis/i);
     assert.doesNotMatch(normalize(await igrejaMCard.innerText()), /Frete grátis/i);
 
     await page.goto(base + '/checkout', { waitUntil: 'domcontentloaded' });
@@ -101,7 +104,7 @@ async function run() {
     await page.close();
   }
 
-  console.log('PASS conversion hierarchy + Miniatura R$ 480 shipping at 320/390/820/1440; card threshold copy and PDP reassurance verified');
+  console.log('PASS conversion hierarchy + Miniatura R$ 480 shipping at 320/390/820/1440; catalog-scoped card threshold copy and PDP reassurance verified');
 }
 
 run().catch(error => {
