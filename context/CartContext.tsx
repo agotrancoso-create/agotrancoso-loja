@@ -19,6 +19,7 @@ type CartContextValue = {
 
 const CartContext = createContext<CartContextValue | undefined>(undefined);
 const STORAGE_KEY = 'agotrancoso_carrinho_v1';
+const RECOVERY_PARAM = 'retomar';
 
 function normalizeStoredItems(parsed: unknown): CartItem[] {
   if (!Array.isArray(parsed)) return [];
@@ -42,6 +43,23 @@ function normalizeStoredItems(parsed: unknown): CartItem[] {
   return Array.from(merged, ([productId, quantity]) => ({ productId, quantity }));
 }
 
+/**
+ * Reconstrói uma sacola vinda de um link de recuperação sem confiar em preço,
+ * nome ou disponibilidade enviados pela URL. Apenas IDs canônicos + quantidade
+ * são aceitos; todo o restante é recalculado a partir do catálogo atual.
+ */
+function normalizeRecoveryItems(raw: string | null): CartItem[] {
+  if (!raw || raw.length > 1500) return [];
+  const entries = raw.split(',').slice(0, 30).map((token) => {
+    const separator = token.lastIndexOf(':');
+    if (separator <= 0) return null;
+    const productId = token.slice(0, separator).trim();
+    const quantity = Number(token.slice(separator + 1));
+    return { productId, quantity };
+  }).filter(Boolean);
+  return normalizeStoredItems(entries);
+}
+
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -49,10 +67,28 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw) setItems(normalizeStoredItems(JSON.parse(raw)));
+      const url = new URL(window.location.href);
+      const hasRecovery = url.searchParams.has(RECOVERY_PARAM);
+      const recovered = hasRecovery ? normalizeRecoveryItems(url.searchParams.get(RECOVERY_PARAM)) : [];
+
+      if (recovered.length) {
+        setItems(recovered);
+      } else {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        if (raw) setItems(normalizeStoredItems(JSON.parse(raw)));
+      }
+
+      if (hasRecovery) {
+        url.searchParams.delete(RECOVERY_PARAM);
+        const query = url.searchParams.toString();
+        window.history.replaceState(window.history.state, '', `${url.pathname}${query ? `?${query}` : ''}${url.hash}`);
+      }
     } catch {
-      try { window.localStorage.removeItem(STORAGE_KEY); } catch {}
+      try {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        if (raw) setItems(normalizeStoredItems(JSON.parse(raw)));
+        else window.localStorage.removeItem(STORAGE_KEY);
+      } catch {}
     } finally {
       setHydrated(true);
     }
