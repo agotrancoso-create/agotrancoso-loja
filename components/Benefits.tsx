@@ -1,40 +1,81 @@
-import Link from 'next/link';
 const benefits = [
-  ['feito à mão', 'Atenção às formas e à pintura.'],
-  ['peças para guardar', 'Objetos para viver e presentear.'],
-  ['inspiração brasileira', 'A igreja, as casas e outros símbolos do Brasil.'],
-  ['envio internacional', 'Cotação conforme o destino e o pedido.'],
+  {
+    title: 'Feito à mão',
+    text: 'Cerâmica artesanal',
+    icon: 'craft',
+  },
+  {
+    title: 'Desde 2016',
+    text: 'No Quadrado de Trancoso',
+    icon: 'place',
+  },
+  {
+    title: 'Pagamento seguro',
+    text: 'Compra online pela InfinitePay',
+    icon: 'shield',
+  },
+  {
+    title: 'Envio para todo o Brasil',
+    text: 'Frete grátis a partir de R$ 500 em produtos',
+    icon: 'box',
+  },
 ] as const;
 
-const details = [
-  ['Conheça a Agô e o que inspira nossa escolha de objetos.', '/nossa-essencia', 'Conhecer a Agô'],
-  ['Veja o acervo completo, dos menores presentes às esculturas.', '/produtos', 'Explorar coleção'],
-  ['Veja as formas e cores que lembram o Quadrado.', '/produtos?categoria=trancoso', 'Ver Trancoso'],
-  ['Para entregas fora do Brasil, fale com a gente antes de comprar.', '/contato', 'Consultar envio'],
-] as const;
+type IconName = (typeof benefits)[number]['icon'];
 
-const artwork = { width: 2048, height: 690, cropWidth: 280, cropHeight: 240, top: 140 };
-const iconLeft = [80, 580, 1108, 1618] as const;
+function BenefitIcon({ name }: { name: IconName }) {
+  if (name === 'craft') {
+    return (
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+        <path d="M7 24.5c5.4-1 9.3-4.9 10.4-10.4l1.1-5.4 4.8-4.8 4.8 4.8-4.8 4.8-5.4 1.1C12.4 15.7 8.5 19.6 7 24.5Z" />
+        <path d="M6 26c2.4.8 4.8.8 7.1 0" />
+      </svg>
+    );
+  }
+
+  if (name === 'place') {
+    return (
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+        <path d="M16 28s8-7.1 8-15a8 8 0 1 0-16 0c0 7.9 8 15 8 15Z" />
+        <path d="M12.5 13h7M16 9.5v7" />
+      </svg>
+    );
+  }
+
+  if (name === 'shield') {
+    return (
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+        <path d="M16 4 25 7.5v7.2c0 6-3.5 10.7-9 13.3-5.5-2.6-9-7.3-9-13.3V7.5L16 4Z" />
+        <path d="m11.5 15.8 3 3 6-6" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+      <path d="m5 10 11-5 11 5-11 5L5 10Z" />
+      <path d="M5 10v12l11 5 11-5V10M16 15v12" />
+      <path d="m11 8 11 5" />
+    </svg>
+  );
+}
 
 export default function Benefits() {
   return (
-    <section className="benefits-strip ago-benefits-reference" aria-label="Por que escolher a Agô Trancoso">
+    <section className="benefits-strip ago-benefits-reference ago-benefits-icons-2026" aria-labelledby="benefits-title">
       <div className="ago-container ago-benefits-reference-inner">
         <h2 id="benefits-title" className="sr-only">Por que escolher a Agô Trancoso</h2>
-        <div className="ago-benefits-grid">
-          {benefits.map(([title, text], index) => (
-            <details className="ago-benefit-item" key={title}>
-              <summary>
-                <div className="ago-benefit-symbol" aria-hidden="true">
-                  <div className="ago-benefit-art" style={{ backgroundSize: `${artwork.width / artwork.cropWidth * 100}% ${artwork.height / artwork.cropHeight * 100}%`, backgroundPosition: `${iconLeft[index] / (artwork.width - artwork.cropWidth) * 100}% ${artwork.top / (artwork.height - artwork.cropHeight) * 100}%` }} />
-                </div>
-                <div className="ago-benefit-copy"><h3>{title}</h3><p>{text}</p></div>
-                <span className="ago-benefit-more">Saiba mais</span>
-              </summary>
-              <p className="ago-benefit-detail">{details[index][0]}<br /><Link href={details[index][1]}>{details[index][2]}</Link></p>
-            </details>
+        <ul className="ago-benefits-grid ago-benefits-icon-grid">
+          {benefits.map((benefit) => (
+            <li className="ago-benefit-icon-item" key={benefit.title}>
+              <span className="ago-benefit-line-icon"><BenefitIcon name={benefit.icon} /></span>
+              <span className="ago-benefit-icon-copy">
+                <strong>{benefit.title}</strong>
+                <small>{benefit.text}</small>
+              </span>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
