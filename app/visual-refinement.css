@@ -14,6 +14,7 @@
   --ago-section-regular:clamp(50px,5vw,76px);
   --ago-home-title:clamp(2rem,3.05vw,3.15rem);
   --ago-home-title-mobile:clamp(2rem,9.5vw,2.7rem);
+  --ago-focus-ring:#f3dca0;
 }
 
 /* Mesma matéria/cor em desktop, tablet e celular: muda a geometria, não o tom. */
@@ -65,12 +66,36 @@
 .ago-photo-image{width:100%!important;height:100%!important;padding:0!important;border-radius:0!important;clip-path:none!important;object-fit:contain!important;object-position:center!important;image-rendering:auto}
 .ago-photo-thumbs button,.ago-photo-thumbs button img{border-radius:12px!important}
 
+/* Interação premium também precisa ser acessível: foco visível e área de toque real. */
+.ago-home .ago-bahia-visit a:focus-visible,
+.ago-home .ago-premium-text-link:focus-visible,
+.ago-photo-dialog button:focus-visible,
+.site-header a:focus-visible,
+.site-header button:focus-visible,
+.site-header input:focus-visible,
+.ago-site-footer a:focus-visible{outline:2px solid var(--ago-focus-ring)!important;outline-offset:4px!important;border-radius:6px}
+.ago-photo-dialog button{min-width:44px;min-height:44px}
+.ago-category-bar a,.header-link,.ago-site-footer a{min-height:44px}
+
 @media(hover:hover) and (pointer:fine){.ago-home .ago-bahia-visit a{transition:opacity .18s ease,text-decoration-color .18s ease!important}.ago-home .ago-bahia-visit a:hover{opacity:.76}}
 
 @media(max-width:1024px){
   .ago-home .ago-bahia-visit>.ago-container{width:min(100% - 40px,920px)!important;grid-template-columns:minmax(0,1.25fr) minmax(190px,.55fr)!important;gap:clamp(30px,5vw,54px)!important}
   .ago-home .ago-shipping-chapter-inner{gap:34px!important}
   .ago-home .ago-shipping-facts{gap:16px!important}
+}
+
+/* Tablet tem composição própria: evita três fatos espremidos ao lado de um título. */
+@media(min-width:701px) and (max-width:900px){
+  .ago-home .ago-shipping-chapter{padding-block:clamp(38px,5.5vw,50px)!important}
+  .ago-home .ago-shipping-chapter-inner{grid-template-columns:1fr!important;gap:26px!important}
+  .ago-home .ago-shipping-chapter h2{max-width:15ch!important;font-size:clamp(2.15rem,4.7vw,2.65rem)!important}
+  .ago-home .ago-shipping-facts{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:22px!important}
+  .ago-home .ago-shipping-facts span{max-width:22ch!important;font-size:.88rem!important}
+  .ago-home .ago-bahia-visit>.ago-container{width:min(100% - 48px,820px)!important;grid-template-columns:minmax(0,1.25fr) minmax(170px,.5fr)!important;gap:32px!important}
+  .ago-home .ago-bahia-visit h2{font-size:clamp(2.4rem,5.7vw,3rem)!important}
+  .ago-home .ago-bahia-wordmark{min-width:170px!important}
+  .ago-home .ago-bahia-wordmark strong{font-size:clamp(3rem,7.4vw,4rem)!important}
 }
 
 /* Mobile: composição própria, mas os mesmos tokens de cor. */
@@ -86,19 +111,32 @@
   .ago-home .ago-shipping-facts{grid-template-columns:1fr!important;gap:0!important}
   .ago-home .ago-shipping-facts span{max-width:none!important;min-height:42px!important;display:flex!important;align-items:center!important;padding-block:10px!important;border:0!important;border-top:1px solid rgba(255,248,237,.16)!important;font-size:.82rem!important;line-height:1.42!important}
   .ago-home .ago-shipping-facts span:last-child{border-bottom:1px solid rgba(255,248,237,.16)!important}
-  .ago-home .ago-bahia-visit>.ago-container{width:calc(100% - 40px)!important;grid-template-columns:1fr!important;gap:26px!important;align-items:start!important}
+  .ago-home .ago-bahia-visit>.ago-container{width:calc(100% - 40px)!important;grid-template-columns:1fr!important;gap:24px!important;align-items:start!important}
   .ago-home .ago-bahia-visit .eyebrow{margin-bottom:12px!important}
   .ago-home .ago-bahia-visit h2{max-width:13ch!important;font-size:var(--ago-home-title-mobile)!important;line-height:1.01!important}
   .ago-home .ago-bahia-visit h2+p{margin-top:16px!important;font-size:.94rem!important;line-height:1.55!important}
   .ago-home .ago-bahia-visit h2+p+div{margin-top:18px!important;gap:2px 18px!important}
-  .ago-home .ago-bahia-wordmark{min-width:0!important;justify-self:start!important;text-align:left!important;margin-top:2px!important}
-  .ago-home .ago-bahia-wordmark strong{font-size:clamp(2.75rem,14vw,3.65rem)!important;line-height:.94!important}
+  .ago-home .ago-bahia-wordmark{min-width:0!important;justify-self:start!important;text-align:left!important;margin-top:0!important}
+  .ago-home .ago-bahia-wordmark strong{font-size:clamp(2.65rem,13.4vw,3.5rem)!important;line-height:.94!important}
   .ago-home .ago-bahia-wordmark span{font-size:.58rem!important;letter-spacing:.23em!important}
   .ago-home .ago-benefits-reference{padding-block:30px!important}
   .ago-home .ago-benefits-grid{gap:22px 16px!important}
   .ago-home .ago-benefit-art{width:68px!important}
   .ago-photo-stage{--ago-photo-gap:8px;--ago-photo-gap2:16px;padding:var(--ago-photo-gap)!important}
   .ago-photo-image-frame{width:min(calc(100cqw - var(--ago-photo-gap2)),calc(100cqh - var(--ago-photo-gap2)))!important;height:min(calc(100cqw - var(--ago-photo-gap2)),calc(100cqh - var(--ago-photo-gap2)))!important;border-radius:18px!important;clip-path:inset(0 round 18px)!important}
+  .ago-category-bar-inner{overflow-x:auto!important;overscroll-behavior-inline:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .ago-category-bar-inner::-webkit-scrollbar{display:none}
+}
+
+/* Viewport móvel moderno e safe areas: nada encosta em notch ou barra do sistema. */
+@supports(height:100dvh){
+  .ago-photo-dialog{max-height:calc(100dvh - 16px)!important}
+  .mobile-menu{max-height:calc(100dvh - 8px)}
+}
+@supports(padding:max(0px)){
+  .ago-photo-footer{padding-bottom:max(16px,env(safe-area-inset-bottom))!important}
+  .mobile-menu{padding-bottom:max(20px,env(safe-area-inset-bottom))!important}
+  .ago-site-footer{padding-bottom:env(safe-area-inset-bottom)}
 }
 
 @media(max-width:360px){.ago-home .ago-bahia-visit>.ago-container{width:calc(100% - 32px)!important}.ago-home .ago-bahia-visit h2+p+div{column-gap:14px!important}.ago-home .ago-bahia-visit a{font-size:.67rem!important}}
