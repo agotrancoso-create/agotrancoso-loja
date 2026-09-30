@@ -302,3 +302,114 @@
   .ago-route-loading-line,
   .ago-route-loading-card { animation: none !important; }
 }
+
+/* ===== Correções finais solicitadas — prevalecem sobre todas as camadas anteriores ===== */
+
+/* Hero: usa a fotografia sem filtros e mantém o texto legível sem escurecer a imagem inteira. */
+.ago-home .ago-cinematic-image {
+  object-fit: cover !important;
+  object-position: center center !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  transform: none !important;
+}
+
+.ago-home .ago-cinematic-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(35, 24, 18, 0.08) 0%,
+    rgba(35, 24, 18, 0.03) 38%,
+    transparent 70%
+  ) !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.ago-home .ago-cinematic-copy::before,
+.ago-home .ago-cinematic-copy::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  filter: none !important;
+}
+
+.ago-home .ago-cinematic-copy,
+.ago-home .ago-cinematic-copy .eyebrow,
+.ago-home .ago-cinematic-copy h1,
+.ago-home .ago-cinematic-copy > p,
+.ago-home .ago-cinematic-secondary {
+  color: #fffaf1 !important;
+}
+
+.ago-home .ago-cinematic-copy .eyebrow,
+.ago-home .ago-cinematic-copy h1,
+.ago-home .ago-cinematic-copy > p,
+.ago-home .ago-cinematic-secondary {
+  text-shadow: 0 2px 18px rgba(22,13,9,.92), 0 1px 3px rgba(22,13,9,.95) !important;
+}
+
+/* Foto complementar: inteira, sem moldura/borda e com cantos arredondados. */
+.ago-home .ago-story-image,
+.ago-home .ago-story-image .ago-complementary-photo,
+.ago-home .ago-story-image .ago-story-static-photo {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: 18px !important;
+}
+
+.ago-home .ago-story-image {
+  background: transparent !important;
+  overflow: hidden !important;
+}
+
+.ago-home .ago-story-image .ago-story-static-photo,
+.ago-home .ago-story-image:hover .ago-story-static-photo {
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
+  translate: none !important;
+  scale: 1 !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+/* 3ª foto dos Pretos-Velhos: nenhuma borda, nenhum raio, peça inteira e centralizada. */
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-main[data-photo-index="3"],
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-main[data-photo-index="3"] .ago-gallery-open,
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-main[data-photo-index="3"] .product-gallery-image,
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-thumb[data-photo-index="3"],
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-thumb[data-photo-index="3"] img {
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-main[data-photo-index="3"] .product-gallery-image,
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-thumb[data-photo-index="3"] img {
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+/* Mobile e desktop preservam a mesma identidade visual; só a geometria responsiva muda. */
+@media (max-width:900px) {
+  .site-header {
+    background: linear-gradient(90deg, #684638 0%, #755040 52%, #684638 100%) !important;
+  }
+
+  .ago-home .ago-cinematic-image {
+    object-position: center center !important;
+  }
+
+  .ago-home .ago-cinematic-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(35, 24, 18, 0.08) 0%,
+      rgba(35, 24, 18, 0.03) 38%,
+      transparent 70%
+    ) !important;
+  }
+}

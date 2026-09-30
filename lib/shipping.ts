@@ -1,19 +1,21 @@
 export const FREE_SHIPPING_THRESHOLD = 500;
 export const FIXED_SHIPPING_PRICE = 39.9;
-export const FREE_SHIPPING_SUBTOTAL_MINIMUM = Number((FREE_SHIPPING_THRESHOLD - FIXED_SHIPPING_PRICE).toFixed(2));
+export const FREE_SHIPPING_SUBTOTAL_MINIMUM = 460.10;
 
-const FREE_SHIPPING_THRESHOLD_CENTS = Math.round(FREE_SHIPPING_THRESHOLD * 100);
-const FIXED_SHIPPING_PRICE_CENTS = Math.round(FIXED_SHIPPING_PRICE * 100);
+const FREE_SHIPPING_SUBTOTAL_MINIMUM_CENTS = 46010;
 
 /**
- * Regra comercial única da Agô: se subtotal + frete fixo chegaria a R$ 500,00
- * ou mais, o frete é zerado. Ex.: R$ 480,00 + R$ 39,90 = R$ 519,90,
- * portanto o cliente paga R$ 480,00 com frete grátis.
+ * Regra comercial única da Agô:
+ * o frete fixo é R$ 39,90 e o benefício entra quando o total potencial
+ * (produtos + frete) chegaria a R$ 500,00. Isso equivale a R$ 460,10
+ * ou mais em produtos. Ex.: R$ 480,00 em produtos => frete grátis.
+ *
+ * A comparação é feita somente em centavos para não depender de ponto flutuante.
  */
 export function shouldOfferFreeShipping(subtotal: number): boolean {
   const subtotalCents = Math.round(Number(subtotal) * 100);
   if (!Number.isFinite(subtotalCents)) return false;
-  return subtotalCents + FIXED_SHIPPING_PRICE_CENTS >= FREE_SHIPPING_THRESHOLD_CENTS;
+  return subtotalCents >= FREE_SHIPPING_SUBTOTAL_MINIMUM_CENTS;
 }
 
 export function getShippingPrice(subtotal: number): number {
