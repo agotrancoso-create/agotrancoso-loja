@@ -41,7 +41,7 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
       <section className="ago-cinematic-commerce" aria-labelledby="featured-title">
         <div className="ago-cinematic-media" aria-hidden="true">
-          <Image src="/hero.jpg" alt="" fill priority sizes="100vw" className="ago-cinematic-image" quality={100} />
+          <Image src="/hero.jpg" alt="" fill priority unoptimized sizes="100vw" className="ago-cinematic-image" quality={100} />
           <div className="ago-cinematic-overlay" />
         </div>
 
@@ -115,7 +115,7 @@ export default function HomePage() {
           </div>
           <div className="ago-shipping-facts">
             <span>Pagamento seguro</span>
-            <span>Frete grátis acima de R$ 500</span>
+            <span>Frete grátis em pedidos de R$ 500 ou mais</span>
             <span>Envio para todo o Brasil</span>
           </div>
         </div>
