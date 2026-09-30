@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { getAvailableProducts, getEffectivePrice } from '@/lib/products';
+import { getAttentionCoverImage } from '@/lib/merchandising';
 import CartIcon from './CartIcon';
 import { productSearchScore } from '@/lib/product-search';
 
@@ -196,7 +197,7 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
                           }}
                         >
                           <span className="ago-search-suggestion-image">
-                            <Image src={product.images?.[0] || '/images/placeholder.svg'} alt="" fill sizes="48px" />
+                            <Image src={getAttentionCoverImage(product)} alt="" fill sizes="48px" />
                           </span>
                           <span className="ago-search-suggestion-copy">
                             <strong>{product.name}</strong>
