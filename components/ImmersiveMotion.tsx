@@ -23,6 +23,7 @@ export default function ImmersiveMotion() {
 
     document.body.classList.add('ago-live-motion');
 
+    const header = document.querySelector<HTMLElement>('.site-header');
     const hero = document.querySelector<HTMLElement>('.ago-cinematic-commerce');
     const parallaxPhotos = Array.from(document.querySelectorAll<HTMLElement>('.ago-parallax-photo'));
     const interactiveTargets = Array.from(document.querySelectorAll<HTMLElement>([
@@ -37,6 +38,7 @@ export default function ImmersiveMotion() {
 
     const updateScrollMotion = () => {
       scrollFrame = 0;
+      header?.classList.toggle('ago-header-scrolled', window.scrollY > 18);
 
       if (hero) {
         const shift = clamp(window.scrollY * 0.035, 0, 26);
@@ -109,6 +111,7 @@ export default function ImmersiveMotion() {
 
     return () => {
       document.body.classList.remove('ago-live-motion');
+      header?.classList.remove('ago-header-scrolled');
       window.removeEventListener('scroll', requestScrollMotion);
       window.removeEventListener('resize', requestScrollMotion);
       if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
