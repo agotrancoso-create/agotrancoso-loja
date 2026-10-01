@@ -46,7 +46,7 @@ function BenefitIcon({ name }: { name: IconName }) {
 
 export default function Benefits() {
   return (
-    <section className="benefits-strip ago-benefits-reference ago-benefits-icons-2026" aria-labelledby="benefits-title">
+    <section className="benefits-strip ago-benefits-reference ago-benefits-icons-2026" aria-label="Por que escolher a Agô Trancoso">
       <div className="ago-container ago-benefits-reference-inner">
         <h2 id="benefits-title" className="sr-only">Por que escolher a Agô Trancoso</h2>
         <ul className="ago-benefits-grid ago-benefits-icon-grid">
