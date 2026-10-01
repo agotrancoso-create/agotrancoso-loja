@@ -65,9 +65,10 @@ async function run() {
     assert.equal(await hero.getByRole('link', { name: 'Ver peças', exact: true }).getAttribute('href'), '#pecas-em-destaque');
     const confidenceText = normalize(await confidence.innerText());
     assert.match(confidenceText, /Feito à mão/i);
-    assert.match(confidenceText, /Desde 2016/i);
-    assert.match(confidenceText, /Pagamento seguro/i);
-    assert.match(confidenceText, /Frete grátis a partir de R\$ 500 em produtos/i);
+    assert.match(confidenceText, /Peças para guardar/i);
+    assert.match(confidenceText, /Inspiração brasileira/i);
+    assert.match(confidenceText, /Envio internacional/i);
+    assert.match(confidenceText, /Cotação conforme o destino e o pedido/i);
 
     await page.getByRole('button', { name: /Abrir sacola com 1 item/ }).first().click();
     const drawer = page.locator('.cart-drawer[aria-hidden=false]').first();
@@ -116,6 +117,9 @@ async function run() {
 
     // Quote responses must belong to the current CEP and quantity, including delayed replies.
     if (width === 390) {
+      const providerState = await (await page.request.get(base + '/api/frete')).json();
+      assert.equal(providerState.originCep, '46098-000', 'shipping-origin CEP must be 46098-000');
+
       const cepInput = deliveryForm.getByLabel('Frete e prazo para seu CEP');
       const consult = deliveryForm.getByRole('button', { name: 'Consultar', exact: true });
       await cepInput.fill('00000-000');
