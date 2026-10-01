@@ -26,6 +26,10 @@
   border-bottom: 1px solid #eadfd2;
 }
 
+.product-premium-facts > div:only-child {
+  grid-column: 1 / -1;
+}
+
 .product-premium-facts > div:nth-last-child(-n + 2) {
   border-bottom: 0;
 }
@@ -48,7 +52,7 @@
 }
 
 .product-premium-facts a {
-  min-height: 36px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   text-underline-offset: 4px;
@@ -130,6 +134,9 @@
 }
 
 .product-delivery-result a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: #684638;
   font-weight: 700;
   text-decoration: underline;

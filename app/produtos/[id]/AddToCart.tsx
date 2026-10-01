@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { Product } from '@/lib/types';
 import { trackAddToCart } from '@/lib/marketing-analytics';
@@ -32,7 +32,18 @@ export default function AddToCart({ product }: { product: Product }) {
   const [quote, setQuote] = useState<ShippingQuote | null>(null);
   const [quoteError, setQuoteError] = useState('');
   const [quoteLoading, setQuoteLoading] = useState(false);
+  const [cepInvalid, setCepInvalid] = useState(false);
+  const activeRequest = useRef<AbortController | null>(null);
   const { addItem } = useCart();
+
+  const clearQuote = useCallback(() => {
+    activeRequest.current?.abort();
+    activeRequest.current = null;
+    setQuoteLoading(false);
+    setQuote(null);
+    setQuoteError('');
+    setCepInvalid(false);
+  }, []);
 
   useEffect(() => {
     if (!added) return;
@@ -41,9 +52,12 @@ export default function AddToCart({ product }: { product: Product }) {
   }, [added]);
 
   useEffect(() => {
-    setQuote(null);
-    setQuoteError('');
-  }, [quantity]);
+    clearQuote();
+    return () => {
+      activeRequest.current?.abort();
+      activeRequest.current = null;
+    };
+  }, [product.id, clearQuote]);
 
   if (!product.available) {
     return <div className="product-unavailable">Peça indisponível no momento</div>;
@@ -55,13 +69,18 @@ export default function AddToCart({ product }: { product: Product }) {
 
   async function consultShipping(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const normalizedCep = cep.replace(/\D/g, '').slice(0, 8);
-    if (normalizedCep.length !== 8) {
+    clearQuote();
+    const normalizedCep = cep.replace(/\D/g, '');
+    if (normalizedCep.length !== 8 || /^(\d)\1{7}$/.test(normalizedCep)) {
+      setCepInvalid(true);
       setQuote(null);
       setQuoteError('Informe um CEP válido com 8 dígitos.');
       return;
     }
 
+    const controller = new AbortController();
+    activeRequest.current = controller;
+    const timeout = window.setTimeout(() => controller.abort(), 10000);
     setQuoteLoading(true);
     setQuoteError('');
     setQuote(null);
@@ -69,18 +88,27 @@ export default function AddToCart({ product }: { product: Product }) {
     try {
       const response = await fetch('/api/frete', {
         method: 'POST',
+        signal: controller.signal,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cep: normalizedCep, items: [{ productId: product.id, quantity }] }),
       });
       const data = (await response.json()) as ShippingQuote;
-      if (!response.ok || !data.available) {
+      if (activeRequest.current !== controller) return;
+      if (!response.ok || !data.available || !data.options?.length) {
         throw new Error(data.error || 'Não foi possível consultar o envio agora.');
       }
       setQuote(data);
     } catch (error) {
-      setQuoteError(error instanceof Error ? error.message : 'Não foi possível consultar o envio agora.');
+      if (activeRequest.current !== controller) return;
+      setQuoteError(controller.signal.aborted
+        ? 'A consulta demorou mais que o esperado. Tente novamente.'
+        : error instanceof Error ? error.message : 'Não foi possível consultar o envio agora.');
     } finally {
-      setQuoteLoading(false);
+      window.clearTimeout(timeout);
+      if (activeRequest.current === controller) {
+        activeRequest.current = null;
+        setQuoteLoading(false);
+      }
     }
   }
 
@@ -91,9 +119,9 @@ export default function AddToCart({ product }: { product: Product }) {
     <div className="purchase-selection">
       <div className="add-to-cart-control">
         <div className="quantity-control" aria-label="Quantidade">
-          <button type="button" onClick={() => setQuantity((q) => Math.max(1, q - 1))} aria-label="Diminuir quantidade">−</button>
+          <button type="button" onClick={() => { clearQuote(); setQuantity((q) => Math.max(1, q - 1)); }} disabled={quantity <= 1} aria-label="Diminuir quantidade">−</button>
           <span aria-live="polite">{quantity}</span>
-          <button type="button" onClick={() => setQuantity((q) => Math.min(99, q + 1))} disabled={quantity >= 99} aria-label="Aumentar quantidade">+</button>
+          <button type="button" onClick={() => { clearQuote(); setQuantity((q) => Math.min(99, q + 1)); }} disabled={quantity >= 99} aria-label="Aumentar quantidade">+</button>
         </div>
         <button
           type="button"
@@ -125,6 +153,8 @@ export default function AddToCart({ product }: { product: Product }) {
           <input
             id={`shipping-cep-${product.id}`}
             name="cep"
+            aria-invalid={cepInvalid || undefined}
+            aria-describedby={quoteError ? `shipping-error-${product.id}` : undefined}
             inputMode="numeric"
             autoComplete="postal-code"
             placeholder="00000-000"
@@ -133,20 +163,24 @@ export default function AddToCart({ product }: { product: Product }) {
             onChange={(event) => {
               const digits = event.target.value.replace(/\D/g, '').slice(0, 8);
               setCep(digits.length > 5 ? `${digits.slice(0, 5)}-${digits.slice(5)}` : digits);
-              setQuote(null);
-              setQuoteError('');
+              clearQuote();
             }}
           />
           <button type="submit" disabled={quoteLoading}>{quoteLoading ? 'Consultando…' : 'Consultar'}</button>
         </div>
 
         <div className="product-delivery-result" aria-live="polite">
-          {quoteError && <p className="product-delivery-error">{quoteError}</p>}
+          {quoteError && (
+            <div>
+              <p id={`shipping-error-${product.id}`} className="product-delivery-error">{quoteError}</p>
+              {!cepInvalid && <a href={whatsappLink(`Olá! Gostaria de confirmar o envio de ${product.name} para o CEP ${cep}.`)} target="_blank" rel="noopener noreferrer">Consultar envio com a Agô</a>}
+            </div>
+          )}
           {quotedOption && (
             <div>
               <strong>{quotedOption.price === 0 ? 'Frete grátis' : `Frete ${formatBRL(quotedOption.price)}`}</strong>
               {hasOnlineDeadline ? (
-                <span>Prazo estimado: {quotedOption.deadline} {typeof quotedOption.deadline === 'number' ? 'dias úteis' : ''}</span>
+                <span>Prazo estimado: {quotedOption.deadline} {/^\d+(?:\s*[–-]\s*\d+)?$/.test(String(quotedOption.deadline)) ? (Number(quotedOption.deadline) === 1 ? 'dia útil' : 'dias úteis') : ''}</span>
               ) : (
                 <>
                   <span>Prazo online ainda não disponível para este CEP.</span>

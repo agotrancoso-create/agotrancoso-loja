@@ -206,9 +206,6 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                 <dl className="product-premium-facts" aria-label="Informações da peça">
                   <div><dt>Medidas</dt><dd>{product.dimensions || <a href={whatsappLink(`Olá! Gostaria de confirmar as medidas de ${product.name}.`)} target="_blank" rel="noopener noreferrer" className="text-link">Consultar medidas</a>}</dd></div>
                   {isDecorativeMiniature && <div><dt>Uso</dt><dd>Para pendurar ou apoiar na decoração</dd></div>}
-                  <div><dt>Material</dt><dd>Cerâmica</dd></div>
-                  <div><dt>Disponibilidade</dt><dd>{product.available ? 'Disponível para compra' : 'Indisponível'}</dd></div>
-                  <div><dt>Entrega</dt><dd>Envio para todo o Brasil</dd></div>
                 </dl>
               </section>
 
