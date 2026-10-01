@@ -1,4 +1,13 @@
 /* Mapa da banca: utilidade local sem competir com a fotografia. */
+/* Contraste WCAG: mantém a paleta quente, mas torna textos pequenos legíveis. */
+.ago-banca-visit .eyebrow {
+  color: #f7e6c5 !important;
+}
+
+.ago-banca-visit-address small {
+  color: #f3dfc8 !important;
+}
+
 .ago-banca-map-panel {
   margin-top: clamp(28px, 4vw, 52px);
   display: grid;
@@ -22,7 +31,7 @@
 .ago-banca-map-copy h3 {
   margin: 4px 0 12px;
   max-width: 12ch;
-  color: #fffaf3;
+  color: #fffaf3 !important;
   font-family: var(--font-display), Georgia, serif;
   font-size: clamp(1.9rem, 2.8vw, 3.2rem);
   line-height: 1;
@@ -33,7 +42,7 @@
 .ago-banca-map-copy > p:not(.eyebrow) {
   max-width: 36ch;
   margin: 0 0 20px;
-  color: rgba(255, 250, 243, .76);
+  color: #f3dfc8 !important;
   font-size: .9rem;
   line-height: 1.65;
 }
