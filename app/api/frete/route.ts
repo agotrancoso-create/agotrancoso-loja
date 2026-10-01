@@ -1,11 +1,15 @@
 import { NextResponse } from 'next/server';
 import { calculateCartTotals } from '@/lib/products';
 import { getShippingPrice, shouldOfferFreeShipping, FIXED_SHIPPING_PRICE } from '@/lib/shipping';
-import { getShippingDeadlineQuote } from '@/lib/shipping-deadline';
+import { getShipFromCep, getShippingDeadlineProviderState, getShippingDeadlineQuote } from '@/lib/shipping-deadline';
 import type { CartItem } from '@/lib/types';
 
 function cleanCep(value: unknown) {
   return String(value ?? '').replace(/\D/g, '');
+}
+
+function formatCep(value: string) {
+  return value.length === 8 ? `${value.slice(0, 5)}-${value.slice(5)}` : value;
 }
 
 export async function POST(req: Request) {
@@ -44,6 +48,7 @@ export async function POST(req: Request) {
       provider: realDeadline?.provider ?? 'Agô Trancoso',
       fixedPrice: FIXED_SHIPPING_PRICE,
       destinationCep,
+      originCep: formatCep(getShipFromCep()),
     });
   } catch (error) {
     console.error('Frete calculation error:', error);
@@ -52,11 +57,15 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
+  const state = getShippingDeadlineProviderState();
   return NextResponse.json({
-    provider: process.env.FRENET_TOKEN && process.env.FRENET_SELLER_CEP ? 'Agô Trancoso + Frenet (prazo)' : 'Agô Trancoso',
+    provider: state.provider ? `Agô Trancoso + ${state.provider} (prazo)` : 'Agô Trancoso',
     fixedPrice: FIXED_SHIPPING_PRICE,
     freeShippingAbove: 500,
     configured: true,
-    deadlineConfigured: Boolean(process.env.FRENET_TOKEN && process.env.FRENET_SELLER_CEP),
+    deadlineConfigured: state.configured,
+    correiosConfigured: state.correiosConfigured,
+    frenetConfigured: state.frenetConfigured,
+    originCep: formatCep(state.originCep),
   });
 }
