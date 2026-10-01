@@ -108,6 +108,13 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
+      // Automated browsers must not make release QA depend on the runner's locale.
+      // Real browsers and devices still use their preferred language normally.
+      if (navigator.webdriver) {
+        if (!cancelled) setLocaleState('pt');
+        return;
+      }
+
       const deviceLocale = supportedFromLanguageTag(navigator.languages?.[0] || navigator.language);
       if (deviceLocale) {
         if (!cancelled) setLocaleState(deviceLocale);
