@@ -70,7 +70,17 @@ export const metadata: Metadata = {
     'Quadrado de Trancoso',
     'Bahia',
   ],
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large' } },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   openGraph: {
     title: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso',
     description: 'Cerâmica artesanal disponível na Agô Trancoso, com igrejinhas e peças inspiradas em um dos símbolos mais reconhecidos da vila.',
