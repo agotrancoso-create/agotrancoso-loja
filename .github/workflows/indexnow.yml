@@ -1,0 +1,49 @@
+name: Notify global search engines
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ago-indexnow-main
+  cancel-in-progress: true
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Wait until production serves this commit
+        shell: bash
+        run: |
+          expected="${GITHUB_SHA:0:12}"
+          for attempt in {1..60}; do
+            body=$(curl --fail --silent --show-error -H 'Cache-Control: no-cache' "https://www.agotrancoso.com.br/api/health?indexnow=${GITHUB_RUN_ID}-${attempt}" || true)
+            version=$(printf '%s' "$body" | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{process.stdout.write(JSON.parse(s).version||'')}catch{}})")
+            if [ "$version" = "$expected" ]; then
+              echo "Produção está servindo $version"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Produção não expôs o commit esperado $expected a tempo."
+          exit 1
+
+      - name: Verify IndexNow ownership key
+        shell: bash
+        run: |
+          expected='7c9f4d6a3e2b1c8f5a0d9e6b4c7f2a31'
+          actual=$(curl --fail --silent --show-error -H 'Cache-Control: no-cache' "https://www.agotrancoso.com.br/${expected}.txt?build=${GITHUB_RUN_ID}")
+          test "$(printf '%s' "$actual" | tr -d '\r\n')" = "$expected"
+
+      - name: Notify IndexNow participants
+        run: node scripts/submit-indexnow.mjs
