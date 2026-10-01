@@ -99,8 +99,8 @@ async function main() {
       naturalHeight: img.naturalHeight,
     })));
     assert.equal(bancaState.length, 2, `banca photo count differs at ${width}`);
-    assert.ok(bancaState.some(x => decodeURIComponent(x.src).includes('/complementar.jpg')), `real banca photo missing at ${width}`);
-    assert.ok(bancaState.some(x => decodeURIComponent(x.src).includes('/produtos/igreja-quadrado-p.jpg')), `luminaria photo missing at ${width}`);
+    assert.ok(bancaState.some(x => decodeURIComponent(x.src).includes('/banca-quadrado-noite.webp')), `chosen banca photo missing at ${width}`);
+    assert.ok(bancaState.some(x => decodeURIComponent(x.src).includes('/banca-igrejinhas-luminarias.webp')), `chosen luminaria photo missing at ${width}`);
     assert.equal(bancaState.some(x => decodeURIComponent(x.src).includes('/hero.jpg')), false, `hero photo must not repeat in banca at ${width}`);
     bancaState.forEach((image, index) => assert.ok(image.naturalWidth > 0 && image.naturalHeight > 0, `banca photo ${index + 1} failed at ${width}`));
 
