@@ -8,9 +8,6 @@ import { translateSiteText } from '@/lib/site-translations-extra';
 type LocaleContextValue = { locale: SiteLocale; setLocale: (locale: SiteLocale) => void };
 const LocaleContext = createContext<LocaleContextValue>({ locale: 'pt', setLocale: () => {} });
 
-const HERO_CURRENT_COPY = 'Igrejinhas, casinhas e lembranças do Quadrado.';
-const HERO_PREFERRED_COPY = 'Peças moldadas à mão, desde 2016 no Quadrado.';
-
 function supportedFromLanguageTag(tag: string | null | undefined): SiteLocale | null {
   if (!tag) return null;
   const normalized = tag.toLowerCase();
@@ -22,11 +19,6 @@ function supportedFromLanguageTag(tag: string | null | undefined): SiteLocale | 
 function countryFallback(country: string | null | undefined): SiteLocale {
   const code = String(country || '').toUpperCase();
   return ['BR', 'PT', 'AO', 'MZ', 'CV', 'GW', 'ST', 'TL'].includes(code) ? 'pt' : 'en';
-}
-
-function restorePreferredHeroCopy() {
-  const subtitle = document.querySelector<HTMLElement>('.ago-home-hero-2026 .ago-cinematic-copy > p:not(.eyebrow)');
-  if (subtitle?.textContent?.trim() === HERO_CURRENT_COPY) subtitle.textContent = HERO_PREFERRED_COPY;
 }
 
 function translateNode(root: ParentNode, locale: SiteLocale) {
@@ -59,22 +51,39 @@ function AutoTranslate({ locale }: { locale: SiteLocale }) {
   useEffect(() => {
     document.documentElement.lang = locale === 'en' ? 'en' : 'pt-BR';
     document.documentElement.dataset.agoLocale = locale;
-    restorePreferredHeroCopy();
     if (locale !== 'en') return;
-    translateNode(document.body, locale);
 
-    const observer = new MutationObserver((mutations) => {
-      restorePreferredHeroCopy();
-      for (const mutation of mutations) {
-        if (mutation.type === 'characterData' && mutation.target.parentNode) translateNode(mutation.target.parentNode as ParentNode, locale);
-        mutation.addedNodes.forEach((added) => {
-          if (added.nodeType === Node.TEXT_NODE && added.parentNode) translateNode(added.parentNode as ParentNode, locale);
-          if (added.nodeType === Node.ELEMENT_NODE) translateNode(added as Element, locale);
-        });
-      }
+    let observer: MutationObserver | null = null;
+    let firstFrame = 0;
+    let secondFrame = 0;
+    let timer = 0;
+
+    firstFrame = window.requestAnimationFrame(() => {
+      secondFrame = window.requestAnimationFrame(() => {
+        timer = window.setTimeout(() => {
+          translateNode(document.body, locale);
+          observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+              if (mutation.type === 'characterData' && mutation.target.parentNode) {
+                translateNode(mutation.target.parentNode as ParentNode, locale);
+              }
+              mutation.addedNodes.forEach((added) => {
+                if (added.nodeType === Node.TEXT_NODE && added.parentNode) translateNode(added.parentNode as ParentNode, locale);
+                if (added.nodeType === Node.ELEMENT_NODE) translateNode(added as Element, locale);
+              });
+            }
+          });
+          observer.observe(document.body, { subtree: true, childList: true, characterData: true });
+        }, 0);
+      });
     });
-    observer.observe(document.body, { subtree: true, childList: true, characterData: true });
-    return () => observer.disconnect();
+
+    return () => {
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+      window.clearTimeout(timer);
+      observer?.disconnect();
+    };
   }, [locale]);
   return null;
 }
@@ -108,8 +117,7 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      // Automated browsers must not make release QA depend on the runner's locale.
-      // Real browsers and devices still use their preferred language normally.
+      // Keep release automation deterministic; real devices still use their preferred language.
       if (navigator.webdriver) {
         if (!cancelled) setLocaleState('pt');
         return;
