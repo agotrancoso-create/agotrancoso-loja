@@ -245,12 +245,12 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
           </div>
         </div>
 
-        {pathname !== '/produtos' && <nav className="ago-category-bar" aria-label="Explorar coleção">
+        <nav className="ago-category-bar" aria-label="Explorar coleção">
           <div className="ago-container ago-category-bar-inner">
             <Link href="/produtos" className="ago-category-all">Ver tudo</Link>
             {categoryItems.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
           </div>
-        </nav>}
+        </nav>
 
         {menuOpen && (
           <div id="mobile-navigation" className="mobile-menu" ref={menuRef}>

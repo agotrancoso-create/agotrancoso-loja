@@ -328,9 +328,9 @@ export default function ProdutosClient({ products, categories, initialFilters }:
         ))}
       </div>
 
-      <details className="catalog-budget-control">
-        <summary className="catalog-budget-heading"><span id="catalog-budget-label">Faixa de preço</span><span className="catalog-budget-current">{budgetLabel(budget)}</span><span aria-hidden="true" className="catalog-budget-toggle">+</span></summary>
-        <div className="catalog-budget-options" role="group" aria-labelledby="catalog-budget-label">
+      <div className="catalog-budget-control" role="group" aria-labelledby="catalog-budget-label">
+        <span id="catalog-budget-label">Faixa de preço</span>
+        <div className="catalog-budget-options">
           <button type="button" aria-pressed={!budget} onClick={() => selectBudget('')}>Todos os valores</button>
           {budgetOptions.map(option => (
             <button type="button" key={option.value} aria-pressed={budget === option.value} onClick={() => selectBudget(option.value)}>
@@ -338,7 +338,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
             </button>
           ))}
         </div>
-      </details>
+      </div>
 
       <div className="catalog-results-meta" aria-live="polite">
         <span>{filtered.length} {filtered.length === 1 ? 'peça encontrada' : 'peças encontradas'}</span>
