@@ -78,24 +78,24 @@ jobs:
       - name: Visual refinement parity and rounded zoom QA
         env:
           QA_ARTIFACTS: /tmp/ago-qa
-        run: node scripts/qa-visual-refinement.cjs
+        run: node --require ./scripts/qa-force-pt.cjs scripts/qa-visual-refinement.cjs
 
       - name: Automatic PT/EN localization and responsive parity
         run: node scripts/qa-i18n.cjs
 
       - name: Exact Miniatura R$ 480 shipping UI contract
-        run: node scripts/qa-shipping-480.cjs
+        run: node --require ./scripts/qa-force-pt.cjs scripts/qa-shipping-480.cjs
 
       - name: GA4 ecommerce and CRO analytics contract
         env:
           QA_ARTIFACTS: /tmp/ago-qa
-        run: npm run qa:analytics
+        run: node --require ./scripts/qa-force-pt.cjs scripts/qa-analytics.cjs
 
       - name: WCAG automated audit
         env:
           AXE_PATH: node_modules/axe-core/axe.min.js
           QA_ARTIFACTS: /tmp/ago-qa
-        run: node scripts/qa-accessibility.cjs
+        run: node --require ./scripts/qa-force-pt.cjs scripts/qa-accessibility.cjs
 
       - name: Smoke test critical routes and Merchant feed
         shell: bash
