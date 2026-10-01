@@ -99,8 +99,9 @@ async function main() {
       naturalHeight: img.naturalHeight,
     })));
     assert.equal(bancaState.length, 2, `banca photo count differs at ${width}`);
-    assert.ok(bancaState.some(x => decodeURIComponent(x.src).includes('/hero.jpg')), `contextual banca photo missing at ${width}`);
-    assert.ok(bancaState.some(x => decodeURIComponent(x.src).includes('/complementar.jpg')), `luminaria/banca photo missing at ${width}`);
+    assert.ok(bancaState.some(x => decodeURIComponent(x.src).includes('/complementar.jpg')), `real banca photo missing at ${width}`);
+    assert.ok(bancaState.some(x => decodeURIComponent(x.src).includes('/produtos/igreja-quadrado-p.jpg')), `luminaria photo missing at ${width}`);
+    assert.equal(bancaState.some(x => decodeURIComponent(x.src).includes('/hero.jpg')), false, `hero photo must not repeat in banca at ${width}`);
     bancaState.forEach((image, index) => assert.ok(image.naturalWidth > 0 && image.naturalHeight > 0, `banca photo ${index + 1} failed at ${width}`));
 
     const state = await page.evaluate(() => {
@@ -126,7 +127,7 @@ async function main() {
         oldWordmark: document.querySelectorAll('.ago-bahia-wordmark').length,
         benefitIcons: document.querySelectorAll('.ago-benefit-line-icon svg').length,
         storyReasons: document.querySelectorAll('.ago-story-reasons a').length,
-        buyingSteps: document.querySelectorAll('#como-comprar ol > li').length,
+        howToBuySections: document.querySelectorAll('#como-comprar').length,
         mapFrames: document.querySelectorAll('.ago-banca-map-frame iframe').length,
         mapSrc: document.querySelector('.ago-banca-map-frame iframe')?.getAttribute('src') || '',
         visitBackground: visit ? getComputedStyle(visit).backgroundColor : '',
@@ -150,7 +151,7 @@ async function main() {
     assert.equal(state.oldWordmark, 0, `old Trancoso/Bahia wordmark returned at ${width}`);
     assert.equal(state.benefitIcons, 4, `benefit icons differ at ${width}`);
     assert.equal(state.storyReasons, 3, `purchase motives differ at ${width}`);
-    assert.equal(state.buyingSteps, 3, `buying steps differ at ${width}`);
+    assert.equal(state.howToBuySections, 0, `removed how-to-buy section returned at ${width}`);
     assert.equal(state.mapFrames, 1, `map missing or duplicated at ${width}`);
     assert.match(state.mapSrc, /output=embed/, `map embed URL wrong at ${width}`);
     assert.equal(state.visitBackgroundImage, 'none', `visit background must be solid at ${width}`);
@@ -231,6 +232,21 @@ async function main() {
     const height = width === 390 ? 844 : 1000;
     await page.setViewportSize({ width, height });
     await page.goto(base + '/produtos/colar-igreja-quadrado', { waitUntil: 'domcontentloaded' });
+    await page.locator('h1').first().waitFor();
+
+    const legacyProductBlocks = await page.evaluate(() => ({
+      share: document.querySelectorAll('.product-share').length,
+      whatsapp: document.querySelectorAll('.product-whatsapp').length,
+      questions: document.body.innerText.includes('Dúvidas sobre a compra'),
+      international: document.querySelectorAll('.product-international-note').length,
+      internationalText: document.body.innerText.includes('International shipping') || document.body.innerText.includes('Fora do Brasil?'),
+    }));
+    assert.equal(legacyProductBlocks.share, 0, `legacy share block returned at ${width}`);
+    assert.equal(legacyProductBlocks.whatsapp, 0, `legacy WhatsApp purchase block returned at ${width}`);
+    assert.equal(legacyProductBlocks.questions, false, `legacy purchase FAQ returned at ${width}`);
+    assert.equal(legacyProductBlocks.international, 0, `legacy international card returned at ${width}`);
+    assert.equal(legacyProductBlocks.internationalText, false, `legacy international copy returned at ${width}`);
+
     await page.getByRole('button', { name: /Ampliar foto de/ }).first().click();
     const dialog = page.locator('dialog[open]').first();
     await dialog.waitFor();
