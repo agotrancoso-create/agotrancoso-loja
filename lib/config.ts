@@ -12,7 +12,14 @@ export const INSTAGRAM_HANDLE = 'agotrancoso';
 export const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}`;
 export const SITE_DOMAIN = 'https://www.agotrancoso.com.br';
 export const SITE_DOMAIN_LABEL = 'www.agotrancoso.com.br';
+export const INTERNATIONAL_SHIPPING_PATH = '/envio-internacional';
 
 export function whatsappLink(message: string) {
+  const internationalCheckoutMessages = new Set([
+    'Olá! Gostaria de consultar um envio internacional.',
+    'Olá! Gostaria de consultar um envio internacional da Agô Trancoso.',
+  ]);
+
+  if (internationalCheckoutMessages.has(message.trim())) return INTERNATIONAL_SHIPPING_PATH;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
