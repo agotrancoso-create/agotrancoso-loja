@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "audit:catalog": "node scripts/audit-catalog.mjs",
     "qa:commerce": "node scripts/qa-commerce.cjs && node scripts/qa-payment-return.cjs && node scripts/qa-version-guard.cjs",
-    "qa:ui": "node scripts/qa-ui.cjs",
+    "qa:ui": "node scripts/qa-ui.cjs && node scripts/qa-i18n.cjs",
     "qa:analytics": "node scripts/qa-analytics.cjs",
     "verify:recovered": "node scripts/verify-recovered-features.cjs",
     "verify": "npm run typecheck && npm run audit:catalog && npm run verify:recovered && npm run build",
