@@ -124,7 +124,7 @@ async function main() {
         faqCount: document.querySelectorAll('.ago-home-faq').length,
         faqText: document.body.innerText.includes('Dúvidas rápidas.'),
         oldWordmark: document.querySelectorAll('.ago-bahia-wordmark').length,
-        benefitIcons: document.querySelectorAll('.ago-benefit-line-icon svg').length,
+        benefitIcons: [...document.querySelectorAll('.ago-benefit-art')].filter(node => getComputedStyle(node).backgroundImage !== 'none').length,
         storyReasons: document.querySelectorAll('.ago-story-reasons a').length,
         buyingSteps: document.querySelectorAll('#como-comprar ol > li').length,
         mapFrames: document.querySelectorAll('.ago-banca-map-frame iframe').length,
