@@ -1,8 +1,6 @@
 name: Deploy prebuilt production
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -12,6 +10,8 @@ concurrency:
   group: ago-prebuilt-production
   cancel-in-progress: false
 
+# Manual fallback only. Normal production deploys are handled by the
+# Vercel Git integration on pushes to main and verified by indexnow.yml.
 jobs:
   deploy:
     runs-on: ubuntu-latest
