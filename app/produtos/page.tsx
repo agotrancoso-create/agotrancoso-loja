@@ -21,9 +21,15 @@ export const metadata: Metadata = {
 export default async function ProdutosPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const params = await searchParams;
   const first = (value: string | string[] | undefined) => typeof value === 'string' ? value : value?.[0] || '';
-  const initialFilters = { query: first(params.busca), category: first(params.categoria) || 'todas', budget: first(params.ate) };
   const products = getAllProducts();
   const categories = getAllCategories();
+  const requestedCategory = first(params.categoria);
+  const initialFilters = {
+    query: first(params.busca),
+    category: categories.some(category => category.id === requestedCategory) ? requestedCategory : 'todas',
+    budget: first(params.ate),
+    sort: first(params.ordem),
+  };
 
   return (
     <div className="catalog-page">
@@ -31,9 +37,8 @@ export default async function ProdutosPage({ searchParams }: { searchParams: Pro
         <header className="catalog-intro">
           <div>
             <p className="eyebrow">Coleção Agô</p>
-            <h1>Peças para olhar, viver, presentear e guardar.</h1>
+            <h1>Cerâmica para viver e guardar.</h1>
           </div>
-          <p>O Quadrado é uma das referências da Agô. Encontre igrejinhas de Trancoso, objetos para casa, símbolos de fé e opções para presentear.</p>
         </header>
 
         <ProdutosClient products={products} categories={categories} initialFilters={initialFilters} />

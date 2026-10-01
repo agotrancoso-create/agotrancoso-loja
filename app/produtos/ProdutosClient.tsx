@@ -31,6 +31,10 @@ const sortOptions: Array<{ value: SortOption; label: string }> = [
   { value: 'name', label: 'Nome' },
 ];
 
+function readSort(value: string | null): SortOption {
+  return sortOptions.find(option => option.value === value)?.value ?? 'featured';
+}
+
 function normalize(value: string) {
   return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 }
@@ -61,11 +65,11 @@ function replaceCatalogUrl(params: URLSearchParams) {
   window.history.replaceState(window.history.state, '', href);
 }
 
-export default function ProdutosClient({ products, categories, initialFilters }: { products: Product[]; categories: Category[]; initialFilters: { query: string; category: string; budget: string } }) {
+export default function ProdutosClient({ products, categories, initialFilters }: { products: Product[]; categories: Category[]; initialFilters: { query: string; category: string; budget: string; sort: string } }) {
   const [query, setQuery] = useState(initialFilters.query);
   const [category, setCategory] = useState(initialFilters.category);
   const [budget, setBudget] = useState<BudgetFilter>(readBudget(initialFilters.budget));
-  const [sort, setSort] = useState<SortOption>('featured');
+  const [sort, setSort] = useState<SortOption>(readSort(initialFilters.sort));
   const [searchFocused, setSearchFocused] = useState(false);
   const sortButton = useRef<HTMLButtonElement>(null);
   const sortMenu = useRef<HTMLDivElement>(null);
@@ -79,12 +83,27 @@ export default function ProdutosClient({ products, categories, initialFilters }:
   const urlQuery = initialFilters.query;
   const urlCategory = initialFilters.category;
   const urlBudget = readBudget(initialFilters.budget);
+  const urlSort = readSort(initialFilters.sort);
 
   useEffect(() => {
     setQuery(urlQuery);
     setCategory(urlCategory);
     setBudget(urlBudget);
-  }, [urlQuery, urlCategory, urlBudget]);
+    setSort(urlSort);
+  }, [urlQuery, urlCategory, urlBudget, urlSort]);
+
+  useEffect(() => {
+    function restoreFilters() {
+      const params = new URLSearchParams(window.location.search);
+      const restoredCategory = params.get('categoria');
+      setQuery(params.get('busca') || '');
+      setCategory(categories.some(item => item.id === restoredCategory) ? restoredCategory! : 'todas');
+      setBudget(readBudget(params.get('ate')));
+      setSort(readSort(params.get('ordem')));
+    }
+    window.addEventListener('popstate', restoreFilters);
+    return () => window.removeEventListener('popstate', restoreFilters);
+  }, [categories]);
 
   const attentionProducts = useMemo(() => sortProductsByAttention(products), [products]);
 
@@ -101,7 +120,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
     if (sort === 'price-asc') return [...matches].sort((a, b) => productPrice(a) - productPrice(b));
     if (sort === 'price-desc') return [...matches].sort((a, b) => productPrice(b) - productPrice(a));
     if (sort === 'name') return [...matches].sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
-    return matches;
+    return normalizedQuery ? [...matches].sort((a, b) => productSearchScore(b, query) - productSearchScore(a, query)) : matches;
   }, [attentionProducts, query, category, sort, budget]);
 
   const selectedCategoryLabel = category === 'todas'
@@ -168,31 +187,34 @@ export default function ProdutosClient({ products, categories, initialFilters }:
   const selectedSortLabel = sortOptions.find((option) => option.value === sort)?.label ?? 'Destaques';
   const showSuggestions = searchFocused && Boolean(query.trim()) && suggestions.length > 0;
 
+  function updateUrl(next: { query?: string; category?: string; budget?: BudgetFilter; sort?: SortOption }) {
+    const filters = { query, category, budget, sort, ...next };
+    const params = new URLSearchParams(window.location.search);
+    for (const key of ['busca', 'categoria', 'ate', 'ordem']) params.delete(key);
+    if (filters.query.trim()) params.set('busca', filters.query.trim());
+    if (filters.category !== 'todas') params.set('categoria', filters.category);
+    if (filters.budget) params.set('ate', filters.budget);
+    if (filters.sort !== 'featured') params.set('ordem', filters.sort);
+    replaceCatalogUrl(params);
+  }
+
   function clearFilters() {
     setQuery('');
     setCategory('todas');
     setSort('featured');
     setBudget('');
-    replaceCatalogUrl(new URLSearchParams());
+    updateUrl({ query: '', category: 'todas', sort: 'featured', budget: '' });
   }
 
   function selectCategory(nextCategory: string) {
     setCategory(nextCategory);
-    const params = new URLSearchParams();
-    if (query.trim()) params.set('busca', query.trim());
-    if (nextCategory !== 'todas') params.set('categoria', nextCategory);
-    if (budget) params.set('ate', budget);
-    replaceCatalogUrl(params);
+    updateUrl({ category: nextCategory });
   }
 
   function selectBudget(value: string) {
     const nextBudget = readBudget(value);
     setBudget(nextBudget);
-    const params = new URLSearchParams();
-    if (query.trim()) params.set('busca', query.trim());
-    if (category !== 'todas') params.set('categoria', category);
-    if (nextBudget) params.set('ate', nextBudget);
-    replaceCatalogUrl(params);
+    updateUrl({ budget: nextBudget });
     const matchingCount = products.filter(product => product.available && matchesBudget(product, nextBudget) && (category === 'todas' || product.category === category) && productSearchScore(product, query)).length;
     trackCatalogFilter('faixa_preco', budgetLabel(nextBudget), matchingCount);
   }
@@ -214,9 +236,9 @@ export default function ProdutosClient({ products, categories, initialFilters }:
                 id="catalog-search"
                 type="search"
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => { setQuery(e.target.value); setSearchFocused(true); updateUrl({ query: e.target.value }); }}
                 onFocus={() => setSearchFocused(true)}
-                placeholder="Nome da peça"
+                placeholder="Igrejinha, luminária, presente…"
                 autoComplete="off"
                 aria-controls={showSuggestions ? 'catalog-search-suggestions' : undefined}
               />
@@ -285,6 +307,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
                   className="catalog-sort-option"
                   onClick={() => {
                     setSort(option.value);
+                    updateUrl({ sort: option.value });
                     setSortOpen(false);
                     sortButton.current?.focus();
                   }}
@@ -305,9 +328,9 @@ export default function ProdutosClient({ products, categories, initialFilters }:
         ))}
       </div>
 
-      <div className="catalog-budget-control" role="group" aria-labelledby="catalog-budget-label">
-        <span id="catalog-budget-label">Faixa de preço</span>
-        <div className="catalog-budget-options">
+      <details className="catalog-budget-control">
+        <summary className="catalog-budget-heading"><span id="catalog-budget-label">Faixa de preço</span><span className="catalog-budget-current">{budgetLabel(budget)}</span><span aria-hidden="true" className="catalog-budget-toggle">+</span></summary>
+        <div className="catalog-budget-options" role="group" aria-labelledby="catalog-budget-label">
           <button type="button" aria-pressed={!budget} onClick={() => selectBudget('')}>Todos os valores</button>
           {budgetOptions.map(option => (
             <button type="button" key={option.value} aria-pressed={budget === option.value} onClick={() => selectBudget(option.value)}>
@@ -315,7 +338,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
             </button>
           ))}
         </div>
-      </div>
+      </details>
 
       <div className="catalog-results-meta" aria-live="polite">
         <span>{filtered.length} {filtered.length === 1 ? 'peça encontrada' : 'peças encontradas'}</span>
@@ -326,7 +349,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
         <div className="catalog-empty">
           <p className="eyebrow">Nenhum resultado</p>
           <h2>Essa busca não encontrou uma peça.</h2>
-          <p>Tente outra inicial, outro nome ou volte para a coleção completa.</p>
+          <p>Tente outro nome ou amplie a faixa de preço. Você também pode explorar toda a coleção.</p>
           <button type="button" className="button button-dark" onClick={clearFilters}>Ver toda a coleção</button>
         </div>
       ) : (

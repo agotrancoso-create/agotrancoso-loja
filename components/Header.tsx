@@ -120,8 +120,6 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
 
   return (
     <>
-      <a className="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
-
       <div className="ago-topbar" role="region" aria-label="Informações comerciais">
         {firstPurchaseAvailable && <><span className="ago-topbar-offer">3% OFF na 1ª compra</span><i aria-hidden="true" /></>}
         <span>Frete grátis a partir de R$ 500 em produtos</span>
@@ -247,12 +245,12 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
           </div>
         </div>
 
-        <nav className="ago-category-bar" aria-label="Explorar coleção">
+        {pathname !== '/produtos' && <nav className="ago-category-bar" aria-label="Explorar coleção">
           <div className="ago-container ago-category-bar-inner">
             <Link href="/produtos" className="ago-category-all">Ver tudo</Link>
             {categoryItems.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
           </div>
-        </nav>
+        </nav>}
 
         {menuOpen && (
           <div id="mobile-navigation" className="mobile-menu" ref={menuRef}>
