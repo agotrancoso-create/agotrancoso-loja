@@ -7,8 +7,12 @@ function preferredLocale(request: NextRequest): 'pt' | 'en' {
   const saved = request.cookies.get(LOCALE_COOKIE)?.value;
   if (saved === 'pt' || saved === 'en') return saved;
 
-  const hostname = request.nextUrl.hostname;
-  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '0.0.0.0') return 'pt';
+  const requestHost = (request.headers.get('x-forwarded-host') || request.headers.get('host') || request.nextUrl.host)
+    .split(',')[0]
+    .trim()
+    .split(':')[0]
+    .toLowerCase();
+  if (requestHost === 'localhost' || requestHost === '127.0.0.1' || requestHost === '0.0.0.0') return 'pt';
 
   const accepted = request.headers.get('accept-language') ?? '';
   const ranked = accepted
