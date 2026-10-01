@@ -166,12 +166,12 @@ export default function HomePage() {
 
             <div className="ago-banca-visit-gallery" aria-label="Fotografias reais da banca e das peças da Agô no Quadrado de Trancoso">
               <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-banca-photo ago-banca-photo-wide" aria-label="Abrir a localização da banca no Google Maps">
-                <Image src="/complementar.jpg" alt="Peças da Agô expostas na banca do Quadrado de Trancoso" fill quality={100} sizes="(max-width: 760px) 92vw, 40vw" />
+                <Image src="/banca-quadrado-noite.webp" alt="Peças da Agô expostas na banca do Quadrado de Trancoso, com a Igreja do Quadrado ao fundo" fill quality={100} sizes="(max-width: 760px) 92vw, 40vw" />
                 <span>Na banca, no Quadrado <b aria-hidden="true">↗</b></span>
               </a>
               <Link href="/produtos/igrejinha-luminaria-trancoso" className="ago-banca-photo ago-banca-photo-tall">
-                <Image src="/produtos/igreja-quadrado-p.jpg" alt="Igrejinha luminária em cerâmica da Agô Trancoso" fill quality={100} sizes="(max-width: 760px) 72vw, 25vw" />
-                <span>Ver a igrejinha luminária <b aria-hidden="true">↗</b></span>
+                <Image src="/banca-igrejinhas-luminarias.webp" alt="Igrejinhas luminárias em cerâmica acesas na banca da Agô Trancoso" fill quality={100} sizes="(max-width: 760px) 72vw, 25vw" />
+                <span>Ver as igrejinhas luminárias <b aria-hidden="true">↗</b></span>
               </Link>
             </div>
           </div>
