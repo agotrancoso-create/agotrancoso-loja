@@ -26,6 +26,7 @@ export const metadata: Metadata = {
 };
 
 const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu';
+const mapsEmbedUrl = 'https://www.google.com/maps?q=-16.5895579,-39.0958675&z=17&output=embed';
 const whatsappUrl = 'https://wa.me/557398558124?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ag%C3%B4%20Trancoso.';
 const instagramUrl = 'https://www.instagram.com/agotrancoso';
 
@@ -210,43 +211,63 @@ export default function HomePage() {
       </section>
 
       <section id="banca" className="ago-banca-visit ago-immersive-reveal" aria-labelledby="visit-title">
-        <div className="ago-container ago-banca-visit-layout">
-          <div className="ago-banca-visit-copy">
-            <p className="eyebrow">Se estiver por perto</p>
-            <h2 id="visit-title">A gente está no Quadrado.</h2>
-            <p>Veja as peças de perto na nossa banca, no Quadrado de Trancoso. Para encontrar a Agô, abra a localização no mapa.</p>
-            <div className="ago-banca-visit-address" aria-label="Localização da Agô">
-              <span aria-hidden="true">⌖</span>
-              <div><strong>Quadrado de Trancoso</strong><small>Porto Seguro · Bahia</small></div>
+        <div className="ago-container">
+          <div className="ago-banca-visit-layout">
+            <div className="ago-banca-visit-copy">
+              <p className="eyebrow">Se estiver por perto</p>
+              <h2 id="visit-title">A gente está no Quadrado.</h2>
+              <p>Veja as peças de perto na nossa banca, no Quadrado de Trancoso.</p>
+              <div className="ago-banca-visit-address" aria-label="Localização da Agô">
+                <span aria-hidden="true">⌖</span>
+                <div><strong>Quadrado de Trancoso</strong><small>Porto Seguro · Bahia</small></div>
+              </div>
+              <div className="ago-banca-visit-actions">
+                <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-premium-light-cta">Como chegar</a>
+                <a href={whatsappUrl} target="_blank" rel="noreferrer" className="ago-premium-text-link">WhatsApp <span aria-hidden="true">↗</span></a>
+                <a href={instagramUrl} target="_blank" rel="noreferrer" className="ago-premium-text-link">Instagram <span aria-hidden="true">↗</span></a>
+              </div>
             </div>
-            <div className="ago-banca-visit-actions">
-              <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-premium-light-cta">Como chegar</a>
-              <a href={whatsappUrl} target="_blank" rel="noreferrer" className="ago-premium-text-link">WhatsApp <span aria-hidden="true">↗</span></a>
-              <a href={instagramUrl} target="_blank" rel="noreferrer" className="ago-premium-text-link">Instagram <span aria-hidden="true">↗</span></a>
+
+            <div className="ago-banca-visit-gallery" aria-label="Fotografias reais da banca e das peças da Agô no Quadrado de Trancoso">
+              <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-banca-photo ago-banca-photo-wide" aria-label="Abrir a localização da banca no Google Maps">
+                <Image
+                  src="/hero.jpg"
+                  alt="Peças da Agô expostas no Quadrado de Trancoso"
+                  fill
+                  quality={100}
+                  sizes="(max-width: 760px) 92vw, 40vw"
+                />
+                <span>Na banca, no Quadrado <b aria-hidden="true">↗</b></span>
+              </a>
+              <Link href="/igrejinha-de-trancoso" className="ago-banca-photo ago-banca-photo-tall">
+                <Image
+                  src="/complementar.jpg"
+                  alt="Igrejinha luminária e peças em cerâmica na banca da Agô"
+                  fill
+                  quality={100}
+                  sizes="(max-width: 760px) 72vw, 25vw"
+                />
+                <span>Ver as igrejinhas <b aria-hidden="true">↗</b></span>
+              </Link>
             </div>
           </div>
 
-          <div className="ago-banca-visit-gallery" aria-label="Fotografias reais da banca e das peças da Agô no Quadrado de Trancoso">
-            <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-banca-photo ago-banca-photo-wide" aria-label="Abrir a localização da banca no Google Maps">
-              <Image
-                src="/hero.jpg"
-                alt="Peças da Agô expostas no Quadrado de Trancoso"
-                fill
-                quality={100}
-                sizes="(max-width: 760px) 92vw, 40vw"
+          <div className="ago-banca-map-panel" aria-labelledby="banca-map-title">
+            <div className="ago-banca-map-copy">
+              <p className="eyebrow">Como chegar</p>
+              <h3 id="banca-map-title">Agô no Quadrado de Trancoso.</h3>
+              <p>Use o mapa para localizar a banca e abrir a rota no Google Maps.</p>
+              <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-premium-light-cta">Abrir no Google Maps</a>
+            </div>
+            <div className="ago-banca-map-frame">
+              <iframe
+                src={mapsEmbedUrl}
+                title="Mapa da Agô Trancoso no Quadrado"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
               />
-              <span>Na banca, no Quadrado <b aria-hidden="true">↗</b></span>
-            </a>
-            <Link href="/igrejinha-de-trancoso" className="ago-banca-photo ago-banca-photo-tall">
-              <Image
-                src="/complementar.jpg"
-                alt="Igrejinha luminária e peças em cerâmica na banca da Agô"
-                fill
-                quality={100}
-                sizes="(max-width: 760px) 72vw, 25vw"
-              />
-              <span>Ver as igrejinhas <b aria-hidden="true">↗</b></span>
-            </Link>
+            </div>
           </div>
         </div>
       </section>
