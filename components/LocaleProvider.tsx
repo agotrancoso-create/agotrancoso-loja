@@ -95,6 +95,8 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
       }
 
       if (pathname === '/en' || pathname.startsWith('/en/')) {
+        localStorage.setItem(SITE_LOCALE_STORAGE_KEY, 'en');
+        document.cookie = 'ago_locale=en; Path=/; Max-Age=31536000; SameSite=Lax';
         if (!cancelled) setLocaleState('en');
         return;
       }
