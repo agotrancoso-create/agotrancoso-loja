@@ -54,6 +54,22 @@ async function run() {
     results.routes.push(`${label}@${width}`);
   }
 
+  async function visibleCatalogCardCount() {
+    return page.locator('.catalog-grid article:visible').count();
+  }
+
+  async function waitForVisibleCatalogCards(expected) {
+    await page.waitForFunction(expectedCount => {
+      const cards = [...document.querySelectorAll('.catalog-grid article')];
+      const visible = cards.filter(card => {
+        const style = getComputedStyle(card);
+        const rect = card.getBoundingClientRect();
+        return style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) > 0 && rect.width > 0 && rect.height > 0;
+      });
+      return visible.length === expectedCount;
+    }, expected, { timeout: 10000 });
+  }
+
   // Mobile e desktop são superfícies de release diferentes, mas mantêm a mesma identidade.
   for (const width of widths) {
     const height = width < 600 ? 844 : 1000;
@@ -87,22 +103,28 @@ async function run() {
         const priceButton = budgets.getByRole('button', {name:'Até R$ 150', exact:true});
         await priceButton.click();
         await page.getByText('3 peças encontradas', {exact:true}).waitFor();
+        await waitForVisibleCatalogCards(3);
         assert.equal(await priceButton.getAttribute('aria-pressed'), 'true');
-        assert.equal(await page.locator('.catalog-grid article').count(), 3);
+        assert.equal(await visibleCatalogCardCount(), 3);
+
         await page.getByRole('group', {name:'Filtrar por categoria'}).getByRole('button', {name:'Decoração', exact:true}).click();
         await page.getByText('1 peça encontrada', {exact:true}).waitFor();
+        await waitForVisibleCatalogCards(1);
         await page.getByRole('button', {name:'Limpar filtros', exact:true}).click();
         await page.getByText('19 peças encontradas', {exact:true}).waitFor();
+        await waitForVisibleCatalogCards(19);
         assert.equal(await budgets.getByRole('button', {name:'Todos os valores'}).getAttribute('aria-pressed'), 'true');
 
         const premiumButton = budgets.getByRole('button', {name:'Acima de R$ 3.000', exact:true});
         await premiumButton.click();
         await page.getByText('1 peça encontrada', {exact:true}).waitFor();
+        await waitForVisibleCatalogCards(1);
         assert.equal(await premiumButton.getAttribute('aria-pressed'), 'true');
-        assert.equal(await page.locator('.catalog-grid article').count(), 1);
-        assert.equal(await page.locator('.catalog-grid article').first().getAttribute('data-product-id'), 'igreja-quadrado-gg');
+        assert.equal(await visibleCatalogCardCount(), 1);
+        assert.equal(await page.locator('.catalog-grid article:visible').first().getAttribute('data-product-id'), 'igreja-quadrado-gg');
         await page.getByRole('button', {name:'Limpar filtros', exact:true}).click();
         await page.getByText('19 peças encontradas', {exact:true}).waitFor();
+        await waitForVisibleCatalogCards(19);
         await assertNoOverflow('catalog price filters', width);
       }
       if (route.includes('colar-igreja-quadrado')) {
@@ -168,33 +190,34 @@ async function run() {
   await page.getByRole('button', { name: 'Ver toda a coleção' }).first().click();
   for (const category of require('../data/products.json').categories) {
     await page.getByRole('button', { name: category.name, exact: true }).first().click();
-    assert.ok(await page.locator('.catalog-grid .product-card').count() > 0, `Empty category: ${category.id}`);
+    assert.ok(await page.locator('.catalog-grid .product-card:visible').count() > 0, `Empty category: ${category.id}`);
   }
   await page.getByRole('button', { name: 'Todas', exact: true }).first().click();
   const sort = page.getByRole('button', { name: /Ordenar por:/ }).first();
   await sort.click();
   await page.getByRole('option', { name: 'Maior preço', exact: true }).first().click();
   const mostExpensive = products.reduce((a, b) => (a.price > b.price ? a : b)).id;
-  assert.equal(await page.locator('.catalog-grid .product-card').first().getAttribute('data-product-id'), mostExpensive);
+  assert.equal(await page.locator('.catalog-grid .product-card:visible').first().getAttribute('data-product-id'), mostExpensive);
   await sort.click();
   await page.getByRole('option', { name: 'Menor preço', exact: true }).first().click();
   const cheapest = products.reduce((a, b) => (a.price < b.price ? a : b)).id;
-  assert.equal(await page.locator('.catalog-grid .product-card').first().getAttribute('data-product-id'), cheapest);
+  assert.equal(await page.locator('.catalog-grid .product-card:visible').first().getAttribute('data-product-id'), cheapest);
   assert.equal(new URL(page.url()).searchParams.get('ordem'), 'price-asc');
   await search.fill('luminária');
   await search.press('Escape');
   assert.equal(new URL(page.url()).searchParams.get('busca'), 'luminária');
-  const filteredIds = await page.locator('.catalog-grid .product-card').evaluateAll(cards => cards.map(card => card.dataset.productId));
+  const filteredIds = await page.locator('.catalog-grid .product-card:visible').evaluateAll(cards => cards.map(card => card.dataset.productId));
   assert.ok(filteredIds.length > 0);
   await page.reload({waitUntil:'domcontentloaded'});
-  await page.locator('.catalog-grid .product-card').first().waitFor();
+  await page.locator('.catalog-grid .product-card:visible').first().waitFor();
   assert.equal(await search.inputValue(), 'luminária');
   assert.equal(await sort.getAttribute('aria-label'), 'Ordenar por: Menor preço');
-  assert.deepEqual(await page.locator('.catalog-grid .product-card').evaluateAll(cards => cards.map(card => card.dataset.productId)), filteredIds);
+  assert.deepEqual(await page.locator('.catalog-grid .product-card:visible').evaluateAll(cards => cards.map(card => card.dataset.productId)), filteredIds);
   await page.getByRole('button', {name:'Limpar filtros', exact:true}).click();
   assert.equal(new URL(page.url()).search, '');
   await visit('/produtos?categoria=inexistente&ordem=invalida');
-  assert.equal(await page.locator('.catalog-grid .product-card').count(), products.filter(product => product.available).length);
+  await waitForVisibleCatalogCards(products.filter(product => product.available).length);
+  assert.equal(await visibleCatalogCardCount(), products.filter(product => product.available).length);
   results.interactions.push('Catalog search and sorting survive reload; invalid category and sort recover to the full collection');
   results.interactions.push('Predictive search, complete price ranges, no-results recovery, every category and sorting verified');
 
