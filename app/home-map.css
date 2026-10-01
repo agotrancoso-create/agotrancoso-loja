@@ -10,6 +10,11 @@
   color: #f3dfc8 !important;
 }
 
+/* As duas fotografias escolhidas têm composição vertical. Mantemos a proporção
+   próxima do arquivo real para não sacrificar a igreja, as peças ou a luz. */
+.ago-banca-photo-wide { aspect-ratio: 4 / 5; }
+.ago-banca-photo-tall { aspect-ratio: 3 / 4; }
+
 .ago-banca-map-panel {
   margin-top: clamp(28px, 4vw, 52px);
   display: grid;
