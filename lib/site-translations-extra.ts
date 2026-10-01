@@ -1,6 +1,7 @@
 import { translateExactText, type SiteLocale } from './site-translations';
 
 const EXTRA_EN_TEXT: Record<string, string> = {
+  'Peças moldadas à mão, desde 2016 no Quadrado.': 'Hand-shaped ceramic pieces, at the Square since 2016.',
   'Peça indisponível no momento': 'Piece currently unavailable',
   'Quantidade': 'Quantity',
   'Diminuir quantidade': 'Decrease quantity',
