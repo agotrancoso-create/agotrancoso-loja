@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { SITE_LOCALE_STORAGE_KEY, type SiteLocale, translateExactText } from '@/lib/site-translations';
 
 type LocaleContextValue = {
@@ -79,7 +79,6 @@ function AutoTranslate({ locale }: { locale: SiteLocale }) {
 
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const router = useRouter();
   const [locale, setLocaleState] = useState<SiteLocale>('pt');
 
@@ -87,7 +86,7 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
     let cancelled = false;
 
     async function detect() {
-      const queryLocale = searchParams.get('lang');
+      const queryLocale = new URLSearchParams(window.location.search).get('lang');
       if (queryLocale === 'pt' || queryLocale === 'en') {
         localStorage.setItem(SITE_LOCALE_STORAGE_KEY, queryLocale);
         document.cookie = `ago_locale=${queryLocale}; Path=/; Max-Age=31536000; SameSite=Lax`;
@@ -123,7 +122,7 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
 
     detect();
     return () => { cancelled = true; };
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   const setLocale = useCallback((next: SiteLocale) => {
     localStorage.setItem(SITE_LOCALE_STORAGE_KEY, next);
