@@ -12,7 +12,7 @@ import buyStyles from './home-how-to-buy.module.css';
 export const metadata: Metadata = {
   title: { absolute: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso' },
   description: 'Igrejinhas de Trancoso em cerâmica, peças inspiradas na Igreja do Quadrado e uma seleção de artesanato em cerâmica disponível na Agô, no Quadrado de Trancoso, Bahia.',
-  alternates: { canonical: '/' },
+  alternates: { canonical: '/', languages: { 'pt-BR': '/', en: '/en' } },
   openGraph: {
     images: [{ url: '/hero.jpg', alt: 'Peças de cerâmica da Agô no Quadrado de Trancoso' }],
   },
@@ -89,7 +89,7 @@ export default function HomePage() {
         <div className="ago-container ago-cinematic-copy">
           <p className="eyebrow">Quadrado de Trancoso · Bahia</p>
           <h1 id="featured-title">Trancoso em cerâmica.</h1>
-          <p>Peças moldadas à mão, desde 2016 no Quadrado.</p>
+          <p>Igrejinhas, casinhas e lembranças do Quadrado.</p>
           <div className="home-hero-actions">
             <a href="#pecas-em-destaque" className="ago-premium-hero-cta">Ver peças</a>
             <Link href="/igrejinha-de-trancoso" className="ago-cinematic-secondary">Igrejinhas de Trancoso <span aria-hidden="true">↗</span></Link>

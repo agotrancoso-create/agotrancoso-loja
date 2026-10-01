@@ -73,26 +73,29 @@ jobs:
         env:
           QA_WIDTHS: 320,390,820,1440,1920
           QA_ARTIFACTS: /tmp/ago-qa
-        run: npm run qa:ui
+        run: node --require ./scripts/qa-force-pt.cjs scripts/qa-ui.cjs
 
       - name: Visual refinement parity and rounded zoom QA
         env:
           QA_ARTIFACTS: /tmp/ago-qa
-        run: node scripts/qa-visual-refinement.cjs
+        run: node --require ./scripts/qa-force-pt.cjs scripts/qa-visual-refinement.cjs
+
+      - name: Automatic PT/EN localization and responsive parity
+        run: node scripts/qa-i18n.cjs
 
       - name: Exact Miniatura R$ 480 shipping UI contract
-        run: node scripts/qa-shipping-480.cjs
+        run: node --require ./scripts/qa-force-pt.cjs scripts/qa-shipping-480.cjs
 
       - name: GA4 ecommerce and CRO analytics contract
         env:
           QA_ARTIFACTS: /tmp/ago-qa
-        run: npm run qa:analytics
+        run: node --require ./scripts/qa-force-pt.cjs scripts/qa-analytics.cjs
 
       - name: WCAG automated audit
         env:
           AXE_PATH: node_modules/axe-core/axe.min.js
           QA_ARTIFACTS: /tmp/ago-qa
-        run: node scripts/qa-accessibility.cjs
+        run: node --require ./scripts/qa-force-pt.cjs scripts/qa-accessibility.cjs
 
       - name: Smoke test critical routes and Merchant feed
         shell: bash
@@ -116,10 +119,13 @@ jobs:
             exit 1
           fi
 
-          for path in / /trancoso /artesanato-em-trancoso /lembrancas-de-trancoso /igrejinha-de-trancoso /produtos /produtos/igreja-quadrado-p /produtos/miniatura-quadrado-trancoso /checkout /contato /nossa-essencia /google-merchant.xml /robots.txt /sitemap.xml /image-sitemap.xml /manifest.webmanifest; do
+          for path in / /en /api/locale /trancoso /artesanato-em-trancoso /lembrancas-de-trancoso /igrejinha-de-trancoso /produtos /produtos/igreja-quadrado-p /produtos/miniatura-quadrado-trancoso /checkout /contato /nossa-essencia /google-merchant.xml /robots.txt /sitemap.xml /image-sitemap.xml /manifest.webmanifest; do
             echo "Checking $path"
             curl --fail --silent --show-error --output /dev/null "http://127.0.0.1:3000$path"
           done
+
+          sitemap_xml=$(curl --fail --silent --show-error http://127.0.0.1:3000/sitemap.xml)
+          grep -q '<loc>https://www.agotrancoso.com.br/en</loc>' <<< "$sitemap_xml"
 
           merchant_xml=$(curl --fail --silent --show-error http://127.0.0.1:3000/google-merchant.xml)
           item_count=$(printf '%s' "$merchant_xml" | grep -o '<item>' | wc -l | tr -d ' ')

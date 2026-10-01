@@ -8,6 +8,7 @@ import { useCart } from '@/context/CartContext';
 import { getAvailableProducts, getEffectivePrice } from '@/lib/products';
 import { getAttentionCoverImage } from '@/lib/merchandising';
 import CartIcon from './CartIcon';
+import LanguageSwitcher from './LanguageSwitcher';
 import { productSearchScore } from '@/lib/product-search';
 
 const navItems = [
@@ -216,6 +217,8 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
                 </div>
               )}
             </div>
+
+            <LanguageSwitcher />
 
             <button
               type="button"

@@ -32,6 +32,7 @@ import WebVitalsReporter from '@/components/WebVitalsReporter';
 import ConsentManager from '@/components/ConsentManager';
 import ImmersiveMotion from '@/components/ImmersiveMotion';
 import CepAddressAutofill from '@/components/CepAddressAutofill';
+import { LocaleProvider } from '@/components/LocaleProvider';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -58,6 +59,12 @@ export const metadata: Metadata = {
     template: '%s | Agô Trancoso',
   },
   description: 'Igrejinhas de Trancoso em cerâmica, peças inspiradas na Igreja do Quadrado e uma seleção de artesanato em cerâmica disponível na Agô, no Quadrado de Trancoso, Bahia.',
+  alternates: {
+    languages: {
+      'pt-BR': '/',
+      en: '/en',
+    },
+  },
   keywords: [
     'Agô Trancoso',
     'igrejinha de Trancoso',
@@ -138,7 +145,7 @@ const structuredData = {
       '@id': `${SITE_DOMAIN}#website`,
       name: 'Agô Trancoso',
       url: SITE_DOMAIN,
-      inLanguage: 'pt-BR',
+      inLanguage: ['pt-BR', 'en'],
       publisher: { '@id': `${SITE_DOMAIN}#organization` },
       potentialAction: {
         '@type': 'SearchAction',
@@ -171,7 +178,6 @@ const versionGuardScript = `
 
   async function checkVersion() {
     if (checking || reloading || document.visibilityState === 'hidden') return;
-    // Never interrupt a purchase or discard an unfinished form after a deploy.
     if (/^\\/(checkout|confirmacao)(\\/|$)/.test(window.location.pathname)) return;
     var focused = document.activeElement;
     if (focused && (focused.matches('input, textarea, select') || focused.isContentEditable)) return;
@@ -210,23 +216,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`} data-build-version={buildVersion || undefined}>
       <body>
-        <a href="#conteudo-principal" className="ago-skip-link">Ir para o conteúdo</a>
-        <MarketingAnalytics />
-        <KlaviyoOnsite />
-        <WebVitalsReporter />
-        <ImmersiveMotion />
-        <CepAddressAutofill />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-        <CartProvider>
-          <Header firstPurchaseAvailable={firstPurchaseAvailable} />
-          <main id="conteudo-principal" className="min-h-[60vh]" tabIndex={-1}>{children}</main>
-          <Footer />
-          <CartDrawer />
-          <SocialFloaters />
-          {firstPurchaseAvailable && <FirstPurchaseOffer />}
-        </CartProvider>
-        <ConsentManager />
-        <script id="ago-version-guard" dangerouslySetInnerHTML={{ __html: versionGuardScript }} />
+        <LocaleProvider>
+          <a href="#conteudo-principal" className="ago-skip-link">Ir para o conteúdo</a>
+          <MarketingAnalytics />
+          <KlaviyoOnsite />
+          <WebVitalsReporter />
+          <ImmersiveMotion />
+          <CepAddressAutofill />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+          <CartProvider>
+            <Header firstPurchaseAvailable={firstPurchaseAvailable} />
+            <main id="conteudo-principal" className="min-h-[60vh]" tabIndex={-1}>{children}</main>
+            <Footer />
+            <CartDrawer />
+            <SocialFloaters />
+            {firstPurchaseAvailable && <FirstPurchaseOffer />}
+          </CartProvider>
+          <ConsentManager />
+          <script id="ago-version-guard" dangerouslySetInnerHTML={{ __html: versionGuardScript }} />
+        </LocaleProvider>
       </body>
     </html>
   );
