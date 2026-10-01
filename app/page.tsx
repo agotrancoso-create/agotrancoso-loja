@@ -78,7 +78,7 @@ export default function HomePage() {
 
   return (
     <div className="ago-home ago-premium-home ago-home-calm">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\u003c') }} />
 
       <section className="ago-cinematic-commerce ago-home-hero-2026" aria-labelledby="featured-title">
         <div className="ago-cinematic-media" aria-hidden="true">
@@ -89,7 +89,7 @@ export default function HomePage() {
         <div className="ago-container ago-cinematic-copy">
           <p className="eyebrow">Quadrado de Trancoso · Bahia</p>
           <h1 id="featured-title">Trancoso em cerâmica.</h1>
-          <p>Igrejinhas, casinhas e lembranças do Quadrado.</p>
+          <p>Peças moldadas à mão, desde 2016 no Quadrado.</p>
           <div className="home-hero-actions">
             <a href="#pecas-em-destaque" className="ago-premium-hero-cta">Ver peças</a>
             <Link href="/igrejinha-de-trancoso" className="ago-cinematic-secondary">Igrejinhas de Trancoso <span aria-hidden="true">↗</span></Link>
