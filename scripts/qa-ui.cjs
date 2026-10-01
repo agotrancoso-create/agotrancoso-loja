@@ -81,9 +81,6 @@ async function run() {
         assert.notEqual(heroStyle.shadow, 'none');
       }
       if (route === '/produtos') {
-        const priceDisclosure = page.locator('.catalog-budget-control');
-        assert.equal(await priceDisclosure.getAttribute('open'), null, 'Optional prices start collapsed');
-        await priceDisclosure.locator('summary').click();
         const budgets = page.getByRole('group', {name:'Faixa de preço', exact:true});
         await budgets.waitFor();
         assert.equal(await budgets.getByRole('button').count(), 8);

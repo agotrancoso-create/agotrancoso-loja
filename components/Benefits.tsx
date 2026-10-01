@@ -7,10 +7,10 @@ const benefits = [
 ] as const;
 
 const details = [
-  ['Conheça a Agô e o que inspira nossa escolha de objetos.', '/nossa-essencia', 'Conhecer a Agô'],
-  ['Veja o acervo completo, dos menores presentes às esculturas.', '/produtos', 'Explorar coleção'],
-  ['Veja as formas e cores que lembram o Quadrado.', '/produtos?categoria=trancoso', 'Ver Trancoso'],
-  ['Para entregas fora do Brasil, fale com a gente antes de comprar.', '/contato', 'Consultar envio'],
+  ['Conheça a Agô.', '/nossa-essencia', 'Conhecer a Agô'],
+  ['Explore a coleção.', '/produtos', 'Explorar coleção'],
+  ['Conheça as peças de Trancoso.', '/produtos?categoria=trancoso', 'Ver Trancoso'],
+  ['Consulte o envio antes de comprar.', '/contato', 'Consultar envio'],
 ] as const;
 
 const artwork = { width: 2048, height: 690, cropWidth: 280, cropHeight: 240, top: 140 };
@@ -28,10 +28,10 @@ export default function Benefits() {
                 <div className="ago-benefit-symbol" aria-hidden="true">
                   <div className="ago-benefit-art" style={{ backgroundSize: `${artwork.width / artwork.cropWidth * 100}% ${artwork.height / artwork.cropHeight * 100}%`, backgroundPosition: `${iconLeft[index] / (artwork.width - artwork.cropWidth) * 100}% ${artwork.top / (artwork.height - artwork.cropHeight) * 100}%` }} />
                 </div>
-                <div className="ago-benefit-copy"><h3>{title}</h3></div>
-                <span className="ago-benefit-more" aria-hidden="true">+</span>
+                <div className="ago-benefit-copy"><h3>{title}</h3><p>{text}</p></div>
+                <span className="ago-benefit-more">Saiba mais</span>
               </summary>
-              <p className="ago-benefit-detail">{text}<br /><Link href={details[index][1]}>{details[index][2]}</Link></p>
+              <p className="ago-benefit-detail">{details[index][0]}<br /><Link href={details[index][1]}>{details[index][2]}</Link></p>
             </details>
           ))}
         </div>

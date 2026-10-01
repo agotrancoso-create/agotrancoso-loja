@@ -4,7 +4,7 @@ import Image from '@/components/ProductImage';
 import ProductCard from '@/components/ProductCard';
 import { getAvailableProducts } from '@/lib/products';
 import { sortProductsByAttention } from '@/lib/merchandising';
-import { SITE_DOMAIN } from '@/lib/config';
+import { SITE_DOMAIN, whatsappLink } from '@/lib/config';
 import ResumeCart from '@/components/ResumeCart';
 import Benefits from '@/components/Benefits';
 
@@ -15,6 +15,8 @@ export const metadata: Metadata = {
 };
 
 const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu';
+const whatsappUrl = whatsappLink('Olá! Vim pelo site da Agô Trancoso.');
+const instagramUrl = 'https://www.instagram.com/agotrancoso';
 
 const discovery = [
   { title: 'Trancoso', category: 'trancoso', href: '/artesanato-em-trancoso', image: '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg' },
@@ -26,7 +28,7 @@ const discovery = [
 const faqItems = [
   {
     question: 'Onde comprar cerâmica artesanal em Trancoso?',
-    answer: 'A Agô está no Quadrado de Trancoso desde 2016. Você pode conhecer as peças na banca ou comprar diretamente pelo site.',
+    answer: 'No Quadrado de Trancoso ou aqui pelo site.',
   },
   {
     question: 'Vocês enviam as peças para todo o Brasil?',
@@ -34,7 +36,7 @@ const faqItems = [
   },
   {
     question: 'Quais peças mais lembram Trancoso?',
-    answer: 'As igrejinhas, a miniatura do Quadrado, os ímãs e outras peças inspiradas nas formas e símbolos de Trancoso são as escolhas mais ligadas ao lugar.',
+    answer: 'Igrejinhas, miniaturas do Quadrado e ímãs inspirados em Trancoso.',
   },
 ] as const;
 
@@ -97,6 +99,7 @@ export default function HomePage() {
           <p>Peças para levar um pouco daqui.</p>
           <div className="home-hero-actions">
             <a href="#pecas-em-destaque" className="ago-premium-hero-cta">Ver peças</a>
+            <Link href="/igrejinha-de-trancoso" className="ago-cinematic-secondary">Igrejinhas de Trancoso <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
 
@@ -127,6 +130,7 @@ export default function HomePage() {
             <svg className="ago-sertao-sun" viewBox="0 0 100 52" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true" focusable="false">
               <path d="M6 44h88M29 44a21 21 0 0 1 42 0M50 4v9M22 14l6 7M78 14l-6 7M7 30l9 3M93 30l-9 3" />
             </svg>
+            <p className="eyebrow">No Quadrado</p>
             <h2 id="story-title">Desde 2016, em Trancoso.</h2>
             <p>Cerâmica inspirada nas formas, cores e símbolos do lugar.</p>
             <Link href="/nossa-essencia" className="ago-premium-text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
@@ -138,8 +142,10 @@ export default function HomePage() {
         <div className="ago-container">
           <div className="ago-premium-section-head">
             <div>
+              <p className="eyebrow">A coleção</p>
               <h2 id="discover-title">Escolha por categoria.</h2>
             </div>
+            <Link href="/produtos" className="ago-premium-text-link">Ver todas as peças <span aria-hidden="true">↗</span></Link>
           </div>
 
           <div className="ago-premium-discovery-grid">
@@ -158,6 +164,7 @@ export default function HomePage() {
       <section className="ago-home-faq ago-immersive-reveal" aria-labelledby="faq-title">
         <div className="ago-container ago-home-faq-grid">
           <div className="ago-home-faq-intro">
+            <p className="eyebrow">Para escolher com calma</p>
             <h2 id="faq-title">Dúvidas rápidas.</h2>
           </div>
           <div className="ago-home-faq-list">
@@ -174,10 +181,13 @@ export default function HomePage() {
       <section className="ago-bahia-visit ago-immersive-reveal" aria-labelledby="visit-title">
         <div className="ago-container">
           <div>
+            <p className="eyebrow">Se estiver por perto</p>
             <h2 id="visit-title">A gente está no Quadrado.</h2>
             <p>Passe para ver as peças de perto.</p>
             <div className="ago-bahia-visit-links">
               <a href={mapsUrl} target="_blank" rel="noreferrer">Como chegar <span aria-hidden="true">↗</span></a>
+              <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp <span aria-hidden="true">↗</span></a>
+              <a href={instagramUrl} target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
             </div>
           </div>
 
