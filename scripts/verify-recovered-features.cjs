@@ -5,6 +5,7 @@ const merch = fs.readFileSync('lib/merchandising.ts','utf8');
 const shipping = fs.readFileSync('lib/shipping.ts','utf8');
 const trancoso = fs.readFileSync('app/trancoso/page.tsx','utf8');
 const home = fs.readFileSync('app/page.tsx','utf8');
+const layout = fs.readFileSync('app/layout.tsx','utf8');
 const header = fs.readFileSync('components/Header.tsx','utf8');
 const footer = fs.readFileSync('components/Footer.tsx','utf8');
 const checkout = fs.readFileSync('app/checkout/page.tsx','utf8');
@@ -93,6 +94,22 @@ assert.ok(finalLastCss.includes('border: 0 !important'));
 assert.ok(finalLastCss.includes('border-radius: 18px !important'));
 assert.ok(finalLastCss.includes('object-fit: contain !important'));
 
+// Só recupera do site antigo o que tem função objetiva para desenvolvimento, atenção e marketing.
+assert.ok(!home.includes('Dúvidas rápidas.'), 'Rejected FAQ must not return');
+assert.ok(home.includes('O encanto de Trancoso'), 'Short brand story must remain');
+assert.ok(home.includes('Como levar uma peça da Agô para casa.'), 'Clear purchase path must remain');
+assert.ok(home.includes('mapsEmbedUrl'), 'Embedded map must remain available');
+assert.ok(home.includes('title="Mapa da Agô Trancoso no Quadrado"'), 'Embedded map needs an accessible title');
+assert.ok(home.includes('Decorar') && home.includes('Presentear') && home.includes('Guardar Trancoso'), 'Three purchase motives must remain');
+
+// Infraestrutura/SEO existentes não podem ser sacrificados por uma mudança visual da home.
+assert.ok(layout.includes("import './home-self-selling.css'"));
+assert.ok(layout.includes("import './home-map.css'"));
+assert.ok(layout.includes('structuredData'));
+assert.ok(layout.includes('versionGuardScript'));
+assert.ok(layout.includes('<Header firstPurchaseAvailable={firstPurchaseAvailable} />'));
+assert.ok(layout.includes('WHATSAPP_NUMBER'));
+
 // SEO/localidade e intenção comercial.
 assert.ok(trancoso.includes('Artesanato e Cerâmica em Trancoso'));
 assert.ok(footer.includes('href="/trancoso"'));
@@ -103,4 +120,4 @@ assert.ok(firstPurchase.includes('documentKey'));
 assert.ok(checkoutValidation.includes('isValidCNPJ'));
 assert.ok(paymentCss.includes('Pix Copia e Cola'));
 
-console.log('PASS recovered failed-deploy intentions, visual mappings and current business rules');
+console.log('PASS recovered strengths selected by development, attention and marketing without infrastructure regressions');
