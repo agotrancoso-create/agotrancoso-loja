@@ -61,7 +61,7 @@ async function run() {
     });
     assert.deepEqual(order, { heroBeforeFeatured: true, featuredBeforeConfidence: true }, `home hierarchy@${width}`);
     assert.equal(normalize(await hero.getByRole('heading', { level: 1 }).innerText()), 'Trancoso em cerâmica.');
-    assert.match(normalize(await hero.innerText()), /Igrejinhas, casinhas e lembranças do Quadrado\./);
+    assert.match(normalize(await hero.innerText()), /Peças moldadas à mão, desde 2016 no Quadrado\./);
     assert.equal(await hero.getByRole('link', { name: 'Ver peças', exact: true }).getAttribute('href'), '#pecas-em-destaque');
     const confidenceText = normalize(await confidence.innerText());
     assert.match(confidenceText, /Feito à mão/i);
@@ -114,7 +114,6 @@ async function run() {
     await deliveryResult.getByText(/Frete R\$\s?39,90/i).waitFor();
     assert.match(normalize(await deliveryResult.innerText()), /Prazo online ainda não disponível para este CEP/i);
 
-    // Quote responses must belong to the current CEP and quantity, including delayed replies.
     if (width === 390) {
       const cepInput = deliveryForm.getByLabel('Frete e prazo para seu CEP');
       const consult = deliveryForm.getByRole('button', { name: 'Consultar', exact: true });
@@ -148,7 +147,7 @@ async function run() {
           await held;
           try {
             await route.fulfill({ status: 200, contentType: 'application/json', body: quoteBody(99) });
-          } catch { /* Browser may have already cancelled this obsolete request. */ }
+          } catch { }
           finally { markFinished(); }
         });
         await consult.click();
