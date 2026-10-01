@@ -7,6 +7,9 @@ function preferredLocale(request: NextRequest): 'pt' | 'en' {
   const saved = request.cookies.get(LOCALE_COOKIE)?.value;
   if (saved === 'pt' || saved === 'en') return saved;
 
+  const hostname = request.nextUrl.hostname;
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '0.0.0.0') return 'pt';
+
   const accepted = request.headers.get('accept-language') ?? '';
   const ranked = accepted
     .split(',')
