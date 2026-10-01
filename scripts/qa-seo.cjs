@@ -2,13 +2,15 @@
 const { spawn } = require('node:child_process');
 const assert = require('node:assert/strict');
 const base = 'http://127.0.0.1:3105';
+const INDEXNOW_KEY = '7c9f4d6a3e2b1c8f5a0d9e6b4c7f2a31';
 const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '-H', '127.0.0.1', '-p', '3105'], {stdio:['ignore','pipe','pipe']});
 const ready = new Promise((resolve,reject)=>{
   const timer=setTimeout(()=>reject(new Error('SEO QA server timeout')),30000);
   server.stdout.on('data',data=>{if(data.toString().includes('Ready')){clearTimeout(timer);resolve();}});
   server.on('exit',code=>{clearTimeout(timer);reject(new Error(`SEO QA server exited ${code}`));});
 });
-async function html(path){const response=await fetch(base+path,{headers:{'User-Agent':'Twitterbot/1.0'}});assert.equal(response.status,200,path);return response.text();}
+async function response(path, headers={}){const res=await fetch(base+path,{headers});assert.equal(res.status,200,path);return res;}
+async function html(path){return (await response(path,{'User-Agent':'Twitterbot/1.0'})).text();}
 function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags.find(tag=>tag.includes(`property="${key}"`)||tag.includes(`name="${key}"`));}
 (async()=>{
   await ready;
@@ -17,6 +19,22 @@ function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags
   assert.ok(home.includes('https://wa.me/5573998558124?'), 'Home must use the complete business WhatsApp');
   assert.ok(home.includes('\"telephone\":\"+5573998558124\"'), 'Google must receive the same contact number');
   assert.ok(!contact.includes('46098-000'), 'Do not display an unverified postal code');
+
+  const googlebotMeta=meta(home,'googlebot')||'';
+  assert.ok(googlebotMeta.includes('max-image-preview:large'),'Googlebot must be allowed large image previews');
+  assert.ok(googlebotMeta.includes('max-snippet:-1'),'Googlebot must be allowed full snippets');
+  assert.ok(googlebotMeta.includes('max-video-preview:-1'),'Googlebot must be allowed full video previews');
+
+  const robots=await (await response('/robots.txt',{'User-Agent':'SEO-QA'})).text();
+  for(const crawler of ['Googlebot','Googlebot-Image','Bingbot','OAI-SearchBot','ChatGPT-User']){
+    assert.ok(robots.includes(`User-Agent: ${crawler}`)||robots.includes(`User-agent: ${crawler}`),`robots.txt must explicitly allow ${crawler}`);
+  }
+  assert.ok(robots.includes('https://www.agotrancoso.com.br/sitemap.xml'),'robots.txt must expose the canonical sitemap');
+  assert.ok(robots.includes('https://www.agotrancoso.com.br/image-sitemap.xml'),'robots.txt must expose the image sitemap');
+
+  const indexNowKey=(await (await response(`/${INDEXNOW_KEY}.txt`)).text()).trim();
+  assert.equal(indexNowKey,INDEXNOW_KEY,'IndexNow ownership key must be publicly verifiable');
+
   const catalog=await html('/produtos');
   assert.equal((catalog.match(/<article\b/g)||[]).length,19,'Catalog must include 19 product cards in server HTML');
   assert.ok(catalog.includes('href="/produtos/estatueta-iemanja"'));
@@ -41,5 +59,5 @@ function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags
     assert.equal(product.offers.shippingDetails.shippingRate.value,'39.90',`Google shipping: ${id}`);
     assert.ok(page.includes('Compartilhar esta peça'));
   }
-  console.log('PASS server-rendered catalog, complete price ranges and filters; social images, canonical URLs, product sharing and Google shipping metadata');
+  console.log('PASS global crawler access, IndexNow ownership, server-rendered catalog, filters, social images, canonical URLs and Google shipping metadata');
 })().catch(error=>{console.error(error);process.exitCode=1;}).finally(()=>server.kill());
