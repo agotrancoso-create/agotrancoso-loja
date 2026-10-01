@@ -9,6 +9,18 @@
   --ago-home-radius: 22px;
 }
 
+/* Um único eixo horizontal para os capítulos principais da home. */
+.ago-home .ago-cinematic-products,
+.ago-home .ago-premium-discovery > .ago-container,
+.ago-home .ago-premium-editorial > .ago-container,
+.ago-home .ago-banca-visit > .ago-container,
+.ago-home .ago-home-final-cta > .ago-container {
+  width: min(var(--max), calc(100% - var(--gutter) * 2)) !important;
+  max-width: none !important;
+  margin-inline: auto !important;
+  padding-inline: 0 !important;
+}
+
 /* Hero: fotografia real como foco, texto legível e duas ações claras. */
 .ago-home-hero-2026 .ago-cinematic-media {
   height: clamp(540px, 68vh, 720px) !important;
