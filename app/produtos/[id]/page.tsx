@@ -61,7 +61,6 @@ export function generateStaticParams() {
   return getAllProducts().map((product) => ({ id: product.id }));
 }
 
-
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   const product = getProductById(id);
@@ -124,6 +123,11 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     ...attentionProducts.filter((candidate) => candidate.id !== product.id && !relatedSeen.has(candidate.id)),
   ].slice(0, 3);
 
+  const additionalProperty = [
+    ...(product.dimensions ? [{ '@type': 'PropertyValue', name: 'Medidas', value: product.dimensions }] : []),
+    ...(isDecorativeMiniature ? [{ '@type': 'PropertyValue', name: 'Uso', value: 'Pode ser pendurada na parede ou apoiada sobre móveis e superfícies' }] : []),
+  ];
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -140,9 +144,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         url: productUrl,
         mainEntityOfPage: productUrl,
         seller: { '@id': `${SITE_DOMAIN}#organization` },
-        ...(isDecorativeMiniature ? {
-          additionalProperty: [{ '@type': 'PropertyValue', name: 'Uso', value: 'Pode ser pendurada na parede ou apoiada sobre móveis e superfícies' }],
-        } : {}),
+        ...(additionalProperty.length ? { additionalProperty } : {}),
         offers: {
           '@type': 'Offer',
           url: productUrl,
@@ -198,16 +200,21 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
               <p className="product-description">{product.description}</p>
 
-              <dl className="product-premium-facts" aria-label="Informações da peça">
-                <div><dt>Material</dt><dd>Cerâmica</dd></div>
-                <div><dt>Disponibilidade</dt><dd>{product.available ? 'Disponível para compra' : 'Indisponível'}</dd></div>
-                {isDecorativeMiniature && <div><dt>Uso</dt><dd>Para pendurar ou apoiar na decoração</dd></div>}
-                <div><dt>Medidas</dt><dd>{product.dimensions || <a href={whatsappLink(`Olá! Gostaria de confirmar as medidas de ${product.name}.`)} target="_blank" rel="noopener noreferrer" className="text-link">Consultar medidas</a>}</dd></div>
-              </dl>
+              <section className="product-decision-details" aria-labelledby="product-details-title">
+                <h2 id="product-details-title" className="product-detail-facts-title">Detalhes da peça</h2>
+                <dl className="product-premium-facts" aria-label="Informações da peça">
+                  <div><dt>Medidas</dt><dd>{product.dimensions || <a href={whatsappLink(`Olá! Gostaria de confirmar as medidas de ${product.name}.`)} target="_blank" rel="noopener noreferrer" className="text-link">Consultar medidas</a>}</dd></div>
+                  {isDecorativeMiniature && <div><dt>Uso</dt><dd>Para pendurar ou apoiar na decoração</dd></div>}
+                  <div><dt>Material</dt><dd>Cerâmica</dd></div>
+                  <div><dt>Disponibilidade</dt><dd>{product.available ? 'Disponível para compra' : 'Indisponível'}</dd></div>
+                  <div><dt>Entrega</dt><dd>Envio para todo o Brasil</dd></div>
+                </dl>
+              </section>
 
-              <div className="product-purchase"><AddToCart product={product} />
-              <p className="purchase-selection-help">Frete grátis a partir de R$ 500 em produtos.</p>
-              <ProductShare name={product.name} url={productUrl} /></div>
+              <div className="product-purchase">
+                <AddToCart product={product} />
+                <ProductShare name={product.name} url={productUrl} />
+              </div>
               <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="product-whatsapp">Prefere comprar pelo WhatsApp? <span aria-hidden="true">↗</span></a>
 
               <PurchaseQuestions />
