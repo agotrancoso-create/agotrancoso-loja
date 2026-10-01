@@ -1,8 +1,8 @@
 const benefits = [
-  { title: 'Feito à mão', text: 'Cerâmica artesanal' },
-  { title: 'Desde 2016', text: 'No Quadrado de Trancoso' },
-  { title: 'Pagamento seguro', text: 'Compra online pela InfinitePay' },
-  { title: 'Envio para todo o Brasil', text: 'Frete grátis a partir de R$ 500 em produtos' },
+  { title: 'Feito à mão', text: 'Atenção às formas e à pintura.' },
+  { title: 'Peças para guardar', text: 'Objetos para viver e presentear.' },
+  { title: 'Inspiração brasileira', text: 'A igreja, as casas e outros símbolos do Brasil.' },
+  { title: 'Envio internacional', text: 'Cotação conforme o destino e o pedido.' },
 ] as const;
 
 const artwork = { width: 2048, height: 690, cropWidth: 280, cropHeight: 240, top: 140 };
