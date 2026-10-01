@@ -127,7 +127,6 @@ export const EN_TEXT: Record<string, string> = {
 
   'Sua sacola': 'Your bag',
   'Sua sacola está vazia.': 'Your bag is empty.',
-  'Explorar coleção': 'Explore collection',
   'Preparando seu pedido…': 'Preparing your order…',
   'Carregando suas peças com segurança.': 'Loading your pieces securely.',
   'Seu pedido': 'Your order',
@@ -166,7 +165,6 @@ export const EN_TEXT: Record<string, string> = {
   'Informe um CEP válido com 8 dígitos.': 'Enter a valid 8-digit Brazilian postal code.',
   'Complete seus dados antes de finalizar.': 'Complete your details before finishing checkout.',
   'Complete a entrega antes de finalizar.': 'Complete your delivery details before finishing checkout.',
-  'Sua sacola está vazia.': 'Your bag is empty.',
   'Não foi possível iniciar o pagamento.': 'We could not start payment.',
   'Não foi possível concluir esta etapa. Tente novamente.': 'We could not complete this step. Please try again.',
 
