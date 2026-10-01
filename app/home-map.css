@@ -1,3 +1,5 @@
+@import './interactive-luxury.css';
+
 /* Mapa da banca: utilidade local sem competir com a fotografia. */
 /* Contraste WCAG: mantém a paleta quente, mas torna textos pequenos legíveis. */
 .ago-banca-visit .eyebrow {
