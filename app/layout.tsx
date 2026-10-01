@@ -34,6 +34,7 @@ import ConsentManager from '@/components/ConsentManager';
 import ImmersiveMotion from '@/components/ImmersiveMotion';
 import CepAddressAutofill from '@/components/CepAddressAutofill';
 import LocaleRuntime from '@/components/LocaleRuntime';
+import LocaleSupplement from '@/components/LocaleSupplement';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -218,6 +219,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ImmersiveMotion />
         <CepAddressAutofill />
         <LocaleRuntime />
+        <LocaleSupplement />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <CartProvider>
           <Header firstPurchaseAvailable={firstPurchaseAvailable} />
