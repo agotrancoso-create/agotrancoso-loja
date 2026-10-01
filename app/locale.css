@@ -1,0 +1,72 @@
+/* Idioma: camada pequena e estável, sem alterar a geometria da loja. */
+.ago-language-switcher {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 44px;
+  padding-inline: 4px;
+  color: inherit;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
+
+.ago-language-switcher button {
+  min-width: 32px;
+  min-height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  opacity: .68;
+  cursor: pointer;
+}
+
+.ago-language-switcher button.is-active {
+  opacity: 1;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.ago-language-switcher button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+html[data-locale="en"] .ago-language-switcher,
+html[data-locale="pt"] .ago-language-switcher {
+  visibility: visible;
+}
+
+@media (max-width: 900px) {
+  .ago-language-switcher {
+    order: 1;
+    min-height: 42px;
+    font-size: .64rem;
+    gap: 2px;
+  }
+  .ago-language-switcher button {
+    min-width: 28px;
+    min-height: 42px;
+  }
+}
+
+@media (max-width: 430px) {
+  .ago-language-switcher {
+    padding-inline: 0;
+  }
+  .ago-language-switcher span { display: none; }
+  .ago-language-switcher button:not(.is-active) {
+    min-width: 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ago-language-switcher button { transition: none; }
+}
