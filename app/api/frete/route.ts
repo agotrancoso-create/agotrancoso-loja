@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { calculateCartTotals } from '@/lib/products';
 import { getShippingPrice, shouldOfferFreeShipping, FIXED_SHIPPING_PRICE } from '@/lib/shipping';
+import { getShippingDeadlineQuote } from '@/lib/shipping-deadline';
 import type { CartItem } from '@/lib/types';
 
 function cleanCep(value: unknown) {
@@ -27,6 +28,7 @@ export async function POST(req: Request) {
 
     const subtotal = totals.total;
     const freeShipping = shouldOfferFreeShipping(subtotal);
+    const realDeadline = await getShippingDeadlineQuote({ destinationCep, subtotal });
 
     return NextResponse.json({
       configured: true,
@@ -35,10 +37,11 @@ export async function POST(req: Request) {
       options: [{
         name: freeShipping ? 'Frete grátis' : 'Frete fixo',
         price: getShippingPrice(subtotal),
-        deadline: null,
-        serviceId: freeShipping ? 'free' : 'fixed',
+        deadline: realDeadline?.deadline ?? null,
+        serviceId: realDeadline?.serviceId || (freeShipping ? 'free' : 'fixed'),
+        serviceName: realDeadline?.serviceName ?? null,
       }],
-      provider: 'Agô Trancoso',
+      provider: realDeadline?.provider ?? 'Agô Trancoso',
       fixedPrice: FIXED_SHIPPING_PRICE,
       destinationCep,
     });
@@ -50,9 +53,10 @@ export async function POST(req: Request) {
 
 export async function GET() {
   return NextResponse.json({
-    provider: 'Agô Trancoso',
+    provider: process.env.FRENET_TOKEN && process.env.FRENET_SELLER_CEP ? 'Agô Trancoso + Frenet (prazo)' : 'Agô Trancoso',
     fixedPrice: FIXED_SHIPPING_PRICE,
     freeShippingAbove: 500,
     configured: true,
+    deadlineConfigured: Boolean(process.env.FRENET_TOKEN && process.env.FRENET_SELLER_CEP),
   });
 }

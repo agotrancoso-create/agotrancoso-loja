@@ -9,6 +9,7 @@ const header = fs.readFileSync('components/Header.tsx','utf8');
 const footer = fs.readFileSync('components/Footer.tsx','utf8');
 const checkout = fs.readFileSync('app/checkout/page.tsx','utf8');
 const productPage = fs.readFileSync('app/produtos/[id]/page.tsx','utf8');
+const addToCart = fs.readFileSync('app/produtos/[id]/AddToCart.tsx','utf8');
 const pretos = fs.readFileSync('scripts/fix-pretos-velhos-images.mjs','utf8');
 const normalizer = fs.readFileSync('scripts/normalize-product-images.mjs','utf8');
 const gallery = fs.readFileSync('components/ProductGallery.tsx','utf8');
@@ -65,14 +66,19 @@ assert.ok(finalLastCss.includes('object-fit: contain !important'));
 assert.ok(shipping.includes('FREE_SHIPPING_SUBTOTAL_MINIMUM = FREE_SHIPPING_THRESHOLD'));
 assert.ok(shipping.includes('FREE_SHIPPING_THRESHOLD * 100'));
 assert.ok(shipping.includes('subtotalCents >= FREE_SHIPPING_SUBTOTAL_MINIMUM_CENTS'));
-const shippingCopyFiles = [header, footer, checkout, productPage, cart];
-// Home layouts may omit duplicate shipping copy; shared header/footer still show it.
+// Cópia de limiar permanece nos pontos globais de confiança e checkout; a PDP evita repetição desnecessária.
+const shippingCopyFiles = [header, footer, checkout, cart];
 assert.ok(!home.includes('produtos + frete atingem'));
-for (const source of shippingCopyFiles) {
+for (const source of [...shippingCopyFiles, productPage, addToCart]) {
   assert.ok(!source.includes('pedido com frete atinge'));
   assert.ok(!source.includes('produtos + frete atingem'));
+}
+for (const source of shippingCopyFiles) {
   assert.ok(source.includes('a partir de R$ 500 em produtos'));
 }
+assert.ok(addToCart.includes('getShippingPrice(selectionSubtotal)'));
+assert.ok(addToCart.includes("fetch('/api/frete'"));
+assert.ok(addToCart.includes('Prazo online ainda não disponível para este CEP.'));
 
 // Zoom: preserva o master original antes da normalização e usa o arquivo sem recompressão no lightbox.
 assert.ok(normalizer.includes('preserveZoomMaster'));

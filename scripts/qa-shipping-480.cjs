@@ -101,15 +101,23 @@ async function run() {
     assert.match(checkoutText, /Total R\$\s?519,90/);
 
     await page.goto(base + '/produtos/miniatura-quadrado-trancoso', { waitUntil: 'domcontentloaded' });
+    assert.equal(normalize(await page.getByRole('heading', { level: 1 }).innerText()), 'Miniatura do Quadrado de Trancoso para Pendurar');
     const purchaseText = normalize(await page.locator('.purchase-selection-summary').first().innerText());
     assert.match(purchaseText, /1 peça: R\$\s?480,00 · Frete: R\$\s?39,90/i);
     assert.match(purchaseText, /Esta seleção com frete: R\$\s?519,90/i);
     assert.match(normalize(await page.locator('.purchase-selection-help').first().innerText()), /Compra sem cadastro · Pagamento seguro pela InfinitePay/i);
 
+    const deliveryForm = page.getByRole('form', { name: 'Consultar envio pelo CEP' });
+    await deliveryForm.getByLabel('Frete e prazo para seu CEP').fill('30140-110');
+    await deliveryForm.getByRole('button', { name: 'Consultar' }).click();
+    const deliveryResult = page.locator('.product-delivery-result').first();
+    await deliveryResult.getByText(/Frete R\$\s?39,90/i).waitFor();
+    assert.match(normalize(await deliveryResult.innerText()), /Prazo online ainda não disponível para este CEP/i);
+
     await page.close();
   }
 
-  console.log('PASS essential conversion hierarchy + Miniatura R$ 480 shipping at 320/390/820/1440; catalog threshold copy and PDP reassurance verified');
+  console.log('PASS essential conversion hierarchy + Miniatura title + R$ 480 shipping + on-page CEP consultation at 320/390/820/1440');
 }
 
 run().catch(error => {
