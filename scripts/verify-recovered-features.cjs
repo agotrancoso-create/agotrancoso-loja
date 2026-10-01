@@ -37,7 +37,10 @@ assert.ok(merchLuminariaBlock.includes('/produtos/igreja-quadrado-p.jpg'));
 
 // Miniatura: título, uso e duas fotos novas devem permanecer no catálogo.
 assert.ok(products.includes('Miniatura do Quadrado de Trancoso para Pendurar'));
-assert.ok(products.includes('Pode ser pendurada na parede ou apoiada sobre aparadores'));
+const miniatura = JSON.parse(fs.readFileSync('data/products.json', 'utf8')).products.find(product => product.id === 'miniatura-quadrado-trancoso');
+assert.equal(miniatura.name, 'Miniatura do Quadrado de Trancoso para Pendurar');
+assert.match(miniatura.description, /pendurar na parede/i);
+assert.match(miniatura.description, /apoiar/i);
 assert.ok(products.includes('miniatura-quadrado-trancoso-6.avif'));
 assert.ok(products.includes('miniatura-quadrado-trancoso-7.avif'));
 assert.ok(products.includes('Comprimento: 19 cm · Altura com a cruz da igrejinha do meio: 6,5 cm'));

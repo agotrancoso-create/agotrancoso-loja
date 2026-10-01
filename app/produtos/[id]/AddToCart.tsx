@@ -7,7 +7,7 @@ import { trackAddToCart } from '@/lib/marketing-analytics';
 import CartIcon from '@/components/CartIcon';
 import { getEffectivePrice } from '@/lib/products';
 import { getShippingPrice } from '@/lib/shipping';
-import Link from 'next/link';
+import { whatsappLink } from '@/lib/config';
 
 export default function AddToCart({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
@@ -45,10 +45,10 @@ export default function AddToCart({ product }: { product: Product }) {
         }}
         className={`product-primary-cta ago-bag-primary${added ? ' is-added' : ''}`}
         aria-live="polite"
-        aria-label={added ? `${product.name} está na sacola` : `Levar ${quantity} ${quantity === 1 ? 'unidade' : 'unidades'} de ${product.name} para a sacola`}
+        aria-label={added ? `${product.name} está na sacola` : `Adicionar à sacola: ${quantity} ${quantity === 1 ? 'unidade' : 'unidades'} de ${product.name}`}
       >
         <span className="ago-bag-primary-icon"><CartIcon size={21} withPlus={!added} /></span>
-        <span>{added ? 'Na sacola' : 'Levar para a sacola'}</span>
+        <span>{added ? 'Na sacola' : 'Adicionar à sacola'}</span>
       </button>
     </div>
     <div className="purchase-selection-summary" aria-live="polite" aria-atomic="true">
@@ -56,8 +56,8 @@ export default function AddToCart({ product }: { product: Product }) {
       <strong>Esta seleção com frete: {formatBRL(selectionSubtotal + shipping)}</strong>
       <small>Entrega no Brasil. O total da sacola é atualizado ao adicionar outras peças.</small>
     </div>
-    <p className="purchase-selection-help">Compra sem cadastro · Pagamento seguro pela InfinitePay · Envio para todo o Brasil</p>
-    <Link href="/contato" className="text-link">Consultar prazo de entrega</Link>
+    <p className="purchase-selection-help">Compra sem cadastro · Pagamento seguro pela InfinitePay</p>
+    <a href={whatsappLink(`Olá! Gostaria de consultar o prazo de postagem e entrega de ${product.name}. Meu CEP é: `)} target="_blank" rel="noopener noreferrer" className="text-link">Consultar prazo para meu CEP</a>
     </div>
   );
 }

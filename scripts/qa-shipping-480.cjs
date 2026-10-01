@@ -61,8 +61,8 @@ async function run() {
     });
     assert.deepEqual(order, { heroBeforeFeatured: true, featuredBeforeConfidence: true }, `home hierarchy@${width}`);
     assert.equal(normalize(await hero.getByRole('heading', { level: 1 }).innerText()), 'Trancoso em cerâmica.');
-    assert.match(normalize(await hero.innerText()), /Peças para levar um pouco daqui\./);
-    assert.equal(await hero.getByRole('link', { name: 'Ver peças', exact: true }).getAttribute('href'), '#pecas-em-destaque');
+    assert.match(normalize(await hero.innerText()), /Igrejinhas, casinhas e lembranças do Quadrado\./);
+    assert.equal(await hero.getByRole('link', { name: 'Ver coleção', exact: true }).getAttribute('href'), '/produtos');
     assert.match(normalize(await confidence.innerText()), /Feito à mão/i);
     assert.match(normalize(await confidence.innerText()), /inspiração brasileira/i);
 
@@ -101,7 +101,7 @@ async function run() {
     const purchaseText = normalize(await page.locator('.purchase-selection-summary').first().innerText());
     assert.match(purchaseText, /1 peça: R\$\s?480,00 · Frete: R\$\s?39,90/i);
     assert.match(purchaseText, /Esta seleção com frete: R\$\s?519,90/i);
-    assert.match(normalize(await page.locator('.purchase-selection-help').first().innerText()), /Compra sem cadastro · Pagamento seguro pela InfinitePay · Envio para todo o Brasil/i);
+    assert.match(normalize(await page.locator('.purchase-selection-help').first().innerText()), /Compra sem cadastro · Pagamento seguro pela InfinitePay/i);
 
     await page.close();
   }
