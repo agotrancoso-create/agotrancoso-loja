@@ -5,7 +5,7 @@ import { getShippingDeadlineQuote } from '@/lib/shipping-deadline';
 import type { CartItem } from '@/lib/types';
 
 function cleanCep(value: unknown) {
-  return String(value ?? '').replace(/\D/g, '').slice(0, 8);
+  return String(value ?? '').replace(/\D/g, '');
 }
 
 export async function POST(req: Request) {
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     const destinationCep = cleanCep(body.cep);
     const items = (Array.isArray(body.items) ? body.items : []) as CartItem[];
 
-    if (destinationCep.length !== 8) {
+    if (destinationCep.length !== 8 || /^(\d)\1{7}$/.test(destinationCep)) {
       return NextResponse.json({ configured: true, available: false, error: 'Informe um CEP válido com 8 dígitos.' }, { status: 400 });
     }
     if (!items.length) {

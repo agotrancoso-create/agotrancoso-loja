@@ -39,7 +39,7 @@ const reasons = [
 
 const buyingSteps = [
   { title: 'Escolha a sua peça', copy: 'Veja fotos, preço, medidas e detalhes antes de adicionar à sacola.' },
-  { title: 'Finalize no site', copy: 'Revise a sacola e conclua o pagamento pelo checkout.' },
+  { title: 'Finalize no site', copy: 'Revise sua sacola e pague com segurança pela InfinitePay.' },
   { title: 'Receba em casa', copy: 'Enviamos para todo o Brasil. Frete fixo de R$ 39,90 e grátis a partir de R$ 500 em produtos.' },
 ] as const;
 
@@ -158,7 +158,7 @@ export default function HomePage() {
           <div className={buyStyles.intro}>
             <p className="eyebrow">Compra simples</p>
             <h2 id="como-comprar-title">Como levar uma peça da Agô para casa.</h2>
-            <p>Três passos para escolher e comprar sem depender de atendimento.</p>
+            <p>Escolha sua peça, confira a entrega e compre aqui no site.</p>
             <Link href="/produtos" className="ago-premium-text-link">Ver peças <span aria-hidden="true">↗</span></Link>
           </div>
           <ol className={buyStyles.steps}>

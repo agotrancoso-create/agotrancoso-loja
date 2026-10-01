@@ -114,6 +114,78 @@ async function run() {
     await deliveryResult.getByText(/Frete R\$\s?39,90/i).waitFor();
     assert.match(normalize(await deliveryResult.innerText()), /Prazo online ainda não disponível para este CEP/i);
 
+    // Quote responses must belong to the current CEP and quantity, including delayed replies.
+    if (width === 390) {
+      const cepInput = deliveryForm.getByLabel('Frete e prazo para seu CEP');
+      const consult = deliveryForm.getByRole('button', { name: 'Consultar', exact: true });
+      await cepInput.fill('00000-000');
+      await consult.click();
+      assert.equal(await cepInput.getAttribute('aria-invalid'), 'true');
+      await deliveryResult.getByText('Informe um CEP válido com 8 dígitos.').waitFor();
+
+      const quoteBody = (deadline, price = 39.9) => JSON.stringify({
+        available: true, destinationCep: '30140110',
+        options: [{ name: 'Frete', price, deadline, serviceId: 'test' }],
+      });
+      await page.route('**/api/frete', route => route.fulfill({
+        status: 200, contentType: 'application/json', body: quoteBody('3–7'),
+      }));
+      await cepInput.fill('30140-110');
+      await consult.click();
+      await deliveryResult.getByText('Prazo estimado: 3–7 dias úteis').waitFor();
+      assert.equal(await cepInput.getAttribute('aria-invalid'), null);
+      await page.unroute('**/api/frete');
+
+      for (const change of ['cep', 'quantity']) {
+        let release;
+        let markRequested;
+        const requested = new Promise(resolve => { markRequested = resolve; });
+        const held = new Promise(resolve => { release = resolve; });
+        let markFinished;
+        const finished = new Promise(resolve => { markFinished = resolve; });
+        await page.route('**/api/frete', async route => {
+          markRequested();
+          await held;
+          try {
+            await route.fulfill({ status: 200, contentType: 'application/json', body: quoteBody(99) });
+          } catch { /* Browser may have already cancelled this obsolete request. */ }
+          finally { markFinished(); }
+        });
+        await consult.click();
+        await requested;
+        if (change === 'cep') await cepInput.fill('01001-000');
+        else await page.getByRole('button', { name: 'Aumentar quantidade', exact: true }).click();
+        assert.equal(await consult.isEnabled(), true);
+        release();
+        await finished;
+        await page.waitForTimeout(150);
+        assert.equal(normalize(await deliveryResult.innerText()), '', `obsolete ${change} quote appeared`);
+        await page.unroute('**/api/frete');
+      }
+      assert.match(normalize(await page.locator('.purchase-selection-summary').innerText()), /2 peças: R\$\s?960,00 · Frete grátis/);
+      await page.route('**/api/frete', route => route.fulfill({
+        status: 502, contentType: 'application/json', body: JSON.stringify({ available: false, error: 'Envio indisponível neste momento.' }),
+      }));
+      await consult.click();
+      await deliveryResult.getByText('Envio indisponível neste momento.').waitFor();
+      await deliveryResult.getByRole('link', { name: 'Consultar envio com a Agô' }).waitFor();
+      assert.equal(await consult.isEnabled(), true);
+      await page.unroute('**/api/frete');
+      await page.route('**/api/frete', route => route.fulfill({
+        status: 200, contentType: 'application/json', body: quoteBody(1, 0),
+      }));
+      await consult.click();
+      await deliveryResult.getByText('Prazo estimado: 1 dia útil').waitFor();
+      await deliveryResult.getByText('Frete grátis', { exact: true }).waitFor();
+
+      for (const invalidCep of ['00000000', '301401100']) {
+        const response = await page.request.post(base + '/api/frete', { data: {
+          cep: invalidCep, items: [{ productId: 'miniatura-quadrado-trancoso', quantity: 1 }],
+        } });
+        assert.equal(response.status(), 400);
+      }
+    }
+
     await page.close();
   }
 
