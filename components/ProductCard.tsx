@@ -79,10 +79,10 @@ export default function ProductCard({ product, priority = false, listName = 'Col
           }}
           className={`product-add ago-premium-add ago-bag-cta${added ? ' is-added' : ''}`}
           aria-live="polite"
-          aria-label={added ? `${product.name} está na sacola` : `Levar ${product.name} para a sacola`}
+          aria-label={added ? `${product.name} está na sacola` : `Adicionar à sacola: ${product.name}`}
         >
           <span className="ago-bag-cta-icon"><CartIcon size={18} withPlus={!added} /></span>
-          <span>{added ? 'Na sacola' : 'Levar para a sacola'}</span>
+          <span>{added ? 'Na sacola' : 'Adicionar à sacola'}</span>
         </button>
       )}
     </article>

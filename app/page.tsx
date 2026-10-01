@@ -42,7 +42,8 @@ const faqItems = [
 
 export default function HomePage() {
   const allProducts = sortProductsByAttention(getAvailableProducts());
-  const featured = allProducts.slice(0, 6);
+  const featuredIds = new Set(['igreja-quadrado-p', 'miniatura-quadrado-trancoso', 'igrejinha-luminaria-trancoso', 'casal-pretos-velhos', 'casinha-luminaria', 'ima-igrejinha-trancoso']);
+  const featured = allProducts.filter(product => featuredIds.has(product.id));
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -96,9 +97,9 @@ export default function HomePage() {
         <div className="ago-container ago-cinematic-copy">
           <p className="eyebrow">Quadrado de Trancoso · Bahia</p>
           <h1 id="featured-title">Trancoso em cerâmica.</h1>
-          <p>Peças para levar um pouco daqui.</p>
+          <p>Igrejinhas, casinhas e lembranças do Quadrado.</p>
           <div className="home-hero-actions">
-            <a href="#pecas-em-destaque" className="ago-premium-hero-cta">Ver peças</a>
+            <Link href="/produtos" className="ago-premium-hero-cta">Ver coleção</Link>
             <Link href="/igrejinha-de-trancoso" className="ago-cinematic-secondary">Igrejinhas de Trancoso <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
@@ -120,23 +121,6 @@ export default function HomePage() {
       </section>
 
       <ResumeCart />
-
-      <section className="ago-premium-editorial ago-home-story ago-immersive-reveal" aria-labelledby="story-title">
-        <div className="ago-container ago-premium-split">
-          <div className="ago-premium-image ago-story-image">
-            <Image src="/nossa-essencia.jpg" alt="Igrejinhas e peças de cerâmica da Agô no Quadrado de Trancoso" width={1800} height={1800} sizes="(max-width: 900px) 100vw, 56vw" quality={100} className="ago-complementary-photo ago-story-static-photo" />
-          </div>
-          <div className="ago-premium-copy">
-            <svg className="ago-sertao-sun" viewBox="0 0 100 52" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true" focusable="false">
-              <path d="M6 44h88M29 44a21 21 0 0 1 42 0M50 4v9M22 14l6 7M78 14l-6 7M7 30l9 3M93 30l-9 3" />
-            </svg>
-            <p className="eyebrow">No Quadrado</p>
-            <h2 id="story-title">Desde 2016, em Trancoso.</h2>
-            <p>Cerâmica inspirada nas formas, cores e símbolos do lugar.</p>
-            <Link href="/nossa-essencia" className="ago-premium-text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
-          </div>
-        </div>
-      </section>
 
       <section className="ago-premium-discovery ago-immersive-reveal" aria-labelledby="discover-title">
         <div className="ago-container">
@@ -161,11 +145,28 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="ago-premium-editorial ago-home-story ago-immersive-reveal" aria-labelledby="story-title">
+        <div className="ago-container ago-premium-split">
+          <div className="ago-premium-image ago-story-image">
+            <Image src="/nossa-essencia.jpg" alt="Igrejinhas e peças de cerâmica da Agô no Quadrado de Trancoso" width={1800} height={1800} sizes="(max-width: 900px) 100vw, 56vw" quality={100} className="ago-complementary-photo ago-story-static-photo" />
+          </div>
+          <div className="ago-premium-copy">
+            <svg className="ago-sertao-sun" viewBox="0 0 100 52" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true" focusable="false">
+              <path d="M6 44h88M29 44a21 21 0 0 1 42 0M50 4v9M22 14l6 7M78 14l-6 7M7 30l9 3M93 30l-9 3" />
+            </svg>
+            <p className="eyebrow">No Quadrado</p>
+            <h2 id="story-title">Desde 2016, em Trancoso.</h2>
+            <p>No Quadrado desde 2016, a Agô reúne cerâmicas para a casa, a fé e as lembranças de Trancoso. Conheça as peças na banca ou escolha aqui pelo site.</p>
+            <Link href="/nossa-essencia" className="ago-premium-text-link">Conhecer a Agô <span aria-hidden="true">↗</span></Link>
+          </div>
+        </div>
+      </section>
+
       <section className="ago-home-faq ago-immersive-reveal" aria-labelledby="faq-title">
         <div className="ago-container ago-home-faq-grid">
           <div className="ago-home-faq-intro">
-            <p className="eyebrow">Para escolher com calma</p>
-            <h2 id="faq-title">Dúvidas rápidas.</h2>
+
+            <h2 id="faq-title">Comprar na Agô.</h2>
           </div>
           <div className="ago-home-faq-list">
             {faqItems.map((item) => (

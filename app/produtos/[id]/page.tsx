@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { getAllProducts, getAvailableProducts, getEffectivePrice, getProductById } from '@/lib/products';
 import { getAttentionOrderedImages, getRelatedProductIds, sortProductsByAttention } from '@/lib/merchandising';
 import { SITE_DOMAIN, whatsappLink } from '@/lib/config';
-import { FIXED_SHIPPING_PRICE, getShippingPrice, shouldOfferFreeShipping } from '@/lib/shipping';
+import { getShippingPrice } from '@/lib/shipping';
 import AddToCart from './AddToCart';
 import ProductGallery from '@/components/ProductGallery';
 import ProductViewTracker from '@/components/ProductViewTracker';
@@ -107,7 +107,6 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const price = getEffectivePrice(product);
   const waMessage = `Olá! Vim pelo site da Agô Trancoso e tenho interesse em ${product.name}.`;
   const internationalMessage = `Olá! Gostaria de consultar o envio internacional de ${product.name}.`;
-  const freeShippingAtProductQuantity = shouldOfferFreeShipping(price);
   const nationalShippingPrice = getShippingPrice(price);
   const isIgrejinhaProduct = IGREJINHA_PRODUCT_IDS.has(product.id);
   const isDecorativeMiniature = product.id === 'miniatura-quadrado-trancoso';
@@ -201,21 +200,15 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
               <dl className="product-premium-facts" aria-label="Informações da peça">
                 <div><dt>Material</dt><dd>Cerâmica</dd></div>
-                <div><dt>Seleção</dt><dd>Agô Trancoso · Bahia</dd></div>
                 <div><dt>Disponibilidade</dt><dd>{product.available ? 'Disponível para compra' : 'Indisponível'}</dd></div>
                 {isDecorativeMiniature && <div><dt>Uso</dt><dd>Para pendurar ou apoiar na decoração</dd></div>}
-                {product.dimensions && <div><dt>Dimensões</dt><dd>{product.dimensions}</dd></div>}
+                <div><dt>Medidas</dt><dd>{product.dimensions || <a href={whatsappLink(`Olá! Gostaria de confirmar as medidas de ${product.name}.`)} target="_blank" rel="noopener noreferrer" className="text-link">Consultar medidas</a>}</dd></div>
               </dl>
 
               <div className="product-purchase"><AddToCart product={product} />
+              <p className="purchase-selection-help">Frete grátis a partir de R$ 500 em produtos.</p>
               <ProductShare name={product.name} url={productUrl} /></div>
               <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="product-whatsapp">Prefere comprar pelo WhatsApp? <span aria-hidden="true">↗</span></a>
-
-              <div className="product-service-grid">
-                <div><strong>Entrega no Brasil</strong><span>{freeShippingAtProductQuantity ? 'Frete grátis nesta peça.' : <>Frete fixo de {formatBRL(FIXED_SHIPPING_PRICE)}.</>}</span></div>
-                <div><strong>Regra de frete</strong><span>Grátis a partir de R$ 500 em produtos.</span></div>
-                <div><strong>Pagamento</strong><span>Pagamento seguro pela InfinitePay.</span></div>
-              </div>
 
               <PurchaseQuestions />
 

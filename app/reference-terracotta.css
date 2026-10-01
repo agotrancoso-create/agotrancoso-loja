@@ -117,3 +117,10 @@
     margin-top: 22px !important;
   }
 }
+
+/* Clearer product decisions and a quieter mobile contact shortcut. */
+.product-premium-facts dd { overflow-wrap: anywhere; }
+.product-premium-facts .text-link { display: inline-flex; align-items: center; min-height: 44px; }
+@media (max-width: 767px) {
+  .ago-social-floaters .ago-social-instagram { display: none; }
+}
