@@ -12,12 +12,21 @@ type FrenetResponse = {
   ShippingServicesArray?: FrenetService[];
 };
 
+type CorreiosPrazoResponse = {
+  coProduto?: string;
+  prazoEntrega?: number | string;
+  dataMaxima?: string;
+  txErro?: string;
+};
+
 export type ShippingDeadlineQuote = {
   deadline: number | string;
-  provider: 'Frenet';
+  provider: 'Correios' | 'Frenet';
   serviceId?: string;
   serviceName?: string;
 };
+
+export const DEFAULT_SHIP_FROM_CEP = '46098000';
 
 function digits(value: string | undefined) {
   return String(value ?? '').replace(/\D/g, '');
@@ -34,12 +43,72 @@ function serviceHasError(value: FrenetService['Error']) {
   return false;
 }
 
-export async function getShippingDeadlineQuote(params: {
+export function getShipFromCep() {
+  const configured = digits(process.env.SHIP_FROM_CEP || process.env.FRENET_SELLER_CEP);
+  return configured.length === 8 ? configured : DEFAULT_SHIP_FROM_CEP;
+}
+
+export function getShippingDeadlineProviderState() {
+  const correiosConfigured = Boolean((process.env.CORREIOS_TOKEN || process.env.CORREIOS_ACCESS_KEY)?.trim());
+  const frenetConfigured = Boolean(process.env.FRENET_TOKEN?.trim());
+  return {
+    correiosConfigured,
+    frenetConfigured,
+    configured: correiosConfigured || frenetConfigured,
+    provider: correiosConfigured ? 'Correios' : frenetConfigured ? 'Frenet' : null,
+    originCep: getShipFromCep(),
+  } as const;
+}
+
+async function getCorreiosDeadlineQuote(destinationCep: string): Promise<ShippingDeadlineQuote | null> {
+  const token = (process.env.CORREIOS_TOKEN || process.env.CORREIOS_ACCESS_KEY)?.trim();
+  const sellerCep = getShipFromCep();
+  const serviceCode = digits(process.env.CORREIOS_SERVICE_CODE) || '03298';
+
+  if (!token || sellerCep.length !== 8 || destinationCep.length !== 8 || serviceCode.length < 4) return null;
+
+  try {
+    const url = new URL(`https://api.correios.com.br/prazo/v1/nacional/${serviceCode}`);
+    url.searchParams.set('cepOrigem', sellerCep);
+    url.searchParams.set('cepDestino', destinationCep);
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      cache: 'no-store',
+      signal: AbortSignal.timeout(4500),
+    });
+
+    if (!response.ok) return null;
+
+    const raw = (await response.json()) as CorreiosPrazoResponse | CorreiosPrazoResponse[];
+    const data = Array.isArray(raw) ? raw[0] : raw;
+    if (!data || data.txErro) return null;
+
+    const days = parseDays(data.prazoEntrega);
+    if (days === null) return null;
+
+    return {
+      deadline: days,
+      provider: 'Correios',
+      serviceId: data.coProduto || serviceCode,
+      serviceName: serviceCode === '03298' ? 'PAC' : 'Correios',
+    };
+  } catch (error) {
+    console.warn('Correios deadline quote unavailable:', error instanceof Error ? error.message : error);
+    return null;
+  }
+}
+
+async function getFrenetDeadlineQuote(params: {
   destinationCep: string;
   subtotal: number;
 }): Promise<ShippingDeadlineQuote | null> {
   const token = process.env.FRENET_TOKEN?.trim();
-  const sellerCep = digits(process.env.FRENET_SELLER_CEP);
+  const sellerCep = getShipFromCep();
   const destinationCep = digits(params.destinationCep);
 
   if (!token || sellerCep.length !== 8 || destinationCep.length !== 8) return null;
@@ -89,4 +158,17 @@ export async function getShippingDeadlineQuote(params: {
     console.warn('Frenet deadline quote unavailable:', error instanceof Error ? error.message : error);
     return null;
   }
+}
+
+export async function getShippingDeadlineQuote(params: {
+  destinationCep: string;
+  subtotal: number;
+}): Promise<ShippingDeadlineQuote | null> {
+  const destinationCep = digits(params.destinationCep);
+  if (destinationCep.length !== 8) return null;
+
+  const correios = await getCorreiosDeadlineQuote(destinationCep);
+  if (correios) return correios;
+
+  return getFrenetDeadlineQuote({ destinationCep, subtotal: params.subtotal });
 }

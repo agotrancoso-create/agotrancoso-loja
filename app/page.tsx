@@ -7,7 +7,6 @@ import { sortProductsByAttention } from '@/lib/merchandising';
 import { SITE_DOMAIN, whatsappLink } from '@/lib/config';
 import ResumeCart from '@/components/ResumeCart';
 import Benefits from '@/components/Benefits';
-import buyStyles from './home-how-to-buy.module.css';
 
 export const metadata: Metadata = {
   title: { absolute: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso' },
@@ -35,12 +34,6 @@ const reasons = [
   { label: 'Decorar', href: '/decoracao-em-ceramica' },
   { label: 'Presentear', href: '/lembrancas-de-trancoso' },
   { label: 'Guardar Trancoso', href: '/artesanato-em-trancoso' },
-] as const;
-
-const buyingSteps = [
-  { title: 'Escolha a sua peça', copy: 'Veja fotos, preço, medidas e detalhes antes de adicionar à sacola.' },
-  { title: 'Finalize no site', copy: 'Revise sua sacola e pague com segurança pela InfinitePay.' },
-  { title: 'Receba em casa', copy: 'Enviamos para todo o Brasil. Frete fixo de R$ 39,90 e grátis a partir de R$ 500 em produtos.' },
 ] as const;
 
 export default function HomePage() {
@@ -153,25 +146,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="como-comprar" className={`${buyStyles.section} ago-immersive-reveal`} aria-labelledby="como-comprar-title">
-        <div className={`ago-container ${buyStyles.layout}`}>
-          <div className={buyStyles.intro}>
-            <p className="eyebrow">Compra simples</p>
-            <h2 id="como-comprar-title">Como levar uma peça da Agô para casa.</h2>
-            <p>Escolha sua peça, confira a entrega e compre aqui no site.</p>
-            <Link href="/produtos" className="ago-premium-text-link">Ver peças <span aria-hidden="true">↗</span></Link>
-          </div>
-          <ol className={buyStyles.steps}>
-            {buyingSteps.map((step, index) => (
-              <li key={step.title} className={buyStyles.step}>
-                <span className={buyStyles.number}>{String(index + 1).padStart(2, '0')}</span>
-                <div className={buyStyles.copy}><h3>{step.title}</h3><p>{step.copy}</p></div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
       <section id="banca" className="ago-banca-visit ago-immersive-reveal" aria-labelledby="visit-title">
         <div className="ago-container">
           <div className="ago-banca-visit-layout">
@@ -192,12 +166,12 @@ export default function HomePage() {
 
             <div className="ago-banca-visit-gallery" aria-label="Fotografias reais da banca e das peças da Agô no Quadrado de Trancoso">
               <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-banca-photo ago-banca-photo-wide" aria-label="Abrir a localização da banca no Google Maps">
-                <Image src="/complementar.jpg" alt="Peças da Agô expostas na banca do Quadrado de Trancoso" fill quality={100} sizes="(max-width: 760px) 92vw, 40vw" />
+                <Image src="/banca-quadrado-noite.webp" alt="Peças da Agô expostas na banca do Quadrado de Trancoso, com a Igreja do Quadrado ao fundo" fill quality={100} sizes="(max-width: 760px) 92vw, 40vw" />
                 <span>Na banca, no Quadrado <b aria-hidden="true">↗</b></span>
               </a>
-              <Link href="/igrejinha-de-trancoso" className="ago-banca-photo ago-banca-photo-tall">
-                <Image src="/hero.jpg" alt="Igrejinhas e peças em cerâmica da Agô no Quadrado de Trancoso" fill quality={100} sizes="(max-width: 760px) 72vw, 25vw" />
-                <span>Ver as igrejinhas <b aria-hidden="true">↗</b></span>
+              <Link href="/produtos/igrejinha-luminaria-trancoso" className="ago-banca-photo ago-banca-photo-tall">
+                <Image src="/banca-igrejinhas-luminarias.webp" alt="Igrejinhas luminárias em cerâmica acesas na banca da Agô Trancoso" fill quality={100} sizes="(max-width: 760px) 72vw, 25vw" />
+                <span>Ver as igrejinhas luminárias <b aria-hidden="true">↗</b></span>
               </Link>
             </div>
           </div>

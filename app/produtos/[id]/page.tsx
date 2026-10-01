@@ -11,8 +11,6 @@ import ProductGallery from '@/components/ProductGallery';
 import ProductViewTracker from '@/components/ProductViewTracker';
 import ProductCard from '@/components/ProductCard';
 import RecentlyViewed from '@/components/RecentlyViewed';
-import PurchaseQuestions from '@/components/PurchaseQuestions';
-import ProductShare from '@/components/ProductShare';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -105,8 +103,6 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const images = orderedImages.length ? orderedImages : ['/images/placeholder.svg'];
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
-  const waMessage = `Olá! Vim pelo site da Agô Trancoso e tenho interesse em ${product.name}.`;
-  const internationalMessage = `Olá! Gostaria de consultar o envio internacional de ${product.name}.`;
   const nationalShippingPrice = getShippingPrice(price);
   const isIgrejinhaProduct = IGREJINHA_PRODUCT_IDS.has(product.id);
   const isDecorativeMiniature = product.id === 'miniatura-quadrado-trancoso';
@@ -211,17 +207,6 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
               <div className="product-purchase">
                 <AddToCart product={product} />
-                <ProductShare name={product.name} url={productUrl} />
-              </div>
-              <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="product-whatsapp">Prefere comprar pelo WhatsApp? <span aria-hidden="true">↗</span></a>
-
-              <PurchaseQuestions />
-
-              <div className="product-international-note">
-                <p className="eyebrow">International shipping</p>
-                <h2>Fora do Brasil?</h2>
-                <p>Cotação sob consulta, conforme o destino e as peças.</p>
-                <a href={whatsappLink(internationalMessage)} target="_blank" rel="noopener noreferrer">Consultar envio <span aria-hidden="true">↗</span></a>
               </div>
             </div>
           </div>

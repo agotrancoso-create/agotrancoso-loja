@@ -80,6 +80,9 @@ jobs:
           QA_ARTIFACTS: /tmp/ago-qa
         run: node scripts/qa-visual-refinement.cjs
 
+      - name: Premium interaction and motion safety QA
+        run: node scripts/qa-interactive-luxury.cjs
+
       - name: Exact Miniatura R$ 480 shipping UI contract
         run: node scripts/qa-shipping-480.cjs
 

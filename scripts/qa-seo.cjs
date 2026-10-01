@@ -18,7 +18,7 @@ function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags
   const contact=await html('/contato');
   assert.ok(home.includes('https://wa.me/5573998558124?'), 'Home must use the complete business WhatsApp');
   assert.ok(home.includes('\"telephone\":\"+5573998558124\"'), 'Google must receive the same contact number');
-  assert.ok(!contact.includes('46098-000'), 'Do not display an unverified postal code');
+  assert.ok(!contact.includes('46098-000'), 'Do not display the shipping-origin postal code as a store address');
 
   const googlebotMeta=meta(home,'googlebot')||'';
   assert.ok(googlebotMeta.includes('max-image-preview:large'),'Googlebot must be allowed large image previews');
@@ -57,7 +57,11 @@ function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags
     const scripts=[...page.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map(m=>JSON.parse(m[1]));
     const product=scripts.flatMap(data=>data['@graph']||[data]).find(data=>data['@type']==='Product');
     assert.equal(product.offers.shippingDetails.shippingRate.value,'39.90',`Google shipping: ${id}`);
-    assert.ok(page.includes('Compartilhar esta peça'));
+    assert.ok(page.includes('Adicionar à sacola'), `Purchase CTA must remain server-rendered: ${id}`);
+    assert.ok(page.includes('Frete e prazo para seu CEP'), `CEP estimator must remain visible: ${id}`);
+    assert.ok(!page.includes('Compartilhar esta peça'), `Legacy share copy must stay removed: ${id}`);
+    assert.ok(!page.includes('Dúvidas sobre a compra'), `Legacy purchase FAQ must stay removed: ${id}`);
+    assert.ok(!page.includes('International shipping'), `Legacy international card must stay removed: ${id}`);
   }
-  console.log('PASS global crawler access, IndexNow ownership, server-rendered catalog, filters, social images, canonical URLs and Google shipping metadata');
+  console.log('PASS global crawler access, IndexNow ownership, server-rendered catalog, filters, social images, canonical URLs, clean PDP and Google shipping metadata');
 })().catch(error=>{console.error(error);process.exitCode=1;}).finally(()=>server.kill());

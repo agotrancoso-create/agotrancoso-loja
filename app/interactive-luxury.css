@@ -1,0 +1,369 @@
+/* Agô Trancoso — interação premium 2026
+   Movimento é sempre progressivo: o site continua completo e legível sem JS.
+   A camada usa profundidade, luz e microinterações sem acrescentar informação. */
+
+:root {
+  --ago-luxury-ease: cubic-bezier(.2,.72,.2,1);
+  --ago-luxury-shadow: 0 24px 70px rgba(56,36,27,.14);
+  --ago-luxury-shadow-soft: 0 15px 42px rgba(56,36,27,.10);
+  --ago-luxury-line: rgba(255,248,237,.22);
+}
+
+/* Cabeçalho mais contemporâneo: mantém a matéria da marca e ganha profundidade ao rolar. */
+.site-header {
+  transition: box-shadow .35s ease, border-color .35s ease, background-color .35s ease !important;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  -webkit-backdrop-filter: saturate(1.08) blur(16px);
+  backdrop-filter: saturate(1.08) blur(16px);
+}
+
+.site-header.ago-header-scrolled,
+.ago-header-scrolled {
+  box-shadow: 0 14px 38px rgba(42,29,22,.12) !important;
+}
+
+.header-link {
+  text-decoration: none !important;
+}
+
+.header-link::after,
+.ago-category-bar a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 7px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform .28s var(--ago-luxury-ease);
+  opacity: .72;
+}
+
+.ago-category-bar a { position: relative; }
+
+.header-link:hover::after,
+.header-link.is-active::after,
+.ago-category-bar a:hover::after,
+.ago-category-bar a:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* Hero: profundidade responsiva ao ponteiro e ao scroll, sem esconder texto. */
+.ago-cinematic-commerce {
+  --ago-pointer-x: 64%;
+  --ago-pointer-y: 32%;
+  --ago-hero-x: 0px;
+  --ago-hero-y: 0px;
+  --ago-hero-shift: 0px;
+}
+
+.ago-cinematic-overlay {
+  overflow: hidden;
+}
+
+.ago-cinematic-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(680px circle at var(--ago-pointer-x) var(--ago-pointer-y), rgba(255,239,207,.18), transparent 58%),
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(50,28,19,.08));
+  mix-blend-mode: soft-light;
+  transition: background-position .18s linear;
+}
+
+.ago-live-motion .ago-cinematic-image {
+  transform: translate3d(
+      var(--ago-hero-x),
+      calc(var(--ago-hero-shift) + var(--ago-hero-y) + var(--ago-photo-shift, 0px)),
+      0
+    ) scale(1.06) !important;
+  transition: transform .18s linear, filter .45s ease !important;
+  filter: saturate(1.035) contrast(1.02);
+}
+
+.ago-home .ago-cinematic-copy > * {
+  animation: agoHeroSettle .72s var(--ago-luxury-ease) both;
+}
+
+.ago-home .ago-cinematic-copy > *:nth-child(2) { animation-delay: .06s; }
+.ago-home .ago-cinematic-copy > *:nth-child(3) { animation-delay: .12s; }
+.ago-home .ago-cinematic-copy > *:nth-child(4) { animation-delay: .18s; }
+
+@keyframes agoHeroSettle {
+  from { transform: translateY(12px); }
+  to { transform: translateY(0); }
+}
+
+/* Botões: resposta tátil e brilho discreto, sem efeito artificial. */
+.ago-premium-hero-cta,
+.ago-premium-dark-cta,
+.button,
+.product-primary-cta,
+.cart-checkout,
+.checkout-submit {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform .28s var(--ago-luxury-ease), box-shadow .28s ease, background-color .22s ease !important;
+}
+
+.ago-premium-hero-cta::after,
+.ago-premium-dark-cta::after,
+.button::after,
+.product-primary-cta::after,
+.cart-checkout::after,
+.checkout-submit::after {
+  content: '';
+  position: absolute;
+  inset: -40% auto -40% -48%;
+  width: 34%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.24), transparent);
+  transform: skewX(-18deg) translateX(-180%);
+  transition: transform .65s var(--ago-luxury-ease);
+  z-index: -1;
+}
+
+/* Cards recebem luz guiada pelo cursor; a fotografia continua sendo protagonista. */
+.product-card,
+.ago-premium-discovery-card,
+.ago-banca-photo,
+.ago-home-final-card,
+.ago-premium-image {
+  --ago-pointer-x: 50%;
+  --ago-pointer-y: 50%;
+  position: relative;
+  isolation: isolate;
+}
+
+.product-card::after,
+.ago-premium-discovery-card::after,
+.ago-banca-photo::after,
+.ago-home-final-card::after,
+.ago-premium-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 4;
+  background: radial-gradient(420px circle at var(--ago-pointer-x) var(--ago-pointer-y), rgba(255,248,232,.18), transparent 48%);
+  transition: opacity .35s ease;
+}
+
+.product-card,
+.ago-premium-discovery-card {
+  transition: transform .42s var(--ago-luxury-ease), box-shadow .42s ease, filter .42s ease !important;
+}
+
+.product-card .product-image-primary,
+.ago-premium-discovery-card img,
+.ago-banca-photo img,
+.ago-home-final-card img,
+.ago-premium-image img {
+  transition: transform .7s var(--ago-luxury-ease), filter .5s ease !important;
+  will-change: transform;
+}
+
+/* Descoberta e banca: cards editoriais mais vivos, mas ainda minimalistas. */
+.ago-premium-discovery-image,
+.ago-banca-photo,
+.ago-home-final-card,
+.ago-premium-image {
+  box-shadow: 0 1px 0 rgba(255,255,255,.16), 0 18px 44px rgba(56,36,27,.08);
+}
+
+.ago-banca-photo > span,
+.ago-home-final-copy,
+.ago-premium-discovery-copy {
+  transition: transform .35s var(--ago-luxury-ease), opacity .35s ease;
+}
+
+/* Text links ganham um gesto contemporâneo em vez de sublinhado pesado. */
+.ago-premium-text-link > span,
+.ago-cinematic-secondary > span,
+.ago-banca-photo b {
+  display: inline-block;
+  transition: transform .28s var(--ago-luxury-ease);
+}
+
+/* Galeria de produto: indica visualmente que a peça pode ser explorada. */
+.product-gallery-main {
+  transition: box-shadow .35s ease, transform .35s var(--ago-luxury-ease) !important;
+  cursor: zoom-in;
+}
+
+.product-gallery-thumb {
+  transition: transform .28s var(--ago-luxury-ease), box-shadow .28s ease, opacity .28s ease !important;
+}
+
+/* Imagens com parallax recebem deslocamento calculado em JS, mas nunca dependem dele. */
+.ago-live-motion .ago-parallax-photo {
+  transform: translate3d(0, var(--ago-photo-shift, 0px), 0) scale(1.035) !important;
+  transition: transform .17s linear !important;
+}
+
+/* Hover de precisão — só em dispositivos realmente capazes de hover. */
+@media (hover:hover) and (pointer:fine) {
+  .ago-premium-hero-cta:hover,
+  .ago-premium-dark-cta:hover,
+  .button:hover,
+  .product-primary-cta:hover,
+  .cart-checkout:hover,
+  .checkout-submit:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 14px 32px rgba(52,32,23,.18) !important;
+  }
+
+  .ago-premium-hero-cta:hover::after,
+  .ago-premium-dark-cta:hover::after,
+  .button:hover::after,
+  .product-primary-cta:hover::after,
+  .cart-checkout:hover::after,
+  .checkout-submit:hover::after {
+    transform: skewX(-18deg) translateX(520%);
+  }
+
+  .product-card:hover,
+  .product-card:has(.product-card-main:focus-visible) {
+    transform: translateY(-7px) !important;
+    box-shadow: var(--ago-luxury-shadow-soft) !important;
+  }
+
+  .product-card:hover::after,
+  .product-card:has(.product-card-main:focus-visible)::after,
+  .ago-premium-discovery-card:hover::after,
+  .ago-premium-discovery-card:focus-visible::after,
+  .ago-banca-photo:hover::after,
+  .ago-banca-photo:focus-visible::after,
+  .ago-home-final-card:hover::after,
+  .ago-premium-image:hover::after {
+    opacity: 1;
+  }
+
+  .product-card:hover .product-image-primary,
+  .product-card:has(.product-card-main:focus-visible) .product-image-primary {
+    transform: scale(1.045) !important;
+    filter: saturate(1.025) contrast(1.015);
+  }
+
+  .ago-premium-discovery-card:hover,
+  .ago-premium-discovery-card:focus-visible {
+    transform: translateY(-7px) !important;
+    filter: none !important;
+  }
+
+  .ago-premium-discovery-card:hover img,
+  .ago-premium-discovery-card:focus-visible img {
+    transform: translate3d(0, var(--ago-photo-shift, 0px), 0) scale(1.065) !important;
+  }
+
+  .ago-premium-discovery-card:hover .ago-premium-discovery-copy {
+    transform: translateY(-2px);
+  }
+
+  .ago-banca-photo:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--ago-luxury-shadow) !important;
+  }
+
+  .ago-banca-photo:hover img {
+    transform: scale(1.045) !important;
+    filter: saturate(1.035) contrast(1.015);
+  }
+
+  .ago-banca-photo:hover > span {
+    transform: translateY(-2px);
+  }
+
+  .ago-home-final-card:hover img {
+    transform: scale(1.028) !important;
+  }
+
+  .ago-home-final-card:hover .ago-home-final-copy {
+    transform: translateY(-3px);
+  }
+
+  .ago-premium-image:hover img {
+    transform: scale(1.025) !important;
+  }
+
+  .ago-premium-text-link:hover > span,
+  .ago-cinematic-secondary:hover > span,
+  .ago-banca-photo:hover b {
+    transform: translate(3px,-2px);
+  }
+
+  .product-gallery-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 55px rgba(56,36,27,.12) !important;
+  }
+
+  .product-gallery-main:hover img {
+    transform: scale(1.025) !important;
+  }
+
+  .product-gallery-thumb:hover,
+  .product-gallery-thumb:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(56,36,27,.10);
+  }
+}
+
+/* Pressão/touch: resposta rápida sem depender de hover. */
+@media (hover:none) {
+  .ago-premium-hero-cta:active,
+  .product-primary-cta:active,
+  .cart-checkout:active,
+  .ago-premium-discovery-card:active,
+  .ago-banca-photo:active {
+    transform: scale(.985) !important;
+  }
+}
+
+/* Não reintroduzir a falha histórica de conteúdo sumindo. */
+.ago-immersive-reveal,
+.ago-immersive-reveal.is-revealed {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ago-home .ago-cinematic-copy > *,
+  .ago-cinematic-image,
+  .ago-parallax-photo,
+  .product-card,
+  .product-card .product-image-primary,
+  .ago-premium-discovery-card,
+  .ago-premium-discovery-card img,
+  .ago-banca-photo,
+  .ago-banca-photo img,
+  .ago-home-final-card img,
+  .ago-premium-image img,
+  .product-gallery-main,
+  .product-gallery-main img,
+  .product-gallery-thumb,
+  .ago-premium-hero-cta,
+  .product-primary-cta,
+  .cart-checkout,
+  .checkout-submit {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .product-card::after,
+  .ago-premium-discovery-card::after,
+  .ago-banca-photo::after,
+  .ago-home-final-card::after,
+  .ago-premium-image::after,
+  .ago-cinematic-overlay::after {
+    display: none !important;
+  }
+}
