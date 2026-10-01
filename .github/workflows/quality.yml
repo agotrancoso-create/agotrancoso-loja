@@ -73,7 +73,7 @@ jobs:
         env:
           QA_WIDTHS: 320,390,820,1440,1920
           QA_ARTIFACTS: /tmp/ago-qa
-        run: npm run qa:ui
+        run: node --require ./scripts/qa-force-pt.cjs scripts/qa-ui.cjs
 
       - name: Visual refinement parity and rounded zoom QA
         env:
