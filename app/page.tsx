@@ -192,11 +192,11 @@ export default function HomePage() {
 
             <div className="ago-banca-visit-gallery" aria-label="Fotografias reais da banca e das peças da Agô no Quadrado de Trancoso">
               <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-banca-photo ago-banca-photo-wide" aria-label="Abrir a localização da banca no Google Maps">
-                <Image src="/hero.jpg" alt="Peças da Agô expostas no Quadrado de Trancoso" fill quality={100} sizes="(max-width: 760px) 92vw, 40vw" />
+                <Image src="/complementar.jpg" alt="Peças da Agô expostas na banca do Quadrado de Trancoso" fill quality={100} sizes="(max-width: 760px) 92vw, 40vw" />
                 <span>Na banca, no Quadrado <b aria-hidden="true">↗</b></span>
               </a>
               <Link href="/igrejinha-de-trancoso" className="ago-banca-photo ago-banca-photo-tall">
-                <Image src="/complementar.jpg" alt="Igrejinha luminária e peças em cerâmica na banca da Agô" fill quality={100} sizes="(max-width: 760px) 72vw, 25vw" />
+                <Image src="/hero.jpg" alt="Igrejinhas e peças em cerâmica da Agô no Quadrado de Trancoso" fill quality={100} sizes="(max-width: 760px) 72vw, 25vw" />
                 <span>Ver as igrejinhas <b aria-hidden="true">↗</b></span>
               </Link>
             </div>
