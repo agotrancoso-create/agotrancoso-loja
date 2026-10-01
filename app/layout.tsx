@@ -22,6 +22,8 @@ import './purchase-clarity.css';
 import './visual-refinement.css';
 import './site-growth-consistency.css';
 import './reference-terracotta.css';
+import './home-self-selling.css';
+import './home-map.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
