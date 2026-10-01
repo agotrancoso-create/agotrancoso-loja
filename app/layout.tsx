@@ -24,6 +24,7 @@ import './site-growth-consistency.css';
 import './reference-terracotta.css';
 import './home-self-selling.css';
 import './home-map.css';
+import './locale.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
@@ -32,6 +33,7 @@ import WebVitalsReporter from '@/components/WebVitalsReporter';
 import ConsentManager from '@/components/ConsentManager';
 import ImmersiveMotion from '@/components/ImmersiveMotion';
 import CepAddressAutofill from '@/components/CepAddressAutofill';
+import LocaleRuntime from '@/components/LocaleRuntime';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -171,8 +173,7 @@ const versionGuardScript = `
 
   async function checkVersion() {
     if (checking || reloading || document.visibilityState === 'hidden') return;
-    // Never interrupt a purchase or discard an unfinished form after a deploy.
-    if (/^\\/(checkout|confirmacao)(\\/|$)/.test(window.location.pathname)) return;
+    if (/^\\/(checkout|confirmacao)(\\/|$)/.test(window.location.pathname.replace(/^\\/en(?=\\/|$)/, ''))) return;
     var focused = document.activeElement;
     if (focused && (focused.matches('input, textarea, select') || focused.isContentEditable)) return;
     checking = true;
@@ -208,7 +209,7 @@ const versionGuardScript = `
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`} data-build-version={buildVersion || undefined}>
+    <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`} data-build-version={buildVersion || undefined} suppressHydrationWarning>
       <body>
         <a href="#conteudo-principal" className="ago-skip-link">Ir para o conteúdo</a>
         <MarketingAnalytics />
@@ -216,6 +217,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <WebVitalsReporter />
         <ImmersiveMotion />
         <CepAddressAutofill />
+        <LocaleRuntime />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <CartProvider>
           <Header firstPurchaseAvailable={firstPurchaseAvailable} />
