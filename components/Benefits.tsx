@@ -28,10 +28,10 @@ export default function Benefits() {
                 <div className="ago-benefit-symbol" aria-hidden="true">
                   <div className="ago-benefit-art" style={{ backgroundSize: `${artwork.width / artwork.cropWidth * 100}% ${artwork.height / artwork.cropHeight * 100}%`, backgroundPosition: `${iconLeft[index] / (artwork.width - artwork.cropWidth) * 100}% ${artwork.top / (artwork.height - artwork.cropHeight) * 100}%` }} />
                 </div>
-                <div className="ago-benefit-copy"><h3>{title}</h3><p>{text}</p></div>
-                <span className="ago-benefit-more">Saiba mais</span>
+                <div className="ago-benefit-copy"><h3>{title}</h3></div>
+                <span className="ago-benefit-more" aria-hidden="true">+</span>
               </summary>
-              <p className="ago-benefit-detail">{details[index][0]}<br /><Link href={details[index][1]}>{details[index][2]}</Link></p>
+              <p className="ago-benefit-detail">{text}<br /><Link href={details[index][1]}>{details[index][2]}</Link></p>
             </details>
           ))}
         </div>

@@ -81,6 +81,9 @@ async function run() {
         assert.notEqual(heroStyle.shadow, 'none');
       }
       if (route === '/produtos') {
+        const priceDisclosure = page.locator('.catalog-budget-control');
+        assert.equal(await priceDisclosure.getAttribute('open'), null, 'Optional prices start collapsed');
+        await priceDisclosure.locator('summary').click();
         const budgets = page.getByRole('group', {name:'Faixa de preço', exact:true});
         await budgets.waitFor();
         assert.equal(await budgets.getByRole('button').count(), 8);
@@ -180,6 +183,22 @@ async function run() {
   await page.getByRole('option', { name: 'Menor preço', exact: true }).first().click();
   const cheapest = products.reduce((a, b) => (a.price < b.price ? a : b)).id;
   assert.equal(await page.locator('.catalog-grid .product-card').first().getAttribute('data-product-id'), cheapest);
+  assert.equal(new URL(page.url()).searchParams.get('ordem'), 'price-asc');
+  await search.fill('luminária');
+  await search.press('Escape');
+  assert.equal(new URL(page.url()).searchParams.get('busca'), 'luminária');
+  const filteredIds = await page.locator('.catalog-grid .product-card').evaluateAll(cards => cards.map(card => card.dataset.productId));
+  assert.ok(filteredIds.length > 0);
+  await page.reload({waitUntil:'domcontentloaded'});
+  await page.locator('.catalog-grid .product-card').first().waitFor();
+  assert.equal(await search.inputValue(), 'luminária');
+  assert.equal(await sort.getAttribute('aria-label'), 'Ordenar por: Menor preço');
+  assert.deepEqual(await page.locator('.catalog-grid .product-card').evaluateAll(cards => cards.map(card => card.dataset.productId)), filteredIds);
+  await page.getByRole('button', {name:'Limpar filtros', exact:true}).click();
+  assert.equal(new URL(page.url()).search, '');
+  await visit('/produtos?categoria=inexistente&ordem=invalida');
+  assert.equal(await page.locator('.catalog-grid .product-card').count(), products.filter(product => product.available).length);
+  results.interactions.push('Catalog search and sorting survive reload; invalid category and sort recover to the full collection');
   results.interactions.push('Predictive search, complete price ranges, no-results recovery, every category and sorting verified');
 
   // Modern gallery: keyboard navigation + full-piece lightbox + zoom + reset + Escape.

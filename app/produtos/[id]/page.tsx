@@ -201,7 +201,6 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
               <dl className="product-premium-facts" aria-label="Informações da peça">
                 <div><dt>Material</dt><dd>Cerâmica</dd></div>
-                <div><dt>Seleção</dt><dd>Agô Trancoso · Bahia</dd></div>
                 <div><dt>Disponibilidade</dt><dd>{product.available ? 'Disponível para compra' : 'Indisponível'}</dd></div>
                 {isDecorativeMiniature && <div><dt>Uso</dt><dd>Para pendurar ou apoiar na decoração</dd></div>}
                 {product.dimensions && <div><dt>Dimensões</dt><dd>{product.dimensions}</dd></div>}
@@ -212,19 +211,17 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               <a href={whatsappLink(waMessage)} target="_blank" rel="noopener noreferrer" className="product-whatsapp">Prefere comprar pelo WhatsApp? <span aria-hidden="true">↗</span></a>
 
               <div className="product-service-grid">
-                <div><strong>Entrega no Brasil</strong><span>{freeShippingAtProductQuantity ? 'Frete grátis nesta peça.' : <>Frete fixo de {formatBRL(FIXED_SHIPPING_PRICE)}.</>}</span></div>
-                <div><strong>Regra de frete</strong><span>Grátis a partir de R$ 500 em produtos.</span></div>
-                <div><strong>Pagamento</strong><span>Ambiente de pagamento seguro pela InfinitePay.</span></div>
+                <div><strong>Entrega no Brasil</strong><span>{freeShippingAtProductQuantity ? 'Frete grátis nesta peça.' : <>Frete fixo de {formatBRL(FIXED_SHIPPING_PRICE)}. Grátis a partir de R$ 500 em produtos.</>}</span></div>
+                <div><strong>Pagamento</strong><span>Pagamento seguro pela InfinitePay.</span></div>
               </div>
 
               <PurchaseQuestions />
 
-              <div className="product-international-note">
-                <p className="eyebrow">International shipping</p>
-                <h2>Fora do Brasil?</h2>
-                <p>Como o envio de cerâmica depende do destino e da embalagem de cada pedido, fazemos a cotação internacional manualmente, sem estimar peso ou medidas.</p>
+              <details className="product-international-note ago-international-compact">
+                <summary>Envio internacional</summary>
+                <p>Cotação sob consulta, conforme o destino e as peças.</p>
                 <a href={whatsappLink(internationalMessage)} target="_blank" rel="noopener noreferrer">Consultar envio <span aria-hidden="true">↗</span></a>
-              </div>
+              </details>
             </div>
           </div>
         </div>

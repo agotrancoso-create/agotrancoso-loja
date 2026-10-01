@@ -60,7 +60,9 @@ async function run() {
       };
     });
     assert.deepEqual(order, { heroBeforeFeatured: true, featuredBeforeConfidence: true }, `home hierarchy@${width}`);
-    assert.match(normalize(await hero.innerText()), /Cerâmica artesanal inspirada em Trancoso, desde 2016 no Quadrado/);
+    assert.equal(normalize(await hero.getByRole('heading', { level: 1 }).innerText()), 'Trancoso em cerâmica.');
+    assert.match(normalize(await hero.innerText()), /Peças para levar um pouco daqui\./);
+    assert.equal(await hero.getByRole('link', { name: 'Ver peças', exact: true }).getAttribute('href'), '#pecas-em-destaque');
     assert.match(normalize(await confidence.innerText()), /Feito à mão/i);
     assert.match(normalize(await confidence.innerText()), /inspiração brasileira/i);
 
