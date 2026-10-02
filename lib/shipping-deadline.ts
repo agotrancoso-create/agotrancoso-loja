@@ -21,12 +21,14 @@ type CorreiosPrazoResponse = {
 
 export type ShippingDeadlineQuote = {
   deadline: number | string;
-  provider: 'Correios' | 'Frenet';
+  provider: 'Correios' | 'Frenet' | 'Estimativa Agô';
   serviceId?: string;
   serviceName?: string;
+  estimated?: boolean;
 };
 
-export const DEFAULT_SHIP_FROM_CEP = '46098000';
+/* CEP geral de Trancoso, Porto Seguro/BA. Pode ser sobrescrito por SHIP_FROM_CEP. */
+export const DEFAULT_SHIP_FROM_CEP = '45818000';
 
 function digits(value: string | undefined) {
   return String(value ?? '').replace(/\D/g, '');
@@ -54,8 +56,9 @@ export function getShippingDeadlineProviderState() {
   return {
     correiosConfigured,
     frenetConfigured,
-    configured: correiosConfigured || frenetConfigured,
-    provider: correiosConfigured ? 'Correios' : frenetConfigured ? 'Frenet' : null,
+    /* O site sempre consegue informar uma estimativa por CEP, mesmo sem credenciais externas. */
+    configured: true,
+    provider: correiosConfigured ? 'Correios' : frenetConfigured ? 'Frenet' : 'Estimativa Agô',
     originCep: getShipFromCep(),
   } as const;
 }
@@ -96,6 +99,7 @@ async function getCorreiosDeadlineQuote(destinationCep: string): Promise<Shippin
       provider: 'Correios',
       serviceId: data.coProduto || serviceCode,
       serviceName: serviceCode === '03298' ? 'PAC' : 'Correios',
+      estimated: false,
     };
   } catch (error) {
     console.warn('Correios deadline quote unavailable:', error instanceof Error ? error.message : error);
@@ -153,11 +157,39 @@ async function getFrenetDeadlineQuote(params: {
       provider: 'Frenet',
       serviceId: representative.ServiceCode,
       serviceName: representative.ServiceDescription || representative.Carrier,
+      estimated: false,
     };
   } catch (error) {
     console.warn('Frenet deadline quote unavailable:', error instanceof Error ? error.message : error);
     return null;
   }
+}
+
+/*
+ * Fallback de prazo para quando Correios/Frenet não devolvem prazo.
+ * Não depende de peso ou dimensões: usa apenas a faixa do CEP de destino e a
+ * origem em Trancoso/BA. É propositalmente conservador e é mostrado ao cliente
+ * como estimativa, não como promessa de entrega.
+ */
+function getEstimatedDeadline(destinationCep: string): ShippingDeadlineQuote {
+  const firstDigit = Number(destinationCep[0]);
+  let deadline = '6–12';
+
+  if (firstDigit === 4) deadline = '3–7';       // BA e SE
+  else if (firstDigit === 5) deadline = '4–9';  // parte do Nordeste
+  else if (firstDigit >= 0 && firstDigit <= 3) deadline = '5–10'; // Sudeste
+  else if (firstDigit === 6) deadline = '6–12'; // Norte/Nordeste amplo
+  else if (firstDigit === 7) deadline = '6–12'; // Centro-Oeste e parte do Norte
+  else if (firstDigit === 8) deadline = '7–12'; // PR/SC
+  else if (firstDigit === 9) deadline = '8–13'; // RS
+
+  return {
+    deadline,
+    provider: 'Estimativa Agô',
+    serviceId: 'estimated-by-cep',
+    serviceName: 'Prazo estimado pelo CEP',
+    estimated: true,
+  };
 }
 
 export async function getShippingDeadlineQuote(params: {
@@ -170,5 +202,8 @@ export async function getShippingDeadlineQuote(params: {
   const correios = await getCorreiosDeadlineQuote(destinationCep);
   if (correios) return correios;
 
-  return getFrenetDeadlineQuote({ destinationCep, subtotal: params.subtotal });
+  const frenet = await getFrenetDeadlineQuote({ destinationCep, subtotal: params.subtotal });
+  if (frenet) return frenet;
+
+  return getEstimatedDeadline(destinationCep);
 }
