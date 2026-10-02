@@ -5,6 +5,10 @@ import { useEffect } from 'react';
 const COOKIE = 'ago_locale';
 
 const exact: Record<string, string> = {
+  // Home: corrige traduções legadas depois do runtime principal.
+  'Hand-shaped ceramic pieces, since 2016 in the Quadrado.': 'Churches, little houses and keepsakes from the Quadrado.',
+  'A Agô reúne cerâmicas que carregam referências de Trancoso, para decorar, presentear e guardar uma lembrança especial.': 'Agô brings together ceramic pieces inspired by Trancoso, for decorating, gifting and keeping a special memory of the place.',
+
   // Sacola
   'Sua seleção': 'Your selection',
   'Peças escolhidas por você.': 'Pieces you selected.',
@@ -86,6 +90,10 @@ const exact: Record<string, string> = {
   'Suas peças': 'Your pieces',
   '1ª compra · 3% OFF': 'First purchase · 3% OFF',
 
+  // Produto / frete
+  'Frete e prazo estimado para seu CEP': 'Shipping and estimated delivery time for your ZIP code',
+  'Estimativa baseada no CEP de destino, saindo de Trancoso. O prazo final é confirmado na postagem.': 'Estimate based on the destination ZIP code, shipping from Trancoso. The final delivery time is confirmed when the order is posted.',
+
   // Contato
   'Fale com a Agô': 'Talk to Agô',
   'Tem dúvida sobre uma peça, entrega ou pagamento? Fale com a gente. Para comprar, você também pode finalizar o pedido direto pelo site.': 'Questions about a piece, delivery or payment? Talk to us. You can also complete your purchase directly on the site.',
@@ -100,7 +108,7 @@ const exact: Record<string, string> = {
 
   // A Agô
   'O que vemos por aqui ganha outra forma.': 'What we see here takes on another form.',
-  'A Agô está em Trancoso desde 2016 e reúne uma seleção de peças em cerâmica artesanal.': 'Agô has been in Trancoso since 2016 and brings together a selection of handmade ceramic pieces.',
+  'A Agô reúne uma seleção de peças em cerâmica artesanal, com referências de Trancoso e de outras expressões brasileiras.': 'Agô brings together a selection of handmade ceramic pieces with references to Trancoso and other Brazilian expressions.',
   'A igreja, as casas e as cores do Quadrado inspiram parte do acervo. Há também objetos para casa, símbolos de fé e outras referências brasileiras.': 'The church, houses and colors of the Quadrado inspire part of the collection. You will also find home objects, symbols of faith and other Brazilian references.',
   'Na loja e no site, você encontra as peças para conhecer, escolher e comprar.': 'At the shop and on the site, you can discover, choose and buy the pieces.',
   'Visitar ou falar com a Agô': 'Visit or talk to Agô',
@@ -122,6 +130,8 @@ const exact: Record<string, string> = {
 const patterns: Array<[RegExp, (m: RegExpMatchArray) => string]> = [
   [/^Faltam (.+) para o frete grátis\.$/, (m) => `${m[1]} more for free shipping.`],
   [/^Frete fixo de (.+)\.$/, (m) => `Fixed shipping: ${m[1]}.`],
+  [/^Estimativa de entrega: (.+) dias úteis$/, (m) => `Estimated delivery: ${m[1]} business days`],
+  [/^Prazo estimado: (.+) dias úteis$/, (m) => `Estimated delivery: ${m[1]} business days`],
   [/^Cupom (.+) aplicado\.$/, (m) => `Coupon ${m[1]} applied.`],
   [/^Cupom (.+) validado: 3% OFF\.$/, (m) => `Coupon ${m[1]} validated: 3% OFF.`],
   [/^(.+) \/ un\.$/, (m) => `${m[1]} / unit`],
