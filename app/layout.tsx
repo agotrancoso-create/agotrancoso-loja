@@ -28,6 +28,7 @@ import './locale.css';
 import './site-ux-polish.css';
 import './interactive-luxury.css';
 import './conversion-polish-2026.css';
+import './tropicalia-premium-polish.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
@@ -97,7 +98,7 @@ const versionGuardScript = `
   function cleanVersionParam() { try { var url = new URL(window.location.href); if (url.searchParams.get('__ago_v') === current) { url.searchParams.delete('__ago_v'); history.replaceState(history.state, '', url.pathname + url.search + url.hash); } } catch (_) {} }
   async function checkVersion() {
     if (checking || reloading || document.visibilityState === 'hidden') return;
-    if (/^\\/(checkout|confirmacao)(\\/|$)/.test(window.location.pathname.replace(/^\\/en(?=\\/|$)/, ''))) return;
+    if (/^\/(checkout|confirmacao)(\/|$)/.test(window.location.pathname.replace(/^\/en(?=\/|$)/, ''))) return;
     var focused = document.activeElement;
     if (focused && (focused.matches('input, textarea, select') || focused.isContentEditable)) return;
     checking = true;
