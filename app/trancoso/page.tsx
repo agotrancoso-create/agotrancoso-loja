@@ -8,8 +8,8 @@ import { SITE_DOMAIN } from '@/lib/config';
 const pageUrl = `${SITE_DOMAIN}/trancoso`;
 
 export const metadata: Metadata = {
-  title: { absolute: 'Artesanato e Cerâmica em Trancoso, Bahia | Agô no Quadrado' },
-  description: 'Conheça a Agô Trancoso no Quadrado: cerâmica artesanal, Igrejinhas de Trancoso, miniaturas, decoração e lembranças inspiradas na vila, com compra online.',
+  title: { absolute: 'Cerâmica em Trancoso, Bahia | Agô no Quadrado' },
+  description: 'Cerâmica artesanal no Quadrado de Trancoso: igrejinhas, miniaturas, luminárias, decoração e lembranças inspiradas na vila. Compre online ou visite a Agô.',
   alternates: { canonical: '/trancoso' },
   robots: {
     index: true,
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 },
   },
   openGraph: {
-    title: 'Artesanato e Cerâmica em Trancoso, Bahia | Agô Trancoso',
+    title: 'Cerâmica em Trancoso, Bahia | Agô no Quadrado',
     description: 'Cerâmica artesanal no Quadrado de Trancoso: peças inspiradas na vila, na Igrejinha e nas cores da Bahia.',
     url: '/trancoso',
     siteName: 'Agô Trancoso',
@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       { url: '/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg', alt: 'Miniatura em cerâmica do Quadrado de Trancoso' },
-      { url: '/produtos/catalogo/miniatura-quadrado-trancoso-6.webp', alt: 'Miniaturas coloridas do Quadrado de Trancoso em cerâmica artesanal' },
+      { url: '/produtos/igreja-quadrado-p.jpg', alt: 'Igrejinha do Quadrado de Trancoso em cerâmica' },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Artesanato e Cerâmica em Trancoso | Agô Trancoso',
-    description: 'Peças em cerâmica artesanal inspiradas no Quadrado e na Igrejinha de Trancoso.',
+    title: 'Cerâmica em Trancoso | Agô no Quadrado',
+    description: 'Igrejinhas, miniaturas e cerâmica artesanal inspiradas no Quadrado de Trancoso.',
     images: ['/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg'],
   },
 };
@@ -46,11 +46,12 @@ export default function TrancosoPage() {
         '@type': 'CollectionPage',
         '@id': `${pageUrl}#page`,
         url: pageUrl,
-        name: 'Artesanato e cerâmica em Trancoso, Bahia — Agô no Quadrado',
-        description: 'Cerâmica artesanal da Agô em Trancoso, com peças inspiradas no Quadrado, na Igreja de São João Batista, na decoração e nas lembranças da vila.',
+        name: 'Cerâmica e artesanato em Trancoso, Bahia — Agô no Quadrado',
+        description: 'Seleção de cerâmica artesanal disponível na Agô em Trancoso, com peças inspiradas no Quadrado, na Igreja de São João Batista, na decoração e nas lembranças da vila.',
         inLanguage: 'pt-BR',
         isPartOf: { '@id': `${SITE_DOMAIN}#website` },
         publisher: { '@id': `${SITE_DOMAIN}#organization` },
+        primaryImageOfPage: { '@type': 'ImageObject', contentUrl: `${SITE_DOMAIN}/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg` },
         about: [
           { '@type': 'Place', name: 'Trancoso', address: { '@type': 'PostalAddress', addressLocality: 'Trancoso', addressRegion: 'BA', addressCountry: 'BR' } },
           { '@type': 'Thing', name: 'Artesanato em Trancoso' },
@@ -92,7 +93,7 @@ export default function TrancosoPage() {
             <p className="eyebrow">Trancoso · Bahia · Brasil</p>
             <h1>Cerâmica artesanal no coração de Trancoso.</h1>
           </div>
-          <p>A Agô está no Quadrado de Trancoso desde 2016. A coleção reúne artesanato em cerâmica inspirado nas cores, na arquitetura, na fé e nos símbolos que fazem parte da vila.</p>
+          <p>A Agô reúne no Quadrado uma seleção de cerâmica artesanal inspirada nas cores, na arquitetura, na fé e nos símbolos que fazem parte de Trancoso.</p>
         </header>
 
         <section aria-labelledby="trancoso-pieces-title">
@@ -122,7 +123,7 @@ export default function TrancosoPage() {
         <section className="catalog-buying-answer" aria-labelledby="visit-trancoso-international">
           <div><p className="eyebrow">For international visitors</p><h2 id="visit-trancoso-international">Visiting Trancoso?</h2></div>
           <div className="catalog-buying-answer-copy">
-            <p>Agô Trancoso is located at the historic Quadrado. Our handmade ceramic collection is inspired by Trancoso, its colorful houses and the Church of São João Batista.</p>
+            <p>Agô Trancoso is located at the historic Quadrado. Our selection brings together handmade ceramic pieces inspired by Trancoso, its colorful houses and the Church of São João Batista.</p>
             <p>International shipping can be quoted individually according to destination and packaging needs.</p>
             <Link href="/contato" className="text-link">Find Agô in Trancoso <span aria-hidden="true">↗</span></Link>
           </div>
