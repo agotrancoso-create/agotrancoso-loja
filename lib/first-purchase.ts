@@ -98,13 +98,13 @@ function normalizedIdentity(input: { email: unknown; phone: unknown; document: u
 }
 
 export async function checkFirstPurchaseEligibility(input: { email: unknown; phone: unknown; document: unknown }) {
-  if (!isFirstPurchaseStorageConfigured()) {
-    return { eligible: false, reason: 'A validação segura do benefício está temporariamente indisponível.' };
-  }
-
   const identity = normalizedIdentity(input);
   if (!identity) {
     return { eligible: false, reason: 'Informe e-mail, telefone e CPF/CNPJ válidos para confirmar o benefício.' };
+  }
+
+  if (!isFirstPurchaseStorageConfigured()) {
+    return { eligible: true as const, fallback: true as const };
   }
 
   const existing = await redisCommand<(string | null)[]>(['MGET', ...identity.keys]);
@@ -122,13 +122,18 @@ export async function reserveFirstPurchaseIdentity(input: {
   expectedAmountCents: number;
   discountCents: number;
 }) {
-  if (!isFirstPurchaseStorageConfigured()) {
-    return { eligible: false, reason: 'A validação segura do benefício está temporariamente indisponível.' };
-  }
-
   const identity = normalizedIdentity(input);
   if (!identity) {
     return { eligible: false, reason: 'Informe e-mail, telefone e CPF/CNPJ válidos para confirmar o benefício.' };
+  }
+
+  /*
+   * Se o KV/Redis não estiver configurado, o cupom continua funcionando.
+   * A proteção forte contra reutilização volta automaticamente assim que o
+   * storage estiver disponível, sem derrubar a conversão do checkout.
+   */
+  if (!isFirstPurchaseStorageConfigured()) {
+    return { eligible: true as const, fallback: true as const };
   }
 
   const [emailIdentityKey, phoneIdentityKey, documentIdentityKey] = identity.keys;
