@@ -41,7 +41,7 @@ const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','
   await p.locator('.first-purchase-modal').waitFor({state:'visible'});
   await audit('first-purchase-offer');
   await p.evaluate(()=>{const original=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k==='ago_primeira_compra_v3_cadastro') throw new Error('Storage unavailable for test');return original.call(this,k,v);};});
-  await p.getByLabel('Seu e-mail',{exact:true}).fill('teste@example.com');await p.getByRole('checkbox').check();await p.getByRole('button',{name:'Quero meu desconto'}).click();await p.getByRole('alert').filter({hasText:'Não foi possível'}).waitFor();await audit('first-purchase-error');
+  await p.getByLabel('Seu e-mail',{exact:true}).fill('teste@example.com');await p.getByRole('checkbox').check();await p.getByRole('button',{name:'Quero meu benefício'}).click();await p.getByRole('alert').filter({hasText:'Não foi possível'}).waitFor();await audit('first-purchase-error');
   await p.keyboard.press('Escape');assert.equal(await p.locator('.first-purchase-modal').count(),0);
  }else{
   console.log('first-purchase-offer skipped: feature disabled in this CI build');
