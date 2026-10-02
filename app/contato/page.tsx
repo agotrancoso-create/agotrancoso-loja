@@ -53,7 +53,14 @@ export default function ContatoPage() {
               <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="info-link" aria-label="Abrir localização no Google Maps"><span>Abrir no Google Maps</span><span aria-hidden="true">↗</span></a>
             </div>
 
-            <div className="info-panel" style={{ borderRadius: '24px' }}>
+            <div
+              className="info-panel contact-location-panel"
+              style={{
+                borderRadius: '28px',
+                overflow: 'hidden',
+                clipPath: 'inset(0 round 28px)',
+              }}
+            >
               <p className="eyebrow">Onde encontrar</p>
               <h2>Quadrado de Trancoso</h2>
               <address className="contact-address">
