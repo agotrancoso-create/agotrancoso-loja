@@ -65,7 +65,7 @@ async function run() {
 
     await page.goto(base + '/', { waitUntil: 'networkidle' });
     assert.equal(await page.locator('html').getAttribute('lang'), 'pt-BR', `pt lang@${width}`);
-    assert.equal((await page.locator('.ago-cinematic-copy > p:not(.eyebrow)').first().innerText()).trim(), 'Peças moldadas à mão, desde 2016 no Quadrado.', `approved hero copy@${width}`);
+    assert.equal((await page.locator('.ago-cinematic-copy > p:not(.eyebrow)').first().innerText()).trim(), 'Igrejinhas, casinhas e lembranças do Quadrado.', `approved hero copy@${width}`);
     await page.locator('.ago-language-switcher').waitFor();
     await assertNoOverflow(page, `pt@${width}`);
 

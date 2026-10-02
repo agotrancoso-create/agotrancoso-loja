@@ -260,12 +260,6 @@ export default function LocaleRuntime() {
     document.documentElement.lang = resolved === 'en' ? 'en' : 'pt-BR';
     document.documentElement.dataset.locale = resolved;
 
-    // A frase aprovada da hero deve permanecer igual à versão anterior do site.
-    const heroCopy = document.querySelector('.ago-cinematic-copy > p:not(.eyebrow)');
-    if (heroCopy?.textContent?.trim() === 'Igrejinhas, casinhas e lembranças do Quadrado.') {
-      heroCopy.textContent = 'Peças moldadas à mão, desde 2016 no Quadrado.';
-    }
-
     if (resolved === 'en') translateNode(document.body);
 
     const observer = new MutationObserver((records) => {
