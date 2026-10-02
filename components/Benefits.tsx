@@ -23,9 +23,9 @@ function BenefitIcon({ name }: { name: IconName }) {
       <path d="M23.9 4.9 21.5 6.7 19 6.1 18.4 10.3 16.6 10.3 15.4 9.1 12.4 9.7 12.4 15.1 10.6 17.5 8.2 18.1 7 22.4 7.6 24.8 8.8 24.8 10.6 26.6 16.6 26 19 29 23.9 32 23.9 33.8 26.9 35.6 26.9 42.2 31.1 45.3 31.7 49.5 29.3 51.3 28.1 54.3 29.3 54.3 31.7 56.7 31.7 58.5 33.5 58.5 38.9 51.9 39.5 47.7 42.5 45.3 48.6 43.4 51.6 36.8 51.6 31.4 56.4 26 56.4 20.6 54 20 51 16.9 45 15.7 44.3 14.5 38.9 12.7 35.3 6.1 32.9 9.1 30.5 8.5 25.7 9.7Z" />
     </>,
     truck: <>
-      <path d="M12 19h29v28H12V19Zm29 9h9l9 11v8H41M47 29v10h11M4 27h5M2 33h7M4 39h5" />
-      <circle cx="21" cy="47" r="5" fill="var(--ago-brasil-palha, #f6eddc)" /><circle cx="50" cy="47" r="5" fill="var(--ago-brasil-palha, #f6eddc)" />
-      <path d="m20 29 6-4 6 4v10H20V29Zm6-4v-4m-3 2h6m-5 16v-5h4v5" />
+      <path d="M10 20h30v24H10V20Zm30 8h9l9 10v6H40M49 29v9h8M4 27h4M2 33h6M4 39h4" />
+      <circle cx="20" cy="45" r="5" />
+      <circle cx="50" cy="45" r="5" />
     </>,
   };
   return <svg className={`ago-benefit-svg ago-benefit-svg-${name}`} viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">{drawings[name]}</svg>;
