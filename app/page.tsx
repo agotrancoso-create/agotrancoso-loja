@@ -188,8 +188,8 @@ export default function HomePage() {
             <div className="ago-banca-visit-gallery" aria-label="Fotografias reais da banca e das peças da Agô no Quadrado de Trancoso">
               <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-banca-photo ago-banca-photo-wide" aria-label="Abrir a localização da banca no Google Maps">
                 <Image
-                  src="/banca-igrejinhas-luminarias.webp"
-                  alt="Igrejinhas e luminárias de cerâmica expostas na banca da Agô no Quadrado de Trancoso"
+                  src="/banca-quadrado-noite.webp"
+                  alt="Peças da Agô expostas na banca do Quadrado de Trancoso, com a Igreja do Quadrado ao fundo"
                   fill
                   quality={86}
                   sizes="(max-width: 700px) 82vw, (max-width: 900px) 46vw, 27vw"
