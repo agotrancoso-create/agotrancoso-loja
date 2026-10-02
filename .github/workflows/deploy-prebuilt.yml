@@ -2,6 +2,9 @@ name: Deploy prebuilt production
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - force-production-20261002
 
 permissions:
   contents: read
