@@ -71,15 +71,32 @@
   .ago-home .ago-home-story::before { display: none; }
 }
 
-/* Let the handmade line drawings breathe, as in the supplied reference. */
+/* Larger, optically balanced handmade line drawings, following the approved reference. */
 .ago-home .ago-benefit-line-icon {
-  width: 52px;
-  height: 52px;
+  width: 78px;
+  height: 78px;
+  display: grid;
+  place-items: center;
   border: 0;
   border-radius: 0;
+  margin-inline: auto;
 }
 .ago-home .ago-benefit-line-icon svg {
-  width: 46px;
-  height: 46px;
-  stroke-width: 1.8;
+  width: 68px;
+  height: 68px;
+  stroke-width: 1.65;
+  overflow: visible;
+}
+.ago-home .ago-benefit-line-icon-craft svg { width: 70px; height: 70px; }
+.ago-home .ago-benefit-line-icon-vase svg { width: 66px; height: 66px; }
+.ago-home .ago-benefit-line-icon-brazil svg { width: 66px; height: 72px; }
+.ago-home .ago-benefit-line-icon-truck svg { width: 74px; height: 66px; }
+
+@media (max-width: 700px) {
+  .ago-home .ago-benefit-line-icon { width: 70px; height: 70px; }
+  .ago-home .ago-benefit-line-icon svg { width: 62px; height: 62px; }
+  .ago-home .ago-benefit-line-icon-craft svg { width: 64px; height: 64px; }
+  .ago-home .ago-benefit-line-icon-vase svg { width: 60px; height: 60px; }
+  .ago-home .ago-benefit-line-icon-brazil svg { width: 60px; height: 66px; }
+  .ago-home .ago-benefit-line-icon-truck svg { width: 66px; height: 60px; }
 }
