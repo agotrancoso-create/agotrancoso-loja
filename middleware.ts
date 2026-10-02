@@ -1,42 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const LOCALE_COOKIE = 'ago_locale';
-const PORTUGUESE_COUNTRIES = new Set(['BR', 'PT', 'AO', 'MZ', 'CV', 'GW', 'ST', 'TL']);
-
-function preferredLocale(request: NextRequest): 'pt' | 'en' {
-  const saved = request.cookies.get(LOCALE_COOKIE)?.value;
-  if (saved === 'pt' || saved === 'en') return saved;
-
-  const requestHost = (request.headers.get('x-forwarded-host') || request.headers.get('host') || request.nextUrl.host)
-    .split(',')[0]
-    .trim()
-    .split(':')[0]
-    .toLowerCase();
-  if (requestHost === 'localhost' || requestHost === '127.0.0.1' || requestHost === '0.0.0.0') return 'pt';
-
-  const accepted = request.headers.get('accept-language') ?? '';
-  const ranked = accepted
-    .split(',')
-    .map((entry) => {
-      const [tag, ...params] = entry.trim().toLowerCase().split(';');
-      const qParam = params.find((part) => part.trim().startsWith('q='));
-      const q = qParam ? Number(qParam.split('=')[1]) : 1;
-      return { tag, q: Number.isFinite(q) ? q : 0 };
-    })
-    .filter((entry) => entry.tag)
-    .sort((a, b) => b.q - a.q);
-
-  for (const language of ranked) {
-    if (language.tag === 'pt' || language.tag.startsWith('pt-')) return 'pt';
-    if (language.tag === 'en' || language.tag.startsWith('en-')) return 'en';
-  }
-
-  const country = (request.headers.get('x-vercel-ip-country') || request.headers.get('cf-ipcountry') || '').toUpperCase();
-  if (country && PORTUGUESE_COUNTRIES.has(country)) return 'pt';
-  if (country) return 'en';
-
-  return 'pt';
-}
 
 function remember(response: NextResponse, locale: 'pt' | 'en') {
   response.cookies.set(LOCALE_COOKIE, locale, {
@@ -46,7 +10,6 @@ function remember(response: NextResponse, locale: 'pt' | 'en') {
     secure: true,
     httpOnly: false,
   });
-  response.headers.set('Vary', 'Accept-Language, x-vercel-ip-country');
   return response;
 }
 
@@ -62,13 +25,13 @@ export function middleware(request: NextRequest) {
     return remember(response, 'en');
   }
 
-  const locale = preferredLocale(request);
-  if (locale === 'en') {
-    const target = request.nextUrl.clone();
-    target.pathname = pathname === '/' ? '/en' : `/en${pathname}`;
-    return remember(NextResponse.redirect(target, 307), 'en');
-  }
-
+  /*
+   * A URL principal é a versão brasileira/portuguesa e precisa permanecer
+   * rastreável de forma estável. Não redirecionamos mais visitantes — nem
+   * mecanismos de busca — por IP ou Accept-Language. A versão em inglês fica
+   * disponível explicitamente em /en, evitando que um crawler localizado fora
+   * do Brasil receba um 307 para a versão inglesa e perca os sinais da página PT.
+   */
   const response = NextResponse.next();
   response.headers.set('x-ago-locale', 'pt');
   return remember(response, 'pt');

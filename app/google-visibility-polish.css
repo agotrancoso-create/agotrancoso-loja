@@ -1,0 +1,78 @@
+/* Ajustes pontuais de 02/10/2026: densidade da seção da banca, topbar mobile e leitura de busca. */
+
+/* A barra comercial precisa manter o separador também no celular. */
+@media (max-width: 600px) {
+  .ago-topbar {
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+    padding: 6px 8px !important;
+    font-size: clamp(9px, 2.6vw, 11px) !important;
+    line-height: 1.25 !important;
+  }
+
+  .ago-topbar span {
+    white-space: nowrap;
+  }
+
+  .ago-topbar i {
+    display: block !important;
+    flex: 0 0 4px;
+    width: 4px !important;
+    height: 4px !important;
+    opacity: .86;
+  }
+}
+
+/* No desktop há uma única fotografia na seção da banca. Em vez de reservar duas
+   colunas vazias, a foto ocupa a largura visual correta e o capítulo fica mais curto. */
+@media (min-width: 901px) {
+  .ago-home .ago-banca-visit {
+    padding-block: clamp(48px, 4.8vw, 68px) !important;
+  }
+
+  .ago-home .ago-banca-visit > .ago-container {
+    width: min(1120px, calc(100% - var(--gutter) * 2)) !important;
+  }
+
+  .ago-home .ago-banca-visit .ago-banca-visit-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px) !important;
+    align-items: center !important;
+    gap: clamp(34px, 4vw, 54px) !important;
+  }
+
+  .ago-home .ago-banca-visit .ago-banca-visit-copy {
+    max-width: 520px;
+  }
+
+  .ago-home .ago-banca-visit .ago-banca-visit-gallery {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0 !important;
+    width: 100% !important;
+    max-width: 360px !important;
+    justify-self: center !important;
+  }
+
+  .ago-home .ago-banca-visit .ago-banca-photo,
+  .ago-home .ago-banca-visit .ago-banca-photo-tall {
+    aspect-ratio: 4 / 5 !important;
+  }
+
+  .ago-home .ago-banca-map-panel {
+    margin-top: 24px !important;
+    padding: 18px 22px !important;
+    gap: clamp(22px, 3vw, 34px) !important;
+    grid-template-columns: minmax(210px, .46fr) minmax(0, 1.54fr) !important;
+  }
+
+  .ago-home .ago-banca-map-copy h3 {
+    font-size: clamp(1.75rem, 2.25vw, 2.55rem) !important;
+  }
+
+  .ago-home .ago-banca-map-copy > p:not(.eyebrow) {
+    margin-bottom: 14px !important;
+  }
+
+  .ago-home .ago-banca-map-frame {
+    aspect-ratio: 16 / 6.4 !important;
+  }
+}

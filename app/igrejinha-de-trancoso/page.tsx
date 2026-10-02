@@ -21,16 +21,16 @@ const churchProductIds = new Set([
   'igrejinha-luminaria-trancoso',
 ]);
 
-const preferredImage = '/produtos/igrejinha-luminaria-trancoso.jpg';
-const preferredImageAlt = 'Igrejinha do Quadrado de Trancoso em cerâmica disponível na Agô Trancoso';
+const preferredImage = '/produtos/igreja-quadrado-m.jpg';
+const preferredImageAlt = 'Igreja do Quadrado de Trancoso em cerâmica tamanho M disponível na Agô Trancoso';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
 export const metadata: Metadata = {
-  title: { absolute: 'Comprar Igrejinha de Trancoso em Cerâmica | Agô Trancoso' },
-  description: 'Compre Igrejinha de Trancoso em cerâmica na Agô, no Quadrado de Trancoso. Miniaturas da Igreja de São João Batista, compra online e envio para todo o Brasil.',
+  title: { absolute: 'Comprar Igreja de Trancoso em Cerâmica | Agô Trancoso' },
+  description: 'Compre a Igreja de Trancoso em cerâmica na Agô: Igrejinha do Quadrado nos tamanhos P, M e GG e versão luminária. Compra online e envio para todo o Brasil.',
   alternates: { canonical: '/igrejinha-de-trancoso' },
   robots: {
     index: true,
@@ -38,18 +38,18 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 },
   },
   openGraph: {
-    title: 'Comprar Igrejinha de Trancoso em Cerâmica | Agô Trancoso',
-    description: 'Igrejinhas do Quadrado em cerâmica, disponíveis para compra online e na Agô Trancoso, no Quadrado.',
+    title: 'Comprar Igreja de Trancoso em Cerâmica | Agô Trancoso',
+    description: 'Igrejinhas do Quadrado em cerâmica nos tamanhos P, M e GG, com compra online e envio para todo o Brasil.',
     url: '/igrejinha-de-trancoso',
     siteName: 'Agô Trancoso',
     locale: 'pt_BR',
     type: 'website',
-    images: [{ url: preferredImage, alt: preferredImageAlt }],
+    images: [{ url: preferredImage, alt: preferredImageAlt, width: 960, height: 960 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Comprar Igrejinha de Trancoso em Cerâmica | Agô Trancoso',
-    description: 'Miniaturas e peças em cerâmica inspiradas na Igreja do Quadrado, com compra online e envio para todo o Brasil.',
+    title: 'Comprar Igreja de Trancoso em Cerâmica | Agô Trancoso',
+    description: 'Miniaturas em cerâmica da Igreja do Quadrado de Trancoso, com compra online e envio para todo o Brasil.',
     images: [preferredImage],
   },
 };
@@ -71,17 +71,33 @@ export default function IgrejinhaDeTrancosoPage() {
         '@type': 'CollectionPage',
         '@id': `${pageUrl}#collection`,
         url: pageUrl,
-        name: 'Comprar Igrejinha de Trancoso em Cerâmica',
-        alternateName: ['Igrejinha de Trancoso', 'Igrejinha do Quadrado de Trancoso', 'Igreja do Quadrado em cerâmica', 'Miniatura da Igreja do Quadrado'],
+        name: 'Comprar Igreja de Trancoso em Cerâmica — Igrejinha do Quadrado',
+        alternateName: [
+          'Comprar Igrejinha de Trancoso',
+          'Igreja de Trancoso em cerâmica',
+          'Igrejinha de Trancoso',
+          'Igrejinha do Quadrado de Trancoso',
+          'Igreja do Quadrado em cerâmica',
+          'Miniatura da Igreja do Quadrado',
+        ],
         description: 'Página da Agô Trancoso para comprar online miniaturas e peças em cerâmica inspiradas na Igreja de São João Batista, no Quadrado de Trancoso, Bahia.',
         isPartOf: { '@id': `${SITE_DOMAIN}#website` },
         publisher: { '@id': `${SITE_DOMAIN}#organization` },
         primaryImageOfPage: { '@type': 'ImageObject', contentUrl: preferredImageUrl, url: preferredImageUrl, caption: preferredImageAlt },
-        about: { '@type': 'Thing', name: 'Igreja de São João Batista de Trancoso', alternateName: ['Igrejinha de Trancoso', 'Igreja do Quadrado', 'Igrejinha do Quadrado'] },
+        about: {
+          '@type': 'Thing',
+          name: 'Igreja de São João Batista de Trancoso',
+          alternateName: ['Igrejinha de Trancoso', 'Igreja de Trancoso', 'Igreja do Quadrado', 'Igrejinha do Quadrado'],
+        },
         mainEntity: {
           '@type': 'ItemList',
           numberOfItems: products.length,
-          itemListElement: products.map((product, index) => ({ '@type': 'ListItem', position: index + 1, url: `${SITE_DOMAIN}/produtos/${product.id}`, name: product.name })),
+          itemListElement: products.map((product, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            url: `${SITE_DOMAIN}/produtos/${product.id}`,
+            name: product.name,
+          })),
         },
       },
       {
@@ -89,7 +105,7 @@ export default function IgrejinhaDeTrancosoPage() {
         '@id': `${pageUrl}#breadcrumb`,
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Início', item: SITE_DOMAIN },
-          { '@type': 'ListItem', position: 2, name: 'Comprar Igrejinha de Trancoso', item: pageUrl },
+          { '@type': 'ListItem', position: 2, name: 'Comprar Igreja de Trancoso', item: pageUrl },
         ],
       },
     ],
@@ -100,12 +116,12 @@ export default function IgrejinhaDeTrancosoPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <div className="site-container catalog-shell">
         <nav className="product-breadcrumb" aria-label="Navegação estrutural">
-          <Link href="/">Início</Link><span aria-hidden="true">/</span><span aria-current="page">Igrejinha de Trancoso</span>
+          <Link href="/">Início</Link><span aria-hidden="true">/</span><span aria-current="page">Igreja de Trancoso</span>
         </nav>
 
         <header className="catalog-intro commerce-catalog-intro ago-reveal is-visible">
-          <div><p className="eyebrow">Quadrado de Trancoso</p><h1>Igrejinha de Trancoso em cerâmica</h1></div>
-          <p>Escolha entre diferentes versões da Igrejinha do Quadrado, compre online e receba em qualquer lugar do Brasil.</p>
+          <div><p className="eyebrow">Quadrado de Trancoso</p><h1>Igreja de Trancoso em cerâmica</h1></div>
+          <p>Para comprar a Igrejinha do Quadrado, escolha entre as versões P, M, GG e Luminária da Agô. Compra online, envio para todo o Brasil e atendimento no Quadrado de Trancoso.</p>
         </header>
 
         <div id="modelos-igrejinha" className="product-grid catalog-grid commerce-first-grid ago-reveal is-visible" aria-label="Igrejinhas de Trancoso e peças inspiradas na Igreja do Quadrado">
@@ -123,16 +139,16 @@ export default function IgrejinhaDeTrancosoPage() {
                 <strong>{church.name}</strong>
                 <span>{formatBRL(getEffectivePrice(church))}</span>
                 {church.dimensions && <small className="church-comparison-dimensions">{church.dimensions}</small>}
-                <small>{church.id.includes("luminaria") || church.id.endsWith("gg") ? "Peça decorativa e luminária" : "Miniatura decorativa"}</small>
+                <small>{church.id.includes('luminaria') || church.id.endsWith('gg') ? 'Peça decorativa e luminária' : 'Miniatura decorativa'}</small>
               </Link>
             ))}
           </div>
         </section>
 
         <section className="catalog-buying-answer catalog-buying-answer-after-products ago-reveal" aria-labelledby="onde-comprar-igrejinha">
-          <div><p className="eyebrow">Compra online e no Quadrado</p><h2 id="onde-comprar-igrejinha">Onde comprar uma Igrejinha de Trancoso?</h2></div>
+          <div><p className="eyebrow">Compra online e no Quadrado</p><h2 id="onde-comprar-igrejinha">Onde comprar a Igreja de Trancoso em cerâmica?</h2></div>
           <div className="catalog-buying-answer-copy">
-            <p>A Agô Trancoso vende as igrejinhas em cerâmica online neste site e presencialmente na banca do Quadrado de Trancoso, em Porto Seguro, Bahia.</p>
+            <p>A Agô Trancoso vende a Igrejinha do Quadrado em cerâmica online neste site e presencialmente na banca do Quadrado de Trancoso, em Porto Seguro, Bahia.</p>
             <p>Há versões P, M e GG, além da Igrejinha Luminária. {startingPrice !== null ? `As igrejinhas em cerâmica disponíveis começam em ${formatBRL(startingPrice)}.` : ''} Também enviamos para todo o Brasil e fazemos cotação internacional sob consulta.</p>
             <div className="home-hero-actions">
               <Link href="/produtos" className="text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
@@ -146,8 +162,8 @@ export default function IgrejinhaDeTrancosoPage() {
         <div className="site-container product-aftercare-inner">
           <p className="eyebrow">Um símbolo do Quadrado</p>
           <h2 id="igreja-quadrado-contexto">A Igreja de São João Batista como inspiração.</h2>
-          <p className="product-description">A Igreja de São João Batista, conhecida como Igreja do Quadrado ou Igrejinha de Trancoso, é um dos marcos mais reconhecidos do centro histórico de Trancoso. As peças reunidas aqui levam essa fachada para miniaturas, luminária, ímã e colar de cerâmica.</p>
-          <p className="product-description">Para quem procura uma lembrança de Trancoso, um presente ou uma peça de decoração, a compra pode ser feita diretamente pelo site. Quem estiver na vila também pode ver as peças presencialmente na Agô, no Quadrado de Trancoso.</p>
+          <p className="product-description">A Igreja de São João Batista, conhecida como Igreja do Quadrado, Igreja de Trancoso ou Igrejinha de Trancoso, é um dos marcos mais reconhecidos do centro histórico da vila. As peças reunidas aqui levam essa fachada para miniaturas, luminária, ímã e colar de cerâmica.</p>
+          <p className="product-description">Para quem procura comprar uma lembrança de Trancoso, um presente ou uma peça de decoração, a compra pode ser feita diretamente pelo site. Quem estiver na vila também pode ver as peças presencialmente na Agô, no Quadrado de Trancoso.</p>
           <div className="home-hero-actions">
             <Link href="/contato" className="text-link">Como visitar a Agô <span aria-hidden="true">↗</span></Link>
             <Link href="/produtos" className="text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>
