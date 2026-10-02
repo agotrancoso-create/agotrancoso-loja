@@ -1,26 +1,27 @@
 /* Agô Trancoso — subtle Tropicália / Brazilian editorial polish.
    Intentionally scoped to the home so the existing site structure stays intact. */
 .ago-home {
-  --ago-tropicalia-green:#355946;
-  --ago-tropicalia-clay:#a4583f;
-  --ago-tropicalia-ochre:#bd8b32;
-  --ago-tropicalia-blue:#3f6178;
-  --ago-tropicalia-cream:#f4ecdf;
-  --ago-tropicalia-ink:#513c33;
+  --ago-tropicalia-green:#2f5540;
+  --ago-tropicalia-clay:#864633;
+  --ago-tropicalia-ochre:#8b641b;
+  --ago-tropicalia-blue:#365b70;
+  --ago-tropicalia-sand:#c9b384;
+  --ago-tropicalia-sand-light:#d8c69f;
+  --ago-tropicalia-ink:#382820;
   --ago-home-rhythm:clamp(54px,6vw,76px);
 }
 
 /* Keep the current photography and layout, but give section transitions a warmer editorial feel. */
 .ago-home .ago-premium-discovery {
   background:
-    radial-gradient(circle at 7% 14%,rgba(189,139,50,.08),transparent 25%),
-    radial-gradient(circle at 94% 82%,rgba(53,89,70,.07),transparent 28%);
+    radial-gradient(circle at 7% 14%,rgba(139,100,27,.08),transparent 25%),
+    radial-gradient(circle at 94% 82%,rgba(47,85,64,.07),transparent 28%);
 }
 .ago-home .ago-home-story {
   overflow:hidden;
   background:
-    radial-gradient(ellipse at 96% 12%,rgba(189,139,50,.10),transparent 29%),
-    radial-gradient(ellipse at 3% 88%,rgba(63,97,120,.08),transparent 27%),
+    radial-gradient(ellipse at 96% 12%,rgba(139,100,27,.10),transparent 29%),
+    radial-gradient(ellipse at 3% 88%,rgba(54,91,112,.08),transparent 27%),
     var(--ago-home-story-bg);
 }
 .ago-home .ago-home-story::after {
@@ -50,31 +51,34 @@
   }
 }
 
-/* Benefits: no grey band and no icon cards. The visual effect lives behind each drawing only. */
+/* Benefits: warm sand background from the site palette, never grey. */
 .ago-home .benefits-strip.ago-benefits-reference {
   position:relative;
   overflow:hidden;
-  background:
-    radial-gradient(circle at 10% 20%,rgba(164,88,63,.055),transparent 24%),
-    radial-gradient(circle at 88% 72%,rgba(53,89,70,.05),transparent 27%),
-    var(--ago-tropicalia-cream)!important;
+  background-color:var(--ago-tropicalia-sand)!important;
+  background-image:
+    radial-gradient(circle at 8% 18%,rgba(134,70,51,.12),transparent 23%),
+    radial-gradient(circle at 91% 80%,rgba(47,85,64,.10),transparent 25%),
+    linear-gradient(180deg,var(--ago-tropicalia-sand-light) 0%,var(--ago-tropicalia-sand) 100%)!important;
   color:var(--ago-tropicalia-ink)!important;
-  border-top:1px solid rgba(90,67,57,.10);
-  border-bottom:1px solid rgba(90,67,57,.10);
+  border-top:1px solid rgba(75,49,36,.18)!important;
+  border-bottom:1px solid rgba(75,49,36,.18)!important;
+  padding-block:clamp(34px,4vw,46px)!important;
 }
 .ago-home .benefits-strip.ago-benefits-reference::before {
   content:'';
   position:absolute;
   inset:0 0 auto;
-  height:2px;
+  height:3px;
   background:linear-gradient(90deg,var(--ago-tropicalia-green),var(--ago-tropicalia-ochre),var(--ago-tropicalia-clay),var(--ago-tropicalia-blue));
-  opacity:.62;
+  opacity:.82;
 }
 .ago-home .ago-benefit-icon-item {
   color:var(--ago-tropicalia-ink)!important;
+  gap:9px!important;
 }
 .ago-home .ago-benefit-icon-item:not(:last-child)::after {
-  background:linear-gradient(180deg,transparent,rgba(90,67,57,.24) 18%,rgba(90,67,57,.24) 82%,transparent)!important;
+  background:linear-gradient(180deg,transparent,rgba(74,49,37,.30) 18%,rgba(74,49,37,.30) 82%,transparent)!important;
 }
 .ago-home .ago-benefit-line-icon {
   position:relative!important;
@@ -89,54 +93,71 @@
   content:'';
   position:absolute;
   z-index:-1;
-  width:76px;
-  height:58px;
+  width:84px;
+  height:64px;
   border-radius:58% 42% 54% 46% / 44% 61% 39% 56%;
-  filter:blur(.15px);
   transform:rotate(-7deg);
-  opacity:.95;
-  transition:transform .3s ease,opacity .3s ease,filter .3s ease;
+  opacity:.96;
+  transition:transform .3s ease,opacity .3s ease;
 }
 .ago-home .ago-benefit-line-icon::after {
   content:'';
   position:absolute;
   z-index:-2;
-  width:92px;
-  height:72px;
+  width:102px;
+  height:78px;
   border-radius:50%;
-  filter:blur(16px);
-  opacity:.19;
+  filter:blur(18px);
+  opacity:.28;
 }
 .ago-home .ago-benefit-line-icon-craft { color:var(--ago-tropicalia-clay)!important; }
-.ago-home .ago-benefit-line-icon-craft::before { background:radial-gradient(circle at 45% 42%,rgba(164,88,63,.20),rgba(164,88,63,.07) 58%,transparent 72%); }
+.ago-home .ago-benefit-line-icon-craft::before { background:radial-gradient(circle at 45% 42%,rgba(134,70,51,.28),rgba(134,70,51,.10) 58%,transparent 73%); }
 .ago-home .ago-benefit-line-icon-craft::after { background:var(--ago-tropicalia-clay); }
 .ago-home .ago-benefit-line-icon-vase { color:var(--ago-tropicalia-green)!important; }
-.ago-home .ago-benefit-line-icon-vase::before { background:radial-gradient(circle at 50% 44%,rgba(53,89,70,.20),rgba(53,89,70,.07) 58%,transparent 72%); transform:rotate(7deg); }
+.ago-home .ago-benefit-line-icon-vase::before { background:radial-gradient(circle at 50% 44%,rgba(47,85,64,.28),rgba(47,85,64,.10) 58%,transparent 73%); transform:rotate(7deg); }
 .ago-home .ago-benefit-line-icon-vase::after { background:var(--ago-tropicalia-green); }
 .ago-home .ago-benefit-line-icon-brazil { color:var(--ago-tropicalia-ochre)!important; }
-.ago-home .ago-benefit-line-icon-brazil::before { background:radial-gradient(circle at 50% 45%,rgba(189,139,50,.22),rgba(189,139,50,.07) 58%,transparent 72%); transform:rotate(-3deg); }
+.ago-home .ago-benefit-line-icon-brazil::before { background:radial-gradient(circle at 50% 45%,rgba(139,100,27,.30),rgba(139,100,27,.10) 58%,transparent 73%); transform:rotate(-3deg); }
 .ago-home .ago-benefit-line-icon-brazil::after { background:var(--ago-tropicalia-ochre); }
 .ago-home .ago-benefit-line-icon-truck { color:var(--ago-tropicalia-blue)!important; }
-.ago-home .ago-benefit-line-icon-truck::before { background:radial-gradient(circle at 52% 44%,rgba(63,97,120,.20),rgba(63,97,120,.07) 58%,transparent 72%); transform:rotate(6deg); }
+.ago-home .ago-benefit-line-icon-truck::before { background:radial-gradient(circle at 52% 44%,rgba(54,91,112,.28),rgba(54,91,112,.10) 58%,transparent 73%); transform:rotate(6deg); }
 .ago-home .ago-benefit-line-icon-truck::after { background:var(--ago-tropicalia-blue); }
 .ago-home .ago-benefit-line-icon svg {
   position:relative;
   z-index:1;
-  filter:drop-shadow(0 7px 10px rgba(60,39,30,.10));
+  stroke-width:1.75!important;
+  filter:drop-shadow(0 5px 8px rgba(55,37,28,.16));
   transition:transform .28s ease,filter .28s ease;
 }
-.ago-home .ago-benefit-icon-copy strong,
-.ago-home .ago-benefit-icon-copy small {
+.ago-home .ago-benefit-icon-copy {
   color:var(--ago-tropicalia-ink)!important;
+  gap:6px!important;
+}
+.ago-home .ago-benefit-icon-copy strong {
+  color:#34241d!important;
+  font-size:clamp(1.16rem,1.5vw,1.38rem)!important;
+  line-height:1.08!important;
+  font-weight:600!important;
+  text-transform:none!important;
+  letter-spacing:-.01em!important;
+  text-shadow:none!important;
+}
+.ago-home .ago-benefit-icon-copy small {
+  color:#49342a!important;
+  font-size:clamp(.82rem,.9vw,.92rem)!important;
+  line-height:1.4!important;
+  font-weight:500!important;
+  opacity:1!important;
+  max-width:205px!important;
 }
 @media (hover:hover) and (pointer:fine) {
   .ago-home .ago-benefit-icon-item:hover .ago-benefit-line-icon::before {
-    transform:rotate(0deg) scale(1.08);
+    transform:rotate(0deg) scale(1.10);
     opacity:1;
   }
   .ago-home .ago-benefit-icon-item:hover .ago-benefit-line-icon svg {
-    transform:translateY(-2px) scale(1.025);
-    filter:drop-shadow(0 10px 13px rgba(60,39,30,.14));
+    transform:translateY(-2px) scale(1.035);
+    filter:drop-shadow(0 9px 12px rgba(55,37,28,.20));
   }
 }
 
@@ -157,16 +178,18 @@
 }
 @media(max-width:700px) {
   .ago-home { --ago-home-rhythm:44px; }
-  .ago-home .benefits-strip.ago-benefits-reference { padding-block:22px!important; }
-  .ago-home .ago-benefits-icon-grid { row-gap:10px!important; }
-  .ago-home .ago-benefit-icon-item { min-height:120px!important; }
-  .ago-home .ago-benefit-line-icon::before { width:68px;height:52px; }
-  .ago-home .ago-benefit-line-icon::after { width:82px;height:62px;filter:blur(14px); }
+  .ago-home .benefits-strip.ago-benefits-reference { padding-block:24px!important; }
+  .ago-home .ago-benefits-icon-grid { row-gap:14px!important; }
+  .ago-home .ago-benefit-icon-item { min-height:130px!important; gap:7px!important; }
+  .ago-home .ago-benefit-line-icon::before { width:72px;height:55px; }
+  .ago-home .ago-benefit-line-icon::after { width:88px;height:66px;filter:blur(14px); }
+  .ago-home .ago-benefit-icon-copy strong { font-size:1.05rem!important; }
+  .ago-home .ago-benefit-icon-copy small { font-size:.76rem!important; line-height:1.35!important; max-width:155px!important; }
   .ago-home .ago-benefit-icon-item:nth-child(odd)::after {
-    background:linear-gradient(180deg,transparent,rgba(90,67,57,.20) 20%,rgba(90,67,57,.20) 80%,transparent)!important;
+    background:linear-gradient(180deg,transparent,rgba(74,49,37,.24) 20%,rgba(74,49,37,.24) 80%,transparent)!important;
   }
   .ago-home .ago-benefit-icon-item:nth-child(-n+2)::before {
-    background:linear-gradient(90deg,transparent,rgba(90,67,57,.14) 18%,rgba(90,67,57,.14) 82%,transparent)!important;
+    background:linear-gradient(90deg,transparent,rgba(74,49,37,.16) 18%,rgba(74,49,37,.16) 82%,transparent)!important;
   }
   .ago-home .ago-home-story::after { width:150px;height:110px;right:-74px; }
 }
