@@ -146,13 +146,14 @@ async function getFrenetDeadlineQuote(params: {
 
     if (!valid.length) return null;
 
-    const minDays = valid[0].days;
-    const maxDays = valid[valid.length - 1].days;
-    const deadline = minDays === maxDays ? minDays : `${minDays}–${maxDays}`;
-    const representative = valid[0].service;
+    const serviceCode = digits(process.env.CORREIOS_SERVICE_CODE) || '03298';
+    const selected = valid.find(({ service }) => service.ServiceCode === serviceCode)
+      ?? (serviceCode === '03298' ? valid.find(({ service }) => /\bPAC\b/i.test(service.ServiceDescription || '')) : undefined)
+      ?? valid[0];
+    const representative = selected.service;
 
     return {
-      deadline,
+      deadline: selected.days,
       provider: 'Frenet',
       serviceId: representative.ServiceCode,
       serviceName: representative.ServiceDescription || representative.Carrier,

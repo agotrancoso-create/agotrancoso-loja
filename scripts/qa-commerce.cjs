@@ -113,6 +113,7 @@ async function checkout(items,coupon='',overrides={}) {
   global.fetch = async () => new Response(JSON.stringify({ShippingSevicesArray:[
     {Carrier:'Outra transportadora',ServiceDescription:'Express',DeliveryTime:1},
     {Carrier:'Correios',ServiceDescription:'PAC',DeliveryTime:12},
+    {Carrier:'Correios',ServiceDescription:'SEDEX',DeliveryTime:3},
     {Carrier:'Correios',ServiceDescription:'SEDEX',DeliveryTime:3,Error:true},
   ]}));
   const correiosViaFrenet = await getShippingDeadlineQuote({destinationCep:'01310100',subtotal:480});
