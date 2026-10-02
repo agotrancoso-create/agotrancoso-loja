@@ -8,6 +8,7 @@ export type Product = {
   category: string;
   images: string[];
   imageAlt?: string;
+  imageAltEn?: string;
   dimensions?: string;
   available: boolean;
   stock?: number | null;
@@ -20,27 +21,6 @@ export type Product = {
   length?: number | null;
 };
 
-export type Category = {
-  id: string;
-  name: string;
-};
-
-export type CartItem = {
-  productId: string;
-  quantity: number;
-};
-
-export type CustomerInfo = {
-  name: string;
-  email: string;
-  phone: string;
-  address: {
-    street: string;
-    number: string;
-    complement?: string;
-    neighborhood: string;
-    city: string;
-    state: string;
-    zip: string;
-  };
-};
+export type Category = { id: string; name: string; };
+export type CartItem = { productId: string; quantity: number; };
+export type CustomerInfo = { name:string; email:string; phone:string; address:{ street:string; number:string; complement?:string; neighborhood:string; city:string; state:string; zip:string; }; };
