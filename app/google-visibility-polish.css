@@ -98,3 +98,363 @@
 .ago-home .benefits-strip .ago-benefit-line-icon-truck {
   color: #3b6f8f !important;
 }
+
+/* --------------------------------------------------------------------------
+   Refino final de ritmo, hierarquia e consistência — sem redesign.
+   Esta folha é a última camada do layout para neutralizar conflitos históricos.
+   -------------------------------------------------------------------------- */
+
+:root {
+  --ago-refine-radius: 24px;
+  --ago-refine-shadow: 0 14px 34px rgba(45, 32, 26, .09);
+  --ago-refine-line: rgba(66, 41, 31, .12);
+}
+
+html {
+  scroll-padding-top: 146px;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+}
+
+main {
+  overflow-x: clip;
+}
+
+/* Cabeçalho: menos ruído, mesma estrutura. */
+.site-header {
+  border-bottom: 1px solid rgba(66, 41, 31, .09);
+}
+
+.header-inner {
+  min-height: 80px;
+}
+
+.header-link,
+.ago-category-bar a {
+  letter-spacing: -.005em;
+}
+
+.ago-category-bar {
+  border-bottom: 1px solid rgba(66, 41, 31, .08);
+}
+
+/* Interações compartilhadas: resposta tátil discreta, sem parecer aplicativo. */
+.button,
+.ago-premium-dark-cta,
+.ago-premium-hero-cta,
+.ago-premium-light-cta,
+.product-add {
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .button:hover,
+  .ago-premium-dark-cta:hover,
+  .ago-premium-hero-cta:hover,
+  .ago-premium-light-cta:hover,
+  .product-add:hover {
+    transform: translateY(-1px);
+  }
+}
+
+/* Ritmo editorial da home: capítulos claros sem alongar a rolagem. */
+.ago-home .ago-premium-discovery,
+.ago-home .ago-premium-editorial,
+.ago-home .ago-banca-visit,
+.ago-home .ago-home-final-cta {
+  scroll-margin-top: 146px;
+}
+
+.ago-home .ago-premium-discovery,
+.ago-home .ago-premium-editorial {
+  padding-block: clamp(58px, 5.8vw, 82px) !important;
+}
+
+.ago-home .ago-premium-section-head {
+  margin-bottom: clamp(28px, 3vw, 38px) !important;
+}
+
+.ago-home .ago-premium-section-head h2,
+.ago-home .ago-premium-copy h2,
+.ago-home .ago-banca-visit-copy h2,
+.ago-home .ago-home-final-copy h2 {
+  text-wrap: balance;
+}
+
+.ago-home .ago-premium-copy > p:not(.eyebrow),
+.ago-home .ago-banca-visit-copy > p:not(.eyebrow),
+.ago-home .ago-home-final-copy > p:not(.eyebrow) {
+  max-width: 48ch;
+}
+
+/* Benefícios: fundo quente real, sem aparência cinza, e ícones premium soltos. */
+.ago-home .benefits-strip.ago-benefits-reference {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(142, 67, 44, .07), transparent 25%),
+    radial-gradient(circle at 88% 76%, rgba(47, 85, 64, .06), transparent 27%),
+    linear-gradient(135deg, #ead8b8 0%, #dfc497 100%) !important;
+  border-top: 1px solid rgba(117, 70, 47, .10) !important;
+  border-bottom: 1px solid rgba(117, 70, 47, .10) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.34), inset 0 -1px 0 rgba(117,70,47,.04) !important;
+}
+
+.ago-home .ago-benefit-icon-item {
+  padding-inline: clamp(12px, 1.8vw, 24px) !important;
+}
+
+.ago-home .ago-benefit-line-icon {
+  color: inherit;
+}
+
+.ago-home .ago-benefit-line-icon::before {
+  opacity: .82 !important;
+}
+
+.ago-home .ago-benefit-line-icon::after {
+  opacity: .18 !important;
+}
+
+.ago-home .ago-benefit-line-icon svg {
+  stroke-width: 1.95 !important;
+  filter: drop-shadow(0 5px 7px rgba(66, 41, 31, .13)) !important;
+}
+
+.ago-home .ago-benefit-icon-copy strong {
+  color: #33231c !important;
+}
+
+.ago-home .ago-benefit-icon-copy small {
+  color: #51372b !important;
+}
+
+/* Cards de produto: nomes respiram e a grade permanece estável. */
+.ago-home .product-name {
+  line-height: 1.2 !important;
+  letter-spacing: -.015em !important;
+  text-wrap: pretty;
+}
+
+.ago-home .product-card-copy {
+  gap: 5px;
+}
+
+.ago-home .product-image-wrap,
+.ago-home .ago-premium-discovery-image,
+.ago-home .ago-story-image,
+.ago-home .ago-home-final-card {
+  border-radius: var(--ago-refine-radius) !important;
+}
+
+.ago-home .ago-premium-discovery-card,
+.ago-home .ago-story-image,
+.ago-home .ago-home-final-card {
+  box-shadow: var(--ago-refine-shadow) !important;
+}
+
+/* História: alinhamento óptico e leitura mais curta. */
+.ago-home .ago-premium-split {
+  gap: clamp(42px, 6vw, 82px) !important;
+}
+
+.ago-home .ago-premium-copy > p:not(.eyebrow) {
+  line-height: 1.72 !important;
+}
+
+.ago-home .ago-story-reasons {
+  margin-top: 22px;
+}
+
+/* A gente está no Quadrado: corrige o topo cortado e organiza a sequência
+   título → foto → ações → mapa como dois capítulos, não um bloco único. */
+.ago-home .ago-banca-visit {
+  padding: clamp(72px, 6vw, 92px) 0 clamp(72px, 6.2vw, 96px) !important;
+  scroll-margin-top: 146px;
+}
+
+.ago-home .ago-banca-visit > .ago-container {
+  overflow: visible !important;
+}
+
+.ago-home .ago-banca-visit .ago-banca-visit-layout {
+  align-items: center !important;
+  gap: clamp(48px, 6vw, 80px) !important;
+}
+
+.ago-home .ago-banca-visit-copy {
+  align-self: center;
+}
+
+.ago-home .ago-banca-visit-copy .eyebrow {
+  margin-bottom: 14px !important;
+}
+
+.ago-home .ago-banca-visit-copy h2 {
+  max-width: 9.4ch;
+  line-height: .98 !important;
+  letter-spacing: -.045em !important;
+}
+
+.ago-home .ago-banca-visit-copy > p:not(.eyebrow) {
+  margin-top: 22px !important;
+  line-height: 1.65 !important;
+  max-width: 40ch !important;
+}
+
+.ago-home .ago-banca-visit-address {
+  margin-top: 24px !important;
+}
+
+.ago-home .ago-banca-visit-actions {
+  margin-top: 22px !important;
+  gap: 10px 22px !important;
+}
+
+.ago-home .ago-banca-photo {
+  border-radius: 26px !important;
+  box-shadow: 0 16px 34px rgba(35, 22, 16, .13) !important;
+}
+
+.ago-home .ago-banca-map-panel {
+  margin-top: clamp(68px, 6vw, 82px) !important;
+  border-color: rgba(255, 250, 243, .08) !important;
+  background: rgba(255, 250, 243, .025) !important;
+  box-shadow: none !important;
+}
+
+.ago-home .ago-banca-map-copy {
+  padding: 6px 2px;
+}
+
+.ago-home .ago-banca-map-frame {
+  border-radius: 20px !important;
+  box-shadow: 0 10px 24px rgba(35, 22, 16, .10);
+}
+
+/* CTA final: mesma linguagem, menos peso visual. */
+.ago-home .ago-home-final-cta {
+  padding-block: clamp(60px, 5.8vw, 84px) !important;
+}
+
+.ago-home .ago-home-final-card {
+  overflow: hidden;
+}
+
+/* Rodapé: mesma hierarquia no desktop e no mobile. */
+.site-footer {
+  border-top: 1px solid rgba(250, 243, 232, .10);
+  padding-top: clamp(44px, 5vw, 64px) !important;
+}
+
+.ago-footer-main {
+  gap: clamp(32px, 4vw, 54px) clamp(22px, 3vw, 42px) !important;
+}
+
+.ago-footer-group h3 {
+  letter-spacing: .015em;
+}
+
+.ago-footer-group a {
+  text-underline-offset: 5px;
+}
+
+.ago-footer-legal {
+  margin-top: clamp(28px, 3vw, 42px) !important;
+}
+
+/* Páginas internas: respiro consistente sem tocar no checkout. */
+.contact-shell,
+.essencia-shell,
+.legal-shell {
+  padding-block: clamp(48px, 5vw, 76px);
+}
+
+/* Mobile e tablet: menos rolagem cansativa, sem apertar conteúdo. */
+@media (max-width: 900px) {
+  html {
+    scroll-padding-top: 88px;
+  }
+
+  .header-inner {
+    min-height: 72px;
+  }
+
+  .ago-home .ago-premium-discovery,
+  .ago-home .ago-premium-editorial,
+  .ago-home .ago-home-final-cta {
+    padding-block: clamp(46px, 7vw, 60px) !important;
+  }
+
+  .ago-home .ago-banca-visit {
+    padding: 54px 0 62px !important;
+    scroll-margin-top: 88px;
+  }
+
+  .ago-home .ago-banca-visit .ago-banca-visit-layout {
+    gap: 30px !important;
+  }
+
+  .ago-home .ago-banca-map-panel {
+    margin-top: 38px !important;
+  }
+
+  .ago-home .ago-premium-split {
+    gap: 34px !important;
+  }
+
+  .ago-home .ago-home-final-copy > p:not(.eyebrow),
+  .ago-home .ago-premium-copy > p:not(.eyebrow),
+  .ago-home .ago-banca-visit-copy > p:not(.eyebrow) {
+    max-width: 46ch;
+  }
+}
+
+@media (max-width: 600px) {
+  .ago-home .benefits-strip.ago-benefits-reference {
+    padding-block: 26px !important;
+  }
+
+  .ago-home .ago-benefits-icon-grid {
+    row-gap: 18px !important;
+  }
+
+  .ago-home .ago-benefit-icon-item {
+    min-height: 122px !important;
+    padding-inline: 8px !important;
+  }
+
+  .ago-home .ago-premium-section-head {
+    margin-bottom: 24px !important;
+  }
+
+  .ago-home .ago-banca-visit-copy h2 {
+    max-width: 10ch;
+  }
+
+  .ago-home .ago-banca-visit-copy > p:not(.eyebrow) {
+    margin-top: 18px !important;
+  }
+
+  .ago-home .ago-banca-map-panel {
+    margin-top: 34px !important;
+  }
+
+  .ago-footer-main {
+    gap: 28px 18px !important;
+  }
+
+  .ago-footer-group a {
+    min-height: 42px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .ago-premium-dark-cta,
+  .ago-premium-hero-cta,
+  .ago-premium-light-cta,
+  .product-add {
+    transition: none !important;
+  }
+}
