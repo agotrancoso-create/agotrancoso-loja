@@ -25,6 +25,7 @@ import './reference-terracotta.css';
 import './home-self-selling.css';
 import './home-map.css';
 import './locale.css';
+import './contact-visual-fix.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
@@ -174,7 +175,7 @@ const versionGuardScript = `
 
   async function checkVersion() {
     if (checking || reloading || document.visibilityState === 'hidden') return;
-    if (/^\\/(checkout|confirmacao)(\\/|$)/.test(window.location.pathname.replace(/^\\/en(?=\\/|$)/, ''))) return;
+    if (/^\/(checkout|confirmacao)(\/|$)/.test(window.location.pathname.replace(/^\/en(?=\/|$)/, ''))) return;
     var focused = document.activeElement;
     if (focused && (focused.matches('input, textarea, select') || focused.isContentEditable)) return;
     checking = true;
