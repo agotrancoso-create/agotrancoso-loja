@@ -10,6 +10,7 @@ const footer = fs.readFileSync('components/Footer.tsx','utf8');
 const checkout = fs.readFileSync('app/checkout/page.tsx','utf8');
 const productPage = fs.readFileSync('app/produtos/[id]/page.tsx','utf8');
 const addToCart = fs.readFileSync('app/produtos/[id]/AddToCart.tsx','utf8');
+const deadline = fs.readFileSync('lib/shipping-deadline.ts','utf8');
 const pretos = fs.readFileSync('scripts/fix-pretos-velhos-images.mjs','utf8');
 const normalizer = fs.readFileSync('scripts/normalize-product-images.mjs','utf8');
 const gallery = fs.readFileSync('components/ProductGallery.tsx','utf8');
@@ -78,7 +79,11 @@ for (const source of shippingCopyFiles) {
 }
 assert.ok(addToCart.includes('getShippingPrice(selectionSubtotal)'));
 assert.ok(addToCart.includes("fetch('/api/frete'"));
-assert.ok(addToCart.includes('Prazo online ainda não disponível para este CEP.'));
+assert.ok(addToCart.includes('Frete e prazo estimado para seu CEP'));
+assert.ok(addToCart.includes('Estimativa de entrega'));
+assert.ok(addToCart.includes('O prazo final é confirmado na postagem.'));
+assert.ok(deadline.includes('getEstimatedDeadline'));
+assert.ok(deadline.includes("provider: 'Estimativa Agô'"));
 
 // Zoom: preserva o master original antes da normalização e usa o arquivo sem recompressão no lightbox.
 assert.ok(normalizer.includes('preserveZoomMaster'));
@@ -100,7 +105,10 @@ assert.ok(finalLastCss.includes('border-radius: 18px !important'));
 assert.ok(finalLastCss.includes('object-fit: contain !important'));
 
 // SEO/localidade e intenção comercial.
-assert.ok(trancoso.includes('Artesanato e Cerâmica em Trancoso'));
+assert.ok(trancoso.includes('Cerâmica em Trancoso'));
+assert.ok(trancoso.includes('Artesanato em Trancoso'));
+assert.ok(home.includes('Cerâmica em Trancoso | Igrejinhas do Quadrado'));
+assert.ok(home.includes("SEARCH_HERO_IMAGE = '/produtos/igreja-quadrado-p.jpg'"));
 assert.ok(footer.includes('href="/trancoso"'));
 
 // Primeira compra, documentos brasileiros e orientação de Pix continuam protegidos.
