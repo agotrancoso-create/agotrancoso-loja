@@ -70,3 +70,16 @@
   .ago-home .ago-story-reasons a { border: 1px solid ButtonText; }
   .ago-home .ago-home-story::before { display: none; }
 }
+
+/* Let the handmade line drawings breathe, as in the supplied reference. */
+.ago-home .ago-benefit-line-icon {
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 0;
+}
+.ago-home .ago-benefit-line-icon svg {
+  width: 46px;
+  height: 46px;
+  stroke-width: 1.8;
+}
