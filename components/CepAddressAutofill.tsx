@@ -13,7 +13,7 @@ type CepPayload = {
 };
 
 function setReactInputValue(input: HTMLInputElement | null, value: string) {
-  if (!input || !value) return;
+  if (!input) return;
   const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
   setter?.call(input, value);
   input.dispatchEvent(new Event('input', { bubbles: true }));
