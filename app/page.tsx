@@ -39,6 +39,7 @@ const reasons = [
 const bancaPhotoStyle = {
   position: 'absolute',
   inset: 0,
+  display: 'block',
   width: '100%',
   height: '100%',
   objectFit: 'cover',
@@ -178,12 +179,12 @@ export default function HomePage() {
             <div
               className="ago-banca-visit-gallery"
               aria-label="Fotografias reais da banca e das peças da Agô no Quadrado de Trancoso"
-              style={{ gap: 'clamp(18px, 2vw, 30px)' }}
+              style={{ gap: 'clamp(24px, 3vw, 42px)' }}
             >
               <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-banca-photo ago-banca-photo-wide" aria-label="Abrir a localização da banca no Google Maps">
                 <img
-                  src="/banca-quadrado-noite.webp"
-                  alt="Peças da Agô expostas na banca do Quadrado de Trancoso, com a Igreja do Quadrado ao fundo"
+                  src="/complementar.jpg"
+                  alt="Peças da Agô expostas na banca do Quadrado de Trancoso"
                   loading="eager"
                   decoding="async"
                   style={bancaPhotoStyle}
@@ -192,8 +193,8 @@ export default function HomePage() {
               </a>
               <Link href="/produtos/igrejinha-luminaria-trancoso" className="ago-banca-photo ago-banca-photo-tall">
                 <img
-                  src="/banca-igrejinhas-luminarias.webp"
-                  alt="Igrejinhas luminárias em cerâmica acesas na banca da Agô Trancoso"
+                  src="/nossa-essencia.jpg"
+                  alt="Igrejinhas e peças em cerâmica na banca da Agô Trancoso"
                   loading="eager"
                   decoding="async"
                   style={bancaPhotoStyle}
