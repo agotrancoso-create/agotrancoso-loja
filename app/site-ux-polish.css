@@ -1,0 +1,167 @@
+/* Agô Trancoso — site-wide finishing layer.
+   Keeps the footer visually identical in language across desktop and mobile,
+   while making the narrow layout substantially shorter and easier to scan. */
+
+.site-footer.ago-site-footer {
+  background: #2f211b !important;
+  color: #fff7eb !important;
+  padding-block: clamp(42px, 5vw, 58px) 22px !important;
+}
+
+.ago-site-footer .ago-footer-wrap {
+  width: min(1320px, calc(100% - var(--gutter) * 2)) !important;
+}
+
+.ago-site-footer .ago-footer-main {
+  display: grid !important;
+  grid-template-columns: minmax(220px, 1.22fr) minmax(150px, .82fr) minmax(150px, .9fr) minmax(220px, 1.06fr) !important;
+  gap: clamp(28px, 4vw, 54px) !important;
+  align-items: start !important;
+}
+
+.ago-site-footer .ago-footer-logo {
+  width: 58px !important;
+  margin-bottom: 12px !important;
+}
+
+.ago-site-footer .ago-footer-place {
+  margin-bottom: 10px !important;
+  color: #ead9c8 !important;
+  letter-spacing: .04em !important;
+}
+
+.ago-site-footer .ago-footer-brand h2,
+.ago-site-footer .ago-footer-group h3 {
+  color: #fff7eb !important;
+}
+
+.ago-site-footer .ago-footer-brand h2 {
+  font-size: 1.42rem !important;
+}
+
+.ago-site-footer .ago-footer-description,
+.ago-site-footer .ago-footer-group p {
+  color: #decbbb !important;
+}
+
+.ago-site-footer .ago-footer-description {
+  margin-top: 12px !important;
+  line-height: 1.55 !important;
+}
+
+.ago-site-footer .ago-footer-group h3 {
+  margin-bottom: 10px !important;
+  font-size: .78rem !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+}
+
+.ago-site-footer .ago-footer-group a {
+  min-height: 42px !important;
+  color: #f8ecdf !important;
+  line-height: 1.42 !important;
+}
+
+.ago-site-footer .ago-footer-group nav,
+.ago-site-footer .ago-footer-visit-group {
+  gap: 0 !important;
+}
+
+.ago-site-footer .ago-footer-visit-group p {
+  margin-bottom: 6px !important;
+  line-height: 1.55 !important;
+}
+
+.ago-site-footer .ago-footer-legal {
+  margin-top: 34px !important;
+  padding-top: 18px !important;
+  border-color: rgba(255,247,235,.20) !important;
+  color: #d9c6b6 !important;
+}
+
+.ago-site-footer .ago-footer-legal a {
+  color: #f8ecdf !important;
+}
+
+@media (max-width: 980px) {
+  .ago-site-footer .ago-footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 28px 24px !important;
+  }
+
+  .ago-site-footer .ago-footer-brand,
+  .ago-site-footer .ago-footer-visit-group {
+    grid-column: 1 / -1 !important;
+  }
+
+  .ago-site-footer .ago-footer-brand {
+    display: grid !important;
+    grid-template-columns: 58px minmax(0, 1fr) !important;
+    column-gap: 16px !important;
+    align-items: center !important;
+  }
+
+  .ago-site-footer .ago-footer-logo {
+    grid-row: 1 / 4 !important;
+    margin: 0 !important;
+  }
+
+  .ago-site-footer .ago-footer-place,
+  .ago-site-footer .ago-footer-description {
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-footer.ago-site-footer {
+    padding-block: 32px 16px !important;
+  }
+
+  .ago-site-footer .ago-footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 22px 16px !important;
+  }
+
+  .ago-site-footer .ago-footer-brand {
+    grid-template-columns: 52px minmax(0, 1fr) !important;
+    column-gap: 14px !important;
+  }
+
+  .ago-site-footer .ago-footer-logo {
+    width: 52px !important;
+  }
+
+  .ago-site-footer .ago-footer-brand h2 {
+    font-size: 1.2rem !important;
+  }
+
+  .ago-site-footer .ago-footer-place {
+    font-size: .66rem !important;
+  }
+
+  .ago-site-footer .ago-footer-description,
+  .ago-site-footer .ago-footer-group a,
+  .ago-site-footer .ago-footer-group p {
+    font-size: .76rem !important;
+  }
+
+  .ago-site-footer .ago-footer-group a {
+    min-height: 40px !important;
+  }
+
+  .ago-site-footer .ago-footer-visit-group {
+    padding-top: 4px !important;
+  }
+
+  .ago-site-footer .ago-footer-legal {
+    display: grid !important;
+    gap: 6px !important;
+    margin-top: 22px !important;
+    padding-top: 14px !important;
+    font-size: .68rem !important;
+  }
+
+  .ago-site-footer .ago-footer-legal > div {
+    gap: 2px 18px !important;
+  }
+}
