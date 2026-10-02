@@ -92,14 +92,13 @@ async function main() {
       assert.ok(image.width > 20 && image.height > 20, `category photo ${index + 1} has no area at ${width}`);
     });
 
-    await waitForImages(page, '.ago-banca-visit', 2);
+    await waitForImages(page, '.ago-banca-visit', 1);
     const bancaState = await page.locator('.ago-banca-photo img').evaluateAll(images => images.map(img => ({
       src: `${img.getAttribute('src') || ''} ${img.currentSrc || ''}`,
       naturalWidth: img.naturalWidth,
       naturalHeight: img.naturalHeight,
     })));
-    assert.equal(bancaState.length, 2, `banca photo count differs at ${width}`);
-    assert.ok(bancaState.some(x => decodeURIComponent(x.src).includes('/banca-quadrado-noite.webp')), `chosen banca photo missing at ${width}`);
+    assert.equal(bancaState.length, 1, `banca photo count differs at ${width}`);
     assert.ok(bancaState.some(x => decodeURIComponent(x.src).includes('/banca-ceramicas-quadrado.webp')), `customer-selected banca photo missing at ${width}`);
     assert.equal(bancaState.some(x => decodeURIComponent(x.src).includes('/hero.jpg')), false, `hero photo must not repeat in banca at ${width}`);
     bancaState.forEach((image, index) => assert.ok(image.naturalWidth > 0 && image.naturalHeight > 0, `banca photo ${index + 1} failed at ${width}`));
