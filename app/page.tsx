@@ -108,7 +108,7 @@ export default function HomePage() {
 
       <section className="ago-cinematic-commerce ago-home-hero-2026" aria-labelledby="featured-title">
         <div className="ago-cinematic-media" aria-hidden="true">
-          <Image src="/hero.jpg" alt="" fill priority unoptimized sizes="100vw" className="ago-cinematic-image ago-home-hero-photo-2026" quality={100} />
+          <Image src="/hero.jpg" alt="" fill priority sizes="100vw" className="ago-cinematic-image ago-home-hero-photo-2026" quality={88} />
           <div className="ago-cinematic-overlay" />
         </div>
 
@@ -128,7 +128,7 @@ export default function HomePage() {
             <Link href="/produtos" className="ago-premium-text-link">Ver coleção completa <span aria-hidden="true">↗</span></Link>
           </div>
           <div className="ago-premium-product-grid ago-premium-product-grid-featured commerce-first-grid">
-            {featured.map((product, index) => <ProductCard key={product.id} product={product} priority={index < 2} />)}
+            {featured.map((product, index) => <ProductCard key={product.id} product={product} priority={index === 0} />)}
           </div>
         </div>
 
@@ -150,7 +150,7 @@ export default function HomePage() {
             {discovery.map((item) => (
               <Link key={item.category} href={item.href ?? `/produtos?categoria=${item.category}`} className="ago-premium-discovery-card">
                 <div className="ago-premium-discovery-image">
-                  <Image src={item.image} alt={`${item.title} — coleção Agô Trancoso`} fill quality={100} sizes="(max-width: 767px) 50vw, 25vw" className="ago-parallax-photo" />
+                  <Image src={item.image} alt={`${item.title} — coleção Agô Trancoso`} fill quality={88} sizes="(max-width: 767px) 50vw, 25vw" className="ago-parallax-photo" />
                 </div>
                 <div className="ago-premium-discovery-copy"><span>{item.title}</span></div>
               </Link>
@@ -162,7 +162,7 @@ export default function HomePage() {
       <section className="ago-premium-editorial ago-home-story ago-immersive-reveal" aria-labelledby="story-title">
         <div className="ago-container ago-premium-split">
           <div className="ago-premium-image ago-story-image">
-            <Image src="/nossa-essencia.jpg" alt="Igrejinhas e peças de cerâmica da Agô no Quadrado de Trancoso" width={1800} height={1800} sizes="(max-width: 900px) 100vw, 56vw" quality={100} className="ago-complementary-photo ago-story-static-photo" />
+            <Image src="/nossa-essencia.jpg" alt="Igrejinhas e peças de cerâmica da Agô no Quadrado de Trancoso" width={1800} height={1800} sizes="(max-width: 900px) 100vw, 56vw" quality={90} className="ago-complementary-photo ago-story-static-photo" />
           </div>
           <div className="ago-premium-copy">
             <svg className="ago-sertao-sun" viewBox="0 0 100 52" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true" focusable="false">
@@ -206,8 +206,9 @@ export default function HomePage() {
                 <img
                   src="/banca-quadrado-noite.webp"
                   alt="Peças da Agô expostas na banca do Quadrado de Trancoso, com a Igreja do Quadrado ao fundo"
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                   style={bancaPhotoStyle}
                 />
                 <span>Na banca, no Quadrado <b aria-hidden="true">↗</b></span>
@@ -216,8 +217,9 @@ export default function HomePage() {
                 <img
                   src="/banca-ceramicas-quadrado.webp"
                   alt="Casinhas e igrejinhas em cerâmica na banca da Agô, com a Igreja do Quadrado ao fundo"
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                   style={bancaPhotoStyle}
                 />
                 <span>Ver as peças da banca <b aria-hidden="true">↗</b></span>
@@ -242,7 +244,7 @@ export default function HomePage() {
       <section className="ago-home-final-cta ago-immersive-reveal" aria-labelledby="home-final-title">
         <div className="ago-container">
           <div className="ago-home-final-card">
-            <Image src="/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg" alt="" fill quality={100} sizes="(max-width: 900px) 92vw, 1180px" className="ago-home-final-photo" />
+            <Image src="/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg" alt="" fill quality={88} sizes="(max-width: 900px) 92vw, 1180px" className="ago-home-final-photo" />
             <div className="ago-home-final-overlay" aria-hidden="true" />
             <div className="ago-home-final-copy">
               <p className="eyebrow">Da viagem para a casa</p>
