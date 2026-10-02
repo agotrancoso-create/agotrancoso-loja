@@ -39,6 +39,7 @@ const reasons = [
 const bancaPhotoStyle = {
   position: 'absolute',
   inset: 0,
+  display: 'block',
   width: '100%',
   height: '100%',
   objectFit: 'cover',
@@ -148,7 +149,7 @@ export default function HomePage() {
             </svg>
             <p className="eyebrow">O encanto de Trancoso</p>
             <h2 id="story-title">Feito à mão, para ficar na memória.</h2>
-            <p>Desde 2016, a Agô transforma formas, cores e símbolos de Trancoso em cerâmica para decorar, presentear e guardar uma lembrança do lugar.</p>
+            <p>Desde 2016, a Agô reúne cerâmicas feitas à mão e inspiradas em Trancoso para decorar, presentear e guardar uma lembrança do lugar.</p>
             <nav className="ago-story-reasons" aria-label="Escolher pela intenção">
               {reasons.map((reason) => <Link key={reason.label} href={reason.href}>{reason.label} <span aria-hidden="true">↗</span></Link>)}
             </nav>
@@ -178,12 +179,12 @@ export default function HomePage() {
             <div
               className="ago-banca-visit-gallery"
               aria-label="Fotografias reais da banca e das peças da Agô no Quadrado de Trancoso"
-              style={{ gap: 'clamp(18px, 2vw, 30px)' }}
+              style={{ gap: 'clamp(24px, 3vw, 42px)' }}
             >
               <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-banca-photo ago-banca-photo-wide" aria-label="Abrir a localização da banca no Google Maps">
                 <img
                   src="/banca-quadrado-noite.webp"
-                  alt="Peças da Agô expostas na banca do Quadrado de Trancoso, com a Igreja do Quadrado ao fundo"
+                  alt="Peças da Agô expostas na banca do Quadrado de Trancoso à noite"
                   loading="eager"
                   decoding="async"
                   style={bancaPhotoStyle}
@@ -193,7 +194,7 @@ export default function HomePage() {
               <Link href="/produtos/igrejinha-luminaria-trancoso" className="ago-banca-photo ago-banca-photo-tall">
                 <img
                   src="/banca-igrejinhas-luminarias.webp"
-                  alt="Igrejinhas luminárias em cerâmica acesas na banca da Agô Trancoso"
+                  alt="Igrejinhas luminárias acesas em cerâmica na banca da Agô Trancoso"
                   loading="eager"
                   decoding="async"
                   style={bancaPhotoStyle}

@@ -102,6 +102,7 @@ async function main() {
     assert.ok(bancaState.some(x => decodeURIComponent(x.src).includes('/banca-quadrado-noite.webp')), `chosen banca photo missing at ${width}`);
     assert.ok(bancaState.some(x => decodeURIComponent(x.src).includes('/banca-igrejinhas-luminarias.webp')), `chosen luminaria photo missing at ${width}`);
     assert.equal(bancaState.some(x => decodeURIComponent(x.src).includes('/hero.jpg')), false, `hero photo must not repeat in banca at ${width}`);
+    assert.equal(bancaState.some(x => decodeURIComponent(x.src).includes('/nossa-essencia.jpg')), false, `wrong essence/photo with doll must not appear in banca at ${width}`);
     bancaState.forEach((image, index) => assert.ok(image.naturalWidth > 0 && image.naturalHeight > 0, `banca photo ${index + 1} failed at ${width}`));
 
     const state = await page.evaluate(() => {
@@ -149,7 +150,7 @@ async function main() {
     assert.equal(state.faqCount, 0, `FAQ returned at ${width}`);
     assert.equal(state.faqText, false, `FAQ copy returned at ${width}`);
     assert.equal(state.oldWordmark, 0, `old Trancoso/Bahia wordmark returned at ${width}`);
-    assert.equal(state.benefitIcons, 4, `benefit icons differ at ${width}`);
+    assert.equal(state.benefitIcons, 4, `reference benefit icons missing at ${width}`);
     assert.equal(state.storyReasons, 3, `purchase motives differ at ${width}`);
     assert.equal(state.howToBuySections, 0, `removed how-to-buy section returned at ${width}`);
     assert.equal(state.mapFrames, 1, `map missing or duplicated at ${width}`);
@@ -186,17 +187,25 @@ async function main() {
     const contact = await page.evaluate(() => {
       const node = document.querySelector('.contact-page');
       const shell = document.querySelector('.contact-shell');
+      const panel = document.querySelector('.contact-location-panel');
       const r = shell?.getBoundingClientRect();
+      const ps = panel ? getComputedStyle(panel) : null;
       return {
         scrollWidth: document.documentElement.scrollWidth,
         background: node ? getComputedStyle(node).backgroundColor : '',
         backgroundImage: node ? getComputedStyle(node).backgroundImage : '',
         shell: r ? { left: r.left, right: r.right } : null,
+        panelRadius: ps ? parseFloat(ps.borderTopLeftRadius) : 0,
+        panelOverflow: ps ? ps.overflow : '',
+        panelClipPath: ps ? ps.clipPath : '',
       };
     });
     assert.ok(contact.scrollWidth <= width + 1, `contact overflow at ${width}`);
     assert.equal(contact.backgroundImage, 'none', `contact background image at ${width}`);
     assert.ok(contact.shell, `contact shell missing at ${width}`);
+    assert.ok(contact.panelRadius >= 24, `contact location card radius too small at ${width}`);
+    assert.equal(contact.panelOverflow, 'hidden', `contact location card must clip at ${width}`);
+    assert.notEqual(contact.panelClipPath, 'none', `contact location card needs round clip at ${width}`);
 
     await page.goto(base + '/nossa-essencia', { waitUntil: 'domcontentloaded' });
     await page.locator('h1').first().waitFor();
