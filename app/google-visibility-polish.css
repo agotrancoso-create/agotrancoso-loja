@@ -458,3 +458,99 @@ main {
     transition: none !important;
   }
 }
+
+/* FINAL OVERRIDE — benefícios com paleta Agô, nunca cinza.
+   Este bloco é deliberadamente mais específico que as camadas históricas. */
+body .ago-home section.benefits-strip.ago-benefits-reference.ago-benefits-icons-2026 {
+  background-color: #e3c38f !important;
+  background-image: linear-gradient(135deg, #edd9b4 0%, #e4c28a 55%, #d9b77d 100%) !important;
+  color: #3b281f !important;
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  border-color: rgba(92, 58, 39, .16) !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item {
+  color: #3b281f !important;
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-craft {
+  color: #9f432c !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-vase {
+  color: #235c42 !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-brazil {
+  color: #99620b !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-truck {
+  color: #2f6686 !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon svg,
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon svg path,
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon svg circle {
+  stroke: currentColor !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon svg {
+  stroke-width: 2.05 !important;
+  filter: drop-shadow(0 4px 7px rgba(63, 39, 28, .16)) !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-craft::before {
+  background: radial-gradient(circle, rgba(159,67,44,.20), rgba(159,67,44,.07) 62%, transparent 74%) !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-vase::before {
+  background: radial-gradient(circle, rgba(35,92,66,.20), rgba(35,92,66,.07) 62%, transparent 74%) !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-brazil::before {
+  background: radial-gradient(circle, rgba(153,98,11,.22), rgba(153,98,11,.07) 62%, transparent 74%) !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-truck::before {
+  background: radial-gradient(circle, rgba(47,102,134,.20), rgba(47,102,134,.07) 62%, transparent 74%) !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon::before {
+  opacity: 1 !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon::after {
+  opacity: .10 !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-copy,
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-copy strong,
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-copy small {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  text-shadow: none !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-copy strong {
+  color: #35241c !important;
+  text-transform: none !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-copy small {
+  color: #5a3d30 !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item::before,
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item::after {
+  background-color: rgba(94, 61, 43, .18) !important;
+}
