@@ -1,0 +1,177 @@
+/* Agô Trancoso — subtle Tropicália / Brazilian editorial polish.
+   Intentionally scoped to the home so the existing site structure stays intact. */
+.ago-home {
+  --ago-tropicalia-green:#355946;
+  --ago-tropicalia-clay:#a4583f;
+  --ago-tropicalia-ochre:#bd8b32;
+  --ago-tropicalia-blue:#3f6178;
+  --ago-tropicalia-cream:#f4ecdf;
+  --ago-tropicalia-ink:#513c33;
+  --ago-home-rhythm:clamp(54px,6vw,76px);
+}
+
+/* Keep the current photography and layout, but give section transitions a warmer editorial feel. */
+.ago-home .ago-premium-discovery {
+  background:
+    radial-gradient(circle at 7% 14%,rgba(189,139,50,.08),transparent 25%),
+    radial-gradient(circle at 94% 82%,rgba(53,89,70,.07),transparent 28%);
+}
+.ago-home .ago-home-story {
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 96% 12%,rgba(189,139,50,.10),transparent 29%),
+    radial-gradient(ellipse at 3% 88%,rgba(63,97,120,.08),transparent 27%),
+    var(--ago-home-story-bg);
+}
+.ago-home .ago-home-story::after {
+  content:'';
+  position:absolute;
+  width:220px;
+  height:150px;
+  right:-96px;
+  bottom:7%;
+  border-radius:54% 46% 58% 42% / 48% 62% 38% 52%;
+  background:rgba(246,237,220,.07);
+  transform:rotate(-12deg);
+  pointer-events:none;
+}
+.ago-home .ago-premium-discovery-card,
+.ago-home .ago-story-image,
+.ago-home .ago-home-final-card {
+  box-shadow:0 16px 38px rgba(55,37,28,.08);
+}
+.ago-home .ago-premium-discovery-card {
+  transition:transform .28s ease,box-shadow .28s ease;
+}
+@media (hover:hover) and (pointer:fine) {
+  .ago-home .ago-premium-discovery-card:hover {
+    transform:translateY(-3px);
+    box-shadow:0 20px 46px rgba(55,37,28,.12);
+  }
+}
+
+/* Benefits: no grey band and no icon cards. The visual effect lives behind each drawing only. */
+.ago-home .benefits-strip.ago-benefits-reference {
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 10% 20%,rgba(164,88,63,.055),transparent 24%),
+    radial-gradient(circle at 88% 72%,rgba(53,89,70,.05),transparent 27%),
+    var(--ago-tropicalia-cream)!important;
+  color:var(--ago-tropicalia-ink)!important;
+  border-top:1px solid rgba(90,67,57,.10);
+  border-bottom:1px solid rgba(90,67,57,.10);
+}
+.ago-home .benefits-strip.ago-benefits-reference::before {
+  content:'';
+  position:absolute;
+  inset:0 0 auto;
+  height:2px;
+  background:linear-gradient(90deg,var(--ago-tropicalia-green),var(--ago-tropicalia-ochre),var(--ago-tropicalia-clay),var(--ago-tropicalia-blue));
+  opacity:.62;
+}
+.ago-home .ago-benefit-icon-item {
+  color:var(--ago-tropicalia-ink)!important;
+}
+.ago-home .ago-benefit-icon-item:not(:last-child)::after {
+  background:linear-gradient(180deg,transparent,rgba(90,67,57,.24) 18%,rgba(90,67,57,.24) 82%,transparent)!important;
+}
+.ago-home .ago-benefit-line-icon {
+  position:relative!important;
+  isolation:isolate;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  transform:translateZ(0);
+}
+.ago-home .ago-benefit-line-icon::before {
+  content:'';
+  position:absolute;
+  z-index:-1;
+  width:76px;
+  height:58px;
+  border-radius:58% 42% 54% 46% / 44% 61% 39% 56%;
+  filter:blur(.15px);
+  transform:rotate(-7deg);
+  opacity:.95;
+  transition:transform .3s ease,opacity .3s ease,filter .3s ease;
+}
+.ago-home .ago-benefit-line-icon::after {
+  content:'';
+  position:absolute;
+  z-index:-2;
+  width:92px;
+  height:72px;
+  border-radius:50%;
+  filter:blur(16px);
+  opacity:.19;
+}
+.ago-home .ago-benefit-line-icon-craft { color:var(--ago-tropicalia-clay)!important; }
+.ago-home .ago-benefit-line-icon-craft::before { background:radial-gradient(circle at 45% 42%,rgba(164,88,63,.20),rgba(164,88,63,.07) 58%,transparent 72%); }
+.ago-home .ago-benefit-line-icon-craft::after { background:var(--ago-tropicalia-clay); }
+.ago-home .ago-benefit-line-icon-vase { color:var(--ago-tropicalia-green)!important; }
+.ago-home .ago-benefit-line-icon-vase::before { background:radial-gradient(circle at 50% 44%,rgba(53,89,70,.20),rgba(53,89,70,.07) 58%,transparent 72%); transform:rotate(7deg); }
+.ago-home .ago-benefit-line-icon-vase::after { background:var(--ago-tropicalia-green); }
+.ago-home .ago-benefit-line-icon-brazil { color:var(--ago-tropicalia-ochre)!important; }
+.ago-home .ago-benefit-line-icon-brazil::before { background:radial-gradient(circle at 50% 45%,rgba(189,139,50,.22),rgba(189,139,50,.07) 58%,transparent 72%); transform:rotate(-3deg); }
+.ago-home .ago-benefit-line-icon-brazil::after { background:var(--ago-tropicalia-ochre); }
+.ago-home .ago-benefit-line-icon-truck { color:var(--ago-tropicalia-blue)!important; }
+.ago-home .ago-benefit-line-icon-truck::before { background:radial-gradient(circle at 52% 44%,rgba(63,97,120,.20),rgba(63,97,120,.07) 58%,transparent 72%); transform:rotate(6deg); }
+.ago-home .ago-benefit-line-icon-truck::after { background:var(--ago-tropicalia-blue); }
+.ago-home .ago-benefit-line-icon svg {
+  position:relative;
+  z-index:1;
+  filter:drop-shadow(0 7px 10px rgba(60,39,30,.10));
+  transition:transform .28s ease,filter .28s ease;
+}
+.ago-home .ago-benefit-icon-copy strong,
+.ago-home .ago-benefit-icon-copy small {
+  color:var(--ago-tropicalia-ink)!important;
+}
+@media (hover:hover) and (pointer:fine) {
+  .ago-home .ago-benefit-icon-item:hover .ago-benefit-line-icon::before {
+    transform:rotate(0deg) scale(1.08);
+    opacity:1;
+  }
+  .ago-home .ago-benefit-icon-item:hover .ago-benefit-line-icon svg {
+    transform:translateY(-2px) scale(1.025);
+    filter:drop-shadow(0 10px 13px rgba(60,39,30,.14));
+  }
+}
+
+/* Keep the hero cinematic, just add a warmer lower fade inspired by the references. */
+.ago-home .ago-cinematic-overlay {
+  background:
+    radial-gradient(ellipse 72% 82% at 18% 48%,rgba(28,17,12,.52) 0%,rgba(28,17,12,.28) 34%,rgba(28,17,12,.08) 58%,transparent 78%),
+    linear-gradient(180deg,rgba(25,15,11,.12) 0%,rgba(25,15,11,.02) 42%,rgba(98,49,31,.23) 100%)!important;
+}
+
+/* Final CTA gets a warm print-like tone without changing the photo. */
+.ago-home .ago-home-final-overlay {
+  background:linear-gradient(90deg,rgba(35,21,15,.58),rgba(35,21,15,.20) 58%,rgba(141,79,48,.13))!important;
+}
+
+@media(max-width:900px) {
+  .ago-home { --ago-home-rhythm:clamp(46px,7vw,56px); }
+}
+@media(max-width:700px) {
+  .ago-home { --ago-home-rhythm:44px; }
+  .ago-home .benefits-strip.ago-benefits-reference { padding-block:22px!important; }
+  .ago-home .ago-benefits-icon-grid { row-gap:10px!important; }
+  .ago-home .ago-benefit-icon-item { min-height:120px!important; }
+  .ago-home .ago-benefit-line-icon::before { width:68px;height:52px; }
+  .ago-home .ago-benefit-line-icon::after { width:82px;height:62px;filter:blur(14px); }
+  .ago-home .ago-benefit-icon-item:nth-child(odd)::after {
+    background:linear-gradient(180deg,transparent,rgba(90,67,57,.20) 20%,rgba(90,67,57,.20) 80%,transparent)!important;
+  }
+  .ago-home .ago-benefit-icon-item:nth-child(-n+2)::before {
+    background:linear-gradient(90deg,transparent,rgba(90,67,57,.14) 18%,rgba(90,67,57,.14) 82%,transparent)!important;
+  }
+  .ago-home .ago-home-story::after { width:150px;height:110px;right:-74px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .ago-home .ago-premium-discovery-card,
+  .ago-home .ago-benefit-line-icon::before,
+  .ago-home .ago-benefit-line-icon svg { transition:none!important; }
+}
