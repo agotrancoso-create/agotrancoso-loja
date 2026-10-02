@@ -183,8 +183,8 @@ export default function HomePage() {
             >
               <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-banca-photo ago-banca-photo-wide" aria-label="Abrir a localização da banca no Google Maps">
                 <img
-                  src="/complementar.jpg"
-                  alt="Peças da Agô expostas na banca do Quadrado de Trancoso"
+                  src="/banca-quadrado-noite.webp"
+                  alt="Peças da Agô expostas na banca do Quadrado de Trancoso à noite"
                   loading="eager"
                   decoding="async"
                   style={bancaPhotoStyle}
@@ -193,8 +193,8 @@ export default function HomePage() {
               </a>
               <Link href="/produtos/igrejinha-luminaria-trancoso" className="ago-banca-photo ago-banca-photo-tall">
                 <img
-                  src="/nossa-essencia.jpg"
-                  alt="Igrejinhas e peças em cerâmica na banca da Agô Trancoso"
+                  src="/banca-igrejinhas-luminarias.webp"
+                  alt="Igrejinhas luminárias acesas em cerâmica na banca da Agô Trancoso"
                   loading="eager"
                   decoding="async"
                   style={bancaPhotoStyle}
