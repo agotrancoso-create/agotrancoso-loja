@@ -45,10 +45,11 @@ import { SITE_DOMAIN, WHATSAPP_NUMBER } from '@/lib/config';
 
 const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-sans' });
 const cormorant = Cormorant_Garamond({ subsets: ['latin'], display: 'swap', variable: '--font-display', weight: ['500', '600', '700'] });
-const firstPurchaseAvailable = Boolean(
-  (process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL) &&
-  (process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN),
-);
+// The first-purchase API has a safe fallback when KV/Redis is unavailable, so
+// the customer-facing benefit must not disappear just because secure storage is
+// temporarily unconfigured. When storage exists, checkout still enforces the
+// stronger server-side eligibility/reservation flow.
+const firstPurchaseAvailable = true;
 const buildVersion = process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 12) || '';
 
 export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#68483a', colorScheme: 'light' };
