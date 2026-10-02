@@ -1,0 +1,85 @@
+/* Trancoso: small accents drawn from painted façades, clay, foliage and straw.
+   Keep the approved layout, typography, hero, icon drawings and photographs. */
+.ago-home {
+  --ago-brasil-verde: #355946;
+  --ago-brasil-azul: #345674;
+  --ago-brasil-barro: #924b35;
+  --ago-brasil-ocre: #87621d;
+  --ago-brasil-palha: #f6eddc;
+}
+
+/* Four quiet painted edges, with dark labels on a light surface. */
+.ago-home .ago-premium-discovery-card { --category-accent: var(--ago-brasil-verde); }
+.ago-home .ago-premium-discovery-card:nth-child(2) { --category-accent: var(--ago-brasil-barro); }
+.ago-home .ago-premium-discovery-card:nth-child(3) { --category-accent: var(--ago-brasil-azul); }
+.ago-home .ago-premium-discovery-card:nth-child(4) { --category-accent: var(--ago-brasil-ocre); }
+.ago-home .ago-premium-discovery-copy {
+  border-top: 3px solid var(--category-accent);
+  background: var(--ago-brasil-palha);
+  color: var(--category-accent);
+  padding: 14px 16px;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+}
+.ago-home .ago-premium-discovery-copy span { color: inherit !important; }
+.ago-home .ago-premium-discovery-card:focus-visible {
+  outline: 3px solid var(--category-accent);
+  outline-offset: 5px;
+}
+
+/* A narrow woven-color detail separates the collection from its story. */
+.ago-home .ago-home-story { position: relative; }
+.ago-home .ago-home-story::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: repeating-linear-gradient(90deg,
+    #355946 0 36px, #dec08a 36px 42px,
+    #924b35 42px 78px, #dec08a 78px 84px,
+    #345674 84px 120px, #dec08a 120px 126px);
+  pointer-events: none;
+}
+.ago-home .ago-sertao-sun { color: #4c3820; }
+.ago-home .ago-story-reasons { gap: 10px; }
+.ago-home .ago-story-reasons a {
+  min-height: 44px;
+  background: var(--ago-brasil-palha);
+  border-color: transparent;
+  color: #35241d !important;
+  letter-spacing: .025em;
+}
+.ago-home .ago-story-reasons a:hover { background: #fffaf3; }
+.ago-home .ago-story-reasons a:focus-visible {
+  outline: 3px solid #35241d;
+  outline-offset: 4px;
+}
+
+/* Color enriches the existing illustrations without changing their shapes. */
+.ago-home .ago-benefit-icon-item:nth-child(1) .ago-benefit-line-icon { color: var(--ago-brasil-barro); }
+.ago-home .ago-benefit-icon-item:nth-child(2) .ago-benefit-line-icon { color: var(--ago-brasil-verde); }
+.ago-home .ago-benefit-icon-item:nth-child(3) .ago-benefit-line-icon { color: var(--ago-brasil-ocre); }
+.ago-home .ago-benefit-icon-item:nth-child(4) .ago-benefit-line-icon { color: var(--ago-brasil-azul); }
+
+@media (max-width: 480px) {
+  .ago-home .ago-premium-discovery-copy { padding: 12px; }
+}
+@media (forced-colors: active) {
+  .ago-home .ago-premium-discovery-copy { border-color: CanvasText; }
+  .ago-home .ago-story-reasons a { border: 1px solid ButtonText; }
+  .ago-home .ago-home-story::before { display: none; }
+}
+
+/* Let the handmade line drawings breathe, as in the supplied reference. */
+.ago-home .ago-benefit-line-icon {
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 0;
+}
+.ago-home .ago-benefit-line-icon svg {
+  width: 46px;
+  height: 46px;
+  stroke-width: 1.8;
+}
