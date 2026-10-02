@@ -175,7 +175,7 @@ const versionGuardScript = `
 
   async function checkVersion() {
     if (checking || reloading || document.visibilityState === 'hidden') return;
-    if (/^\/(checkout|confirmacao)(\/|$)/.test(window.location.pathname.replace(/^\/en(?=\/|$)/, ''))) return;
+    if (/^\\/(checkout|confirmacao)(\\/|$)/.test(window.location.pathname.replace(/^\\/en(?=\\/|$)/, ''))) return;
     var focused = document.activeElement;
     if (focused && (focused.matches('input, textarea, select') || focused.isContentEditable)) return;
     checking = true;
