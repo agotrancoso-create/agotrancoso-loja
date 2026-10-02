@@ -23,6 +23,8 @@ export default function ImmersiveMotion() {
 
     document.body.classList.add('ago-live-motion');
 
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
     const header = document.querySelector<HTMLElement>('.site-header');
     const hero = document.querySelector<HTMLElement>('.ago-cinematic-commerce');
     const parallaxPhotos = Array.from(document.querySelectorAll<HTMLElement>('.ago-parallax-photo'));
@@ -40,13 +42,13 @@ export default function ImmersiveMotion() {
       scrollFrame = 0;
       header?.classList.toggle('ago-header-scrolled', window.scrollY > 18);
 
-      if (hero) {
+      if (hero && finePointer) {
         const shift = clamp(window.scrollY * 0.035, 0, 26);
         hero.style.setProperty('--ago-hero-shift', `${shift.toFixed(2)}px`);
       }
 
       const viewportCenter = window.innerHeight / 2;
-      parallaxPhotos.forEach((photo) => {
+      (finePointer ? parallaxPhotos : []).forEach((photo) => {
         const rect = photo.getBoundingClientRect();
         const photoCenter = rect.top + rect.height / 2;
         const normalized = clamp((photoCenter - viewportCenter) / window.innerHeight, -1, 1);
@@ -59,7 +61,7 @@ export default function ImmersiveMotion() {
       scrollFrame = window.requestAnimationFrame(updateScrollMotion);
     };
 
-    const pointerHandlers = interactiveTargets.map((target) => {
+    const pointerHandlers = (finePointer ? interactiveTargets : []).map((target) => {
       const onPointerMove = (event: PointerEvent) => {
         if (event.pointerType === 'touch') return;
         const rect = target.getBoundingClientRect();
@@ -83,7 +85,7 @@ export default function ImmersiveMotion() {
     let heroMove: ((event: PointerEvent) => void) | null = null;
     let heroLeave: (() => void) | null = null;
 
-    if (hero) {
+    if (hero && finePointer) {
       heroMove = (event: PointerEvent) => {
         if (event.pointerType === 'touch') return;
         const rect = hero.getBoundingClientRect();

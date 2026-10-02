@@ -93,7 +93,7 @@ assert.ok(lightbox.includes('unoptimized'));
 // Hero original, legível e consistente; foto institucional completa, imóvel, sem borda e com cantos arredondados.
 assert.ok(/<Image[\s\S]*?\bpriority\b/.test(home), 'Home needs a priority photograph');
 for (const [, path] of home.matchAll(/src="(\/[^"]+)"/g)) {
-  assert.ok(fs.existsSync(`public${path}`), `Missing home image: ${path}`);
+  assert.ok(fs.existsSync(`public${new URL(path, 'https://agotrancoso.com.br').pathname}`), `Missing home image: ${path}`);
 }
 assert.ok(!home.includes('unoptimized'), 'Hero must use responsive Next.js image optimization');
 assert.ok(home.includes('ago-story-static-photo') || home.includes('ago-storytelling-photo') || home.includes('ago-banca-proof-gallery'), 'Home must show real institutional photography');
