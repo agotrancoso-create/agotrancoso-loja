@@ -1,5 +1,4 @@
-import './brasilidade.css';
-import './benefits-reference-fix.css';
+import './home-brand-system.css';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from '@/components/ProductImage';
@@ -50,17 +49,6 @@ const reasons = [
   { label: 'Presentear', href: '/lembrancas-de-trancoso' },
   { label: 'Guardar Trancoso', href: '/artesanato-em-trancoso' },
 ] as const;
-
-const bancaPhotoStyle = {
-  position: 'absolute',
-  inset: 0,
-  width: '100%',
-  height: '100%',
-  objectFit: 'cover',
-  objectPosition: 'center center',
-  opacity: 1,
-  visibility: 'visible',
-} as const;
 
 export default function HomePage() {
   const allProducts = sortProductsByAttention(getAvailableProducts());
@@ -197,30 +185,24 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div
-              className="ago-banca-visit-gallery"
-              aria-label="Fotografias reais da banca e das peças da Agô no Quadrado de Trancoso"
-              style={{ gap: 'clamp(18px, 2vw, 30px)' }}
-            >
+            <div className="ago-banca-visit-gallery" aria-label="Fotografias reais da banca e das peças da Agô no Quadrado de Trancoso">
               <a href={mapsUrl} target="_blank" rel="noreferrer" className="ago-banca-photo ago-banca-photo-wide" aria-label="Abrir a localização da banca no Google Maps">
-                <img
-                  src="/banca-quadrado-noite.webp"
-                  alt="Peças da Agô expostas na banca do Quadrado de Trancoso, com a Igreja do Quadrado ao fundo"
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                  style={bancaPhotoStyle}
+                <Image
+                  src="/banca-igrejinhas-luminarias.webp"
+                  alt="Igrejinhas e luminárias de cerâmica expostas na banca da Agô no Quadrado de Trancoso"
+                  fill
+                  quality={86}
+                  sizes="(max-width: 700px) 82vw, (max-width: 900px) 46vw, 27vw"
                 />
                 <span>Na banca, no Quadrado <b aria-hidden="true">↗</b></span>
               </a>
               <Link href="/artesanato-em-trancoso" className="ago-banca-photo ago-banca-photo-tall">
-                <img
+                <Image
                   src="/banca-ceramicas-quadrado.webp"
                   alt="Casinhas e igrejinhas em cerâmica na banca da Agô, com a Igreja do Quadrado ao fundo"
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                  style={bancaPhotoStyle}
+                  fill
+                  quality={86}
+                  sizes="(max-width: 700px) 82vw, (max-width: 900px) 46vw, 27vw"
                 />
                 <span>Ver as peças da banca <b aria-hidden="true">↗</b></span>
               </Link>
