@@ -107,8 +107,8 @@ assert.ok(finalLastCss.includes('object-fit: contain !important'));
 // SEO/localidade e intenção comercial.
 assert.ok(trancoso.includes('Cerâmica em Trancoso'));
 assert.ok(trancoso.includes('Artesanato em Trancoso'));
-assert.ok(home.includes('Cerâmica em Trancoso | Igrejinhas do Quadrado'));
-assert.ok(home.includes("SEARCH_HERO_IMAGE = '/produtos/igreja-quadrado-p.jpg'"));
+assert.ok(home.includes('Comprar Igrejinhas e Cerâmica de Trancoso'));
+assert.ok(home.includes("SEARCH_HERO_IMAGE = '/produtos/igreja-quadrado-m.jpg'"));
 assert.ok(footer.includes('href="/trancoso"'));
 
 // Primeira compra, documentos brasileiros e orientação de Pix continuam protegidos.
