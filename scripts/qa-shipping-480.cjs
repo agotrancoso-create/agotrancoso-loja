@@ -48,7 +48,13 @@ async function run() {
     const confidence = page.locator('section[aria-label="Por que escolher a Agô Trancoso"]').first();
     await hero.waitFor();
     await featured.waitFor();
-    await confidence.waitFor();
+    await confidence.waitFor({ state: 'attached' });
+    const confidenceVisible = await confidence.evaluate((node) => {
+      const rect = node.getBoundingClientRect();
+      const styles = window.getComputedStyle(node);
+      return rect.width > 0 && rect.height > 0 && styles.display !== 'none' && styles.visibility !== 'hidden';
+    });
+    assert.equal(confidenceVisible, true, `confidence strip visible@${width}`);
     const order = await page.evaluate(() => {
       const heroNode = document.querySelector('.ago-cinematic-copy');
       const featuredNode = document.querySelector('#pecas-em-destaque');
@@ -61,14 +67,15 @@ async function run() {
     });
     assert.deepEqual(order, { heroBeforeFeatured: true, featuredBeforeConfidence: true }, `home hierarchy@${width}`);
     assert.equal(normalize(await hero.getByRole('heading', { level: 1 }).innerText()), 'Trancoso em cerâmica.');
-    assert.match(normalize(await hero.innerText()), /Peças moldadas à mão, desde 2016 no Quadrado\./);
+    assert.match(normalize(await hero.innerText()), /Igrejinhas, casinhas e lembranças do Quadrado\./);
     assert.equal(await hero.getByRole('link', { name: 'Ver peças', exact: true }).getAttribute('href'), '#pecas-em-destaque');
     const confidenceText = normalize(await confidence.innerText());
     assert.match(confidenceText, /Feito à mão/i);
-    assert.match(confidenceText, /Peças para guardar/i);
-    assert.match(confidenceText, /Inspiração brasileira/i);
-    assert.match(confidenceText, /Envio internacional/i);
-    assert.match(confidenceText, /Cotação conforme o destino e o pedido/i);
+    assert.match(confidenceText, /Envio para todo o Brasil/i);
+    assert.match(confidenceText, /Frete fixo e grátis a partir de R\$\s?500/i);
+    assert.match(confidenceText, /Pagamento seguro/i);
+    assert.match(confidenceText, /Cotação internacional/i);
+    assert.match(confidenceText, /Conforme destino e peças/i);
 
     await page.getByRole('button', { name: /Abrir sacola com 1 item/ }).first().click();
     const drawer = page.locator('.cart-drawer[aria-hidden=false]').first();
