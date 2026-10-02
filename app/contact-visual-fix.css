@@ -1,0 +1,17 @@
+/* Visible contact corrections requested from staging screenshots.
+   Keep this small, explicit and loaded after the main visual layers. */
+.contact-page .contact-location-panel,
+.contact-page .info-panel.contact-location-panel {
+  border-radius: 28px !important;
+  overflow: hidden !important;
+  clip-path: inset(0 round 28px) !important;
+  isolation: isolate;
+}
+
+@media (max-width: 640px) {
+  .contact-page .contact-location-panel,
+  .contact-page .info-panel.contact-location-panel {
+    border-radius: 28px !important;
+    clip-path: inset(0 round 28px) !important;
+  }
+}
