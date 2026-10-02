@@ -14,6 +14,8 @@ type ShippingOption = {
   price: number;
   deadline: number | string | null;
   serviceId: string;
+  serviceName?: string | null;
+  estimated?: boolean;
 };
 
 type ShippingQuote = {
@@ -80,7 +82,7 @@ export default function AddToCart({ product }: { product: Product }) {
 
     const controller = new AbortController();
     activeRequest.current = controller;
-    const timeout = window.setTimeout(() => controller.abort(), 10000);
+    const timeout = window.setTimeout(() => controller.abort(), 12000);
     setQuoteLoading(true);
     setQuoteError('');
     setQuote(null);
@@ -113,7 +115,9 @@ export default function AddToCart({ product }: { product: Product }) {
   }
 
   const quotedOption = quote?.options?.[0];
-  const hasOnlineDeadline = quotedOption?.deadline !== null && quotedOption?.deadline !== undefined && quotedOption?.deadline !== '';
+  const hasDeadline = quotedOption?.deadline !== null && quotedOption?.deadline !== undefined && quotedOption?.deadline !== '';
+  const deadlineText = hasDeadline ? String(quotedOption?.deadline) : '';
+  const deadlineUnit = /^1$/.test(deadlineText) ? 'dia útil' : 'dias úteis';
 
   return (
     <div className="purchase-selection">
@@ -148,7 +152,7 @@ export default function AddToCart({ product }: { product: Product }) {
       <p className="purchase-selection-help">Compra sem cadastro · Pagamento seguro pela InfinitePay</p>
 
       <form className="product-delivery-estimator" onSubmit={consultShipping} aria-label="Consultar envio pelo CEP">
-        <label htmlFor={`shipping-cep-${product.id}`}>Frete e prazo para seu CEP</label>
+        <label htmlFor={`shipping-cep-${product.id}`}>Frete e prazo estimado para seu CEP</label>
         <div className="product-delivery-estimator-row">
           <input
             id={`shipping-cep-${product.id}`}
@@ -179,14 +183,8 @@ export default function AddToCart({ product }: { product: Product }) {
           {quotedOption && (
             <div>
               <strong>{quotedOption.price === 0 ? 'Frete grátis' : `Frete ${formatBRL(quotedOption.price)}`}</strong>
-              {hasOnlineDeadline ? (
-                <span>Prazo estimado: {quotedOption.deadline} {/^\d+(?:\s*[–-]\s*\d+)?$/.test(String(quotedOption.deadline)) ? (Number(quotedOption.deadline) === 1 ? 'dia útil' : 'dias úteis') : ''}</span>
-              ) : (
-                <>
-                  <span>Prazo online ainda não disponível para este CEP.</span>
-                  <a href={whatsappLink(`Olá! Gostaria de confirmar o prazo de postagem e entrega de ${product.name}. Meu CEP é ${quote?.destinationCep || cep}.`)} target="_blank" rel="noopener noreferrer">Confirmar prazo com a Agô</a>
-                </>
-              )}
+              {hasDeadline && <span>{quotedOption.estimated ? 'Estimativa de entrega' : 'Prazo estimado'}: {deadlineText} {deadlineUnit}</span>}
+              {quotedOption.estimated && <small>Estimativa baseada no CEP de destino, saindo de Trancoso. O prazo final é confirmado na postagem.</small>}
             </div>
           )}
         </div>

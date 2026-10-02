@@ -115,17 +115,19 @@ async function run() {
     assert.match(normalize(await page.locator('.purchase-selection-help').first().innerText()), /Compra sem cadastro · Pagamento seguro pela InfinitePay/i);
 
     const deliveryForm = page.getByRole('form', { name: 'Consultar envio pelo CEP' });
-    await deliveryForm.getByLabel('Frete e prazo para seu CEP').fill('30140-110');
+    await deliveryForm.getByLabel('Frete e prazo estimado para seu CEP').fill('30140-110');
     await deliveryForm.getByRole('button', { name: 'Consultar' }).click();
     const deliveryResult = page.locator('.product-delivery-result').first();
     await deliveryResult.getByText(/Frete R\$\s?39,90/i).waitFor();
-    assert.match(normalize(await deliveryResult.innerText()), /Prazo online ainda não disponível para este CEP/i);
+    assert.match(normalize(await deliveryResult.innerText()), /Estimativa de entrega: 5–10 dias úteis/i);
+    assert.match(normalize(await deliveryResult.innerText()), /prazo final é confirmado na postagem/i);
 
     if (width === 390) {
       const providerState = await (await page.request.get(base + '/api/frete')).json();
       assert.equal(providerState.originCep, '46098-000', 'shipping-origin CEP must be 46098-000');
+      assert.equal(providerState.deadlineConfigured, true, 'CEP deadline estimate must always be available');
 
-      const cepInput = deliveryForm.getByLabel('Frete e prazo para seu CEP');
+      const cepInput = deliveryForm.getByLabel('Frete e prazo estimado para seu CEP');
       const consult = deliveryForm.getByRole('button', { name: 'Consultar', exact: true });
       await cepInput.fill('00000-000');
       await consult.click();
@@ -198,7 +200,7 @@ async function run() {
     await page.close();
   }
 
-  console.log('PASS essential conversion hierarchy + Miniatura title + R$ 480 shipping + on-page CEP consultation at 320/390/820/1440');
+  console.log('PASS essential conversion hierarchy + Miniatura title + R$ 480 shipping + always-on CEP delivery estimate at 320/390/820/1440');
 }
 
 run().catch(error => {

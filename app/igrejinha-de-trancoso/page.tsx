@@ -132,7 +132,7 @@ export default function IgrejinhaDeTrancosoPage() {
         <section className="catalog-buying-answer catalog-buying-answer-after-products ago-reveal" aria-labelledby="onde-comprar-igrejinha">
           <div><p className="eyebrow">Compra online e no Quadrado</p><h2 id="onde-comprar-igrejinha">Onde comprar uma Igrejinha de Trancoso?</h2></div>
           <div className="catalog-buying-answer-copy">
-            <p>A Agô Trancoso vende as igrejinhas em cerâmica online neste site e presencialmente no Quadrado de Trancoso, em Porto Seguro, Bahia. A loja está em Trancoso desde 2016.</p>
+            <p>A Agô Trancoso vende as igrejinhas em cerâmica online neste site e presencialmente na banca do Quadrado de Trancoso, em Porto Seguro, Bahia.</p>
             <p>Há versões P, M e GG, além da Igrejinha Luminária. {startingPrice !== null ? `As igrejinhas em cerâmica disponíveis começam em ${formatBRL(startingPrice)}.` : ''} Também enviamos para todo o Brasil e fazemos cotação internacional sob consulta.</p>
             <div className="home-hero-actions">
               <Link href="/produtos" className="text-link">Ver toda a coleção <span aria-hidden="true">↗</span></Link>

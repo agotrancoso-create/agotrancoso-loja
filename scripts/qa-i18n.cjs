@@ -72,7 +72,7 @@ async function run() {
     await page.goto(base + '/en', { waitUntil: 'networkidle' });
     await page.waitForFunction(() => document.documentElement.lang === 'en');
     assert.equal((await page.getByRole('heading', { level: 1 }).first().innerText()).trim(), 'Trancoso in ceramic.', `english hero@${width}`);
-    assert.match((await page.locator('.ago-cinematic-copy').first().innerText()), /Hand-shaped ceramic pieces, since 2016 in the Quadrado\./, `english hero support@${width}`);
+    assert.match((await page.locator('.ago-cinematic-copy').first().innerText()), /Churches, little houses and keepsakes from the Quadrado\./, `english hero support@${width}`);
     assert.equal(await page.locator('.ago-language-switcher button[aria-pressed="true"]').innerText(), 'EN', `english switch@${width}`);
     await assertNoOverflow(page, `en-home@${width}`);
 

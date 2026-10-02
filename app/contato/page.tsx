@@ -1,3 +1,4 @@
+import './contact-polish.css';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { whatsappLink, INSTAGRAM_URL, INSTAGRAM_HANDLE, SITE_DOMAIN } from '@/lib/config';
@@ -53,7 +54,7 @@ export default function ContatoPage() {
               <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="info-link" aria-label="Abrir localização no Google Maps"><span>Abrir no Google Maps</span><span aria-hidden="true">↗</span></a>
             </div>
 
-            <div className="info-panel" style={{ borderRadius: '24px' }}>
+            <div className="info-panel">
               <p className="eyebrow">Onde encontrar</p>
               <h2>Quadrado de Trancoso</h2>
               <address className="contact-address">

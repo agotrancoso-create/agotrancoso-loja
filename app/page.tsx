@@ -10,14 +10,27 @@ import { SITE_DOMAIN, whatsappLink } from '@/lib/config';
 import ResumeCart from '@/components/ResumeCart';
 import Benefits from '@/components/Benefits';
 
+const SEARCH_HERO_IMAGE = '/produtos/igreja-quadrado-p.jpg';
+
 export const metadata: Metadata = {
-  title: { absolute: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso' },
-  description: 'Igrejinhas de Trancoso em cerâmica, peças inspiradas na Igreja do Quadrado e uma seleção de artesanato em cerâmica disponível na Agô, no Quadrado de Trancoso, Bahia.',
+  title: { absolute: 'Cerâmica em Trancoso | Igrejinhas do Quadrado | Agô Trancoso' },
+  description: 'Cerâmica artesanal no Quadrado de Trancoso: igrejinhas, miniaturas, luminárias, decoração e lembranças. Compre online ou visite a Agô no Quadrado.',
   alternates: { canonical: '/' },
-  openGraph: {
-    images: [{ url: '/hero.jpg', alt: 'Peças de cerâmica da Agô no Quadrado de Trancoso' }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 },
   },
-  twitter: { card: 'summary_large_image', images: ['/hero.jpg'] },
+  openGraph: {
+    title: 'Cerâmica em Trancoso | Agô no Quadrado',
+    description: 'Igrejinhas, miniaturas e cerâmica artesanal inspiradas em Trancoso, disponíveis online e na banca da Agô no Quadrado.',
+    url: '/',
+    siteName: 'Agô Trancoso',
+    locale: 'pt_BR',
+    type: 'website',
+    images: [{ url: SEARCH_HERO_IMAGE, width: 960, height: 960, alt: 'Igrejinha do Quadrado de Trancoso em cerâmica' }],
+  },
+  twitter: { card: 'summary_large_image', title: 'Cerâmica em Trancoso | Agô Trancoso', description: 'Igrejinhas, miniaturas e cerâmica artesanal inspiradas no Quadrado de Trancoso.', images: [SEARCH_HERO_IMAGE] },
 };
 
 const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu';
@@ -61,13 +74,20 @@ export default function HomePage() {
         '@type': 'CollectionPage',
         '@id': `${SITE_DOMAIN}/#page`,
         url: SITE_DOMAIN,
-        name: 'Agô Trancoso — Igrejinhas do Quadrado e cerâmica artesanal',
+        name: 'Cerâmica em Trancoso — Igrejinhas do Quadrado e artesanato em cerâmica',
+        description: 'Igrejinhas, miniaturas, luminárias, decoração e lembranças em cerâmica disponíveis na Agô, no Quadrado de Trancoso, Bahia.',
         isPartOf: { '@id': `${SITE_DOMAIN}#website` },
+        about: [
+          { '@type': 'Thing', name: 'Cerâmica em Trancoso' },
+          { '@type': 'Thing', name: 'Artesanato em Trancoso' },
+          { '@type': 'Thing', name: 'Igrejinha de Trancoso' },
+          { '@type': 'Place', name: 'Quadrado de Trancoso' },
+        ],
         primaryImageOfPage: {
           '@type': 'ImageObject',
-          url: `${SITE_DOMAIN}/hero.jpg`,
-          contentUrl: `${SITE_DOMAIN}/hero.jpg`,
-          caption: 'Cerâmicas da Agô no Quadrado de Trancoso',
+          url: `${SITE_DOMAIN}${SEARCH_HERO_IMAGE}`,
+          contentUrl: `${SITE_DOMAIN}${SEARCH_HERO_IMAGE}`,
+          caption: 'Igrejinha do Quadrado de Trancoso em cerâmica',
         },
         mainEntity: {
           '@type': 'ItemList',
@@ -150,7 +170,7 @@ export default function HomePage() {
             </svg>
             <p className="eyebrow">O encanto de Trancoso</p>
             <h2 id="story-title">Feito à mão, para ficar na memória.</h2>
-            <p>Desde 2016, a Agô transforma formas, cores e símbolos de Trancoso em cerâmica para decorar, presentear e guardar uma lembrança do lugar.</p>
+            <p>A Agô reúne cerâmicas que carregam referências de Trancoso, para decorar, presentear e guardar uma lembrança especial.</p>
             <nav className="ago-story-reasons" aria-label="Escolher pela intenção">
               {reasons.map((reason) => <Link key={reason.label} href={reason.href}>{reason.label} <span aria-hidden="true">↗</span></Link>)}
             </nav>
