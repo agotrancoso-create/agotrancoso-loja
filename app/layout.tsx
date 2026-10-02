@@ -25,6 +25,7 @@ import './reference-terracotta.css';
 import './home-self-selling.css';
 import './home-map.css';
 import './locale.css';
+import './site-ux-polish.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
