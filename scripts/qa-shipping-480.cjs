@@ -119,13 +119,13 @@ async function run() {
     await deliveryForm.getByRole('button', { name: 'Consultar' }).click();
     const deliveryResult = page.locator('.product-delivery-result').first();
     await deliveryResult.getByText(/Frete R\$\s?39,90/i).waitFor();
-    assert.match(normalize(await deliveryResult.innerText()), /Estimativa de entrega: 5–10 dias úteis/i);
-    assert.match(normalize(await deliveryResult.innerText()), /prazo final é confirmado na postagem/i);
+    assert.match(normalize(await deliveryResult.innerText()), /O prazo dos Correios está indisponível agora/i);
+    assert.doesNotMatch(normalize(await deliveryResult.innerText()), /5–10 dias úteis/i);
 
     if (width === 390) {
       const providerState = await (await page.request.get(base + '/api/frete')).json();
       assert.equal(providerState.originCep, '46098-000', 'shipping-origin CEP must be 46098-000');
-      assert.equal(providerState.deadlineConfigured, true, 'CEP deadline estimate must always be available');
+      assert.equal(providerState.deadlineConfigured, providerState.correiosConfigured || providerState.frenetConfigured, 'deadline availability must reflect provider configuration');
 
       const cepInput = deliveryForm.getByLabel('Frete e prazo estimado para seu CEP');
       const consult = deliveryForm.getByRole('button', { name: 'Consultar', exact: true });

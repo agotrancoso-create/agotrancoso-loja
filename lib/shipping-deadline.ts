@@ -21,7 +21,7 @@ type CorreiosPrazoResponse = {
 
 export type ShippingDeadlineQuote = {
   deadline: number | string;
-  provider: 'Correios' | 'Frenet' | 'Estimativa Agô';
+  provider: 'Correios' | 'Frenet';
   serviceId?: string;
   serviceName?: string;
   estimated?: boolean;
@@ -56,8 +56,8 @@ export function getShippingDeadlineProviderState() {
   return {
     correiosConfigured,
     frenetConfigured,
-    configured: true,
-    provider: correiosConfigured ? 'Correios' : frenetConfigured ? 'Frenet' : 'Estimativa Agô',
+    configured: correiosConfigured || frenetConfigured,
+    provider: correiosConfigured ? 'Correios' : frenetConfigured ? 'Frenet' : null,
     originCep: getShipFromCep(),
   } as const;
 }
@@ -139,7 +139,7 @@ async function getFrenetDeadlineQuote(params: {
     const data = (await response.json()) as FrenetResponse;
     const services = data.ShippingSevicesArray ?? data.ShippingServicesArray ?? [];
     const valid = services
-      .filter((service) => !serviceHasError(service.Error))
+      .filter((service) => !serviceHasError(service.Error) && /correios|\bPAC\b|\bSEDEX\b/i.test(`${service.Carrier || ''} ${service.ServiceDescription || ''}`))
       .map((service) => ({ service, days: parseDays(service.DeliveryTime ?? service.OriginalDeliveryTime) }))
       .filter((entry): entry is { service: FrenetService; days: number } => entry.days !== null)
       .sort((a, b) => a.days - b.days);
@@ -164,33 +164,6 @@ async function getFrenetDeadlineQuote(params: {
   }
 }
 
-/*
- * Fallback de prazo para quando Correios/Frenet não devolvem prazo.
- * Não depende de peso ou dimensões: usa apenas a faixa do CEP de destino e a
- * origem em Trancoso/BA. É propositalmente conservador e é mostrado ao cliente
- * como estimativa, não como promessa de entrega.
- */
-function getEstimatedDeadline(destinationCep: string): ShippingDeadlineQuote {
-  const firstDigit = Number(destinationCep[0]);
-  let deadline = '6–12';
-
-  if (firstDigit === 4) deadline = '3–7';
-  else if (firstDigit === 5) deadline = '4–9';
-  else if (firstDigit >= 0 && firstDigit <= 3) deadline = '5–10';
-  else if (firstDigit === 6) deadline = '6–12';
-  else if (firstDigit === 7) deadline = '6–12';
-  else if (firstDigit === 8) deadline = '7–12';
-  else if (firstDigit === 9) deadline = '8–13';
-
-  return {
-    deadline,
-    provider: 'Estimativa Agô',
-    serviceId: 'estimated-by-cep',
-    serviceName: 'Prazo estimado pelo CEP',
-    estimated: true,
-  };
-}
-
 export async function getShippingDeadlineQuote(params: {
   destinationCep: string;
   subtotal: number;
@@ -204,5 +177,5 @@ export async function getShippingDeadlineQuote(params: {
   const frenet = await getFrenetDeadlineQuote({ destinationCep, subtotal: params.subtotal });
   if (frenet) return frenet;
 
-  return getEstimatedDeadline(destinationCep);
+  return null;
 }

@@ -94,5 +94,30 @@ async function checkout(items,coupon='',overrides={}) {
   assert.equal(alpha.status,200);assert.equal(payload.address.complement,'Destinatário: Pessoa Teste · CPF/CNPJ: 00000000E08G12');
   eligible=false;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,409);eligible=true;
   fail=true;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,502);assert.equal(releases,1);
+  // Prazo deve vir da transportadora; ausência/falha não pode inventar dias.
+  const {getShippingDeadlineQuote, getShippingDeadlineProviderState} = require('../lib/shipping-deadline.ts');
+  for (const key of ['CORREIOS_TOKEN','CORREIOS_ACCESS_KEY','FRENET_TOKEN','SHIP_FROM_CEP','FRENET_SELLER_CEP','CORREIOS_SERVICE_CODE']) delete process.env[key];
+  assert.equal(getShippingDeadlineProviderState().configured, false);
+  assert.equal(await getShippingDeadlineQuote({destinationCep:'01310100',subtotal:480}), null);
+  process.env.CORREIOS_TOKEN = 'test-only';
+  global.fetch = async (url) => {
+    assert.equal(url.searchParams.get('cepOrigem'), '46098000');
+    assert.equal(url.searchParams.get('cepDestino'), '01310100');
+    return new Response(JSON.stringify({prazoEntrega:7,coProduto:'03298'}));
+  };
+  assert.equal((await getShippingDeadlineQuote({destinationCep:'01310100',subtotal:480})).deadline, 7);
+  global.fetch = async () => new Response('{}', {status:503});
+  assert.equal(await getShippingDeadlineQuote({destinationCep:'01310100',subtotal:480}), null);
+  delete process.env.CORREIOS_TOKEN;
+  process.env.FRENET_TOKEN = 'test-only';
+  global.fetch = async () => new Response(JSON.stringify({ShippingSevicesArray:[
+    {Carrier:'Outra transportadora',ServiceDescription:'Express',DeliveryTime:1},
+    {Carrier:'Correios',ServiceDescription:'PAC',DeliveryTime:12},
+    {Carrier:'Correios',ServiceDescription:'SEDEX',DeliveryTime:3,Error:true},
+  ]}));
+  const correiosViaFrenet = await getShippingDeadlineQuote({destinationCep:'01310100',subtotal:480});
+  assert.equal(correiosViaFrenet.deadline, 12);
+  assert.equal(correiosViaFrenet.serviceName, 'PAC');
+  console.log('PASS Correios origin/destination, provider outage without fabricated deadlines, and Correios-only Frenet services');
   console.log(`PASS ${cases} price/quantity/coupon combinations, recipient + CPF/CNPJ payload, official alphanumeric CNPJ, R$500 products-only shipping boundary, Iemanjá and Miniatura R$519.90 totals, clear shipping line, cent allocation, identity rejection, invalid data, provider failure`);
 })().catch(error=>{console.error(error);process.exitCode=1});
