@@ -149,7 +149,7 @@ export default function HomePage() {
             </svg>
             <p className="eyebrow">O encanto de Trancoso</p>
             <h2 id="story-title">Feito à mão, para ficar na memória.</h2>
-            <p>Desde 2016, a Agô transforma formas, cores e símbolos de Trancoso em cerâmica para decorar, presentear e guardar uma lembrança do lugar.</p>
+            <p>Desde 2016, a Agô reúne cerâmicas feitas à mão e inspiradas em Trancoso para decorar, presentear e guardar uma lembrança do lugar.</p>
             <nav className="ago-story-reasons" aria-label="Escolher pela intenção">
               {reasons.map((reason) => <Link key={reason.label} href={reason.href}>{reason.label} <span aria-hidden="true">↗</span></Link>)}
             </nav>
