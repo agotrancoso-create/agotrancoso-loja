@@ -32,7 +32,7 @@ export async function POST(req: Request) {
 
     const subtotal = totals.total;
     const freeShipping = shouldOfferFreeShipping(subtotal);
-    const realDeadline = await getShippingDeadlineQuote({ destinationCep, subtotal });
+    const deadlineQuote = await getShippingDeadlineQuote({ destinationCep, subtotal });
 
     return NextResponse.json({
       configured: true,
@@ -41,11 +41,12 @@ export async function POST(req: Request) {
       options: [{
         name: freeShipping ? 'Frete grátis' : 'Frete fixo',
         price: getShippingPrice(subtotal),
-        deadline: realDeadline?.deadline ?? null,
-        serviceId: realDeadline?.serviceId || (freeShipping ? 'free' : 'fixed'),
-        serviceName: realDeadline?.serviceName ?? null,
+        deadline: deadlineQuote?.deadline ?? null,
+        serviceId: deadlineQuote?.serviceId || (freeShipping ? 'free' : 'fixed'),
+        serviceName: deadlineQuote?.serviceName ?? null,
+        estimated: deadlineQuote?.estimated === true,
       }],
-      provider: realDeadline?.provider ?? 'Agô Trancoso',
+      provider: deadlineQuote?.provider ?? 'Agô Trancoso',
       fixedPrice: FIXED_SHIPPING_PRICE,
       destinationCep,
       originCep: formatCep(getShipFromCep()),
