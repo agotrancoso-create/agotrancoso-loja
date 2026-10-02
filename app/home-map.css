@@ -10,10 +10,72 @@
   color: #f3dfc8 !important;
 }
 
-/* As duas fotografias escolhidas têm composição vertical. Mantemos a proporção
-   próxima do arquivo real para não sacrificar a igreja, as peças ou a luz. */
-.ago-banca-photo-wide { aspect-ratio: 4 / 5; }
-.ago-banca-photo-tall { aspect-ratio: 3 / 4; }
+/* As duas fotografias precisam ter presença equivalente e nunca depender de
+   animação/JS para aparecer. A proporção 4:5 mantém a leitura da igreja e das peças. */
+.ago-banca-photo-wide,
+.ago-banca-photo-tall {
+  aspect-ratio: 4 / 5 !important;
+}
+
+/* Camada final de segurança: esta folha é carregada por último no layout.
+   Mesmo que algum CSS antigo tente esconder a galeria em tablet/celular,
+   a banca continua visível e com dimensões reais. */
+.ago-banca-visit .ago-banca-visit-layout {
+  display: grid !important;
+  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr) !important;
+  align-items: center !important;
+  gap: clamp(28px, 5vw, 72px) !important;
+}
+
+.ago-banca-visit .ago-banca-visit-gallery {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: clamp(18px, 2vw, 30px) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  overflow: visible !important;
+}
+
+.ago-banca-visit .ago-banca-photo {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  border-radius: 24px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: #c8b59f !important;
+  isolation: isolate !important;
+}
+
+.ago-banca-visit .ago-banca-photo > img {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  filter: none !important;
+  z-index: 0 !important;
+}
+
+.ago-banca-visit .ago-banca-photo > span {
+  position: absolute !important;
+  left: 16px !important;
+  right: 16px !important;
+  bottom: 16px !important;
+  z-index: 3 !important;
+}
 
 .ago-banca-map-panel {
   margin-top: clamp(28px, 4vw, 52px);
@@ -93,13 +155,65 @@
   .ago-banca-photo:focus-visible::before { opacity: 1; }
 }
 
-@media (max-width: 820px) {
+@media (max-width: 900px) {
+  .ago-banca-visit .ago-banca-visit-layout {
+    grid-template-columns: 1fr !important;
+    align-items: start !important;
+    gap: 28px !important;
+  }
+
+  .ago-banca-visit .ago-banca-visit-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
   .ago-banca-map-panel { grid-template-columns: 1fr; }
   .ago-banca-map-copy h3 { max-width: 16ch; }
   .ago-banca-map-frame { aspect-ratio: 16 / 9; }
 }
 
+@media (max-width: 600px) {
+  .ago-banca-visit .ago-banca-visit-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  .ago-banca-visit .ago-banca-visit-gallery {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+    width: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .ago-banca-visit .ago-banca-photo,
+  .ago-banca-visit .ago-banca-photo-wide,
+  .ago-banca-visit .ago-banca-photo-tall {
+    display: block !important;
+    width: 100% !important;
+    aspect-ratio: 4 / 5 !important;
+    min-height: 280px !important;
+    border-radius: 22px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .ago-banca-visit .ago-banca-photo > img {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+}
+
 @media (max-width: 430px) {
   .ago-banca-map-panel { margin-top: 24px; padding: 14px; border-radius: 20px; }
   .ago-banca-map-frame { aspect-ratio: 4 / 3; border-radius: 14px; }
+
+  .ago-banca-visit .ago-banca-photo,
+  .ago-banca-visit .ago-banca-photo-wide,
+  .ago-banca-visit .ago-banca-photo-tall {
+    min-height: 300px !important;
+  }
 }
