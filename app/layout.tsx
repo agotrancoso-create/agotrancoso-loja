@@ -29,6 +29,7 @@ import './site-ux-polish.css';
 import './interactive-luxury.css';
 import './conversion-polish-2026.css';
 import './tropicalia-premium-polish.css';
+import './google-visibility-polish.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
@@ -55,37 +56,70 @@ const cormorant = Cormorant_Garamond({ subsets: ['latin'], display: 'swap', vari
 // stronger server-side eligibility/reservation flow.
 const firstPurchaseAvailable = true;
 const buildVersion = process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 12) || '';
+const primarySearchImage = '/produtos/igreja-quadrado-m.jpg';
 
 export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#68483a', colorScheme: 'light' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
   manifest: '/manifest.webmanifest',
+  icons: { icon: primarySearchImage },
   title: {
     default: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso',
     template: '%s | Agô Trancoso',
   },
   description: 'Igrejinhas de Trancoso em cerâmica, peças inspiradas na Igreja do Quadrado e uma seleção de artesanato em cerâmica disponível na Agô, no Quadrado de Trancoso, Bahia.',
   keywords: [
-    'Agô Trancoso', 'igrejinha de Trancoso', 'Igreja do Quadrado', 'Igreja de São João Batista Trancoso',
+    'Agô Trancoso', 'igrejinha de Trancoso', 'Igreja de Trancoso', 'Igreja do Quadrado', 'Igreja de São João Batista Trancoso',
     'cerâmica Trancoso', 'cerâmica artesanal Trancoso', 'artesanato Trancoso', 'lembrança de Trancoso', 'Quadrado de Trancoso', 'Bahia',
   ],
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },
   openGraph: {
     title: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso',
     description: 'Cerâmica artesanal disponível na Agô Trancoso, com igrejinhas e peças inspiradas em um dos símbolos mais reconhecidos da vila.',
-    url: SITE_DOMAIN, siteName: 'Agô Trancoso', locale: 'pt_BR', type: 'website',
-    images: [{ url: '/produtos/igreja-quadrado-p.jpg', width: 960, height: 960, alt: 'Igrejinha do Quadrado de Trancoso em cerâmica' }],
+    url: SITE_DOMAIN,
+    siteName: 'Agô Trancoso',
+    locale: 'pt_BR',
+    type: 'website',
+    images: [{ url: primarySearchImage, width: 960, height: 960, alt: 'Igreja do Quadrado de Trancoso em cerâmica tamanho M' }],
   },
-  twitter: { card: 'summary_large_image', title: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica', description: 'Igrejinhas de Trancoso e cerâmica artesanal disponíveis na Agô, no Quadrado de Trancoso, Bahia.', images: ['/produtos/igreja-quadrado-p.jpg'] },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica',
+    description: 'Igrejinhas de Trancoso e cerâmica artesanal disponíveis na Agô, no Quadrado de Trancoso, Bahia.',
+    images: [primarySearchImage],
+  },
 };
 
 const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu';
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': ['Organization', 'Store'], '@id': `${SITE_DOMAIN}#organization`, name: 'Agô Trancoso', url: SITE_DOMAIN, logo: `${SITE_DOMAIN}/logo.png`, image: `${SITE_DOMAIN}/produtos/igreja-quadrado-p.jpg`, description: 'Loja de cerâmica artesanal no Quadrado de Trancoso, Bahia, com peças inspiradas na vila, na Igreja de São João Batista e em outras referências brasileiras.', foundingDate: '2016', areaServed: { '@type': 'Country', name: 'Brasil' }, telephone: `+${WHATSAPP_NUMBER}`, address: { '@type': 'PostalAddress', streetAddress: 'Quadrado de Trancoso', addressLocality: 'Trancoso', addressRegion: 'BA', addressCountry: 'BR' }, geo: { '@type': 'GeoCoordinates', latitude: -16.5895579, longitude: -39.0958675 }, hasMap: mapsUrl, sameAs: ['https://www.instagram.com/agotrancoso','https://www.tiktok.com/@agotrancoso',mapsUrl] },
-    { '@type': 'WebSite', '@id': `${SITE_DOMAIN}#website`, name: 'Agô Trancoso', url: SITE_DOMAIN, inLanguage: 'pt-BR', publisher: { '@id': `${SITE_DOMAIN}#organization` }, potentialAction: { '@type': 'SearchAction', target: { '@type': 'EntryPoint', urlTemplate: `${SITE_DOMAIN}/produtos?busca={search_term_string}` }, 'query-input': 'required name=search_term_string' } },
+    {
+      '@type': ['Organization', 'Store'],
+      '@id': `${SITE_DOMAIN}#organization`,
+      name: 'Agô Trancoso',
+      url: SITE_DOMAIN,
+      logo: `${SITE_DOMAIN}/logo.png`,
+      image: `${SITE_DOMAIN}${primarySearchImage}`,
+      description: 'Loja de cerâmica artesanal no Quadrado de Trancoso, Bahia, com peças inspiradas na vila, na Igreja de São João Batista e em outras referências brasileiras.',
+      foundingDate: '2016',
+      areaServed: { '@type': 'Country', name: 'Brasil' },
+      telephone: `+${WHATSAPP_NUMBER}`,
+      address: { '@type': 'PostalAddress', streetAddress: 'Quadrado de Trancoso', addressLocality: 'Trancoso', addressRegion: 'BA', addressCountry: 'BR' },
+      geo: { '@type': 'GeoCoordinates', latitude: -16.5895579, longitude: -39.0958675 },
+      hasMap: mapsUrl,
+      sameAs: ['https://www.instagram.com/agotrancoso', 'https://www.tiktok.com/@agotrancoso', mapsUrl],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_DOMAIN}#website`,
+      name: 'Agô Trancoso',
+      url: SITE_DOMAIN,
+      inLanguage: 'pt-BR',
+      publisher: { '@id': `${SITE_DOMAIN}#organization` },
+      potentialAction: { '@type': 'SearchAction', target: { '@type': 'EntryPoint', urlTemplate: `${SITE_DOMAIN}/produtos?busca={search_term_string}` }, 'query-input': 'required name=search_term_string' },
+    },
   ],
 };
 
