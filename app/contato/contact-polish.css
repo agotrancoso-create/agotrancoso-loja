@@ -1,0 +1,40 @@
+.contact-page .contact-links {
+  display: grid;
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid rgba(117, 70, 47, .18);
+  border-radius: 24px;
+  background: #faf3e8;
+  box-shadow: 0 14px 34px rgba(66, 41, 31, .06);
+}
+
+.contact-page .contact-links .info-link {
+  min-height: 62px;
+  padding: 17px 20px;
+  border-bottom: 1px solid rgba(117, 70, 47, .18);
+  background: transparent;
+  transition: background .18s ease, transform .18s ease;
+}
+
+.contact-page .contact-links .info-link:last-child {
+  border-bottom: 0;
+}
+
+.contact-page .contact-links .info-link:hover,
+.contact-page .contact-links .info-link:focus-visible {
+  background: #f4e5d3;
+}
+
+.contact-page .info-panel {
+  overflow: hidden;
+  border: 1px solid rgba(117, 70, 47, .14);
+  border-radius: 24px !important;
+  box-shadow: 0 14px 34px rgba(66, 41, 31, .06);
+}
+
+@media (max-width: 700px) {
+  .contact-page .contact-links,
+  .contact-page .info-panel {
+    border-radius: 20px !important;
+  }
+}
