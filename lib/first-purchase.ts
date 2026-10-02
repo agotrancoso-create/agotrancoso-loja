@@ -97,17 +97,21 @@ function normalizedIdentity(input: { email: unknown; phone: unknown; document: u
   };
 }
 
-export async function checkFirstPurchaseEligibility(input: { email: unknown; phone: unknown; document: unknown }) {
-  const identity = normalizedIdentity(input);
-  if (!identity) {
-    return { eligible: false, reason: 'Informe e-mail, telefone e CPF/CNPJ válidos para confirmar o benefício.' };
+export async function checkFirstPurchaseEligibility(input: { email: unknown; phone: unknown; document?: unknown }) {
+  const email = normalizeCustomerEmail(input.email);
+  const phone = normalizeCustomerPhone(input.phone);
+  const document = normalizeCustomerDocument(input.document);
+
+  if (!email || !phone) {
+    return { eligible: false, reason: 'Informe e-mail e telefone válidos para confirmar o benefício.' };
   }
 
   if (!isFirstPurchaseStorageConfigured()) {
     return { eligible: true as const, fallback: true as const };
   }
 
-  const existing = await redisCommand<(string | null)[]>(['MGET', ...identity.keys]);
+  const keys = [emailKey(email), phoneKey(phone), ...(document ? [documentKey(document)] : [])];
+  const existing = await redisCommand<(string | null)[]>(['MGET', ...keys]);
   if (existing?.some(Boolean)) {
     return { eligible: false, reason: 'Este benefício é exclusivo para a primeira compra neste cadastro.' };
   }
@@ -127,11 +131,6 @@ export async function reserveFirstPurchaseIdentity(input: {
     return { eligible: false, reason: 'Informe e-mail, telefone e CPF/CNPJ válidos para confirmar o benefício.' };
   }
 
-  /*
-   * Se o KV/Redis não estiver configurado, o cupom continua funcionando.
-   * A proteção forte contra reutilização volta automaticamente assim que o
-   * storage estiver disponível, sem derrubar a conversão do checkout.
-   */
   if (!isFirstPurchaseStorageConfigured()) {
     return { eligible: true as const, fallback: true as const };
   }
@@ -171,9 +170,6 @@ export async function reserveFirstPurchaseIdentity(input: {
   return { eligible: true as const };
 }
 
-/* Pedidos sem cupom também precisam entrar no histórico. Eles não bloqueiam o
-   cliente enquanto o pagamento está pendente; o bloqueio só ocorre após a
-   InfinitePay confirmar o pagamento pelo webhook. */
 export async function registerPurchaseOrder(input: {
   orderNsu: string;
   email: unknown;
