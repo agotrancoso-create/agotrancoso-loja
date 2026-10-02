@@ -72,10 +72,9 @@ async function run() {
     const confidenceText = normalize(await confidence.innerText());
     assert.match(confidenceText, /Feito à mão/i);
     assert.match(confidenceText, /Envio para todo o Brasil/i);
-    assert.match(confidenceText, /Frete fixo e grátis a partir de R\$\s?500/i);
-    assert.match(confidenceText, /Pagamento seguro/i);
-    assert.match(confidenceText, /Cotação internacional/i);
-    assert.match(confidenceText, /Conforme destino e peças/i);
+    assert.match(confidenceText, /Peças exclusivas/i);
+    assert.match(confidenceText, /Inspiração brasileira/i);
+    assert.match(confidenceText, /Da nossa banca para sua casa/i);
 
     await page.getByRole('button', { name: /Abrir sacola com 1 item/ }).first().click();
     const drawer = page.locator('.cart-drawer[aria-hidden=false]').first();
