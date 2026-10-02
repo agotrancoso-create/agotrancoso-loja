@@ -191,15 +191,15 @@ export default function HomePage() {
                 />
                 <span>Na banca, no Quadrado <b aria-hidden="true">↗</b></span>
               </a>
-              <Link href="/produtos/igrejinha-luminaria-trancoso" className="ago-banca-photo ago-banca-photo-tall">
+              <Link href="/artesanato-em-trancoso" className="ago-banca-photo ago-banca-photo-tall">
                 <img
-                  src="/banca-igrejinhas-luminarias.webp"
-                  alt="Igrejinhas luminárias em cerâmica acesas na banca da Agô Trancoso"
+                  src="/banca-ceramicas-quadrado.webp"
+                  alt="Casinhas e igrejinhas em cerâmica na banca da Agô, com a Igreja do Quadrado ao fundo"
                   loading="eager"
                   decoding="async"
                   style={bancaPhotoStyle}
                 />
-                <span>Ver as igrejinhas luminárias <b aria-hidden="true">↗</b></span>
+                <span>Ver as peças da banca <b aria-hidden="true">↗</b></span>
               </Link>
             </div>
           </div>
