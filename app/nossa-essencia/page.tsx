@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Conheça a Agô Trancoso, loja de cerâmica artesanal no Quadrado de Trancoso, e as referências de Trancoso, Bahia, presentes em parte do acervo.',
   alternates: { canonical: '/nossa-essencia' },
   openGraph: { title: 'A Agô | Agô Trancoso', description: 'Conheça a Agô Trancoso, loja de cerâmica artesanal no Quadrado de Trancoso, Bahia.', url: '/nossa-essencia', siteName: 'Agô Trancoso', locale: 'pt_BR', type: 'website', images: [{ url: '/nossa-essencia.jpg', width: 1800, height: 1800, alt: 'Peças de cerâmica da Agô Trancoso' }] },
-  twitter: { card: 'summary_large_image', title: 'A Agô | Agô Trancoso', description: 'Cerâmica artesanal no Quadrado de Trancoso desde 2016.', images: ['/nossa-essencia.jpg'] },
+  twitter: { card: 'summary_large_image', title: 'A Agô | Agô Trancoso', description: 'Seleção de cerâmica artesanal disponível na Agô, no Quadrado de Trancoso.', images: ['/nossa-essencia.jpg'] },
 };
 
 export default function NossaEssenciaPage() {
@@ -31,7 +31,7 @@ export default function NossaEssenciaPage() {
             <p className="eyebrow">A Agô</p>
             <h1>O que vemos por aqui ganha outra forma.</h1>
             <div className="essencia-text">
-              <p>A Agô está em Trancoso desde 2016 e reúne uma seleção de peças em cerâmica artesanal.</p>
+              <p>A Agô reúne uma seleção de peças em cerâmica artesanal, com referências de Trancoso e de outras expressões brasileiras.</p>
               <p>A igreja, as casas e as cores do Quadrado inspiram parte do acervo. Há também objetos para casa, símbolos de fé e outras referências brasileiras.</p>
               <p>Na loja e no site, você encontra as peças para conhecer, escolher e comprar.</p>
             </div>
