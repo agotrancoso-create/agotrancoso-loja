@@ -57,11 +57,15 @@
     aspect-ratio: 4 / 5 !important;
   }
 
+  /* Mais respiro entre a fotografia e o mapa, sem alterar conteúdo ou estrutura. */
   .ago-home .ago-banca-map-panel {
-    margin-top: 24px !important;
+    margin-top: clamp(48px, 4.5vw, 64px) !important;
     padding: 18px 22px !important;
     gap: clamp(22px, 3vw, 34px) !important;
     grid-template-columns: minmax(210px, .46fr) minmax(0, 1.54fr) !important;
+    border-color: rgba(255, 250, 243, .10) !important;
+    background: rgba(255, 250, 243, .035) !important;
+    box-shadow: none !important;
   }
 
   .ago-home .ago-banca-map-copy h3 {
@@ -75,4 +79,22 @@
   .ago-home .ago-banca-map-frame {
     aspect-ratio: 16 / 6.4 !important;
   }
+}
+
+/* Os desenhos dos benefícios permanecem iguais; só o traço ganha cores mais
+   perceptíveis da paleta da Agô para não parecer cinza no monitor. */
+.ago-home .benefits-strip .ago-benefit-line-icon-craft {
+  color: #a34f36 !important;
+}
+
+.ago-home .benefits-strip .ago-benefit-line-icon-vase {
+  color: #2d6a4f !important;
+}
+
+.ago-home .benefits-strip .ago-benefit-line-icon-brazil {
+  color: #a46f15 !important;
+}
+
+.ago-home .benefits-strip .ago-benefit-line-icon-truck {
+  color: #3b6f8f !important;
 }
