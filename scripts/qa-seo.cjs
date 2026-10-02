@@ -24,6 +24,7 @@ function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags
   assert.ok(googlebotMeta.includes('max-image-preview:large'),'Googlebot must be allowed large image previews');
   assert.ok(googlebotMeta.includes('max-snippet:-1'),'Googlebot must be allowed full snippets');
   assert.ok(googlebotMeta.includes('max-video-preview:-1'),'Googlebot must be allowed full video previews');
+  assert.ok(meta(home,'og:image')?.includes('/produtos/igreja-quadrado-p.jpg'),'Home social image should use the iconic Trancoso church product');
 
   const robots=await (await response('/robots.txt',{'User-Agent':'SEO-QA'})).text();
   for(const crawler of ['Googlebot','Googlebot-Image','Bingbot','OAI-SearchBot','ChatGPT-User']){
@@ -58,7 +59,7 @@ function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags
     const product=scripts.flatMap(data=>data['@graph']||[data]).find(data=>data['@type']==='Product');
     assert.equal(product.offers.shippingDetails.shippingRate.value,'39.90',`Google shipping: ${id}`);
     assert.ok(page.includes('Adicionar à sacola'), `Purchase CTA must remain server-rendered: ${id}`);
-    assert.ok(page.includes('Frete e prazo para seu CEP'), `CEP estimator must remain visible: ${id}`);
+    assert.ok(page.includes('Frete e prazo estimado para seu CEP'), `CEP estimator must remain visible: ${id}`);
     assert.ok(!page.includes('Compartilhar esta peça'), `Legacy share copy must stay removed: ${id}`);
     assert.ok(!page.includes('Dúvidas sobre a compra'), `Legacy purchase FAQ must stay removed: ${id}`);
     assert.ok(!page.includes('International shipping'), `Legacy international card must stay removed: ${id}`);
