@@ -27,8 +27,8 @@ export type ShippingDeadlineQuote = {
   estimated?: boolean;
 };
 
-/* CEP geral de Trancoso, Porto Seguro/BA. Pode ser sobrescrito por SHIP_FROM_CEP. */
-export const DEFAULT_SHIP_FROM_CEP = '45818000';
+/* CEP de origem já utilizado pela operação. Pode ser sobrescrito por SHIP_FROM_CEP. */
+export const DEFAULT_SHIP_FROM_CEP = '46098000';
 
 function digits(value: string | undefined) {
   return String(value ?? '').replace(/\D/g, '');
@@ -56,7 +56,6 @@ export function getShippingDeadlineProviderState() {
   return {
     correiosConfigured,
     frenetConfigured,
-    /* O site sempre consegue informar uma estimativa por CEP, mesmo sem credenciais externas. */
     configured: true,
     provider: correiosConfigured ? 'Correios' : frenetConfigured ? 'Frenet' : 'Estimativa Agô',
     originCep: getShipFromCep(),
@@ -175,13 +174,13 @@ function getEstimatedDeadline(destinationCep: string): ShippingDeadlineQuote {
   const firstDigit = Number(destinationCep[0]);
   let deadline = '6–12';
 
-  if (firstDigit === 4) deadline = '3–7';       // BA e SE
-  else if (firstDigit === 5) deadline = '4–9';  // parte do Nordeste
-  else if (firstDigit >= 0 && firstDigit <= 3) deadline = '5–10'; // Sudeste
-  else if (firstDigit === 6) deadline = '6–12'; // Norte/Nordeste amplo
-  else if (firstDigit === 7) deadline = '6–12'; // Centro-Oeste e parte do Norte
-  else if (firstDigit === 8) deadline = '7–12'; // PR/SC
-  else if (firstDigit === 9) deadline = '8–13'; // RS
+  if (firstDigit === 4) deadline = '3–7';
+  else if (firstDigit === 5) deadline = '4–9';
+  else if (firstDigit >= 0 && firstDigit <= 3) deadline = '5–10';
+  else if (firstDigit === 6) deadline = '6–12';
+  else if (firstDigit === 7) deadline = '6–12';
+  else if (firstDigit === 8) deadline = '7–12';
+  else if (firstDigit === 9) deadline = '8–13';
 
   return {
     deadline,
