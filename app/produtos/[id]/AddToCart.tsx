@@ -184,7 +184,7 @@ export default function AddToCart({ product }: { product: Product }) {
             <div>
               <strong>{quotedOption.price === 0 ? 'Frete grátis' : `Frete ${formatBRL(quotedOption.price)}`}</strong>
               {hasDeadline && <span>{quotedOption.estimated ? 'Estimativa de entrega' : 'Prazo estimado'}: {deadlineText} {deadlineUnit}</span>}
-              {quotedOption.estimated && <small>Estimativa baseada no CEP de destino, saindo de Trancoso. O prazo final é confirmado na postagem.</small>}
+              {!hasDeadline && <small>O prazo dos Correios está indisponível agora. <a href={whatsappLink(`Olá! Gostaria de confirmar o prazo dos Correios para ${product.name}, CEP ${cep}.`)} target="_blank" rel="noopener noreferrer">Confirmar prazo com a Agô</a></small>}
             </div>
           )}
         </div>

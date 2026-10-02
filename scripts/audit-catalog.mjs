@@ -58,6 +58,17 @@ const ids = new Set();
 const referencedImages = new Set();
 const issues = [];
 
+// Cabeçalhos válidos não bastam: uma foto truncada pode existir e ainda ficar vazia.
+const homeSource = await fs.readFile(path.join(ROOT, 'app/page.tsx'), 'utf8');
+const homePhotos = new Set([...homeSource.matchAll(/src="(\/[^"]+\.(?:jpg|jpeg|png|webp)(?:\?[^"]*)?)"/g)].map(match => new URL(match[1], 'https://agotrancoso.com.br').pathname));
+for (const photo of homePhotos) {
+  try {
+    await sharp(path.join(PUBLIC_DIR, photo)).raw().toBuffer();
+  } catch {
+    issues.push(`imagem da página inicial ausente ou corrompida: ${photo}`);
+  }
+}
+
 for (const product of products) {
   const id = clean(product?.id);
   if (!id) { issues.push('produto sem id'); continue; }

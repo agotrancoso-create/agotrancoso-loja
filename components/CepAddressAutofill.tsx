@@ -13,7 +13,7 @@ type CepPayload = {
 };
 
 function setReactInputValue(input: HTMLInputElement | null, value: string) {
-  if (!input || !value) return;
+  if (!input) return;
   const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
   setter?.call(input, value);
   input.dispatchEvent(new Event('input', { bubbles: true }));
@@ -34,6 +34,8 @@ export default function CepAddressAutofill() {
     let cleanupInput: (() => void) | null = null;
     let debounce = 0;
     let request = 0;
+    let activeRequest: AbortController | null = null;
+    let focusTimer = 0;
     let observer: MutationObserver | null = null;
 
     const attach = () => {
@@ -57,13 +59,16 @@ export default function CepAddressAutofill() {
         }
 
         const currentRequest = ++request;
+        activeRequest?.abort();
+        const controller = new AbortController();
+        activeRequest = controller;
         status.textContent = 'Buscando endereço…';
         status.classList.remove('is-success', 'is-error');
         status.classList.add('is-loading');
         zip.setAttribute('aria-busy', 'true');
 
         try {
-          const response = await fetch(`/api/cep?cep=${encodeURIComponent(cep)}`, { cache: 'no-store' });
+          const response = await fetch(`/api/cep?cep=${encodeURIComponent(cep)}`, { cache: 'no-store', signal: controller.signal });
           const data = await response.json() as CepPayload;
           if (currentRequest !== request || zip.value.replace(/\D/g, '') !== cep) return;
 
@@ -85,12 +90,13 @@ export default function CepAddressAutofill() {
           status.classList.remove('is-loading', 'is-error');
           status.classList.add('is-success');
 
-          window.setTimeout(() => {
+          focusTimer = window.setTimeout(() => {
+            if (currentRequest !== request || zip.value.replace(/\D/g, '') !== cep) return;
             const targetId = data.street ? 'number' : 'street';
             (document.getElementById(targetId) as HTMLInputElement | null)?.focus();
           }, 120);
         } catch (error) {
-          if (currentRequest !== request) return;
+          if (currentRequest !== request || controller.signal.aborted || zip.value.replace(/\D/g, '') !== cep) return;
           status.textContent = error instanceof Error ? error.message : 'Não foi possível consultar o CEP agora.';
           status.classList.remove('is-loading', 'is-success');
           status.classList.add('is-error');
@@ -101,6 +107,10 @@ export default function CepAddressAutofill() {
 
       const onInput = () => {
         window.clearTimeout(debounce);
+        window.clearTimeout(focusTimer);
+        request += 1;
+        activeRequest?.abort();
+        zip.removeAttribute('aria-busy');
         const cep = zip.value.replace(/\D/g, '');
         if (cep.length < 8) {
           request += 1;
@@ -116,7 +126,10 @@ export default function CepAddressAutofill() {
 
       cleanupInput = () => {
         window.clearTimeout(debounce);
+        window.clearTimeout(focusTimer);
         request += 1;
+        activeRequest?.abort();
+        zip.removeAttribute('aria-busy');
         zip.removeEventListener('input', onInput);
         zip.removeAttribute('data-ago-cep-enhanced');
         status.remove();

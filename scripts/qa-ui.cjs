@@ -258,6 +258,22 @@ async function run() {
   assert.equal(await page.locator('#document').getAttribute('aria-invalid'), 'true');
   for (const [id, value] of Object.entries({ name: 'Pessoa Teste', email: 'teste@example.com', phone: '73999999999', document: '52998224725' })) await page.locator('#' + id).fill(value);
   await page.getByRole('button', { name: 'Continuar para entrega' }).first().click();
+  // Trocar para um CEP geral não pode reaproveitar rua e bairro do CEP anterior.
+  await page.route('**/api/cep?cep=*', route => route.fulfill({
+    status: 200, contentType: 'application/json',
+    body: JSON.stringify(route.request().url().includes('46098000')
+      ? {found:true,street:'',neighborhood:'',city:'Mucugê',state:'BA'}
+      : {found:true,street:'Rua de Teste',neighborhood:'Centro',city:'Porto Seguro',state:'BA'}),
+  }));
+  await page.locator('#zip').fill('01310100');
+  await page.waitForFunction(() => document.getElementById('street')?.value === 'Rua de Teste');
+  await page.locator('#zip').fill('46098000');
+  await page.waitForFunction(() => document.getElementById('city')?.value === 'Mucugê');
+  assert.equal(await page.locator('#street').inputValue(), '');
+  assert.equal(await page.locator('#neighborhood').inputValue(), '');
+  await page.locator('#zip').fill('46098');
+  assert.equal(await page.locator('#zip').getAttribute('aria-busy'), null);
+  results.interactions.push('CEP change clears outdated street/neighborhood and lookup busy state');
   for (const [id, value] of Object.entries({ zip: '45818000', number: '10', street: 'Rua de Teste', neighborhood: 'Centro', city: 'Porto Seguro', state: 'BA' })) await page.locator('#' + id).fill(value);
   await page.getByRole('button', { name: 'Continuar para benefício' }).first().click();
   const coupon = page.getByRole('textbox', { name: 'Cupom de desconto' }).first();
