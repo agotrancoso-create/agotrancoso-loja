@@ -119,7 +119,7 @@ async function run() {
     await deliveryForm.getByRole('button', { name: 'Consultar' }).click();
     const deliveryResult = page.locator('.product-delivery-result').first();
     await deliveryResult.getByText(/Frete R\$\s?39,90/i).waitFor();
-    assert.match(normalize(await deliveryResult.innerText()), /O prazo dos Correios está indisponível agora/i);
+    assert.match(normalize(await deliveryResult.innerText()), /não consultada nos Correios/i);
     assert.match(normalize(await deliveryResult.innerText()), /Estimativa da loja: 5–10 dias úteis/i);
 
     if (width === 390) {
