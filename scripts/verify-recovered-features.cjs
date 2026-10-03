@@ -81,9 +81,11 @@ assert.ok(addToCart.includes('getShippingPrice(selectionSubtotal)'));
 assert.ok(addToCart.includes("fetch('/api/frete'"));
 assert.ok(addToCart.includes('Frete e prazo estimado para seu CEP'));
 assert.ok(addToCart.includes('Estimativa de entrega'));
-assert.ok(addToCart.includes('O prazo dos Correios está indisponível agora.'));
-assert.ok(!deadline.includes('getEstimatedDeadline'));
-assert.ok(!deadline.includes("provider: 'Estimativa Agô'"));
+// Se Correios/Frenet não responderem, o cliente continua vendo uma estimativa conservadora por CEP.
+assert.ok(deadline.includes('getEstimatedDeadline'));
+assert.ok(deadline.includes("provider: 'Estimativa Agô'"));
+assert.ok(checkout.includes("fetch('/api/frete'"));
+assert.ok(checkout.includes('shippingDeadline'));
 
 // Zoom: preserva o master original antes da normalização e usa o arquivo sem recompressão no lightbox.
 assert.ok(normalizer.includes('preserveZoomMaster'));
@@ -116,6 +118,8 @@ assert.ok(footer.includes('href="/trancoso"'));
 assert.ok(popup.includes('Seu primeiro pedido merece um benefício especial.'));
 assert.ok(firstPurchase.includes('documentKey'));
 assert.ok(checkoutValidation.includes('isValidCNPJ'));
+assert.ok(checkout.includes('Obrigatório para pedidos com entrega no Brasil.'));
+assert.ok(checkout.includes('Continuar para envio internacional'));
 assert.ok(paymentCss.includes('Pix Copia e Cola'));
 
 console.log('PASS recovered failed-deploy intentions, visual mappings and current business rules');
