@@ -20,6 +20,20 @@ function tokens(value: string) {
 
 /** Same matching for header suggestions and the catalogue; all query words must match. */
 export function productSearchScore(product: Product, query: string): number {
+  const normalizedQuery = normalizeSearch(query);
+  if (!normalizedQuery) return 1;
+
+  // Autocomplete starts with the very first letter. For a one-letter query we
+  // intentionally search product-name words only, which keeps suggestions useful
+  // instead of matching generic description words such as "artesanal".
+  if (normalizedQuery.length === 1) {
+    const nameWords = normalizeSearch(product.name).split(' ').filter(Boolean);
+    const matchingWordIndex = nameWords.findIndex((word) => word.startsWith(normalizedQuery));
+    if (matchingWordIndex === -1) return 0;
+    if (normalizeSearch(product.name).startsWith(normalizedQuery)) return 140;
+    return 120 - Math.min(matchingWordIndex, 10);
+  }
+
   const needle = tokens(query);
   if (!needle.length) return 1;
 
@@ -27,8 +41,6 @@ export function productSearchScore(product: Product, query: string): number {
   const name = tokens(product.name);
   const words = tokens(`${product.name} ${product.description} ${product.category} ${gift} ceramica artesanal ago trancoso bahia`);
 
-  // Two typed letters are enough for useful autocomplete ("ca" → Casinha, "ig" → Igreja).
-  // One-letter queries stay conservative so the suggestion box does not become noisy.
   const matches = (word: string, candidates: string[]) => candidates.some((candidate) => (
     candidate === word
     || (word.length >= 2 && candidate.startsWith(word))
@@ -37,9 +49,8 @@ export function productSearchScore(product: Product, query: string): number {
 
   if (!needle.every(word => matches(word, words))) return 0;
 
-  const normalizedQuery = normalizeSearch(query);
   const normalizedName = normalizeSearch(product.name);
-  if (normalizedQuery.length >= 2 && normalizedName.startsWith(normalizedQuery)) return 120;
+  if (normalizedName.startsWith(normalizedQuery)) return 120;
   if (needle.every(word => matches(word, name))) return 100;
   return 40;
 }
