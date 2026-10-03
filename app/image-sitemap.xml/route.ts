@@ -53,7 +53,7 @@ export async function GET() {
 
   const landingEntry = `\n  <url>\n    <loc>${escapeXml(`${SITE_DOMAIN}/igrejinha-de-trancoso`)}</loc>${igrejinhaImages}\n  </url>`;
 
-  const homeEntry = `<url><loc>${escapeXml(SITE_DOMAIN)}/</loc><image:image><image:loc>${escapeXml(absoluteUrl('/produtos/igreja-quadrado-p.jpg'))}</image:loc></image:image></url>`;
+  const homeEntry = `<url><loc>${escapeXml(SITE_DOMAIN)}/</loc><image:image><image:loc>${escapeXml(absoluteUrl('/produtos/igreja-quadrado-m.jpg'))}</image:loc></image:image></url>`;
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">${homeEntry}${landingEntry}${productEntries}\n</urlset>`;
 
