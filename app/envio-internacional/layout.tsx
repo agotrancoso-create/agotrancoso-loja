@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { SITE_DOMAIN } from '@/lib/config';
 
-const title = 'Envio internacional de cerâmica artesanal | Agô Trancoso';
-const description = 'Receba as cerâmicas artesanais da Agô Trancoso no exterior. Consulte destinos atendidos pelos Correios e solicite frete e prazo antes do pagamento.';
+const title = 'Envio internacional | International Shipping | Agô Trancoso';
+const description = 'Compre peças da Agô Trancoso para entrega fora do Brasil. International shipping quotes are available for customers abroad, with destination, cost and delivery estimate confirmed before payment.';
 
 export const metadata: Metadata = {
   title: { absolute: title },
