@@ -13,6 +13,7 @@ const synonyms: Record<string, string> = {
   imas: 'ima', magnet: 'ima', miniaturas: 'miniatura', ceramicas: 'ceramica', ceramics: 'ceramica', pottery: 'ceramica',
   iemanja: 'iemanja', yemanja: 'iemanja', pretos: 'preto', velhos: 'velho',
 };
+
 function tokens(value: string) {
   return normalizeSearch(value).split(' ').filter(word => word && !stopWords.has(word)).map(word => synonyms[word] ?? word);
 }
@@ -21,11 +22,24 @@ function tokens(value: string) {
 export function productSearchScore(product: Product, query: string): number {
   const needle = tokens(query);
   if (!needle.length) return 1;
+
   const gift = ['presentes', 'igrejinhas', 'trancoso'].includes(product.category) ? 'presente souvenir lembranca' : '';
   const name = tokens(product.name);
   const words = tokens(`${product.name} ${product.description} ${product.category} ${gift} ceramica artesanal ago trancoso bahia`);
-  const matches = (word: string, candidates: string[]) => candidates.some(candidate => candidate === word || (word.length >= 3 && candidate.startsWith(word)));
+
+  // Two typed letters are enough for useful autocomplete ("ca" → Casinha, "ig" → Igreja).
+  // One-letter queries stay conservative so the suggestion box does not become noisy.
+  const matches = (word: string, candidates: string[]) => candidates.some((candidate) => (
+    candidate === word
+    || (word.length >= 2 && candidate.startsWith(word))
+    || (word.length >= 3 && candidate.includes(word))
+  ));
+
   if (!needle.every(word => matches(word, words))) return 0;
-  if (normalizeSearch(product.name).startsWith(normalizeSearch(query))) return 100;
-  return needle.every(word => matches(word, name)) ? 80 : 40;
+
+  const normalizedQuery = normalizeSearch(query);
+  const normalizedName = normalizeSearch(product.name);
+  if (normalizedQuery.length >= 2 && normalizedName.startsWith(normalizedQuery)) return 120;
+  if (needle.every(word => matches(word, name))) return 100;
+  return 40;
 }
