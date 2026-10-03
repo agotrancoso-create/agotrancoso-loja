@@ -89,11 +89,11 @@ export default function InternationalShippingPage() {
   }
 
   return (
-    <main className="checkout-page">
+    <section className="checkout-page" aria-labelledby="international-page-title">
       <div className="checkout-shell">
         <header className="ago-clean-checkout-head">
           <p className="eyebrow">Do Quadrado para o mundo</p>
-          <h1 className="checkout-title">Envio internacional</h1>
+          <h1 id="international-page-title" className="checkout-title">Envio internacional</h1>
           <p>Enviamos peças da Agô para destinos internacionais atendidos pelos Correios. A rede do Exporta Fácil alcança mais de 200 países.</p>
         </header>
 
@@ -198,6 +198,6 @@ export default function InternationalShippingPage() {
           </div>
         </section>
       </div>
-    </main>
+    </section>
   );
 }

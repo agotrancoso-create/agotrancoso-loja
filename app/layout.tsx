@@ -62,6 +62,7 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1, them
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION?.trim() || undefined },
   manifest: '/manifest.webmanifest',
   icons: { icon: '/logo.png', shortcut: '/logo.png', apple: '/logo.png' },
   title: {
@@ -132,7 +133,7 @@ const versionGuardScript = `
   function cleanVersionParam() { try { var url = new URL(window.location.href); if (url.searchParams.get('__ago_v') === current) { url.searchParams.delete('__ago_v'); history.replaceState(history.state, '', url.pathname + url.search + url.hash); } } catch (_) {} }
   async function checkVersion() {
     if (checking || reloading || document.visibilityState === 'hidden') return;
-    if (/^\/(checkout|confirmacao)(\/|$)/.test(window.location.pathname.replace(/^\/en(?=\/|$)/, ''))) return;
+    if (/^\\/(checkout|confirmacao)(\\/|$)/.test(window.location.pathname.replace(/^\\/en(?=\\/|$)/, ''))) return;
     var focused = document.activeElement;
     if (focused && (focused.matches('input, textarea, select') || focused.isContentEditable)) return;
     checking = true;

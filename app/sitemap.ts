@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/lembrancas-de-trancoso', priority: 0.9 },
     { path: '/nossa-essencia', priority: 0.7 },
     { path: '/contato', priority: 0.7 },
+    { path: '/envio-internacional', priority: 0.7 },
   ];
   const productRoutes = getAllProducts().map((product) => `/produtos/${product.id}`);
 
