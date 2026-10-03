@@ -1,25 +1,23 @@
 import { Product } from './types';
 
-// Ordem editorial e comercial baseada em princípios de saliência visual:
-// reconhecimento imediato de Trancoso, formas humanas/faciais, contraste,
-// variedade de silhuetas e progressão de ticket. O objetivo é captar atenção
-// sem sacrificar coerência de marca nem transformar a coleção em uma vitrine
-// puramente de preço.
+// Ordem editorial/comercial: primeiro entram as peças que identificam Trancoso
+// de imediato, depois alternamos luz, cor, figura humana e faixas de preço.
+// O objetivo é criar ritmo visual e facilitar decisão — sem ordenar só por preço.
 export const ATTENTION_PRODUCT_ORDER = [
-  'igreja-quadrado-p',
   'miniatura-quadrado-trancoso',
-  'igrejinha-luminaria-trancoso',
-  'casal-pretos-velhos',
-  'casinha-luminaria',
-  'mobile-trancoso',
   'igreja-quadrado-m',
+  'igrejinha-luminaria-trancoso',
+  'casinha-luminaria',
+  'igreja-quadrado-p',
+  'casal-pretos-velhos',
+  'mobile-trancoso',
   'ima-igrejinha-trancoso',
   'colar-igreja-quadrado',
-  'cruzeiro-do-quadrado',
-  'igreja-quadrado-gg',
   'estatueta-iemanja',
-  'nossa-senhora-grande',
+  'cruzeiro-do-quadrado',
   'presepio-em-ceramica',
+  'igreja-quadrado-gg',
+  'nossa-senhora-grande',
   'nossa-senhora-aparecida',
   'divino-espirito-santo',
   'rosario-trancoso',
