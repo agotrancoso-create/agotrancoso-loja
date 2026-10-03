@@ -108,7 +108,8 @@ assert.ok(finalLastCss.includes('object-fit: contain !important'));
 assert.ok(trancoso.includes('Cerâmica em Trancoso'));
 assert.ok(trancoso.includes('Artesanato em Trancoso'));
 assert.ok(home.includes('Cerâmica em Trancoso | Igrejinhas do Quadrado | Agô Trancoso'));
-assert.ok(home.includes("SEARCH_HERO_IMAGE = '/produtos/igreja-quadrado-m.jpg'"));
+assert.ok(home.includes("SEARCH_HERO_IMAGE = '/ago-banca-compartilhar.jpg'"));
+assert.ok(fs.existsSync('public/ago-banca-compartilhar.jpg'), 'Sharing photo must be available to crawlers');
 assert.ok(footer.includes('href="/trancoso"'));
 
 // Primeira compra, documentos brasileiros e orientação de Pix continuam protegidos.
