@@ -63,7 +63,7 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1, them
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
   manifest: '/manifest.webmanifest',
-  icons: { icon: primarySearchImage },
+  icons: { icon: '/logo.png', shortcut: '/logo.png', apple: '/logo.png' },
   title: {
     default: 'Agô Trancoso | Igrejinhas do Quadrado e cerâmica em Trancoso',
     template: '%s | Agô Trancoso',
