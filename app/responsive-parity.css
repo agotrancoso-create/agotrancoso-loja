@@ -54,6 +54,45 @@ body {
   margin-top: 18px;
 }
 
+/* International checkout shortcut: foreigners never need to enter a Brazilian CPF. */
+.checkout-international-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+  border: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--sand) 50%, var(--ivory));
+}
+
+.checkout-international-option > div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.checkout-international-option strong {
+  font-size: .95rem;
+  color: var(--ink);
+}
+
+.checkout-international-option span {
+  color: var(--muted);
+  font-size: .84rem;
+  line-height: 1.5;
+}
+
+.checkout-international-option a {
+  flex: 0 0 auto;
+  color: inherit;
+  font-size: .84rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 /* Internal scrolling should feel native, not like an old embedded panel. */
 .ago-category-bar-inner,
 .ago-search-suggestions,
@@ -164,9 +203,28 @@ body {
 .catalog-buying-answer,
 .product-buybox,
 .ago-footer-group,
-.ago-footer-brand {
+.ago-footer-brand,
+.checkout-shell,
+.checkout-form-panel,
+.checkout-stage,
+.checkout-summary {
   min-width: 0;
   overflow-wrap: anywhere;
+}
+
+/* Touch behavior shared by Safari on iPhone and Chrome on Android. */
+button,
+a,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+}
+
+.checkout-page {
+  width: 100%;
+  overflow-x: clip;
+  padding-bottom: max(0px, env(safe-area-inset-bottom));
 }
 
 @media (max-width: 1100px) {
@@ -216,7 +274,7 @@ body {
   /* Floating contact actions remain floating on mobile as on desktop. */
   .ago-social-floaters {
     position: fixed;
-    right: 12px;
+    right: max(12px, env(safe-area-inset-right));
     bottom: calc(12px + env(safe-area-inset-bottom));
     z-index: 30;
     justify-content: flex-end;
@@ -234,12 +292,39 @@ body {
     width: 100%;
   }
 
+  .checkout-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 22px;
+  }
+
   .product-gallery {
     width: 100%;
   }
 
   .checkout-summary {
     width: 100%;
+  }
+
+  /* 16px prevents Safari from zooming the page when a checkout field receives focus. */
+  .checkout-input,
+  .catalog-search-control input,
+  .product-delivery-estimator input,
+  .product-delivery-estimator button {
+    font-size: 16px;
+  }
+
+  .checkout-input,
+  .checkout-next-step,
+  .checkout-submit,
+  .checkout-without-coupon,
+  .checkout-coupon-row button,
+  .product-delivery-estimator button,
+  .quantity-control button {
+    min-height: 44px;
+  }
+
+  .checkout-international-option {
+    align-items: flex-start;
   }
 }
 
@@ -296,6 +381,34 @@ body {
   .checkout-submit,
   .cart-checkout {
     min-height: 50px;
+  }
+
+  .checkout-international-option {
+    display: grid;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .checkout-international-option a {
+    width: fit-content;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .checkout-progress {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+
+  .checkout-progress::-webkit-scrollbar {
+    display: none;
+  }
+
+  .checkout-progress-step {
+    min-height: 44px;
   }
 
   .ago-footer-main {
