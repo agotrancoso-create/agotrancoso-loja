@@ -97,8 +97,10 @@ async function checkout(items,coupon='',overrides={}) {
   // Prazo deve vir da transportadora; ausência/falha não pode inventar dias.
   const {getShippingDeadlineQuote, getShippingDeadlineProviderState} = require('../lib/shipping-deadline.ts');
   for (const key of ['CORREIOS_TOKEN','CORREIOS_ACCESS_KEY','FRENET_TOKEN','SHIP_FROM_CEP','FRENET_SELLER_CEP','CORREIOS_SERVICE_CODE']) delete process.env[key];
-  assert.equal(getShippingDeadlineProviderState().configured, false);
-  assert.equal(await getShippingDeadlineQuote({destinationCep:'01310100',subtotal:480}), null);
+  assert.equal(getShippingDeadlineProviderState().correiosConfigured, false);
+  assert.equal(getShippingDeadlineProviderState().frenetConfigured, false);
+  assert.equal(getShippingDeadlineProviderState().provider, 'Estimativa Agô');
+  assert.equal((await getShippingDeadlineQuote({destinationCep:'01310100',subtotal:480})).estimated, true);
   process.env.CORREIOS_TOKEN = 'test-only';
   global.fetch = async (url) => {
     assert.equal(url.searchParams.get('cepOrigem'), '46098000');
@@ -107,7 +109,7 @@ async function checkout(items,coupon='',overrides={}) {
   };
   assert.equal((await getShippingDeadlineQuote({destinationCep:'01310100',subtotal:480})).deadline, 7);
   global.fetch = async () => new Response('{}', {status:503});
-  assert.equal(await getShippingDeadlineQuote({destinationCep:'01310100',subtotal:480}), null);
+  assert.equal((await getShippingDeadlineQuote({destinationCep:'01310100',subtotal:480})).estimated, true);
   delete process.env.CORREIOS_TOKEN;
   process.env.FRENET_TOKEN = 'test-only';
   global.fetch = async () => new Response(JSON.stringify({ShippingSevicesArray:[

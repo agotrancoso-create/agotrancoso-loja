@@ -66,7 +66,7 @@ jobs:
       - name: Install browser QA runtime
         run: |
           npm install --no-save --no-audit --no-fund playwright axe-core
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium webkit
           mkdir -p /tmp/ago-qa
 
       - name: Mobile and desktop interaction QA
@@ -74,6 +74,9 @@ jobs:
           QA_WIDTHS: 320,390,820,1440,1920
           QA_ARTIFACTS: /tmp/ago-qa
         run: npm run qa:ui
+
+      - name: iPhone Safari and Android Chrome checkout
+        run: node scripts/qa-mobile-checkout.cjs
 
       - name: Visual refinement parity and rounded zoom QA
         env:

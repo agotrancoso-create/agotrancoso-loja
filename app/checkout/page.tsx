@@ -1,5 +1,9 @@
 'use client';
 
+import { whatsappLink } from '@/lib/config';
+
+import { usePathname } from 'next/navigation';
+import { checkoutMessage } from '@/lib/checkout-copy';
 import Image from '@/components/ProductImage';
 import Link from 'next/link';
 import { customerErrors, addressErrors, normalizeBrazilianDocument } from '@/lib/checkout-validation';
@@ -56,6 +60,11 @@ type ShippingQuote = {
 
 export default function CheckoutPage() {
   const { items, hydrated } = useCart();
+  const pathname = usePathname();
+  const [english, setEnglish] = useState(false);
+  const [assisted, setAssisted] = useState(false);
+  useEffect(() => { setEnglish(pathname === '/en' || pathname.startsWith('/en/') || document.documentElement.lang === 'en' || document.cookie.split('; ').includes('ago_locale=en')); }, [pathname]);
+  const t = (message: string) => checkoutMessage(message, english);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [stepError, setStepError] = useState<string | null>(null);
@@ -122,6 +131,8 @@ export default function CheckoutPage() {
       return;
     }
 
+    setShippingDeadline(null);
+    setShippingDeadlineLoading(true);
     const controller = new AbortController();
     const timer = window.setTimeout(async () => {
       setShippingDeadlineLoading(true);
@@ -133,6 +144,7 @@ export default function CheckoutPage() {
           body: JSON.stringify({ cep: normalizedZip, items }),
         });
         const data = (await response.json()) as ShippingQuote;
+        if (controller.signal.aborted) return;
         const option = data.options?.[0];
         if (response.ok && data.available && option?.deadline !== null && option?.deadline !== undefined && option.deadline !== '') {
           setShippingDeadline(String(option.deadline));
@@ -186,7 +198,7 @@ export default function CheckoutPage() {
   }
 
   function fieldError(name: string) {
-    return fieldErrors[name] ? <p id={`${name}-error`} className="checkout-error">{fieldErrors[name]}</p> : null;
+    return fieldErrors[name] ? <p id={`${name}-error`} className="checkout-error" data-no-translate="true">{t(fieldErrors[name])}</p> : null;
   }
 
   function change(event: ChangeEvent<HTMLInputElement>) {
@@ -286,6 +298,7 @@ export default function CheckoutPage() {
       return;
     }
     if (!benefitConfirmed) { setStep(3); return; }
+    if (assisted) return;
     if (!lines.length) { setError('Sua sacola está vazia.'); return; }
     if (!customerComplete) { setStep(1); setStepError('Complete seus dados antes de finalizar.'); return; }
     if (!deliveryComplete) {
@@ -336,16 +349,31 @@ export default function CheckoutPage() {
           <p>Compre sem criar uma conta. Confira seu pedido antes de seguir para o pagamento seguro.</p>
         </header>
 
-        <nav className="checkout-progress" aria-label="Etapas da compra">
+        <fieldset className="checkout-customer-mode" data-no-translate="true">
+          <legend>{english ? 'How would you like to order?' : 'Como deseja comprar?'}</legend>
+          <label><input type="radio" name="customer-mode" checked={!assisted} onChange={() => setAssisted(false)} />{english ? 'Delivery in Brazil · I have a CPF/CNPJ' : 'Entrega no Brasil · Tenho CPF/CNPJ'}</label>
+          <label><input type="radio" name="customer-mode" checked={assisted} onChange={() => setAssisted(true)} />{english ? 'International delivery or foreign customer without CPF' : 'Envio ao exterior ou estrangeiro sem CPF'}</label>
+        </fieldset>
+        {!assisted && <nav className="checkout-progress" aria-label="Etapas da compra">
           {steps.map(({ number, label }) => {
             const complete = completedSteps.includes(number);
             const unlocked = number === 1 || (number === 2 && completedSteps.includes(1) && customerComplete) || (number === 3 && completedSteps.includes(2) && customerComplete && deliveryComplete) || (number === 4 && completedSteps.includes(2) && customerComplete && deliveryComplete && benefitConfirmed);
             return <button key={number} type="button" className={`checkout-progress-step${step === number ? ' is-active' : ''}${complete ? ' is-complete' : ''}`} onClick={() => editStep(number)} disabled={!unlocked} aria-current={step === number ? 'step' : undefined}><span>{complete ? '✓' : number}</span><strong>{label}</strong></button>;
           })}
-        </nav>
+        </nav>}
 
         <div className="checkout-layout">
-          <form ref={formRef} onSubmit={submit} className="checkout-form-panel checkout-stepped-form" noValidate>
+          {assisted ? <section className="checkout-assisted checkout-form-panel" data-no-translate="true" aria-labelledby="assisted-title">
+            <h2 id="assisted-title">{english ? 'Order with help from Agô' : 'Compre com a ajuda da Agô'}</h2>
+            <p>{english ? 'No CPF? You can ask about your selected pieces without one. We will confirm your destination, shipping and available payment options before you decide.' : 'Não tem CPF? Consulte suas peças sem esse documento. Vamos confirmar o destino, o frete e as formas de pagamento disponíveis antes de você decidir.'}</p>
+            <p>{english ? 'Online payment through InfinitePay requires a CPF. This request does not place or charge an order.' : 'O pagamento online pela InfinitePay exige CPF. Esta consulta não cria nem cobra um pedido.'}</p>
+            <a className="checkout-next-step" target="_blank" rel="noopener noreferrer" href={whatsappLink([
+              english ? 'Hello! I would like help ordering these pieces (international delivery or foreign customer without CPF):' : 'Olá! Gostaria de ajuda para comprar estas peças (envio ao exterior ou estrangeiro sem CPF):',
+              ...lines.map(({item, product}) => `${item.quantity} × ${product.name} — ${formatBRL(getEffectivePrice(product) * item.quantity)}`),
+              `${english ? 'Products subtotal' : 'Subtotal das peças'}: ${formatBRL(subtotal)}`,
+              english ? 'Please confirm shipping and available payment options.' : 'Por favor, confirme o frete e as formas de pagamento disponíveis.',
+            ].join('\n'))}>{english ? 'Ask about this order on WhatsApp' : 'Consultar este pedido no WhatsApp'}</a>
+          </section> : <form ref={formRef} onSubmit={submit} className="checkout-form-panel checkout-stepped-form" noValidate>
             {benefitAvailable && <div className="checkout-first-purchase"><strong>3% OFF na 1ª compra</strong><span>O cupom pode ser aplicado na etapa Benefício.</span></div>}
 
             <section className={`checkout-stage${step === 1 ? ' is-active' : ''}${completedSteps.includes(1) ? ' is-complete' : ''}`} aria-labelledby="checkout-customer-title">
@@ -355,7 +383,7 @@ export default function CheckoutPage() {
                 <div className="checkout-fields-two"><div className="checkout-field"><label htmlFor="name">Nome completo</label><input className="checkout-input" id="name" {...fieldProps('name')} required name="name" placeholder="Seu nome" value={form.name} onChange={change} autoComplete="name" />{fieldError('name')}</div><div className="checkout-field"><label htmlFor="email">E-mail</label><input className="checkout-input" id="email" {...fieldProps('email')} required type="email" name="email" placeholder="seu@email.com" value={form.email} onChange={change} autoComplete="email" />{fieldError('email')}</div></div>
                 <div className="checkout-field"><label htmlFor="phone">Telefone / WhatsApp</label><input className="checkout-input" id="phone" {...fieldProps('phone')} required name="phone" inputMode="tel" placeholder="(00) 00000-0000" value={form.phone} onChange={change} autoComplete="tel" />{fieldError('phone')}</div>
                 <div className="checkout-field"><label htmlFor="document">CPF ou CNPJ <span>(entrega no Brasil)</span></label><input className="checkout-input" id="document" {...fieldProps('document')} required name="document" inputMode="text" autoCapitalize="characters" spellCheck={false} autoComplete="off" placeholder="CPF ou CNPJ" value={form.document} onChange={change} />{fieldError('document')}<p className="checkout-field-help">Obrigatório para pedidos com entrega no Brasil.</p></div>
-                {stepError && <p className="checkout-error" role="alert">{stepError}</p>}
+                {stepError && <p className="checkout-error" data-no-translate="true" role="alert">{t(stepError)}</p>}
                 <button type="button" className="checkout-next-step" onClick={goToDelivery}>Continuar para entrega</button>
               </div> : customerComplete ? <p className="checkout-stage-summary">{form.name} · {form.email} · {form.phone} · CPF/CNPJ informado</p> : null}
             </section>
@@ -369,8 +397,8 @@ export default function CheckoutPage() {
                 <div className="checkout-field"><label htmlFor="neighborhood">Bairro</label><input className="checkout-input" id="neighborhood" {...fieldProps('neighborhood')} required name="neighborhood" value={form.neighborhood} onChange={change} />{fieldError('neighborhood')}</div>
                 <div className="checkout-fields-address"><div className="checkout-field"><label htmlFor="city">Cidade</label><input className="checkout-input" id="city" {...fieldProps('city')} required name="city" value={form.city} onChange={change} autoComplete="address-level2" />{fieldError('city')}</div><div className="checkout-field checkout-uf"><label htmlFor="state">UF</label><input className="checkout-input" id="state" {...fieldProps('state')} required name="state" maxLength={2} placeholder="BA" value={form.state} onChange={change} autoComplete="address-level1" />{fieldError('state')}</div></div>
                 <Link className="checkout-international-link" href="/envio-internacional">Fora do Brasil? Consulte o envio internacional.</Link>
-                <div className="checkout-shipping-note"><span>{freeShipping ? 'Frete grátis neste pedido.' : <>Frete fixo de <strong>R$ 39,90</strong>.</>}</span><span>Frete grátis a partir de R$ 500 em produtos.</span>{shippingDeadlineLoading && <span>Consultando prazo…</span>}{!shippingDeadlineLoading && shippingDeadline && <span>{shippingDeadlineEstimated ? 'Estimativa de entrega' : 'Prazo estimado'}: {shippingDeadline} {shippingDeadlineUnit}.</span>}</div>
-                {shippingError && <p id="checkout-shipping-error" className="checkout-error" role="alert">{shippingError}</p>}{stepError && <p className="checkout-error" role="alert">{stepError}</p>}
+                <div className="checkout-shipping-note"><span>{freeShipping ? 'Frete grátis neste pedido.' : <>Frete fixo de <strong>R$ 39,90</strong>.</>}</span><span>Frete grátis a partir de R$ 500 em produtos.</span>{shippingDeadlineLoading && <span>Consultando prazo…</span>}{!shippingDeadlineLoading && shippingDeadline && <span data-no-translate="true">{english ? (shippingDeadlineEstimated ? 'Store estimate' : 'Carrier estimate') : (shippingDeadlineEstimated ? 'Estimativa da loja' : 'Prazo estimado')}: {shippingDeadline} {english ? (shippingDeadline === '1' ? 'business day' : 'business days') : shippingDeadlineUnit}.</span>}{!shippingDeadlineLoading && shippingDeadline && shippingDeadlineEstimated && <small>Faixa indicativa após a postagem, não consultada nos Correios. Confirme o prazo antes de comprar.</small>}</div>
+                {shippingError && <p id="checkout-shipping-error" className="checkout-error" data-no-translate="true" role="alert">{t(shippingError)}</p>}{stepError && <p className="checkout-error" data-no-translate="true" role="alert">{t(stepError)}</p>}
                 <button type="button" className="checkout-next-step" onClick={goToBenefit}>Continuar para benefício</button>
               </div> : deliveryComplete ? <p className="checkout-stage-summary">{form.street}, {form.number} · {form.neighborhood} · {form.city}/{form.state}</p> : <p className="checkout-stage-locked">Conclua seus dados para liberar esta etapa.</p>}
             </section>
@@ -380,7 +408,7 @@ export default function CheckoutPage() {
               {step === 3 ? <div className="checkout-stage-body">
                 <p className="checkout-benefit-copy">{benefitAvailable ? <>Se for sua primeira compra, aplique o cupom <strong>{FIRST_PURCHASE_COUPON}</strong>. A elegibilidade é validada pelo e-mail e telefone.</> : 'O benefício está temporariamente indisponível. Você pode continuar sem cupom.'}</p>
                 {benefitAvailable && <div className="checkout-coupon-row"><input disabled={couponChecking} className="checkout-input" aria-label="Cupom de desconto" value={coupon} onChange={(event) => { setCoupon(event.target.value.toUpperCase().replace(/\s/g, '').slice(0, 20)); setCouponMessage(null); setAppliedCoupon(''); setBenefitConfirmed(false); }} placeholder="Cupom" /><button type="button" disabled={couponChecking} onClick={applyCoupon}>{couponChecking ? 'Validando…' : 'Aplicar'}</button></div>}
-                {couponMessage && <p className={`checkout-coupon-message ${appliedCoupon ? 'success' : 'error'}`} role="status">{couponMessage}</p>}{error && <p className="checkout-error" role="alert">{error}</p>}
+                {couponMessage && <p className={`checkout-coupon-message ${appliedCoupon ? 'success' : 'error'}`} data-no-translate="true" role="status">{t(couponMessage)}</p>}{error && <p className="checkout-error" data-no-translate="true" role="alert">{t(error)}</p>}
                 {appliedCoupon && <button type="button" className="checkout-next-step" onClick={() => { setBenefitConfirmed(true); markComplete(3); setStep(4); }}>Continuar com benefício</button>}
                 <button type="button" className="checkout-without-coupon" onClick={() => { couponRequest.current += 1; setCouponChecking(false); setCoupon(''); setAppliedCoupon(''); setCouponMessage(null); setBenefitConfirmed(true); markComplete(3); setStep(4); }}>Continuar sem cupom</button>
               </div> : <p className="checkout-stage-locked">{benefitConfirmed ? (appliedCoupon ? `Cupom ${appliedCoupon} aplicado.` : 'Continuar sem cupom.') : 'Conclua a entrega para liberar esta etapa.'}</p>}
@@ -391,17 +419,17 @@ export default function CheckoutPage() {
               {step === 4 ? <div className="checkout-stage-body">
                 <p className="checkout-payment-copy">Revise seu pedido. Você será encaminhado ao ambiente seguro da InfinitePay para escolher a forma de pagamento e concluir a compra.</p>
                 <div className="checkout-payment-total"><span>Total</span><strong>{formatBRL(total)}</strong></div>
-                {error && <p className="checkout-error" role="alert">{error}</p>}
+                {error && <p className="checkout-error" data-no-translate="true" role="alert">{t(error)}</p>}
                 <button disabled={loading} type="submit" className="checkout-submit">{loading ? 'Preparando pagamento…' : 'Pagar com InfinitePay'}</button>
                 <p className="checkout-note">O pagamento será feito na próxima tela.</p>
               </div> : <p className="checkout-stage-locked">Conclua a etapa de benefício para revisar e pagar.</p>}
             </section>
-          </form>
+          </form>}
 
           <aside className="checkout-summary" aria-label="Resumo do pedido">
             <div className="ago-clean-summary-head"><p className="eyebrow">Resumo</p><h2>Seu pedido</h2></div>
             <div className="checkout-summary-items" aria-label="Suas peças">{lines.map(({ item, product }) => <div key={item.productId} className="checkout-summary-item"><div className="checkout-product-main"><div className="checkout-product-image"><Image src={product.images?.[0] || '/images/placeholder.svg'} alt={product.name} width={60} height={60} /></div><div><span className="checkout-product-name">{product.name}</span><span className="checkout-product-price">{item.quantity} × {formatBRL(getEffectivePrice(product))}</span></div></div><span className="checkout-line-total">{formatBRL(getEffectivePrice(product) * item.quantity)}</span></div>)}</div>
-            <div className="ago-clean-summary-bottom"><div className="checkout-summary-row"><span>Subtotal</span><strong>{formatBRL(subtotal)}</strong></div>{discount > 0 && <div className="checkout-summary-row checkout-discount-row"><span>1ª compra · 3% OFF</span><strong>- {formatBRL(discount)}</strong></div>}<div className="checkout-summary-row"><span>Frete</span><strong>{shippingValue === 0 ? 'Grátis' : formatBRL(shippingValue)}</strong></div><div className="checkout-total"><span>Total</span><strong>{formatBRL(total)}</strong></div></div>
+            <div className="ago-clean-summary-bottom"><div className="checkout-summary-row"><span>Subtotal</span><strong>{formatBRL(subtotal)}</strong></div>{discount > 0 && <div className="checkout-summary-row checkout-discount-row"><span>1ª compra · 3% OFF</span><strong>- {formatBRL(discount)}</strong></div>}<div className="checkout-summary-row"><span>Frete</span><strong>{assisted ? (english ? 'To be confirmed' : 'A confirmar') : shippingValue === 0 ? 'Grátis' : formatBRL(shippingValue)}</strong></div><div className="checkout-total"><span>{assisted ? (english ? 'Products total' : 'Total das peças') : 'Total'}</span><strong>{formatBRL(assisted ? subtotal : total)}</strong></div></div>
           </aside>
         </div>
       </div>

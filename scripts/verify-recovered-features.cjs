@@ -80,7 +80,7 @@ for (const source of shippingCopyFiles) {
 assert.ok(addToCart.includes('getShippingPrice(selectionSubtotal)'));
 assert.ok(addToCart.includes("fetch('/api/frete'"));
 assert.ok(addToCart.includes('Frete e prazo estimado para seu CEP'));
-assert.ok(addToCart.includes('Estimativa de entrega'));
+assert.ok(addToCart.includes('Estimativa da loja'));
 // Se Correios/Frenet não responderem, o cliente continua vendo uma estimativa conservadora por CEP.
 assert.ok(deadline.includes('getEstimatedDeadline'));
 assert.ok(deadline.includes("provider: 'Estimativa Agô'"));

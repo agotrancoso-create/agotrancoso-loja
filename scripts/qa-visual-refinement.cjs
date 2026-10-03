@@ -240,7 +240,7 @@ async function main() {
       international: document.querySelectorAll('.product-international-note').length,
       internationalText: document.body.innerText.includes('International shipping') || document.body.innerText.includes('Fora do Brasil?'),
     }));
-    assert.equal(legacyProductBlocks.share, 0, `legacy share block returned at ${width}`);
+    assert.equal(legacyProductBlocks.share, 1, `sharing action should be available at ${width}`);
     assert.equal(legacyProductBlocks.whatsapp, 0, `legacy WhatsApp purchase block returned at ${width}`);
     assert.equal(legacyProductBlocks.questions, false, `legacy purchase FAQ returned at ${width}`);
     assert.equal(legacyProductBlocks.international, 0, `legacy international card returned at ${width}`);

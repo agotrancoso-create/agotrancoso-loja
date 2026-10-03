@@ -142,7 +142,6 @@ function googleProductCategory(product: { id: string; category: string }) {
 
 export async function GET() {
   const items = getAllProducts()
-    .filter((product) => product.available)
     .map((product) => {
       const hasSale = product.promotionalPrice != null && product.promotionalPrice < product.price;
       const effectivePrice = getEffectivePrice(product);
@@ -170,7 +169,7 @@ export async function GET() {
           <g:mobile_link>${escapeXml(`${SITE_DOMAIN}/produtos/${product.id}`)}</g:mobile_link>
           <g:image_link>${escapeXml(mainImage)}</g:image_link>
           ${additionalImages.map((image) => `<g:additional_image_link>${escapeXml(absoluteUrl(image))}</g:additional_image_link>`).join('\n          ')}
-          <g:availability>in_stock</g:availability>
+          <g:availability>${product.available ? 'in_stock' : 'out_of_stock'}</g:availability>
           <g:condition>new</g:condition>
           <g:price>${product.price.toFixed(2)} BRL</g:price>
           ${hasSale ? `<g:sale_price>${product.promotionalPrice!.toFixed(2)} BRL</g:sale_price>` : ''}
