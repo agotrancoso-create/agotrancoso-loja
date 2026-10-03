@@ -94,7 +94,7 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
       <section className="ago-cinematic-commerce ago-home-hero-2026" aria-labelledby="featured-title">
         <div className="ago-cinematic-media" aria-hidden="true">
-          <Image src={SEARCH_HERO_IMAGE} alt="" fill priority sizes="100vw" className="ago-cinematic-image ago-home-hero-photo-2026" quality={100} />
+          <Image src="/hero.jpg" alt="" fill priority sizes="100vw" className="ago-cinematic-image ago-home-hero-photo-2026" quality={88} />
           <div className="ago-cinematic-overlay" />
         </div>
         <div className="ago-container ago-cinematic-copy">
