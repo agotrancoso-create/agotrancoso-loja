@@ -104,10 +104,10 @@ assert.ok(finalLastCss.includes('border: 0 !important'));
 assert.ok(finalLastCss.includes('border-radius: 18px !important'));
 assert.ok(finalLastCss.includes('object-fit: contain !important'));
 
-// SEO/localidade e intenção comercial.
+// SEO/localidade e intenção comercial. Mantemos os sinais que já foram reconhecidos pelo Google.
 assert.ok(trancoso.includes('Cerâmica em Trancoso'));
 assert.ok(trancoso.includes('Artesanato em Trancoso'));
-assert.ok(home.includes('Comprar Igrejinhas e Cerâmica de Trancoso'));
+assert.ok(home.includes('Cerâmica em Trancoso | Igrejinhas do Quadrado | Agô Trancoso'));
 assert.ok(home.includes("SEARCH_HERO_IMAGE = '/produtos/igreja-quadrado-m.jpg'"));
 assert.ok(footer.includes('href="/trancoso"'));
 
