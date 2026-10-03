@@ -38,7 +38,7 @@
 .catalog-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 40px 24px; }
 .catalog-empty { padding: 40px 0; max-width: 680px; }
 .catalog-empty p, .catalog-empty button { margin-top: 20px; }
-.ago-search-suggestions, .catalog-search-suggestions { position: absolute; z-index: 50; top: calc(100% + 8px); right: 0; width: min(420px, calc(100vw - 32px)); padding: 8px; background: var(--ivory); border: 1px solid var(--leather); border-radius: var(--radius-sm); box-shadow: var(--shadow); max-height: min(460px,65dvh); overflow-y: auto; }
+.ago-search-suggestions, .catalog-search-suggestions { color: #3d2a22; position: absolute; z-index: 50; top: calc(100% + 8px); right: 0; width: min(420px, calc(100vw - 32px)); padding: 8px; background: var(--ivory); border: 1px solid var(--leather); border-radius: var(--radius-sm); box-shadow: var(--shadow); max-height: min(460px,65dvh); overflow-y: auto; }
 .catalog-search-suggestions { left: 0; width: 100%; }
 .ago-search-suggestion, .catalog-search-suggestion, .mobile-search-suggestions button { display: flex; gap: 12px; align-items: center; width: 100%; padding: 10px; border-radius: 8px; background: transparent; text-align: left; }
 .ago-search-suggestion:hover, .catalog-search-suggestion:hover, .mobile-search-suggestions button:hover { background: var(--sand); }
@@ -48,7 +48,7 @@
 .ago-search-suggestion-copy strong, .catalog-search-suggestion-copy strong { font-size: .875rem; line-height: 1.4; font-weight: 700; }
 .ago-search-suggestion-copy small, .catalog-search-suggestion-copy small { font-size: .8rem; }
 .ago-search-view-all { min-height: 48px; width: 100%; padding: 12px; font-size: .8rem; text-align: left; text-decoration: underline; }
-.mobile-search-suggestions { margin-top: 8px; border-radius: 12px; background: var(--ivory); }
+.mobile-search-suggestions { color: #3d2a22; margin-top: 8px; border-radius: 12px; background: var(--ivory); }
 
 /* Product detail and deliberate gallery controls */
 .product-page { background: var(--ivory); }
