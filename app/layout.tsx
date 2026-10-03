@@ -56,7 +56,7 @@ const cormorant = Cormorant_Garamond({ subsets: ['latin'], display: 'swap', vari
 // stronger server-side eligibility/reservation flow.
 const firstPurchaseAvailable = true;
 const buildVersion = process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 12) || '';
-const primarySearchImage = '/produtos/igreja-quadrado-m.jpg';
+const primarySearchImage = '/ago-banca-compartilhar.jpg';
 
 export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#68483a', colorScheme: 'light' };
 
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
     siteName: 'Agô Trancoso',
     locale: 'pt_BR',
     type: 'website',
-    images: [{ url: primarySearchImage, width: 960, height: 960, alt: 'Igreja do Quadrado de Trancoso em cerâmica tamanho M' }],
+    images: [{ url: primarySearchImage, width: 1000, height: 1250, alt: 'Casinhas e igrejinhas na banca da Agô, com a Igreja do Quadrado de Trancoso ao fundo' }],
   },
   twitter: {
     card: 'summary_large_image',
