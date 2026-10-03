@@ -2,7 +2,7 @@ const benefits = [
   { title: 'Feito à mão', text: 'Cuidado em cada detalhe.', icon: 'craft' },
   { title: 'Peças exclusivas', text: 'Escolhas que valorizam o artesanal.', icon: 'vase' },
   { title: 'Inspiração brasileira', text: 'Cores e formas da nossa terra.', icon: 'brazil' },
-  { title: 'Envio para todo o Brasil', text: 'Da nossa banca para sua casa.', icon: 'truck' },
+  { title: 'Envios para o Brasil e exterior', text: 'Receba sua escolha onde estiver.', icon: 'truck' },
 ] as const;
 
 type IconName = (typeof benefits)[number]['icon'];
