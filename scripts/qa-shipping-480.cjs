@@ -120,12 +120,13 @@ async function run() {
     const deliveryResult = page.locator('.product-delivery-result').first();
     await deliveryResult.getByText(/Frete R\$\s?39,90/i).waitFor();
     assert.match(normalize(await deliveryResult.innerText()), /O prazo dos Correios está indisponível agora/i);
-    assert.doesNotMatch(normalize(await deliveryResult.innerText()), /5–10 dias úteis/i);
+    assert.match(normalize(await deliveryResult.innerText()), /Estimativa da loja: 5–10 dias úteis/i);
 
     if (width === 390) {
       const providerState = await (await page.request.get(base + '/api/frete')).json();
       assert.equal(providerState.originCep, '46098-000', 'shipping-origin CEP must be 46098-000');
-      assert.equal(providerState.deadlineConfigured, providerState.correiosConfigured || providerState.frenetConfigured, 'deadline availability must reflect provider configuration');
+      assert.equal(providerState.deadlineConfigured, true, 'store estimates remain available without carrier credentials');
+      assert.match(providerState.provider, /Estimativa Agô/, 'store estimate must not impersonate a carrier quote');
 
       const cepInput = deliveryForm.getByLabel('Frete e prazo estimado para seu CEP');
       const consult = deliveryForm.getByRole('button', { name: 'Consultar', exact: true });
