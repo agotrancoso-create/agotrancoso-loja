@@ -1,8 +1,10 @@
+import Link from 'next/link';
+
 const benefits = [
-  { title: 'Feito à mão', text: 'Cuidado em cada detalhe.', icon: 'craft' },
-  { title: 'Peças exclusivas', text: 'Escolhas que valorizam o artesanal.', icon: 'vase' },
-  { title: 'Inspiração brasileira', text: 'Cores e formas da nossa terra.', icon: 'brazil' },
-  { title: 'Envios para o Brasil e exterior', text: 'Receba sua escolha onde estiver.', icon: 'world' },
+  { title: 'Feito à mão', text: 'Cuidado em cada detalhe.', icon: 'craft', href: '/nossa-essencia', action: 'Conhecer o trabalho artesanal da Agô' },
+  { title: 'Peças exclusivas', text: 'Escolhas que valorizam o artesanal.', icon: 'vase', href: '/produtos', action: 'Explorar as peças da coleção' },
+  { title: 'Inspiração brasileira', text: 'Cores e formas da nossa terra.', icon: 'brazil', href: '/artesanato-em-trancoso', action: 'Conhecer o artesanato inspirado em Trancoso' },
+  { title: 'Envios para o Brasil e exterior', text: 'Receba sua escolha onde estiver.', icon: 'world', href: '/contato', action: 'Consultar a Agô sobre envios para o Brasil e exterior' },
 ] as const;
 
 type IconName = (typeof benefits)[number]['icon'];
@@ -39,7 +41,7 @@ export default function Benefits() {
         <ul className="ago-benefits-grid ago-benefits-icon-grid">
           {benefits.map((benefit) => (
             <li className="ago-benefit-icon-item" key={benefit.title}>
-              <span className={`ago-benefit-line-icon ago-benefit-line-icon-${benefit.icon}`} aria-hidden="true"><BenefitIcon name={benefit.icon} /></span>
+              <Link href={benefit.href} prefetch={false} className={`ago-benefit-line-icon ago-benefit-line-icon-${benefit.icon} ago-benefit-interactive`} aria-label={benefit.action} title={benefit.action}><BenefitIcon name={benefit.icon} /></Link>
               <span className="ago-benefit-icon-copy"><strong>{benefit.title}</strong><small>{benefit.text}</small></span>
             </li>
           ))}

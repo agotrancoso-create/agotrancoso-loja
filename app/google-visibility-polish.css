@@ -554,3 +554,50 @@ body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-i
 body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item::after {
   background-color: rgba(94, 61, 43, .18) !important;
 }
+
+/* The four benefit drawings are accessible, useful navigation targets. */
+body .ago-home .ago-benefit-interactive {
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 16px;
+  min-width: 44px;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+}
+body .ago-home .ago-benefit-interactive:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+body .ago-home .ago-benefit-interactive::before {
+  transition: transform .35s ease;
+  pointer-events: none;
+}
+@keyframes agoIconGreeting {
+  0%, 100% { transform: translateY(-2px) rotate(0deg) scale(1.04); }
+  35% { transform: translateY(-4px) rotate(-4deg) scale(1.06); }
+  70% { transform: translateY(-3px) rotate(3deg) scale(1.06); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body .ago-home .ago-benefit-interactive:hover svg,
+  body .ago-home .ago-benefit-interactive:focus-visible svg {
+    animation: agoIconGreeting .6s ease both;
+  }
+  body .ago-home .ago-benefit-interactive:hover::before,
+  body .ago-home .ago-benefit-interactive:focus-visible::before {
+    transform: scale(1.2);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  body .ago-home .ago-benefit-interactive:active svg {
+    animation: none;
+    transform: scale(.93);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body .ago-home .ago-benefit-interactive svg,
+  body .ago-home .ago-benefit-interactive::before {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
