@@ -71,10 +71,10 @@ async function run() {
     assert.equal(await hero.getByRole('link', { name: 'Ver peças', exact: true }).getAttribute('href'), '#pecas-em-destaque');
     const confidenceText = normalize(await confidence.innerText());
     assert.match(confidenceText, /Feito à mão/i);
-    assert.match(confidenceText, /Envio para todo o Brasil/i);
+    assert.match(confidenceText, /Envios para o Brasil e exterior/i);
     assert.match(confidenceText, /Peças exclusivas/i);
     assert.match(confidenceText, /Inspiração brasileira/i);
-    assert.match(confidenceText, /Da nossa banca para sua casa/i);
+    assert.match(confidenceText, /Receba sua escolha onde estiver/i);
 
     await page.getByRole('button', { name: /Abrir sacola com 1 item/ }).first().click();
     const drawer = page.locator('.cart-drawer[aria-hidden=false]').first();
