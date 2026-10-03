@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
 const benefits = [
-  { title: 'Feito à mão', text: 'Cuidado em cada detalhe.', icon: 'craft', href: '/nossa-essencia', action: 'Conhecer o trabalho artesanal da Agô' },
-  { title: 'Peças exclusivas', text: 'Escolhas que valorizam o artesanal.', icon: 'vase', href: '/produtos', action: 'Explorar as peças da coleção' },
-  { title: 'Inspiração brasileira', text: 'Cores e formas da nossa terra.', icon: 'brazil', href: '/artesanato-em-trancoso', action: 'Conhecer o artesanato inspirado em Trancoso' },
+  { title: 'Feito à mão', text: 'Cerâmica com marcas do fazer artesanal.', icon: 'craft', href: '/nossa-essencia', action: 'Conhecer o trabalho artesanal da Agô' },
+  { title: 'Peças exclusivas', text: 'Pequenas variações em cada peça.', icon: 'vase', href: '/produtos', action: 'Explorar as peças da coleção' },
+  { title: 'Inspiração brasileira', text: 'O Quadrado de Trancoso em cada detalhe.', icon: 'brazil', href: '/artesanato-em-trancoso', action: 'Conhecer o artesanato inspirado em Trancoso' },
   { title: 'Envios para o Brasil e exterior', text: 'Receba sua escolha onde estiver.', icon: 'world', href: '/contato', action: 'Consultar a Agô sobre envios para o Brasil e exterior' },
 ] as const;
 

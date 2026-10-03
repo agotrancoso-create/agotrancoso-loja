@@ -1,12 +1,20 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
 export default function ImmersiveMotion() {
   const pathname = usePathname();
+  const [motionPreference, setMotionPreference] = useState(0);
+
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setMotionPreference((version) => version + 1);
+    preference.addEventListener('change', update);
+    return () => preference.removeEventListener('change', update);
+  }, []);
 
   useEffect(() => {
     const revealNodes = Array.from(document.querySelectorAll<HTMLElement>('.ago-immersive-reveal'));
@@ -75,17 +83,28 @@ export default function ImmersiveMotion() {
     };
 
     const pointerHandlers = (finePointer ? interactiveTargets : []).map((target) => {
+      let pointerFrame = 0;
+      let pointerX = 0;
+      let pointerY = 0;
       const onPointerMove = (event: PointerEvent) => {
         if (event.pointerType === 'touch') return;
-        const rect = target.getBoundingClientRect();
-        if (!rect.width || !rect.height) return;
-        const x = clamp((event.clientX - rect.left) / rect.width, 0, 1);
-        const y = clamp((event.clientY - rect.top) / rect.height, 0, 1);
-        target.style.setProperty('--ago-pointer-x', `${(x * 100).toFixed(2)}%`);
-        target.style.setProperty('--ago-pointer-y', `${(y * 100).toFixed(2)}%`);
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+        if (pointerFrame) return;
+        pointerFrame = window.requestAnimationFrame(() => {
+          pointerFrame = 0;
+          const rect = target.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+          const x = clamp((pointerX - rect.left) / rect.width, 0, 1);
+          const y = clamp((pointerY - rect.top) / rect.height, 0, 1);
+          target.style.setProperty('--ago-pointer-x', `${(x * 100).toFixed(2)}%`);
+          target.style.setProperty('--ago-pointer-y', `${(y * 100).toFixed(2)}%`);
+        });
       };
 
       const onPointerLeave = () => {
+        if (pointerFrame) window.cancelAnimationFrame(pointerFrame);
+        pointerFrame = 0;
         target.style.setProperty('--ago-pointer-x', '50%');
         target.style.setProperty('--ago-pointer-y', '50%');
       };
@@ -134,6 +153,7 @@ export default function ImmersiveMotion() {
       if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
 
       pointerHandlers.forEach(({ target, onPointerMove, onPointerLeave }) => {
+        onPointerLeave();
         target.removeEventListener('pointermove', onPointerMove);
         target.removeEventListener('pointerleave', onPointerLeave);
       });
@@ -143,7 +163,7 @@ export default function ImmersiveMotion() {
         hero.removeEventListener('pointerleave', heroLeave);
       }
     };
-  }, [pathname]);
+  }, [pathname, motionPreference]);
 
   return null;
 }

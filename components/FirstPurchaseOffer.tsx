@@ -26,7 +26,9 @@ export default function FirstPurchaseOffer() {
   const [consent, setConsent] = useState(false);
 
   useEffect(() => {
-    if (!pathname || ['/checkout', '/confirmacao', '/termos', '/privacidade'].some((route) => pathname.startsWith(route))) return;
+    setOpen(false);
+    const routePath = pathname?.replace(/^\/en(?=\/|$)/, '') || '/';
+    if (!pathname || ['/checkout', '/confirmacao', '/termos', '/privacidade'].some((route) => routePath.startsWith(route))) return;
 
     let active = true;
     let timer: number | undefined;
@@ -38,7 +40,11 @@ export default function FirstPurchaseOffer() {
       window.removeEventListener('scroll', handleScroll);
     };
     const showOffer = () => {
-      if (!active || triggered || Date.now() - started < 22000 || document.querySelector('.cart-drawer[aria-hidden="false"], dialog[open], .mobile-menu') || /INPUT|TEXTAREA/.test(document.activeElement?.tagName || '')) return;
+      const visibleDialog = Array.from(document.querySelectorAll<HTMLElement>('[role="dialog"][aria-modal="true"], dialog[open]'))
+        .some((node) => node.getAttribute('aria-hidden') !== 'true' && node.getClientRects().length > 0);
+      const focused = document.activeElement;
+      const editing = focused instanceof HTMLElement && (focused.matches('input, textarea, select') || focused.isContentEditable);
+      if (!active || triggered || document.visibilityState !== 'visible' || Date.now() - started < 22000 || visibleDialog || document.querySelector('.mobile-menu') || editing) return;
       triggered = true;
       setOpen(true);
       closeListeners();
