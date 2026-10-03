@@ -25,6 +25,19 @@ export default function ImmersiveMotion() {
 
     const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+    // Animate once on entry; content stays visible if JS or the observer fails.
+    const entryNodes = Array.from(document.querySelectorAll<HTMLElement>(
+      '.ago-home .product-card, .ago-premium-discovery-card, .ago-home-story, .ago-banca-photo, .ago-home-final-card, .ago-benefit-icon-item'
+    ));
+    const entryObserver = typeof IntersectionObserver !== 'undefined' ? new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('ago-motion-arrived');
+        entryObserver?.unobserve(entry.target);
+      });
+    }, { threshold: 0.12 }) : null;
+    entryNodes.forEach((node) => entryObserver?.observe(node));
+
     const header = document.querySelector<HTMLElement>('.site-header');
     const hero = document.querySelector<HTMLElement>('.ago-cinematic-commerce');
     const parallaxPhotos = Array.from(document.querySelectorAll<HTMLElement>('.ago-parallax-photo'));
@@ -112,6 +125,8 @@ export default function ImmersiveMotion() {
     window.addEventListener('resize', requestScrollMotion, { passive: true });
 
     return () => {
+      entryObserver?.disconnect();
+      entryNodes.forEach((node) => node.classList.remove('ago-motion-arrived'));
       document.body.classList.remove('ago-live-motion');
       header?.classList.remove('ago-header-scrolled');
       window.removeEventListener('scroll', requestScrollMotion);

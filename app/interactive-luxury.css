@@ -367,3 +367,50 @@
     display: none !important;
   }
 }
+
+/* Gentle editorial rhythm: movement never hides content or changes layout. */
+@keyframes agoEditorialArrival {
+  from { translate: 0 10px; }
+  to { translate: 0 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ago-live-motion .ago-motion-arrived {
+    animation: agoEditorialArrival .65s var(--ago-luxury-ease);
+  }
+  .ago-benefit-line-icon svg {
+    transition: transform .35s var(--ago-luxury-ease);
+  }
+  .ago-bag-cta.is-added .ago-bag-cta-icon {
+    animation: agoBagConfirm .38s var(--ago-luxury-ease);
+  }
+}
+@keyframes agoBagConfirm {
+  50% { transform: translateY(-3px) scale(1.12); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .ago-benefit-icon-item:hover .ago-benefit-line-icon svg {
+    transform: translateY(-3px) scale(1.035);
+  }
+  .ago-home .product-card:hover {
+    box-shadow: 0 20px 46px rgba(56,36,27,.10), 0 1px 0 rgba(255,248,237,.55) inset !important;
+  }
+}
+.ago-home :is(.ago-premium-discovery-card, .ago-banca-photo, .ago-premium-hero-cta, .product-add):focus-visible {
+  outline: 2px solid #864633;
+  outline-offset: 5px;
+}
+@media (hover: none), (pointer: coarse) {
+  .product-card .product-image-primary,
+  .ago-premium-discovery-card img,
+  .ago-banca-photo img,
+  .ago-home-final-card img,
+  .ago-premium-image img { will-change: auto; }
+  .ago-home :is(.product-add, .ago-premium-hero-cta):active {
+    transform: scale(.975) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ago-motion-arrived,
+  .ago-benefit-line-icon svg,
+  .ago-bag-cta-icon { animation: none !important; transition: none !important; translate: none !important; }
+}
