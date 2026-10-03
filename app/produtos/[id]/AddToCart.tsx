@@ -183,7 +183,7 @@ export default function AddToCart({ product }: { product: Product }) {
           {quotedOption && (
             <div>
               <strong>{quotedOption.price === 0 ? 'Frete grátis' : `Frete ${formatBRL(quotedOption.price)}`}</strong>
-              {hasDeadline && <span>{quotedOption.estimated ? 'Estimativa da loja' : 'Prazo estimado'}: {deadlineText} {deadlineUnit}</span>}
+              {hasDeadline && <span>{`${quotedOption.estimated ? 'Estimativa da loja' : 'Prazo estimado'}: ${deadlineText} ${deadlineUnit}`}</span>}
               {hasDeadline && quotedOption.estimated && <small>Faixa indicativa após a postagem, não consultada nos Correios. Confirme o prazo antes de comprar.</small>}
               {!hasDeadline && <small>O prazo dos Correios está indisponível agora. <a href={whatsappLink(`Olá! Gostaria de confirmar o prazo dos Correios para ${product.name}, CEP ${cep}.`)} target="_blank" rel="noopener noreferrer">Confirmar prazo com a Agô</a></small>}
             </div>
