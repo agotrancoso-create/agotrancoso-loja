@@ -2,7 +2,6 @@
 
 import Image from '@/components/ProductImage';
 import Link from 'next/link';
-import { whatsappLink } from '@/lib/config';
 import { customerErrors, addressErrors, normalizeBrazilianDocument } from '@/lib/checkout-validation';
 import { useEffect, useMemo, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import { useCart } from '@/context/CartContext';
@@ -50,6 +49,10 @@ type FormState = {
 
 type Line = { item: CartItem; product: Product };
 type CheckoutStep = 1 | 2 | 3 | 4;
+type ShippingQuote = {
+  available?: boolean;
+  options?: Array<{ deadline?: number | string | null; estimated?: boolean }>;
+};
 
 export default function CheckoutPage() {
   const { items, hydrated } = useCart();
@@ -57,6 +60,9 @@ export default function CheckoutPage() {
   const [error, setError] = useState<string | null>(null);
   const [stepError, setStepError] = useState<string | null>(null);
   const [shippingError, setShippingError] = useState<string | null>(null);
+  const [shippingDeadline, setShippingDeadline] = useState<string | null>(null);
+  const [shippingDeadlineEstimated, setShippingDeadlineEstimated] = useState(false);
+  const [shippingDeadlineLoading, setShippingDeadlineLoading] = useState(false);
   const [benefitAvailable, setBenefitAvailable] = useState(false);
   const [couponChecking, setCouponChecking] = useState(false);
   const couponRequest = useRef(0);
@@ -108,6 +114,50 @@ export default function CheckoutPage() {
   const total = discountedSubtotal + shippingValue;
 
   useEffect(() => {
+    const normalizedZip = form.zip.replace(/\D/g, '');
+    if (normalizedZip.length !== 8 || !items.length) {
+      setShippingDeadline(null);
+      setShippingDeadlineEstimated(false);
+      setShippingDeadlineLoading(false);
+      return;
+    }
+
+    const controller = new AbortController();
+    const timer = window.setTimeout(async () => {
+      setShippingDeadlineLoading(true);
+      try {
+        const response = await fetch('/api/frete', {
+          method: 'POST',
+          signal: controller.signal,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cep: normalizedZip, items }),
+        });
+        const data = (await response.json()) as ShippingQuote;
+        const option = data.options?.[0];
+        if (response.ok && data.available && option?.deadline !== null && option?.deadline !== undefined && option.deadline !== '') {
+          setShippingDeadline(String(option.deadline));
+          setShippingDeadlineEstimated(option.estimated === true);
+        } else {
+          setShippingDeadline(null);
+          setShippingDeadlineEstimated(false);
+        }
+      } catch {
+        if (!controller.signal.aborted) {
+          setShippingDeadline(null);
+          setShippingDeadlineEstimated(false);
+        }
+      } finally {
+        if (!controller.signal.aborted) setShippingDeadlineLoading(false);
+      }
+    }, 320);
+
+    return () => {
+      window.clearTimeout(timer);
+      controller.abort();
+    };
+  }, [form.zip, items]);
+
+  useEffect(() => {
     if (!hydrated || !marketingItems.length || checkoutTracked.current) return;
     checkoutTracked.current = true;
     trackBeginCheckout(marketingItems, total);
@@ -115,6 +165,8 @@ export default function CheckoutPage() {
 
   const customerComplete = Object.keys(customerErrors(form)).length === 0;
   const deliveryComplete = Object.keys(addressErrors(form)).length === 0;
+  const shippingDeadlineUnit = shippingDeadline === '1' ? 'dia útil' : 'dias úteis';
+
   useEffect(() => {
     if (step === 1) return;
     const heading = formRef.current?.querySelector<HTMLElement>('.checkout-stage.is-active h2');
@@ -128,9 +180,11 @@ export default function CheckoutPage() {
     if (first) document.getElementById(first)?.focus();
     return !first;
   }
+
   function fieldProps(name: string) {
     return { 'aria-invalid': Boolean(fieldErrors[name]), 'aria-describedby': fieldErrors[name] ? `${name}-error` : undefined };
   }
+
   function fieldError(name: string) {
     return fieldErrors[name] ? <p id={`${name}-error`} className="checkout-error">{fieldErrors[name]}</p> : null;
   }
@@ -297,9 +351,10 @@ export default function CheckoutPage() {
             <section className={`checkout-stage${step === 1 ? ' is-active' : ''}${completedSteps.includes(1) ? ' is-complete' : ''}`} aria-labelledby="checkout-customer-title">
               <div className="checkout-stage-head"><div><span>01</span><h2 tabIndex={-1} id="checkout-customer-title">Seus dados</h2></div>{step !== 1 && customerComplete && <button type="button" onClick={() => editStep(1)}>Editar</button>}</div>
               {step === 1 ? <div className="checkout-stage-body">
+                <div className="checkout-international-option"><div><strong>Envio internacional</strong><span>Para entregas fora do Brasil, não pedimos CPF/CNPJ. O frete é cotado antes do pagamento.</span></div><Link href="/envio-internacional">Continuar para envio internacional</Link></div>
                 <div className="checkout-fields-two"><div className="checkout-field"><label htmlFor="name">Nome completo</label><input className="checkout-input" id="name" {...fieldProps('name')} required name="name" placeholder="Seu nome" value={form.name} onChange={change} autoComplete="name" />{fieldError('name')}</div><div className="checkout-field"><label htmlFor="email">E-mail</label><input className="checkout-input" id="email" {...fieldProps('email')} required type="email" name="email" placeholder="seu@email.com" value={form.email} onChange={change} autoComplete="email" />{fieldError('email')}</div></div>
                 <div className="checkout-field"><label htmlFor="phone">Telefone / WhatsApp</label><input className="checkout-input" id="phone" {...fieldProps('phone')} required name="phone" inputMode="tel" placeholder="(00) 00000-0000" value={form.phone} onChange={change} autoComplete="tel" />{fieldError('phone')}</div>
-                <div className="checkout-field"><label htmlFor="document">CPF ou CNPJ <span>(para o envio)</span></label><input className="checkout-input" id="document" {...fieldProps('document')} required name="document" inputMode="text" autoCapitalize="characters" spellCheck={false} autoComplete="off" placeholder="CPF ou CNPJ" value={form.document} onChange={change} />{fieldError('document')}<p className="checkout-field-help">Necessário para emissão e postagem do pedido.</p></div>
+                <div className="checkout-field"><label htmlFor="document">CPF ou CNPJ <span>(entrega no Brasil)</span></label><input className="checkout-input" id="document" {...fieldProps('document')} required name="document" inputMode="text" autoCapitalize="characters" spellCheck={false} autoComplete="off" placeholder="CPF ou CNPJ" value={form.document} onChange={change} />{fieldError('document')}<p className="checkout-field-help">Obrigatório para pedidos com entrega no Brasil.</p></div>
                 {stepError && <p className="checkout-error" role="alert">{stepError}</p>}
                 <button type="button" className="checkout-next-step" onClick={goToDelivery}>Continuar para entrega</button>
               </div> : customerComplete ? <p className="checkout-stage-summary">{form.name} · {form.email} · {form.phone} · CPF/CNPJ informado</p> : null}
@@ -313,7 +368,8 @@ export default function CheckoutPage() {
                 <div className="checkout-field"><label htmlFor="complement">Complemento <span>(opcional)</span></label><input className="checkout-input" id="complement" {...fieldProps('complement')} name="complement" placeholder="Apartamento, casa, referência" value={form.complement} onChange={change} autoComplete="address-line3" />{fieldError('complement')}</div>
                 <div className="checkout-field"><label htmlFor="neighborhood">Bairro</label><input className="checkout-input" id="neighborhood" {...fieldProps('neighborhood')} required name="neighborhood" value={form.neighborhood} onChange={change} />{fieldError('neighborhood')}</div>
                 <div className="checkout-fields-address"><div className="checkout-field"><label htmlFor="city">Cidade</label><input className="checkout-input" id="city" {...fieldProps('city')} required name="city" value={form.city} onChange={change} autoComplete="address-level2" />{fieldError('city')}</div><div className="checkout-field checkout-uf"><label htmlFor="state">UF</label><input className="checkout-input" id="state" {...fieldProps('state')} required name="state" maxLength={2} placeholder="BA" value={form.state} onChange={change} autoComplete="address-level1" />{fieldError('state')}</div></div>
-                <a className="checkout-international-link" href={whatsappLink('Olá! Gostaria de consultar um envio internacional.')} target="_blank" rel="noopener noreferrer">Fora do Brasil? Consulte o envio internacional.</a><div className="checkout-shipping-note"><span>{freeShipping ? 'Frete grátis neste pedido.' : <>Frete fixo de <strong>R$ 39,90</strong>.</>}</span><span>Frete grátis a partir de R$ 500 em produtos.</span></div>
+                <Link className="checkout-international-link" href="/envio-internacional">Fora do Brasil? Consulte o envio internacional.</Link>
+                <div className="checkout-shipping-note"><span>{freeShipping ? 'Frete grátis neste pedido.' : <>Frete fixo de <strong>R$ 39,90</strong>.</>}</span><span>Frete grátis a partir de R$ 500 em produtos.</span>{shippingDeadlineLoading && <span>Consultando prazo…</span>}{!shippingDeadlineLoading && shippingDeadline && <span>{shippingDeadlineEstimated ? 'Estimativa de entrega' : 'Prazo estimado'}: {shippingDeadline} {shippingDeadlineUnit}.</span>}</div>
                 {shippingError && <p id="checkout-shipping-error" className="checkout-error" role="alert">{shippingError}</p>}{stepError && <p className="checkout-error" role="alert">{stepError}</p>}
                 <button type="button" className="checkout-next-step" onClick={goToBenefit}>Continuar para benefício</button>
               </div> : deliveryComplete ? <p className="checkout-stage-summary">{form.street}, {form.number} · {form.neighborhood} · {form.city}/{form.state}</p> : <p className="checkout-stage-locked">Conclua seus dados para liberar esta etapa.</p>}
