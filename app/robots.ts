@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { SITE_DOMAIN } from '@/lib/config';
 
-const PRIVATE_ROUTES = ['/checkout', '/confirmacao', '/api/'];
+const PRIVATE_ROUTES = ['/checkout', '/confirmacao', '/en/checkout', '/en/confirmacao', '/api/'];
 
 export default function robots(): MetadataRoute.Robots {
   return {
