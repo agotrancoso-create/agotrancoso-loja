@@ -5,11 +5,9 @@ import { useEffect } from 'react';
 const COOKIE = 'ago_locale';
 
 const exact: Record<string, string> = {
-  // Home: corrige traduções legadas depois do runtime principal.
   'Hand-shaped ceramic pieces, since 2016 in the Quadrado.': 'Churches, little houses and keepsakes from the Quadrado.',
   'A Agô reúne cerâmicas que carregam referências de Trancoso, para decorar, presentear e guardar uma lembrança especial.': 'Agô brings together ceramic pieces inspired by Trancoso, for decorating, gifting and keeping a special memory of the place.',
 
-  // Sacola
   'Sua seleção': 'Your selection',
   'Peças escolhidas por você.': 'Pieces you selected.',
   'Fechar sacola': 'Close bag',
@@ -33,7 +31,6 @@ const exact: Record<string, string> = {
   'Sem criar conta · Pagamento pela InfinitePay': 'No account required · Payment via InfinitePay',
   'Continuar escolhendo': 'Keep browsing',
 
-  // Checkout
   'Preparando seu pedido…': 'Preparing your order…',
   'Carregando suas peças com segurança.': 'Loading your pieces securely.',
   'Sua sacola': 'Your bag',
@@ -54,7 +51,9 @@ const exact: Record<string, string> = {
   'Telefone / WhatsApp': 'Phone / WhatsApp',
   'CPF ou CNPJ': 'CPF or CNPJ',
   '(para o envio)': '(required for shipping in Brazil)',
+  '(entrega no Brasil)': '(Brazil delivery)',
   'Necessário para emissão e postagem do pedido.': 'Required for invoicing and shipping orders within Brazil.',
+  'Obrigatório para pedidos com entrega no Brasil.': 'Required only for orders delivered within Brazil.',
   'Continuar para entrega': 'Continue to delivery',
   'CPF/CNPJ informado': 'CPF/CNPJ provided',
   'CEP': 'Brazilian ZIP code',
@@ -94,7 +93,6 @@ const exact: Record<string, string> = {
   'Suas peças': 'Your pieces',
   '1ª compra · 3% OFF': 'First purchase · 3% OFF',
 
-  // Validações dinâmicas do checkout
   'Informe seu nome completo.': 'Enter your full name.',
   'Informe seu nome.': 'Enter your name.',
   'Informe um e-mail válido.': 'Enter a valid email address.',
@@ -110,11 +108,9 @@ const exact: Record<string, string> = {
   'Informe a cidade de destino.': 'Enter the destination city.',
   'Informe o endereço de entrega.': 'Enter the delivery address.',
 
-  // Produto / frete
   'Frete e prazo estimado para seu CEP': 'Shipping and estimated delivery time for your ZIP code',
   'Estimativa baseada no CEP de destino, saindo de Trancoso. O prazo final é confirmado na postagem.': 'Estimate based on the destination ZIP code, shipping from Trancoso. The final delivery time is confirmed when the order is posted.',
 
-  // Contato
   'Fale com a Agô': 'Talk to Agô',
   'Tem dúvida sobre uma peça, entrega ou pagamento? Fale com a gente. Para comprar, você também pode finalizar o pedido direto pelo site.': 'Questions about a piece, delivery or payment? Talk to us. You can also complete your purchase directly on the site.',
   'Falar no WhatsApp': 'Talk on WhatsApp',
@@ -126,7 +122,6 @@ const exact: Record<string, string> = {
   'Praça São João Batista, Trancoso': 'São João Batista Square, Trancoso',
   'Ver localização': 'View location',
 
-  // A Agô
   'O que vemos por aqui ganha outra forma.': 'What we see here takes on another form.',
   'A Agô reúne uma seleção de peças em cerâmica artesanal, com referências de Trancoso e de outras expressões brasileiras.': 'Agô brings together a selection of handmade ceramic pieces with references to Trancoso and other Brazilian expressions.',
   'A igreja, as casas e as cores do Quadrado inspiram parte do acervo. Há também objetos para casa, símbolos de fé e outras referências brasileiras.': 'The church, houses and colors of the Quadrado inspire part of the collection. You will also find home objects, symbols of faith and other Brazilian references.',
@@ -134,7 +129,6 @@ const exact: Record<string, string> = {
   'Visitar ou falar com a Agô': 'Visit or talk to Agô',
   'Seleção de peças em cerâmica disponível na Agô Trancoso': 'Selection of ceramic pieces available at Agô Trancoso',
 
-  // Mensagens comuns do checkout
   'Preencha nome, e-mail, WhatsApp e CPF/CNPJ para continuar.': 'Enter your name, email, WhatsApp and CPF/CNPJ to continue.',
   'Complete os dados de entrega para continuar.': 'Complete the delivery details to continue.',
   'Informe um CEP válido com 8 dígitos.': 'Enter a valid 8-digit Brazilian ZIP code.',
