@@ -21,7 +21,7 @@ type CorreiosPrazoResponse = {
 
 export type ShippingDeadlineQuote = {
   deadline: number | string;
-  provider: 'Correios' | 'Frenet';
+  provider: 'Correios' | 'Frenet' | 'Estimativa Agô';
   serviceId?: string;
   serviceName?: string;
   estimated?: boolean;
@@ -56,8 +56,8 @@ export function getShippingDeadlineProviderState() {
   return {
     correiosConfigured,
     frenetConfigured,
-    configured: correiosConfigured || frenetConfigured,
-    provider: correiosConfigured ? 'Correios' : frenetConfigured ? 'Frenet' : null,
+    configured: true,
+    provider: correiosConfigured ? 'Correios' : frenetConfigured ? 'Frenet' : 'Estimativa Agô',
     originCep: getShipFromCep(),
   } as const;
 }
@@ -165,6 +165,31 @@ async function getFrenetDeadlineQuote(params: {
   }
 }
 
+/*
+ * Fallback conservador quando Correios/Frenet não devolvem prazo.
+ * Não inventa peso nem dimensões: considera apenas a faixa do CEP de destino
+ * a partir da origem da operação na Bahia e é sempre identificado como estimativa.
+ */
+function getEstimatedDeadline(destinationCep: string): ShippingDeadlineQuote {
+  const firstDigit = Number(destinationCep[0]);
+  let deadline = '6–12';
+
+  if (firstDigit === 4) deadline = '3–7';
+  else if (firstDigit === 5) deadline = '4–9';
+  else if (firstDigit >= 0 && firstDigit <= 3) deadline = '5–10';
+  else if (firstDigit === 6 || firstDigit === 7) deadline = '6–12';
+  else if (firstDigit === 8) deadline = '7–12';
+  else if (firstDigit === 9) deadline = '8–13';
+
+  return {
+    deadline,
+    provider: 'Estimativa Agô',
+    serviceId: 'estimated-by-cep',
+    serviceName: 'Prazo estimado pelo CEP',
+    estimated: true,
+  };
+}
+
 export async function getShippingDeadlineQuote(params: {
   destinationCep: string;
   subtotal: number;
@@ -178,5 +203,5 @@ export async function getShippingDeadlineQuote(params: {
   const frenet = await getFrenetDeadlineQuote({ destinationCep, subtotal: params.subtotal });
   if (frenet) return frenet;
 
-  return null;
+  return getEstimatedDeadline(destinationCep);
 }
