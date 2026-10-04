@@ -70,8 +70,6 @@ jobs:
           mkdir -p /tmp/ago-qa
 
       - name: iPhone Safari and Android Chrome checkout
-        env:
-          QA_MOBILE_DEV: "1"
         run: node scripts/qa-mobile-checkout.cjs
 
       - name: Mobile and desktop interaction QA

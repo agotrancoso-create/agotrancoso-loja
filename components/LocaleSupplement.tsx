@@ -1,5 +1,6 @@
 'use client';
 
+import { afterInitialRender } from '@/lib/after-initial-render';
 import { useEffect } from 'react';
 
 const COOKIE = 'ago_locale';
@@ -202,7 +203,6 @@ function apply(root: ParentNode) {
 export default function LocaleSupplement() {
   useEffect(() => {
     if (!isEnglish()) return;
-    apply(document.body);
     const observer = new MutationObserver((records) => {
       records.forEach((record) => record.addedNodes.forEach((node) => {
         if (node.nodeType === Node.TEXT_NODE) {
@@ -215,8 +215,11 @@ export default function LocaleSupplement() {
         }
       }));
     });
-    observer.observe(document.body, { childList: true, subtree: true });
-    return () => observer.disconnect();
+    const cancelTranslation = afterInitialRender(() => {
+      apply(document.body);
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+    return () => { cancelTranslation(); observer.disconnect(); };
   }, []);
   return null;
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { afterInitialRender } from '@/lib/after-initial-render';
 import { createPortal } from 'react-dom';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -260,7 +261,6 @@ export default function LocaleRuntime() {
     document.documentElement.lang = resolved === 'en' ? 'en' : 'pt-BR';
     document.documentElement.dataset.locale = resolved;
 
-    if (resolved === 'en') translateNode(document.body);
 
     const observer = new MutationObserver((records) => {
       if (resolved !== 'en') return;
@@ -275,7 +275,7 @@ export default function LocaleRuntime() {
         });
       }
     });
-    observer.observe(document.body, { childList: true, subtree: true });
+
 
     const rewriteLinks = () => {
       document.querySelectorAll<HTMLAnchorElement>('a[href^="/"]').forEach((anchor) => {
@@ -286,12 +286,17 @@ export default function LocaleRuntime() {
         else anchor.setAttribute('href', stripEnglishPrefix(href));
       });
     };
-    rewriteLinks();
     const linkObserver = new MutationObserver(rewriteLinks);
-    linkObserver.observe(document.body, { childList: true, subtree: true });
+    const cancelTranslation = afterInitialRender(() => {
+      if (resolved === 'en') translateNode(document.body);
+      observer.observe(document.body, { childList: true, subtree: true });
+      rewriteLinks();
+      linkObserver.observe(document.body, { childList: true, subtree: true });
+    });
 
     setPortalTarget(document.querySelector('.header-actions'));
     return () => {
+      cancelTranslation();
       observer.disconnect();
       linkObserver.disconnect();
     };
