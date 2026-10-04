@@ -76,6 +76,10 @@ async function layout(page) {
       await page.locator('#zip').fill('01310100');
       await page.getByText(locale==='en'?'Store estimate: 5–10 business days':'Estimativa da loja: 5–10 dias úteis',{exact:false}).waitFor();
       await layout(page);
+      if (locale === 'en') {
+        assert.equal(await page.locator('.checkout-shipping-note').innerText().then(t => /Frete|grátis|fixo/.test(t)), false, 'shipping copy fully English');
+        assert.match(await page.locator('.ago-clean-summary-bottom').innerText(), /Shipping/);
+      }
       await page.screenshot({path:`${artifacts}/${name}-${locale}-checkout.png`,fullPage:true});
       results.push({device:name,locale,status:'passed'});
     }
