@@ -629,3 +629,8 @@ body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-i
     row-gap: 8px;
   }
 }
+
+/* Keep checkout fields unobstructed; contact remains in the footer and assisted order. */
+body:has(.checkout-page) .ago-social-floaters { display: none !important; }
+/* Reduced-motion rules must not reveal the keyboard-only skip link. */
+.ago-skip-link:not(:focus) { clip-path: inset(50%); pointer-events: none; }
