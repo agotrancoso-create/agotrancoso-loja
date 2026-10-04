@@ -6,7 +6,7 @@ const { chromium, webkit, devices } = require('playwright');
 const base = 'http://127.0.0.1:3134';
 const artifacts = process.env.QA_ARTIFACTS || '/tmp/ago-qa';
 fs.mkdirSync(artifacts, { recursive: true });
-const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '--port', '3134'], {stdio:['ignore','pipe','pipe']});
+const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', process.env.QA_MOBILE_DEV === '1' ? 'dev' : 'start', '--port', '3134'], {stdio:['ignore','pipe','pipe']});
 let browser;
 const results = [];
 async function layout(page) {
@@ -26,7 +26,7 @@ async function layout(page) {
     const context = await browser.newContext({...devices[device], reducedMotion:'reduce'});
     const page = await context.newPage();
     const errors=[];
-    page.on('pageerror', e => errors.push(e.message));
+    page.on('pageerror', e => { errors.push(`${page.url()}: ${e.message}`); console.error('MOBILE_PAGE_ERROR',page.url(),e.message); });
     await context.addInitScript(() => {
       localStorage.setItem('ago_privacy_consent_v1','essential');
       localStorage.setItem('ago_primeira_compra_v3_vista','1');
