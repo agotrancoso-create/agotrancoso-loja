@@ -11,8 +11,8 @@ type Locale = 'pt' | 'en';
 const exact: Record<string, string> = {
   // Hero e home
   'Ir para o conteúdo': 'Skip to content',
-  'Agô Trancoso. Todos os direitos reservados.': 'Agô Trancoso. All rights reserved.',
-  'Igrejinhas, casinhas e lembranças do Quadrado.': 'Hand-shaped ceramic pieces, since 2016 in the Quadrado.',
+  '© 2026 Agô Trancoso. Todos os direitos reservados.': '© 2026 Agô Trancoso. All rights reserved.',
+  'Igrejinhas, casinhas e lembranças do Quadrado.': 'Little churches, houses and keepsakes from the Quadrado.',
   'Peças moldadas à mão, desde 2016 no Quadrado.': 'Hand-shaped ceramic pieces, since 2016 in the Quadrado.',
   'Trancoso em cerâmica.': 'Trancoso in ceramic.',
   'Quadrado de Trancoso · Bahia': 'Trancoso Quadrado · Bahia',
