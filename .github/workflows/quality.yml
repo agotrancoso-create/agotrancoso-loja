@@ -44,6 +44,7 @@ jobs:
         run: npm run qa:commerce
 
       - name: Production build
+        id: production-build
         shell: bash
         run: |
           set -euo pipefail
@@ -61,43 +62,55 @@ jobs:
           exit 1
 
       - name: Crawlable catalog and social metadata
+        if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}
         run: node scripts/qa-seo.cjs
 
       - name: Install browser QA runtime
         run: |
           npm install --no-save --no-audit --no-fund playwright axe-core
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium webkit
           mkdir -p /tmp/ago-qa
 
+      - name: iPhone Safari and Android Chrome checkout
+        if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}
+        run: node scripts/qa-mobile-checkout.cjs
+
       - name: Mobile and desktop interaction QA
+        if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}
         env:
           QA_WIDTHS: 320,390,820,1440,1920
           QA_ARTIFACTS: /tmp/ago-qa
         run: npm run qa:ui
 
       - name: Visual refinement parity and rounded zoom QA
+        if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}
         env:
           QA_ARTIFACTS: /tmp/ago-qa
         run: node scripts/qa-visual-refinement.cjs
 
       - name: Premium interaction and motion safety QA
+        if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}
         run: node scripts/qa-interactive-luxury.cjs
 
       - name: Exact Miniatura R$ 480 shipping UI contract
+        if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}
         run: node scripts/qa-shipping-480.cjs
 
       - name: GA4 ecommerce and CRO analytics contract
+        if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}
         env:
           QA_ARTIFACTS: /tmp/ago-qa
         run: npm run qa:analytics
 
       - name: WCAG automated audit
+        if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}
         env:
           AXE_PATH: node_modules/axe-core/axe.min.js
           QA_ARTIFACTS: /tmp/ago-qa
         run: node scripts/qa-accessibility.cjs
 
       - name: Smoke test critical routes and Merchant feed
+        if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail

@@ -45,8 +45,8 @@ async function run() {
   await waitForServer();
 
   const automaticEn = await requestWithHeaders({ Host: 'www.agotrancoso.com.br', 'Accept-Language': 'en-US,en;q=0.9' });
-  assert.equal(automaticEn.status, 307, 'English browser should redirect to the English version');
-  assert.match(automaticEn.location, /\/en(?:$|\?)/, `unexpected English redirect: ${automaticEn.location}`);
+  assert.equal(automaticEn.status, 200, 'Canonical Portuguese URL must stay stable for crawlers regardless of browser language');
+  assert.ok(!automaticEn.location, 'English browser must not be redirected away from the canonical URL');
 
   const automaticPt = await requestWithHeaders({ Host: 'www.agotrancoso.com.br', 'Accept-Language': 'pt-BR,pt;q=0.9' });
   assert.notEqual(automaticPt.status, 307, 'Portuguese browser must not be redirected to English');

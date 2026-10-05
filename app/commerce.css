@@ -267,3 +267,26 @@
   .product-card-main:active .product-image-primary { transform: scale(1.015); }
   .product-card-main:active .product-view { opacity: 1; }
 }
+
+/* Checkout touch targets and readable forms across narrow mobile screens. */
+.checkout-customer-mode { margin: 24px 0; padding: 18px; border: 1px solid var(--leather); border-radius: 16px; min-width: 0; }
+.checkout-customer-mode legend { padding-inline: 6px; font-weight: 600; }
+.checkout-customer-mode label { display: flex; align-items: center; gap: 12px; min-height: 48px; line-height: 1.5; cursor: pointer; }
+.checkout-customer-mode input { flex: 0 0 auto; width: 20px; height: 20px; accent-color: var(--cacao); }
+.checkout-assisted { align-self: start; padding: clamp(20px, 4vw, 36px); }
+.checkout-assisted h2 { margin-bottom: 16px; }
+.checkout-assisted p { margin-bottom: 16px; line-height: 1.6; }
+.checkout-assisted a { text-align: center; white-space: normal; }
+.checkout-delivery-estimate { margin-top: 16px; padding: 16px; background: var(--ivory); border-radius: 12px; line-height: 1.5; }
+.checkout-delivery-estimate p { margin: 6px 0 0; font-size: .875rem; }
+@media (max-width: 767px) {
+  .checkout-input { font-size: 16px !important; min-height: 48px; }
+  .checkout-page { padding-bottom: max(28px, env(safe-area-inset-bottom)); }
+  .checkout-customer-mode label { padding-block: 8px; }
+}
+.product-share-whatsapp { display: inline-flex; align-items: center; min-height: 44px; margin-inline-start: 18px; text-decoration: underline; text-underline-offset: 4px; font-size: .8rem; }
+.product-share-whatsapp:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+@media(max-width: 400px) { .product-share-whatsapp { margin-inline-start: 0; display: flex; } }
+
+.checkout-total > strong { white-space: nowrap; flex-shrink: 0; }
+.checkout-total > span { min-width: 0; }

@@ -1,10 +1,12 @@
 'use client';
 
+import { afterInitialRender } from '@/lib/after-initial-render';
 import { useEffect } from 'react';
 
 const COOKIE = 'ago_locale';
 
 const exact: Record<string, string> = {
+  'Faixa indicativa após a postagem, não consultada nos Correios. Confirme o prazo antes de comprar.': 'Indicative range after posting, not checked with Correios. Confirm the delivery time before ordering.',
   'Hand-shaped ceramic pieces, since 2016 in the Quadrado.': 'Churches, little houses and keepsakes from the Quadrado.',
   'A Agô reúne cerâmicas que carregam referências de Trancoso, para decorar, presentear e guardar uma lembrança especial.': 'Agô brings together ceramic pieces inspired by Trancoso, for decorating, gifting and keeping a special memory of the place.',
 
@@ -142,6 +144,7 @@ const exact: Record<string, string> = {
 };
 
 const patterns: Array<[RegExp, (m: RegExpMatchArray) => string]> = [
+  [/^Estimativa da loja: (.+) dias úteis\.?$/, (m) => `Store estimate: ${m[1]} business days`],
   [/^Faltam (.+) para o frete grátis\.$/, (m) => `${m[1]} more for free shipping.`],
   [/^Frete fixo de (.+)\.$/, (m) => `Fixed shipping: ${m[1]}.`],
   [/^Estimativa de entrega: (.+) dias úteis\.?$/, (m) => `Estimated delivery: ${m[1]} business days.`],
@@ -200,7 +203,6 @@ function apply(root: ParentNode) {
 export default function LocaleSupplement() {
   useEffect(() => {
     if (!isEnglish()) return;
-    apply(document.body);
     const observer = new MutationObserver((records) => {
       records.forEach((record) => record.addedNodes.forEach((node) => {
         if (node.nodeType === Node.TEXT_NODE) {
@@ -213,8 +215,11 @@ export default function LocaleSupplement() {
         }
       }));
     });
-    observer.observe(document.body, { childList: true, subtree: true });
-    return () => observer.disconnect();
+    const cancelTranslation = afterInitialRender(() => {
+      apply(document.body);
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+    return () => { cancelTranslation(); observer.disconnect(); };
   }, []);
   return null;
 }

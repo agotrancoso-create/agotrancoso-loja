@@ -115,7 +115,7 @@ async function main() {
         document.querySelector('.ago-home-final-cta > .ago-container'),
       ].filter(Boolean).map(node => {
         const r = node.getBoundingClientRect();
-        return { left: r.left, right: r.right };
+        return { left: r.left, right: r.right, banca: node.parentElement?.classList.contains('ago-banca-visit') };
       });
       return {
         scrollWidth: document.documentElement.scrollWidth,
@@ -163,8 +163,11 @@ async function main() {
     const left = state.axes[0].left;
     const right = state.axes[0].right;
     for (const axis of state.axes.slice(1)) {
-      assert.ok(near(axis.left, left), `left alignment drift at ${width}`);
-      assert.ok(near(axis.right, right), `right alignment drift at ${width}`);
+      // The approved banca chapter has a narrower 1120px desktop layout.
+      const expectedWidth = axis.banca && width >= 901 ? Math.min(1120, right - left) : right - left;
+      const expectedLeft = (width - expectedWidth) / 2;
+      assert.ok(near(axis.left, expectedLeft), `left alignment drift at ${width}: ${JSON.stringify(axis)}`);
+      assert.ok(near(axis.right, width - expectedLeft), `right alignment drift at ${width}: ${JSON.stringify(axis)}`);
     }
     assert.ok(state.visitTitleSize >= 30 && state.visitTitleSize <= 82, `visit title size out of range at ${width}`);
     assert.ok(state.visitTitleLineHeight / state.visitTitleSize >= .9 && state.visitTitleLineHeight / state.visitTitleSize <= 1.12, `visit title leading out of range at ${width}`);
@@ -240,7 +243,7 @@ async function main() {
       international: document.querySelectorAll('.product-international-note').length,
       internationalText: document.body.innerText.includes('International shipping') || document.body.innerText.includes('Fora do Brasil?'),
     }));
-    assert.equal(legacyProductBlocks.share, 0, `legacy share block returned at ${width}`);
+    assert.equal(legacyProductBlocks.share, 1, `sharing action should be available at ${width}`);
     assert.equal(legacyProductBlocks.whatsapp, 0, `legacy WhatsApp purchase block returned at ${width}`);
     assert.equal(legacyProductBlocks.questions, false, `legacy purchase FAQ returned at ${width}`);
     assert.equal(legacyProductBlocks.international, 0, `legacy international card returned at ${width}`);

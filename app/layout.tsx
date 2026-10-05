@@ -157,8 +157,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <WebVitalsReporter />
         <ImmersiveMotion />
         <CepAddressAutofill />
-        <LocaleRuntime />
-        <LocaleSupplement />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <CartProvider>
           <Header firstPurchaseAvailable={firstPurchaseAvailable} />
@@ -169,6 +167,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {firstPurchaseAvailable && <FirstPurchaseOffer />}
         </CartProvider>
         <ConsentManager />
+        <LocaleRuntime />
+        <LocaleSupplement />
         <script id="ago-version-guard" dangerouslySetInnerHTML={{ __html: versionGuardScript }} />
       </body>
     </html>

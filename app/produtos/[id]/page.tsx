@@ -1,3 +1,4 @@
+import ProductShare from '@/components/ProductShare';
 import '../../product-decision-clarity.css';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -207,6 +208,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
               <div className="product-purchase">
                 <AddToCart product={product} />
+                <ProductShare name={product.name} url={productUrl} />
               </div>
             </div>
           </div>

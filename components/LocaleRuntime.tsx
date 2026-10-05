@@ -1,5 +1,6 @@
 'use client';
 
+import { afterInitialRender } from '@/lib/after-initial-render';
 import { createPortal } from 'react-dom';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -9,7 +10,9 @@ type Locale = 'pt' | 'en';
 
 const exact: Record<string, string> = {
   // Hero e home
-  'Igrejinhas, casinhas e lembranças do Quadrado.': 'Hand-shaped ceramic pieces, since 2016 in the Quadrado.',
+  'Ir para o conteúdo': 'Skip to content',
+  '© 2026 Agô Trancoso. Todos os direitos reservados.': '© 2026 Agô Trancoso. All rights reserved.',
+  'Igrejinhas, casinhas e lembranças do Quadrado.': 'Churches, little houses and keepsakes from the Quadrado.',
   'Peças moldadas à mão, desde 2016 no Quadrado.': 'Hand-shaped ceramic pieces, since 2016 in the Quadrado.',
   'Trancoso em cerâmica.': 'Trancoso in ceramic.',
   'Quadrado de Trancoso · Bahia': 'Trancoso Quadrado · Bahia',
@@ -260,7 +263,6 @@ export default function LocaleRuntime() {
     document.documentElement.lang = resolved === 'en' ? 'en' : 'pt-BR';
     document.documentElement.dataset.locale = resolved;
 
-    if (resolved === 'en') translateNode(document.body);
 
     const observer = new MutationObserver((records) => {
       if (resolved !== 'en') return;
@@ -275,7 +277,7 @@ export default function LocaleRuntime() {
         });
       }
     });
-    observer.observe(document.body, { childList: true, subtree: true });
+
 
     const rewriteLinks = () => {
       document.querySelectorAll<HTMLAnchorElement>('a[href^="/"]').forEach((anchor) => {
@@ -286,12 +288,17 @@ export default function LocaleRuntime() {
         else anchor.setAttribute('href', stripEnglishPrefix(href));
       });
     };
-    rewriteLinks();
     const linkObserver = new MutationObserver(rewriteLinks);
-    linkObserver.observe(document.body, { childList: true, subtree: true });
+    const cancelTranslation = afterInitialRender(() => {
+      if (resolved === 'en') translateNode(document.body);
+      observer.observe(document.body, { childList: true, subtree: true });
+      rewriteLinks();
+      linkObserver.observe(document.body, { childList: true, subtree: true });
+    });
 
     setPortalTarget(document.querySelector('.header-actions'));
     return () => {
+      cancelTranslation();
       observer.disconnect();
       linkObserver.disconnect();
     };
