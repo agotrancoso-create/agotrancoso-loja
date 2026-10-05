@@ -45,6 +45,36 @@ async function layout(page) {
       await first.scrollIntoViewIfNeeded();
       assert.ok(await page.evaluate(()=>scrollY>0),'page scroll');
       await page.screenshot({path:`${artifacts}/${name}-${locale}-home.png`});
+      await page.getByRole('button', {name: locale==='en' ? /Open bag/ : /Abrir sacola/}).first().click();
+      const bag=page.locator('.cart-drawer[aria-hidden="false"]');
+      await bag.waitFor();
+      async function checkBag() {
+        if (locale==='en') {
+          assert.doesNotMatch(await bag.innerText(), /Faltam|frete|Frete|fixo|Grátis|Remover|\/ un\./);
+          assert.match(await bag.locator('.cart-item-info p').first().innerText(), /\/ unit/);
+          assert.match(await bag.locator('.cart-shipping-progress-labels').innerText(), /Fixed shipping/);
+          assert.equal(await bag.locator('.cart-checkout').getAttribute('href'), '/en/checkout');
+        }
+      }
+      await checkBag();
+      assert.match(await bag.locator('.cart-shipping-message').innerText(),locale==='en'?/Add .*20,00 more for free shipping/:/Faltam .*20,00/);
+      await bag.getByRole('button',{name:locale==='en'?/Increase quantity of/:/Aumentar quantidade de/}).first().click();
+      await bag.locator('.cart-shipping-message.is-free').waitFor();
+      await checkBag();
+      await bag.getByRole('button',{name:locale==='en'?/Decrease quantity of/:/Diminuir quantidade de/}).first().click();
+      await bag.locator('.cart-shipping-message:not(.is-free)').waitFor();
+      // Add a suggestion when the responsive layout displays it, then remove it.
+      if (await bag.locator('.cart-complementary-add').first().isVisible()) {
+        await bag.locator('.cart-complementary-add').first().click();
+        assert.equal(await bag.locator('.cart-item').count(),2);
+        await checkBag();
+        await bag.locator('.cart-item').last().locator('.cart-remove').click();
+      }
+      await bag.locator('.cart-close').click();
+      await page.getByRole('button', {name:locale==='en'?/Open bag/:/Abrir sacola/}).first().click();
+      await checkBag();
+      await page.screenshot({path:`${artifacts}/${name}-${locale}-bag.png`,fullPage:false});
+      await bag.locator('.cart-close').click();
       await page.goto(base+prefix+'/checkout',{waitUntil:'networkidle'});
       await page.locator('#name').waitFor();
       await layout(page);
