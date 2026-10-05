@@ -2,7 +2,9 @@
 
 import Image from '@/components/ProductImage';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { cartEnglish } from '@/lib/cart-copy';
 import { useCart } from '@/context/CartContext';
 import { getProductById, getEffectivePrice, getAvailableProducts } from '@/lib/products';
 import { getAttentionCoverImage, sortProductsByAttention, getRelatedProductIds } from '@/lib/merchandising';
@@ -16,6 +18,13 @@ function formatBRL(value: number) {
 
 export default function CartDrawer() {
   const { items, isDrawerOpen, closeDrawer, updateQuantity, removeItem, addItem } = useCart();
+  const pathname = usePathname();
+  const [english, setEnglish] = useState(false);
+  useEffect(() => {
+    setEnglish(pathname === '/en' || pathname.startsWith('/en/') || document.cookie.split('; ').includes('ago_locale=en'));
+  }, [pathname, isDrawerOpen]);
+  const t = (text: string) => english ? (cartEnglish[text] ?? text) : text;
+  const href = (path: string) => english ? `/en${path}` : path;
   const closeRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
   const complementaryRef = useRef<HTMLDivElement>(null);
@@ -112,6 +121,7 @@ export default function CartDrawer() {
     <>
       {isDrawerOpen && <div className="cart-backdrop fixed inset-0 z-50" onClick={closeDrawer} aria-hidden="true" />}
       <div
+        data-no-translate="true"
         ref={drawerRef}
         className={`cart-drawer fixed top-0 right-0 h-full w-full sm:w-[460px] z-50 transform transition-transform duration-300 ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}
         aria-hidden={!isDrawerOpen}
@@ -122,9 +132,9 @@ export default function CartDrawer() {
         <div className="cart-header">
           <div className="cart-header-title">
             <CartIcon size={22} />
-            <div><h2 id="ago-cart-title">Sua seleção</h2>{lines.length > 0 && <small>Peças escolhidas por você.</small>}</div>
+            <div><h2 id="ago-cart-title">{t('Sua seleção')}</h2>{lines.length > 0 && <small>{t('Peças escolhidas por você.')}</small>}</div>
           </div>
-          <button ref={closeRef} type="button" onClick={closeDrawer} aria-label="Fechar sacola" className="cart-close">
+          <button ref={closeRef} type="button" onClick={closeDrawer} aria-label={t('Fechar sacola')} className="cart-close">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
           </button>
         </div>
@@ -132,31 +142,31 @@ export default function CartDrawer() {
         <div className="cart-body">
           {lines.length === 0 ? (
             <div className="cart-empty">
-              <p>Sua seleção está vazia.</p>
-              <span>Explore a coleção e encontre algo para levar ou presentear.</span>
-              <Link href="/produtos" onClick={closeDrawer}>Continuar comprando</Link>
+              <p>{t('Sua seleção está vazia.')}</p>
+              <span>{t('Explore a coleção e encontre algo para levar ou presentear.')}</span>
+              <Link href={href('/produtos')} onClick={closeDrawer}>{t('Continuar comprando')}</Link>
             </div>
           ) : (
             <ul className="cart-items">
               {lines.map(({ item, product }) => (
                 <li key={item.productId} className="cart-item">
-                  <div className="cart-product-image"><Image src={getAttentionCoverImage(product)} alt={product.name} fill quality={100} sizes="82px" className="object-contain" /></div>
+                  <div className="cart-product-image"><Image src={getAttentionCoverImage(product)} alt={t(product.name)} fill quality={100} sizes="82px" className="object-contain" /></div>
                   <div className="cart-item-info">
-                    <h3>{product.name}</h3>
-                    <p>{formatBRL(getEffectivePrice(product))} / un.</p>
+                    <h3>{t(product.name)}</h3>
+                    <p>{formatBRL(getEffectivePrice(product))} {english ? '/ unit' : '/ un.'}</p>
                     <div className="cart-item-controls">
-                      <button type="button" onClick={() => updateQuantity(item.productId, item.quantity - 1)} aria-label={`Diminuir quantidade de ${product.name}`}>−</button>
+                      <button type="button" onClick={() => updateQuantity(item.productId, item.quantity - 1)} aria-label={`${english ? 'Decrease quantity of' : 'Diminuir quantidade de'} ${t(product.name)}`}>−</button>
                       <span aria-live="polite">{item.quantity}</span>
-                      <button type="button" onClick={() => updateQuantity(item.productId, item.quantity + 1)} aria-label={`Aumentar quantidade de ${product.name}`}>+</button>
+                      <button type="button" onClick={() => updateQuantity(item.productId, item.quantity + 1)} aria-label={`${english ? 'Increase quantity of' : 'Aumentar quantidade de'} ${t(product.name)}`}>+</button>
                       <button
                         type="button"
                         onClick={() => {
                           removeItem(item.productId);
                           trackRemoveFromCart({ item_id: product.id, item_name: product.name, price: getEffectivePrice(product), quantity: item.quantity, item_category: product.category });
                         }}
-                        aria-label={`Remover ${product.name}`}
+                        aria-label={`${t('Remover')} ${t(product.name)}`}
                         className="cart-remove"
-                      >Remover</button>
+                      >{t('Remover')}</button>
                     </div>
                   </div>
                   <div className="cart-item-total">{formatBRL(getEffectivePrice(product) * item.quantity)}</div>
@@ -166,33 +176,33 @@ export default function CartDrawer() {
           )}
 
           {complementary.length > 0 && (
-            <div className="cart-complementary" aria-label="Peças para acompanhar sua seleção">
+            <div className="cart-complementary" aria-label={t('Peças para acompanhar sua seleção')}>
               <div className="cart-complementary-head">
-                <div><span>Para acompanhar</span><small>Destaques da coleção que combinam com sua seleção.</small></div>
-                <div className="cart-complementary-nav" aria-label="Navegar pelas sugestões">
-                  <button type="button" onClick={() => scrollComplementary(-1)} aria-label="Ver sugestões anteriores"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12.5 4.5-5.5 5.5 5.5 5.5" /></svg></button>
-                  <button type="button" onClick={() => scrollComplementary(1)} aria-label="Ver próximas sugestões"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4.5 5.5 5.5-5.5 5.5" /></svg></button>
+                <div><span>{t('Para acompanhar')}</span><small>{t('Destaques da coleção que combinam com sua seleção.')}</small></div>
+                <div className="cart-complementary-nav" aria-label={t('Navegar pelas sugestões')}>
+                  <button type="button" onClick={() => scrollComplementary(-1)} aria-label={t('Ver sugestões anteriores')}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12.5 4.5-5.5 5.5 5.5 5.5" /></svg></button>
+                  <button type="button" onClick={() => scrollComplementary(1)} aria-label={t('Ver próximas sugestões')}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4.5 5.5 5.5-5.5 5.5" /></svg></button>
                 </div>
               </div>
-              <div ref={complementaryRef} className="cart-complementary-list" tabIndex={0} aria-label="Sugestões para acompanhar">
+              <div ref={complementaryRef} className="cart-complementary-list" tabIndex={0} aria-label={t('Sugestões para acompanhar')}>
                 {complementary.map((product) => {
                   const price = getEffectivePrice(product);
                   const item = { item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category };
                   return (
                     <article key={product.id} className="cart-complementary-item">
-                      <Link href={`/produtos/${product.id}`} onClick={() => { trackSelectItem(item, 'Sugestões da sacola'); closeDrawer(); }} className="cart-complementary-image" aria-label={`Ver ${product.name}`}>
-                        <Image src={getAttentionCoverImage(product)} alt={product.name} fill quality={100} sizes="(max-width: 600px) 44vw, 190px" className="object-contain" />
+                      <Link href={href(`/produtos/${product.id}`)} onClick={() => { trackSelectItem(item, 'Sugestões da sacola'); closeDrawer(); }} className="cart-complementary-image" aria-label={`${english ? 'View' : 'Ver'} ${t(product.name)}`}>
+                        <Image src={getAttentionCoverImage(product)} alt={t(product.name)} fill quality={100} sizes="(max-width: 600px) 44vw, 190px" className="object-contain" />
                       </Link>
                       <div className="cart-complementary-info">
-                        <Link href={`/produtos/${product.id}`} onClick={() => { trackSelectItem(item, 'Sugestões da sacola'); closeDrawer(); }}><strong>{product.name}</strong></Link>
+                        <Link href={href(`/produtos/${product.id}`)} onClick={() => { trackSelectItem(item, 'Sugestões da sacola'); closeDrawer(); }}><strong>{t(product.name)}</strong></Link>
                         <span>{formatBRL(price)}</span>
-                        {!freeShipping && shouldOfferFreeShipping(subtotal + price) && <small>Com esta peça, seu pedido ganha frete grátis.</small>}
+                        {!freeShipping && shouldOfferFreeShipping(subtotal + price) && <small>{t('Com esta peça, seu pedido ganha frete grátis.')}</small>}
                       </div>
                       <button
                         type="button"
                         className="cart-complementary-add"
                         onClick={() => { addItem(product.id); trackAddToCart(item); }}
-                        aria-label={`Levar ${product.name} para a sacola`}
+                        aria-label={english ? `Add ${t(product.name)} to bag` : `Levar ${product.name} para a sacola`}
                       ><CartIcon size={18} withPlus /></button>
                     </article>
                   );
@@ -205,16 +215,16 @@ export default function CartDrawer() {
         {lines.length > 0 && (
           <div className="cart-summary">
             <div className="cart-shipping-progress-block">
-              {!freeShipping ? <p className="cart-shipping-message">Faltam <strong>{formatBRL(remaining)}</strong> para o frete grátis.</p> : <p className="cart-shipping-message is-free">Você ganhou frete grátis neste pedido.</p>}
+              {!freeShipping ? <p className="cart-shipping-message">{english ? 'Add ' : 'Faltam '}<strong>{formatBRL(remaining)}</strong>{english ? ' more for free shipping.' : ' para o frete grátis.'}</p> : <p className="cart-shipping-message is-free">{t('Você ganhou frete grátis neste pedido.')}</p>}
               <div className="cart-shipping-progress" aria-hidden="true"><span style={{ width: progress + '%' }} /></div>
-              <div className="cart-shipping-progress-labels"><span>Frete fixo R$ 39,90</span><span>Grátis a partir de R$ 500 em produtos</span></div>
+              <div className="cart-shipping-progress-labels"><span>{t('Frete fixo R$ 39,90')}</span><span>{t('Grátis a partir de R$ 500 em produtos')}</span></div>
             </div>
-            <div className="cart-summary-row"><span>Subtotal</span><span>{formatBRL(subtotal)}</span></div>
-            <div className="cart-summary-row"><span>Frete</span><span>{freeShipping ? 'Grátis' : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
-            <div className="cart-total-row"><span>Total</span><strong>{formatBRL(total)}</strong></div>
-            <Link href="/checkout" onClick={closeDrawer} className="cart-checkout">Finalizar pedido</Link>
-            <p className="cart-checkout-reassurance">Sem criar conta · Pagamento pela InfinitePay</p>
-            <button type="button" onClick={closeDrawer} className="cart-continue">Continuar escolhendo</button>
+            <div className="cart-summary-row"><span>{t('Subtotal')}</span><span>{formatBRL(subtotal)}</span></div>
+            <div className="cart-summary-row"><span>{t('Frete')}</span><span>{freeShipping ? t('Grátis') : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
+            <div className="cart-total-row"><span>{t('Total')}</span><strong>{formatBRL(total)}</strong></div>
+            <Link href={href('/checkout')} onClick={closeDrawer} className="cart-checkout">{t('Finalizar pedido')}</Link>
+            <p className="cart-checkout-reassurance">{t('Sem criar conta · Pagamento pela InfinitePay')}</p>
+            <button type="button" onClick={closeDrawer} className="cart-continue">{t('Continuar escolhendo')}</button>
           </div>
         )}
       </div>
