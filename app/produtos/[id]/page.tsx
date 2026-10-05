@@ -138,6 +138,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         image: images.map((image) => `${SITE_DOMAIN}${image}`),
         sku: product.id,
         material: 'Cerâmica',
+        brand: { '@type': 'Brand', name: 'Agô Trancoso' },
         category: isIgrejinhaProduct ? 'Igrejinhas do Quadrado de Trancoso' : product.category,
         url: productUrl,
         mainEntityOfPage: productUrl,

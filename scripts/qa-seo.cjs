@@ -16,6 +16,9 @@ function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags
   await ready;
   const home=await html('/');
   const contact=await html('/contato');
+  assert.ok(home.includes('\"width\":2160'), 'Home should expose its real large photograph to search engines');
+  const imageMap=await (await response('/image-sitemap.xml')).text();
+  assert.ok(imageMap.includes('/hero.jpg') && imageMap.includes('/banca-ceramicas-quadrado.webp'), 'Image sitemap must describe visible home photography');
   assert.ok(home.includes('https://wa.me/5573998558124?'), 'Home must use the complete business WhatsApp');
   assert.ok(home.includes('\"telephone\":\"+5573998558124\"'), 'Google must receive the same contact number');
   assert.ok(!contact.includes('46098-000'), 'Do not display the shipping-origin postal code as a store address');
@@ -57,6 +60,7 @@ function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags
     const page=await html('/produtos/'+id);
     const scripts=[...page.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map(m=>JSON.parse(m[1]));
     const product=scripts.flatMap(data=>data['@graph']||[data]).find(data=>data['@type']==='Product');
+    assert.equal(product.brand.name, 'Agô Trancoso', 'Product brand must match Merchant feed');
     assert.equal(product.offers.shippingDetails.shippingRate.value,'39.90',`Google shipping: ${id}`);
     assert.ok(page.includes('Adicionar à sacola'), `Purchase CTA must remain server-rendered: ${id}`);
     assert.ok(page.includes('Frete e prazo estimado para seu CEP'), `CEP estimator must remain visible: ${id}`);

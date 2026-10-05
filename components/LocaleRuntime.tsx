@@ -9,6 +9,8 @@ const COOKIE = 'ago_locale';
 type Locale = 'pt' | 'en';
 
 const exact: Record<string, string> = {
+  'Ver as peças da banca': 'View pieces from our stall',
+  'Ver lembranças': 'View keepsakes',
   // Hero e home
   'Ir para o conteúdo': 'Skip to content',
   '© 2026 Agô Trancoso. Todos os direitos reservados.': '© 2026 Agô Trancoso. All rights reserved.',

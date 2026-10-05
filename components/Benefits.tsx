@@ -1,10 +1,12 @@
+'use client';
+import { useSiteEnglish } from '@/lib/use-site-english';
 import Link from 'next/link';
 
 const benefits = [
-  { title: 'Feito à mão', text: 'Cuidado em cada detalhe.', icon: 'craft', href: '/nossa-essencia', action: 'Conhecer o trabalho artesanal da Agô' },
-  { title: 'Peças exclusivas', text: 'Escolhas que valorizam o artesanal.', icon: 'vase', href: '/produtos', action: 'Explorar as peças da coleção' },
-  { title: 'Inspiração brasileira', text: 'Cores e formas da nossa terra.', icon: 'brazil', href: '/artesanato-em-trancoso', action: 'Conhecer o artesanato inspirado em Trancoso' },
-  { title: 'Envios para o Brasil e exterior', text: 'Receba sua escolha onde estiver.', icon: 'world', href: '/contato', action: 'Consultar a Agô sobre envios para o Brasil e exterior' },
+  { enTitle: 'Handmade', enText: 'Care in every detail.', title: 'Feito à mão', text: 'Cuidado em cada detalhe.', icon: 'craft', href: '/nossa-essencia', action: 'Conhecer o trabalho artesanal da Agô' },
+  { enTitle: 'Exclusive pieces', enText: 'Choices that celebrate craftsmanship.', title: 'Peças exclusivas', text: 'Escolhas que valorizam o artesanal.', icon: 'vase', href: '/produtos', action: 'Explorar as peças da coleção' },
+  { enTitle: 'Brazilian inspiration', enText: 'Colors and shapes from our homeland.', title: 'Inspiração brasileira', text: 'Cores e formas da nossa terra.', icon: 'brazil', href: '/artesanato-em-trancoso', action: 'Conhecer o artesanato inspirado em Trancoso' },
+  { enTitle: 'Shipping across Brazil and abroad', enText: 'Receive your chosen piece wherever you are.', title: 'Envios para o Brasil e exterior', text: 'Receba sua escolha onde estiver.', icon: 'world', href: '/contato', action: 'Consultar a Agô sobre envios para o Brasil e exterior' },
 ] as const;
 
 type IconName = (typeof benefits)[number]['icon'];
@@ -34,15 +36,16 @@ function BenefitIcon({ name }: { name: IconName }) {
 }
 
 export default function Benefits() {
+  const english = useSiteEnglish();
   return (
-    <section className="benefits-strip ago-benefits-reference ago-benefits-icons-2026" aria-label="Por que escolher a Agô Trancoso">
+    <section className="benefits-strip ago-benefits-reference ago-benefits-icons-2026" data-no-translate="true" aria-label={english ? 'Why choose Agô Trancoso' : 'Por que escolher a Agô Trancoso'}>
       <div className="ago-container ago-benefits-reference-inner">
-        <h2 id="benefits-title" className="sr-only">Por que escolher a Agô Trancoso</h2>
+        <h2 id="benefits-title" className="sr-only">{english ? 'Why choose Agô Trancoso' : 'Por que escolher a Agô Trancoso'}</h2>
         <ul className="ago-benefits-grid ago-benefits-icon-grid">
           {benefits.map((benefit) => (
             <li className="ago-benefit-icon-item" key={benefit.title}>
-              <Link href={benefit.href} prefetch={false} className={`ago-benefit-line-icon ago-benefit-line-icon-${benefit.icon} ago-benefit-interactive`} aria-label={benefit.action} title={benefit.action}><BenefitIcon name={benefit.icon} /></Link>
-              <span className="ago-benefit-icon-copy"><strong>{benefit.title}</strong><small>{benefit.text}</small></span>
+              <Link href={english ? `/en${benefit.href}` : benefit.href} prefetch={false} className={`ago-benefit-line-icon ago-benefit-line-icon-${benefit.icon} ago-benefit-interactive`} aria-label={english ? benefit.enTitle : benefit.action} title={english ? benefit.enTitle : benefit.action}><BenefitIcon name={benefit.icon} /></Link>
+              <span className="ago-benefit-icon-copy"><strong>{english ? benefit.enTitle : benefit.title}</strong><small>{english ? benefit.enText : benefit.text}</small></span>
             </li>
           ))}
         </ul>
