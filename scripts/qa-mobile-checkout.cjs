@@ -40,6 +40,20 @@ async function layout(page) {
       const prefix=locale==='en'?'/en':'';
       await page.goto(base+prefix+'/',{waitUntil:'networkidle'});
       await layout(page);
+      const benefits = page.locator('.ago-benefits-reference');
+      const resume = page.locator('.resume-cart');
+      if (locale === 'en') {
+        assert.deepEqual(await benefits.locator('.ago-benefit-icon-copy strong').allTextContents(), ['Handmade','Exclusive pieces','Brazilian inspiration','Shipping across Brazil and abroad']);
+        assert.doesNotMatch(await benefits.innerText(), /Feito à|Peças|Inspiração|Envios|Cuidado|Escolhas|Cores|Receba/);
+        assert.match(await resume.innerText(), /Your selection is still here/);
+        assert.match(await resume.innerText(), /1 piece in your bag/);
+        assert.equal(await resume.locator('a').getAttribute('href'), '/en/checkout');
+        assert.match(await page.locator('.ago-banca-photo').innerText(), /View pieces from our stall/);
+        assert.match(await page.locator('.ago-home-final-cta').innerText(), /View keepsakes/);
+      } else {
+        assert.match(await benefits.innerText(), /Feito à mão/);
+        assert.match(await resume.innerText(), /Sua seleção continua aqui/);
+      }
       const first=page.locator('.ago-premium-product-grid-featured .product-card').first();
       assert.match(await first.innerText(),locale==='en'?/Miniature/:/Miniatura/);
       await first.scrollIntoViewIfNeeded();
@@ -60,6 +74,7 @@ async function layout(page) {
       assert.match(await bag.locator('.cart-shipping-message').innerText(),locale==='en'?/Add .*20,00 more for free shipping/:/Faltam .*20,00/);
       await bag.getByRole('button',{name:locale==='en'?/Increase quantity of/:/Aumentar quantidade de/}).first().click();
       await bag.locator('.cart-shipping-message.is-free').waitFor({state:'attached'});
+      assert.match(await resume.innerText(), locale==='en' ? /2 pieces in your bag/ : /2 peças na sacola/);
       await checkBag();
       await bag.getByRole('button',{name:locale==='en'?/Decrease quantity of/:/Diminuir quantidade de/}).first().click();
       await bag.locator('.cart-shipping-message:not(.is-free)').waitFor({state:'attached'});
