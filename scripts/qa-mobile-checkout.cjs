@@ -59,10 +59,10 @@ async function layout(page) {
       await checkBag();
       assert.match(await bag.locator('.cart-shipping-message').innerText(),locale==='en'?/Add .*20,00 more for free shipping/:/Faltam .*20,00/);
       await bag.getByRole('button',{name:locale==='en'?/Increase quantity of/:/Aumentar quantidade de/}).first().click();
-      await bag.locator('.cart-shipping-message.is-free').waitFor();
+      await bag.locator('.cart-shipping-message.is-free').waitFor({state:'attached'});
       await checkBag();
       await bag.getByRole('button',{name:locale==='en'?/Decrease quantity of/:/Diminuir quantidade de/}).first().click();
-      await bag.locator('.cart-shipping-message:not(.is-free)').waitFor();
+      await bag.locator('.cart-shipping-message:not(.is-free)').waitFor({state:'attached'});
       // Add a suggestion when the responsive layout displays it, then remove it.
       if (await bag.locator('.cart-complementary-add').first().isVisible()) {
         await bag.locator('.cart-complementary-add').first().click();

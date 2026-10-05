@@ -42,6 +42,8 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
   const searchWrapRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
+  const [english, setEnglish] = useState(false);
+  useEffect(() => { setEnglish(pathname === '/en' || pathname.startsWith('/en/') || document.cookie.split('; ').includes('ago_locale=en')); }, [pathname]);
   const { totalItems, openDrawer } = useCart();
   const products = useMemo(() => getAvailableProducts(), []);
 
@@ -219,7 +221,8 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
 
             <button
               type="button"
-              aria-label={totalItems > 0 ? `Abrir sacola com ${totalItems} ${totalItems === 1 ? 'item' : 'itens'}` : 'Abrir sacola'}
+              data-no-translate="true"
+              aria-label={english ? (totalItems > 0 ? `Open bag with ${totalItems} ${totalItems === 1 ? 'item' : 'items'}` : 'Open bag') : (totalItems > 0 ? `Abrir sacola com ${totalItems} ${totalItems === 1 ? 'item' : 'itens'}` : 'Abrir sacola')}
               onClick={() => { setMenuOpen(false); openDrawer(); }}
               className="header-icon"
             >
