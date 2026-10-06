@@ -214,11 +214,14 @@ export default function CartDrawer() {
 
         {lines.length > 0 && (
           <div className="cart-summary">
-            <label className="cart-summary-row">{english ? 'Delivery destination' : 'Destino da entrega'}
-              <select className="min-w-0 rounded-lg border border-current bg-transparent px-2 py-2 text-base" aria-label={english ? 'Delivery destination' : 'Destino da entrega'} value={international ? 'international' : 'brazil'} onChange={event => setInternational(event.target.value === 'international')}>
-                <option value="brazil">{english ? 'Brazil' : 'Brasil'}</option><option value="international">{english ? 'Outside Brazil' : 'Fora do Brasil'}</option>
-              </select>
-            </label>
+            <fieldset className="cart-destination" aria-label={english ? 'Delivery destination' : 'Destino da entrega'}>
+              <legend>{english ? 'Delivery destination' : 'Destino da entrega'}</legend>
+              <div className="cart-destination-options" role="group">
+                <button type="button" className={!international ? 'is-active' : ''} aria-pressed={!international} onClick={() => setInternational(false)}>{english ? 'Brazil' : 'Brasil'}</button>
+                <button type="button" className={international ? 'is-active' : ''} aria-pressed={international} onClick={() => setInternational(true)}>{english ? 'International' : 'Exterior'}</button>
+              </div>
+              {international && <small>{english ? 'Choose the destination country in the international quote step.' : 'Você escolhe o país de destino na etapa de cotação internacional.'}</small>}
+            </fieldset>
             {!international && <div className="cart-shipping-progress-block">
               {!freeShipping ? <p className="cart-shipping-message">{english ? 'Add ' : 'Faltam '}<strong>{formatBRL(remaining)}</strong>{english ? ' more for free shipping.' : ' para o frete grátis.'}</p> : <p className="cart-shipping-message is-free">{t('Você ganhou frete grátis neste pedido.')}</p>}
               <div className="cart-shipping-progress" aria-hidden="true"><span style={{ width: progress + '%' }} /></div>
