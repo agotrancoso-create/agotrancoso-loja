@@ -131,7 +131,7 @@ async function layout(page) {
       if (locale === 'en') {
         assert.doesNotMatch(await page.locator('.checkout-page').innerText(), /Escolha|Informe|Frete|Peças|Destino|cotação/);
         await page.locator('.checkout-submit').click();
-        assert.equal(await page.getByRole('alert').innerText(), 'Enter your full name.');
+        assert.equal(await page.locator('.checkout-form-panel').getByRole('alert').innerText(), 'Enter your full name.');
       }
       await page.getByRole('button',{name:locale==='en'?/Open bag/:/Abrir sacola/}).first().click();
       assert.equal(await bag.locator('select').inputValue(), 'international');
