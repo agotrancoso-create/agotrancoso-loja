@@ -20,7 +20,9 @@ export function middleware(request: NextRequest) {
   if (explicitEnglish) {
     const target = request.nextUrl.clone();
     target.pathname = pathname === '/en' ? '/' : pathname.slice(3) || '/';
-    const response = NextResponse.rewrite(target);
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-ago-locale', 'en');
+    const response = NextResponse.rewrite(target, { request: { headers: requestHeaders } });
     response.headers.set('x-ago-locale', 'en');
     return remember(response, 'en');
   }
@@ -32,7 +34,9 @@ export function middleware(request: NextRequest) {
    * disponível explicitamente em /en, evitando que um crawler localizado fora
    * do Brasil receba um 307 para a versão inglesa e perca os sinais da página PT.
    */
-  const response = NextResponse.next();
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-ago-locale', 'pt');
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
   response.headers.set('x-ago-locale', 'pt');
   return remember(response, 'pt');
 }
