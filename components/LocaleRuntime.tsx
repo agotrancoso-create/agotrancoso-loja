@@ -1,5 +1,7 @@
 'use client';
 
+import { accessibilityEnglish } from '@/lib/accessibility-copy';
+
 import { afterInitialRender } from '@/lib/after-initial-render';
 import { createPortal } from 'react-dom';
 import { useEffect, useMemo, useState } from 'react';
@@ -9,6 +11,17 @@ const COOKIE = 'ago_locale';
 type Locale = 'pt' | 'en';
 
 const exact: Record<string, string> = {
+  ...accessibilityEnglish,
+  'Coleção Agô': 'Agô collection',
+  'Cerâmica para viver e guardar.': 'Ceramics to live with and treasure.',
+  'Agô Trancoso, página inicial': 'Agô Trancoso, home',
+  'Agô Trancoso, início': 'Agô Trancoso, home',
+  'Escolher pela intenção': 'Shop by purpose',
+  'Localização da Agô': 'Agô location',
+  'Falar com a Agô Trancoso': 'Contact Agô Trancoso',
+  'Ver Agô Trancoso no Instagram': 'View Agô Trancoso on Instagram',
+  'Mapa da Agô Trancoso no Quadrado': 'Map of Agô Trancoso in the Quadrado',
+
   'Ver as peças da banca': 'View pieces from our stall',
   'Ver lembranças': 'View keepsakes',
   // Hero e home
@@ -262,9 +275,6 @@ export default function LocaleRuntime() {
   useEffect(() => {
     const resolved: Locale = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/') ? 'en' : localeFromCookie();
     setLocale(resolved);
-    document.documentElement.lang = resolved === 'en' ? 'en' : 'pt-BR';
-    document.documentElement.dataset.locale = resolved;
-
 
     const observer = new MutationObserver((records) => {
       if (resolved !== 'en') return;
@@ -292,13 +302,14 @@ export default function LocaleRuntime() {
     };
     const linkObserver = new MutationObserver(rewriteLinks);
     const cancelTranslation = afterInitialRender(() => {
+      document.documentElement.lang = resolved === 'en' ? 'en' : 'pt-BR';
+      document.documentElement.dataset.locale = resolved;
       if (resolved === 'en') translateNode(document.body);
       observer.observe(document.body, { childList: true, subtree: true });
       rewriteLinks();
       linkObserver.observe(document.body, { childList: true, subtree: true });
+      setPortalTarget(document.querySelector('.header-actions'));
     });
-
-    setPortalTarget(document.querySelector('.header-actions'));
     return () => {
       cancelTranslation();
       observer.disconnect();

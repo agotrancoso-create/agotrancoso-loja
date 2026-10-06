@@ -6,6 +6,8 @@ import { getProductById } from '@/lib/products';
 
 type CartContextValue = {
   items: CartItem[];
+  international: boolean;
+  setInternational: (value: boolean) => void;
   addItem: (productId: string, quantity?: number) => void;
   removeItem: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
@@ -61,6 +63,12 @@ function normalizeRecoveryItems(raw: string | null): CartItem[] {
 }
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
+  const [international, setInternational] = useState(false);
+  useEffect(() => { try { setInternational(localStorage.getItem('ago_international') === 'true'); } catch {} }, []);
+  const updateInternational = useCallback((value: boolean) => {
+    setInternational(value);
+    try { localStorage.setItem('ago_international', String(value)); } catch {}
+  }, []);
   const [items, setItems] = useState<CartItem[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
@@ -140,6 +148,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo<CartContextValue>(() => ({
     items,
+    international,
+    setInternational: updateInternational,
     addItem,
     removeItem,
     updateQuantity,
@@ -149,7 +159,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     hydrated,
     openDrawer,
     closeDrawer,
-  }), [items, addItem, removeItem, updateQuantity, clearCart, totalItems, isDrawerOpen, hydrated, openDrawer, closeDrawer]);
+  }), [international, updateInternational, items, addItem, removeItem, updateQuantity, clearCart, totalItems, isDrawerOpen, hydrated, openDrawer, closeDrawer]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

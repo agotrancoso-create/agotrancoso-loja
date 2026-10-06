@@ -126,6 +126,35 @@ async function layout(page) {
         assert.match(await page.locator('.ago-clean-summary-bottom').innerText(), /Shipping/);
       }
       await page.screenshot({path:`${artifacts}/${name}-${locale}-checkout.png`,fullPage:true});
+      // International quotes must never inherit domestic shipping or free-shipping incentives.
+      await page.goto(base+prefix+'/envio-internacional',{waitUntil:'networkidle'});
+      if (locale === 'en') {
+        assert.doesNotMatch(await page.locator('.checkout-page').innerText(), /Escolha|Informe|Frete|Peças|Destino|cotação/);
+        await page.locator('.checkout-submit').click();
+        assert.equal(await page.locator('.checkout-form-panel').getByRole('alert').innerText(), 'Enter your full name.');
+      }
+      await page.getByRole('button',{name:locale==='en'?/Open bag/:/Abrir sacola/}).first().click();
+      assert.equal(await bag.locator('select').inputValue(), 'international');
+      assert.doesNotMatch(await bag.locator('.cart-summary').innerText(), /39,90|519,90|frete grátis|free shipping/);
+      assert.match(await bag.locator('.cart-total-row').innerText(), /480,00/);
+      assert.equal(await bag.locator('.cart-checkout').getAttribute('href'), prefix+'/envio-internacional');
+      await bag.getByRole('button',{name:locale==='en'?/Increase quantity of/:/Aumentar quantidade de/}).first().click();
+      assert.doesNotMatch(await bag.locator('.cart-summary').innerText(), /free shipping|frete grátis/);
+      await bag.getByRole('button',{name:locale==='en'?/Decrease quantity of/:/Diminuir quantidade de/}).first().click();
+      await bag.locator('select').selectOption('brazil');
+      assert.match(await bag.locator('.cart-total-row').innerText(), /519,90/);
+      await bag.locator('.cart-close').click();
+      if (locale === 'en') {
+        await page.goto(base+'/en/produtos',{waitUntil:'networkidle'});
+        await page.getByLabel('Find a piece',{exact:true}).fill('zzzznonexistent');
+        assert.match(await page.locator('.catalog-empty').innerText(), /No pieces matched/);
+        assert.doesNotMatch(await page.locator('.catalog-interface').innerText(), /Encontre|Ordenar|Nenhum|Limpar|Todas|Faixa/);
+        assert.match(page.url(), /\/en\/produtos/);
+        await page.getByRole('button',{name:'Clear filters',exact:true}).click();
+        await page.getByRole('button',{name:'Sort by: Featured',exact:true}).click();
+        await page.getByRole('option',{name:'Lowest price',exact:true}).click();
+        assert.match(await page.locator('.catalog-results-meta').innerText(), /pieces found/);
+      }
       results.push({device:name,locale,status:'passed'});
     }
     assert.deepEqual(errors,[],`${name} runtime errors`);
