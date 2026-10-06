@@ -1,4 +1,7 @@
 export const accessibilityEnglish: Record<string, string> = {
+  "Navegação estrutural": "Breadcrumb navigation",
+  "Detalhes da peça": "Piece details",
+  "Informações da peça": "Piece information",
   "Agô Trancoso, página inicial": "Agô Trancoso, home",
   "Agô Trancoso, início": "Agô Trancoso, home",
   "Escolher pela intenção": "Shop by purpose",

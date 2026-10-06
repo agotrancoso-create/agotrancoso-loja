@@ -101,6 +101,13 @@ async function run() {
     assert.match((await page.locator('.product-description').innerText()).trim(), /Quadrado in miniature/i, `English product description@${width}`);
     assert.match((await page.locator('.product-buybox').innerText()), /Measurements/i, `English product facts@${width}`);
     await assertNoOverflow(page, `en-product@${width}`);
+    assert.match(await page.locator('.purchase-selection-summary').innerText(), /This selection with shipping/);
+    await page.getByRole('button', { name: 'Check shipping', exact: true }).click();
+    assert.equal(await page.locator('.product-delivery-error').innerText(), 'Enter a valid 8-digit Brazilian postal code.');
+    await page.getByRole('button', { name: /Enlarge photo of/ }).click();
+    await page.getByRole('button', { name: 'Zoom in', exact: true }).click();
+    assert.match(await page.locator('.ago-photo-help').innerText(), /Drag to explore details/);
+    await page.getByRole('button', { name: 'Close enlarged view', exact: true }).click();
 
     await page.goto(base + '/en/checkout', { waitUntil: 'networkidle' });
     await page.waitForFunction(() => document.documentElement.lang === 'en');

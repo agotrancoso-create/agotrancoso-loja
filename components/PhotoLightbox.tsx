@@ -1,5 +1,7 @@
 'use client';
 
+import { useSiteEnglish } from '@/lib/use-site-english';
+import { cartEnglish } from '@/lib/cart-copy';
 import Image from '@/components/ProductImage';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { trackGalleryInteraction } from '@/lib/marketing-analytics';
@@ -45,6 +47,9 @@ function CloseIcon() {
 }
 
 export default function PhotoLightbox({ productId, name, images, initialIndex = 0, onClose }: Props) {
+  const english = useSiteEnglish();
+  const displayName = english ? (cartEnglish[name] || name) : name;
+  const t = (pt: string, en: string) => english ? en : pt;
   const dialog = useRef<HTMLDialogElement>(null);
   const viewport = useRef<HTMLDivElement>(null);
   const titleId = useId();
@@ -104,7 +109,7 @@ export default function PhotoLightbox({ productId, name, images, initialIndex = 
   };
 
   return (
-    <dialog ref={dialog} className="ago-photo-dialog" aria-labelledby={titleId} onCancel={(event) => { event.preventDefault(); onClose(); }} onClick={(event) => { if (event.target === event.currentTarget) onClose(); }} onKeyDown={(event) => {
+    <dialog data-no-translate="true" ref={dialog} className="ago-photo-dialog" aria-labelledby={titleId} onCancel={(event) => { event.preventDefault(); onClose(); }} onClick={(event) => { if (event.target === event.currentTarget) onClose(); }} onKeyDown={(event) => {
       if (event.key === 'ArrowRight' && scale === MIN_SCALE && images.length > 1) { event.preventDefault(); select(active + 1, 'next'); }
       if (event.key === 'ArrowLeft' && scale === MIN_SCALE && images.length > 1) { event.preventDefault(); select(active - 1, 'previous'); }
       if (event.key === '+' || event.key === '=') { event.preventDefault(); zoomIn(); }
@@ -112,12 +117,12 @@ export default function PhotoLightbox({ productId, name, images, initialIndex = 
       if (event.key === '0') { event.preventDefault(); fit(); }
     }}>
       <header className="ago-photo-header">
-        <div className="ago-photo-heading"><span className="ago-photo-kicker">Ver peça em detalhe</span><h2 id={titleId}>{name}</h2></div>
+        <div className="ago-photo-heading"><span className="ago-photo-kicker">{t('Ver peça em detalhe', 'View piece in detail')}</span><h2 id={titleId}>{displayName}</h2></div>
         <span className="ago-photo-position" aria-live="polite">{active + 1} / {images.length}</span>
-        <button type="button" className="ago-photo-close" onClick={onClose} aria-label="Fechar visualização ampliada"><CloseIcon /></button>
+        <button type="button" className="ago-photo-close" onClick={onClose} aria-label={t('Fechar visualização ampliada', 'Close enlarged view')}><CloseIcon /></button>
       </header>
 
-      <div ref={viewport} className={`ago-photo-stage${scale > MIN_SCALE ? ' is-zoomed' : ''}`} role="region" aria-label={`${name}, foto ${active + 1}. Use os controles para ampliar ou reduzir.`} tabIndex={0}
+      <div ref={viewport} className={`ago-photo-stage${scale > MIN_SCALE ? ' is-zoomed' : ''}`} role="region" aria-label={english ? `${displayName}, photo ${active + 1}. Use the controls to zoom in or out.` : `${name}, foto ${active + 1}. Use os controles para ampliar ou reduzir.`} tabIndex={0}
         onWheel={(event) => { event.preventDefault(); setZoom(scale + (event.deltaY < 0 ? .35 : -.35)); }} onDoubleClick={(event) => { event.preventDefault(); toggleZoom(); }}
         onPointerDown={(event) => { if (event.pointerType === 'touch' || scale <= MIN_SCALE) return; pointerDrag.current = { id: event.pointerId, startX: event.clientX, startY: event.clientY, panX: pan.x, panY: pan.y }; event.currentTarget.setPointerCapture(event.pointerId); }}
         onPointerMove={(event) => { const drag = pointerDrag.current; if (!drag || drag.id !== event.pointerId || scale <= MIN_SCALE) return; setPan(clampPan({ x: drag.panX + event.clientX - drag.startX, y: drag.panY + event.clientY - drag.startY }, scale)); }}
@@ -127,17 +132,17 @@ export default function PhotoLightbox({ productId, name, images, initialIndex = 
         onTouchEnd={(event) => { const gesture = touchGesture.current; touchGesture.current = null; if (!gesture || gesture.mode !== 'swipe' || scale !== MIN_SCALE || images.length < 2) return; const point = event.changedTouches[0]; if (!point) return; const dx = point.clientX - gesture.startX; const dy = point.clientY - gesture.startY; if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) select(active + (dx < 0 ? 1 : -1), dx < 0 ? 'next' : 'previous'); }}>
         <div className="ago-photo-image-frame">
           <div className="ago-photo-image-shell" style={{ transform: `translate3d(${pan.x}px, ${pan.y}px, 0) scale(${scale})` }}>
-            <Image src={zoomSource(images[active])} alt={`${name}, foto ${active + 1} de ${images.length}`} fill unoptimized quality={100} sizes="100vw" priority draggable={false} className="ago-photo-image" />
+            <Image src={zoomSource(images[active])} alt={english ? `${displayName}, photo ${active + 1} of ${images.length}` : `${name}, foto ${active + 1} de ${images.length}`} fill unoptimized quality={100} sizes="100vw" priority draggable={false} className="ago-photo-image" />
           </div>
         </div>
 
-        {images.length > 1 && scale === MIN_SCALE && <div className="ago-photo-stage-nav" aria-label="Navegar pelas fotos"><button type="button" onClick={() => select(active - 1, 'previous')} aria-label="Foto anterior"><Chevron direction="left" /></button><button type="button" onClick={() => select(active + 1, 'next')} aria-label="Próxima foto"><Chevron direction="right" /></button></div>}
+        {images.length > 1 && scale === MIN_SCALE && <div className="ago-photo-stage-nav" aria-label={t('Navegar pelas fotos', 'Browse photos')}><button type="button" onClick={() => select(active - 1, 'previous')} aria-label={t('Foto anterior', 'Previous photo')}><Chevron direction="left" /></button><button type="button" onClick={() => select(active + 1, 'next')} aria-label={t('Próxima foto', 'Next photo')}><Chevron direction="right" /></button></div>}
       </div>
 
       <footer className="ago-photo-footer">
-        <div className="ago-photo-toolbar" aria-label="Controles de zoom"><button type="button" onClick={zoomOut} disabled={scale <= MIN_SCALE} aria-label="Reduzir zoom">−</button><span className="ago-photo-zoom-value" aria-live="polite">{Math.round(scale * 100)}%</span><button type="button" onClick={zoomIn} disabled={scale >= MAX_SCALE} aria-label="Aumentar zoom">+</button><button type="button" className="ago-photo-fit" onClick={fit} disabled={scale === MIN_SCALE && pan.x === 0 && pan.y === 0}>Ver peça inteira</button></div>
-        {images.length > 1 && <div className="ago-photo-thumbs" aria-label="Selecionar foto">{images.map((src, index) => <button key={`${src}-${index}`} type="button" className={index === active ? 'is-active' : ''} onClick={() => select(index, 'thumbnail')} aria-label={`Ver foto ${index + 1}`} aria-current={index === active ? 'true' : undefined}><Image src={src} alt="" fill quality={100} sizes="64px" aria-hidden="true" /></button>)}</div>}
-        <p className="ago-photo-help">{scale > MIN_SCALE ? 'Arraste para explorar os detalhes. Role, faça pinça ou use + e −.' : 'A peça abre inteira. Role, faça pinça ou dê dois cliques para ampliar.'}</p>
+        <div className="ago-photo-toolbar" aria-label={t('Controles de zoom', 'Zoom controls')}><button type="button" onClick={zoomOut} disabled={scale <= MIN_SCALE} aria-label={t('Reduzir zoom', 'Zoom out')}>−</button><span className="ago-photo-zoom-value" aria-live="polite">{Math.round(scale * 100)}%</span><button type="button" onClick={zoomIn} disabled={scale >= MAX_SCALE} aria-label={t('Aumentar zoom', 'Zoom in')}>+</button><button type="button" className="ago-photo-fit" onClick={fit} disabled={scale === MIN_SCALE && pan.x === 0 && pan.y === 0}>{t('Ver peça inteira', 'View entire piece')}</button></div>
+        {images.length > 1 && <div className="ago-photo-thumbs" aria-label={t('Selecionar foto', 'Select photo')}>{images.map((src, index) => <button key={`${src}-${index}`} type="button" className={index === active ? 'is-active' : ''} onClick={() => select(index, 'thumbnail')} aria-label={`${t('Ver foto', 'View photo')} ${index + 1}`} aria-current={index === active ? 'true' : undefined}><Image src={src} alt="" fill quality={100} sizes="64px" aria-hidden="true" /></button>)}</div>}
+        <p className="ago-photo-help">{scale > MIN_SCALE ? t('Arraste para explorar os detalhes. Role, faça pinça ou use + e −.', 'Drag to explore details. Scroll, pinch or use + and −.') : t('A peça abre inteira. Role, faça pinça ou dê dois cliques para ampliar.', 'The entire piece is shown. Scroll, pinch or double-click to zoom in.')}</p>
       </footer>
     </dialog>
   );
