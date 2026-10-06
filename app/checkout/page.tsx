@@ -2,7 +2,7 @@
 
 import { whatsappLink } from '@/lib/config';
 
-import { usePathname } from 'next/navigation';
+import { useSiteEnglish } from '@/lib/use-site-english';
 import { checkoutMessage } from '@/lib/checkout-copy';
 import Image from '@/components/ProductImage';
 import Link from 'next/link';
@@ -60,12 +60,11 @@ type ShippingQuote = {
 
 export default function CheckoutPage() {
   const { items, hydrated, international, setInternational } = useCart();
-  const pathname = usePathname();
-  const [english, setEnglish] = useState(false);
+  const english = useSiteEnglish();
   const assisted = international;
   const setAssisted = setInternational;
-  useEffect(() => { setEnglish(pathname === '/en' || pathname.startsWith('/en/') || document.documentElement.lang === 'en' || document.cookie.split('; ').includes('ago_locale=en')); }, [pathname]);
   const t = (message: string) => checkoutMessage(message, english);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [stepError, setStepError] = useState<string | null>(null);
@@ -88,6 +87,7 @@ export default function CheckoutPage() {
   const [form, setForm] = useState<FormState>({ name: '', email: '', phone: '', document: '', street: '', number: '', complement: '', neighborhood: '', city: '', state: '', zip: '' });
 
   useEffect(() => {
+    if (!hydrated || !items.length) return;
     try {
       const storedCoupon = normalizeCoupon(localStorage.getItem('ago_primeira_compra_v3_cupom'));
       const storedEmail = localStorage.getItem('ago_primeira_compra_v3_email') || '';
@@ -101,7 +101,7 @@ export default function CheckoutPage() {
       if (data.available !== true) { setCoupon(''); setAppliedCoupon(''); }
     }).catch(() => { if (active) { setBenefitAvailable(false); setCoupon(''); } });
     return () => { active = false; };
-  }, []);
+  }, [hydrated, items.length]);
 
   const lines = useMemo<Line[]>(() => items.flatMap((item): Line[] => {
     const product = getProductById(item.productId);
@@ -337,7 +337,7 @@ export default function CheckoutPage() {
   }
 
   if (!hydrated) return <div className="checkout-page checkout-loading" aria-busy="true"><div className="checkout-shell"><div className="checkout-loading-card"><p className="eyebrow">Agô Trancoso</p><h1 className="checkout-title">Preparando seu pedido…</h1><p>Carregando suas peças com segurança.</p></div></div></div>;
-  if (!lines.length) return <div className="checkout-page checkout-empty"><div className="checkout-shell"><p className="eyebrow">Sua sacola</p><h1 className="checkout-title">Sua sacola está vazia.</h1><Link href="/produtos" className="text-link">Explorar coleção</Link></div></div>;
+  if (!lines.length) return <div className="checkout-page checkout-empty"><div className="checkout-shell"><p className="eyebrow">{english ? 'Your bag' : 'Sua sacola'}</p><h1 className="checkout-title">{english ? 'Your bag is empty.' : 'Sua sacola está vazia.'}</h1><Link href={english ? '/en/produtos' : '/produtos'} className="text-link">{english ? 'Explore collection' : 'Explorar coleção'}</Link></div></div>;
 
   const steps = [{ number: 1 as CheckoutStep, label: 'Seus dados' }, { number: 2 as CheckoutStep, label: 'Entrega' }, { number: 3 as CheckoutStep, label: 'Benefício' }, { number: 4 as CheckoutStep, label: 'Pagamento' }];
 

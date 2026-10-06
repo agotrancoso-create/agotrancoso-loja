@@ -43,6 +43,34 @@ async function run() {
   await tagPage.locator('.ago-consent-accept').click();
   await tagPage.waitForFunction(() => (window.dataLayer || []).some(x => x[0] === 'event' && x[1] === 'page_view'));
   assert.equal(await tagPage.locator('head script[src*="googletagmanager.com/gtag/js?id=AW-18232525092"]').count(), 1);
+
+  // "Ver rota" is a click-only Google Ads conversion. It must not fire on load
+  // or on unrelated links, and each real route click must enqueue exactly once.
+  await tagPage.goto(base + '/en', {waitUntil:'domcontentloaded'});
+  await tagPage.locator('[data-google-ads-route="true"]').first().waitFor();
+  const routeConversionCount = () => tagPage.evaluate(() => (window.dataLayer || []).filter(x =>
+    x && x[0] === 'event' && x[1] === 'conversion' && x[2]?.send_to === 'AW-18232525092/YuEBCPGawsIcEKSC-fVD'
+  ).length);
+  assert.equal(await routeConversionCount(), 0, 'route conversion must not fire on page load');
+  const ordinaryLink = tagPage.locator('a[href^="/en/produtos"]').first();
+  await ordinaryLink.evaluate(el => el.addEventListener('click', event => event.preventDefault(), {once:true}));
+  await ordinaryLink.click();
+  assert.equal(await routeConversionCount(), 0, 'unrelated links must not fire route conversion');
+
+  const routeLink = tagPage.locator('[data-google-ads-route="true"]').first();
+  assert.match(await routeLink.getAttribute('href'), /^https:\/\/www\.google\.com\/maps\//);
+  assert.equal(await routeLink.getAttribute('target'), '_blank');
+  await routeLink.evaluate(el => el.addEventListener('click', event => event.preventDefault(), {once:true}));
+  await routeLink.click();
+  assert.equal(await routeConversionCount(), 1, 'desktop route click must enqueue exactly one conversion');
+
+  await tagPage.setViewportSize({width:390,height:844});
+  const mobileRouteLink = tagPage.locator('[data-google-ads-route="true"]').nth(1);
+  await mobileRouteLink.evaluate(el => el.addEventListener('click', event => event.preventDefault(), {once:true}));
+  await mobileRouteLink.click();
+  assert.equal(await routeConversionCount(), 2, 'mobile route click must enqueue exactly one additional conversion');
+
+  await tagPage.goto(base + '/en/produtos', {waitUntil:'domcontentloaded'});
   await tagPage.locator('.product-card-main').first().click();
   await tagPage.waitForURL('**/produtos/*');
   await tagPage.waitForFunction(() => (window.dataLayer || []).filter(x => x[0] === 'event' && x[1] === 'page_view').length === 2);
@@ -60,7 +88,7 @@ async function run() {
   assert.equal(await tagPage.locator('#ago-google-tag-loader').count(), 0);
   assert.deepEqual(tagErrors, []);
   await tagContext.close();
-  console.log('PASS Google Ads head placement, consent, navigation and no duplicate loader/config');
+  console.log('PASS Google Ads head placement, consent, route-click conversion, navigation and no duplicate loader/config');
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
   await page.addInitScript(() => {
     localStorage.setItem('ago_primeira_compra_v3_vista', '1');

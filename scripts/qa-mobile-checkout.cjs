@@ -23,15 +23,41 @@ async function layout(page) {
     ['android-pixel', chromium, 'Pixel 7'], ['android-small', chromium, 'Galaxy S9+'],
   ]) {
     browser = await engine.launch({headless:true});
-    const context = await browser.newContext({...devices[device], reducedMotion:'reduce'});
-    const page = await context.newPage();
     const errors=[];
-    page.on('pageerror', e => { errors.push(`${page.url()}: ${e.message}`); console.error('MOBILE_PAGE_ERROR',page.url(),e.message); });
+
+    // Keep the empty-bag regression isolated from the seeded purchase flow.
+    // This verifies the real empty state without leaking locale/storage history
+    // into the PT/EN cart scenario that follows.
+    const emptyContext = await browser.newContext({...devices[device], reducedMotion:'reduce'});
+    await emptyContext.addInitScript(() => {
+      localStorage.setItem('ago_privacy_consent_v1','essential');
+      localStorage.setItem('ago_primeira_compra_v3_vista','1');
+    });
+    await emptyContext.addCookies([{name:'ago_locale',value:'en',url:base}]);
+    const emptyPage = await emptyContext.newPage();
+    let emptyEligibilityRequests = 0;
+    emptyPage.on('request', request => {
+      if (request.url().includes('/api/first-purchase/eligibility')) emptyEligibilityRequests += 1;
+    });
+    emptyPage.on('pageerror', e => { errors.push(`${emptyPage.url()}: ${e.message}`); console.error('MOBILE_PAGE_ERROR',emptyPage.url(),e.message); });
+    await emptyPage.goto(base+'/en/checkout',{waitUntil:'domcontentloaded'});
+    await emptyPage.locator('.checkout-empty').waitFor();
+    assert.equal((await emptyPage.locator('.checkout-empty .eyebrow').textContent())?.trim(), 'Your bag');
+    assert.equal((await emptyPage.locator('.checkout-empty .checkout-title').textContent())?.trim(), 'Your bag is empty.');
+    assert.equal((await emptyPage.locator('.checkout-empty .text-link').textContent())?.trim(), 'Explore collection');
+    assert.equal(await emptyPage.locator('.checkout-empty .text-link').getAttribute('href'), '/en/produtos');
+    await emptyPage.waitForFunction(() => document.title === 'Complete purchase | Agô Trancoso');
+    assert.equal(emptyEligibilityRequests, 0, 'empty checkout must not request first-purchase eligibility');
+    await emptyContext.close();
+
+    const context = await browser.newContext({...devices[device], reducedMotion:'reduce'});
     await context.addInitScript(() => {
       localStorage.setItem('ago_privacy_consent_v1','essential');
       localStorage.setItem('ago_primeira_compra_v3_vista','1');
       localStorage.setItem('agotrancoso_carrinho_v1', JSON.stringify([{productId:'miniatura-quadrado-trancoso',quantity:1}]));
     });
+    const page = await context.newPage();
+    page.on('pageerror', e => { errors.push(`${page.url()}: ${e.message}`); console.error('MOBILE_PAGE_ERROR',page.url(),e.message); });
     await page.route('**/api/first-purchase/eligibility',route=>route.fulfill({json:{available:false}}));
     await page.route('**/api/create-checkout',route=>route.abort());
     for (const locale of ['pt','en']) {
@@ -134,18 +160,21 @@ async function layout(page) {
         assert.equal(await page.locator('.checkout-form-panel').getByRole('alert').innerText(), 'Enter your full name.');
       }
       await page.getByRole('button',{name:locale==='en'?/Open bag/:/Abrir sacola/}).first().click();
-      assert.equal(await bag.locator('select').inputValue(), 'international');
+      assert.equal(await bag.locator('.cart-destination-options button[aria-pressed="true"]').innerText(), locale === 'en' ? 'International' : 'Exterior');
       assert.doesNotMatch(await bag.locator('.cart-summary').innerText(), /39,90|519,90|frete grátis|free shipping/);
       assert.match(await bag.locator('.cart-total-row').innerText(), /480,00/);
       assert.equal(await bag.locator('.cart-checkout').getAttribute('href'), prefix+'/envio-internacional');
       await bag.getByRole('button',{name:locale==='en'?/Increase quantity of/:/Aumentar quantidade de/}).first().click();
       assert.doesNotMatch(await bag.locator('.cart-summary').innerText(), /free shipping|frete grátis/);
       await bag.getByRole('button',{name:locale==='en'?/Decrease quantity of/:/Diminuir quantidade de/}).first().click();
-      await bag.locator('select').selectOption('brazil');
+      await bag.getByRole('button',{name:locale==='en'?'Brazil':'Brasil',exact:true}).click();
+      assert.equal(await bag.locator('.cart-destination-options button[aria-pressed="true"]').innerText(), locale === 'en' ? 'Brazil' : 'Brasil');
       assert.match(await bag.locator('.cart-total-row').innerText(), /519,90/);
       await bag.locator('.cart-close').click();
       if (locale === 'en') {
-        await page.goto(base+'/en/produtos',{waitUntil:'networkidle'});
+        await page.goto(base+'/en/produtos',{waitUntil:'domcontentloaded'});
+        await page.locator('.catalog-interface').waitFor();
+        await page.getByLabel('Find a piece',{exact:true}).waitFor();
         await page.getByLabel('Find a piece',{exact:true}).fill('zzzznonexistent');
         assert.match(await page.locator('.catalog-empty').innerText(), /No pieces matched/);
         assert.doesNotMatch(await page.locator('.catalog-interface').innerText(), /Encontre|Ordenar|Nenhum|Limpar|Todas|Faixa/);

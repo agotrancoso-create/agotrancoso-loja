@@ -51,7 +51,7 @@ export default function ContatoPage() {
             <div className="contact-links">
               <a href={whatsappLink('Olá! Vim pelo site da Agô Trancoso.')} target="_blank" rel="noopener noreferrer" className="info-link" aria-label="Falar com a Agô Trancoso pelo WhatsApp"><span>Falar no WhatsApp</span><span aria-hidden="true">↗</span></a>
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="info-link" aria-label="Abrir Instagram da Agô Trancoso"><span>@{INSTAGRAM_HANDLE} no Instagram</span><span aria-hidden="true">↗</span></a>
-              <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="info-link" aria-label="Abrir localização no Google Maps"><span>Abrir no Google Maps</span><span aria-hidden="true">↗</span></a>
+              <a href={mapsUrl} target="_blank" rel="noopener noreferrer" data-google-ads-route="true" className="info-link" aria-label="Abrir localização no Google Maps"><span>Abrir no Google Maps</span><span aria-hidden="true">↗</span></a>
             </div>
 
             <div className="info-panel">
@@ -61,7 +61,7 @@ export default function ContatoPage() {
                 <span>Praça São João Batista, Trancoso</span>
                 <span>Porto Seguro · Bahia</span>
               </address>
-              <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="contact-location-button">Ver localização</a>
+              <a href={mapsUrl} target="_blank" rel="noopener noreferrer" data-google-ads-route="true" className="contact-location-button">Ver localização</a>
             </div>
           </section>
         </div>

@@ -302,12 +302,14 @@ export default function LocaleRuntime() {
     };
     const linkObserver = new MutationObserver(rewriteLinks);
     const cancelTranslation = afterInitialRender(() => {
-      document.documentElement.lang = resolved === 'en' ? 'en' : 'pt-BR';
-      document.documentElement.dataset.locale = resolved;
-      if (resolved === 'en') translateNode(document.body);
-      observer.observe(document.body, { childList: true, subtree: true });
-      rewriteLinks();
-      linkObserver.observe(document.body, { childList: true, subtree: true });
+      if (resolved === 'en') {
+        if (document.documentElement.lang !== 'en') document.documentElement.lang = 'en';
+        document.documentElement.dataset.locale = 'en';
+        translateNode(document.body);
+        observer.observe(document.body, { childList: true, subtree: true });
+        rewriteLinks();
+        linkObserver.observe(document.body, { childList: true, subtree: true });
+      }
       setPortalTarget(document.querySelector('.header-actions'));
     });
     return () => {

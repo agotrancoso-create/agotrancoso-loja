@@ -44,6 +44,32 @@ export default function GoogleTag() {
       document.head.appendChild(tag);
     }
   }
+  window.gtag_report_conversion = function (url) {
+    var callback = function () {
+      if (typeof(url) != 'undefined') {
+        window.location = url;
+      }
+    };
+    if (typeof window.gtag !== 'function') {
+      callback();
+      return false;
+    }
+    window.gtag('event', 'conversion', {
+      'send_to': 'AW-18232525092/YuEBCPGawsIcEKSC-fVD',
+      'event_callback': callback
+    });
+    return false;
+  };
+
+  document.addEventListener('click', function (event) {
+    var element = event.target instanceof Element ? event.target.closest('a[data-google-ads-route="true"]') : null;
+    if (!element) return;
+    if (element.dataset.agoRouteConversionSent === '1') return;
+    element.dataset.agoRouteConversionSent = '1';
+    window.setTimeout(function () { delete element.dataset.agoRouteConversionSent; }, 0);
+    window.gtag_report_conversion();
+  }, true);
+
   window.addEventListener('ago:privacy-consent', sync);
   sync();
 })();`;
