@@ -266,7 +266,7 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
                 <div className="mobile-search-suggestions">
                   {suggestions.slice(0, 4).map((product) => (
                     <button type="button" key={product.id} onClick={() => chooseProduct(product.id)}>
-                      <span>{product.name}</span><small>{formatBRL(getEffectivePrice(product))}</small>
+                      <span>{english ? (cartEnglish[product.name] || product.name) : product.name}</span><small>{formatBRL(getEffectivePrice(product))}</small>
                     </button>
                   ))}
                 </div>
