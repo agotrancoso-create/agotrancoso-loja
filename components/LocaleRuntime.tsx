@@ -229,6 +229,11 @@ const exact: Record<string, string> = {
   'Você encontra a Agô no Quadrado de Trancoso, em Porto Seguro, Bahia. Pode ver as peças na nossa banca durante a viagem ou comprar pelo site depois de voltar para casa.': 'You can find Agô in the Trancoso Quadrado, Porto Seguro, Bahia. See the pieces at our stand during your trip or shop online after you return home.',
   'Como chegar à Agô ↗': 'Directions to Agô ↗',
   'Conhecer o artesanato em cerâmica ↗': 'Discover our ceramic craft ↗',
+  'O Quadrado, a igrejinha, as casinhas coloridas. Escolha um presente que leve um pouco de Trancoso para o dia a dia.': 'The Quadrado, its church and colorful houses. Choose a gift that brings a little of Trancoso into everyday life.',
+  'Há versões P, M e GG, além da Igrejinha Luminária.': 'There are small, medium and large versions, plus the Church Luminary.',
+  'Também enviamos para todo o Brasil e fazemos cotação internacional sob consulta.': 'We ship throughout Brazil and provide international shipping quotes on request.',
+  'Enviamos para todo o Brasil. O frete fixo é de': 'We ship throughout Brazil. Fixed shipping is',
+  '; quando houver frete grátis para o pedido, o desconto aparece na sacola. Para confirmar o prazo de entrega no seu endereço, fale com a Agô antes de comprar.': '; when free shipping applies, the discount appears in your bag. To confirm the delivery estimate for your address, contact Agô before purchasing.',
 
   // Legal
   'Termos de Uso': 'Terms of Use',
@@ -325,6 +330,8 @@ const patternTranslations: Array<[RegExp, (match: RegExpMatchArray) => string]> 
   [/^O Quadrado, a igrejinha, as casinhas coloridas\. Escolha um presente que leve um pouco de Trancoso para o dia a dia\. Peças nesta seleção a partir de (.+)\.$/, (m) => `The Quadrado, its church and colorful houses. Choose a gift that brings a little of Trancoso into everyday life. Pieces in this selection start at ${m[1]}.`],
   [/^Há versões P, M e GG, além da Igrejinha Luminária\. As igrejinhas em cerâmica disponíveis começam em (.+)\. Também enviamos para todo o Brasil e fazemos cotação internacional sob consulta\.$/, (m) => `There are small, medium and large versions, plus the Church Luminary. Available ceramic churches start at ${m[1]}. We ship throughout Brazil and provide international shipping quotes on request.`],
   [/^Enviamos para todo o Brasil\. O frete fixo é de (.+); quando houver frete grátis para o pedido, o desconto aparece na sacola\. Para confirmar o prazo de entrega no seu endereço, fale com a Agô antes de comprar\.$/, (m) => `We ship throughout Brazil. Fixed shipping is ${m[1]}; when free shipping applies, the discount appears in your bag. To confirm the delivery estimate for your address, contact Agô before purchasing.`],
+  [/^Peças nesta seleção a partir de (.+)\.$/, (m) => `Pieces in this selection start at ${m[1]}.`],
+  [/^As igrejinhas em cerâmica disponíveis começam em (.+)\.$/, (m) => `Available ceramic churches start at ${m[1]}.`],
 ];
 
 function translateExact(value: string) {
