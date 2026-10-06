@@ -65,9 +65,6 @@ export default function CheckoutPage() {
   const setAssisted = setInternational;
   const t = (message: string) => checkoutMessage(message, english);
 
-  useEffect(() => {
-    document.title = english ? 'Complete purchase | Agô Trancoso' : 'Finalizar compra | Agô Trancoso';
-  }, [english]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [stepError, setStepError] = useState<string | null>(null);
