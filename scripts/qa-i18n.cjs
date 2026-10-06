@@ -71,7 +71,9 @@ async function run() {
 
     await page.goto(base + '/en', { waitUntil: 'networkidle' });
     await page.waitForFunction(() => document.documentElement.lang === 'en');
+    await page.waitForFunction(() => document.title === 'Ceramics in Trancoso | Agô Trancoso');
     assert.equal((await page.getByRole('heading', { level: 1 }).first().innerText()).trim(), 'Trancoso in ceramic.', `english hero@${width}`);
+    assert.match((await page.locator('.ago-footer-place').innerText()).trim(), /Brazil$/, `english footer country@${width}`);
     assert.match((await page.locator('.ago-cinematic-copy').first().innerText()), /Churches, little houses and keepsakes from the Quadrado\./, `english hero support@${width}`);
     assert.equal(await page.locator('.ago-language-switcher button[aria-pressed="true"]').innerText(), 'EN', `english switch@${width}`);
     await assertNoOverflow(page, `en-home@${width}`);
@@ -81,6 +83,7 @@ async function run() {
 
     await page.goto(base + '/en/produtos/miniatura-quadrado-trancoso', { waitUntil: 'networkidle' });
     await page.waitForFunction(() => document.documentElement.lang === 'en');
+    await page.waitForFunction(() => document.title === 'Hanging Miniature of the Trancoso Quadrado | Agô Trancoso');
     assert.equal((await page.getByRole('heading', { level: 1 }).innerText()).trim(), 'Hanging Miniature of the Trancoso Quadrado', `English product title@${width}`);
     assert.match((await page.locator('.product-description').innerText()).trim(), /Quadrado in miniature/i, `English product description@${width}`);
     assert.match((await page.locator('.product-buybox').innerText()), /Measurements/i, `English product facts@${width}`);
@@ -88,6 +91,7 @@ async function run() {
 
     await page.goto(base + '/en/checkout', { waitUntil: 'networkidle' });
     await page.waitForFunction(() => document.documentElement.lang === 'en');
+    await page.waitForFunction(() => document.title === 'Complete purchase | Agô Trancoso');
     await assertNoOverflow(page, `en-checkout@${width}`);
 
     await page.close();
