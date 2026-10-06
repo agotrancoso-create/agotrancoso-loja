@@ -215,7 +215,7 @@ export default function CartDrawer() {
         {lines.length > 0 && (
           <div className="cart-summary">
             <label className="cart-summary-row">{english ? 'Delivery destination' : 'Destino da entrega'}
-              <select aria-label={english ? 'Delivery destination' : 'Destino da entrega'} value={international ? 'international' : 'brazil'} onChange={event => setInternational(event.target.value === 'international')}>
+              <select className="min-w-0 rounded-lg border border-current bg-transparent px-2 py-2 text-base" aria-label={english ? 'Delivery destination' : 'Destino da entrega'} value={international ? 'international' : 'brazil'} onChange={event => setInternational(event.target.value === 'international')}>
                 <option value="brazil">{english ? 'Brazil' : 'Brasil'}</option><option value="international">{english ? 'Outside Brazil' : 'Fora do Brasil'}</option>
               </select>
             </label>

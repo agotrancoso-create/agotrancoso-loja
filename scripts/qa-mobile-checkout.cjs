@@ -144,6 +144,17 @@ async function layout(page) {
       await bag.locator('select').selectOption('brazil');
       assert.match(await bag.locator('.cart-total-row').innerText(), /519,90/);
       await bag.locator('.cart-close').click();
+      if (locale === 'en') {
+        await page.goto(base+'/en/produtos',{waitUntil:'networkidle'});
+        await page.getByLabel('Find a piece',{exact:true}).fill('zzzznonexistent');
+        assert.match(await page.locator('.catalog-empty').innerText(), /No pieces matched/);
+        assert.doesNotMatch(await page.locator('.catalog-interface').innerText(), /Encontre|Ordenar|Nenhum|Limpar|Todas|Faixa/);
+        assert.match(page.url(), /\/en\/produtos/);
+        await page.getByRole('button',{name:'Clear filters',exact:true}).click();
+        await page.getByRole('button',{name:'Sort by: Featured',exact:true}).click();
+        await page.getByRole('option',{name:'Lowest price',exact:true}).click();
+        assert.match(await page.locator('.catalog-results-meta').innerText(), /pieces found/);
+      }
       results.push({device:name,locale,status:'passed'});
     }
     assert.deepEqual(errors,[],`${name} runtime errors`);

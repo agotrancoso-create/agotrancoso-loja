@@ -283,7 +283,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
             type="button"
             className="catalog-sort-trigger"
             ref={sortButton}
-            aria-label={`Ordenar por: ${t(selectedSortLabel)}`}
+            aria-label={`${t('Ordenar por')}: ${t(selectedSortLabel)}`}
             aria-controls={sortOpen ? 'catalog-sort-options' : undefined}
             onKeyDown={(event) => { if (['ArrowDown', 'ArrowUp'].includes(event.key)) { event.preventDefault(); setSortOpen(true); } }}
             aria-haspopup="listbox"
