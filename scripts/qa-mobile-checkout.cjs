@@ -40,12 +40,10 @@ async function layout(page) {
       const prefix=locale==='en'?'/en':'';
       if (locale === 'en') {
         await page.goto(base+'/en/checkout?qa-empty=1',{waitUntil:'domcontentloaded'});
-        await page.evaluate(() => localStorage.removeItem('agotrancoso_carrinho_v1'));
-        await page.reload({waitUntil:'domcontentloaded'});
         await page.locator('.checkout-empty').waitFor();
-        assert.equal(await page.locator('.checkout-empty .eyebrow').innerText(), 'Your bag');
-        assert.equal(await page.locator('.checkout-empty .checkout-title').innerText(), 'Your bag is empty.');
-        assert.equal(await page.locator('.checkout-empty .text-link').innerText(), 'Explore collection');
+        assert.equal((await page.locator('.checkout-empty .eyebrow').textContent())?.trim(), 'Your bag');
+        assert.equal((await page.locator('.checkout-empty .checkout-title').textContent())?.trim(), 'Your bag is empty.');
+        assert.equal((await page.locator('.checkout-empty .text-link').textContent())?.trim(), 'Explore collection');
         assert.equal(await page.locator('.checkout-empty .text-link').getAttribute('href'), '/en/produtos');
         await page.waitForFunction(() => document.title === 'Complete purchase | Agô Trancoso');
       }
