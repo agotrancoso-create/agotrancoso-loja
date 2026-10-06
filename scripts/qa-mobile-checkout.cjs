@@ -171,7 +171,9 @@ async function layout(page) {
       assert.match(await bag.locator('.cart-total-row').innerText(), /519,90/);
       await bag.locator('.cart-close').click();
       if (locale === 'en') {
-        await page.goto(base+'/en/produtos',{waitUntil:'networkidle'});
+        await page.goto(base+'/en/produtos',{waitUntil:'domcontentloaded'});
+        await page.locator('.catalog-interface').waitFor();
+        await page.getByLabel('Find a piece',{exact:true}).waitFor();
         await page.getByLabel('Find a piece',{exact:true}).fill('zzzznonexistent');
         assert.match(await page.locator('.catalog-empty').innerText(), /No pieces matched/);
         assert.doesNotMatch(await page.locator('.catalog-interface').innerText(), /Encontre|Ordenar|Nenhum|Limpar|Todas|Faixa/);
