@@ -41,7 +41,11 @@ async function run() {
     contentType: 'application/json',
     body: JSON.stringify(route.request().method() === 'GET' ? { available: true } : { eligible: true }),
   }));
-  page.on('pageerror', error => results.errors.push(error.message));
+  page.on('pageerror', error => {
+    const message = `${page.url()}: ${error.message}`;
+    results.errors.push(message);
+    console.error('QA_PAGE_ERROR', message);
+  });
 
   async function visit(path) {
     await page.goto(base + path, { waitUntil: 'domcontentloaded' });
