@@ -296,14 +296,14 @@ export default function LocaleRuntime() {
         if (anchor.dataset.noLocale === 'true') return;
         const href = anchor.getAttribute('href');
         if (!href || href.startsWith('/api/') || href.startsWith('/_next/')) return;
-        const nextHref = resolved === 'en' ? addEnglishPrefix(href) : stripEnglishPrefix(href);
-        if (nextHref !== href) anchor.setAttribute('href', nextHref);
+        if (resolved === 'en') anchor.setAttribute('href', addEnglishPrefix(href));
+        else anchor.setAttribute('href', stripEnglishPrefix(href));
       });
     };
     const linkObserver = new MutationObserver(rewriteLinks);
     const cancelTranslation = afterInitialRender(() => {
-      const nextLang = resolved === 'en' ? 'en' : 'pt-BR';
-      if (document.documentElement.lang !== nextLang) document.documentElement.lang = nextLang;
+      document.documentElement.lang = resolved === 'en' ? 'en' : 'pt-BR';
+      document.documentElement.dataset.locale = resolved;
       if (resolved === 'en') translateNode(document.body);
       observer.observe(document.body, { childList: true, subtree: true });
       rewriteLinks();
