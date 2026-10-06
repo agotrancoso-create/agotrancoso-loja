@@ -1,5 +1,8 @@
 'use client';
 
+import { useSiteEnglish } from '@/lib/use-site-english';
+import { catalogEnglish } from '@/lib/catalog-copy';
+import { cartEnglish } from '@/lib/cart-copy';
 import Image from '@/components/ProductImage';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -61,11 +64,13 @@ function budgetLabel(value: BudgetFilter) {
 }
 
 function replaceCatalogUrl(params: URLSearchParams) {
-  const href = `/produtos${params.size ? `?${params.toString()}` : ''}`;
+  const href = `${window.location.pathname.startsWith('/en/') ? '/en' : ''}/produtos${params.size ? `?${params.toString()}` : ''}`;
   window.history.replaceState(window.history.state, '', href);
 }
 
 export default function ProdutosClient({ products, categories, initialFilters }: { products: Product[]; categories: Category[]; initialFilters: { query: string; category: string; budget: string; sort: string } }) {
+  const english = useSiteEnglish();
+  const t = (text: string) => english ? (catalogEnglish[text] ?? cartEnglish[text] ?? text) : text;
   const [query, setQuery] = useState(initialFilters.query);
   const [category, setCategory] = useState(initialFilters.category);
   const [budget, setBudget] = useState<BudgetFilter>(readBudget(initialFilters.budget));
@@ -220,10 +225,10 @@ export default function ProdutosClient({ products, categories, initialFilters }:
   }
 
   return (
-    <div className="catalog-interface">
+    <div className="catalog-interface" data-no-translate="true">
       <div className="catalog-tools">
         <div className="catalog-search-wrap">
-          <label htmlFor="catalog-search">Encontre uma peça</label>
+          <label htmlFor="catalog-search">{t("Encontre uma peça")}</label>
           <div className="catalog-search-area" onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setSearchFocused(false); }} onKeyDown={(event) => {
             if (event.key === 'Escape') { event.preventDefault(); document.getElementById('catalog-search')?.focus(); setSearchFocused(false); }
             const links = Array.from(event.currentTarget.querySelectorAll<HTMLAnchorElement>('.catalog-search-suggestion'));
@@ -238,7 +243,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
                 value={query}
                 onChange={(e) => { setQuery(e.target.value); setSearchFocused(true); updateUrl({ query: e.target.value }); }}
                 onFocus={() => setSearchFocused(true)}
-                placeholder="Igrejinha, luminária, presente…"
+                placeholder={t("Igrejinha, luminária, presente…")}
                 autoComplete="off"
                 aria-controls={showSuggestions ? 'catalog-search-suggestions' : undefined}
               />
@@ -246,16 +251,16 @@ export default function ProdutosClient({ products, categories, initialFilters }:
             </div>
 
             {showSuggestions && (
-              <div id="catalog-search-suggestions" className="catalog-search-suggestions" role="navigation" aria-label="Sugestões de peças">
+              <div id="catalog-search-suggestions" className="catalog-search-suggestions" role="navigation" aria-label={t("Sugestões de peças")}>
                 {suggestions.map((product) => {
                   const image = getAttentionCoverImage(product);
                   return (
-                    <Link key={product.id} href={`/produtos/${product.id}`} className="catalog-search-suggestion">
+                    <Link key={product.id} href={`${english ? "/en" : ""}/produtos/${product.id}`} className="catalog-search-suggestion">
                       <span className="catalog-search-suggestion-image">
                         <Image src={image} alt="" width={54} height={54} />
                       </span>
                       <span className="catalog-search-suggestion-copy">
-                        <strong>{product.name}</strong>
+                        <strong>{t(product.name)}</strong>
                         <small>{formatBRL(productPrice(product))}</small>
                       </span>
                       <span className="catalog-search-suggestion-arrow" aria-hidden="true">↗</span>
@@ -273,23 +278,23 @@ export default function ProdutosClient({ products, categories, initialFilters }:
             if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setSortOpen(false);
           }}
         >
-          <span id="catalog-sort-label" className="catalog-sort-label">Ordenar por</span>
+          <span id="catalog-sort-label" className="catalog-sort-label">{t("Ordenar por")}</span>
           <button
             type="button"
             className="catalog-sort-trigger"
             ref={sortButton}
-            aria-label={`Ordenar por: ${selectedSortLabel}`}
+            aria-label={`Ordenar por: ${t(selectedSortLabel)}`}
             aria-controls={sortOpen ? 'catalog-sort-options' : undefined}
             onKeyDown={(event) => { if (['ArrowDown', 'ArrowUp'].includes(event.key)) { event.preventDefault(); setSortOpen(true); } }}
             aria-haspopup="listbox"
             aria-expanded={sortOpen}
             onClick={() => setSortOpen((open) => !open)}
           >
-            <span>{selectedSortLabel}</span>
+            <span>{t(selectedSortLabel)}</span>
             <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5.5 7.5 4.5 4.5 4.5-4.5" /></svg>
           </button>
           {sortOpen && (
-            <div id="catalog-sort-options" ref={sortMenu} className="catalog-sort-menu" role="listbox" aria-label="Ordenar peças" onKeyDown={(event) => {
+            <div id="catalog-sort-options" ref={sortMenu} className="catalog-sort-menu" role="listbox" aria-label={t("Ordenar peças")} onKeyDown={(event) => {
               const options = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>('[role=option]'));
               const index = options.indexOf(event.target as HTMLButtonElement);
               if (event.key === 'Escape') { event.preventDefault(); setSortOpen(false); sortButton.current?.focus(); }
@@ -312,7 +317,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
                     sortButton.current?.focus();
                   }}
                 >
-                  <span>{option.label}</span>
+                  <span>{t(option.label)}</span>
                   {sort === option.value && <span aria-hidden="true">✓</span>}
                 </button>
               ))}
@@ -321,36 +326,36 @@ export default function ProdutosClient({ products, categories, initialFilters }:
         </div>
       </div>
 
-      <div className="catalog-category-row" role="group" aria-label="Filtrar por categoria">
-        <button type="button" aria-pressed={category === 'todas'} className="catalog-category-option" onClick={() => selectCategory('todas')}>Todas</button>
+      <div className="catalog-category-row" role="group" aria-label={t("Filtrar por categoria")}>
+        <button type="button" aria-pressed={category === 'todas'} className="catalog-category-option" onClick={() => selectCategory('todas')}>{t("Todas")}</button>
         {categories.map((item) => (
-          <button type="button" key={item.id} aria-pressed={category === item.id} className="catalog-category-option" onClick={() => selectCategory(item.id)}>{item.name}</button>
+          <button type="button" key={item.id} aria-pressed={category === item.id} className="catalog-category-option" onClick={() => selectCategory(item.id)}>{t(item.name)}</button>
         ))}
       </div>
 
       <div className="catalog-budget-control" role="group" aria-labelledby="catalog-budget-label">
-        <span id="catalog-budget-label">Faixa de preço</span>
+        <span id="catalog-budget-label">{t("Faixa de preço")}</span>
         <div className="catalog-budget-options">
-          <button type="button" aria-pressed={!budget} onClick={() => selectBudget('')}>Todos os valores</button>
+          <button type="button" aria-pressed={!budget} onClick={() => selectBudget('')}>{t("Todos os valores")}</button>
           {budgetOptions.map(option => (
             <button type="button" key={option.value} aria-pressed={budget === option.value} onClick={() => selectBudget(option.value)}>
-              {option.label}
+              {t(option.label)}
             </button>
           ))}
         </div>
       </div>
 
       <div className="catalog-results-meta" aria-live="polite">
-        <span>{filtered.length} {filtered.length === 1 ? 'peça encontrada' : 'peças encontradas'}</span>
-        {hasFilters && <button type="button" onClick={clearFilters}>Limpar filtros</button>}
+        <span>{filtered.length} {english ? (filtered.length === 1 ? 'piece found' : 'pieces found') : (filtered.length === 1 ? 'peça encontrada' : 'peças encontradas')}</span>
+        {hasFilters && <button type="button" onClick={clearFilters}>{t("Limpar filtros")}</button>}
       </div>
 
       {filtered.length === 0 ? (
         <div className="catalog-empty">
-          <p className="eyebrow">Nenhum resultado</p>
-          <h2>Essa busca não encontrou uma peça.</h2>
-          <p>Tente outro nome ou amplie a faixa de preço. Você também pode explorar toda a coleção.</p>
-          <button type="button" className="button button-dark" onClick={clearFilters}>Ver toda a coleção</button>
+          <p className="eyebrow">{t("Nenhum resultado")}</p>
+          <h2>{t("Essa busca não encontrou uma peça.")}</h2>
+          <p>{t("Tente outro nome ou amplie a faixa de preço. Você também pode explorar toda a coleção.")}</p>
+          <button type="button" className="button button-dark" onClick={clearFilters}>{t("Ver toda a coleção")}</button>
         </div>
       ) : (
         <div className="product-grid catalog-grid">

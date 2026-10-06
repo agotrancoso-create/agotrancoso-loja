@@ -9,6 +9,16 @@ const COOKIE = 'ago_locale';
 type Locale = 'pt' | 'en';
 
 const exact: Record<string, string> = {
+  'Coleção Agô': 'Agô collection',
+  'Cerâmica para viver e guardar.': 'Ceramics to live with and treasure.',
+  'Agô Trancoso, página inicial': 'Agô Trancoso, home',
+  'Agô Trancoso, início': 'Agô Trancoso, home',
+  'Escolher pela intenção': 'Shop by purpose',
+  'Localização da Agô': 'Agô location',
+  'Falar com a Agô Trancoso': 'Contact Agô Trancoso',
+  'Ver Agô Trancoso no Instagram': 'View Agô Trancoso on Instagram',
+  'Mapa da Agô Trancoso no Quadrado': 'Map of Agô Trancoso in the Quadrado',
+
   'Ver as peças da banca': 'View pieces from our stall',
   'Ver lembranças': 'View keepsakes',
   // Hero e home

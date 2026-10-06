@@ -17,7 +17,7 @@ function formatBRL(value: number) {
 }
 
 export default function CartDrawer() {
-  const { items, isDrawerOpen, closeDrawer, updateQuantity, removeItem, addItem } = useCart();
+  const { international, setInternational, items, isDrawerOpen, closeDrawer, updateQuantity, removeItem, addItem } = useCart();
   const pathname = usePathname();
   const [english, setEnglish] = useState(false);
   useEffect(() => {
@@ -75,8 +75,8 @@ export default function CartDrawer() {
 
   const subtotal = lines.reduce((sum, line) => sum + getEffectivePrice(line.product) * line.item.quantity, 0);
   const freeShipping = shouldOfferFreeShipping(subtotal);
-  const shipping = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
-  const total = subtotal + shipping;
+  const shipping = international ? null : freeShipping ? 0 : FIXED_SHIPPING_PRICE;
+  const total = subtotal + (shipping ?? 0);
   const remaining = Math.max(0, Number((FREE_SHIPPING_SUBTOTAL_MINIMUM - subtotal).toFixed(2)));
   const progressTarget = FREE_SHIPPING_SUBTOTAL_MINIMUM;
   const progress = Math.min(100, (subtotal / progressTarget) * 100);
@@ -196,7 +196,7 @@ export default function CartDrawer() {
                       <div className="cart-complementary-info">
                         <Link href={href(`/produtos/${product.id}`)} onClick={() => { trackSelectItem(item, 'Sugestões da sacola'); closeDrawer(); }}><strong>{t(product.name)}</strong></Link>
                         <span>{formatBRL(price)}</span>
-                        {!freeShipping && shouldOfferFreeShipping(subtotal + price) && <small>{t('Com esta peça, seu pedido ganha frete grátis.')}</small>}
+                        {!international && !freeShipping && shouldOfferFreeShipping(subtotal + price) && <small>{t('Com esta peça, seu pedido ganha frete grátis.')}</small>}
                       </div>
                       <button
                         type="button"
@@ -214,16 +214,21 @@ export default function CartDrawer() {
 
         {lines.length > 0 && (
           <div className="cart-summary">
-            <div className="cart-shipping-progress-block">
+            <label className="cart-summary-row">{english ? 'Delivery destination' : 'Destino da entrega'}
+              <select aria-label={english ? 'Delivery destination' : 'Destino da entrega'} value={international ? 'international' : 'brazil'} onChange={event => setInternational(event.target.value === 'international')}>
+                <option value="brazil">{english ? 'Brazil' : 'Brasil'}</option><option value="international">{english ? 'Outside Brazil' : 'Fora do Brasil'}</option>
+              </select>
+            </label>
+            {!international && <div className="cart-shipping-progress-block">
               {!freeShipping ? <p className="cart-shipping-message">{english ? 'Add ' : 'Faltam '}<strong>{formatBRL(remaining)}</strong>{english ? ' more for free shipping.' : ' para o frete grátis.'}</p> : <p className="cart-shipping-message is-free">{t('Você ganhou frete grátis neste pedido.')}</p>}
               <div className="cart-shipping-progress" aria-hidden="true"><span style={{ width: progress + '%' }} /></div>
               <div className="cart-shipping-progress-labels"><span>{t('Frete fixo R$ 39,90')}</span><span>{t('Grátis a partir de R$ 500 em produtos')}</span></div>
-            </div>
+            </div>}
             <div className="cart-summary-row"><span>{t('Subtotal')}</span><span>{formatBRL(subtotal)}</span></div>
-            <div className="cart-summary-row"><span>{t('Frete')}</span><span>{freeShipping ? t('Grátis') : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
-            <div className="cart-total-row"><span>{t('Total')}</span><strong>{formatBRL(total)}</strong></div>
-            <Link href={href('/checkout')} onClick={closeDrawer} className="cart-checkout">{t('Finalizar pedido')}</Link>
-            <p className="cart-checkout-reassurance">{t('Sem criar conta · Pagamento pela InfinitePay')}</p>
+            <div className="cart-summary-row"><span>{t('Frete')}</span><span>{international ? (english ? 'Quoted separately' : 'Sob consulta') : freeShipping ? t('Grátis') : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
+            <div className="cart-total-row"><span>{international ? (english ? 'Products total' : 'Total das peças') : t('Total')}</span><strong>{formatBRL(total)}</strong></div>
+            <Link href={href(international ? '/envio-internacional' : '/checkout')} onClick={closeDrawer} className="cart-checkout">{international ? (english ? 'Request shipping quote' : 'Consultar frete') : t('Finalizar pedido')}</Link>
+            <p className="cart-checkout-reassurance">{international ? (english ? 'Shipping and final total confirmed before payment.' : 'Frete e total final confirmados antes do pagamento.') : t('Sem criar conta · Pagamento pela InfinitePay')}</p>
             <button type="button" onClick={closeDrawer} className="cart-continue">{t('Continuar escolhendo')}</button>
           </div>
         )}

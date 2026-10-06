@@ -59,10 +59,11 @@ type ShippingQuote = {
 };
 
 export default function CheckoutPage() {
-  const { items, hydrated } = useCart();
+  const { items, hydrated, international, setInternational } = useCart();
   const pathname = usePathname();
   const [english, setEnglish] = useState(false);
-  const [assisted, setAssisted] = useState(false);
+  const assisted = international;
+  const setAssisted = setInternational;
   useEffect(() => { setEnglish(pathname === '/en' || pathname.startsWith('/en/') || document.documentElement.lang === 'en' || document.cookie.split('; ').includes('ago_locale=en')); }, [pathname]);
   const t = (message: string) => checkoutMessage(message, english);
   const [loading, setLoading] = useState(false);
