@@ -1,5 +1,7 @@
 'use client';
 
+import { accessibilityEnglish } from '@/lib/accessibility-copy';
+
 import { afterInitialRender } from '@/lib/after-initial-render';
 import { createPortal } from 'react-dom';
 import { useEffect, useMemo, useState } from 'react';
@@ -9,6 +11,7 @@ const COOKIE = 'ago_locale';
 type Locale = 'pt' | 'en';
 
 const exact: Record<string, string> = {
+  ...accessibilityEnglish,
   'Coleção Agô': 'Agô collection',
   'Cerâmica para viver e guardar.': 'Ceramics to live with and treasure.',
   'Agô Trancoso, página inicial': 'Agô Trancoso, home',

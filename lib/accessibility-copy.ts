@@ -1,0 +1,17 @@
+export const accessibilityEnglish: Record<string, string> = {
+  "Agô Trancoso, página inicial": "Agô Trancoso, home",
+  "Agô Trancoso, início": "Agô Trancoso, home",
+  "Escolher pela intenção": "Shop by purpose",
+  "Localização da Agô": "Agô location",
+  "Falar com a Agô Trancoso": "Contact Agô Trancoso",
+  "Ver Agô Trancoso no Instagram": "View Agô Trancoso on Instagram",
+  "View Agô Trancoso no Instagram": "View Agô Trancoso on Instagram",
+  "Carregando conteúdo": "Loading content",
+  "Fotografias reais da banca e das peças da Agô no Quadrado de Trancoso": "Photographs of the Agô stall and ceramics in the Trancoso Quadrado",
+  "Igrejinhas e peças de cerâmica da Agô no Quadrado de Trancoso": "Ceramic churches and pieces from Agô in the Trancoso Quadrado",
+  "Casinhas e igrejinhas em cerâmica na banca da Agô, com a Igreja do Quadrado ao fundo": "Ceramic houses and churches at the Agô stall, with the Quadrado church in the background",
+  "Trancoso — coleção Agô Trancoso": "Trancoso — Agô Trancoso collection",
+  "Casa & decoração — coleção Agô Trancoso": "Home & decor — Agô Trancoso collection",
+  "Fé & devoção — coleção Agô Trancoso": "Faith & devotion — Agô Trancoso collection",
+  "Presentes — coleção Agô Trancoso": "Gifts — Agô Trancoso collection"
+};

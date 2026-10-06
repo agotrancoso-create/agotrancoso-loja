@@ -1,11 +1,14 @@
 'use client';
 
+import { accessibilityEnglish } from '@/lib/accessibility-copy';
+
 import { afterInitialRender } from '@/lib/after-initial-render';
 import { useEffect } from 'react';
 
 const COOKIE = 'ago_locale';
 
 const exact: Record<string, string> = {
+  ...accessibilityEnglish,
   'Faixa indicativa após a postagem, não consultada nos Correios. Confirme o prazo antes de comprar.': 'Indicative range after posting, not checked with Correios. Confirm the delivery time before ordering.',
   'Hand-shaped ceramic pieces, since 2016 in the Quadrado.': 'Churches, little houses and keepsakes from the Quadrado.',
   'A Agô reúne cerâmicas que carregam referências de Trancoso, para decorar, presentear e guardar uma lembrança especial.': 'Agô brings together ceramic pieces inspired by Trancoso, for decorating, gifting and keeping a special memory of the place.',
