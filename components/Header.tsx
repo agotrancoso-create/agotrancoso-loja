@@ -8,6 +8,8 @@ import { useCart } from '@/context/CartContext';
 import { getAvailableProducts, getEffectivePrice } from '@/lib/products';
 import { getAttentionCoverImage } from '@/lib/merchandising';
 import CartIcon from './CartIcon';
+import { cartEnglish } from '@/lib/cart-copy';
+import { useSiteEnglish } from '@/lib/use-site-english';
 import { productSearchScore } from '@/lib/product-search';
 
 const navItems = [
@@ -42,8 +44,8 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
   const searchWrapRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
-  const [english, setEnglish] = useState(false);
-  useEffect(() => { setEnglish(pathname === '/en' || pathname.startsWith('/en/') || document.cookie.split('; ').includes('ago_locale=en')); }, [pathname]);
+  const english = useSiteEnglish();
+  const collectionPath = english ? '/en/produtos' : '/produtos';
   const { totalItems, openDrawer } = useCart();
   const products = useMemo(() => getAvailableProducts(), []);
 
@@ -106,7 +108,7 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
 
   function handleSearch(event: React.FormEvent) {
     event.preventDefault();
-    router.push(query.trim() ? `/produtos?busca=${encodeURIComponent(query.trim())}` : '/produtos');
+    router.push(query.trim() ? `${collectionPath}?busca=${encodeURIComponent(query.trim())}` : collectionPath);
     setSearchFocused(false);
     setMenuOpen(false);
   }
@@ -114,7 +116,7 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
   function chooseProduct(id: string) {
     setSearchFocused(false);
     setMenuOpen(false);
-    router.push(`/produtos/${id}`);
+    router.push(`${collectionPath}/${id}`);
   }
 
   const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href.split('?')[0]);
@@ -147,9 +149,9 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
           </nav>
 
           <div className="header-actions">
-            <div className="header-search-wrap" ref={searchWrapRef} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setSearchFocused(false); }}>
+            <div className="header-search-wrap" data-no-translate="true" ref={searchWrapRef} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setSearchFocused(false); }}>
               <form onSubmit={handleSearch} className="header-search-form" role="search">
-                <label className="sr-only" htmlFor="header-search">Buscar uma peça</label>
+                <label className="sr-only" htmlFor="header-search">{english ? 'Search for a piece' : 'Buscar uma peça'}</label>
                 <input
                   id="header-search"
                   type="search"
@@ -163,7 +165,7 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
                       document.getElementById(`ago-search-suggestion-${suggestions[0].id}`)?.focus();
                     }
                   }}
-                  placeholder="Buscar"
+                  placeholder={english ? 'Search' : 'Buscar'}
                   className="header-search"
                   autoComplete="off"
                   aria-controls={showSuggestions ? 'ago-search-suggestions' : undefined}
@@ -171,7 +173,7 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
               </form>
 
               {showSuggestions && (
-                <div id="ago-search-suggestions" className="ago-search-suggestions" aria-label="Sugestões de peças">
+                <div id="ago-search-suggestions" className="ago-search-suggestions" aria-label={english ? 'Product suggestions' : 'Sugestões de peças'}>
                   {suggestions.length > 0 ? (
                     <>
                       {suggestions.map((product, index) => (
@@ -200,19 +202,19 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
                             <Image src={getAttentionCoverImage(product)} alt="" fill sizes="48px" />
                           </span>
                           <span className="ago-search-suggestion-copy">
-                            <strong>{product.name}</strong>
+                            <strong>{english ? (cartEnglish[product.name] || product.name) : product.name}</strong>
                             <small>{formatBRL(getEffectivePrice(product))}</small>
                           </span>
                           <span className="ago-search-suggestion-arrow" aria-hidden="true">↗</span>
                         </button>
                       ))}
-                      <button type="button" className="ago-search-view-all" onClick={() => { router.push(`/produtos?busca=${encodeURIComponent(query.trim())}`); setSearchFocused(false); }}>
-                        Ver resultados para “{query.trim()}”
+                      <button type="button" className="ago-search-view-all" onClick={() => { router.push(`${collectionPath}?busca=${encodeURIComponent(query.trim())}`); setSearchFocused(false); }}>
+                        {english ? `View results for “${query.trim()}”` : `Ver resultados para “${query.trim()}”`}
                       </button>
                     </>
                   ) : (
-                    <button type="button" className="ago-search-view-all" onClick={() => { router.push(`/produtos?busca=${encodeURIComponent(query.trim())}`); setSearchFocused(false); }}>
-                      Buscar “{query.trim()}” na coleção
+                    <button type="button" className="ago-search-view-all" onClick={() => { router.push(`${collectionPath}?busca=${encodeURIComponent(query.trim())}`); setSearchFocused(false); }}>
+                      {english ? `Search the collection for “${query.trim()}”` : `Buscar “${query.trim()}” na coleção`}
                     </button>
                   )}
                 </div>
@@ -258,7 +260,7 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
         {menuOpen && (
           <div id="mobile-navigation" className="mobile-menu" ref={menuRef}>
             <form onSubmit={handleSearch} className="mobile-search-form" role="search">
-              <label className="sr-only" htmlFor="mobile-search">Buscar uma peça</label>
+              <label className="sr-only" htmlFor="mobile-search">{english ? 'Search for a piece' : 'Buscar uma peça'}</label>
               <input id="mobile-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar na coleção" autoComplete="off" />
               {query.trim() && (
                 <div className="mobile-search-suggestions">

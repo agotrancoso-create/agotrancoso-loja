@@ -81,6 +81,19 @@ async function run() {
     const collectionHref = await page.getByRole('link', { name: /View full collection/i }).first().getAttribute('href');
     assert.ok(collectionHref && collectionHref.startsWith('/en/'), `English internal link must keep locale@${width}: ${collectionHref}`);
 
+    if (width === 1440) {
+      const search = page.getByRole('searchbox', { name: 'Search for a piece', exact: true });
+      await search.fill('house');
+      await page.getByRole('button', { name: /Ceramic House Luminary/ }).waitFor();
+      assert.match(await page.locator('#ago-search-suggestions').innerText(), /View results for/);
+      await search.press('Enter');
+      await page.waitForURL('**/en/produtos?busca=house');
+      await page.getByRole('heading', { name: 'Ceramic House Luminary', exact: true }).waitFor();
+      await page.goto(base + '/en/produtos/nonexistent-quality-check', { waitUntil: 'networkidle' });
+      await page.getByRole('heading', { name: 'We couldn’t find this page.', exact: true }).waitFor();
+      assert.equal(await page.getByRole('link', { name: 'View collection', exact: true }).getAttribute('href'), '/en/produtos');
+    }
+
     await page.goto(base + '/en/produtos/miniatura-quadrado-trancoso', { waitUntil: 'networkidle' });
     await page.waitForFunction(() => document.documentElement.lang === 'en');
     await page.waitForFunction(() => document.title === 'Hanging Miniature of the Trancoso Quadrado | Agô Trancoso');
