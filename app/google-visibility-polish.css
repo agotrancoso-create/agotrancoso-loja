@@ -634,3 +634,161 @@ body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-i
 body:has(.checkout-page) .ago-social-floaters { display: none !important; }
 /* Reduced-motion rules must not reveal the keyboard-only skip link. */
 .ago-skip-link:not(:focus) { clip-path: inset(50%); pointer-events: none; }
+
+
+/* DEVELOPER POLISH — benefits strip
+   Preserve the existing copy and SVG artwork; only refine composition and surface. */
+body .ago-home section.benefits-strip.ago-benefits-reference.ago-benefits-icons-2026 {
+  padding-block: clamp(24px, 2.8vw, 34px) !important;
+  background: #f3ede4 !important;
+  background-image: none !important;
+  border-top: 1px solid rgba(73, 50, 39, .10) !important;
+  border-bottom: 1px solid rgba(73, 50, 39, .10) !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefits-reference-inner {
+  width: min(1180px, calc(100% - 48px)) !important;
+  margin-inline: auto !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefits-icon-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  align-items: stretch !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item {
+  min-height: 92px !important;
+  display: grid !important;
+  grid-template-columns: 54px minmax(0, 1fr) !important;
+  gap: 14px !important;
+  align-items: center !important;
+  padding: 8px clamp(18px, 2vw, 28px) !important;
+  border-right: 1px solid rgba(73, 50, 39, .11) !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item:first-child {
+  padding-left: 0 !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item:last-child {
+  padding-right: 0 !important;
+  border-right: 0 !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon,
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-craft,
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-vase,
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-brazil,
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-world,
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-truck {
+  width: 52px !important;
+  height: 52px !important;
+  padding: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  color: #6a4b3d !important;
+  background: rgba(255, 255, 255, .44) !important;
+  border: 1px solid rgba(106, 75, 61, .14) !important;
+  border-radius: 17px !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon svg {
+  width: 34px !important;
+  height: 34px !important;
+  stroke-width: 1.45 !important;
+  filter: none !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon::before,
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon::after {
+  display: none !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-copy {
+  display: grid !important;
+  gap: 4px !important;
+  min-width: 0 !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-copy strong {
+  color: #3d2a22 !important;
+  font-size: clamp(.95rem, 1.05vw, 1.08rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.012em !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-copy small {
+  max-width: 22ch !important;
+  color: #735f54 !important;
+  font-size: .71rem !important;
+  line-height: 1.42 !important;
+}
+
+@media (max-width: 980px) {
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefits-reference-inner {
+    width: min(720px, calc(100% - 36px)) !important;
+  }
+
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefits-icon-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item {
+    padding: 14px 20px !important;
+  }
+
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item:nth-child(2n) {
+    border-right: 0 !important;
+  }
+
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item:nth-child(-n+2) {
+    border-bottom: 1px solid rgba(73, 50, 39, .10) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  body .ago-home section.benefits-strip.ago-benefits-reference.ago-benefits-icons-2026 {
+    padding-block: 18px !important;
+  }
+
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefits-reference-inner {
+    width: calc(100% - 28px) !important;
+  }
+
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefits-icon-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item {
+    min-height: 74px !important;
+    grid-template-columns: 46px minmax(0, 1fr) !important;
+    gap: 12px !important;
+    padding: 12px 2px !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(73, 50, 39, .09) !important;
+  }
+
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item:last-child {
+    border-bottom: 0 !important;
+  }
+
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon,
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-craft,
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-vase,
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-brazil,
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-world,
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-truck {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 14px !important;
+  }
+
+  body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon svg {
+    width: 29px !important;
+    height: 29px !important;
+  }
+}
