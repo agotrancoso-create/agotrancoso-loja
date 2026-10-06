@@ -73,6 +73,14 @@ async function run() {
       localStorage.setItem('ago_privacy_consent_v1', 'essential');
     });
 
+    // A stale English preference cookie must never translate a Portuguese URL
+    // during hydration; the URL itself determines the rendered locale.
+    await page.context().addCookies([{ name: 'ago_locale', value: 'en', url: base }]);
+    await page.goto(base + '/nossa-essencia', { waitUntil: 'networkidle' });
+    assert.equal(await page.locator('html').getAttribute('lang'), 'pt-BR', `pt route ignores stale en cookie@${width}`);
+    assert.equal((await page.getByRole('heading', { level: 1 }).innerText()).trim(), 'O que vemos por aqui ganha outra forma.', `pt route stays Portuguese@${width}`);
+    await page.context().clearCookies();
+
     await page.goto(base + '/', { waitUntil: 'networkidle' });
     assert.equal(await page.locator('html').getAttribute('lang'), 'pt-BR', `pt lang@${width}`);
     assert.equal((await page.locator('.ago-cinematic-copy > p:not(.eyebrow)').first().innerText()).trim(), 'Igrejinhas, casinhas e lembranças do Quadrado.', `approved hero copy@${width}`);
