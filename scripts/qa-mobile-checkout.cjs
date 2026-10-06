@@ -30,23 +30,28 @@ async function layout(page) {
     await context.addInitScript(() => {
       localStorage.setItem('ago_privacy_consent_v1','essential');
       localStorage.setItem('ago_primeira_compra_v3_vista','1');
-      if (!location.search.includes('qa-empty=1')) localStorage.setItem('agotrancoso_carrinho_v1', JSON.stringify([{productId:'miniatura-quadrado-trancoso',quantity:1}]));
     });
     await page.route('**/api/first-purchase/eligibility',route=>route.fulfill({json:{available:false}}));
     await page.route('**/api/create-checkout',route=>route.abort());
+
+    // Verify the English empty-bag state before the seeded cart is installed.
+    await context.addCookies([{name:'ago_locale',value:'en',url:base}]);
+    await page.goto(base+'/en/checkout',{waitUntil:'domcontentloaded'});
+    await page.locator('.checkout-empty').waitFor();
+    assert.equal((await page.locator('.checkout-empty .eyebrow').textContent())?.trim(), 'Your bag');
+    assert.equal((await page.locator('.checkout-empty .checkout-title').textContent())?.trim(), 'Your bag is empty.');
+    assert.equal((await page.locator('.checkout-empty .text-link').textContent())?.trim(), 'Explore collection');
+    assert.equal(await page.locator('.checkout-empty .text-link').getAttribute('href'), '/en/produtos');
+    await page.waitForFunction(() => document.title === 'Complete purchase | Agô Trancoso');
+    await context.clearCookies();
+
+    await context.addInitScript(() => {
+      localStorage.setItem('agotrancoso_carrinho_v1', JSON.stringify([{productId:'miniatura-quadrado-trancoso',quantity:1}]));
+    });
     for (const locale of ['pt','en']) {
       await context.clearCookies();
       await context.addCookies([{name:'ago_locale',value:locale,url:base}]);
       const prefix=locale==='en'?'/en':'';
-      if (locale === 'en') {
-        await page.goto(base+'/en/checkout?qa-empty=1',{waitUntil:'domcontentloaded'});
-        await page.locator('.checkout-empty').waitFor();
-        assert.equal((await page.locator('.checkout-empty .eyebrow').textContent())?.trim(), 'Your bag');
-        assert.equal((await page.locator('.checkout-empty .checkout-title').textContent())?.trim(), 'Your bag is empty.');
-        assert.equal((await page.locator('.checkout-empty .text-link').textContent())?.trim(), 'Explore collection');
-        assert.equal(await page.locator('.checkout-empty .text-link').getAttribute('href'), '/en/produtos');
-        await page.waitForFunction(() => document.title === 'Complete purchase | Agô Trancoso');
-      }
       await page.goto(base+prefix+'/',{waitUntil:'networkidle'});
       await layout(page);
       const benefits = page.locator('.ago-benefits-reference');
