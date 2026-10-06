@@ -275,9 +275,6 @@ export default function LocaleRuntime() {
   useEffect(() => {
     const resolved: Locale = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/') ? 'en' : localeFromCookie();
     setLocale(resolved);
-    document.documentElement.lang = resolved === 'en' ? 'en' : 'pt-BR';
-    document.documentElement.dataset.locale = resolved;
-
 
     const observer = new MutationObserver((records) => {
       if (resolved !== 'en') return;
@@ -305,13 +302,14 @@ export default function LocaleRuntime() {
     };
     const linkObserver = new MutationObserver(rewriteLinks);
     const cancelTranslation = afterInitialRender(() => {
+      document.documentElement.lang = resolved === 'en' ? 'en' : 'pt-BR';
+      document.documentElement.dataset.locale = resolved;
       if (resolved === 'en') translateNode(document.body);
       observer.observe(document.body, { childList: true, subtree: true });
       rewriteLinks();
       linkObserver.observe(document.body, { childList: true, subtree: true });
+      setPortalTarget(document.querySelector('.header-actions'));
     });
-
-    setPortalTarget(document.querySelector('.header-actions'));
     return () => {
       cancelTranslation();
       observer.disconnect();
