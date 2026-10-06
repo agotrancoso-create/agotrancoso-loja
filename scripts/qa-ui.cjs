@@ -183,9 +183,45 @@ async function run() {
   }
   results.interactions.push('19 product routes and every rendered gallery image decode');
 
-  // Catalog discovery: search, no-results recovery, categories and sorting.
+  // Header autocomplete: unfinished words and colloquial aliases must resolve
+  // to the intended product before the user has to submit a full search.
+  await visit('/');
+  const headerSearch = page.getByLabel('Buscar uma peça').first();
+  await headerSearch.fill('casinh');
+  await page.locator('#ago-search-suggestion-casinha-luminaria').waitFor();
+  assert.equal(
+    await page.locator('#ago-search-suggestions .ago-search-suggestion').first().getAttribute('id'),
+    'ago-search-suggestion-casinha-luminaria',
+    'partial "casinh" should rank Casinha Luminária first'
+  );
+  await page.locator('#ago-search-suggestion-casinha-luminaria').click();
+  await page.waitForURL('**/produtos/casinha-luminaria');
+
+  // Catalog discovery: search relevance, no-results recovery, categories and sorting.
   await visit('/produtos');
   const search = page.getByLabel('Encontre uma peça').first();
+
+  for (const [term, expectedId] of [
+    ['casinh', 'casinha-luminaria'],
+    ['house', 'casinha-luminaria'],
+    ['igrejinha luminaria', 'igrejinha-luminaria-trancoso'],
+    ['preto velho', 'casal-pretos-velhos'],
+    ['aparecida', 'nossa-senhora-aparecida'],
+  ]) {
+    await search.fill(term);
+    await page.locator('.catalog-search-suggestion').first().waitFor();
+    assert.equal(
+      (await page.locator('.catalog-search-suggestion').first().getAttribute('href'))?.split('/').pop(),
+      expectedId,
+      `Wrong first search suggestion for "${term}"`
+    );
+    assert.equal(
+      await page.locator('.catalog-grid .product-card:visible').first().getAttribute('data-product-id'),
+      expectedId,
+      `Wrong first catalog result for "${term}"`
+    );
+  }
+
   await search.fill('igreja');
   await page.locator('.catalog-search-suggestion').first().waitFor();
   assert.ok(await page.locator('.catalog-search-suggestion img').count() > 0);
@@ -223,7 +259,7 @@ async function run() {
   await waitForVisibleCatalogCards(products.filter(product => product.available).length);
   assert.equal(await visibleCatalogCardCount(), products.filter(product => product.available).length);
   results.interactions.push('Catalog search and sorting survive reload; invalid category and sort recover to the full collection');
-  results.interactions.push('Predictive search, complete price ranges, no-results recovery, every category and sorting verified');
+  results.interactions.push('Predictive search handles partial words, bilingual aliases and relevance ranking; complete price ranges, no-results recovery, every category and sorting verified');
 
   // Modern gallery: keyboard navigation + full-piece lightbox + zoom + reset + Escape.
   await page.setViewportSize({ width: 390, height: 844 });
