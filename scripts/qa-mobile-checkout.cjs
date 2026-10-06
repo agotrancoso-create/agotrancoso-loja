@@ -160,14 +160,15 @@ async function layout(page) {
         assert.equal(await page.locator('.checkout-form-panel').getByRole('alert').innerText(), 'Enter your full name.');
       }
       await page.getByRole('button',{name:locale==='en'?/Open bag/:/Abrir sacola/}).first().click();
-      assert.equal(await bag.locator('select').inputValue(), 'international');
+      assert.equal(await bag.locator('.cart-destination-options button[aria-pressed="true"]').innerText(), locale === 'en' ? 'International' : 'Exterior');
       assert.doesNotMatch(await bag.locator('.cart-summary').innerText(), /39,90|519,90|frete grátis|free shipping/);
       assert.match(await bag.locator('.cart-total-row').innerText(), /480,00/);
       assert.equal(await bag.locator('.cart-checkout').getAttribute('href'), prefix+'/envio-internacional');
       await bag.getByRole('button',{name:locale==='en'?/Increase quantity of/:/Aumentar quantidade de/}).first().click();
       assert.doesNotMatch(await bag.locator('.cart-summary').innerText(), /free shipping|frete grátis/);
       await bag.getByRole('button',{name:locale==='en'?/Decrease quantity of/:/Diminuir quantidade de/}).first().click();
-      await bag.locator('select').selectOption('brazil');
+      await bag.getByRole('button',{name:locale==='en'?'Brazil':'Brasil',exact:true}).click();
+      assert.equal(await bag.locator('.cart-destination-options button[aria-pressed="true"]').innerText(), locale === 'en' ? 'Brazil' : 'Brasil');
       assert.match(await bag.locator('.cart-total-row').innerText(), /519,90/);
       await bag.locator('.cart-close').click();
       if (locale === 'en') {
