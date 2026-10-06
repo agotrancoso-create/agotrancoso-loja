@@ -459,14 +459,16 @@ main {
   }
 }
 
-/* FINAL OVERRIDE — benefícios com desenho editorial, leve e monocromático. */
+/* FINAL OVERRIDE — benefícios com paleta Agô, nunca cinza.
+   Este bloco é deliberadamente mais específico que as camadas históricas. */
 body .ago-home section.benefits-strip.ago-benefits-reference.ago-benefits-icons-2026 {
-  background: #f8f2e9 !important;
+  background-color: #e9dfcf !important;
+  background-image: none !important;
   color: #3b281f !important;
   opacity: 1 !important;
   filter: none !important;
   mix-blend-mode: normal !important;
-  border-color: rgba(92, 58, 39, .10) !important;
+  border-color: rgba(92, 58, 39, .16) !important;
 }
 
 body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item {
@@ -477,15 +479,25 @@ body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-i
 }
 
 body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon {
-  width: 60px !important;
-  height: 60px !important;
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
-  color: #704a3a !important;
   opacity: 1 !important;
   filter: none !important;
   mix-blend-mode: normal !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-craft {
+  color: #9f432c !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-vase {
+  color: #235c42 !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-brazil {
+  color: #99620b !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-truck {
+  color: #2f6686 !important;
 }
 
 body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon svg,
@@ -497,15 +509,28 @@ body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-i
 }
 
 body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon svg {
-  width: 52px !important;
-  height: 52px !important;
-  stroke-width: 1.35 !important;
-  filter: none !important;
+  stroke-width: 2.05 !important;
+  filter: drop-shadow(0 4px 7px rgba(63, 39, 28, .16)) !important;
 }
 
-body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon::before,
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-craft::before {
+  background: radial-gradient(circle, rgba(159,67,44,.20), rgba(159,67,44,.07) 62%, transparent 74%) !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-vase::before {
+  background: radial-gradient(circle, rgba(35,92,66,.20), rgba(35,92,66,.07) 62%, transparent 74%) !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-brazil::before {
+  background: radial-gradient(circle, rgba(153,98,11,.22), rgba(153,98,11,.07) 62%, transparent 74%) !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon-truck::before {
+  background: radial-gradient(circle, rgba(47,102,134,.20), rgba(47,102,134,.07) 62%, transparent 74%) !important;
+}
+
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon::before {
+  opacity: 1 !important;
+}
 body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-line-icon::after {
-  display: none !important;
+  opacity: .10 !important;
 }
 
 body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-copy,
@@ -522,12 +547,12 @@ body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-c
   text-transform: none !important;
 }
 body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-copy small {
-  color: #6b554b !important;
+  color: #5a3d30 !important;
 }
 
 body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item::before,
 body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-item::after {
-  background-color: rgba(94, 61, 43, .10) !important;
+  background-color: rgba(94, 61, 43, .18) !important;
 }
 
 /* The four benefit drawings are accessible, useful navigation targets. */
