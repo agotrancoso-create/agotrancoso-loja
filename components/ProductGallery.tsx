@@ -1,5 +1,7 @@
 'use client';
 
+import { useSiteEnglish } from '@/lib/use-site-english';
+import { cartEnglish } from '@/lib/cart-copy';
 import Image from '@/components/ProductImage';
 import PhotoLightbox from './PhotoLightbox';
 import { useRef, useState } from 'react';
@@ -25,6 +27,9 @@ function ZoomIcon() {
 }
 
 export default function ProductGallery({ productId, name, images }: ProductGalleryProps) {
+  const english = useSiteEnglish();
+  const displayName = english ? (cartEnglish[name] || name) : name;
+  const t = (pt: string, en: string) => english ? en : pt;
   const safeImages = images.filter(Boolean).length ? images.filter(Boolean) : ['/images/placeholder.svg'];
   const [active, setActive] = useState(0);
   const [expanded, setExpanded] = useState(false);
@@ -48,13 +53,13 @@ export default function ProductGallery({ productId, name, images }: ProductGalle
   }
 
   return (
-    <div className="product-gallery" data-product-id={productId} aria-label={`Galeria de ${name}`}>
+    <div data-no-translate="true" className="product-gallery" data-product-id={productId} aria-label={english ? `Gallery of ${displayName}` : `Galeria de ${name}`}>
       <div
         className="product-gallery-main"
         data-photo-index={active + 1}
         role="group"
         tabIndex={0}
-        aria-label={`Fotos de ${name}`}
+        aria-label={english ? `Photos of ${displayName}` : `Fotos de ${name}`}
         onKeyDown={(event) => {
           if (safeImages.length < 2) return;
           if (event.key === 'ArrowRight') { event.preventDefault(); go(active + 1, 'next'); }
@@ -76,7 +81,7 @@ export default function ProductGallery({ productId, name, images }: ProductGalle
         <button
           type="button"
           className="ago-gallery-open"
-          aria-label={`Ampliar foto de ${name}`}
+          aria-label={english ? `Enlarge photo of ${displayName}` : `Ampliar foto de ${name}`}
           onClick={() => {
             if (swiped.current) { swiped.current = false; return; }
             track('open', active);
@@ -85,43 +90,43 @@ export default function ProductGallery({ productId, name, images }: ProductGalle
         >
           <Image
             src={safeImages[active]}
-            alt={`${name}, foto ${active + 1} de ${safeImages.length}`}
+            alt={english ? `${displayName}, photo ${active + 1} of ${safeImages.length}` : `${name}, foto ${active + 1} de ${safeImages.length}`}
             fill
             priority={active === 0}
             quality={100}
             sizes="(max-width: 960px) 100vw, 960px"
             className="product-gallery-image"
           />
-          <span className="ago-gallery-zoom-hint"><ZoomIcon /><span>Ampliar</span></span>
+          <span className="ago-gallery-zoom-hint"><ZoomIcon /><span>{t('Ampliar', 'Enlarge')}</span></span>
         </button>
 
         <span className="product-gallery-counter" aria-live="polite">{String(active + 1).padStart(2, '0')} / {String(safeImages.length).padStart(2, '0')}</span>
 
         {safeImages.length > 1 && (
-          <div className="product-gallery-arrows" aria-label="Navegar pelas fotos">
-            <button type="button" onClick={() => go(active - 1, 'previous')} className="product-gallery-arrow" aria-label="Foto anterior"><Chevron direction="left" /></button>
-            <button type="button" onClick={() => go(active + 1, 'next')} className="product-gallery-arrow" aria-label="Próxima foto"><Chevron direction="right" /></button>
+          <div className="product-gallery-arrows" aria-label={t('Navegar pelas fotos', 'Browse photos')}>
+            <button type="button" onClick={() => go(active - 1, 'previous')} className="product-gallery-arrow" aria-label={t('Foto anterior', 'Previous photo')}><Chevron direction="left" /></button>
+            <button type="button" onClick={() => go(active + 1, 'next')} className="product-gallery-arrow" aria-label={t('Próxima foto', 'Next photo')}><Chevron direction="right" /></button>
           </div>
         )}
       </div>
 
       {safeImages.length > 1 && (
-        <div className="product-gallery-dots" aria-label="Posição na galeria">
+        <div className="product-gallery-dots" aria-label={t('Posição na galeria', 'Gallery position')}>
           {safeImages.map((_, index) => (
-            <button key={index} type="button" onClick={() => select(index)} aria-label={`Ir para foto ${index + 1}`} aria-current={active === index ? 'true' : undefined} className={active === index ? 'is-active' : ''} />
+            <button key={index} type="button" onClick={() => select(index)} aria-label={`${t('Ir para foto', 'Go to photo')} ${index + 1}`} aria-current={active === index ? 'true' : undefined} className={active === index ? 'is-active' : ''} />
           ))}
         </div>
       )}
 
       {safeImages.length > 1 && (
-        <div className="product-gallery-thumbs" aria-label="Selecionar foto">
+        <div className="product-gallery-thumbs" aria-label={t('Selecionar foto', 'Select photo')}>
           {safeImages.map((src, index) => (
             <button
               key={`${src}-${index}`}
               type="button"
               data-photo-index={index + 1}
               onClick={() => select(index)}
-              aria-label={`Ver foto ${index + 1}`}
+              aria-label={`${t('Ver foto', 'View photo')} ${index + 1}`}
               aria-current={active === index ? 'true' : undefined}
               className={`product-gallery-thumb${active === index ? ' is-active' : ''}`}
             >

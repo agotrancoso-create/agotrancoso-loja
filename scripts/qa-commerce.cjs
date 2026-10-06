@@ -38,6 +38,15 @@ async function checkout(items,coupon='',overrides={}) {
   return {status:response.status,data:await response.json()};
 }
 (async()=>{
+  const { productSearchScore } = require('../lib/product-search.ts');
+  const { cartEnglish } = require('../lib/cart-copy.ts');
+  for (const product of getAllProducts()) {
+    assert.ok(productSearchScore(product, product.name) > 0, `Portuguese search: ${product.name}`);
+    if (cartEnglish[product.name]) assert.ok(productSearchScore(product, cartEnglish[product.name]) > 0, `English search: ${cartEnglish[product.name]}`);
+  }
+  const house = getAllProducts().find(product => product.name === 'Casinha Luminária');
+  for (const query of ['house', 'luminary', 'h', 'casinha', 'CASINHA LUMINÁRIA']) assert.ok(productSearchScore(house, query) > 0, `House search: ${query}`);
+  assert.equal(productSearchScore(house, 'unrelated nonexistent item'), 0);
   assert.equal(isValidCPF('529.982.247-25'),true);
   assert.equal(getBrazilianDocumentType('529.982.247-25'),'CPF');
   assert.equal(isValidCPF('111.111.111-11'),false);

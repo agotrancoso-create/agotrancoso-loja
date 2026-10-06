@@ -81,6 +81,19 @@ async function run() {
     const collectionHref = await page.getByRole('link', { name: /View full collection/i }).first().getAttribute('href');
     assert.ok(collectionHref && collectionHref.startsWith('/en/'), `English internal link must keep locale@${width}: ${collectionHref}`);
 
+    if (width === 1440) {
+      const search = page.getByRole('searchbox', { name: 'Search for a piece', exact: true });
+      await search.fill('house');
+      await page.locator('#ago-search-suggestions').getByRole('button', { name: /Ceramic House Luminary/ }).waitFor();
+      assert.match(await page.locator('#ago-search-suggestions').innerText(), /View results for/);
+      await search.press('Enter');
+      await page.waitForURL('**/en/produtos?busca=house');
+      await page.getByRole('heading', { name: 'Ceramic House Luminary', exact: true }).waitFor();
+      await page.goto(base + '/en/produtos/nonexistent-quality-check', { waitUntil: 'networkidle' });
+      await page.getByRole('heading', { name: 'We couldn’t find this page.', exact: true }).waitFor();
+      assert.equal(await page.getByRole('link', { name: 'View collection', exact: true }).getAttribute('href'), '/en/produtos');
+    }
+
     await page.goto(base + '/en/produtos/miniatura-quadrado-trancoso', { waitUntil: 'networkidle' });
     await page.waitForFunction(() => document.documentElement.lang === 'en');
     await page.waitForFunction(() => document.title === 'Hanging Miniature of the Trancoso Quadrado | Agô Trancoso');
@@ -88,6 +101,26 @@ async function run() {
     assert.match((await page.locator('.product-description').innerText()).trim(), /Quadrado in miniature/i, `English product description@${width}`);
     assert.match((await page.locator('.product-buybox').innerText()), /Measurements/i, `English product facts@${width}`);
     await assertNoOverflow(page, `en-product@${width}`);
+    assert.match(await page.locator('.purchase-selection-summary').innerText(), /This selection with shipping/);
+    await page.getByRole('button', { name: 'Check shipping', exact: true }).click();
+    assert.equal(await page.locator('.product-delivery-error').innerText(), 'Enter a valid 8-digit Brazilian postal code.');
+    await page.getByRole('button', { name: /Enlarge photo of/ }).click();
+    await page.getByRole('button', { name: 'Zoom in', exact: true }).click();
+    assert.match(await page.locator('.ago-photo-help').innerText(), /Drag to explore details/);
+    await page.getByRole('button', { name: 'Close enlarged view', exact: true }).click();
+    if (width === 1440) {
+      await page.getByRole('button', { name: /^Add to bag: 1 unit of/ }).click();
+      await page.getByRole('button', { name: 'International', exact: true }).click();
+      await page.getByRole('button', { name: 'Close bag', exact: true }).click();
+      const summary = await page.locator('.purchase-selection-summary').innerText();
+      assert.match(summary, /International shipping quoted separately/);
+      assert.doesNotMatch(summary, /39[,.]90|519[,.]90/);
+      assert.equal(await page.locator('.product-delivery-estimator').count(), 0);
+      await page.getByRole('button', { name: 'Open bag with 1 item', exact: true }).click();
+      await page.getByRole('button', { name: 'Brazil', exact: true }).click();
+      await page.getByRole('button', { name: 'Close bag', exact: true }).click();
+      assert.match(await page.locator('.purchase-selection-summary').innerText(), /519,90/);
+    }
 
     await page.goto(base + '/en/checkout', { waitUntil: 'networkidle' });
     await page.waitForFunction(() => document.documentElement.lang === 'en');
