@@ -84,7 +84,7 @@ async function run() {
     if (width === 1440) {
       const search = page.getByRole('searchbox', { name: 'Search for a piece', exact: true });
       await search.fill('house');
-      await page.getByRole('button', { name: /Ceramic House Luminary/ }).waitFor();
+      await page.locator('#ago-search-suggestions').getByRole('button', { name: /Ceramic House Luminary/ }).waitFor();
       assert.match(await page.locator('#ago-search-suggestions').innerText(), /View results for/);
       await search.press('Enter');
       await page.waitForURL('**/en/produtos?busca=house');
