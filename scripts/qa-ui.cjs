@@ -203,6 +203,7 @@ async function run() {
 
   for (const [term, expectedId] of [
     ['casinh', 'casinha-luminaria'],
+    ['casnha', 'casinha-luminaria'],
     ['house', 'casinha-luminaria'],
     ['igrejinha luminaria', 'igrejinha-luminaria-trancoso'],
     ['preto velho', 'casal-pretos-velhos'],
