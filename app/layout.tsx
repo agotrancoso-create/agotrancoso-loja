@@ -151,8 +151,8 @@ const versionGuardScript = `
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`} data-build-version={buildVersion || undefined} suppressHydrationWarning>
-      <head><GoogleTag /></head>
       <body>
+        <GoogleTag />
         <a href="#conteudo-principal" className="ago-skip-link">Ir para o conteúdo</a>
         <MarketingAnalytics />
         <KlaviyoOnsite />
