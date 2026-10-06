@@ -133,6 +133,12 @@
 .cart-item-controls .cart-remove { padding: 8px; font-size: .75rem; margin-left: auto; background: transparent; text-decoration: underline; }
 .cart-item-total { grid-column: 2; font-weight: 800; font-size: 1rem; }
 .cart-summary { flex-shrink: 0; padding: 20px 24px calc(16px + env(safe-area-inset-bottom)); background: var(--sand); border-top: 1px solid var(--line); }
+.cart-destination { margin: 0 0 14px; padding: 0; border: 0; }
+.cart-destination legend { margin-bottom: 8px; font-size: .75rem; font-weight: 700; color: var(--muted); }
+.cart-destination-options { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: color-mix(in srgb, var(--ivory) 72%, transparent); }
+.cart-destination-options button { min-height: 42px; padding: 8px 14px; border-radius: 999px; font-size: .8125rem; font-weight: 700; color: var(--muted); transition: background .2s ease,color .2s ease,box-shadow .2s ease; }
+.cart-destination-options button.is-active { background: var(--cacao); color: var(--ivory); box-shadow: 0 4px 14px rgba(55,36,27,.12); }
+.cart-destination small { display: block; margin-top: 8px; font-size: .72rem; line-height: 1.45; color: var(--muted); }
 .cart-shipping-message { font-size: .8rem; line-height: 1.5; margin-bottom: 8px; }
 .cart-shipping-progress { height: 4px; border-radius: 4px; background: var(--clay); overflow: hidden; }
 .cart-shipping-progress span { display: block; height: 100%; background: var(--terracotta); transition: width .3s; }
