@@ -59,6 +59,40 @@ function canonical(word: string) {
   return synonyms[word] ?? word;
 }
 
+function isNearToken(a: string, b: string) {
+  if (a.length < 5 || b.length < 5 || Math.abs(a.length - b.length) > 1) return false;
+
+  if (a.length === b.length) {
+    const diffs: number[] = [];
+    for (let index = 0; index < a.length; index += 1) {
+      if (a[index] !== b[index]) diffs.push(index);
+      if (diffs.length > 2) return false;
+    }
+    if (diffs.length <= 1) return true;
+    return diffs.length === 2
+      && diffs[1] === diffs[0] + 1
+      && a[diffs[0]] === b[diffs[1]]
+      && a[diffs[1]] === b[diffs[0]];
+  }
+
+  const shorter = a.length < b.length ? a : b;
+  const longer = a.length < b.length ? b : a;
+  let shortIndex = 0;
+  let longIndex = 0;
+  let skipped = false;
+  while (shortIndex < shorter.length && longIndex < longer.length) {
+    if (shorter[shortIndex] === longer[longIndex]) {
+      shortIndex += 1;
+      longIndex += 1;
+      continue;
+    }
+    if (skipped) return false;
+    skipped = true;
+    longIndex += 1;
+  }
+  return true;
+}
+
 function tokenMatchScore(queryWord: string, candidateWord: string) {
   if (!queryWord || !candidateWord) return 0;
 
@@ -73,6 +107,10 @@ function tokenMatchScore(queryWord: string, candidateWord: string) {
   if (candidateCanonical === queryCanonical) return 95;
   if (queryCanonical.length >= 2 && candidateCanonical.startsWith(queryCanonical)) return 80;
   if (queryCanonical.length >= 3 && candidateCanonical.includes(queryCanonical)) return 60;
+
+  // Conservative typo tolerance: one insertion/deletion/substitution or one
+  // adjacent transposition, only for longer words to avoid noisy matches.
+  if (isNearToken(queryWord, candidateWord) || isNearToken(queryCanonical, candidateCanonical)) return 48;
 
   return 0;
 }
