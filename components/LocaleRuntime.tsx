@@ -374,11 +374,6 @@ function translateNode(root: ParentNode) {
   }
 }
 
-function localeFromCookie(): Locale {
-  const item = document.cookie.split('; ').find((entry) => entry.startsWith(`${COOKIE}=`));
-  return item?.split('=')[1] === 'en' ? 'en' : 'pt';
-}
-
 function stripEnglishPrefix(pathname: string) {
   if (pathname === '/en') return '/';
   return pathname.startsWith('/en/') ? pathname.slice(3) || '/' : pathname;
@@ -419,7 +414,9 @@ export default function LocaleRuntime() {
   const [portalTarget, setPortalTarget] = useState<Element | null>(null);
 
   useEffect(() => {
-    const resolved: Locale = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/') ? 'en' : localeFromCookie();
+    // The URL is the rendering source of truth. A stale language cookie must
+    // never cause a Portuguese route to mutate into English during hydration.
+    const resolved: Locale = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/') ? 'en' : 'pt';
     setLocale(resolved);
 
     const observer = new MutationObserver((records) => {
