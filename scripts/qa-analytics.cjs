@@ -30,6 +30,37 @@ async function run() {
     executablePath: process.env.CHROMIUM_PATH,
     args: ['--no-sandbox', '--disable-dev-shm-usage', '--use-gl=angle', '--use-angle=swiftshader'],
   });
+  // Google Ads shares one head loader with GA4, gated by the existing consent choice.
+  const tagContext = await browser.newContext();
+  const tagPage = await tagContext.newPage();
+  const tagErrors = [];
+  tagPage.on('pageerror', error => tagErrors.push(error.message));
+  await tagPage.route('https://www.googletagmanager.com/**', route => route.fulfill({contentType:'application/javascript', body:''}));
+  await tagPage.addInitScript(() => localStorage.setItem('ago_primeira_compra_v3_vista', '1'));
+  await tagPage.goto(base + '/en/produtos', {waitUntil:'networkidle'});
+  assert.equal(await tagPage.locator('head #ago-google-tag').count(), 1);
+  assert.equal(await tagPage.locator('script[src*="googletagmanager.com/gtag/js"]').count(), 0);
+  await tagPage.locator('.ago-consent-accept').click();
+  await tagPage.waitForFunction(() => (window.dataLayer || []).some(x => x[0] === 'event' && x[1] === 'page_view'));
+  assert.equal(await tagPage.locator('head script[src*="googletagmanager.com/gtag/js?id=AW-18232525092"]').count(), 1);
+  await tagPage.locator('.product-card-main').first().click();
+  await tagPage.waitForURL('**/produtos/*');
+  await tagPage.waitForFunction(() => (window.dataLayer || []).filter(x => x[0] === 'event' && x[1] === 'page_view').length === 2);
+  assert.equal(await tagPage.locator('script[src*="googletagmanager.com/gtag/js"]').count(), 1);
+  assert.equal(await tagPage.evaluate(() => window.dataLayer.filter(x => x[0] === 'config' && x[1] === 'AW-18232525092').length), 1);
+  await tagPage.reload({waitUntil:'networkidle'});
+  assert.equal(await tagPage.locator('head #ago-google-tag-loader').count(), 1);
+  assert.equal(await tagPage.evaluate(() => window.dataLayer.filter(x => x[0] === 'config' && x[1] === 'AW-18232525092').length), 1);
+  await tagPage.evaluate(() => {
+    localStorage.setItem('ago_privacy_consent_v1','essential');
+    window.dispatchEvent(new CustomEvent('ago:privacy-consent',{detail:'essential'}));
+  });
+  assert.equal(await tagPage.evaluate(() => Array.from(window.dataLayer).filter(x => x[0] === 'consent').at(-1)[2].ad_storage), 'denied');
+  await tagPage.reload({waitUntil:'networkidle'});
+  assert.equal(await tagPage.locator('#ago-google-tag-loader').count(), 0);
+  assert.deepEqual(tagErrors, []);
+  await tagContext.close();
+  console.log('PASS Google Ads head placement, consent, navigation and no duplicate loader/config');
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
   await page.addInitScript(() => {
     localStorage.setItem('ago_primeira_compra_v3_vista', '1');
