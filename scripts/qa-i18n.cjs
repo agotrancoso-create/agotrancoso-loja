@@ -108,6 +108,19 @@ async function run() {
     await page.getByRole('button', { name: 'Zoom in', exact: true }).click();
     assert.match(await page.locator('.ago-photo-help').innerText(), /Drag to explore details/);
     await page.getByRole('button', { name: 'Close enlarged view', exact: true }).click();
+    if (width === 1440) {
+      await page.getByRole('button', { name: /^Add to bag: 1 unit of/ }).click();
+      await page.getByRole('button', { name: 'International', exact: true }).click();
+      await page.getByRole('button', { name: 'Close bag', exact: true }).click();
+      const summary = await page.locator('.purchase-selection-summary').innerText();
+      assert.match(summary, /International shipping quoted separately/);
+      assert.doesNotMatch(summary, /39[,.]90|519[,.]90/);
+      assert.equal(await page.locator('.product-delivery-estimator').count(), 0);
+      await page.getByRole('button', { name: 'Open bag with 1 item', exact: true }).click();
+      await page.getByRole('button', { name: 'Brazil', exact: true }).click();
+      await page.getByRole('button', { name: 'Close bag', exact: true }).click();
+      assert.match(await page.locator('.purchase-selection-summary').innerText(), /519,90/);
+    }
 
     await page.goto(base + '/en/checkout', { waitUntil: 'networkidle' });
     await page.waitForFunction(() => document.documentElement.lang === 'en');

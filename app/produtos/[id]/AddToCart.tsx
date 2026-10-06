@@ -41,7 +41,7 @@ export default function AddToCart({ product }: { product: Product }) {
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [cepInvalid, setCepInvalid] = useState(false);
   const activeRequest = useRef<AbortController | null>(null);
-  const { addItem } = useCart();
+  const { addItem, international } = useCart();
 
   const clearQuote = useCallback(() => {
     activeRequest.current?.abort();
@@ -148,15 +148,19 @@ export default function AddToCart({ product }: { product: Product }) {
         </button>
       </div>
 
-      <div className="purchase-selection-summary" aria-live="polite" aria-atomic="true">
+      {international ? <div className="purchase-selection-summary" aria-live="polite" aria-atomic="true">
+        <strong>{t('Total das peças', 'Products total')}: {formatBRL(selectionSubtotal)}</strong>
+        <span>{t('Frete internacional sob consulta', 'International shipping quoted separately')}</span>
+        <small>{t('Frete e total final confirmados antes do pagamento.', 'Shipping and final total confirmed before payment.')}</small>
+      </div> : <div className="purchase-selection-summary" aria-live="polite" aria-atomic="true">
         <span>{quantity} {english ? (quantity === 1 ? 'piece' : 'pieces') : (quantity === 1 ? 'peça' : 'peças')}: {formatBRL(selectionSubtotal)} · {shipping === 0 ? t('Frete grátis', 'Free shipping in Brazil') : `${t('Frete', 'Shipping in Brazil')}: ${formatBRL(shipping)}`}</span>
         <strong>{t('Esta seleção com frete', 'This selection with shipping')}: {formatBRL(selectionSubtotal + shipping)}</strong>
         <small>{t('Entrega no Brasil. O total da sacola é atualizado ao adicionar outras peças.', 'Delivery in Brazil. Your bag total updates as you add other pieces.')}</small>
-      </div>
+      </div>}
 
       <p className="purchase-selection-help">{t('Compra sem cadastro · Pagamento seguro pela InfinitePay', 'No account required · Secure payment via InfinitePay')}</p>
 
-      <form className="product-delivery-estimator" onSubmit={consultShipping} aria-label={t('Consultar envio pelo CEP', 'Check delivery to a Brazilian postal code')}>
+      {international ? <a className="text-link" href={english ? '/en/envio-internacional' : '/envio-internacional'}>{t('Consultar frete internacional', 'Request international shipping quote')}</a> : <form className="product-delivery-estimator" onSubmit={consultShipping} aria-label={t('Consultar envio pelo CEP', 'Check delivery to a Brazilian postal code')}>
         <label htmlFor={`shipping-cep-${product.id}`}>{t('Frete e prazo estimado para seu CEP', 'Shipping and estimated delivery time for your Brazilian postal code')}</label>
         <div className="product-delivery-estimator-row">
           <input
@@ -194,7 +198,7 @@ export default function AddToCart({ product }: { product: Product }) {
             </div>
           )}
         </div>
-      </form>
+      </form>}
     </div>
   );
 }
