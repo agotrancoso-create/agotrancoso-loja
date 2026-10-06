@@ -87,6 +87,7 @@ export default function CheckoutPage() {
   const [form, setForm] = useState<FormState>({ name: '', email: '', phone: '', document: '', street: '', number: '', complement: '', neighborhood: '', city: '', state: '', zip: '' });
 
   useEffect(() => {
+    if (!hydrated || !items.length) return;
     try {
       const storedCoupon = normalizeCoupon(localStorage.getItem('ago_primeira_compra_v3_cupom'));
       const storedEmail = localStorage.getItem('ago_primeira_compra_v3_email') || '';
@@ -100,7 +101,7 @@ export default function CheckoutPage() {
       if (data.available !== true) { setCoupon(''); setAppliedCoupon(''); }
     }).catch(() => { if (active) { setBenefitAvailable(false); setCoupon(''); } });
     return () => { active = false; };
-  }, []);
+  }, [hydrated, items.length]);
 
   const lines = useMemo<Line[]>(() => items.flatMap((item): Line[] => {
     const product = getProductById(item.productId);
