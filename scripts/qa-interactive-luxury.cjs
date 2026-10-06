@@ -33,6 +33,11 @@ async function run() {
   page.on('pageerror', error => errors.push(error.message));
   await page.goto(base + '/', { waitUntil: 'domcontentloaded' });
   await page.locator('body.ago-live-motion').waitFor();
+  await page.waitForFunction(() => [...document.querySelectorAll('.ago-immersive-reveal')].every(node => {
+    const style = getComputedStyle(node);
+    const rect = node.getBoundingClientRect();
+    return Number(style.opacity) > .99 && style.visibility === 'visible' && rect.width > 0 && rect.height > 0;
+  }));
 
   const visibleReveal = await page.locator('.ago-immersive-reveal').evaluateAll(nodes => nodes.every(node => {
     const style = getComputedStyle(node);
