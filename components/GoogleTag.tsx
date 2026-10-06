@@ -1,5 +1,9 @@
+import Script from 'next/script';
+
 // One global loader shared by Google Ads and the optional GA4 destination.
 // Keep the existing basic consent behavior: no Google requests before opt-in.
+// beforeInteractive makes Next.js place this script in <head> without a manual
+// <head> element in RootLayout, avoiding a hydration mismatch at the document root.
 export default function GoogleTag() {
   const candidate = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID || '';
   const ga4 = /^G-[A-Z0-9]+$/.test(candidate) ? candidate : '';
@@ -15,7 +19,7 @@ export default function GoogleTag() {
       try { choice = localStorage.getItem('ago_privacy_consent_v1'); } catch (_) {}
     }
     if (choice !== 'all') {
-      if (started) window.gtag('consent', 'update', {
+      if (started && typeof window.gtag === 'function') window.gtag('consent', 'update', {
         ad_storage: 'denied', analytics_storage: 'denied',
         ad_user_data: 'denied', ad_personalization: 'denied'
       });
@@ -43,5 +47,10 @@ export default function GoogleTag() {
   window.addEventListener('ago:privacy-consent', sync);
   sync();
 })();`;
-  return <script id="ago-google-tag" dangerouslySetInnerHTML={{ __html: script }} />;
+
+  return (
+    <Script id="ago-google-tag" strategy="beforeInteractive">
+      {script}
+    </Script>
+  );
 }
