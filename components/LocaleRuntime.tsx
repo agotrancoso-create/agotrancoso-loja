@@ -148,6 +148,7 @@ const exact: Record<string, string> = {
   'Política de Privacidade': 'Privacy Policy',
   'Todos os direitos reservados.': 'All rights reserved.',
   'Rodapé': 'Footer',
+  'Trancoso · Bahia · Brasil': 'Trancoso · Bahia · Brazil',
 
   // Produtos
   'Igreja do Quadrado (P)': 'Church of the Quadrado (Small)',
@@ -268,6 +269,24 @@ function addEnglishPrefix(pathname: string) {
   return pathname === '/' ? '/en' : `/en${pathname}`;
 }
 
+function syncEnglishDocumentTitle() {
+  const pathname = window.location.pathname.replace(/^\/en(?=\/|$)/, '') || '/';
+  const fixed: Record<string, string> = {
+    '/': 'Ceramics in Trancoso | Agô Trancoso',
+    '/produtos': 'Collection | Agô Trancoso',
+    '/nossa-essencia': 'About Agô | Agô Trancoso',
+    '/contato': 'Contact | Agô Trancoso',
+    '/checkout': 'Complete purchase | Agô Trancoso',
+    '/envio-internacional': 'International shipping | Agô Trancoso',
+  };
+  let next = fixed[pathname];
+  if (!next) {
+    const heading = document.querySelector<HTMLElement>('main h1')?.textContent?.trim();
+    next = heading ? `${heading} | Agô Trancoso` : 'Agô Trancoso';
+  }
+  if (document.title !== next) document.title = next;
+}
+
 export default function LocaleRuntime() {
   const [locale, setLocale] = useState<Locale>('pt');
   const [portalTarget, setPortalTarget] = useState<Element | null>(null);
@@ -301,14 +320,19 @@ export default function LocaleRuntime() {
       });
     };
     const linkObserver = new MutationObserver(rewriteLinks);
+    const titleObserver = new MutationObserver(() => {
+      if (resolved === 'en') syncEnglishDocumentTitle();
+    });
     const cancelTranslation = afterInitialRender(() => {
       if (resolved === 'en') {
         if (document.documentElement.lang !== 'en') document.documentElement.lang = 'en';
         document.documentElement.dataset.locale = 'en';
         translateNode(document.body);
+        syncEnglishDocumentTitle();
         observer.observe(document.body, { childList: true, subtree: true });
         rewriteLinks();
         linkObserver.observe(document.body, { childList: true, subtree: true });
+        titleObserver.observe(document.head, { childList: true, subtree: true, characterData: true });
       }
       setPortalTarget(document.querySelector('.header-actions'));
     });
@@ -316,6 +340,7 @@ export default function LocaleRuntime() {
       cancelTranslation();
       observer.disconnect();
       linkObserver.disconnect();
+      titleObserver.disconnect();
     };
   }, []);
 
