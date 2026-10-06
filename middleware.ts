@@ -34,9 +34,7 @@ export function middleware(request: NextRequest) {
    * disponível explicitamente em /en, evitando que um crawler localizado fora
    * do Brasil receba um 307 para a versão inglesa e perca os sinais da página PT.
    */
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-ago-locale', 'pt');
-  const response = NextResponse.next({ request: { headers: requestHeaders } });
+  const response = NextResponse.next();
   response.headers.set('x-ago-locale', 'pt');
   return remember(response, 'pt');
 }
