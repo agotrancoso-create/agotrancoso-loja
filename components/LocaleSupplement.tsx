@@ -5,8 +5,6 @@ import { accessibilityEnglish } from '@/lib/accessibility-copy';
 import { afterInitialRender } from '@/lib/after-initial-render';
 import { useEffect } from 'react';
 
-const COOKIE = 'ago_locale';
-
 const exact: Record<string, string> = {
   ...accessibilityEnglish,
   'Faixa indicativa após a postagem, não consultada nos Correios. Confirme o prazo antes de comprar.': 'Indicative range after posting, not checked with Correios. Confirm the delivery time before ordering.',
@@ -166,7 +164,7 @@ const patterns: Array<[RegExp, (m: RegExpMatchArray) => string]> = [
 
 function isEnglish() {
   if (window.location.pathname === '/en' || window.location.pathname.startsWith('/en/')) return true;
-  return document.cookie.split('; ').some((entry) => entry === `${COOKIE}=en`);
+  return false;
 }
 
 function translate(value: string) {

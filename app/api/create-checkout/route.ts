@@ -105,12 +105,12 @@ export async function POST(req: Request) {
       valueCents: expectedAmountCents,
       shippingCents: Math.round(shippingValue * 100),
       ...(coupon ? { coupon } : {}),
-      items: checkoutLines.map((line) => ({
+      items: discountedUnits.map((line) => ({
         itemId: line.id,
         itemName: line.name,
-        unitPriceCents: Math.round(line.unitPrice * 100),
+        unitPriceCents: line.price,
         quantity: line.quantity,
-        itemCategory: line.category,
+        itemCategory: checkoutLines.find(item => item.id === line.id)?.category,
       })),
     };
 

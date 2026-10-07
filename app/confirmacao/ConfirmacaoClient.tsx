@@ -5,9 +5,6 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { INSTAGRAM_URL, whatsappLink } from '@/lib/config';
-import { getEffectivePrice, getProductById } from '@/lib/products';
-import { calculateCouponDiscount, FIRST_PURCHASE_COUPON } from '@/lib/coupons';
-import { FIXED_SHIPPING_PRICE, shouldOfferFreeShipping } from '@/lib/shipping';
 import { trackPurchase, type MarketingItem } from '@/lib/marketing-analytics';
 
 type PaymentStatus = 'checking' | 'confirmed' | 'unconfirmed' | 'unavailable' | 'missing';
@@ -36,7 +33,7 @@ export default function ConfirmacaoClient() {
   const transactionNsu = params.get('transaction_nsu') || '';
   const slug = params.get('slug') || '';
   const [status, setStatus] = useState<PaymentStatus>('checking');
-  const { items, clearCart, hydrated } = useCart();
+  const { clearCart, hydrated } = useCart();
   const processedOrderRef = useRef('');
 
   useEffect(() => {
@@ -89,34 +86,13 @@ export default function ConfirmacaoClient() {
             })
             : [];
 
-          const localItems = items.flatMap((item) => {
-            const product = getProductById(item.productId);
-            return product ? [{
-              item_id: product.id,
-              item_name: product.name,
-              price: getEffectivePrice(product),
-              quantity: item.quantity,
-              item_category: product.category,
-            }] : [];
-          });
-          const subtotal = localItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-          const inferredCoupon = orderId.startsWith('AGO-FP-') ? FIRST_PURCHASE_COUPON : '';
-          const discount = calculateCouponDiscount(subtotal, inferredCoupon);
-          const localShipping = shouldOfferFreeShipping(subtotal) ? 0 : FIXED_SHIPPING_PRICE;
-          const localValue = Math.max(0, subtotal - discount) + localShipping;
-          const localMatchesPayment = Math.round(localValue * 100) === Math.round(verifiedValue * 100);
-
-          const shipping = Number.isFinite(Number(purchase.shipping))
-            ? Number(purchase.shipping)
-            : localMatchesPayment
-              ? localShipping
-              : undefined;
-          const coupon = String(purchase.coupon || inferredCoupon || '').trim();
+          const shipping = typeof purchase.shipping === 'number' && Number.isFinite(purchase.shipping) && purchase.shipping >= 0 ? purchase.shipping : undefined;
+          const coupon = String(purchase.coupon || '').trim();
 
           trackPurchase({
             transactionId: verifiedTransactionId,
             value: verifiedValue,
-            ...(serverItems.length ? { items: serverItems } : localMatchesPayment && localItems.length ? { items: localItems } : {}),
+            ...(serverItems.length ? { items: serverItems } : {}),
             ...(shipping != null ? { shipping } : {}),
             ...(coupon ? { coupon } : {}),
           });
@@ -128,7 +104,7 @@ export default function ConfirmacaoClient() {
     }).catch(() => { if (active) setStatus('unavailable'); });
 
     return () => { active = false; };
-  }, [orderId, expectedOrderId, returnedOrderId, transactionNsu, slug, items, clearCart, hydrated]);
+  }, [orderId, expectedOrderId, returnedOrderId, transactionNsu, slug, clearCart, hydrated]);
 
   const confirmed = status === 'confirmed';
   const checking = status === 'checking';

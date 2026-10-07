@@ -94,5 +94,20 @@ async function call(body, expectedStatus) {
   providerResponse = { success: true, paid: true, amount: 'invalid' };
   assert.deepEqual(await call(details, 422), { confirmed: false });
 
+  for (const orderNsu of ['AGO-NORMAL', 'AGO-FP-123']) {
+    expectedOrder = { expectedAmountCents: 51990 };
+    providerResponse = { success: true, paid: true, amount: 51990 };
+    const verified = await call({ ...details, orderNsu }, 200);
+    assert.equal(verified.purchase.value, 519.9);
+    assert.equal(verified.purchase.transactionId, orderNsu);
+    for (const amount of [51989, null, true, 0, -1, 1.5, 'invalid']) {
+      providerResponse = { success: true, paid: true, amount };
+      assert.deepEqual(await call({ ...details, orderNsu }, 422), { confirmed: false });
+    }
+    for (const flags of [{success:false,paid:true}, {success:true,paid:false}, {success:'true',paid:true}, {success:true,paid:'true'}]) {
+      providerResponse = { ...flags, amount:51990 };
+      assert.deepEqual(await call({ ...details, orderNsu }, 200), { confirmed: false });
+    }
+  }
   console.log('PASS payment return: only verified paid transactions produce authoritative BRL purchase values; stored orders enforce amount equality');
 })().catch(error => { console.error(error); process.exitCode = 1; });

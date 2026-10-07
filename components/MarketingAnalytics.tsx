@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { CONSENT_EVENT, readPrivacyConsent } from '@/lib/privacy-consent';
 
-const GA4_ID = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
+const candidateGa4 = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID || '';
+const GA4_ID = /^G-[A-Z0-9]+$/.test(candidateGa4) ? candidateGa4 : '';
 const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 
 export default function MarketingAnalytics() {
@@ -22,18 +23,21 @@ export default function MarketingAnalytics() {
 
   useEffect(() => {
     if (!allowed) return;
+    let cancelled = false;
+    const timers: number[] = [];
     const pagePath = `${pathname}${window.location.search}`;
     const pageLocation = window.location.href;
 
     {
       let attempts = 0;
       const sendGaPageView = () => {
+        if (cancelled || readPrivacyConsent() !== 'all') return;
         if (typeof window.gtag === 'function') {
           window.gtag('event', 'page_view', { page_title: document.title, page_location: pageLocation, page_path: pagePath, send_to: [GA4_ID, 'AW-18232525092'].filter(Boolean) });
           return;
         }
         attempts += 1;
-        if (attempts < 8) window.setTimeout(sendGaPageView, 250);
+        if (attempts < 8) timers.push(window.setTimeout(sendGaPageView, 250));
       };
       sendGaPageView();
     }
@@ -43,13 +47,15 @@ export default function MarketingAnalytics() {
       else {
         let attempts = 0;
         const sendMetaPageView = () => {
+          if (cancelled || readPrivacyConsent() !== 'all') return;
           if (typeof window.fbq === 'function') { window.fbq('track', 'PageView'); return; }
           attempts += 1;
-          if (attempts < 8) window.setTimeout(sendMetaPageView, 250);
+          if (attempts < 8) timers.push(window.setTimeout(sendMetaPageView, 250));
         };
         sendMetaPageView();
       }
     }
+    return () => { cancelled = true; timers.forEach(window.clearTimeout); };
   }, [allowed, pathname]);
 
   if (!allowed) return null;

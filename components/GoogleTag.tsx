@@ -12,13 +12,15 @@ export default function GoogleTag() {
   if (window.__agoGoogleTag) return;
   window.__agoGoogleTag = true;
   var started = false;
+  var allowed = false;
   var ga4 = ${JSON.stringify(ga4)};
   function sync(event) {
     var choice = event && event.detail;
     if (choice !== 'all' && choice !== 'essential') {
       try { choice = localStorage.getItem('ago_privacy_consent_v1'); } catch (_) {}
     }
-    if (choice !== 'all') {
+    allowed = choice === 'all';
+    if (!allowed) {
       if (started && typeof window.gtag === 'function') window.gtag('consent', 'update', {
         ad_storage: 'denied', analytics_storage: 'denied',
         ad_user_data: 'denied', ad_personalization: 'denied'
@@ -50,7 +52,7 @@ export default function GoogleTag() {
         window.location = url;
       }
     };
-    if (typeof window.gtag !== 'function') {
+    if (!allowed || typeof window.gtag !== 'function') {
       callback();
       return false;
     }
@@ -64,6 +66,10 @@ export default function GoogleTag() {
   document.addEventListener('click', function (event) {
     var element = event.target instanceof Element ? event.target.closest('a[data-google-ads-route="true"]') : null;
     if (!element) return;
+    try {
+      var destination = new URL(element.href);
+      if (destination.protocol !== 'https:' || destination.hostname !== 'www.google.com' || !destination.pathname.startsWith('/maps/')) return;
+    } catch (_) { return; }
     if (element.dataset.agoRouteConversionSent === '1') return;
     element.dataset.agoRouteConversionSent = '1';
     window.setTimeout(function () { delete element.dataset.agoRouteConversionSent; }, 0);

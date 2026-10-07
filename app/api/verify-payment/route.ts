@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     }
 
     const verifiedAmountCents = Number(payment.amount);
-    if (!Number.isFinite(verifiedAmountCents) || verifiedAmountCents <= 0 || !Number.isInteger(verifiedAmountCents)) {
+    if ((typeof payment.amount !== 'number' && typeof payment.amount !== 'string') || !Number.isSafeInteger(verifiedAmountCents) || verifiedAmountCents <= 0 || !Number.isInteger(verifiedAmountCents)) {
       return NextResponse.json({ confirmed: false }, { status: 422, headers: noStore });
     }
 

@@ -38,7 +38,7 @@ async function run() {
   const sourceBundle = sourceFiles.map(file => fs.readFileSync(file, 'utf8')).join('\n');
   const layoutSource = fs.readFileSync('app/layout.tsx', 'utf8');
 
-  assert.equal((sourceBundle.match(/googletagmanager\.com\/gtag\/js/g) || []).length, 1, 'exactly one gtag.js loader must exist in application source');
+  assert.equal((sourceBundle.match(/https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=/g) || []).length, 1, 'exactly one gtag.js loader must exist in application source');
   assert.equal((sourceBundle.match(/GTM-[A-Z0-9]+/g) || []).length, 0, 'Google Tag Manager container must not be silently duplicated into the app');
   assert.equal((layoutSource.match(/<GoogleTag\s*\/>/g) || []).length, 1, 'GoogleTag must mount exactly once in the root layout');
   assert.equal((sourceBundle.match(/AW-18232525092\/YuEBCPGawsIcEKSC-fVD/g) || []).length, 1, 'the existing route-click Ads conversion label must have one implementation');
