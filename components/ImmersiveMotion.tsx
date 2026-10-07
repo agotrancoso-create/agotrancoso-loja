@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { afterInitialRender } from '@/lib/after-initial-render';
 import { usePathname } from 'next/navigation';
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
@@ -8,6 +9,9 @@ const clamp = (value: number, min: number, max: number) => Math.min(max, Math.ma
 export default function ImmersiveMotion() {
   const pathname = usePathname();
   const [motionPreference, setMotionPreference] = useState(0);
+  const [hydrationReady, setHydrationReady] = useState(false);
+
+  useEffect(() => afterInitialRender(() => setHydrationReady(true)), []);
 
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -17,10 +21,11 @@ export default function ImmersiveMotion() {
   }, []);
 
   useEffect(() => {
-    const revealNodes = Array.from(document.querySelectorAll<HTMLElement>('.ago-immersive-reveal'));
+    if (!hydrationReady) return;
 
     // Regra de segurança: nenhuma animação pode ser requisito para o conteúdo aparecer.
-    revealNodes.forEach((node) => node.classList.add('is-revealed'));
+    // The CSS keeps reveal sections visible by default; do not mutate their
+    // server-rendered className because React may still be hydrating a boundary.
     document.body.classList.remove('ago-immersive-enabled');
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -172,7 +177,7 @@ export default function ImmersiveMotion() {
         hero.removeEventListener('pointerleave', heroLeave);
       }
     };
-  }, [pathname, motionPreference]);
+  }, [pathname, motionPreference, hydrationReady]);
 
   return null;
 }
