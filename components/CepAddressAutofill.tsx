@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { afterInitialRender } from '@/lib/after-initial-render';
 
 type CepPayload = {
   found?: boolean;
@@ -137,14 +138,17 @@ export default function CepAddressAutofill() {
       return true;
     };
 
-    if (!attach()) {
-      observer = new MutationObserver(() => {
-        if (attach()) observer?.disconnect();
-      });
-      observer.observe(document.body, { childList: true, subtree: true });
-    }
+    const cancelInitialAttach = afterInitialRender(() => {
+      if (!attach()) {
+        observer = new MutationObserver(() => {
+          if (attach()) observer?.disconnect();
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      }
+    });
 
     return () => {
+      cancelInitialAttach();
       observer?.disconnect();
       cleanupInput?.();
       window.clearTimeout(debounce);
