@@ -21,7 +21,7 @@ export default function CartDrawer() {
   const pathname = usePathname();
   const [english, setEnglish] = useState(false);
   useEffect(() => {
-    setEnglish(pathname === '/en' || pathname.startsWith('/en/') || document.cookie.split('; ').includes('ago_locale=en'));
+    setEnglish(pathname === '/en' || pathname.startsWith('/en/'));
   }, [pathname, isDrawerOpen]);
   const t = (text: string) => english ? (cartEnglish[text] ?? text) : text;
   const href = (path: string) => english ? `/en${path}` : path;
