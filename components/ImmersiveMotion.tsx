@@ -26,7 +26,8 @@ export default function ImmersiveMotion() {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reducedMotion) {
       document.body.classList.remove('ago-live-motion');
-      return;
+      document.body.dataset.agoMotionReady = 'reduced';
+      return () => { delete document.body.dataset.agoMotionReady; };
     }
 
     document.body.classList.add('ago-live-motion');
@@ -135,10 +136,16 @@ export default function ImmersiveMotion() {
         hero.style.setProperty('--ago-hero-x', '0px');
         hero.style.setProperty('--ago-hero-y', '0px');
       };
+      hero.style.setProperty('--ago-pointer-x', '64%');
+      hero.style.setProperty('--ago-pointer-y', '32%');
+      hero.style.setProperty('--ago-hero-x', '0px');
+      hero.style.setProperty('--ago-hero-y', '0px');
       hero.addEventListener('pointermove', heroMove, { passive: true });
       hero.addEventListener('pointerleave', heroLeave, { passive: true });
+      hero.dataset.agoPointerReady = 'true';
     }
 
+    document.body.dataset.agoMotionReady = 'true';
     updateScrollMotion();
     window.addEventListener('scroll', requestScrollMotion, { passive: true });
     window.addEventListener('resize', requestScrollMotion, { passive: true });
@@ -147,6 +154,8 @@ export default function ImmersiveMotion() {
       entryObserver?.disconnect();
       entryNodes.forEach((node) => node.classList.remove('ago-motion-arrived'));
       document.body.classList.remove('ago-live-motion');
+      delete document.body.dataset.agoMotionReady;
+      if (hero) delete hero.dataset.agoPointerReady;
       header?.classList.remove('ago-header-scrolled');
       window.removeEventListener('scroll', requestScrollMotion);
       window.removeEventListener('resize', requestScrollMotion);
