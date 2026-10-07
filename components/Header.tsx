@@ -46,6 +46,22 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
   const pathname = usePathname();
   const english = useSiteEnglish();
   const collectionPath = english ? '/en/produtos' : '/produtos';
+  const localePath = (href: string) => {
+    if (!english) return href;
+    if (href === '/') return '/en';
+    return href.startsWith('/en') ? href : `/en${href}`;
+  };
+  const navLabel: Record<string, string> = {
+    'Início': 'Home',
+    'Coleção': 'Collection',
+    'A Agô': 'About Agô',
+    'Contato': 'Contact',
+    'Igrejinhas': 'Churches',
+    'Decoração': 'Decor',
+    'Fé & devoção': 'Faith & devotion',
+    'Presentes': 'Gifts',
+  };
+  const translatedLabel = (label: string) => english ? (navLabel[label] ?? label) : label;
   const { totalItems, openDrawer } = useCart();
   const products = useMemo(() => getAvailableProducts(), []);
 
@@ -119,19 +135,20 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
     router.push(`${collectionPath}/${id}`);
   }
 
-  const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href.split('?')[0]);
+  const routePath = pathname.replace(/^\/en(?=\/|$)/, '') || '/';
+  const isActive = (href: string) => href === '/' ? routePath === '/' : routePath.startsWith(href.split('?')[0]);
   const showSuggestions = searchFocused && query.trim().length > 0;
 
   return (
     <>
-      <div className="ago-topbar" role="region" aria-label="Informações comerciais">
-        {firstPurchaseAvailable && <><span className="ago-topbar-offer">3% OFF na 1ª compra</span><i aria-hidden="true" /></>}
-        <span>Frete grátis a partir de R$ 500 em produtos</span>
+      <div className="ago-topbar" role="region" aria-label={english ? 'Store information' : 'Informações comerciais'}>
+        {firstPurchaseAvailable && <><span className="ago-topbar-offer">{english ? '3% OFF your first purchase' : '3% OFF na 1ª compra'}</span><i aria-hidden="true" /></>}
+        <span>{english ? 'Free shipping in Brazil on R$ 500 or more in products' : 'Frete grátis a partir de R$ 500 em produtos'}</span>
       </div>
 
       <header className="site-header sticky top-0 z-40">
         <div className="ago-container header-inner">
-          <Link href="/" className="header-logo" aria-label="Agô Trancoso, página inicial">
+          <Link href={localePath('/')} className="header-logo" aria-label={english ? 'Agô Trancoso, home' : 'Agô Trancoso, página inicial'}>
             <Image src="/logo.png" alt="Agô Trancoso" width={78} height={78} sizes="52px" className="object-contain" quality={86} priority />
           </Link>
 
@@ -139,11 +156,11 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
             {navItems.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={localePath(item.href)}
                 className={`header-link${isActive(item.href) ? ' is-active' : ''}`}
                 aria-current={isActive(item.href) ? 'page' : undefined}
               >
-                {item.label}
+                {translatedLabel(item.label)}
               </Link>
             ))}
           </nav>
@@ -237,7 +254,7 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
             <button
               ref={menuButtonRef}
               type="button"
-              aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+              aria-label={english ? (menuOpen ? 'Close menu' : 'Open menu') : (menuOpen ? 'Fechar menu' : 'Abrir menu')}
               aria-expanded={menuOpen}
               aria-controls="mobile-navigation"
               className="mobile-menu-button"
@@ -250,10 +267,10 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
           </div>
         </div>
 
-        <nav className="ago-category-bar" aria-label="Explorar coleção">
+        <nav className="ago-category-bar" aria-label={english ? 'Explore collection' : 'Explorar coleção'}>
           <div className="ago-container ago-category-bar-inner">
-            <Link href="/produtos" className="ago-category-all">Ver tudo</Link>
-            {categoryItems.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+            <Link href={localePath('/produtos')} className="ago-category-all">{english ? 'View all' : 'Ver tudo'}</Link>
+            {categoryItems.map((item) => <Link key={item.href} href={localePath(item.href)}>{translatedLabel(item.label)}</Link>)}
           </div>
         </nav>
 
@@ -261,7 +278,7 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
           <div id="mobile-navigation" className="mobile-menu" ref={menuRef}>
             <form onSubmit={handleSearch} className="mobile-search-form" role="search">
               <label className="sr-only" htmlFor="mobile-search">{english ? 'Search for a piece' : 'Buscar uma peça'}</label>
-              <input id="mobile-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar na coleção" autoComplete="off" />
+              <input id="mobile-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={english ? 'Search the collection' : 'Buscar na coleção'} autoComplete="off" />
               {query.trim() && (
                 <div className="mobile-search-suggestions">
                   {suggestions.slice(0, 4).map((product) => (
@@ -273,14 +290,14 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
               )}
             </form>
 
-            <nav className="mobile-menu-primary" aria-label="Navegação móvel">
-              {navItems.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
+            <nav className="mobile-menu-primary" aria-label={english ? 'Mobile navigation' : 'Navegação móvel'}>
+              {navItems.map((item) => <Link href={localePath(item.href)} key={item.href}>{translatedLabel(item.label)}</Link>)}
             </nav>
 
-            <p className="mobile-menu-label">Explorar coleção</p>
-            <nav className="mobile-menu-categories" aria-label="Categorias">
-              <Link href="/produtos">Ver tudo</Link>
-              {categoryItems.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
+            <p className="mobile-menu-label">{english ? 'Explore collection' : 'Explorar coleção'}</p>
+            <nav className="mobile-menu-categories" aria-label={english ? 'Categories' : 'Categorias'}>
+              <Link href={localePath('/produtos')}>{english ? 'View all' : 'Ver tudo'}</Link>
+              {categoryItems.map((item) => <Link href={localePath(item.href)} key={item.href}>{translatedLabel(item.label)}</Link>)}
             </nav>
           </div>
         )}
