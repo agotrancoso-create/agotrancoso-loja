@@ -65,6 +65,9 @@ async function run() {
   }
 
   console.log('HYDRATION_DEV_SUMMARY', JSON.stringify(findings, null, 2));
+  if (findings.length) {
+    throw new Error(`Hydration diagnostics found ${findings.length} mismatch/error event(s)`);
+  }
 }
 
 run().catch(error => {
