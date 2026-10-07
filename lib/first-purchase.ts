@@ -11,6 +11,22 @@ type IdentityRecord = {
   createdAt: string;
 };
 
+export type PurchaseAnalyticsItem = {
+  itemId: string;
+  itemName: string;
+  unitPriceCents: number;
+  quantity: number;
+  itemCategory?: string;
+};
+
+export type PurchaseAnalyticsSnapshot = {
+  currency: 'BRL';
+  valueCents: number;
+  shippingCents: number;
+  coupon?: string;
+  items: PurchaseAnalyticsItem[];
+};
+
 export type FirstPurchaseOrderRecord = {
   emailKey: string;
   phoneKey: string;
@@ -18,8 +34,34 @@ export type FirstPurchaseOrderRecord = {
   expectedAmountCents: number;
   discountCents: number;
   firstPurchase?: boolean;
+  analytics?: PurchaseAnalyticsSnapshot;
   createdAt: string;
 };
+
+function normalizeAnalyticsSnapshot(value: PurchaseAnalyticsSnapshot | undefined): PurchaseAnalyticsSnapshot | undefined {
+  if (!value) return undefined;
+  const items = Array.isArray(value.items) ? value.items.flatMap((item) => {
+    const itemId = String(item.itemId || '').trim();
+    const itemName = String(item.itemName || '').trim();
+    const unitPriceCents = Math.max(0, Math.round(Number(item.unitPriceCents) || 0));
+    const quantity = Math.max(1, Math.min(99, Math.round(Number(item.quantity) || 1)));
+    if (!itemId || !itemName || unitPriceCents <= 0) return [];
+    return [{
+      itemId,
+      itemName,
+      unitPriceCents,
+      quantity,
+      ...(item.itemCategory ? { itemCategory: String(item.itemCategory).trim() } : {}),
+    }];
+  }) : [];
+  return {
+    currency: 'BRL',
+    valueCents: Math.max(0, Math.round(Number(value.valueCents) || 0)),
+    shippingCents: Math.max(0, Math.round(Number(value.shippingCents) || 0)),
+    ...(value.coupon ? { coupon: String(value.coupon).trim() } : {}),
+    items,
+  };
+}
 
 export function isFirstPurchaseStorageConfigured() {
   const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
@@ -125,6 +167,7 @@ export async function reserveFirstPurchaseIdentity(input: {
   document: unknown;
   expectedAmountCents: number;
   discountCents: number;
+  analytics?: PurchaseAnalyticsSnapshot;
 }) {
   const identity = normalizedIdentity(input);
   if (!identity) {
@@ -146,6 +189,7 @@ export async function reserveFirstPurchaseIdentity(input: {
     expectedAmountCents: Math.max(0, Math.round(input.expectedAmountCents)),
     discountCents: Math.max(0, Math.round(input.discountCents)),
     firstPurchase: true,
+    analytics: normalizeAnalyticsSnapshot(input.analytics),
     createdAt: now,
   };
 
@@ -176,6 +220,7 @@ export async function registerPurchaseOrder(input: {
   phone: unknown;
   document: unknown;
   expectedAmountCents: number;
+  analytics?: PurchaseAnalyticsSnapshot;
 }) {
   if (!isFirstPurchaseStorageConfigured()) return false;
   const identity = normalizedIdentity(input);
@@ -188,6 +233,7 @@ export async function registerPurchaseOrder(input: {
     expectedAmountCents: Math.max(0, Math.round(input.expectedAmountCents)),
     discountCents: 0,
     firstPurchase: false,
+    analytics: normalizeAnalyticsSnapshot(input.analytics),
     createdAt: new Date().toISOString(),
   };
   await redisCommand(['SET', orderKey(input.orderNsu), JSON.stringify(order), 'EX', String(ORDER_TTL_SECONDS)]);
