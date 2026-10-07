@@ -32,7 +32,9 @@ async function run() {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto(base + '/', { waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => document.documentElement.dataset.agoHydrated === 'true');
   await page.locator('body.ago-live-motion').waitFor();
+  await page.waitForFunction(() => document.body.dataset.agoMotionReady === 'true');
   await page.waitForFunction(() => [...document.querySelectorAll('.ago-immersive-reveal')].every(node => {
     const style = getComputedStyle(node);
     const rect = node.getBoundingClientRect();
@@ -50,17 +52,24 @@ async function run() {
   assert.match(overlayEffect, /radial-gradient/i, 'Hero pointer-light layer is missing');
 
   const hero = page.locator('.ago-cinematic-commerce').first();
+  await hero.waitFor();
+  await page.waitForFunction(() => document.querySelector('.ago-cinematic-commerce')?.dataset.agoPointerReady === 'true');
   const heroBox = await hero.boundingBox();
   assert.ok(heroBox, 'Hero geometry missing');
+  const initialPointer = await hero.evaluate(node => node.style.getPropertyValue('--ago-pointer-x'));
+  assert.equal(initialPointer, '64%', 'Hero pointer baseline must be initialized before interaction');
   await page.mouse.move(heroBox.x + heroBox.width * .82, heroBox.y + Math.min(heroBox.height, 700) * .28);
-  await page.waitForTimeout(80);
+  await page.waitForFunction(() => {
+    const node = document.querySelector('.ago-cinematic-commerce');
+    return node && node.style.getPropertyValue('--ago-pointer-x') !== '64%';
+  });
   const heroVars = await hero.evaluate(node => ({
     x: node.style.getPropertyValue('--ago-hero-x'),
     y: node.style.getPropertyValue('--ago-hero-y'),
     pointer: node.style.getPropertyValue('--ago-pointer-x'),
   }));
   assert.notEqual(heroVars.x, '0px', 'Hero does not react horizontally to the pointer');
-  assert.notEqual(heroVars.pointer, '', 'Hero pointer position was not recorded');
+  assert.notEqual(heroVars.pointer, '64%', 'Hero pointer position did not update from its baseline');
 
   const firstCard = page.locator('.product-card').first();
   await firstCard.scrollIntoViewIfNeeded();
@@ -85,6 +94,8 @@ async function run() {
   });
   await reduced.goto(base + '/', { waitUntil: 'domcontentloaded' });
   await reduced.locator('h1').first().waitFor();
+  await reduced.waitForFunction(() => document.documentElement.dataset.agoHydrated === 'true');
+  await reduced.waitForFunction(() => document.body.dataset.agoMotionReady === 'reduced');
   assert.equal(await reduced.locator('body.ago-live-motion').count(), 0, 'Reduced motion must disable live motion');
   const reducedReveal = await reduced.locator('.ago-immersive-reveal').evaluateAll(nodes => nodes.every(node => {
     const style = getComputedStyle(node);
