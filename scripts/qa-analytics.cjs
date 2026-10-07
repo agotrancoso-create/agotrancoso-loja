@@ -208,6 +208,74 @@ async function run() {
   assert.equal(payment.ecommerce.payment_type, 'InfinitePay');
   pass('add_payment_info is emitted at payment handoff attempt');
 
+  // Purchase must never fire from a checkout attempt or an unconfirmed return.
+  const unconfirmedContext = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  await unconfirmedContext.addInitScript(() => {
+    localStorage.setItem('ago_primeira_compra_v3_vista', '1');
+    localStorage.setItem('ago_privacy_consent_v1', 'essential');
+    localStorage.setItem('agotrancoso_carrinho_v1', JSON.stringify([{productId:'miniatura-quadrado-trancoso',quantity:1}]));
+  });
+  const unconfirmedPage = await unconfirmedContext.newPage();
+  await unconfirmedPage.route('**/api/verify-payment', route => route.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    body: JSON.stringify({ confirmed: false }),
+  }));
+  await unconfirmedPage.goto(base + '/confirmacao?pedido=AGO-QA-PENDING&order_nsu=AGO-QA-PENDING&transaction_nsu=qa-transaction&slug=qa-slug', { waitUntil: 'domcontentloaded' });
+  await unconfirmedPage.getByText('Ainda não recebemos a confirmação.', { exact: false }).waitFor();
+  assert.equal(await unconfirmedPage.evaluate(() => (window.dataLayer || []).filter(entry => entry?.event === 'purchase').length), 0);
+  await unconfirmedContext.close();
+  pass('purchase does not fire before InfinitePay confirms payment');
+
+  // A verified return emits one canonical purchase with the provider-confirmed
+  // value/currency/transaction_id, and localStorage prevents a reload duplicate.
+  const purchaseContext = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  await purchaseContext.addInitScript(() => {
+    localStorage.setItem('ago_primeira_compra_v3_vista', '1');
+    localStorage.setItem('ago_privacy_consent_v1', 'essential');
+    localStorage.setItem('agotrancoso_carrinho_v1', JSON.stringify([{productId:'miniatura-quadrado-trancoso',quantity:1}]));
+  });
+  const purchasePage = await purchaseContext.newPage();
+  await purchasePage.route('**/api/verify-payment', route => route.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    body: JSON.stringify({
+      confirmed: true,
+      purchase: {
+        transactionId: 'AGO-QA-PAID',
+        currency: 'BRL',
+        value: 519.90,
+        shipping: 39.90,
+        items: [{
+          item_id: 'miniatura-quadrado-trancoso',
+          item_name: 'Miniatura do Quadrado de Trancoso para Pendurar',
+          price: 480,
+          quantity: 1,
+          item_category: 'trancoso',
+        }],
+      },
+    }),
+  }));
+  const paidUrl = base + '/confirmacao?pedido=AGO-QA-PAID&order_nsu=AGO-QA-PAID&transaction_nsu=qa-transaction&slug=qa-slug';
+  await purchasePage.goto(paidUrl, { waitUntil: 'domcontentloaded' });
+  await purchasePage.getByRole('heading', { name: 'Pagamento confirmado.' }).waitFor();
+  await purchasePage.waitForFunction(() => (window.dataLayer || []).some(entry => entry?.event === 'purchase'));
+  const purchaseEvents = await purchasePage.evaluate(() => (window.dataLayer || []).filter(entry => entry?.event === 'purchase'));
+  assert.equal(purchaseEvents.length, 1);
+  assert.equal(purchaseEvents[0].ecommerce.transaction_id, 'AGO-QA-PAID');
+  assert.equal(purchaseEvents[0].ecommerce.currency, 'BRL');
+  assert.equal(purchaseEvents[0].ecommerce.value, 519.9);
+  assert.equal(purchaseEvents[0].ecommerce.shipping, 39.9);
+  assert.equal(purchaseEvents[0].ecommerce.items[0].item_id, 'miniatura-quadrado-trancoso');
+  assert.equal(await purchasePage.evaluate(() => localStorage.getItem('ago_purchase_tracked_v2_AGO-QA-PAID')), '1');
+
+  await purchasePage.reload({ waitUntil: 'domcontentloaded' });
+  await purchasePage.getByRole('heading', { name: 'Pagamento confirmado.' }).waitFor();
+  await purchasePage.waitForTimeout(250);
+  assert.equal(await purchasePage.evaluate(() => (window.dataLayer || []).filter(entry => entry?.event === 'purchase').length), 0);
+  await purchaseContext.close();
+  pass('confirmed purchase sends real value/currency/transaction_id once and is deduplicated across reloads');
+
   const all = await page.evaluate(() => window.dataLayer || []);
   report.events = all.filter(entry => entry?.event).map(entry => entry.event);
   fs.writeFileSync(`${artifacts}/analytics.json`, JSON.stringify(report, null, 2));
