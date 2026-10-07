@@ -2,15 +2,17 @@
 
 import { INSTAGRAM_URL, whatsappLink } from '@/lib/config';
 import { trackContact } from '@/lib/marketing-analytics';
+import { useSiteEnglish } from '@/lib/use-site-english';
 
 export default function SocialFloaters() {
+  const english = useSiteEnglish();
   return (
-    <nav className="ago-social-floaters" aria-label="Falar com a Agô Trancoso">
+    <nav className="ago-social-floaters" aria-label={english ? 'Contact Agô Trancoso' : 'Falar com a Agô Trancoso'}>
       <a
         href={INSTAGRAM_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Ver Agô Trancoso no Instagram"
+        aria-label={english ? 'View Agô Trancoso on Instagram' : 'Ver Agô Trancoso no Instagram'}
         className="ago-social-button ago-social-instagram"
       >
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" shapeRendering="geometricPrecision">
@@ -23,7 +25,7 @@ export default function SocialFloaters() {
         href={whatsappLink('Olá! Vim pelo site da Agô Trancoso e gostaria de consultar as peças.')}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Falar com a Agô Trancoso pelo WhatsApp"
+        aria-label={english ? 'Contact Agô Trancoso on WhatsApp' : 'Falar com a Agô Trancoso pelo WhatsApp'}
         className="ago-social-button ago-social-whatsapp"
         onClick={() => trackContact('whatsapp_float')}
       >
