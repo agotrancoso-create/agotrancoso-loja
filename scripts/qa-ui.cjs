@@ -50,7 +50,8 @@ async function run() {
   async function visit(path) {
     await page.goto(base + path, { waitUntil: 'domcontentloaded' });
     await page.locator('h1').first().waitFor();
-    await page.waitForFunction(() => document.documentElement.dataset.agoHydrated === 'true');
+    // Functional QA waits for the real interface. Hydration mismatches are
+    // asserted separately by qa-hydration-diagnostic.cjs and pageerror capture.
   }
 
   async function assertNoOverflow(label, width) {
