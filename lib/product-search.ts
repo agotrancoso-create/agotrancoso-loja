@@ -172,7 +172,7 @@ export function productSearchScore(product: Product, query: string): number {
   const categoryAliases = [
     product.category,
     product.category === 'igrejinhas' ? 'igreja church churches' : '',
-    product.category === 'decoracao' ? 'decoracao decor casa home' : '',
+    product.category === 'decoracao' ? 'decoracao decor decoration' : '',
     product.category === 'presentes' ? 'presente gift souvenir lembranca' : '',
     product.category === 'fe-devocao' ? 'fe devocao faith devotional' : '',
     product.category === 'trancoso' ? 'trancoso quadrado bahia' : '',
