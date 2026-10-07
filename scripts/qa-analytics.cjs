@@ -25,6 +25,25 @@ async function ready() {
 }
 
 async function run() {
+  const sourceRoots = ['app', 'components', 'lib'];
+  const sourceFiles = [];
+  const visitSource = dir => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = require('node:path').join(dir, entry.name);
+      if (entry.isDirectory()) visitSource(full);
+      else if (/\.(?:js|jsx|ts|tsx|mjs|cjs)$/.test(entry.name)) sourceFiles.push(full);
+    }
+  };
+  sourceRoots.forEach(root => visitSource(root));
+  const sourceBundle = sourceFiles.map(file => fs.readFileSync(file, 'utf8')).join('\n');
+  const layoutSource = fs.readFileSync('app/layout.tsx', 'utf8');
+
+  assert.equal((sourceBundle.match(/googletagmanager\.com\/gtag\/js/g) || []).length, 1, 'exactly one gtag.js loader must exist in application source');
+  assert.equal((sourceBundle.match(/GTM-[A-Z0-9]+/g) || []).length, 0, 'Google Tag Manager container must not be silently duplicated into the app');
+  assert.equal((layoutSource.match(/<GoogleTag\s*\/>/g) || []).length, 1, 'GoogleTag must mount exactly once in the root layout');
+  assert.equal((sourceBundle.match(/AW-18232525092\/YuEBCPGawsIcEKSC-fVD/g) || []).length, 1, 'the existing route-click Ads conversion label must have one implementation');
+  console.log('PASS static Google tag audit: one loader, no GTM container, one root mount, one route conversion implementation');
+
   await ready();
   browser = await chromium.launch({
     executablePath: process.env.CHROMIUM_PATH,
