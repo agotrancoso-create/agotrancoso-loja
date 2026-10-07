@@ -417,6 +417,8 @@ export default function LocaleRuntime() {
     // The URL is the rendering source of truth. A stale language cookie must
     // never cause a Portuguese route to mutate into English during hydration.
     const resolved: Locale = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/') ? 'en' : 'pt';
+    const routePath = stripEnglishPrefix(window.location.pathname);
+    const reactLocalized = routePath === '/checkout' || routePath === '/envio-internacional';
     setLocale(resolved);
 
     const observer = new MutationObserver((records) => {
@@ -451,12 +453,14 @@ export default function LocaleRuntime() {
       if (resolved === 'en') {
         if (document.documentElement.lang !== 'en') document.documentElement.lang = 'en';
         document.documentElement.dataset.locale = 'en';
-        translateNode(document.body);
         syncEnglishDocumentTitle();
-        observer.observe(document.body, { childList: true, subtree: true });
-        rewriteLinks();
-        linkObserver.observe(document.body, { childList: true, subtree: true });
-        titleObserver.observe(document.head, { childList: true, subtree: true, characterData: true });
+        if (!reactLocalized) {
+          translateNode(document.body);
+          observer.observe(document.body, { childList: true, subtree: true });
+          rewriteLinks();
+          linkObserver.observe(document.body, { childList: true, subtree: true });
+          titleObserver.observe(document.head, { childList: true, subtree: true, characterData: true });
+        }
       }
       setPortalTarget(document.querySelector('.header-actions'));
     });
