@@ -71,10 +71,10 @@ async function layout(page) {
       const prefix=locale==='en'?'/en':'';
       await page.goto(base+prefix+'/',{waitUntil:'networkidle'});
       await layout(page);
-      const benefits = page.locator('.ago-benefits-reference');
+      const benefits = page.locator('[data-ago-benefits]');
       const resume = page.locator('.resume-cart');
       if (locale === 'en') {
-        assert.deepEqual(await benefits.locator('.ago-benefit-icon-copy strong').allTextContents(), ['Handmade','Exclusive pieces','Brazilian inspiration','Shipping across Brazil and abroad']);
+        assert.deepEqual(await benefits.locator('[data-benefit-copy] strong').allTextContents(), ['Handmade','Exclusive pieces','Brazilian inspiration','Shipping across Brazil and abroad']);
         assert.doesNotMatch(await benefits.innerText(), /Feito à|Peças|Inspiração|Envios|Cuidado|Escolhas|Cores|Receba/);
         assert.match(await resume.innerText(), /Your selection is still here/);
         assert.match(await resume.innerText(), /1 piece in your bag/);
