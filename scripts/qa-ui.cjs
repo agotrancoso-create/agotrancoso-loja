@@ -49,7 +49,13 @@ async function run() {
 
   async function visit(path) {
     await page.goto(base + path, { waitUntil: 'domcontentloaded' });
+    await page.waitForLoadState('load');
     await page.locator('h1').first().waitFor();
+
+    const routePath = path.replace(/^\/en(?=\/|$)/, '') || '/';
+    if (routePath === '/checkout') {
+      await page.locator('.checkout-page:not(.checkout-loading)').first().waitFor();
+    }
   }
 
   async function assertNoOverflow(label, width) {

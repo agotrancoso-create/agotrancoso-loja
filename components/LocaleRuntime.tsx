@@ -3,10 +3,7 @@
 import { accessibilityEnglish } from '@/lib/accessibility-copy';
 
 import { afterInitialRender } from '@/lib/after-initial-render';
-import { createPortal } from 'react-dom';
-import { useEffect, useMemo, useState } from 'react';
-
-const COOKIE = 'ago_locale';
+import { useEffect } from 'react';
 
 type Locale = 'pt' | 'en';
 
@@ -410,15 +407,10 @@ function syncEnglishDocumentTitle() {
 }
 
 export default function LocaleRuntime() {
-  const [locale, setLocale] = useState<Locale>('pt');
-  const [portalTarget, setPortalTarget] = useState<Element | null>(null);
-
   useEffect(() => {
     // The URL is the rendering source of truth. A stale language cookie must
     // never cause a Portuguese route to mutate into English during hydration.
     const resolved: Locale = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/') ? 'en' : 'pt';
-    setLocale(resolved);
-
     const observer = new MutationObserver((records) => {
       if (resolved !== 'en') return;
       for (const record of records) {
@@ -458,7 +450,6 @@ export default function LocaleRuntime() {
         linkObserver.observe(document.body, { childList: true, subtree: true });
         titleObserver.observe(document.head, { childList: true, subtree: true, characterData: true });
       }
-      setPortalTarget(document.querySelector('.header-actions'));
     });
     return () => {
       cancelTranslation();
@@ -468,29 +459,6 @@ export default function LocaleRuntime() {
     };
   }, []);
 
-  const switcher = useMemo(() => (
-    <div className="ago-language-switcher" role="group" aria-label={locale === 'en' ? 'Language' : 'Idioma'} data-no-translate="true">
-      <button
-        type="button"
-        className={locale === 'pt' ? 'is-active' : ''}
-        aria-pressed={locale === 'pt'}
-        onClick={() => {
-          document.cookie = `${COOKIE}=pt; path=/; max-age=31536000; SameSite=Lax; Secure`;
-          window.location.assign(stripEnglishPrefix(window.location.pathname) + window.location.search + window.location.hash);
-        }}
-      >PT</button>
-      <span aria-hidden="true">/</span>
-      <button
-        type="button"
-        className={locale === 'en' ? 'is-active' : ''}
-        aria-pressed={locale === 'en'}
-        onClick={() => {
-          document.cookie = `${COOKIE}=en; path=/; max-age=31536000; SameSite=Lax; Secure`;
-          window.location.assign(addEnglishPrefix(stripEnglishPrefix(window.location.pathname)) + window.location.search + window.location.hash);
-        }}
-      >EN</button>
-    </div>
-  ), [locale]);
 
-  return portalTarget ? createPortal(switcher, portalTarget) : null;
+  return null;
 }

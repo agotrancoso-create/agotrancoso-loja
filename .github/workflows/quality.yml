@@ -63,13 +63,17 @@ jobs:
 
       - name: Crawlable catalog and social metadata
         if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}
-        run: node scripts/qa-seo.cjs
+        run: node scripts/qa-seo.cjs && node scripts/qa-merchant-consistency.cjs
 
       - name: Install browser QA runtime
         run: |
           npm install --no-save --no-audit --no-fund playwright axe-core
           npx playwright install --with-deps chromium webkit
           mkdir -p /tmp/ago-qa
+
+      - name: React hydration on critical routes
+        if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}
+        run: node scripts/qa-hydration.cjs
 
       - name: iPhone Safari and Android Chrome checkout
         if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}

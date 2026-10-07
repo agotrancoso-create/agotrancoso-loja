@@ -1,5 +1,7 @@
 'use client';
 
+import { CONSENT_EVENT, readPrivacyConsent } from './privacy-consent';
+
 declare global {
   interface Window {
     dataLayer?: Array<Record<string, unknown>>;
@@ -8,6 +10,9 @@ declare global {
     _learnq?: Array<unknown>;
   }
 }
+
+const configuredGa4 = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID || '';
+const GA4_ID = /^G-[A-Z0-9]+$/.test(configuredGa4) ? configuredGa4 : '';
 
 export type MarketingItem = {
   item_id: string;
@@ -85,9 +90,14 @@ function klaviyoTrack(event: string, ecommerce?: Record<string, unknown>) {
 
 function track(event: string, ecommerce?: Record<string, unknown>) {
   pushDataLayer(event, ecommerce);
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined' || readPrivacyConsent() !== 'all') return;
 
-  if (typeof window.gtag === 'function') window.gtag('event', event, ecommerce || {});
+  // Ecommerce/CRO events are sent explicitly to GA4 only. Google Ads purchase
+  // conversions require their own conversion action label and must not be
+  // inferred from a generic event sent to the AW destination.
+  if (GA4_ID && typeof window.gtag === 'function') {
+    window.gtag('event', event, { ...(ecommerce || {}), send_to: GA4_ID });
+  }
   klaviyoTrack(event, ecommerce);
 
   if (typeof window.fbq === 'function') {
@@ -153,22 +163,61 @@ export function trackAddShippingInfo(items: MarketingItem[], value: number, ship
 export function trackAddPaymentInfo(items: MarketingItem[], value: number, paymentType = 'InfinitePay') {
   track('add_payment_info', { currency: 'BRL', value: money(value), payment_type: paymentType, items });
 }
-export function trackPurchase(input: { transactionId: string; items: MarketingItem[]; value: number; shipping?: number; coupon?: string }) {
-  if (typeof window !== 'undefined') {
-    const storageKey = `ago_purchase_tracked_${input.transactionId}`;
-    try {
-      if (window.sessionStorage.getItem(storageKey) === '1') return;
-      window.sessionStorage.setItem(storageKey, '1');
-    } catch {}
-  }
-  track('purchase', {
-    transaction_id: input.transactionId,
+type PurchaseInput = { transactionId: string; items?: MarketingItem[]; value: number; shipping?: number; coupon?: string };
+const pendingPurchases = new Map<string, PurchaseInput>();
+const recordedPurchases = new Set<string>();
+let purchaseConsentListener = false;
+
+function recordOnce(key: string, send: () => void) {
+  if (recordedPurchases.has(key)) return;
+  try { if (window.localStorage.getItem(key) === '1') return; } catch {}
+  send();
+  recordedPurchases.add(key);
+  try { window.localStorage.setItem(key, '1'); } catch {}
+}
+
+/** Call only with an authoritative receipt returned by verify-payment. */
+export function trackPurchase(input: PurchaseInput) {
+  if (typeof window === 'undefined') return;
+  const transactionId = input.transactionId.trim();
+  if (!/^AGO-/.test(transactionId) || !Number.isFinite(input.value) || input.value <= 0) return;
+  const payload = {
+    transaction_id: transactionId,
     currency: 'BRL',
     value: money(input.value),
-    shipping: money(input.shipping || 0),
+    ...(input.shipping != null && Number.isFinite(input.shipping) && input.shipping >= 0 ? { shipping: money(input.shipping) } : {}),
     ...(input.coupon ? { coupon: input.coupon } : {}),
-    items: input.items,
-  });
+    ...(input.items?.length ? { items: input.items } : {}),
+  };
+
+  // A local diagnostic is distinct from delivery to a configured destination.
+  // Refusing consent must never permanently mark an unsent GA4 purchase as sent.
+  recordOnce(`ago_purchase_tracked_v2_${transactionId}`, () => pushDataLayer('purchase', payload));
+  if (readPrivacyConsent() !== 'all') {
+    pendingPurchases.set(transactionId, input);
+    if (!purchaseConsentListener) {
+      purchaseConsentListener = true;
+      window.addEventListener(CONSENT_EVENT, () => {
+        if (readPrivacyConsent() === 'all') {
+          for (const purchase of pendingPurchases.values()) trackPurchase(purchase);
+        }
+      });
+    }
+    return;
+  }
+  pendingPurchases.delete(transactionId);
+  if (GA4_ID && typeof window.gtag === 'function') {
+    recordOnce(`ago_purchase_ga4_v1_${GA4_ID}_${transactionId}`, () => {
+      window.gtag!('event', 'purchase', { ...payload, send_to: GA4_ID });
+    });
+  }
+  if (typeof window.fbq === 'function') {
+    recordOnce(`ago_purchase_meta_v1_${transactionId}`, () => {
+      const { items, contents } = metaPayload(payload);
+      window.fbq!('track', 'Purchase', { content_ids: items.map(item => item.item_id), content_type: 'product', contents, value: payload.value, currency: 'BRL' }, { eventID: transactionId });
+    });
+  }
+  recordOnce(`ago_purchase_crm_v1_${transactionId}`, () => klaviyoTrack('purchase', payload));
 }
 export function trackContact(method: string) { track('contact', { method }); }
 export function trackProductInteraction(action: 'quick_view' | 'save_product' | 'unsave_product' | 'share_product', item: MarketingItem) {

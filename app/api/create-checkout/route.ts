@@ -78,7 +78,7 @@ export async function POST(req: Request) {
       const quantity = Number(item.quantity);
       if (!product || !product.available || !Number.isInteger(quantity) || quantity < 1) throw new Error(`Produto indisponível: ${item.productId}`);
       const unitPrice = getEffectivePrice(product);
-      return { id: product.id, name: product.name, unitPrice, quantity, subtotal: Number((unitPrice * quantity).toFixed(2)) };
+      return { id: product.id, name: product.name, category: product.category, unitPrice, quantity, subtotal: Number((unitPrice * quantity).toFixed(2)) };
     });
 
     const subtotal = Number(totals.total.toFixed(2));
@@ -100,6 +100,19 @@ export async function POST(req: Request) {
     const orderPrefix = firstPurchaseOrder ? 'AGO-FP' : 'AGO';
     const orderNsu = `${orderPrefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
     const expectedAmountCents = checkoutItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const analytics = {
+      currency: 'BRL' as const,
+      valueCents: expectedAmountCents,
+      shippingCents: Math.round(shippingValue * 100),
+      ...(coupon ? { coupon } : {}),
+      items: discountedUnits.map((line) => ({
+        itemId: line.id,
+        itemName: line.name,
+        unitPriceCents: line.price,
+        quantity: line.quantity,
+        itemCategory: checkoutLines.find(item => item.id === line.id)?.category,
+      })),
+    };
 
     if (firstPurchaseOrder) {
       const eligibility = await reserveFirstPurchaseIdentity({
@@ -109,6 +122,7 @@ export async function POST(req: Request) {
         document: customer.document,
         expectedAmountCents,
         discountCents: Math.round(discount * 100),
+        analytics,
       });
       if (!eligibility.eligible) return NextResponse.json({ error: eligibility.reason }, { status: 409 });
       reservedOrderNsu = orderNsu;
@@ -155,6 +169,7 @@ export async function POST(req: Request) {
         phone: customer.phone,
         document: customer.document,
         expectedAmountCents,
+        analytics,
       }).catch((historyError) => console.error('Purchase history registration error:', historyError));
     }
 

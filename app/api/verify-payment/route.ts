@@ -30,14 +30,35 @@ export async function POST(req: Request) {
       return NextResponse.json({ confirmed: false }, { headers: noStore });
     }
 
-    if (orderNsu.startsWith('AGO-FP-')) {
-      const order = await getFirstPurchaseOrder(orderNsu);
-      if (!order || Number(payment.amount) !== order.expectedAmountCents) {
-        return NextResponse.json({ confirmed: false }, { status: 422, headers: noStore });
-      }
+    const verifiedAmountCents = Number(payment.amount);
+    if ((typeof payment.amount !== 'number' && typeof payment.amount !== 'string') || !Number.isSafeInteger(verifiedAmountCents) || verifiedAmountCents <= 0 || !Number.isInteger(verifiedAmountCents)) {
+      return NextResponse.json({ confirmed: false }, { status: 422, headers: noStore });
     }
 
-    return NextResponse.json({ confirmed: true }, { headers: noStore });
+    const order = await getFirstPurchaseOrder(orderNsu);
+    if (order && verifiedAmountCents !== order.expectedAmountCents) {
+      return NextResponse.json({ confirmed: false }, { status: 422, headers: noStore });
+    }
+
+    const snapshot = order?.analytics;
+    const purchase = {
+      transactionId: orderNsu,
+      currency: 'BRL' as const,
+      value: Number((verifiedAmountCents / 100).toFixed(2)),
+      ...(snapshot ? {
+        shipping: Number((snapshot.shippingCents / 100).toFixed(2)),
+        ...(snapshot.coupon ? { coupon: snapshot.coupon } : {}),
+        items: snapshot.items.map((item) => ({
+          item_id: item.itemId,
+          item_name: item.itemName,
+          price: Number((item.unitPriceCents / 100).toFixed(2)),
+          quantity: item.quantity,
+          ...(item.itemCategory ? { item_category: item.itemCategory } : {}),
+        })),
+      } : {}),
+    };
+
+    return NextResponse.json({ confirmed: true, purchase }, { headers: noStore });
   } catch (error) {
     console.error('Payment return verification error:', error);
     return NextResponse.json({ confirmed: false }, { status: 502, headers: noStore });

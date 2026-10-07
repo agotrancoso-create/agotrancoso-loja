@@ -9,16 +9,16 @@ const root = path.resolve(__dirname,'..');
 const resolve = Module._resolveFilename;
 Module._resolveFilename = function(request,...rest) { return resolve.call(this,request.startsWith('@/')?path.join(root,request.slice(2)):request,...rest); };
 require.extensions['.ts'] = (module,filename) => module._compile(ts.transpileModule(fs.readFileSync(filename,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,esModuleInterop:true}}).outputText,filename);
-let eligible = true, releases = 0;
+let eligible = true, releases = 0, capturedSnapshot;
 const identityPath = path.join(root,'lib/first-purchase.ts');
 require.cache[identityPath] = {
   id: identityPath,
   filename: identityPath,
   loaded: true,
   exports: {
-    reserveFirstPurchaseIdentity: async () => ({ eligible, reason: 'Benefício já utilizado.' }),
+    reserveFirstPurchaseIdentity: async input => { capturedSnapshot = input.analytics; return { eligible, reason: 'Benefício já utilizado.' }; },
     releaseFirstPurchaseReservation: async () => { releases++; return true; },
-    registerPurchaseOrder: async () => true,
+    registerPurchaseOrder: async input => { capturedSnapshot = input.analytics; return true; },
   },
 };
 const {POST} = require('../app/api/create-checkout/route.ts');
@@ -88,6 +88,9 @@ async function checkout(items,coupon='',overrides={}) {
     assert.equal(data.subtotal,subtotal);assert.equal(data.discount,discount);assert.equal(data.shippingValue,shouldOfferFreeShipping(subtotal)?0:39.9);
     assert.equal(payload.items.reduce((sum,i)=>sum+i.quantity*i.price,0),Math.round((subtotal-discount+data.shippingValue)*100));
     assert.equal(payload.customer.name,'Pessoa Teste');assert.equal(payload.customer.phone_number,'+5573999999999');assert.equal(payload.address.complement,'Destinatário: Pessoa Teste · CPF/CNPJ: 52998224725');assert.ok(payload.redirect_url.includes('/confirmacao?pedido='));assert.ok(payload.webhook_url.endsWith('/api/webhooks/infinitepay'));
+    assert.equal(capturedSnapshot.valueCents, Math.round(data.total * 100));
+    assert.equal(capturedSnapshot.items.reduce((sum,item)=>sum+item.unitPriceCents*item.quantity,0)+capturedSnapshot.shippingCents, capturedSnapshot.valueCents, 'snapshot must use charged discounted unit prices');
+    assert.equal(capturedSnapshot.currency, 'BRL');
     cases++;
   }
   const id=getAllProducts()[0].id;
