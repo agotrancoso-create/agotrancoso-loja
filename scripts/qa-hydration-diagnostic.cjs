@@ -2,7 +2,7 @@ const { spawn } = require('node:child_process');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 
 const base = 'http://127.0.0.1:3112';
-const routes = ['/', '/checkout', '/nossa-essencia', '/contato'];
+const routes = ['/', '/checkout', '/nossa-essencia', '/contato', '/en', '/en/checkout', '/en/envio-internacional'];
 const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'dev', '--port', '3112'], {
   stdio: ['ignore', 'pipe', 'pipe'],
   env: { ...process.env, NEXT_TELEMETRY_DISABLED: '1' },
