@@ -202,7 +202,8 @@ function apply(root: ParentNode) {
 
 export default function LocaleSupplement() {
   useEffect(() => {
-    if (!isEnglish()) return;
+    const routePath = window.location.pathname.replace(/^\/en(?=\/|$)/, '') || '/';
+    if (!isEnglish() || routePath === '/checkout' || routePath === '/envio-internacional') return;
     const observer = new MutationObserver((records) => {
       records.forEach((record) => record.addedNodes.forEach((node) => {
         if (node.nodeType === Node.TEXT_NODE) {
