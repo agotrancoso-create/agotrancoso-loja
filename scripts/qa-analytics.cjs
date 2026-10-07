@@ -49,7 +49,9 @@ async function run() {
     executablePath: process.env.CHROMIUM_PATH,
     args: ['--no-sandbox', '--disable-dev-shm-usage', '--use-gl=angle', '--use-angle=swiftshader'],
   });
-  // Google Ads shares one head loader with GA4, gated by the existing consent choice.
+  // Google Ads shares one head loader with GA4. Consent Mode v2 loads the tag
+  // site-wide with denied defaults so Google can verify installation without
+  // Ads/Analytics cookies or ecommerce/page_view events before opt-in.
   const tagContext = await browser.newContext();
   const tagPage = await tagContext.newPage();
   const tagErrors = [];
@@ -58,10 +60,20 @@ async function run() {
   await tagPage.addInitScript(() => localStorage.setItem('ago_primeira_compra_v3_vista', '1'));
   await tagPage.goto(base + '/en/produtos', {waitUntil:'networkidle'});
   assert.equal(await tagPage.locator('head #ago-google-tag').count(), 1);
-  assert.equal(await tagPage.locator('script[src*="googletagmanager.com/gtag/js"]').count(), 0);
+  assert.equal(await tagPage.locator('head script[src*="googletagmanager.com/gtag/js?id=AW-18232525092"]').count(), 1);
+  assert.equal(await tagPage.evaluate(() => (window.dataLayer || []).filter(x => x[0] === 'config' && x[1] === 'AW-18232525092').length), 1);
+  assert.equal(await tagPage.evaluate(() => (window.dataLayer || []).filter(x => x[0] === 'event' && x[1] === 'page_view').length), 0, 'page_view must stay blocked before consent');
+  const initialConsent = await tagPage.evaluate(() => (window.dataLayer || []).find(x => x[0] === 'consent' && x[1] === 'default')?.[2]);
+  assert.equal(initialConsent?.ad_storage, 'denied');
+  assert.equal(initialConsent?.analytics_storage, 'denied');
+  assert.equal(initialConsent?.ad_user_data, 'denied');
+  assert.equal(initialConsent?.ad_personalization, 'denied');
+
   await tagPage.locator('.ago-consent-accept').click();
   await tagPage.waitForFunction(() => (window.dataLayer || []).some(x => x[0] === 'event' && x[1] === 'page_view'));
-  assert.equal(await tagPage.locator('head script[src*="googletagmanager.com/gtag/js?id=AW-18232525092"]').count(), 1);
+  const grantedConsent = await tagPage.evaluate(() => Array.from(window.dataLayer || []).filter(x => x[0] === 'consent' && x[1] === 'update').at(-1)?.[2]);
+  assert.equal(grantedConsent?.ad_storage, 'granted');
+  assert.equal(grantedConsent?.analytics_storage, 'granted');
 
   // "Ver rota" is a click-only Google Ads conversion. It must not fire on load
   // or on unrelated links, and each real route click must enqueue exactly once.
@@ -104,10 +116,14 @@ async function run() {
   });
   assert.equal(await tagPage.evaluate(() => Array.from(window.dataLayer).filter(x => x[0] === 'consent').at(-1)[2].ad_storage), 'denied');
   await tagPage.reload({waitUntil:'networkidle'});
-  assert.equal(await tagPage.locator('#ago-google-tag-loader').count(), 0);
+  assert.equal(await tagPage.locator('head #ago-google-tag-loader').count(), 1);
+  assert.equal(await tagPage.evaluate(() => (window.dataLayer || []).filter(x => x[0] === 'event' && x[1] === 'page_view').length), 0, 'essential-only reload must not send page_view');
+  const deniedAfterReload = await tagPage.evaluate(() => Array.from(window.dataLayer || []).filter(x => x[0] === 'consent').at(-1)?.[2]);
+  assert.equal(deniedAfterReload?.ad_storage, 'denied');
+  assert.equal(deniedAfterReload?.analytics_storage, 'denied');
   assert.deepEqual(tagErrors, []);
   await tagContext.close();
-  console.log('PASS Google Ads head placement, consent, route-click conversion, navigation and no duplicate loader/config');
+  console.log('PASS Google Ads head placement, Consent Mode v2 denied defaults, route-click conversion, navigation and no duplicate loader/config');
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
   await page.addInitScript(() => {
     localStorage.setItem('ago_primeira_compra_v3_vista', '1');
