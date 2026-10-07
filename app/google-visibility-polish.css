@@ -640,7 +640,7 @@ body:has(.checkout-page) .ago-social-floaters { display: none !important; }
    recognition and premium scanability with large, consistent icon treatment. */
 body .ago-home section.benefits-strip.ago-benefits-reference.ago-benefits-icons-2026 {
   padding-block: clamp(34px, 4vw, 52px) !important;
-  background: #e4cfad !important;
+  background: #d9bca3 !important;
   background-image: none !important;
   border-top: 1px solid rgba(67, 45, 35, .10) !important;
   border-bottom: 1px solid rgba(67, 45, 35, .10) !important;
