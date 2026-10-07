@@ -75,7 +75,11 @@ for (const source of [...shippingCopyFiles, productPage, addToCart]) {
   assert.ok(!source.includes('produtos + frete atingem'));
 }
 for (const source of shippingCopyFiles) {
-  assert.ok(source.includes('a partir de R$ 500 em produtos'));
+  assert.ok(
+    /R\$ 500[^\n]{0,80}(produtos|products)/i.test(source)
+      || /(produtos|products)[^\n]{0,80}R\$ 500/i.test(source),
+    'Global shipping copy must preserve the R$ 500 products-only threshold in PT or EN',
+  );
 }
 assert.ok(addToCart.includes('getShippingPrice(selectionSubtotal)'));
 assert.ok(addToCart.includes("fetch('/api/frete'"));
