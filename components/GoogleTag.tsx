@@ -1,8 +1,9 @@
 import Script from 'next/script';
 
 // One global loader shared by Google Ads and the optional GA4 destination.
-// Keep the existing basic consent behavior: no Google requests before opt-in.
-// beforeInteractive makes Next.js place this script in <head> without a manual
+// Consent Mode v2 starts denied so the Google tag can be discovered/verified
+// site-wide without writing Ads/Analytics cookies before the visitor opts in.
+// beforeInteractive makes Next.js place this bootstrap in <head> without a manual
 // <head> element in RootLayout, avoiding a hydration mismatch at the document root.
 export default function GoogleTag() {
   const candidate = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID || '';
@@ -11,40 +12,44 @@ export default function GoogleTag() {
 (function () {
   if (window.__agoGoogleTag) return;
   window.__agoGoogleTag = true;
-  var started = false;
   var allowed = false;
   var ga4 = ${JSON.stringify(ga4)};
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+  // Consent Mode v2 must be established before config/events.
+  window.gtag('consent', 'default', {
+    ad_storage: 'denied',
+    analytics_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied'
+  });
+  window.gtag('set', 'ads_data_redaction', true);
+  window.gtag('js', new Date());
+  window.gtag('config', 'AW-18232525092', { send_page_view: false });
+  if (ga4) window.gtag('config', ga4, { anonymize_ip: true, send_page_view: false });
+
+  if (!document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) {
+    var tag = document.createElement('script');
+    tag.id = 'ago-google-tag-loader';
+    tag.async = true;
+    tag.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18232525092';
+    document.head.appendChild(tag);
+  }
+
   function sync(event) {
     var choice = event && event.detail;
     if (choice !== 'all' && choice !== 'essential') {
       try { choice = localStorage.getItem('ago_privacy_consent_v1'); } catch (_) {}
     }
     allowed = choice === 'all';
-    if (!allowed) {
-      if (started && typeof window.gtag === 'function') window.gtag('consent', 'update', {
-        ad_storage: 'denied', analytics_storage: 'denied',
-        ad_user_data: 'denied', ad_personalization: 'denied'
-      });
-      return;
-    }
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-    window.gtag('consent', started ? 'update' : 'default', {
-      ad_storage: 'granted', analytics_storage: 'granted',
-      ad_user_data: 'granted', ad_personalization: 'granted'
+    window.gtag('consent', 'update', {
+      ad_storage: allowed ? 'granted' : 'denied',
+      analytics_storage: allowed ? 'granted' : 'denied',
+      ad_user_data: allowed ? 'granted' : 'denied',
+      ad_personalization: allowed ? 'granted' : 'denied'
     });
-    if (started) return;
-    started = true;
-    window.gtag('js', new Date());
-    window.gtag('config', 'AW-18232525092', { send_page_view: false });
-    if (ga4) window.gtag('config', ga4, { anonymize_ip: true, send_page_view: false });
-    if (!document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) {
-      var tag = document.createElement('script');
-      tag.id = 'ago-google-tag-loader';
-      tag.async = true;
-      tag.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18232525092';
-      document.head.appendChild(tag);
-    }
+    window.gtag('set', 'ads_data_redaction', !allowed);
   }
   window.gtag_report_conversion = function (url) {
     var callback = function () {
