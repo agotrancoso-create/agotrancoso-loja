@@ -35,6 +35,16 @@ function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
+function stripEnglishPrefix(pathname: string) {
+  if (pathname === '/en') return '/';
+  return pathname.startsWith('/en/') ? pathname.slice(3) || '/' : pathname;
+}
+
+function addEnglishPrefix(pathname: string) {
+  if (pathname === '/en' || pathname.startsWith('/en/')) return pathname;
+  return pathname === '/' ? '/en' : `/en${pathname}`;
+}
+
 export default function Header({ firstPurchaseAvailable = false }: { firstPurchaseAvailable?: boolean }) {
   const [query, setQuery] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -233,6 +243,28 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
                 {totalItems > 0 && <span className="cart-count" aria-hidden="true">{totalItems}</span>}
               </span>
             </button>
+
+            <div className="ago-language-switcher" role="group" aria-label={english ? 'Language' : 'Idioma'} data-no-translate="true">
+              <button
+                type="button"
+                className={!english ? 'is-active' : ''}
+                aria-pressed={!english}
+                onClick={() => {
+                  document.cookie = 'ago_locale=pt; path=/; max-age=31536000; SameSite=Lax; Secure';
+                  window.location.assign(stripEnglishPrefix(window.location.pathname) + window.location.search + window.location.hash);
+                }}
+              >PT</button>
+              <span aria-hidden="true">/</span>
+              <button
+                type="button"
+                className={english ? 'is-active' : ''}
+                aria-pressed={english}
+                onClick={() => {
+                  document.cookie = 'ago_locale=en; path=/; max-age=31536000; SameSite=Lax; Secure';
+                  window.location.assign(addEnglishPrefix(stripEnglishPrefix(window.location.pathname)) + window.location.search + window.location.hash);
+                }}
+              >EN</button>
+            </div>
 
             <button
               ref={menuButtonRef}
