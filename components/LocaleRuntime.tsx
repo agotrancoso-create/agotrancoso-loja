@@ -150,6 +150,121 @@ const exact: Record<string, string> = {
   'Rodapé': 'Footer',
   'Trancoso · Bahia · Brasil': 'Trancoso · Bahia · Brazil',
 
+  // Páginas editoriais / SEO
+  'Navegação estrutural': 'Breadcrumb navigation',
+  'Cerâmica artesanal no coração de Trancoso.': 'Handmade ceramics in the heart of Trancoso.',
+  'A Agô reúne no Quadrado uma seleção de cerâmica artesanal inspirada nas cores, na arquitetura, na fé e nos símbolos que fazem parte de Trancoso.': 'At the Quadrado, Agô brings together handmade ceramics inspired by the colors, architecture, faith and symbols of Trancoso.',
+  'Artesanato em Trancoso': 'Crafts in Trancoso',
+  'Peças que começam pelo lugar.': 'Pieces that begin with the place.',
+  'No coração da vila': 'In the heart of the village',
+  'O Quadrado como inspiração.': 'The Quadrado as inspiration.',
+  'Entre as referências da coleção estão o Quadrado de Trancoso e a Igreja de São João Batista, também conhecida como Igrejinha de Trancoso ou Igreja do Quadrado. Elas aparecem em miniaturas, luminárias, presentes e outras peças de cerâmica artesanal.': 'The collection draws from the Trancoso Quadrado and São João Batista Church, also known as the Trancoso Church or Quadrado Church. These references appear in miniatures, luminaries, gifts and other handmade ceramic pieces.',
+  'Quem procura artesanato, decoração ou uma lembrança de Trancoso pode conhecer as peças presencialmente no Quadrado. Para outras cidades do Brasil, a coleção também está disponível para compra online.': 'If you are looking for crafts, decor or a keepsake from Trancoso, you can see the pieces in person at the Quadrado. The collection is also available online for delivery elsewhere in Brazil.',
+  'Ver Igrejinhas de Trancoso': 'View Trancoso churches',
+  'Visitar a Agô': 'Visit Agô',
+  'Artesanato em Trancoso, feito de cerâmica e memória.': 'Crafts in Trancoso, shaped in ceramic and memory.',
+  'As formas da igreja, as cores das casinhas e a vida no Quadrado inspiram peças para a casa. Conheça a seleção de cerâmica artesanal disponível na Agô.': 'The church silhouette, colorful houses and life in the Quadrado inspire pieces for the home. Discover Agô’s selection of handmade ceramics.',
+  'Cerâmica artesanal e decoração de Trancoso': 'Handmade ceramics and decor from Trancoso',
+  'Arquitetura em miniatura': 'Architecture in miniature',
+  'Do Quadrado de Trancoso para a decoração.': 'From the Trancoso Quadrado to your decor.',
+  'A Igreja de São João Batista, conhecida como Igreja do Quadrado ou Igrejinha de Trancoso, aparece em diferentes tamanhos de cerâmica. As miniaturas das casinhas trazem outra referência do centro histórico da vila.': 'São João Batista Church, known as the Quadrado Church or Trancoso Church, appears in different ceramic sizes. Miniatures of the colorful houses bring another reference from the village’s historic center.',
+  'Para decorar, escolha pela proporção do espaço: uma pequena igrejinha sobre a estante, uma miniatura do Quadrado na parede ou uma casinha luminária em um canto da casa. Cada página apresenta as fotos, o valor e as informações disponíveis de cada peça.': 'For decor, choose according to the scale of your space: a small church on a shelf, a Quadrado miniature on the wall or a ceramic house luminary in a corner. Each product page shows photos, price and the available details.',
+  'Ver tamanhos das igrejinhas ↗': 'Compare church sizes ↗',
+  'Encontre a Agô': 'Find Agô',
+  'Onde encontrar artesanato no Quadrado?': 'Where to find crafts in the Quadrado?',
+  'Nossa banca fica no Quadrado de Trancoso, em Porto Seguro, no sul da Bahia. Passe para conhecer a cerâmica de perto. Se estiver longe, a coleção também está disponível para compra online, com envio para todo o Brasil.': 'Our stand is in the Trancoso Quadrado, in Porto Seguro, southern Bahia. Stop by to see the ceramics up close. If you are farther away, the collection is also available online with shipping throughout Brazil.',
+  'Para escolher um souvenir da viagem ou um presente menor, veja nossa seleção de lembranças de Trancoso, com ímãs, colares e miniaturas.': 'For a travel souvenir or a smaller gift, explore our Trancoso keepsakes, including magnets, necklaces and miniatures.',
+  'Ver localização e contato ↗': 'View location and contact ↗',
+  'Escolher uma lembrança de Trancoso ↗': 'Choose a Trancoso keepsake ↗',
+  'Trancoso para a sua casa': 'Trancoso for your home',
+  'Decoração em cerâmica, com a memória da Bahia.': 'Ceramic decor with the memory of Bahia.',
+  'Igrejinhas, casinhas luminárias e objetos para compor estantes, aparadores e paredes. Escolha uma peça pela forma, pela proporção e pela história que ela leva para o seu espaço.': 'Churches, ceramic house luminaries and objects for shelves, consoles and walls. Choose a piece for its shape, scale and the story it brings into your space.',
+  'Peças para decorar a casa': 'Pieces for home decor',
+  'Antes de escolher': 'Before you choose',
+  'Encontre a proporção para o seu ambiente.': 'Find the right scale for your space.',
+  'Antes de escolher, pense no espaço onde a peça vai ficar e no efeito que você quer criar. Algumas funcionam bem em estantes, aparadores e mesas, enquanto outras podem ser penduradas ou usadas como ponto de luz.': 'Before choosing, think about where the piece will live and the effect you want to create. Some work well on shelves, consoles and tables, while others can be hung or used as a point of light.',
+  'A miniatura do Quadrado pode ser pendurada. Para um canto de leitura, uma estante ou um aparador, explore também as casinhas e igrejinhas luminárias. As informações disponíveis de cada modelo estão na página da peça. Se precisar de alguma medida que não estiver informada, fale com a gente.': 'The Quadrado miniature can be hung on the wall. For a reading corner, shelf or console, also explore the ceramic house and church luminaries. Each product page includes the available details; contact us if you need a measurement that is not listed.',
+  'Ver peças e filtrar por preço ↗': 'View pieces and filter by price ↗',
+  'Vai visitar Trancoso?': 'Visiting Trancoso?',
+  'Veja as peças de perto no Quadrado.': 'See the pieces up close in the Quadrado.',
+  'Passe na nossa banca no Quadrado de Trancoso para conhecer as cores e as proporções ao vivo. Consulte o contato para combinar sua visita.': 'Visit our stand in the Trancoso Quadrado to see the colors and proportions in person. Use the contact page to plan your visit.',
+  'Depois da viagem, você também pode escolher pelo site e receber em casa. As páginas dos produtos mostram preços, fotos e condições de envio.': 'After your trip, you can also shop on the site and have your piece delivered. Product pages show prices, photos and shipping conditions.',
+  'Localização e contato ↗': 'Location and contact ↗',
+  'Lembranças da viagem ↗': 'Travel keepsakes ↗',
+  'Igrejinha de Trancoso em cerâmica': 'Trancoso church in ceramic',
+  'Escolha entre diferentes versões da Igrejinha do Quadrado, compre online e receba em qualquer lugar do Brasil.': 'Choose from different versions of the Quadrado Church, shop online and receive your order anywhere in Brazil.',
+  'Igrejinhas de Trancoso e peças inspiradas na Igreja do Quadrado': 'Trancoso churches and pieces inspired by the Quadrado Church',
+  'Compare sem sair da página': 'Compare without leaving the page',
+  'Encontre o modelo certo.': 'Find the right model.',
+  'Compare os tamanhos e valores. Abra cada modelo para ver as fotos e encontrar o que combina com seu espaço.': 'Compare sizes and prices. Open each model to see the photos and find the one that suits your space.',
+  'Peça decorativa e luminária': 'Decorative piece and luminary',
+  'Miniatura decorativa': 'Decorative miniature',
+  'Compra online e no Quadrado': 'Shop online and in the Quadrado',
+  'Onde comprar uma Igrejinha de Trancoso?': 'Where to buy a Trancoso ceramic church?',
+  'A Agô Trancoso vende as igrejinhas em cerâmica online neste site e presencialmente na banca do Quadrado de Trancoso, em Porto Seguro, Bahia.': 'Agô Trancoso sells the ceramic churches online on this site and in person at our stand in the Trancoso Quadrado, Porto Seguro, Bahia.',
+  'Ver toda a coleção': 'View the full collection',
+  'Visitar a Agô no Quadrado': 'Visit Agô in the Quadrado',
+  'Um símbolo do Quadrado': 'A symbol of the Quadrado',
+  'A Igreja de São João Batista como inspiração.': 'São João Batista Church as inspiration.',
+  'A Igreja de São João Batista, conhecida como Igreja do Quadrado ou Igrejinha de Trancoso, é um dos marcos mais reconhecidos do centro histórico de Trancoso. As peças reunidas aqui levam essa fachada para miniaturas, luminária, ímã e colar de cerâmica.': 'São João Batista Church, known as the Quadrado Church or Trancoso Church, is one of the best-known landmarks in Trancoso’s historic center. The pieces gathered here bring its façade to miniatures, a luminary, magnet and ceramic necklace.',
+  'Para quem procura uma lembrança de Trancoso, um presente ou uma peça de decoração, a compra pode ser feita diretamente pelo site. Quem estiver na vila também pode ver as peças presencialmente na Agô, no Quadrado de Trancoso.': 'If you are looking for a Trancoso keepsake, gift or decor piece, you can buy directly on the site. Visitors in the village can also see the pieces in person at Agô in the Trancoso Quadrado.',
+  'Como visitar a Agô': 'How to visit Agô',
+  'Para presentear e guardar': 'To gift and keep',
+  'Lembranças de Trancoso em cerâmica.': 'Trancoso keepsakes in ceramic.',
+  'Presentes e souvenirs de Trancoso': 'Trancoso gifts and souvenirs',
+  'Uma escolha com significado': 'A meaningful choice',
+  'Qual lembrança de Trancoso escolher?': 'Which Trancoso keepsake should you choose?',
+  'O ímã e o colar da igrejinha são opções pequenas para presentear. Para a decoração, as igrejinhas P e M levam a fachada da Igreja de São João Batista para prateleiras e aparadores.': 'The church magnet and necklace are small gift options. For decor, the small and medium churches bring the façade of São João Batista Church to shelves and consoles.',
+  'A miniatura do Quadrado reúne as casinhas e a igreja em uma composição que pode ser pendurada ou apoiada. Quem prefere uma peça de luz pode conhecer a Igrejinha Luminária. Veja as fotos e as informações disponíveis na página de cada peça antes de escolher. Se precisar de alguma medida que não estiver informada, fale com a gente.': 'The Quadrado miniature brings the houses and church together in a composition that can be hung or displayed. If you prefer a piece with light, explore the Church Luminary. Review the photos and available details on each product page before choosing, and contact us if you need a measurement that is not listed.',
+  'Comparar as igrejinhas de Trancoso ↗': 'Compare Trancoso churches ↗',
+  'Compra online': 'Shop online',
+  'Escolha, coloque na sacola e receba.': 'Choose, add to your bag and receive it at home.',
+  'Abra a peça, escolha a quantidade e adicione à sacola. Na finalização, informe seus dados e endereço, confira o total e siga para o pagamento pela InfinitePay.': 'Open the product, choose the quantity and add it to your bag. At checkout, enter your details and address, review the total and continue to payment via InfinitePay.',
+  'Quer uma encomenda personalizada ou várias lembranças para presentear?': 'Would you like a custom order or several keepsakes for gifting?',
+  'Fale com a Agô para combinar os detalhes.': 'Talk to Agô to arrange the details.',
+  'No Quadrado de Trancoso': 'In the Trancoso Quadrado',
+  'Onde comprar lembranças em Trancoso?': 'Where to buy Trancoso keepsakes?',
+  'Você encontra a Agô no Quadrado de Trancoso, em Porto Seguro, Bahia. Pode ver as peças na nossa banca durante a viagem ou comprar pelo site depois de voltar para casa.': 'You can find Agô in the Trancoso Quadrado, Porto Seguro, Bahia. See the pieces at our stand during your trip or shop online after you return home.',
+  'Como chegar à Agô ↗': 'Directions to Agô ↗',
+  'Conhecer o artesanato em cerâmica ↗': 'Discover our ceramic craft ↗',
+  'O Quadrado, a igrejinha, as casinhas coloridas. Escolha um presente que leve um pouco de Trancoso para o dia a dia.': 'The Quadrado, its church and colorful houses. Choose a gift that brings a little of Trancoso into everyday life.',
+  'Há versões P, M e GG, além da Igrejinha Luminária.': 'There are small, medium and large versions, plus the Church Luminary.',
+  'Também enviamos para todo o Brasil e fazemos cotação internacional sob consulta.': 'We ship throughout Brazil and provide international shipping quotes on request.',
+  'Enviamos para todo o Brasil. O frete fixo é de': 'We ship throughout Brazil. Fixed shipping is',
+  '; quando houver frete grátis para o pedido, o desconto aparece na sacola. Para confirmar o prazo de entrega no seu endereço, fale com a Agô antes de comprar.': '; when free shipping applies, the discount appears in your bag. To confirm the delivery estimate for your address, contact Agô before purchasing.',
+
+  // Legal
+  'Estes termos orientam o uso do site da Agô Trancoso e a realização de pedidos pela loja.': 'These terms govern the use of the Agô Trancoso website and orders placed through the store.',
+  '1. Uso do site': '1. Use of the site',
+  'Ao navegar pelo site, você se compromete a fornecer informações verdadeiras nos formulários de cadastro e compra e a utilizar a loja de forma compatível com a legislação aplicável.': 'By using the site, you agree to provide accurate information in registration and purchase forms and to use the store in accordance with applicable law.',
+  '2. Produtos, preços e disponibilidade': '2. Products, prices and availability',
+  'Os produtos, preços, condições de promoção e disponibilidade são apresentados no próprio site e podem ser atualizados pela Agô Trancoso. O pedido só é confirmado após a conclusão do processo de pagamento.': 'Products, prices, promotional conditions and availability are shown on the site and may be updated by Agô Trancoso. An order is confirmed only after the payment process is completed.',
+  '3. Pagamento e entrega': '3. Payment and delivery',
+  'O pagamento é processado por parceiro de pagamento integrado ao site. As condições de entrega e frete são informadas durante a compra.': 'Payment is processed by the payment provider integrated with the site. Delivery and shipping conditions are shown during purchase.',
+  '4. Benefício de primeira compra': '4. First-purchase benefit',
+  'O código da oferta fica salvo neste navegador. A elegibilidade é verificada no checkout com o e-mail e o telefone informados no pedido. O desconto só é aplicado após essa validação.': 'The offer code is stored in this browser. Eligibility is checked at checkout using the email and phone number provided with the order. The discount is applied only after this validation.',
+  '5. Atendimento': '5. Customer service',
+  'Para dúvidas sobre pedidos, produtos ou uso do site, utilize os canais de atendimento disponibilizados no próprio site.': 'For questions about orders, products or use of the site, use the support channels provided on the website.',
+  '6. Atualizações': '6. Updates',
+  'Estes termos podem ser atualizados para refletir mudanças no site, nos serviços ou na legislação. A versão publicada nesta página é a referência vigente.': 'These terms may be updated to reflect changes to the site, services or applicable law. The version published on this page is the current reference.',
+  'Última atualização: 26 de setembro de 2026.': 'Last updated: September 26, 2026.',
+  'Esta página explica, de forma simples, como os dados informados no site podem ser utilizados para atendimento, pedidos, medição da experiência e relacionamento com a Agô.': 'This page explains how information provided on the site may be used for customer service, orders, experience measurement and your relationship with Agô.',
+  '1. Dados coletados': '1. Data collected',
+  'Dependendo da ação realizada, o site pode solicitar nome, e-mail, telefone, CPF ou CNPJ e informações necessárias para entrega, como endereço e CEP. O CPF ou CNPJ é solicitado no checkout para identificação do pedido e necessidades de emissão e postagem. Dados técnicos de navegação e interação só são enviados às ferramentas de medição e marketing quando você escolhe aceitar esses recursos.': 'Depending on the action you take, the site may request your name, email, phone number, Brazilian CPF or CNPJ when applicable, and delivery information such as address and postal code. CPF or CNPJ is requested for Brazilian checkout identification and fulfillment needs. Technical browsing and interaction data is sent to measurement and marketing tools only when you choose to accept those features.',
+  '2. Para que usamos os dados': '2. How we use data',
+  'Os dados são utilizados para atender solicitações, processar pedidos e pagamentos, organizar a emissão e a entrega e cumprir obrigações aplicáveis à operação da compra. Comunicações promocionais dependem do consentimento aplicável e não são uma condição para concluir uma compra.': 'Data is used to respond to requests, process orders and payments, organize fulfillment and delivery, and comply with obligations applicable to the purchase. Promotional communications depend on the applicable consent and are not required to complete a purchase.',
+  '3. Analytics, anúncios e CRM': '3. Analytics, advertising and CRM',
+  'Quando você aceita, a Agô pode usar ferramentas de analytics, publicidade e CRM para medir páginas vistas, produtos consultados, adições à sacola e etapas de compra, além de entender o desempenho de campanhas. Ao escolher “Somente essenciais”, essas ferramentas de medição e marketing não são carregadas pelo site.': 'When you consent, Agô may use analytics, advertising and CRM tools to measure page views, products viewed, additions to bag and purchase steps, and to understand campaign performance. When you choose “Essential only”, these measurement and marketing tools are not loaded by the site.',
+  '4. Pagamento': '4. Payment',
+  'Os dados necessários ao pagamento são encaminhados ao provedor de pagamento integrado ao checkout. A Agô Trancoso não deve solicitar por este site senhas ou códigos de autenticação do seu banco.': 'Information required for payment is sent to the payment provider integrated with checkout. Agô Trancoso will not ask through this site for your bank password or authentication codes.',
+  '5. Compartilhamento': '5. Sharing',
+  'As informações podem ser compartilhadas apenas com prestadores necessários à operação da loja, inclusive serviços relacionados a pagamento, emissão e entrega, e, quando autorizado, com serviços de medição, publicidade e relacionamento, sempre de acordo com a finalidade informada.': 'Information may be shared only with providers needed to operate the store, including payment and delivery services, and, when authorized, with measurement, advertising and customer relationship services, always for the stated purpose.',
+  '6. Segurança e retenção': '6. Security and retention',
+  'São adotadas medidas técnicas e organizacionais compatíveis com a operação do site. Os dados são mantidos pelo período necessário às finalidades para as quais foram coletados e às obrigações legais aplicáveis.': 'Technical and organizational measures appropriate to the site’s operation are used. Data is retained for the period needed for the purposes for which it was collected and for applicable legal obligations.',
+  '7. Seus direitos e preferências': '7. Your rights and preferences',
+  'Você pode solicitar informações sobre o tratamento dos seus dados e, quando aplicável, exercer os direitos previstos na legislação de proteção de dados pelos canais de atendimento da Agô Trancoso. A escolha de privacidade feita no site fica armazenada no seu navegador.': 'You may request information about how your data is processed and, when applicable, exercise rights provided by data protection law through Agô Trancoso’s support channels. Your privacy choice on the site is stored in your browser.',
+  'Última atualização: 29 de setembro de 2026.': 'Last updated: September 29, 2026.',
+
   // Produtos
   'Igreja do Quadrado (P)': 'Church of the Quadrado (Small)',
   'Igreja do Quadrado (M)': 'Church of the Quadrado (Medium)',
@@ -208,6 +323,11 @@ const patternTranslations: Array<[RegExp, (match: RegExpMatchArray) => string]> 
   [/^(.+) está na sacola$/, (m) => `${translateExact(m[1])} is in your bag`],
   [/^Altura: (.+) · Largura: (.+)$/, (m) => `Height: ${m[1]} · Width: ${m[2]}`],
   [/^Comprimento: (.+) · Altura com a cruz da igrejinha do meio: (.+)$/, (m) => `Length: ${m[1]} · Height including the center church cross: ${m[2]}`],
+  [/^O Quadrado, a igrejinha, as casinhas coloridas\. Escolha um presente que leve um pouco de Trancoso para o dia a dia\. Peças nesta seleção a partir de (.+)\.$/, (m) => `The Quadrado, its church and colorful houses. Choose a gift that brings a little of Trancoso into everyday life. Pieces in this selection start at ${m[1]}.`],
+  [/^Há versões P, M e GG, além da Igrejinha Luminária\. As igrejinhas em cerâmica disponíveis começam em (.+)\. Também enviamos para todo o Brasil e fazemos cotação internacional sob consulta\.$/, (m) => `There are small, medium and large versions, plus the Church Luminary. Available ceramic churches start at ${m[1]}. We ship throughout Brazil and provide international shipping quotes on request.`],
+  [/^Enviamos para todo o Brasil\. O frete fixo é de (.+); quando houver frete grátis para o pedido, o desconto aparece na sacola\. Para confirmar o prazo de entrega no seu endereço, fale com a Agô antes de comprar\.$/, (m) => `We ship throughout Brazil. Fixed shipping is ${m[1]}; when free shipping applies, the discount appears in your bag. To confirm the delivery estimate for your address, contact Agô before purchasing.`],
+  [/^Peças nesta seleção a partir de (.+)\.$/, (m) => `Pieces in this selection start at ${m[1]}.`],
+  [/^As igrejinhas em cerâmica disponíveis começam em (.+)\.$/, (m) => `Available ceramic churches start at ${m[1]}.`],
 ];
 
 function translateExact(value: string) {
@@ -254,11 +374,6 @@ function translateNode(root: ParentNode) {
   }
 }
 
-function localeFromCookie(): Locale {
-  const item = document.cookie.split('; ').find((entry) => entry.startsWith(`${COOKIE}=`));
-  return item?.split('=')[1] === 'en' ? 'en' : 'pt';
-}
-
 function stripEnglishPrefix(pathname: string) {
   if (pathname === '/en') return '/';
   return pathname.startsWith('/en/') ? pathname.slice(3) || '/' : pathname;
@@ -278,6 +393,13 @@ function syncEnglishDocumentTitle() {
     '/contato': 'Contact | Agô Trancoso',
     '/checkout': 'Complete purchase | Agô Trancoso',
     '/envio-internacional': 'International shipping | Agô Trancoso',
+    '/trancoso': 'Ceramics in Trancoso | Agô Trancoso',
+    '/artesanato-em-trancoso': 'Crafts in Trancoso | Agô Trancoso',
+    '/decoracao-em-ceramica': 'Ceramic decor | Agô Trancoso',
+    '/igrejinha-de-trancoso': 'Trancoso ceramic churches | Agô Trancoso',
+    '/lembrancas-de-trancoso': 'Trancoso keepsakes | Agô Trancoso',
+    '/termos': 'Terms of Use | Agô Trancoso',
+    '/privacidade': 'Privacy Policy | Agô Trancoso',
   };
   let next = fixed[pathname];
   if (!next) {
@@ -292,7 +414,9 @@ export default function LocaleRuntime() {
   const [portalTarget, setPortalTarget] = useState<Element | null>(null);
 
   useEffect(() => {
-    const resolved: Locale = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/') ? 'en' : localeFromCookie();
+    // The URL is the rendering source of truth. A stale language cookie must
+    // never cause a Portuguese route to mutate into English during hydration.
+    const resolved: Locale = window.location.pathname === '/en' || window.location.pathname.startsWith('/en/') ? 'en' : 'pt';
     setLocale(resolved);
 
     const observer = new MutationObserver((records) => {

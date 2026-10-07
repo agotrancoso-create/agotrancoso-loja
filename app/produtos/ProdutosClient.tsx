@@ -177,13 +177,9 @@ export default function ProdutosClient({ products, categories, initialFilters }:
 
     return attentionProducts
       .filter((product) => product.available && (category === 'todas' || product.category === category) && matchesBudget(product, budget))
-      .map((product) => {
-        const match = productSearchScore(product, query);
-        const score = match ? 100 - match : 999;
-        return { product, score };
-      })
-      .filter(({ score }) => score < 99)
-      .sort((a, b) => a.score - b.score)
+      .map((product) => ({ product, score: productSearchScore(product, query) }))
+      .filter(({ score }) => score > 0)
+      .sort((a, b) => b.score - a.score || a.product.name.localeCompare(b.product.name, 'pt-BR'))
       .slice(0, 6)
       .map(({ product }) => product);
   }, [attentionProducts, query, category, budget]);

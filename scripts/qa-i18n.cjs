@@ -6,6 +6,16 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const port = 3105;
 const base = `http://127.0.0.1:${port}`;
 const widths = [320, 390, 820, 1440];
+const editorialEnglishRoutes = [
+  ['/en/produtos', 'Collection | Agô Trancoso', 'Ceramics to live with and treasure.'],
+  ['/en/trancoso', 'Ceramics in Trancoso | Agô Trancoso', 'Handmade ceramics in the heart of Trancoso.'],
+  ['/en/artesanato-em-trancoso', 'Crafts in Trancoso | Agô Trancoso', 'Crafts in Trancoso, shaped in ceramic and memory.'],
+  ['/en/decoracao-em-ceramica', 'Ceramic decor | Agô Trancoso', 'Ceramic decor with the memory of Bahia.'],
+  ['/en/igrejinha-de-trancoso', 'Trancoso ceramic churches | Agô Trancoso', 'Trancoso church in ceramic'],
+  ['/en/lembrancas-de-trancoso', 'Trancoso keepsakes | Agô Trancoso', 'Trancoso keepsakes in ceramic.'],
+  ['/en/termos', 'Terms of Use | Agô Trancoso', 'Terms of Use'],
+  ['/en/privacidade', 'Privacy Policy | Agô Trancoso', 'Privacy Policy'],
+];
 const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '--port', String(port)], { stdio: ['ignore', 'pipe', 'pipe'] });
 let browser;
 
@@ -63,6 +73,14 @@ async function run() {
       localStorage.setItem('ago_privacy_consent_v1', 'essential');
     });
 
+    // A stale English preference cookie must never translate a Portuguese URL
+    // during hydration; the URL itself determines the rendered locale.
+    await page.context().addCookies([{ name: 'ago_locale', value: 'en', url: base }]);
+    await page.goto(base + '/nossa-essencia', { waitUntil: 'networkidle' });
+    assert.equal(await page.locator('html').getAttribute('lang'), 'pt-BR', `pt route ignores stale en cookie@${width}`);
+    assert.equal((await page.getByRole('heading', { level: 1 }).innerText()).trim(), 'O que vemos por aqui ganha outra forma.', `pt route stays Portuguese@${width}`);
+    await page.context().clearCookies();
+
     await page.goto(base + '/', { waitUntil: 'networkidle' });
     assert.equal(await page.locator('html').getAttribute('lang'), 'pt-BR', `pt lang@${width}`);
     assert.equal((await page.locator('.ago-cinematic-copy > p:not(.eyebrow)').first().innerText()).trim(), 'Igrejinhas, casinhas e lembranças do Quadrado.', `approved hero copy@${width}`);
@@ -92,6 +110,20 @@ async function run() {
       await page.goto(base + '/en/produtos/nonexistent-quality-check', { waitUntil: 'networkidle' });
       await page.getByRole('heading', { name: 'We couldn’t find this page.', exact: true }).waitFor();
       assert.equal(await page.getByRole('link', { name: 'View collection', exact: true }).getAttribute('href'), '/en/produtos');
+
+      for (const [route, expectedTitle, expectedHeading] of editorialEnglishRoutes) {
+        await page.goto(base + route, { waitUntil: 'networkidle' });
+        await page.waitForFunction(() => document.documentElement.lang === 'en');
+        await page.waitForFunction((title) => document.title === title, expectedTitle);
+        await page.getByRole('heading', { name: expectedHeading, exact: true }).waitFor();
+        const mainText = await page.locator('main').innerText();
+        assert.doesNotMatch(
+          mainText,
+          /Navegação estrutural|Cerâmica artesanal no coração|Artesanato em Trancoso, feito|Decoração em cerâmica, com|Igrejinha de Trancoso em cerâmica|Lembranças de Trancoso em cerâmica|Termos de Uso|Política de Privacidade|Escolha, coloque na sacola|Onde encontrar artesanato/,
+          `Portuguese editorial copy leaked on ${route}`
+        );
+        await assertNoOverflow(page, `editorial-${route}@${width}`);
+      }
     }
 
     await page.goto(base + '/en/produtos/miniatura-quadrado-trancoso', { waitUntil: 'networkidle' });
