@@ -60,6 +60,11 @@ async function layout(page) {
     page.on('pageerror', e => { errors.push(`${page.url()}: ${e.message}`); console.error('MOBILE_PAGE_ERROR',page.url(),e.message); });
     await page.route('**/api/first-purchase/eligibility',route=>route.fulfill({json:{available:false}}));
     await page.route('**/api/create-checkout',route=>route.abort());
+    await page.route('**/api/cep?*', route => {
+      const cep = new URL(route.request().url()).searchParams.get('cep');
+      if (cep === '00000000') return route.fulfill({status:404,json:{found:false,error:'CEP não encontrado.'}});
+      return route.fulfill({json:{found:true,street:cep === '20040002' ? 'Rua da Assembleia' : 'Avenida Paulista',neighborhood:'Centro',city:cep === '20040002' ? 'Rio de Janeiro' : 'São Paulo',state:cep === '20040002' ? 'RJ' : 'SP'}});
+    });
     for (const locale of ['pt','en']) {
       await context.clearCookies();
       await context.addCookies([{name:'ago_locale',value:locale,url:base}]);
@@ -145,6 +150,8 @@ async function layout(page) {
       await page.locator('.checkout-next-step').click();
       assert.equal(await page.locator('#street-error').innerText(),locale==='en'?'Enter the street name.':'Informe a rua ou avenida.');
       await page.locator('#zip').fill('01310100');
+      await page.waitForFunction(() => document.querySelector('#street')?.value === 'Avenida Paulista');
+      assert.match(await page.locator('.ago-cep-status').innerText(), locale === 'en' ? /Address found/ : /Endereço encontrado/);
       await page.getByText(locale==='en'?'Store estimate: 5–10 business days':'Estimativa da loja: 5–10 dias úteis',{exact:false}).waitFor();
       await layout(page);
       if (locale === 'en') {
@@ -152,6 +159,18 @@ async function layout(page) {
         assert.match(await page.locator('.ago-clean-summary-bottom').innerText(), /Shipping/);
       }
       await page.screenshot({path:`${artifacts}/${name}-${locale}-checkout.png`,fullPage:true});
+      await page.locator('#number').fill('10');
+      await page.locator('.checkout-next-step').click();
+      await page.locator('.checkout-stage[aria-labelledby="checkout-address-title"] .checkout-stage-head button').click();
+      await page.locator('#zip').fill('20040002');
+      await page.waitForFunction(() => document.querySelector('#street')?.value === 'Rua da Assembleia');
+      assert.equal(await page.locator('#city').inputValue(), 'Rio de Janeiro');
+      assert.equal(await page.locator('#state').inputValue(), 'RJ');
+      assert.equal(await page.locator('.ago-cep-status').count(), 1, 'reopening delivery must bind exactly one address lookup');
+      await page.locator('#zip').fill('00000000');
+      await page.locator('.ago-cep-status.is-error').waitFor();
+      assert.match(await page.locator('.ago-cep-status').innerText(), locale === 'en' ? /enter the address manually/ : /CEP não encontrado/);
+      assert.equal(await page.locator('#street').inputValue(), 'Rua da Assembleia', 'failed lookup must preserve entered address');
       // International quotes must never inherit domestic shipping or free-shipping incentives.
       await page.goto(base+prefix+'/envio-internacional',{waitUntil:'networkidle'});
       if (locale === 'en') {
