@@ -9,6 +9,9 @@ declare global {
   }
 }
 
+const configuredGa4 = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID || '';
+const GA4_ID = /^G-[A-Z0-9]+$/.test(configuredGa4) ? configuredGa4 : '';
+
 export type MarketingItem = {
   item_id: string;
   item_name: string;
@@ -87,7 +90,12 @@ function track(event: string, ecommerce?: Record<string, unknown>) {
   pushDataLayer(event, ecommerce);
   if (typeof window === 'undefined') return;
 
-  if (typeof window.gtag === 'function') window.gtag('event', event, ecommerce || {});
+  // Ecommerce/CRO events are sent explicitly to GA4 only. Google Ads purchase
+  // conversions require their own conversion action label and must not be
+  // inferred from a generic event sent to the AW destination.
+  if (GA4_ID && typeof window.gtag === 'function') {
+    window.gtag('event', event, { ...(ecommerce || {}), send_to: GA4_ID });
+  }
   klaviyoTrack(event, ecommerce);
 
   if (typeof window.fbq === 'function') {
@@ -153,21 +161,25 @@ export function trackAddShippingInfo(items: MarketingItem[], value: number, ship
 export function trackAddPaymentInfo(items: MarketingItem[], value: number, paymentType = 'InfinitePay') {
   track('add_payment_info', { currency: 'BRL', value: money(value), payment_type: paymentType, items });
 }
-export function trackPurchase(input: { transactionId: string; items: MarketingItem[]; value: number; shipping?: number; coupon?: string }) {
+export function trackPurchase(input: { transactionId: string; items?: MarketingItem[]; value: number; shipping?: number; coupon?: string }) {
+  const transactionId = input.transactionId.trim();
+  if (!transactionId || !Number.isFinite(input.value) || input.value <= 0) return;
+
   if (typeof window !== 'undefined') {
-    const storageKey = `ago_purchase_tracked_${input.transactionId}`;
+    const storageKey = `ago_purchase_tracked_v2_${transactionId}`;
     try {
-      if (window.sessionStorage.getItem(storageKey) === '1') return;
-      window.sessionStorage.setItem(storageKey, '1');
+      if (window.localStorage.getItem(storageKey) === '1') return;
+      window.localStorage.setItem(storageKey, '1');
     } catch {}
   }
+
   track('purchase', {
-    transaction_id: input.transactionId,
+    transaction_id: transactionId,
     currency: 'BRL',
     value: money(input.value),
-    shipping: money(input.shipping || 0),
+    ...(input.shipping != null ? { shipping: money(input.shipping) } : {}),
     ...(input.coupon ? { coupon: input.coupon } : {}),
-    items: input.items,
+    ...(input.items?.length ? { items: input.items } : {}),
   });
 }
 export function trackContact(method: string) { track('contact', { method }); }
