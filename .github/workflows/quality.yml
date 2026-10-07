@@ -71,6 +71,10 @@ jobs:
           npx playwright install --with-deps chromium webkit
           mkdir -p /tmp/ago-qa
 
+      - name: React hydration diagnostics
+        if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}
+        run: node scripts/qa-hydration-diagnostic.cjs
+
       - name: iPhone Safari and Android Chrome checkout
         if: ${{ !cancelled() && steps.production-build.outcome == 'success' }}
         run: node scripts/qa-mobile-checkout.cjs
