@@ -41,6 +41,7 @@ import ImmersiveMotion from '@/components/ImmersiveMotion';
 import CepAddressAutofill from '@/components/CepAddressAutofill';
 import LocaleRuntime from '@/components/LocaleRuntime';
 import LocaleSupplement from '@/components/LocaleSupplement';
+import HydrationReady from '@/components/HydrationReady';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -171,6 +172,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ConsentManager />
         <LocaleRuntime />
         <LocaleSupplement />
+        <HydrationReady />
         <script id="ago-version-guard" dangerouslySetInnerHTML={{ __html: versionGuardScript }} />
       </body>
     </html>
