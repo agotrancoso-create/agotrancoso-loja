@@ -50,6 +50,7 @@ async function run() {
   async function visit(path) {
     await page.goto(base + path, { waitUntil: 'domcontentloaded' });
     await page.locator('h1').first().waitFor();
+    await page.waitForFunction(() => document.documentElement.dataset.agoHydrated === 'true');
   }
 
   async function assertNoOverflow(label, width) {
