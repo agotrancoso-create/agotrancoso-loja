@@ -153,7 +153,7 @@ export default function AddToCart({ product }: { product: Product }) {
         <span>{t('Frete internacional sob consulta', 'International shipping quoted separately')}</span>
         <small>{t('Frete e total final confirmados antes do pagamento.', 'Shipping and final total confirmed before payment.')}</small>
       </div> : <div className="purchase-selection-summary" aria-live="polite" aria-atomic="true">
-        <span>{quantity} {english ? (quantity === 1 ? 'piece' : 'pieces') : (quantity === 1 ? 'peça' : 'peças')}: {formatBRL(selectionSubtotal)} · {shipping === 0 ? t('Frete grátis', 'Free shipping in Brazil') : `${t('Frete', 'Shipping in Brazil')}: ${formatBRL(shipping)}`}</span>
+        <span>{quantity} {english ? (quantity === 1 ? 'piece' : 'pieces') : (quantity === 1 ? 'peça' : 'peças')}: {formatBRL(selectionSubtotal)} · {shipping === 0 ? t('Frete grátis', 'Free shipping in Brazil') : `${t('Frete PAC', 'PAC shipping in Brazil')}: ${formatBRL(shipping)}`}</span>
         <strong>{t('Esta seleção com frete', 'This selection with shipping')}: {formatBRL(selectionSubtotal + shipping)}</strong>
         <small>{t('Entrega no Brasil. O total da sacola é atualizado ao adicionar outras peças.', 'Delivery in Brazil. Your bag total updates as you add other pieces.')}</small>
       </div>}
@@ -191,7 +191,7 @@ export default function AddToCart({ product }: { product: Product }) {
           )}
           {quotedOption && (
             <div>
-              <strong>{quotedOption.price === 0 ? t('Frete grátis', 'Free shipping') : `${t('Frete', 'Shipping')} ${formatBRL(quotedOption.price)}`}</strong>
+              <strong>{quotedOption.price === 0 ? t('Frete grátis', 'Free shipping') : `${t('Frete PAC', 'PAC shipping')} ${formatBRL(quotedOption.price)}`}</strong>
               {hasDeadline && <span>{`${quotedOption.estimated ? t('Estimativa da loja', 'Store estimate') : t('Prazo estimado', 'Estimated delivery')}: ${deadlineText} ${deadlineUnit}`}</span>}
               {hasDeadline && quotedOption.estimated && <small>{t('Faixa indicativa após a postagem, não consultada nos Correios. Confirme o prazo antes de comprar.', 'Indicative range after dispatch, not confirmed by Correios. Confirm delivery time before purchasing.')}</small>}
               {!hasDeadline && <small>{t('O prazo dos Correios está indisponível agora. ', 'Correios delivery times are currently unavailable. ')}<a href={whatsappLink(english ? `Hello! I would like to confirm Correios delivery times for ${name}, Brazilian postal code ${cep}.` : `Olá! Gostaria de confirmar o prazo dos Correios para ${product.name}, CEP ${cep}.`)} target="_blank" rel="noopener noreferrer">{t('Confirmar prazo com a Agô', 'Confirm delivery time with Agô')}</a></small>}

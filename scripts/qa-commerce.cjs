@@ -133,6 +133,10 @@ async function checkout(items,coupon='',overrides={}) {
   const correiosViaFrenet = await getShippingDeadlineQuote({destinationCep:'01310100',subtotal:480});
   assert.equal(correiosViaFrenet.deadline, 12);
   assert.equal(correiosViaFrenet.serviceName, 'PAC');
+  global.fetch = async () => new Response(JSON.stringify({ShippingSevicesArray:[
+    {Carrier:'Correios',ServiceDescription:'SEDEX',DeliveryTime:3},
+  ]}));
+  assert.equal((await getShippingDeadlineQuote({destinationCep:'01310100',subtotal:480})).estimated, true, 'SEDEX must not be presented as a PAC deadline');
   console.log('PASS Correios origin/destination, provider outage without fabricated deadlines, and Correios-only Frenet services');
   console.log(`PASS ${cases} price/quantity/coupon combinations, recipient + CPF/CNPJ payload, official alphanumeric CNPJ, R$500 products-only shipping boundary, Iemanjá and Miniatura R$519.90 totals, clear shipping line, cent allocation, identity rejection, invalid data, provider failure`);
 })().catch(error=>{console.error(error);process.exitCode=1});

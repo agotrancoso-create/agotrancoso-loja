@@ -27,7 +27,7 @@ const exact: Record<string, string> = {
   'Sugestões para acompanhar': 'Suggestions to complement your selection',
   'Com esta peça, seu pedido ganha frete grátis.': 'Add this piece and your order qualifies for free shipping.',
   'Você ganhou frete grátis neste pedido.': 'You have free shipping on this order.',
-  'Frete fixo R$ 39,90': 'Fixed shipping R$ 39.90',
+  'Frete fixo PAC R$ 39,90': 'Fixed shipping via PAC R$ 39.90',
   'Grátis a partir de R$ 500 em produtos': 'Free on R$ 500 or more in products',
   'Grátis': 'Free',
   'Finalizar pedido': 'Checkout',

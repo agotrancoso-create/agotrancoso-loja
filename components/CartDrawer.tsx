@@ -225,10 +225,10 @@ export default function CartDrawer() {
             {!international && <div className="cart-shipping-progress-block">
               {!freeShipping ? <p className="cart-shipping-message">{english ? 'Add ' : 'Faltam '}<strong>{formatBRL(remaining)}</strong>{english ? ' more for free shipping.' : ' para o frete grátis.'}</p> : <p className="cart-shipping-message is-free">{t('Você ganhou frete grátis neste pedido.')}</p>}
               <div className="cart-shipping-progress" aria-hidden="true"><span style={{ width: progress + '%' }} /></div>
-              <div className="cart-shipping-progress-labels"><span>{t('Frete fixo R$ 39,90')}</span><span>{t('Grátis a partir de R$ 500 em produtos')}</span></div>
+              <div className="cart-shipping-progress-labels"><span>{t('Frete fixo PAC R$ 39,90')}</span><span>{t('Grátis a partir de R$ 500 em produtos')}</span></div>
             </div>}
             <div className="cart-summary-row"><span>{t('Subtotal')}</span><span>{formatBRL(subtotal)}</span></div>
-            <div className="cart-summary-row"><span>{t('Frete')}</span><span>{international ? (english ? 'Quoted separately' : 'Sob consulta') : freeShipping ? t('Grátis') : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
+            <div className="cart-summary-row"><span>{international || freeShipping ? t('Frete') : (english ? 'Shipping · PAC' : 'Frete · PAC')}</span><span>{international ? (english ? 'Quoted separately' : 'Sob consulta') : freeShipping ? t('Grátis') : formatBRL(FIXED_SHIPPING_PRICE)}</span></div>
             <div className="cart-total-row"><span>{international ? (english ? 'Products total' : 'Total das peças') : t('Total')}</span><strong>{formatBRL(total)}</strong></div>
             <Link href={href(international ? '/envio-internacional' : '/checkout')} onClick={closeDrawer} className="cart-checkout">{international ? (english ? 'Request shipping quote' : 'Consultar frete') : t('Finalizar pedido')}</Link>
             <p className="cart-checkout-reassurance">{international ? (english ? 'Shipping and final total confirmed before payment.' : 'Frete e total final confirmados antes do pagamento.') : t('Sem criar conta · Pagamento pela InfinitePay')}</p>
