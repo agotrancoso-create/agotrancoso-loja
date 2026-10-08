@@ -820,3 +820,8 @@ body .ago-home .ago-benefit-interactive {
     font-size: .68rem !important;
   }
 }
+
+/* Benefits already provide their own section spacing. */
+.ago-home .ago-cinematic-commerce.ago-home-hero-2026:has(> [data-ago-benefits]) {
+  padding-bottom: 0 !important;
+}

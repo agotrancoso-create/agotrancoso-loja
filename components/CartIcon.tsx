@@ -3,7 +3,7 @@ export default function CartIcon({ size = 30, withPlus = false }: { size?: numbe
     <svg
       width={size}
       height={size}
-      viewBox="0 0 28 28"
+      viewBox="3 2 23 23"
       fill="none"
       aria-hidden="true"
       focusable="false"
