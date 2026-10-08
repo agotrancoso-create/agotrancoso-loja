@@ -54,6 +54,15 @@
   width: 54px;
   height: 54px;
   stroke: currentColor;
+  shape-rendering: geometricPrecision;
+}
+
+/* Keep every contour equally fine at both mobile and desktop sizes. */
+.drawing :is(path, circle, ellipse) {
+  vector-effect: non-scaling-stroke;
+  stroke-width: 1.4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .copy {
