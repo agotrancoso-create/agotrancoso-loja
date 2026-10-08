@@ -7,7 +7,7 @@
 .panel {
   max-width: 1320px;
   margin: 0 auto;
-  padding: 36px 28px 32px;
+  padding: 32px 28px;
   background: #fcf9f4;
   border: 1px solid #e5d8c9;
   border-radius: 28px;
@@ -17,6 +17,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 28px;
+  grid-auto-rows: 1fr;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -69,7 +70,7 @@
 .copy {
   display: grid;
   align-content: start;
-  gap: 7px;
+  gap: 12px;
   width: 100%;
   max-width: 250px;
 }
@@ -78,13 +79,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.5em;
+  min-height: 2.6em;
   margin: 0;
   color: #49362d;
   font-family: var(--font-display), Georgia, serif;
   font-size: clamp(20px, 1.5vw, 23px);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.3;
   letter-spacing: -.015em;
   text-wrap: balance;
 }
@@ -97,7 +98,8 @@
   font-family: var(--font-sans), sans-serif;
   font-size: 13px;
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.6;
+  min-height: 3.2em;
   text-wrap: pretty;
 }
 
@@ -118,15 +120,16 @@
 @media (max-width: 980px) {
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; }
   .copy { max-width: 260px; }
+  .copy strong { min-height: 3.9em; }
 }
 
 @media (max-width: 560px) {
   .section { padding: 28px 16px; }
   .panel { padding: 28px 14px; border-radius: 24px; }
-  .grid { gap: 28px 16px; }
+  .grid { gap: 32px 16px; }
   .item { gap: 14px; grid-template-rows: 64px 1fr; }
   .icon { width: 64px; height: 64px; flex-basis: 64px; border-radius: 18px; }
   .drawing { width: 46px; height: 46px; }
-  .copy strong { font-size: 19px; line-height: 1.22; }
-  .copy small { font-size: 12px; line-height: 1.5; }
+  .copy strong { font-size: 19px; line-height: 1.3; }
+  .copy small { font-size: 12px; line-height: 1.6; }
 }
