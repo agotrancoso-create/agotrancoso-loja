@@ -23,9 +23,10 @@
 }
 
 .item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-rows: 76px 1fr;
+  justify-items: center;
+  align-items: start;
   gap: 18px;
   min-width: 0;
   text-align: center;
@@ -77,7 +78,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.4em;
+  min-height: 2.5em;
   margin: 0;
   color: #49362d;
   font-family: var(--font-display), Georgia, serif;
@@ -123,7 +124,7 @@
   .section { padding: 28px 16px; }
   .panel { padding: 28px 14px; border-radius: 24px; }
   .grid { gap: 28px 16px; }
-  .item { gap: 14px; }
+  .item { gap: 14px; grid-template-rows: 64px 1fr; }
   .icon { width: 64px; height: 64px; flex-basis: 64px; border-radius: 18px; }
   .drawing { width: 46px; height: 46px; }
   .copy strong { font-size: 19px; line-height: 1.22; }
