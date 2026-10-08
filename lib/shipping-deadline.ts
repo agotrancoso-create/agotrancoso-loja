@@ -148,8 +148,9 @@ async function getFrenetDeadlineQuote(params: {
 
     const serviceCode = digits(process.env.CORREIOS_SERVICE_CODE) || '03298';
     const selected = valid.find(({ service }) => service.ServiceCode === serviceCode)
-      ?? (serviceCode === '03298' ? valid.find(({ service }) => /\bPAC\b/i.test(service.ServiceDescription || '')) : undefined)
-      ?? valid[0];
+      ?? (serviceCode === '03298' ? valid.find(({ service }) => /\bPAC\b/i.test(service.ServiceDescription || '')) : undefined);
+    // Never show a faster service deadline as the PAC delivery estimate.
+    if (!selected) return null;
     const representative = selected.service;
 
     return {

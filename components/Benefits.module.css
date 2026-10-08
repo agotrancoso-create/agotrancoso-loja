@@ -37,12 +37,17 @@
   flex: 0 0 76px;
   width: 76px;
   height: 76px;
-  color: #895640;
-  background: #f1e7da;
-  border: 1px solid #e5d5c2;
+  color: var(--icon-ink, #895640);
+  background: var(--icon-paper, #f1e7da);
+  border: 1px solid var(--icon-border, #e5d5c2);
   border-radius: 22px;
   text-decoration: none;
 }
+
+.icon[data-benefit-icon="craft"] { --icon-ink: #85513c; --icon-paper: #f4e7dc; --icon-border: #e7cdbb; }
+.icon[data-benefit-icon="vase"] { --icon-ink: #8a652c; --icon-paper: #f4ebd7; --icon-border: #e5d6af; }
+.icon[data-benefit-icon="brazil"] { --icon-ink: #355e49; --icon-paper: #e9efe4; --icon-border: #cbdac5; }
+.icon[data-benefit-icon="world"] { --icon-ink: #365f70; --icon-paper: #e7eff1; --icon-border: #cbdde2; }
 
 .drawing {
   display: block;
@@ -92,7 +97,7 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .icon:hover { background: #eaddcd; }
+  .icon:hover { filter: brightness(.97); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
