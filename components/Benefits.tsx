@@ -13,6 +13,7 @@ const benefits = [
 type IconName = (typeof benefits)[number]['icon'];
 
 function BenefitIcon({ name }: { name: IconName }) {
+  if (name === 'world') return <span aria-hidden="true" style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif', fontSize: '44px', lineHeight: 1 }}>🌎</span>;
   const drawings = {
     craft: <>
       <path d="M32 28c-3.4-2.3-10-6.9-10-11.2 0-5.7 7.1-7.5 10-2.6 2.9-4.9 10-3.1 10 2.6 0 4.3-6.6 8.9-10 11.2Z" />
