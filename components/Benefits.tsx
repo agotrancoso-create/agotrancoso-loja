@@ -30,8 +30,10 @@ function BenefitIcon({ name }: { name: IconName }) {
     </>,
     world: <>
       <circle cx="32" cy="32" r="23" />
-      <ellipse cx="32" cy="32" rx="10" ry="23" />
-      <path d="M9 32h46M13 19h38M13 45h38" />
+      <path d="M16 15.5 21 13l5 .5 3 3-1.5 4-4 1-1 4-3-1-2-4-3-1Z" fill="currentColor" fillOpacity=".12" />
+      <path d="m22.5 26 3 2 1.5 3.5 4 1 5 3 3 4-3 4-2 1-1.5 5-4 4-1-6-3-4-1-5 2-4-2-3Z" fill="currentColor" fillOpacity=".12" />
+      <path d="m40 10.5-3 4 1 4 5 2 3 4 6 1.5M53.5 40l-5-1.5-3-4-5-1-3 3 1 5 4 2 1 5" />
+      <path d="m31 12 3 1-1 4-3-1Z" fill="currentColor" fillOpacity=".12" />
     </>,
   };
   return <svg className={styles.drawing} viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">{drawings[name]}</svg>;
