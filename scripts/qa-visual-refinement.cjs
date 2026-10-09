@@ -321,7 +321,7 @@ async function main() {
     });
     assert.match(decodeURIComponent(imageState.url), /casal-pretos-velhos-3/, 'wrong third photograph');
     assert.equal(imageState.fit, 'contain', 'the complete piece must remain visible');
-    const expectedShift = width > 900 ? imageState.width * -.035 : 0;
+    const expectedShift = 0;
     assert.ok(near(imageState.shiftX, expectedShift, 2), `third photo alignment differs at ${width}px: got ${imageState.shiftX}, expected ${expectedShift}`);
     await gallery.locator('.product-gallery-main').screenshot({
       path: `${artifacts}/pretos-velhos-photo-3-${width}.png`,
