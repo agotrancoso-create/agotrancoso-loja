@@ -52,6 +52,27 @@ async function get(route){const r=await fetch(base+route,{headers:{'User-Agent':
   assert.ok(priceBlock.includes(effective.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})),`${p.id}: rendered price`);
   report.push({id:p.id,price:effective,availability:field(entry,'availability'),feedTitle:field(entry,'title'),pageName:product.name,ok:true});
  }
+ const churchEntry=(id)=>{const entry=entries.find(e=>field(e,'id')===id);assert.ok(entry,id);return entry;};
+ const pChurch=churchEntry('igreja-quadrado-p');
+ const mChurch=churchEntry('igreja-quadrado-m');
+ const ggChurch=churchEntry('igreja-quadrado-gg');
+ const lightChurch=churchEntry('igrejinha-luminaria-trancoso');
+ // Only genuine size variants are grouped. GG has an additional luminaire function.
+ assert.equal(field(pChurch,'item_group_id'),'igreja-quadrado-trancoso');
+ assert.equal(field(mChurch,'item_group_id'),'igreja-quadrado-trancoso');
+ assert.equal(field(pChurch,'size'),'P');
+ assert.equal(field(mChurch,'size'),'M');
+ assert.equal(field(ggChurch,'item_group_id'),'');
+ assert.equal(field(lightChurch,'item_group_id'),'');
+ for(const [id,entry] of [['igreja-quadrado-p',pChurch],['igreja-quadrado-m',mChurch],['igreja-quadrado-gg',ggChurch],['igrejinha-luminaria-trancoso',lightChurch]]){
+  const original=products.find(p=>p.id===id);assert.ok(original);
+  assert.ok(field(entry,'title').includes('Quadrado de Trancoso'),id+': complete descriptive title');
+  assert.ok(field(entry,'description').length>150,id+': substantive product description');
+  assert.ok(entry.includes('<g:product_detail>'),id+': dimensions present');
+  assert.ok(entry.includes('<g:attribute_value>'+original.dimensions+'</g:attribute_value>'),id+': dimensions match catalog');
+ }
+ assert.match(field(ggChurch,'title'),/Luminária/);
+ assert.match(field(lightChurch,'title'),/Luminária/);
  for(const id of ['presepio-em-ceramica','terco-em-ceramica','rosario-trancoso','casal-pretos-velhos','estatueta-iemanja']) assert.ok(report.some(p=>p.id===id));
  fs.mkdirSync('/tmp/ago-qa',{recursive:true});fs.writeFileSync('/tmp/ago-qa/merchant-consistency.json',JSON.stringify(report,null,2));
  console.log(`PASS ${report.length} products: catalog/feed/page/JSON-LD prices, availability, images, shipping, canonical and religious pieces`);
