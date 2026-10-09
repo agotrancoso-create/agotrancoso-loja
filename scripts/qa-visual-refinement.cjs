@@ -299,6 +299,35 @@ async function main() {
     await page.keyboard.press('Escape');
   }
 
+  // Regressão localizada: somente a 3ª foto dos Pretos-Velhos deve
+  // ter compensação horizontal no desktop; no celular nada muda.
+  for (const width of [390, 1280, 1440, 1920]) {
+    await page.setViewportSize({ width, height: width === 390 ? 844 : 1000 });
+    await page.goto(base + '/produtos/casal-pretos-velhos', { waitUntil: 'domcontentloaded' });
+    const gallery = page.locator('.product-gallery[data-product-id="casal-pretos-velhos"]');
+    await gallery.locator('.product-gallery-thumb[data-photo-index="3"]').click();
+    const thirdImage = gallery.locator('.product-gallery-main[data-photo-index="3"] .product-gallery-image');
+    await thirdImage.waitFor();
+    await thirdImage.evaluate(img => img.decode());
+    const imageState = await thirdImage.evaluate(img => {
+      const style = getComputedStyle(img);
+      const matrix = new DOMMatrixReadOnly(style.transform);
+      return {
+        width: parseFloat(style.width),
+        shiftX: matrix.m41,
+        fit: style.objectFit,
+        url: img.currentSrc,
+      };
+    });
+    assert.match(decodeURIComponent(imageState.url), /casal-pretos-velhos-3/, 'wrong third photograph');
+    assert.equal(imageState.fit, 'contain', 'the complete piece must remain visible');
+    const expectedShift = width > 900 ? imageState.width * -.035 : 0;
+    assert.ok(near(imageState.shiftX, expectedShift, 2), `third photo alignment differs at ${width}px: got ${imageState.shiftX}, expected ${expectedShift}`);
+    await gallery.locator('.product-gallery-main').screenshot({
+      path: `${artifacts}/pretos-velhos-photo-3-${width}.png`,
+    });
+  }
+
   console.log(JSON.stringify({ ok: true, widths, colors: referenceColors }, null, 2));
 }
 
