@@ -394,16 +394,15 @@
   object-position: center center !important;
 }
 
-/* Exclusivamente a 3ª foto dos Pretos-Velhos no desktop:
-   o enquadramento interno da fotografia deixa a peça à direita, embora
-   object-position:center já centralize o arquivo inteiro.
-   Compensação visual pequena sem editar a fotografia e sem afetar mobile. */
-@media (min-width: 901px) {
-  .product-gallery[data-product-id="casal-pretos-velhos"]
-    .product-gallery-main[data-photo-index="3"] .product-gallery-image {
-    transform: translateX(-3.5%) !important;
-    transform-origin: center center !important;
-  }
+/* 3ª fotografia dos Pretos-Velhos: mesma composição, sem deslocamento lateral. */
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-main[data-photo-index="3"],
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-main[data-photo-index="3"] .ago-gallery-open {
+  background-color: #fff !important;
+}
+.product-gallery[data-product-id="casal-pretos-velhos"] .product-gallery-main[data-photo-index="3"] .product-gallery-image {
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
 }
 
 /* Mobile e desktop preservam a mesma identidade visual; só a geometria responsiva muda. */
