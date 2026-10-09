@@ -28,19 +28,19 @@ const IGREJINHA_PRODUCT_IDS = new Set([
 
 const PRODUCT_SEO: Record<string, { title: string; description: string }> = {
   'igreja-quadrado-p': {
-    title: 'Igrejinha do Quadrado de Trancoso em Cerâmica P | Agô',
+    title: 'Igrejinha do Quadrado de Trancoso P em Cerâmica Artesanal | Agô',
     description: 'Miniatura em cerâmica da Igrejinha do Quadrado de Trancoso, a Igreja de São João Batista. Peça artesanal disponível na Agô Trancoso, no Quadrado.',
   },
   'igreja-quadrado-m': {
-    title: 'Igrejinha do Quadrado de Trancoso em Cerâmica M | Agô',
+    title: 'Igrejinha do Quadrado de Trancoso M em Cerâmica Artesanal | Agô',
     description: 'Igrejinha do Quadrado de Trancoso em cerâmica tamanho M, inspirada na Igreja de São João Batista. Disponível na Agô Trancoso, no Quadrado.',
   },
   'igreja-quadrado-gg': {
-    title: 'Igreja do Quadrado de Trancoso em Cerâmica GG | Agô',
-    description: 'Escultura em cerâmica inspirada na Igreja do Quadrado de Trancoso, a Igreja de São João Batista. Disponível na Agô Trancoso, no Quadrado.',
+    title: 'Igreja do Quadrado de Trancoso GG — Escultura Luminária em Cerâmica | Agô',
+    description: 'Escultura artesanal da Igreja do Quadrado de Trancoso na versão GG, que também funciona como luminária. Cerâmica modelada à mão na Agô Trancoso.',
   },
   'igrejinha-luminaria-trancoso': {
-    title: 'Igrejinha do Quadrado de Trancoso Luminária | Agô',
+    title: 'Igrejinha do Quadrado de Trancoso — Luminária de Cerâmica | Agô',
     description: 'Luminária de cerâmica inspirada na Igrejinha do Quadrado de Trancoso, disponível na Agô Trancoso. Criada para receber vela LED ou vela pequena.',
   },
   'miniatura-quadrado-trancoso': {
