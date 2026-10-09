@@ -405,6 +405,17 @@
   transform: none !important;
 }
 
+/* A 3ª imagem original tem mais espaço vazio à esquerda que à direita da peça.
+   No desktop, centralizar a escultura visualmente sem recortar a foto,
+   mantendo o fundo branco da moldura e sem afetar o celular. */
+@media (min-width: 901px) {
+  .product-gallery[data-product-id="casal-pretos-velhos"]
+    .product-gallery-main[data-photo-index="3"] .product-gallery-image {
+    transform: translateX(-5%) !important;
+    transform-origin: center center !important;
+  }
+}
+
 /* Mobile e desktop preservam a mesma identidade visual; só a geometria responsiva muda. */
 @media (max-width:900px) {
   .site-header {
