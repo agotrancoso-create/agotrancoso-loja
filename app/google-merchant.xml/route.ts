@@ -8,20 +8,20 @@ export const revalidate = 3600;
 
 const SHOPPING_COPY: Record<string, { title: string; description: string }> = {
   'igreja-quadrado-p': {
-    title: 'Igrejinha do Quadrado de Trancoso em Cerâmica P | Agô',
-    description: 'Miniatura artesanal em cerâmica inspirada na Igreja de São João Batista, a famosa Igrejinha do Quadrado de Trancoso, Bahia. Peça pintada à mão e disponível na Agô Trancoso para decorar, presentear ou guardar como lembrança da vila.',
+    title: 'Igrejinha do Quadrado de Trancoso P em Cerâmica Artesanal | Agô',
+    description: 'Igrejinha do Quadrado de Trancoso tamanho P, feita em cerâmica e pintada à mão. Miniatura da Igreja de São João Batista, com 3,5 cm de altura e 4 cm de largura. Peça decorativa artesanal para guardar uma lembrança do Quadrado de Trancoso, Bahia.',
   },
   'igreja-quadrado-m': {
-    title: 'Igrejinha do Quadrado de Trancoso em Cerâmica M | Agô',
-    description: 'Igrejinha do Quadrado de Trancoso em cerâmica tamanho M, inspirada na Igreja de São João Batista. Peça artesanal disponível na Agô Trancoso, com a fachada e os elementos que remetem a um dos símbolos mais conhecidos da vila.',
+    title: 'Igrejinha do Quadrado de Trancoso M em Cerâmica Artesanal | Agô',
+    description: 'Igrejinha do Quadrado de Trancoso tamanho M em cerâmica artesanal. Miniatura inspirada na fachada da Igreja de São João Batista, com 4,5 cm de altura e 5 cm de largura. Uma peça decorativa feita à mão na Agô Trancoso, no Quadrado de Trancoso, Bahia.',
   },
   'igreja-quadrado-gg': {
-    title: 'Igreja do Quadrado de Trancoso em Cerâmica GG | Agô',
-    description: 'Escultura artesanal em cerâmica inspirada na Igreja de São João Batista, no Quadrado de Trancoso. Versão GG modelada à mão e disponível na Agô Trancoso como peça de destaque para decoração e coleção.',
+    title: 'Igreja do Quadrado de Trancoso GG — Escultura Luminária em Cerâmica | Agô',
+    description: 'Igreja do Quadrado de Trancoso na versão GG: escultura artesanal em cerâmica inspirada na Igreja de São João Batista. Mede 16 cm de altura e 23 cm de largura e também funciona como luminária. Peça de decoração de destaque feita à mão pela Agô Trancoso.',
   },
   'igrejinha-luminaria-trancoso': {
-    title: 'Igrejinha do Quadrado de Trancoso Luminária em Cerâmica | Agô',
-    description: 'Luminária artesanal em cerâmica inspirada na Igrejinha do Quadrado de Trancoso. Peça modelada à mão, disponível na Agô Trancoso e criada para receber vela LED ou vela pequena.',
+    title: 'Igrejinha do Quadrado de Trancoso — Luminária de Cerâmica | Agô',
+    description: 'Igrejinha Luminária do Quadrado de Trancoso feita à mão em cerâmica, inspirada na Igreja de São João Batista. Com 6,5 cm de altura e 7,5 cm de largura, pode receber uma vela LED ou vela pequena em seu interior para iluminar a decoração.',
   },
   'miniatura-quadrado-trancoso': {
     title: 'Miniatura do Quadrado de Trancoso para Pendurar | Agô',
@@ -38,10 +38,10 @@ const SHOPPING_COPY: Record<string, { title: string; description: string }> = {
 };
 
 const SHOPPING_SHORT_TITLES: Record<string, string> = {
-  'igreja-quadrado-p': 'Igrejinha do Quadrado P',
-  'igreja-quadrado-m': 'Igrejinha do Quadrado M',
-  'igreja-quadrado-gg': 'Igreja do Quadrado GG',
-  'igrejinha-luminaria-trancoso': 'Igrejinha Luminária Trancoso',
+  'igreja-quadrado-p': 'Igrejinha do Quadrado de Trancoso P',
+  'igreja-quadrado-m': 'Igrejinha do Quadrado de Trancoso M',
+  'igreja-quadrado-gg': 'Igreja do Quadrado de Trancoso GG',
+  'igrejinha-luminaria-trancoso': 'Igrejinha Luminária do Quadrado de Trancoso',
   'miniatura-quadrado-trancoso': 'Miniatura Quadrado de Trancoso',
   'ima-igrejinha-trancoso': 'Ímã Igrejinha de Trancoso',
   'colar-igreja-quadrado': 'Colar Igreja do Quadrado',
@@ -49,19 +49,19 @@ const SHOPPING_SHORT_TITLES: Record<string, string> = {
 
 const SHOPPING_HIGHLIGHTS: Record<string, string[]> = {
   'igreja-quadrado-p': [
-    'Miniatura em cerâmica modelada e pintada à mão.',
+    'Miniatura P modelada e pintada à mão, com 3,5 cm de altura.',
     'Fachada inspirada na Igreja de São João Batista de Trancoso.',
   ],
   'igreja-quadrado-m': [
-    'Peça de cerâmica feita à mão em tamanho M.',
+    'Miniatura M feita à mão, com 4,5 cm de altura.',
     'Fachada inspirada na Igreja de São João Batista de Trancoso.',
   ],
   'igreja-quadrado-gg': [
-    'Escultura de cerâmica modelada à mão em versão GG.',
-    'Inspirada na Igreja de São João Batista do Quadrado de Trancoso.',
+    'Escultura GG em cerâmica com 16 cm de altura e 23 cm de largura.',
+    'Também funciona como luminária, além de escultura decorativa.',
   ],
   'igrejinha-luminaria-trancoso': [
-    'Luminária de cerâmica modelada à mão.',
+    'Luminária artesanal em cerâmica com 6,5 cm de altura.',
     'Pode receber vela LED ou vela pequena no interior.',
   ],
   'miniatura-quadrado-trancoso': [
@@ -96,7 +96,8 @@ const GOOGLE_PRODUCT_CATEGORY_BY_ID: Record<string, number> = {
 const IGREJA_VARIANTS: Record<string, { size: string; itemGroupId: string }> = {
   'igreja-quadrado-p': { size: 'P', itemGroupId: 'igreja-quadrado-trancoso' },
   'igreja-quadrado-m': { size: 'M', itemGroupId: 'igreja-quadrado-trancoso' },
-  'igreja-quadrado-gg': { size: 'GG', itemGroupId: 'igreja-quadrado-trancoso' },
+  // A GG também funciona como luminária: não é apenas uma variação de tamanho
+  // das miniaturas decorativas P/M. Mantê-la independente evita agrupamento indevido.
 };
 
 const IGREJINHA_IDS = new Set([
@@ -178,6 +179,11 @@ export async function GET() {
           <g:material>Cerâmica</g:material>
           <g:google_product_category>${category}</g:google_product_category>
           <g:product_type>${escapeXml(productType(product.category))}</g:product_type>
+          ${product.dimensions ? `<g:product_detail>
+            <g:section_name>Características</g:section_name>
+            <g:attribute_name>Medidas</g:attribute_name>
+            <g:attribute_value>${escapeXml(product.dimensions)}</g:attribute_value>
+          </g:product_detail>` : ''}
           ${variant ? `<g:item_group_id>${escapeXml(variant.itemGroupId)}</g:item_group_id>\n          <g:size>${escapeXml(variant.size)}</g:size>` : ''}
           ${isIgrejinha ? '<g:custom_label_0>Igrejinha do Quadrado de Trancoso</g:custom_label_0>' : ''}
           ${product.id === 'miniatura-quadrado-trancoso' ? '<g:custom_label_1>Decoração de parede</g:custom_label_1>' : ''}
