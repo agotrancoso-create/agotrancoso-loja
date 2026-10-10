@@ -33,11 +33,11 @@ def conserve_square(rgb):
     h, w, _ = rgb.shape
     ys = np.arange(h, dtype=np.float32)[:, None]
     xs = np.arange(w, dtype=np.float32)[None, :]
-    # The middle 70% of every photograph is literally pixel-for-pixel intact.
+    # The middle 90% of every photograph is literally pixel-for-pixel intact.
     border_distance = np.minimum.reduce(np.broadcast_arrays(
         xs, w - 1 - xs, ys, h - 1 - ys
     )) / min(h, w)
-    narrow_outer_edge = 1.0 - smoothstep(border_distance / 0.15)
+    narrow_outer_edge = 1.0 - smoothstep(border_distance / 0.05)
     # Never lighten deep shadow/ceramic pixels. No synthetic shadow recreation.
     brightness = np.min(rgb.astype(np.float32), axis=2)
     bright_flat_background = smoothstep((brightness - 188.0) / 46.0)
@@ -48,7 +48,7 @@ def conserve_square(rgb):
     # This changes only already-bright outlying backdrop, maximum 34%.
     result = np.rint(rgb.astype(np.float32) * (1-weight) + TARGET * weight)
     result = np.clip(result, 0, 255).astype(np.uint8)
-    center = (border_distance >= .15)
+    center = (border_distance >= .05)
     assert np.array_equal(result[center], rgb[center])
     return result, center
 
