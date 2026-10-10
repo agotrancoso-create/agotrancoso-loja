@@ -312,7 +312,7 @@ async function main() {
       height: el.naturalHeight,
       fit: getComputedStyle(el).objectFit,
     }));
-    assert.match(photo.src, /igrejinha-luminaria-frontal-960-lossless\.webp/);
+    assert.match(photo.src, /igrejinha-luminaria-frontal-960-lossless-premium-[a-f0-9]{8}\.webp/, 'Preview must use protected lossless premium photograph');
     assert.ok(photo.width >= 320 && photo.height >= 320, 'responsive image must load clearly');
     assert.equal(photo.width, photo.height, 'square aspect ratio');
     assert.equal(photo.fit, 'contain', 'entire church must remain visible');
