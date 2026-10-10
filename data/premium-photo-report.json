@@ -1,0 +1,610 @@
+[
+  {
+    "source": "/produtos/casinha-luminaria.jpg",
+    "premium": "/produtos/premium/casinha-luminaria-premium-8b510a05.webp",
+    "source_dimensions": [
+      928,
+      1152
+    ],
+    "result_dimensions": [
+      1152,
+      1152
+    ],
+    "protected_pixels": 369171,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/casal-pretos-velhos-1.jpg",
+    "premium": "/produtos/premium/casal-pretos-velhos-1-premium-5b7b9f58.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 294598,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/casal-pretos-velhos-2.jpg",
+    "premium": "/produtos/premium/casal-pretos-velhos-2-premium-fdaeeb61.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 257365,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/casal-pretos-velhos-3.jpg",
+    "premium": "/produtos/premium/casal-pretos-velhos-3-premium-66f0721f.webp",
+    "source_dimensions": [
+      773,
+      960
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 195613,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/casinha-luminaria-1.jpg",
+    "premium": "/produtos/premium/casinha-luminaria-1-premium-af81f4e8.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 364062,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/casinha-luminaria-2.jpg",
+    "premium": "/produtos/premium/casinha-luminaria-2-premium-d7a263c3.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 295731,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/casinha-luminaria-3.jpg",
+    "premium": "/produtos/premium/casinha-luminaria-3-premium-fddaaedc.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 321287,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/casinha-luminaria-4.jpg",
+    "premium": "/produtos/premium/casinha-luminaria-4-premium-e3dd2c9a.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 321006,
+    "verified_lossless": true,
+    "border_warm_fraction": 0.997,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/colar-igreja-quadrado-frente.jpg",
+    "premium": "/produtos/premium/colar-igreja-quadrado-frente-premium-6bd4fc5f.webp",
+    "source_dimensions": [
+      960,
+      960
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 154850,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/divino-espirito-santo-2.jpg",
+    "premium": "/produtos/premium/divino-espirito-santo-2-premium-8248b312.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 380804,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/esfera-decorativa-2.jpg",
+    "premium": "/produtos/premium/esfera-decorativa-2-premium-de1191cc.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 285420,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/estatueta-iemanja-1.jpg",
+    "premium": "/produtos/premium/estatueta-iemanja-1-premium-01d6d859.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 207201,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/estatueta-iemanja-2.jpg",
+    "premium": "/produtos/premium/estatueta-iemanja-2-premium-65dc7df8.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 393569,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/estatueta-iemanja-3.jpg",
+    "premium": "/produtos/premium/estatueta-iemanja-3-premium-04d55fb6.webp",
+    "source_dimensions": [
+      928,
+      1152
+    ],
+    "result_dimensions": [
+      1152,
+      1152
+    ],
+    "protected_pixels": 302713,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/estatueta-iemanja-4.jpg",
+    "premium": "/produtos/premium/estatueta-iemanja-4-premium-2b3686f6.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 533487,
+    "verified_lossless": true,
+    "border_warm_fraction": 0.805,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/igreja-quadrado-gg-1.jpg",
+    "premium": "/produtos/premium/igreja-quadrado-gg-1-premium-e40b209d.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 321505,
+    "verified_lossless": true,
+    "border_warm_fraction": 0.988,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/igreja-quadrado-m-1.jpg",
+    "premium": "/produtos/premium/igreja-quadrado-m-1-premium-0087eb61.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 276154,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/igreja-quadrado-p-2.jpg",
+    "premium": "/produtos/premium/igreja-quadrado-p-2-premium-a8b00590.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 234851,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp",
+    "premium": "/produtos/premium/igrejinha-luminaria-frontal-960-lossless-premium-8edee930.webp",
+    "source_dimensions": [
+      960,
+      960
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 260087,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/ima-igrejinha-trancoso-conjunto.jpg",
+    "premium": "/produtos/premium/ima-igrejinha-trancoso-conjunto-premium-d167c454.webp",
+    "source_dimensions": [
+      960,
+      960
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 250821,
+    "verified_lossless": true,
+    "border_warm_fraction": 0.811,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg",
+    "premium": "/produtos/premium/ima-igrejinha-trancoso-frente-premium-d90d3826.webp",
+    "source_dimensions": [
+      960,
+      960
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 251203,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg",
+    "premium": "/produtos/premium/miniatura-quadrado-trancoso-2-premium-e3f794c3.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 189439,
+    "verified_lossless": true,
+    "border_warm_fraction": 0.999,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg",
+    "premium": "/produtos/premium/miniatura-quadrado-trancoso-4-premium-0c8a48d4.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 170976,
+    "verified_lossless": true,
+    "border_warm_fraction": 0.989,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg",
+    "premium": "/produtos/premium/miniatura-quadrado-trancoso-5-premium-85b44701.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 178294,
+    "verified_lossless": true,
+    "border_warm_fraction": 0.992,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/miniatura-quadrado-trancoso-6.avif",
+    "premium": "/produtos/premium/miniatura-quadrado-trancoso-6-premium-0b54e85f.webp",
+    "source_dimensions": [
+      960,
+      960
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 170848,
+    "verified_lossless": true,
+    "border_warm_fraction": 0.992,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/miniatura-quadrado-trancoso-7.avif",
+    "premium": "/produtos/premium/miniatura-quadrado-trancoso-7-premium-e5371647.webp",
+    "source_dimensions": [
+      960,
+      960
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 266987,
+    "verified_lossless": true,
+    "border_warm_fraction": 0.978,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/mobile-trancoso-fundo-branco.jpg",
+    "premium": "/produtos/premium/mobile-trancoso-fundo-branco-premium-2f8bc86a.webp",
+    "source_dimensions": [
+      960,
+      960
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 193901,
+    "verified_lossless": true,
+    "border_warm_fraction": 0.865,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/catalogo/nossa-senhora-grande-1.jpg",
+    "premium": "/produtos/premium/nossa-senhora-grande-1-premium-b1e55299.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 176105,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/nossa-senhora-grande-2.jpg",
+    "premium": "/produtos/premium/nossa-senhora-grande-2-premium-1ed629d3.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 155080,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/catalogo/terco-em-ceramica-1.jpg",
+    "premium": "/produtos/premium/terco-em-ceramica-1-premium-971d8866.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 89372,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/colar-igreja-quadrado.jpg",
+    "premium": "/produtos/premium/colar-igreja-quadrado-premium-a90c2ff5.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 162367,
+    "verified_lossless": true,
+    "border_warm_fraction": 0.985,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/cruzeiro-do-quadrado.jpg",
+    "premium": "/produtos/premium/cruzeiro-do-quadrado-premium-01ab2d83.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 307238,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/divino-espirito-santo.jpg",
+    "premium": "/produtos/premium/divino-espirito-santo-premium-affc53f5.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 444135,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/esfera-decorativa.jpg",
+    "premium": "/produtos/premium/esfera-decorativa-premium-eedb2063.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 290433,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/igrejinha-luminaria-trancoso.jpg",
+    "premium": "/produtos/premium/igrejinha-luminaria-trancoso-premium-797f5ca7.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      960,
+      960
+    ],
+    "protected_pixels": 176478,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/nossa-senhora-aparecida.jpg",
+    "premium": "/produtos/premium/nossa-senhora-aparecida-premium-e8332166.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 254532,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": false
+  },
+  {
+    "source": "/produtos/presepio-em-ceramica.jpg",
+    "premium": "/produtos/premium/presepio-em-ceramica-premium-82930a38.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 410711,
+    "verified_lossless": true,
+    "border_warm_fraction": 0.993,
+    "manual_visual_review": true
+  },
+  {
+    "source": "/produtos/rosario-trancoso.jpg",
+    "premium": "/produtos/premium/rosario-trancoso-premium-e2a4fc78.webp",
+    "source_dimensions": [
+      1024,
+      1024
+    ],
+    "result_dimensions": [
+      1024,
+      1024
+    ],
+    "protected_pixels": 141823,
+    "verified_lossless": true,
+    "border_warm_fraction": 1.0,
+    "manual_visual_review": true
+  }
+]

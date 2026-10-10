@@ -1,4 +1,5 @@
 import { Product } from './types';
+import premiumPhotos from '@/data/premium-photo-map.json';
 
 // Ordem editorial/comercial: primeiro entram as peças que identificam Trancoso
 // de imediato, depois alternamos luz, cor, figura humana e faixas de preço.
@@ -102,7 +103,8 @@ export function getAttentionOrderedImages(product: Product): string[] {
   const images = (product.images ?? []).filter(Boolean);
   if (!images.length) return [];
 
-  const preferred = ATTENTION_IMAGE_ORDER[product.id] ?? [];
+  const premiumMap = premiumPhotos as Record<string, string>;
+  const preferred = (ATTENTION_IMAGE_ORDER[product.id] ?? []).map((src) => premiumMap[src] ?? src);
   if (!preferred.length) return images;
 
   const available = new Set(images);
