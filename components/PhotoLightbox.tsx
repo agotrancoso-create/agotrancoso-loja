@@ -23,6 +23,8 @@ function clamp(value: number, min: number, max: number) {
 }
 
 function zoomSource(src: string) {
+  // Premium images are lossless final images, used unchanged in the zoom.
+  if (src.startsWith('/produtos/premium/')) return src;
   return src.startsWith('/produtos/') ? `/zoom${src}` : src;
 }
 
