@@ -2,17 +2,15 @@ import productsData from '@/data/products.json';
 import { Product, Category, CartItem } from './types';
 
 const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
-  // REGRA VISUAL APROVADA PELA PROPRIETÁRIA.
-  // Os nomes históricos dos arquivos NÃO correspondem ao produto fotografado.
-  // Portanto, não “corrigir” esta associação pelo nome do arquivo:
-  // - a foto /produtos/igrejinha-luminaria-trancoso.jpg é visualmente a Igrejinha P;
-  // - a foto /produtos/igreja-quadrado-p.jpg é visualmente a Igrejinha Luminária.
+  // A Igrejinha P conserva sua capa histórica visualmente aprovada.
+  // A Igrejinha Luminária menor usa a nova fotografia frontal aprovada,
+  // sem reutilizar a antiga imagem da luminária por associação histórica.
   'igreja-quadrado-p': [
     '/produtos/igrejinha-luminaria-trancoso.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ],
   'igrejinha-luminaria-trancoso': [
-    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp',
   ],
   'casal-pretos-velhos': [
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
