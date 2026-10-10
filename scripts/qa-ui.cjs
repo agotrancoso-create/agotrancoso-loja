@@ -279,7 +279,7 @@ async function run() {
   await dialog.waitFor();
   assert.match(await dialog.locator('.ago-photo-zoom-value').innerText(), /100%/);
   const zoomImage = dialog.locator('.ago-photo-image').first();
-  assert.ok((await zoomImage.getAttribute('src'))?.includes('/zoom/produtos/'));
+  assert.ok((await zoomImage.getAttribute('src'))?.includes('/produtos/natural/'), 'Zoom must use the same natural-shadow catalog photo');
   await dialog.getByRole('button', { name: 'Aumentar zoom' }).click();
   assert.equal(await dialog.locator('.ago-photo-stage.is-zoomed').count(), 1);
   await dialog.getByRole('button', { name: 'Ver peça inteira' }).click();
