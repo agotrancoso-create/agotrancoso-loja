@@ -1,0 +1,58 @@
+[
+  {
+    "id": "casinha",
+    "original": "/produtos/catalogo/casinha-luminaria-1.jpg",
+    "pilot": "/produtos/piloto-natural/casinha-luz-sombra-original.webp",
+    "original_width": 1024,
+    "original_height": 1024,
+    "new_width": 1024,
+    "new_height": 1024,
+    "original_pixels_unchanged": 881881,
+    "total_original_pixels": 1048576,
+    "preservation_percent": 84.1,
+    "shadow_and_light": "original; no regenerated lighting",
+    "lossless_pixel_verified": true
+  },
+  {
+    "id": "pretos-velhos",
+    "original": "/produtos/catalogo/casal-pretos-velhos-3.jpg",
+    "pilot": "/produtos/piloto-natural/pretos-velhos-luz-sombra-original.webp",
+    "original_width": 773,
+    "original_height": 960,
+    "new_width": 960,
+    "new_height": 960,
+    "original_pixels_unchanged": 742080,
+    "total_original_pixels": 742080,
+    "preservation_percent": 100.0,
+    "shadow_and_light": "original; no regenerated lighting",
+    "lossless_pixel_verified": true
+  },
+  {
+    "id": "colar",
+    "original": "/produtos/catalogo/colar-igreja-quadrado-frente.jpg",
+    "pilot": "/produtos/piloto-natural/colar-luz-sombra-original.webp",
+    "original_width": 960,
+    "original_height": 960,
+    "new_width": 960,
+    "new_height": 960,
+    "original_pixels_unchanged": 785248,
+    "total_original_pixels": 921600,
+    "preservation_percent": 85.2,
+    "shadow_and_light": "original; no regenerated lighting",
+    "lossless_pixel_verified": true
+  },
+  {
+    "id": "iemanja",
+    "original": "/produtos/catalogo/estatueta-iemanja-4.jpg",
+    "pilot": "/produtos/piloto-natural/iemanja-luz-sombra-original.webp",
+    "original_width": 1024,
+    "original_height": 1024,
+    "new_width": 1024,
+    "new_height": 1024,
+    "original_pixels_unchanged": 931700,
+    "total_original_pixels": 1048576,
+    "preservation_percent": 88.85,
+    "shadow_and_light": "original; no regenerated lighting",
+    "lossless_pixel_verified": true
+  }
+]
