@@ -49,7 +49,7 @@ const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ],
   'igrejinha-luminaria-trancoso': [
-    '/produtos/catalogo/igrejinha-luminaria-frontal-900-lossless.webp',
+    '/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp',
   ],
   'casinha-luminaria': [
     '/produtos/casinha-luminaria.jpg',
