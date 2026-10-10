@@ -1,0 +1,59 @@
+name: Natural photo catalog release validation
+
+on:
+  push:
+    branches:
+      - feat/photography-natural-light-shadow-pilot-20261010
+    paths:
+      - .github/workflows/natural-photo-full-qa.yml
+      - lib/products.ts
+      - lib/merchandising.ts
+      - components/PhotoLightbox.tsx
+      - scripts/qa-natural-catalog.cjs
+      - scripts/qa-ui.cjs
+      - scripts/qa-visual-refinement.cjs
+      - package.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: TypeScript and commerce
+        run: |
+          npm run typecheck
+          npm run qa:commerce
+      - name: Production build and 38-photo release gate
+        run: npm run build
+      - name: Install browser testing runtime
+        run: |
+          npm install --no-save --no-audit --no-fund playwright axe-core
+          npx playwright install --with-deps chromium
+          mkdir -p /tmp/ago-qa
+      - name: Mobile and desktop gallery QA
+        env:
+          QA_WIDTHS: 390,820,1440
+          QA_ARTIFACTS: /tmp/ago-qa
+        run: npm run qa:ui
+      - name: Visual gallery, photo shadow and rounded zoom QA
+        env:
+          QA_ARTIFACTS: /tmp/ago-qa
+        run: node scripts/qa-visual-refinement.cjs
+      - name: Save browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ago-natural-photo-preview-evidence
+          path: /tmp/ago-qa
+          if-no-files-found: ignore
+          retention-days: 7
