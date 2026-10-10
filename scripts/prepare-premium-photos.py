@@ -64,8 +64,9 @@ def create_output(src: str, session) -> tuple[str, dict]:
     n, labels, stats, _ = cv2.connectedComponentsWithStats(foreground, connectivity=8)
     components = sorted((int(stats[i, cv2.CC_STAT_AREA]) for i in range(1, n)),
                         reverse=True)
-    if not components or components[0] < count * 0.35:
-        raise ValueError(f"Untrustworthy fragmented foreground: {src}")
+    if not components or components[0] < count * 0.08:
+        raise ValueError(f"Untrustworthy foreground components: {src}")
+    fragmented = components[0] < count * 0.35
 
     # Preserve fine cords/crosses with a small protective dilation.
     protected = cv2.GaussianBlur(foreground.astype(np.float32), (0, 0), sigmaX=0.7)
@@ -146,7 +147,7 @@ def create_output(src: str, session) -> tuple[str, dict]:
         "verified_lossless": True,
         "border_warm_fraction": round(float(
             np.all(np.abs(edge.astype(np.int16) - TARGET) <= 5, axis=1).mean()), 3),
-        "manual_visual_review": any(term in src for term in MANUAL_REVIEW)
+        "manual_visual_review": fragmented or any(term in src for term in MANUAL_REVIEW)
     }
     return report["premium"], report
 
