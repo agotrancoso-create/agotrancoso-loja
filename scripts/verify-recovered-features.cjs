@@ -33,6 +33,9 @@ const merchLuminariaBlock = merch.match(/'igrejinha-luminaria-trancoso': \[(.*?)
 assert.ok(pBlock.includes('/produtos/igrejinha-luminaria-trancoso.jpg'));
 assert.ok(!pBlock.includes('/produtos/igreja-quadrado-p.jpg'));
 assert.ok(luminariaBlock.includes('/produtos/igreja-quadrado-p.jpg'));
+// O catálogo base usa a nova capa; a associação histórica em lib/products é preservada para fallback.
+const catalogLuminaria = JSON.parse(fs.readFileSync('data/products.json', 'utf8')).products.find(product => product.id === 'igrejinha-luminaria-trancoso');
+assert.ok(catalogLuminaria.images.includes('/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp'));
 assert.ok(!luminariaBlock.includes('/produtos/igrejinha-luminaria-trancoso.jpg'));
 assert.ok(merchPBlock.includes('/produtos/igrejinha-luminaria-trancoso.jpg'));
 assert.ok(merchLuminariaBlock.includes('/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp'));
