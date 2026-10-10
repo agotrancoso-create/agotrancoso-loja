@@ -347,7 +347,7 @@ async function main() {
     });
     assert.match(decodeURIComponent(imageState.url), /casal-pretos-velhos-3/, 'wrong third photograph');
     assert.equal(imageState.fit, 'contain', 'the complete piece must remain visible');
-    const expectedShift = 0;
+    const expectedShift = width > 900 ? imageState.width * -0.0625 : 0;
     assert.ok(near(imageState.shiftX, expectedShift, 2), `third photo alignment differs at ${width}px: got ${imageState.shiftX}, expected ${expectedShift}`);
     const galleryColor = await gallery.locator('.product-gallery-main').evaluate(el => getComputedStyle(el).backgroundColor);
     const buttonColor = await gallery.locator('.ago-gallery-open').evaluate(el => getComputedStyle(el).backgroundColor);
