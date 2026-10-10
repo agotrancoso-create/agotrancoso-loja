@@ -35,7 +35,7 @@ assert.ok(!pBlock.includes('/produtos/igreja-quadrado-p.jpg'));
 assert.ok(luminariaBlock.includes('/produtos/igreja-quadrado-p.jpg'));
 assert.ok(!luminariaBlock.includes('/produtos/igrejinha-luminaria-trancoso.jpg'));
 assert.ok(merchPBlock.includes('/produtos/igrejinha-luminaria-trancoso.jpg'));
-assert.ok(merchLuminariaBlock.includes('/produtos/igreja-quadrado-p.jpg'));
+assert.ok(merchLuminariaBlock.includes('/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp'));
 
 // Miniatura: título, uso e duas fotos novas devem permanecer no catálogo.
 assert.ok(products.includes('Miniatura do Quadrado de Trancoso para Pendurar'));
