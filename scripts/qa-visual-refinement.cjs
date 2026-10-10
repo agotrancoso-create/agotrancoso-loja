@@ -325,8 +325,8 @@ async function main() {
     assert.deepEqual(originalSize, [960, 960], 'original lossless file must be 960x960');
   }
 
-  // Regressão localizada: foto 3 centralizada visualmente no desktop,
-  // sem perder fundo branco nem alterar o celular.
+  // Regressão localizada: foto 3 pré-centralizada via Sharp.
+  // Não deslocar a foto novamente por CSS no desktop ou no celular.
   for (const width of [390, 1280, 1440, 1920]) {
     await page.setViewportSize({ width, height: width === 390 ? 844 : 1000 });
     await page.goto(base + '/produtos/casal-pretos-velhos', { waitUntil: 'domcontentloaded' });
@@ -347,7 +347,7 @@ async function main() {
     });
     assert.match(decodeURIComponent(imageState.url), /casal-pretos-velhos-3/, 'wrong third photograph');
     assert.equal(imageState.fit, 'contain', 'the complete piece must remain visible');
-    const expectedShift = width > 900 ? imageState.width * -.05 : 0;
+    const expectedShift = 0;
     assert.ok(near(imageState.shiftX, expectedShift, 2), `third photo alignment differs at ${width}px: got ${imageState.shiftX}, expected ${expectedShift}`);
     const galleryColor = await gallery.locator('.product-gallery-main').evaluate(el => getComputedStyle(el).backgroundColor);
     const buttonColor = await gallery.locator('.ago-gallery-open').evaluate(el => getComputedStyle(el).backgroundColor);
