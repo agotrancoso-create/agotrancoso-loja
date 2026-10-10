@@ -299,6 +299,25 @@ async function main() {
     await page.keyboard.press('Escape');
   }
 
+  // Fotografia aprovada da Igrejinha Luminária: capa quadrada sem perdas.
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: width === 390 ? 844 : 1000 });
+    await page.goto(base + '/produtos/igrejinha-luminaria-trancoso', { waitUntil: 'domcontentloaded' });
+    const image = page.locator('.product-gallery[data-product-id="igrejinha-luminaria-trancoso"] .product-gallery-image');
+    await image.waitFor();
+    await image.evaluate(el => el.decode());
+    const photo = await image.evaluate(el => ({
+      src: decodeURIComponent(el.currentSrc),
+      width: el.naturalWidth,
+      height: el.naturalHeight,
+      fit: getComputedStyle(el).objectFit,
+    }));
+    assert.match(photo.src, /igrejinha-luminaria-frontal-900-lossless\.webp/);
+    assert.equal(photo.width, 900, 'lossless original size');
+    assert.equal(photo.height, 900, 'square aspect ratio');
+    assert.equal(photo.fit, 'contain', 'entire church must remain visible');
+  }
+
   // Regressão localizada: foto 3 centralizada visualmente no desktop,
   // sem perder fundo branco nem alterar o celular.
   for (const width of [390, 1280, 1440, 1920]) {
