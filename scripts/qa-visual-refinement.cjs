@@ -318,11 +318,11 @@ async function main() {
     assert.equal(photo.fit, 'contain', 'entire church must remain visible');
     const originalSize = await page.evaluate(async () => {
       const asset = new window.Image();
-      asset.src = '/produtos/catalogo/igrejinha-luminaria-frontal-900-lossless.webp';
+      asset.src = '/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp';
       await asset.decode();
       return [asset.naturalWidth, asset.naturalHeight];
     });
-    assert.deepEqual(originalSize, [900, 900], 'original lossless file must be 900x900');
+    assert.deepEqual(originalSize, [960, 960], 'original lossless file must be 960x960');
   }
 
   // Regressão localizada: foto 3 centralizada visualmente no desktop,
