@@ -325,8 +325,8 @@ async function main() {
     assert.deepEqual(originalSize, [960, 960], 'original lossless file must be 960x960');
   }
 
-  // Regressão localizada: foto 3 pré-centralizada via Sharp.
-  // Não deslocar a foto novamente por CSS no desktop ou no celular.
+  // Regressão localizada: centralizar visualmente foto 3 no desktop
+  // (medida de screenshot) sem faixas escuras, mantendo mobile intacto.
   for (const width of [390, 1280, 1440, 1920]) {
     await page.setViewportSize({ width, height: width === 390 ? 844 : 1000 });
     await page.goto(base + '/produtos/casal-pretos-velhos', { waitUntil: 'domcontentloaded' });
