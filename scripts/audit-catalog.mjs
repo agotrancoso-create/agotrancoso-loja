@@ -15,7 +15,7 @@ const RETIRED_MINIATURA_IMAGES = new Set([
 
 const EXPECTED_COVER_IMAGES = new Map([
   ['igreja-quadrado-p', '/produtos/igreja-quadrado-p.jpg'],
-  ['igrejinha-luminaria-trancoso', '/produtos/igrejinha-luminaria-trancoso.jpg'],
+  ['igrejinha-luminaria-trancoso', '/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp'],
 ]);
 
 function fail(message) {
