@@ -29,13 +29,17 @@ const luminariaBlock = products.match(/'igrejinha-luminaria-trancoso': \[(.*?)\]
 const merchPBlock = merch.match(/'igreja-quadrado-p': \[(.*?)\],/s)?.[1] ?? '';
 const merchLuminariaBlock = merch.match(/'igrejinha-luminaria-trancoso': \[(.*?)\],/s)?.[1] ?? '';
 
-// Associação VISUAL aprovada: os nomes históricos dos dois arquivos estão invertidos.
+// Igrejinha P conserva a imagem histórica; luminária usa nova capa no catálogo e na galeria.
 assert.ok(pBlock.includes('/produtos/igrejinha-luminaria-trancoso.jpg'));
 assert.ok(!pBlock.includes('/produtos/igreja-quadrado-p.jpg'));
-assert.ok(luminariaBlock.includes('/produtos/igreja-quadrado-p.jpg'));
+assert.ok(luminariaBlock.includes('/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp'));
+assert.ok(!luminariaBlock.includes('/produtos/igreja-quadrado-p.jpg'));
+// A fonte de dados e a galeria renderizada devem apontar para a mesma capa.
+const catalogLuminaria = JSON.parse(fs.readFileSync('data/products.json', 'utf8')).products.find(product => product.id === 'igrejinha-luminaria-trancoso');
+assert.ok(catalogLuminaria.images.includes('/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp'));
 assert.ok(!luminariaBlock.includes('/produtos/igrejinha-luminaria-trancoso.jpg'));
 assert.ok(merchPBlock.includes('/produtos/igrejinha-luminaria-trancoso.jpg'));
-assert.ok(merchLuminariaBlock.includes('/produtos/igreja-quadrado-p.jpg'));
+assert.ok(merchLuminariaBlock.includes('/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp'));
 
 // Miniatura: título, uso e duas fotos novas devem permanecer no catálogo.
 assert.ok(products.includes('Miniatura do Quadrado de Trancoso para Pendurar'));

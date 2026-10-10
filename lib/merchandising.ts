@@ -39,11 +39,9 @@ export function sortProductsByAttention<T extends Product>(products: T[]): T[] {
  * Curadoria fotográfica da vitrine.
  * A primeira imagem de cada lista é a capa aprovada para a vitrine.
  *
- * REGRA VISUAL APROVADA PELA PROPRIETÁRIA:
- * os nomes históricos de dois arquivos estão invertidos em relação ao que
- * realmente aparece nas fotos. A P usa visualmente o arquivo chamado
- * igrejinha-luminaria-trancoso.jpg e a Luminária usa visualmente o arquivo
- * igreja-quadrado-p.jpg. Não inverter esta regra pelo nome do arquivo.
+ * Os nomes históricos de alguns arquivos não descrevem a peça fotografada.
+ * A foto da Igrejinha P continua sendo a imagem histórica aprovada, enquanto
+ * a luminária menor agora utiliza a nova foto frontal enviada pela proprietária.
  */
 const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
   'igreja-quadrado-p': [
@@ -51,7 +49,7 @@ const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
   ],
   'igrejinha-luminaria-trancoso': [
-    '/produtos/igreja-quadrado-p.jpg',
+    '/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp',
   ],
   'casinha-luminaria': [
     '/produtos/casinha-luminaria.jpg',

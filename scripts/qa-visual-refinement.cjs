@@ -299,8 +299,34 @@ async function main() {
     await page.keyboard.press('Escape');
   }
 
-  // Regressão localizada: foto 3 centralizada visualmente no desktop,
-  // sem perder fundo branco nem alterar o celular.
+  // Fotografia aprovada da Igrejinha Luminária: capa quadrada sem perdas.
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: width === 390 ? 844 : 1000 });
+    await page.goto(base + '/produtos/igrejinha-luminaria-trancoso', { waitUntil: 'domcontentloaded' });
+    const image = page.locator('.product-gallery[data-product-id="igrejinha-luminaria-trancoso"] .product-gallery-image');
+    await image.waitFor();
+    await image.evaluate(el => el.decode());
+    const photo = await image.evaluate(el => ({
+      src: decodeURIComponent(el.currentSrc),
+      width: el.naturalWidth,
+      height: el.naturalHeight,
+      fit: getComputedStyle(el).objectFit,
+    }));
+    assert.match(photo.src, /igrejinha-luminaria-frontal-960-lossless\.webp/);
+    assert.ok(photo.width >= 320 && photo.height >= 320, 'responsive image must load clearly');
+    assert.equal(photo.width, photo.height, 'square aspect ratio');
+    assert.equal(photo.fit, 'contain', 'entire church must remain visible');
+    const originalSize = await page.evaluate(async () => {
+      const asset = new window.Image();
+      asset.src = '/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp';
+      await asset.decode();
+      return [asset.naturalWidth, asset.naturalHeight];
+    });
+    assert.deepEqual(originalSize, [960, 960], 'original lossless file must be 960x960');
+  }
+
+  // Regressão localizada: foto 3 pré-centralizada via Sharp.
+  // Não deslocar a foto novamente por CSS no desktop ou no celular.
   for (const width of [390, 1280, 1440, 1920]) {
     await page.setViewportSize({ width, height: width === 390 ? 844 : 1000 });
     await page.goto(base + '/produtos/casal-pretos-velhos', { waitUntil: 'domcontentloaded' });
@@ -321,7 +347,7 @@ async function main() {
     });
     assert.match(decodeURIComponent(imageState.url), /casal-pretos-velhos-3/, 'wrong third photograph');
     assert.equal(imageState.fit, 'contain', 'the complete piece must remain visible');
-    const expectedShift = width > 900 ? imageState.width * -.05 : 0;
+    const expectedShift = 0;
     assert.ok(near(imageState.shiftX, expectedShift, 2), `third photo alignment differs at ${width}px: got ${imageState.shiftX}, expected ${expectedShift}`);
     const galleryColor = await gallery.locator('.product-gallery-main').evaluate(el => getComputedStyle(el).backgroundColor);
     const buttonColor = await gallery.locator('.ago-gallery-open').evaluate(el => getComputedStyle(el).backgroundColor);
