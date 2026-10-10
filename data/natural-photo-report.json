@@ -1,0 +1,648 @@
+[
+  {
+    "source": "/produtos/casinha-luminaria.jpg",
+    "premium": "/produtos/natural/casinha-luminaria-natural-8b510a05.webp",
+    "original_pixels": 1069056,
+    "original_size": [
+      928,
+      1152
+    ],
+    "new_size": [
+      1152,
+      1152
+    ],
+    "unaltered_percent": 100.0,
+    "original_sha256": "8d682dda467aa9f00a14f6d417a2ee508e7861c4db2031e14eadf9d34ef8d35c",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/casal-pretos-velhos-1.jpg",
+    "premium": "/produtos/natural/casal-pretos-velhos-1-natural-5b7b9f58.webp",
+    "original_pixels": 882838,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 84.19,
+    "original_sha256": "ad6293790a44ff19c5bf93795d8ba040fe274b79e60dcbb75ef083bcdfd46b87",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/casal-pretos-velhos-2.jpg",
+    "premium": "/produtos/natural/casal-pretos-velhos-2-natural-fdaeeb61.webp",
+    "original_pixels": 879036,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 83.83,
+    "original_sha256": "4325ca24e03caec3a5c05fdf9c12afd1a341b67d6ed276acc6afe1178e0196a7",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/casal-pretos-velhos-3.jpg",
+    "premium": "/produtos/natural/casal-pretos-velhos-3-natural-66f0721f.webp",
+    "original_pixels": 742080,
+    "original_size": [
+      773,
+      960
+    ],
+    "new_size": [
+      960,
+      960
+    ],
+    "unaltered_percent": 100.0,
+    "original_sha256": "3cbb70df4cdbcd2de1aead4d1ffb46c8f11029089bcbf28fbf79adae813df08b",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/casinha-luminaria-1.jpg",
+    "premium": "/produtos/natural/casinha-luminaria-1-natural-af81f4e8.webp",
+    "original_pixels": 881881,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 84.1,
+    "original_sha256": "6c4a6d4e5cd84d08cfdccd6302fabfbde8ac040ecd656b447181ae77f407247a",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/casinha-luminaria-2.jpg",
+    "premium": "/produtos/natural/casinha-luminaria-2-natural-d7a263c3.webp",
+    "original_pixels": 879827,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 83.91,
+    "original_sha256": "3b8a36891962a10ebc56f1d25d54d8810b58414650ac5e79cfede3b2894c3b44",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/casinha-luminaria-3.jpg",
+    "premium": "/produtos/natural/casinha-luminaria-3-natural-fddaaedc.webp",
+    "original_pixels": 884416,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 84.34,
+    "original_sha256": "36dd7e1f98f566f6e317aab192d1ab1f3d91ed93453973eac3078faffb772d65",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/casinha-luminaria-4.jpg",
+    "premium": "/produtos/natural/casinha-luminaria-4-natural-e3dd2c9a.webp",
+    "original_pixels": 884123,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 84.32,
+    "original_sha256": "ecca329b1dfeb8ab21c15050ed3f4274cc628712c83decafe60d5fdf15133e74",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/colar-igreja-quadrado-frente.jpg",
+    "premium": "/produtos/natural/colar-igreja-quadrado-frente-natural-6bd4fc5f.webp",
+    "original_pixels": 785248,
+    "original_size": [
+      960,
+      960
+    ],
+    "new_size": [
+      960,
+      960
+    ],
+    "unaltered_percent": 85.2,
+    "original_sha256": "f7bd55f923fc5df7ffd2cf52140a70401b56cd42801e5655394a2c9353856641",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/divino-espirito-santo-2.jpg",
+    "premium": "/produtos/natural/divino-espirito-santo-2-natural-8248b312.webp",
+    "original_pixels": 908338,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 86.63,
+    "original_sha256": "df57aa3a26d834336646a9479d0b1439aaaa37f566203e8902a09c328021b8f1",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/esfera-decorativa-2.jpg",
+    "premium": "/produtos/natural/esfera-decorativa-2-natural-de1191cc.webp",
+    "original_pixels": 888783,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 84.76,
+    "original_sha256": "fd8651b42e3edc23bd50ee2262c8f421d3813c871fd9f4aa514fd62d92132510",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/estatueta-iemanja-1.jpg",
+    "premium": "/produtos/natural/estatueta-iemanja-1-natural-01d6d859.webp",
+    "original_pixels": 901771,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 86.0,
+    "original_sha256": "a1360f66d4f8fbb0bed8ccbae263b5c6f8045fa77cffbdd5b09a91210e96226f",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/estatueta-iemanja-2.jpg",
+    "premium": "/produtos/natural/estatueta-iemanja-2-natural-65dc7df8.webp",
+    "original_pixels": 932744,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 88.95,
+    "original_sha256": "e2cc4b3faed5ced1ec27a5285c80c1fda8ff9a953f272217f0fbeef871e9415d",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/estatueta-iemanja-3.jpg",
+    "premium": "/produtos/natural/estatueta-iemanja-3-natural-04d55fb6.webp",
+    "original_pixels": 1069056,
+    "original_size": [
+      928,
+      1152
+    ],
+    "new_size": [
+      1152,
+      1152
+    ],
+    "unaltered_percent": 100.0,
+    "original_sha256": "bcd0fb76bb0840858908b192f173a7ae8f66140aca3e3a1b2e1b7c212c29f8b6",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/estatueta-iemanja-4.jpg",
+    "premium": "/produtos/natural/estatueta-iemanja-4-natural-2b3686f6.webp",
+    "original_pixels": 931700,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 88.85,
+    "original_sha256": "b10db1f4823b3b3b1ae4b2dfc608d4e913503513801c8d48cfec9aabb38f7df3",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/igreja-quadrado-gg-1.jpg",
+    "premium": "/produtos/natural/igreja-quadrado-gg-1-natural-e40b209d.webp",
+    "original_pixels": 892253,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 85.09,
+    "original_sha256": "cbba736ce4ec75b88caf61c7b281dc6e2910bd1d33421b54934374134f71dbfa",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/igreja-quadrado-m-1.jpg",
+    "premium": "/produtos/natural/igreja-quadrado-m-1-natural-0087eb61.webp",
+    "original_pixels": 887770,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 84.66,
+    "original_sha256": "26c8a40d3ffae7f6f81d794ab7147fbb2c5a8114941d5e5312de2215bbddcdfe",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/igreja-quadrado-p-2.jpg",
+    "premium": "/produtos/natural/igreja-quadrado-p-2-natural-a8b00590.webp",
+    "original_pixels": 885213,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 84.42,
+    "original_sha256": "577a54ad5cb99b8d0a393d663b27a6339b851edf93ad12ecc31c837c613127ad",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/igrejinha-luminaria-frontal-960-lossless.webp",
+    "premium": "/produtos/natural/igrejinha-luminaria-frontal-960-lossless-natural-8edee930.webp",
+    "original_pixels": 786468,
+    "original_size": [
+      960,
+      960
+    ],
+    "new_size": [
+      960,
+      960
+    ],
+    "unaltered_percent": 85.34,
+    "original_sha256": "22ea95d641614c1a9d46765d53e264619b8c118f15aa2a8aaa55e9f06c1e9945",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/ima-igrejinha-trancoso-conjunto.jpg",
+    "premium": "/produtos/natural/ima-igrejinha-trancoso-conjunto-natural-d167c454.webp",
+    "original_pixels": 816339,
+    "original_size": [
+      960,
+      960
+    ],
+    "new_size": [
+      960,
+      960
+    ],
+    "unaltered_percent": 88.58,
+    "original_sha256": "350f236ee2bc4c5be7785111ffe78cb2795945d589e885a83c8afc3a4dc37f92",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/ima-igrejinha-trancoso-frente.jpg",
+    "premium": "/produtos/natural/ima-igrejinha-trancoso-frente-natural-d90d3826.webp",
+    "original_pixels": 780790,
+    "original_size": [
+      960,
+      960
+    ],
+    "new_size": [
+      960,
+      960
+    ],
+    "unaltered_percent": 84.72,
+    "original_sha256": "125dfabedd17cc90d44034c738ba064b02c49f81fe47d73392fb5dd1c665823b",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/miniatura-quadrado-trancoso-2.jpg",
+    "premium": "/produtos/natural/miniatura-quadrado-trancoso-2-natural-e3f794c3.webp",
+    "original_pixels": 880585,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 83.98,
+    "original_sha256": "80a8a215f0163c1960c97591ff17fa22d61376027e6604da618c97a8f18eb8c4",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/miniatura-quadrado-trancoso-4.jpg",
+    "premium": "/produtos/natural/miniatura-quadrado-trancoso-4-natural-0c8a48d4.webp",
+    "original_pixels": 889580,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 84.84,
+    "original_sha256": "235017ce8ce2c7ed0ada9ee9500d376c4eb4fe67384dd49b61e826aea08ee50f",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/miniatura-quadrado-trancoso-5.jpg",
+    "premium": "/produtos/natural/miniatura-quadrado-trancoso-5-natural-85b44701.webp",
+    "original_pixels": 886166,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 84.51,
+    "original_sha256": "16a69fd706e7d9f7b649f3debd9701ae979fdb6db626785f13f021fdeb37f877",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/miniatura-quadrado-trancoso-6.avif",
+    "premium": "/produtos/natural/miniatura-quadrado-trancoso-6-natural-0b54e85f.webp",
+    "original_pixels": 776304,
+    "original_size": [
+      960,
+      960
+    ],
+    "new_size": [
+      960,
+      960
+    ],
+    "unaltered_percent": 84.23,
+    "original_sha256": "3da9c5ae6d284bf184a278bd74523f1f7ff068aeaa63fc05cd54d9768215014d",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/miniatura-quadrado-trancoso-7.avif",
+    "premium": "/produtos/natural/miniatura-quadrado-trancoso-7-natural-e5371647.webp",
+    "original_pixels": 782997,
+    "original_size": [
+      960,
+      960
+    ],
+    "new_size": [
+      960,
+      960
+    ],
+    "unaltered_percent": 84.96,
+    "original_sha256": "69a33715cea97bb5e8e8a2b637f07321c00574db4c7dbee16d1df86b77168921",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/mobile-trancoso-fundo-branco.jpg",
+    "premium": "/produtos/natural/mobile-trancoso-fundo-branco-natural-2f8bc86a.webp",
+    "original_pixels": 800493,
+    "original_size": [
+      960,
+      960
+    ],
+    "new_size": [
+      960,
+      960
+    ],
+    "unaltered_percent": 86.86,
+    "original_sha256": "057785415c281c1d999d23c820a90a73b57512d9f94f359dfe13c2f6660a6d93",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/nossa-senhora-grande-1.jpg",
+    "premium": "/produtos/natural/nossa-senhora-grande-1-natural-b1e55299.webp",
+    "original_pixels": 880368,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 83.96,
+    "original_sha256": "e0c682cf049a527c09ca2d46abbc881c9f8e9ef17ad447a435983588ab1c7414",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/nossa-senhora-grande-2.jpg",
+    "premium": "/produtos/natural/nossa-senhora-grande-2-natural-1ed629d3.webp",
+    "original_pixels": 887324,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 84.62,
+    "original_sha256": "b03e15353869c5951dbc9bdd623838a0355aa5dd648677541f96794fe1476823",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/catalogo/terco-em-ceramica-1.jpg",
+    "premium": "/produtos/natural/terco-em-ceramica-1-natural-971d8866.webp",
+    "original_pixels": 894121,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 85.27,
+    "original_sha256": "71ed203ef37db8d5f969ba90be57dd03064fd4a751f7fe63f150e23b5e6ef28b",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/colar-igreja-quadrado.jpg",
+    "premium": "/produtos/natural/colar-igreja-quadrado-natural-a90c2ff5.webp",
+    "original_pixels": 885776,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 84.47,
+    "original_sha256": "8a61a2fa3009c470399e396ab03bae880821dec5c54dbbff290526532105c39b",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/cruzeiro-do-quadrado.jpg",
+    "premium": "/produtos/natural/cruzeiro-do-quadrado-natural-01ab2d83.webp",
+    "original_pixels": 920344,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 87.77,
+    "original_sha256": "e46227996d80e5e81e4ad97532b93493caaa3e28387878f5d68e0ac59d9057ce",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/divino-espirito-santo.jpg",
+    "premium": "/produtos/natural/divino-espirito-santo-natural-affc53f5.webp",
+    "original_pixels": 879052,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 83.83,
+    "original_sha256": "7bf9c900c8aad7db851fcfeae36c393fd40f000fa1471cdff880f3344081cf72",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/esfera-decorativa.jpg",
+    "premium": "/produtos/natural/esfera-decorativa-natural-eedb2063.webp",
+    "original_pixels": 881346,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 84.05,
+    "original_sha256": "e079f6edcedcdb25fd144b0fa8e6da8d3c837da942c8036d84b5b9982993269b",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/igrejinha-luminaria-trancoso.jpg",
+    "premium": "/produtos/natural/igrejinha-luminaria-trancoso-natural-797f5ca7.webp",
+    "original_pixels": 892051,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 85.07,
+    "original_sha256": "6764de65c804b819c1d190ecca25d75e3d4560d321c161525932e4a8d3522706",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/nossa-senhora-aparecida.jpg",
+    "premium": "/produtos/natural/nossa-senhora-aparecida-natural-e8332166.webp",
+    "original_pixels": 928577,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 88.56,
+    "original_sha256": "b7e80f9d4c6eb79f27c85223c26ddf1e13023d1fc663a3f48c0c19caf05b42c2",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/presepio-em-ceramica.jpg",
+    "premium": "/produtos/natural/presepio-em-ceramica-natural-82930a38.webp",
+    "original_pixels": 895195,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 85.37,
+    "original_sha256": "04ab1f127e213d778d4110f1024c8557d21812c78da11c3902bf67f98af026b0",
+    "shadow": "original",
+    "lossless": true
+  },
+  {
+    "source": "/produtos/rosario-trancoso.jpg",
+    "premium": "/produtos/natural/rosario-trancoso-natural-e2a4fc78.webp",
+    "original_pixels": 876878,
+    "original_size": [
+      1024,
+      1024
+    ],
+    "new_size": [
+      1024,
+      1024
+    ],
+    "unaltered_percent": 83.63,
+    "original_sha256": "f96e8ebe141c4cf05d7119653a3cb15030c69ae2ba2a0a18786f87d47b68e4a0",
+    "shadow": "original",
+    "lossless": true
+  }
+]
