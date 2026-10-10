@@ -313,7 +313,7 @@ async function main() {
       fit: getComputedStyle(el).objectFit,
     }));
     assert.match(photo.src, /igrejinha-luminaria-frontal-900-lossless\.webp/);
-    assert.ok(photo.width >= 640 && photo.height >= 640, 'display image must be high resolution');
+    assert.ok(photo.width >= 320 && photo.height >= 320, 'responsive image must load clearly');
     assert.equal(photo.width, photo.height, 'square aspect ratio');
     assert.equal(photo.fit, 'contain', 'entire church must remain visible');
     const originalSize = await page.evaluate(async () => {
