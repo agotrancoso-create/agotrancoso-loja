@@ -23,6 +23,8 @@ function clamp(value: number, min: number, max: number) {
 }
 
 function zoomSource(src: string) {
+  // The natural-light photo is already lossless; zoom displays the same original-shadow composition.
+  if (src.startsWith('/produtos/natural/')) return src;
   return src.startsWith('/produtos/') ? `/zoom${src}` : src;
 }
 
