@@ -299,8 +299,8 @@ async function main() {
     await page.keyboard.press('Escape');
   }
 
-  // Regressão localizada: somente a 3ª foto dos Pretos-Velhos deve
-  // ter compensação horizontal no desktop; no celular nada muda.
+  // Regressão localizada: foto 3 centralizada visualmente no desktop,
+  // sem perder fundo branco nem alterar o celular.
   for (const width of [390, 1280, 1440, 1920]) {
     await page.setViewportSize({ width, height: width === 390 ? 844 : 1000 });
     await page.goto(base + '/produtos/casal-pretos-velhos', { waitUntil: 'domcontentloaded' });
@@ -321,8 +321,12 @@ async function main() {
     });
     assert.match(decodeURIComponent(imageState.url), /casal-pretos-velhos-3/, 'wrong third photograph');
     assert.equal(imageState.fit, 'contain', 'the complete piece must remain visible');
-    const expectedShift = 0;
+    const expectedShift = width > 900 ? imageState.width * -.05 : 0;
     assert.ok(near(imageState.shiftX, expectedShift, 2), `third photo alignment differs at ${width}px: got ${imageState.shiftX}, expected ${expectedShift}`);
+    const galleryColor = await gallery.locator('.product-gallery-main').evaluate(el => getComputedStyle(el).backgroundColor);
+    const buttonColor = await gallery.locator('.ago-gallery-open').evaluate(el => getComputedStyle(el).backgroundColor);
+    assert.equal(galleryColor, 'rgb(255, 255, 255)', 'gallery background must remain white');
+    assert.equal(buttonColor, 'rgb(255, 255, 255)', 'button background must remain white');
     await gallery.locator('.product-gallery-main').screenshot({
       path: `${artifacts}/pretos-velhos-photo-3-${width}.png`,
     });
