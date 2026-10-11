@@ -44,8 +44,13 @@ async function get(route){const r=await fetch(base+route,{headers:{'User-Agent':
   assert.equal(product.offers.availability,`https://schema.org/${p.available?'InStock':'OutOfStock'}`);assert.equal(product.offers.itemCondition,'https://schema.org/NewCondition');assert.equal(product.offers.seller['@id'],`${domain}#organization`);
   assert.equal(Number(product.offers.shippingDetails.shippingRate.value),shipping);
   const images=getAttentionOrderedImages(p).map(image=>domain+image);
-  assert.deepEqual(product.image,images);assert.equal(field(entry,'image_link'),images[0]);
-  assert.deepEqual([...entry.matchAll(/<g:additional_image_link>(.*?)<\/g:additional_image_link>/g)].map(m=>decode(m[1])),images.slice(1,10));
+  assert.deepEqual(product.image,images);
+  const feedImage = new URL(field(entry,'image_link'));
+  assert.equal(feedImage.origin + feedImage.pathname, images[0]);
+  assert.equal(feedImage.searchParams.get('merchant_img'),'2026-10-10-premium-v2');
+  const feedAdditional = [...entry.matchAll(/<g:additional_image_link>(.*?)<\/g:additional_image_link>/g)].map(m=>new URL(decode(m[1])));
+  assert.deepEqual(feedAdditional.map(u=>u.origin+u.pathname),images.slice(1,10));
+  assert.ok(feedAdditional.every(u=>u.searchParams.get('merchant_img')==='2026-10-10-premium-v2'));
   assert.ok(page.includes(`rel="canonical" href="${url}"`),`${p.id}: canonical`);
   assert.ok(page.includes(`property="og:url" content="${url}"`),`${p.id}: OG URL`);
   const priceBlock=page.match(/class="product-current-price"[^>]*>([\s\S]*?)<\/[^>]+>/)?.[1] || '';
