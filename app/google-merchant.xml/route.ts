@@ -3,8 +3,13 @@ import { getAttentionOrderedImages } from '@/lib/merchandising';
 import { SITE_DOMAIN } from '@/lib/config';
 import { getShippingPrice } from '@/lib/shipping';
 
-export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+// Bump this whenever the catalog photography changes. Merchant Center treats
+// the resulting image URLs as fresh resources instead of reusing an older
+// cached thumbnail from Google Shopping.
+const MERCHANT_IMAGE_VERSION = '2026-10-10-premium-v2';
 
 const SHOPPING_COPY: Record<string, { title: string; description: string }> = {
   'igreja-quadrado-p': {
@@ -123,6 +128,12 @@ function absoluteUrl(path: string) {
   return `${SITE_DOMAIN}${path.startsWith('/') ? path : `/${path}`}`;
 }
 
+function merchantImageUrl(path: string) {
+  const url = new URL(absoluteUrl(path));
+  url.searchParams.set('merchant_img', MERCHANT_IMAGE_VERSION);
+  return url.toString();
+}
+
 function productType(category: string) {
   const labels: Record<string, string> = {
     igrejinhas: 'Artesanato > Cerâmica > Igrejinhas do Quadrado de Trancoso',
@@ -148,7 +159,7 @@ export async function GET() {
       const effectivePrice = getEffectivePrice(product);
       const shippingPrice = getShippingPrice(effectivePrice);
       const curatedImages = getAttentionOrderedImages(product);
-      const mainImage = curatedImages[0] ? absoluteUrl(curatedImages[0]) : `${SITE_DOMAIN}/images/placeholder.svg`;
+      const mainImage = curatedImages[0] ? merchantImageUrl(curatedImages[0]) : merchantImageUrl('/images/placeholder.svg');
       const additionalImages = curatedImages.slice(1, 10);
       const shoppingCopy = SHOPPING_COPY[product.id];
       const shortTitle = SHOPPING_SHORT_TITLES[product.id];
@@ -169,7 +180,7 @@ export async function GET() {
           <g:link>${escapeXml(`${SITE_DOMAIN}/produtos/${product.id}`)}</g:link>
           <g:mobile_link>${escapeXml(`${SITE_DOMAIN}/produtos/${product.id}`)}</g:mobile_link>
           <g:image_link>${escapeXml(mainImage)}</g:image_link>
-          ${additionalImages.map((image) => `<g:additional_image_link>${escapeXml(absoluteUrl(image))}</g:additional_image_link>`).join('\n          ')}
+          ${additionalImages.map((image) => `<g:additional_image_link>${escapeXml(merchantImageUrl(image))}</g:additional_image_link>`).join('\n          ')}
           <g:availability>${product.available ? 'in_stock' : 'out_of_stock'}</g:availability>
           <g:condition>new</g:condition>
           <g:price>${product.price.toFixed(2)} BRL</g:price>
@@ -209,7 +220,7 @@ export async function GET() {
   return new Response(xml, {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
-      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+      'Cache-Control': 'no-store, max-age=0, must-revalidate',
     },
   });
 }
