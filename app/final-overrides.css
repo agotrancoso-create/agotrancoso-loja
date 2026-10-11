@@ -405,8 +405,18 @@
   transform: none !important;
 }
 
-/* O prebuild já centraliza os pixels da 3ª foto; NÃO aplicar translateX
-   adicional no desktop, pois isso desloca a peça e expõe bordas. */
+/* A 3ª foto dos Pretos-Velhos tem margem fotográfica assimétrica.
+   Compensação medida na captura real de 1440px: o centro da escultura estava
+   ~41px à direita num quadro de 655px. Deslocamento de 6,25% apenas no
+   desktop; fundo branco nos dois containers impede qualquer faixa escura.
+   No celular, a imagem original permanece sem deslocamento. */
+@media (min-width: 901px) {
+  .product-gallery[data-product-id="casal-pretos-velhos"]
+    .product-gallery-main[data-photo-index="3"] .product-gallery-image {
+    transform: translateX(-6.25%) !important;
+    transform-origin: center center !important;
+  }
+}
 
 /* Mobile e desktop preservam a mesma identidade visual; só a geometria responsiva muda. */
 @media (max-width:900px) {
