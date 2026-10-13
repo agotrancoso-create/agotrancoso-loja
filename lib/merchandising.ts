@@ -78,7 +78,7 @@ const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
   'casal-pretos-velhos': [
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
     '/produtos/catalogo/casal-pretos-velhos-2.jpg',
-    '/produtos/catalogo/casal-pretos-velhos-3.jpg',
+    '/produtos/atualizadas-20261013/casal-pretos-velhos-3.jpg',
   ],
   'divino-espirito-santo': [
     '/produtos/divino-espirito-santo.jpg',
