@@ -171,6 +171,27 @@ async function layout(page) {
       await page.locator('.ago-cep-status.is-error').waitFor();
       assert.match(await page.locator('.ago-cep-status').innerText(), locale === 'en' ? /enter the address manually/ : /CEP não encontrado/);
       assert.equal(await page.locator('#street').inputValue(), 'Rua da Assembleia', 'failed lookup must preserve entered address');
+      // Regression: a delayed, incomplete CEP response must preserve manual input and focus.
+      let releaseCep;
+      let cepStarted;
+      const started = new Promise(resolve => { cepStarted = resolve; });
+      const release = new Promise(resolve => { releaseCep = resolve; });
+      await page.route('**/api/cep?cep=45818000', async route => {
+        cepStarted(); await release;
+        await route.fulfill({json:{found:true,street:'',neighborhood:'',city:'Porto Seguro',state:'BA'}});
+      });
+      await page.locator('#zip').fill('45818000');
+      await started;
+      await page.locator('#street').fill('Rua informada pelo cliente');
+      await page.locator('#neighborhood').fill('Bairro informado pelo cliente');
+      await page.locator('#number').fill('12');
+      releaseCep();
+      await page.locator('.ago-cep-status.is-success').waitFor();
+      assert.equal(await page.locator('#street').inputValue(), 'Rua informada pelo cliente');
+      assert.equal(await page.locator('#neighborhood').inputValue(), 'Bairro informado pelo cliente');
+      await page.waitForTimeout(180);
+      assert.equal(await page.locator('#number').evaluate(el=>document.activeElement===el),true,'CEP must not steal focus');
+      await page.unroute('**/api/cep?cep=45818000');
       // International quotes must never inherit domestic shipping or free-shipping incentives.
       await page.goto(base+prefix+'/envio-internacional',{waitUntil:'networkidle'});
       if (locale === 'en') {

@@ -2,7 +2,7 @@ name: Quality gate
 
 on:
   push:
-    branches: [main, fix/photos-20261013]
+    branches: [main, fix/checkout-sales-20261016]
   pull_request:
     branches: [main]
 

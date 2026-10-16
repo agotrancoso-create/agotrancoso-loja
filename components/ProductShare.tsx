@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { whatsappLink } from '@/lib/config';
 
 export default function ProductShare({ name, url }: { name: string; url: string }) {
   const pathname = usePathname();
@@ -33,7 +34,8 @@ export default function ProductShare({ name, url }: { name: string; url: string 
       <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8 11 7.8-4.6M8 13l7.8 4.6"/></svg>
       {english ? 'Share this piece' : 'Compartilhar esta peça'}
     </button>
-    <a className="product-share-whatsapp" href={`https://wa.me/?text=${encodeURIComponent(`${name} · Agô Trancoso\n${shareUrl}`)}`} target="_blank" rel="noopener noreferrer">{english ? 'Send on WhatsApp' : 'Enviar pelo WhatsApp'}</a>
+    <a className="product-share-whatsapp" href={`https://wa.me/?text=${encodeURIComponent(`${name} · Agô Trancoso\n${shareUrl}`)}`} target="_blank" rel="noopener noreferrer">{english ? 'Share on WhatsApp' : 'Compartilhar no WhatsApp'}</a>
+    <a className="product-share-whatsapp" href={whatsappLink(`${english ? 'Hello! I would like to buy' : 'Olá! Gostaria de comprar'} ${name}.\n${shareUrl}`)} target="_blank" rel="noopener noreferrer">{english ? 'Buy with help on WhatsApp' : 'Comprar com ajuda pelo WhatsApp'}</a>
     <span role="status">{message}</span>
     {showLink && <input aria-label={english ? 'Link to this piece' : 'Link desta peça'} readOnly value={shareUrl} onFocus={event => event.currentTarget.select()} />}
   </div>;

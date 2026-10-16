@@ -1,5 +1,5 @@
 export type CheckoutCustomer = { name: string; email: string; phone: string; document: string };
-export type CheckoutAddress = { zip: string; street: string; number: string; neighborhood: string; city: string; state: string };
+export type CheckoutAddress = { complement?: string; zip: string; street: string; number: string; neighborhood: string; city: string; state: string };
 export type BrazilianDocumentType = 'CPF' | 'CNPJ' | null;
 
 const states = new Set('AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO'.split(' '));
@@ -61,6 +61,7 @@ export function addressErrors(address: CheckoutAddress): Record<string, string> 
   const errors: Record<string, string> = {};
   if (!/^\d{8}$/.test(address.zip.replace(/\D/g, ''))) errors.zip = 'Informe um CEP com 8 dígitos.';
   if (address.street.trim().length < 2) errors.street = 'Informe a rua ou avenida.';
+  if ((address.complement || '').trim().length > 50) errors.complement = 'Use até 50 caracteres no complemento.';
   if (!address.number.trim()) errors.number = 'Informe o número ou S/N.';
   if (address.neighborhood.trim().length < 2) errors.neighborhood = 'Informe o bairro.';
   if (address.city.trim().length < 2) errors.city = 'Informe a cidade.';
