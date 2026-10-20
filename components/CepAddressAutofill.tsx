@@ -88,8 +88,8 @@ export default function CepAddressAutofill() {
           // A delayed CEP response must not erase an address typed by the customer.
           for (const id of addressFields) {
             const input = document.getElementById(id) as HTMLInputElement | null;
-            const value = data[id]?.trim();
-            if (input && value && input.value === beforeLookup[id] && (!input.value || input.value === lastAutofilled[id])) {
+            const value = data[id]?.trim() || '';
+            if (input && input.value === beforeLookup[id] && (!input.value || input.value === lastAutofilled[id])) {
               setReactInputValue(input, value);
               lastAutofilled[id] = value;
             }
