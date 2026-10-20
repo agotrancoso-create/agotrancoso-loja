@@ -80,6 +80,14 @@ async function checkout(items,coupon='',overrides={}) {
     assert.equal(payload.items.at(-1).description,'Frete de entrega do pedido');
   }
 
+  const longName = 'Cliente com nome completo muito longo para teste de regressão';
+  const complementCase = await checkout([{productId:'igreja-quadrado-p',quantity:1}], '', {customer:{...customer,name:longName,address:{...customer.address,complement:'Apartamento 201'}}});
+  assert.equal(complementCase.status,200);
+  assert.equal(payload.customer.name,longName);
+  assert.equal(payload.address.complement,'Apartamento 201');
+  const tooLong = await checkout([{productId:'igreja-quadrado-p',quantity:1}], '', {customer:{...customer,address:{...customer.address,complement:'A'.repeat(51)}}});
+  assert.equal(tooLong.status,400);
+  assert.equal(tooLong.data.fields.complement,'Use até 50 caracteres no complemento.');
   let cases=0;
   for (const price of [50,250,8500]) for (const quantity of [1,4,12]) for(const coupon of ['', 'AGO3']) {
     const product=getAllProducts().find(p=>p.price===price);assert.ok(product);
@@ -87,7 +95,7 @@ async function checkout(items,coupon='',overrides={}) {
     assert.equal(status,200);const subtotal=(product.promotionalPrice??price)*quantity;const discount=coupon?Number((subtotal*.03).toFixed(2)):0;
     assert.equal(data.subtotal,subtotal);assert.equal(data.discount,discount);assert.equal(data.shippingValue,shouldOfferFreeShipping(subtotal)?0:39.9);
     assert.equal(payload.items.reduce((sum,i)=>sum+i.quantity*i.price,0),Math.round((subtotal-discount+data.shippingValue)*100));
-    assert.equal(payload.customer.name,'Pessoa Teste');assert.equal(payload.customer.phone_number,'+5573999999999');assert.equal(payload.address.complement,'Destinatário: Pessoa Teste · CPF/CNPJ: 52998224725');assert.ok(payload.redirect_url.includes('/confirmacao?pedido='));assert.ok(payload.webhook_url.endsWith('/api/webhooks/infinitepay'));
+    assert.equal(payload.customer.name,'Pessoa Teste');assert.equal(payload.customer.phone_number,'+5573999999999');assert.equal(payload.address.complement,'');assert.ok(payload.redirect_url.includes('/confirmacao?pedido='));assert.ok(payload.webhook_url.endsWith('/api/webhooks/infinitepay'));
     assert.equal(capturedSnapshot.valueCents, Math.round(data.total * 100));
     assert.equal(capturedSnapshot.items.reduce((sum,item)=>sum+item.unitPriceCents*item.quantity,0)+capturedSnapshot.shippingCents, capturedSnapshot.valueCents, 'snapshot must use charged discounted unit prices');
     assert.equal(capturedSnapshot.currency, 'BRL');
@@ -103,7 +111,7 @@ async function checkout(items,coupon='',overrides={}) {
   assert.equal((await checkout([{productId:id,quantity:1}],'',{customer:{...customer,document:'11111111111'}})).status,400);
   assert.equal((await checkout([{productId:id,quantity:1}],'',{customer:{...customer,address:{...customer.address,state:'ZZ'}}})).status,400);
   const alpha = await checkout([{productId:id,quantity:1}],'',{customer:{...customer,document:'00.000.000/E08G-12'}});
-  assert.equal(alpha.status,200);assert.equal(payload.address.complement,'Destinatário: Pessoa Teste · CPF/CNPJ: 00000000E08G12');
+  assert.equal(alpha.status,200);assert.equal(payload.address.complement,'');
   eligible=false;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,409);eligible=true;
   fail=true;assert.equal((await checkout([{productId:id,quantity:1}],'AGO3')).status,502);assert.equal(releases,1);
   // Prazo deve vir da transportadora; ausência/falha não pode inventar dias.
@@ -138,5 +146,5 @@ async function checkout(items,coupon='',overrides={}) {
   ]}));
   assert.equal((await getShippingDeadlineQuote({destinationCep:'01310100',subtotal:480})).estimated, true, 'SEDEX must not be presented as a PAC deadline');
   console.log('PASS Correios origin/destination, provider outage without fabricated deadlines, and Correios-only Frenet services');
-  console.log(`PASS ${cases} price/quantity/coupon combinations, recipient + CPF/CNPJ payload, official alphanumeric CNPJ, R$500 products-only shipping boundary, Iemanjá and Miniatura R$519.90 totals, clear shipping line, cent allocation, identity rejection, invalid data, provider failure`);
+  console.log(`PASS ${cases} price/quantity/coupon combinations, recipient and provider-safe delivery complement, official alphanumeric CNPJ, R$500 products-only shipping boundary, Iemanjá and Miniatura R$519.90 totals, clear shipping line, cent allocation, identity rejection, invalid data, provider failure`);
 })().catch(error=>{console.error(error);process.exitCode=1});
