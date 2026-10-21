@@ -405,8 +405,7 @@
   transform: none !important;
 }
 
-/* O prebuild já centraliza os pixels da 3ª foto; NÃO aplicar translateX
-   adicional no desktop, pois isso desloca a peça e expõe bordas. */
+/* A foto já é centralizada no arquivo; deslocá-la expõe uma faixa lateral. */
 
 /* Mobile e desktop preservam a mesma identidade visual; só a geometria responsiva muda. */
 @media (max-width:900px) {

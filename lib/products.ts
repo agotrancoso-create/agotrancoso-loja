@@ -1,5 +1,4 @@
 import productsData from '@/data/products.json';
-import premiumPhotos from '@/data/premium-photo-map.json';
 import { Product, Category, CartItem } from './types';
 
 const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
@@ -16,7 +15,7 @@ const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
   'casal-pretos-velhos': [
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
     '/produtos/catalogo/casal-pretos-velhos-2.jpg',
-    '/produtos/catalogo/casal-pretos-velhos-3.jpg',
+    '/produtos/atualizadas-20261013/casal-pretos-velhos-3.jpg',
   ],
   'casinha-luminaria': [
     '/produtos/casinha-luminaria.jpg',
@@ -62,8 +61,7 @@ const PRODUCT_DIMENSIONS_CORRECTIONS: Record<string, string> = {
 
 function normalizeProduct(product: Product): Product {
   const source = RECOVERED_PRODUCT_GALLERIES[product.id] ?? product.images ?? [];
-  const premiumMap = premiumPhotos as Record<string, string>;
-  const images = Array.from(new Set(source.filter(Boolean).map((src) => premiumMap[src] ?? src)));
+  const images = Array.from(new Set(source.filter(Boolean)));
   return {
     ...product,
     name: PRODUCT_NAME_CORRECTIONS[product.id] ?? product.name,

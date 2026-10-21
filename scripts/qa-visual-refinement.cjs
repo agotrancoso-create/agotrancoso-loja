@@ -312,7 +312,7 @@ async function main() {
       height: el.naturalHeight,
       fit: getComputedStyle(el).objectFit,
     }));
-    assert.match(photo.src, /igrejinha-luminaria-frontal-960-lossless-premium-[a-f0-9]{8}\.webp/, 'Preview must use protected lossless premium photograph');
+    assert.match(photo.src, /igrejinha-luminaria-frontal-960-lossless\.webp/);
     assert.ok(photo.width >= 320 && photo.height >= 320, 'responsive image must load clearly');
     assert.equal(photo.width, photo.height, 'square aspect ratio');
     assert.equal(photo.fit, 'contain', 'entire church must remain visible');
@@ -325,8 +325,8 @@ async function main() {
     assert.deepEqual(originalSize, [960, 960], 'original lossless file must be 960x960');
   }
 
-  // Regressão localizada: foto 3 pré-centralizada via Sharp.
-  // Não deslocar a foto novamente por CSS no desktop ou no celular.
+  // Regressão localizada: centralizar visualmente foto 3 no desktop
+  // (medida de screenshot) sem faixas escuras, mantendo mobile intacto.
   for (const width of [390, 1280, 1440, 1920]) {
     await page.setViewportSize({ width, height: width === 390 ? 844 : 1000 });
     await page.goto(base + '/produtos/casal-pretos-velhos', { waitUntil: 'domcontentloaded' });
@@ -347,7 +347,7 @@ async function main() {
     });
     assert.match(decodeURIComponent(imageState.url), /casal-pretos-velhos-3/, 'wrong third photograph');
     assert.equal(imageState.fit, 'contain', 'the complete piece must remain visible');
-    const expectedShift = 0;
+    const expectedShift = 0; // The refreshed photo is already centered.
     assert.ok(near(imageState.shiftX, expectedShift, 2), `third photo alignment differs at ${width}px: got ${imageState.shiftX}, expected ${expectedShift}`);
     const galleryColor = await gallery.locator('.product-gallery-main').evaluate(el => getComputedStyle(el).backgroundColor);
     const buttonColor = await gallery.locator('.ago-gallery-open').evaluate(el => getComputedStyle(el).backgroundColor);

@@ -1,5 +1,4 @@
 import { Product } from './types';
-import premiumPhotos from '@/data/premium-photo-map.json';
 
 // Ordem editorial/comercial: primeiro entram as peças que identificam Trancoso
 // de imediato, depois alternamos luz, cor, figura humana e faixas de preço.
@@ -79,7 +78,7 @@ const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
   'casal-pretos-velhos': [
     '/produtos/catalogo/casal-pretos-velhos-1.jpg',
     '/produtos/catalogo/casal-pretos-velhos-2.jpg',
-    '/produtos/catalogo/casal-pretos-velhos-3.jpg',
+    '/produtos/atualizadas-20261013/casal-pretos-velhos-3.jpg',
   ],
   'divino-espirito-santo': [
     '/produtos/divino-espirito-santo.jpg',
@@ -103,8 +102,7 @@ export function getAttentionOrderedImages(product: Product): string[] {
   const images = (product.images ?? []).filter(Boolean);
   if (!images.length) return [];
 
-  const premiumMap = premiumPhotos as Record<string, string>;
-  const preferred = (ATTENTION_IMAGE_ORDER[product.id] ?? []).map((src) => premiumMap[src] ?? src);
+  const preferred = ATTENTION_IMAGE_ORDER[product.id] ?? [];
   if (!preferred.length) return images;
 
   const available = new Set(images);

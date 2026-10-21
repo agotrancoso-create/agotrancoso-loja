@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { customerErrors, addressErrors, normalizeBrazilianDocument } from '@/lib/checkout-validation';
+import { customerErrors, addressErrors } from '@/lib/checkout-validation';
 import { getProductById, getEffectivePrice, calculateCartTotals } from '@/lib/products';
 import { calculateCouponDiscount, isFirstPurchaseCoupon, normalizeCoupon } from '@/lib/coupons';
 import { getShippingPrice, shouldOfferFreeShipping, FIXED_SHIPPING_PRICE } from '@/lib/shipping';
@@ -59,7 +59,7 @@ export async function POST(req: Request) {
     const customerName = String(customer.name ?? '').trim();
     const validation = {
       ...customerErrors({ name: customerName, email: String(customer.email ?? ''), phone: String(customer.phone ?? ''), document: String(customer.document ?? '') }),
-      ...addressErrors({ zip: String(address.zip ?? ''), street: String(address.street ?? ''), number: String(address.number ?? ''), neighborhood: String(address.neighborhood ?? ''), city: String(address.city ?? ''), state: String(address.state ?? '') }),
+      ...addressErrors({ zip: String(address.zip ?? ''), street: String(address.street ?? ''), number: String(address.number ?? ''), neighborhood: String(address.neighborhood ?? ''), city: String(address.city ?? ''), state: String(address.state ?? ''), complement: String(address.complement ?? '') }),
     };
     if (Object.keys(validation).length) return NextResponse.json({ error: Object.values(validation)[0], fields: validation }, { status: 400 });
 
@@ -67,7 +67,6 @@ export async function POST(req: Request) {
     if (coupon && !isFirstPurchaseCoupon(coupon)) return NextResponse.json({ error: 'Cupom não encontrado. Confira o código e tente novamente.' }, { status: 400 });
 
     const normalizedPhone = cleanPhone(customer.phone);
-    const normalizedDocument = normalizeBrazilianDocument(customer.document);
     if (!customer.email || !normalizedPhone) return NextResponse.json({ error: 'Informe um e-mail e telefone válidos.' }, { status: 400 });
 
     const totals = calculateCartTotals(items);
@@ -130,7 +129,9 @@ export async function POST(req: Request) {
 
     const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || SITE_DOMAIN).replace(/\/$/, '');
     const originalComplement = String(address.complement ?? '').trim();
-    const deliveryComplement = [`Destinatário: ${customerName}`, originalComplement, `CPF/CNPJ: ${normalizedDocument}`].filter(Boolean).join(' · ');
+    // InfinitePay limits this delivery field to 50 characters. Identity is
+    // already validated separately and must never be appended to the address.
+    const deliveryComplement = originalComplement;
 
     const payload = {
       handle: INFINITEPAY_HANDLE,

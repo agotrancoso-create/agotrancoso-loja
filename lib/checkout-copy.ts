@@ -1,4 +1,5 @@
 const messages: Record<string, string> = {
+  'Use até 50 caracteres no complemento.': 'Use up to 50 characters for address details.',
   // Mensagens comuns do checkout
   'Preencha nome, e-mail, WhatsApp e CPF/CNPJ para continuar.': 'Enter your name, email, WhatsApp and CPF/CNPJ to continue.',
   'Complete os dados de entrega para continuar.': 'Complete the delivery details to continue.',

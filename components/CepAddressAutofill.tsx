@@ -39,6 +39,7 @@ export default function CepAddressAutofill() {
     let activeRequest: AbortController | null = null;
     let focusTimer = 0;
     let observer: MutationObserver | null = null;
+    const lastAutofilled: Record<string, string> = {};
 
     const attach = () => {
       const zip = document.getElementById('zip') as HTMLInputElement | null;
@@ -62,6 +63,8 @@ export default function CepAddressAutofill() {
           return;
         }
 
+        const addressFields = ['street', 'neighborhood', 'city', 'state'] as const;
+        const beforeLookup = Object.fromEntries(addressFields.map(id => [id, (document.getElementById(id) as HTMLInputElement | null)?.value || '']));
         const currentRequest = ++request;
         activeRequest?.abort();
         const controller = new AbortController();
@@ -82,10 +85,15 @@ export default function CepAddressAutofill() {
               : data.error || 'CEP não encontrado.');
           }
 
-          setReactInputValue(document.getElementById('street') as HTMLInputElement | null, data.street || '');
-          setReactInputValue(document.getElementById('neighborhood') as HTMLInputElement | null, data.neighborhood || '');
-          setReactInputValue(document.getElementById('city') as HTMLInputElement | null, data.city || '');
-          setReactInputValue(document.getElementById('state') as HTMLInputElement | null, data.state || '');
+          // A delayed CEP response must not erase an address typed by the customer.
+          for (const id of addressFields) {
+            const input = document.getElementById(id) as HTMLInputElement | null;
+            const value = data[id]?.trim() || '';
+            if (input && input.value === beforeLookup[id] && (!input.value || input.value === lastAutofilled[id])) {
+              setReactInputValue(input, value);
+              lastAutofilled[id] = value;
+            }
+          }
 
           const summary = addressSummary(data);
           if (data.street) {
@@ -101,7 +109,7 @@ export default function CepAddressAutofill() {
           status.classList.add('is-success');
 
           focusTimer = window.setTimeout(() => {
-            if (currentRequest !== request || zip.value.replace(/\D/g, '') !== cep) return;
+            if (currentRequest !== request || zip.value.replace(/\D/g, '') !== cep || document.activeElement !== zip) return;
             const targetId = data.street ? 'number' : 'street';
             (document.getElementById(targetId) as HTMLInputElement | null)?.focus();
           }, 120);
