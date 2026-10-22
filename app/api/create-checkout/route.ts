@@ -1,8 +1,9 @@
+import { verifySedexQuote } from '@/lib/frenet-shipping';
 import { NextResponse } from 'next/server';
 import { customerErrors, addressErrors } from '@/lib/checkout-validation';
 import { getProductById, getEffectivePrice, calculateCartTotals } from '@/lib/products';
 import { calculateCouponDiscount, isFirstPurchaseCoupon, normalizeCoupon } from '@/lib/coupons';
-import { getShippingPrice, shouldOfferFreeShipping, FIXED_SHIPPING_PRICE } from '@/lib/shipping';
+import { getShippingPrice } from '@/lib/shipping';
 import { SITE_DOMAIN } from '@/lib/config';
 import { releaseFirstPurchaseReservation, reserveFirstPurchaseIdentity, registerPurchaseOrder } from '@/lib/first-purchase';
 import type { CartItem } from '@/lib/types';
@@ -86,17 +87,17 @@ export async function POST(req: Request) {
     const discountedUnits = buildDiscountedUnits(checkoutLines, discount);
     const discountedSubtotal = Number((subtotal - discount).toFixed(2));
 
-    const freeShipping = shouldOfferFreeShipping(subtotal);
-    const shippingValue = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
-    if (shippingValue !== getShippingPrice(subtotal)) return NextResponse.json({ error: 'Não foi possível validar o frete. Tente novamente.' }, { status: 422 });
-
     const destinationCep = cleanCep(address.zip);
     if (destinationCep.length !== 8) return NextResponse.json({ error: 'Informe um CEP válido para a entrega.' }, { status: 400 });
+    const shippingMethod = body.shippingMethod ?? 'PAC';
+    if (!['PAC', 'SEDEX'].includes(shippingMethod)) return NextResponse.json({ error: 'Escolha uma modalidade de entrega válida.' }, { status: 400 });
+    const shippingValue = shippingMethod === 'SEDEX' ? verifySedexQuote(body.shippingQuote, items, destinationCep, subtotal) : getShippingPrice(subtotal);
+    if (shippingValue === null) return NextResponse.json({ error: 'A cotação do SEDEX expirou ou mudou. Volte à entrega e consulte novamente.' }, { status: 409 });
 
     const checkoutItems: CheckoutUnit[] = [...discountedUnits];
-    if (shippingValue > 0) checkoutItems.push({ id: 'frete', name: 'Frete de entrega do pedido', price: Math.round(shippingValue * 100), quantity: 1 });
+    if (shippingValue > 0) checkoutItems.push({ id: 'frete', name: shippingMethod === 'SEDEX' ? 'Frete Correios SEDEX' : 'Frete de entrega do pedido', price: Math.round(shippingValue * 100), quantity: 1 });
 
-    const orderPrefix = firstPurchaseOrder ? 'AGO-FP' : 'AGO';
+    const orderPrefix = `${firstPurchaseOrder ? 'AGO-FP' : 'AGO'}${shippingMethod === 'SEDEX' ? '-SEDEX' : ''}`;
     const orderNsu = `${orderPrefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
     const expectedAmountCents = checkoutItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const analytics = {

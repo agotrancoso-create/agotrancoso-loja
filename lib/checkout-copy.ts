@@ -1,4 +1,6 @@
 const messages: Record<string, string> = {
+  'A cotação do SEDEX expirou ou mudou. Volte à entrega e consulte novamente.': 'The SEDEX quote expired or changed. Return to delivery and refresh the quote.',
+  'Escolha uma modalidade de entrega válida.': 'Choose a valid delivery method.',
   'Use até 50 caracteres no complemento.': 'Use up to 50 characters for address details.',
   // Mensagens comuns do checkout
   'Preencha nome, e-mail, WhatsApp e CPF/CNPJ para continuar.': 'Enter your name, email, WhatsApp and CPF/CNPJ to continue.',
