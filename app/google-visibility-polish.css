@@ -825,3 +825,31 @@ body .ago-home .ago-benefit-interactive {
 .ago-home .ago-cinematic-commerce.ago-home-hero-2026:has(> [data-ago-benefits]) {
   padding-bottom: 0 !important;
 }
+
+/* Featured collection: use the same wrapping grid on every phone browser.
+   Keep this independent of native scrolling and device/user-agent detection. */
+#pecas-em-destaque > .ago-premium-product-grid-featured {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  grid-template-rows: none !important;
+  grid-auto-flow: row !important;
+  grid-auto-columns: auto !important;
+  width: 100% !important;
+  min-width: 0;
+  overflow: visible !important;
+  scroll-snap-type: none !important;
+}
+
+#pecas-em-destaque > .ago-premium-product-grid-featured > .product-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  grid-column: auto !important;
+  grid-row: auto !important;
+}
+
+@media (max-width: 900px) {
+  #pecas-em-destaque > .ago-premium-product-grid-featured {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
