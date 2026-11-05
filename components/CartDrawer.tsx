@@ -45,7 +45,7 @@ export default function CartDrawer() {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') closeDrawerRef.current();
       if (event.key === 'Tab') {
-        const controls = Array.from(drawerRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex="0"]') ?? [])
+        const controls = Array.from(drawerRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), summary, [tabindex="0"]') ?? [])
           .filter((element) => element.getClientRects().length > 0);
         const first = controls[0];
         const last = controls[controls.length - 1];
@@ -176,9 +176,10 @@ export default function CartDrawer() {
           )}
 
           {complementary.length > 0 && (
-            <div className="cart-complementary" aria-label={t('Peças para acompanhar sua seleção')}>
+            <details className="cart-complementary cart-complementary-disclosure">
+              <summary><span>{t('Para acompanhar')}</span><span>{english ? 'View suggestions' : 'Ver sugestões'}</span></summary>
               <div className="cart-complementary-head">
-                <div><span>{t('Para acompanhar')}</span><small>{t('Destaques da coleção que combinam com sua seleção.')}</small></div>
+                <div><small>{t('Destaques da coleção que combinam com sua seleção.')}</small></div>
                 <div className="cart-complementary-nav" aria-label={t('Navegar pelas sugestões')}>
                   <button type="button" onClick={() => scrollComplementary(-1)} aria-label={t('Ver sugestões anteriores')}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12.5 4.5-5.5 5.5 5.5 5.5" /></svg></button>
                   <button type="button" onClick={() => scrollComplementary(1)} aria-label={t('Ver próximas sugestões')}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4.5 5.5 5.5-5.5 5.5" /></svg></button>
@@ -208,7 +209,7 @@ export default function CartDrawer() {
                   );
                 })}
               </div>
-            </div>
+            </details>
           )}
         </div>
 

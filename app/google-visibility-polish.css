@@ -1181,3 +1181,51 @@ body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-c
     font-size: 16px !important;
   }
 }
+
+/* Deliberate purchase hierarchy and consistent feedback across every grid. */
+body .ago-home .product-card .product-add.is-added,
+body .product-related-selection .product-card .product-add.is-added,
+body .catalog-page .product-card .product-add.is-added,
+body .ago-home .product-card .product-add:focus-visible,
+body .product-related-selection .product-card .product-add:focus-visible,
+body .catalog-page .product-card .product-add:focus-visible {
+  background: #42291f !important;
+  color: #fffaf3 !important;
+  border-color: #42291f !important;
+}
+body .product-card .product-add:focus-visible,
+.cart-complementary-disclosure > summary:focus-visible,
+.cart-drawer button:focus-visible,
+.cart-drawer a:focus-visible {
+  outline: 2px solid #784b36 !important;
+  outline-offset: 3px;
+}
+@media (hover: hover) and (pointer: fine) {
+  body .ago-home .product-card .product-add:hover,
+  body .product-related-selection .product-card .product-add:hover,
+  body .catalog-page .product-card .product-add:hover {
+    background: #42291f !important;
+    color: #fffaf3 !important;
+    border-color: #42291f !important;
+  }
+}
+.cart-complementary-disclosure > summary {
+  cursor: pointer;
+  min-height: 48px;
+  padding-block: 14px;
+  color: #42291f;
+  font-size: .875rem;
+  line-height: 1.5;
+}
+.cart-complementary-disclosure > summary > span:first-child { font-weight: 700; }
+.cart-complementary-disclosure > summary > span + span {
+  margin-inline-start: 12px;
+  font-size: .75rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cart-complementary-disclosure .cart-complementary-head { padding-top: 8px; }
+.cart-complementary-disclosure .cart-complementary-nav button { min-width: 44px; min-height: 44px; }
+@media (prefers-reduced-motion: reduce) {
+  .cart-drawer, .product-card .product-add { transition: none !important; }
+}
