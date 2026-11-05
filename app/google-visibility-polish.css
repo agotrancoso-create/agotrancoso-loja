@@ -1229,3 +1229,28 @@ body .product-card .product-add:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .cart-drawer, .product-card .product-add { transition: none !important; }
 }
+
+/* Mobile navigation follows the usable screen, including the on-screen keyboard. */
+body .mobile-menu {
+  max-height: var(--mobile-menu-available-height, calc(100dvh - 160px)) !important;
+  overflow-y: auto !important;
+  overscroll-behavior-y: contain;
+  padding-bottom: max(20px, env(safe-area-inset-bottom)) !important;
+}
+/* In landscape, allow the entire bag to scroll instead of squeezing out its items. */
+@media (max-height: 600px) {
+  body .cart-drawer {
+    overflow-y: auto !important;
+    overscroll-behavior-y: contain;
+  }
+  body .cart-drawer .cart-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  body .cart-drawer .cart-body {
+    flex: 0 0 auto;
+    overflow-y: visible;
+  }
+  body .cart-drawer .cart-summary { flex: 0 0 auto; }
+}

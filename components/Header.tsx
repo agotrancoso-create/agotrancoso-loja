@@ -92,6 +92,19 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
+    // Keep every menu item reachable above the mobile keyboard and browser bars.
+    const viewport = window.visualViewport;
+    const fitMenu = () => {
+      const menu = menuRef.current;
+      if (!menu) return;
+      const visibleBottom = viewport ? viewport.offsetTop + viewport.height : window.innerHeight;
+      menu.style.setProperty('--mobile-menu-available-height', `${Math.max(0, visibleBottom - menu.getBoundingClientRect().top - 12)}px`);
+    };
+    fitMenu();
+    window.addEventListener('resize', fitMenu);
+    viewport?.addEventListener('resize', fitMenu);
+    viewport?.addEventListener('scroll', fitMenu);
+
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Tab') {
         const controls = [menuButtonRef.current, ...Array.from(menuRef.current?.querySelectorAll<HTMLElement>('a[href], button, input') ?? [])].filter((node): node is HTMLElement => Boolean(node && node.getClientRects().length));
@@ -112,6 +125,9 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('resize', fitMenu);
+      viewport?.removeEventListener('resize', fitMenu);
+      viewport?.removeEventListener('scroll', fitMenu);
       desktop.removeEventListener('change', closeOnDesktop);
     };
   }, [menuOpen]);
@@ -290,7 +306,9 @@ export default function Header({ firstPurchaseAvailable = false }: { firstPurcha
         </nav>
 
         {menuOpen && (
-          <div id="mobile-navigation" className="mobile-menu" ref={menuRef}>
+          <div id="mobile-navigation" className="mobile-menu" ref={menuRef} onClick={(event) => {
+            if (event.target instanceof Element && event.target.closest('a[href]')) setMenuOpen(false);
+          }}>
             <form onSubmit={handleSearch} className="mobile-search-form" role="search">
               <label className="sr-only" htmlFor="mobile-search">{english ? 'Search for a piece' : 'Buscar uma peça'}</label>
               <input id="mobile-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar na coleção" autoComplete="off" />
