@@ -1160,3 +1160,24 @@ body .ago-premium-text-link:focus-visible {
   }
   body .ago-social-floaters .ago-social-button svg { width: 22px !important; height: 22px !important; }
 }
+
+/* Keep the cart's primary action unobstructed and supporting copy readable. */
+body:has(.cart-drawer[aria-modal="true"]) .ago-social-floaters {
+  display: none !important;
+}
+body .product-card .product-card-copy > p:last-child {
+  font-size: .75rem !important;
+  line-height: 1.6 !important;
+  letter-spacing: .045em !important;
+}
+body .ago-home section.benefits-strip.ago-benefits-reference .ago-benefit-icon-copy small {
+  font-size: .75rem !important;
+  line-height: 1.5 !important;
+}
+@media (max-width: 900px) {
+  .product-page input:not([type="checkbox"]):not([type="radio"]),
+  .catalog-page input,
+  .mobile-menu input {
+    font-size: 16px !important;
+  }
+}
