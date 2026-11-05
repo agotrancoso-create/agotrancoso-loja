@@ -2,8 +2,8 @@
 
 import Image from '@/components/ProductImage';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { useEffect, useRef } from 'react';
+import { useSiteEnglish } from '@/lib/use-site-english';
 import { cartEnglish } from '@/lib/cart-copy';
 import { useCart } from '@/context/CartContext';
 import { getProductById, getEffectivePrice, getAvailableProducts } from '@/lib/products';
@@ -18,11 +18,7 @@ function formatBRL(value: number) {
 
 export default function CartDrawer() {
   const { international, setInternational, items, isDrawerOpen, closeDrawer, updateQuantity, removeItem, addItem } = useCart();
-  const pathname = usePathname();
-  const [english, setEnglish] = useState(false);
-  useEffect(() => {
-    setEnglish(pathname === '/en' || pathname.startsWith('/en/') || document.cookie.split('; ').includes('ago_locale=en'));
-  }, [pathname, isDrawerOpen]);
+  const english = useSiteEnglish();
   const t = (text: string) => english ? (cartEnglish[text] ?? text) : text;
   const href = (path: string) => english ? `/en${path}` : path;
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -177,7 +173,7 @@ export default function CartDrawer() {
 
           {complementary.length > 0 && (
             <details className="cart-complementary cart-complementary-disclosure">
-              <summary><span>{t('Para acompanhar')}</span><span>{english ? 'View suggestions' : 'Ver sugestões'}</span></summary>
+              <summary><span>{t('Para acompanhar')}</span>{' '}<span>{english ? 'View suggestions' : 'Ver sugestões'}</span></summary>
               <div className="cart-complementary-head">
                 <div><small>{t('Destaques da coleção que combinam com sua seleção.')}</small></div>
                 <div className="cart-complementary-nav" aria-label={t('Navegar pelas sugestões')}>
