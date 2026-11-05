@@ -948,3 +948,94 @@ body .ago-home .ago-benefit-interactive {
     line-height: 1.35;
   }
 }
+
+/* Editorial finish: compact filters and a consistent rhythm for the collection. */
+.catalog-page { padding-block: clamp(32px, 4vw, 56px) 64px !important; }
+.catalog-page .catalog-intro { margin-bottom: 28px; gap: 24px; }
+.catalog-page .catalog-intro h1 {
+  font-size: clamp(2rem, 3.6vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: -.025em;
+  max-width: 24ch;
+}
+.catalog-page .catalog-tools { gap: 16px; }
+.catalog-page .catalog-search-control input,
+.catalog-page .catalog-sort-trigger {
+  border-color: #cbb7a5;
+  background: #fffaf3;
+  border-radius: 14px;
+}
+.catalog-page .catalog-category-row { margin-top: 18px; gap: 8px; }
+.catalog-page .catalog-category-option { border-color: #cbb7a5; font-weight: 600; }
+.catalog-page .catalog-category-option[aria-pressed="true"] {
+  border-color: var(--cacao);
+}
+.catalog-page details.catalog-budget-disclosure {
+  display: block;
+  margin: 18px 0 0;
+  padding-block: 0;
+  border-color: #dfd0bd;
+}
+.catalog-budget-disclosure > summary {
+  cursor: pointer;
+  min-height: 52px;
+  padding: 14px 0;
+  color: #654a3b;
+  font-size: .8rem;
+  line-height: 1.5;
+}
+.catalog-budget-disclosure > summary > span:first-child { font-weight: 700; }
+.catalog-budget-disclosure > summary > span + span { margin-inline-start: 14px; }
+.catalog-budget-disclosure .catalog-budget-options { padding-bottom: 16px; }
+.catalog-page .catalog-results-meta { min-height: 54px; padding-block: 12px; }
+.catalog-page .catalog-grid { gap: 32px 24px; align-items: stretch; }
+.catalog-page .product-card-main { flex: 1; }
+.catalog-page .product-card-copy {
+  display: grid;
+  grid-template-rows: minmax(2.7em, auto) auto minmax(2.6em, auto);
+  gap: 8px;
+  padding-top: 16px;
+}
+.catalog-page .product-name {
+  margin: 0;
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  line-height: 1.3;
+  letter-spacing: -.01em;
+}
+.catalog-page .current-price { margin: 0; color: #784b36; font-size: 1rem; }
+.catalog-page .product-add {
+  border-radius: 14px;
+  border-color: #c8ad96;
+  background: #efe2d1;
+  color: #42291f;
+  font-weight: 700;
+  min-height: 48px;
+}
+.catalog-page .product-add.is-added { background: #42291f; color: #fffaf3; }
+@media (hover: hover) and (pointer: fine) {
+  .catalog-page .product-add:hover { background: #42291f; color: #fffaf3; }
+}
+.catalog-budget-disclosure > summary:focus-visible,
+.catalog-page button:focus-visible,
+.catalog-page input:focus-visible {
+  outline: 2px solid #784b36;
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .catalog-page .catalog-intro { margin-bottom: 22px; }
+  .catalog-page .catalog-tools { gap: 14px; }
+  .catalog-page .catalog-category-option { padding: 8px 12px; }
+  .catalog-page .catalog-grid { gap: 26px 12px; }
+  .catalog-page .product-card-copy {
+    grid-template-rows: minmax(4.05em, auto) auto minmax(3.9em, auto);
+    gap: 6px;
+    padding-top: 12px;
+  }
+  .catalog-page .product-name { font-size: 1.05rem; line-height: 1.35; }
+  .catalog-page .current-price { font-size: .92rem; }
+  .catalog-page .product-add { padding: 10px 8px; font-size: .76rem; border-radius: 12px; }
+  .ago-home .ago-premium-section-head h2,
+  .ago-home .ago-cinematic-products-head h2 { font-size: clamp(1.8rem, 7vw, 2.4rem) !important; }
+  .ago-home .ago-premium-discovery-copy { padding: 12px 10px; }
+  .ago-home .ago-premium-discovery-copy > span { font-size: 1.1rem; line-height: 1.3; }
+}

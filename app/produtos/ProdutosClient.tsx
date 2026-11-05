@@ -329,8 +329,11 @@ export default function ProdutosClient({ products, categories, initialFilters }:
         ))}
       </div>
 
-      <div className="catalog-budget-control" role="group" aria-labelledby="catalog-budget-label">
-        <span id="catalog-budget-label">{t("Faixa de preço")}</span>
+      <details className="catalog-budget-control catalog-budget-disclosure">
+        <summary id="catalog-budget-label">
+          <span>{t("Faixa de preço")}</span>
+          <span>{t(budgetOptions.find(option => option.value === budget)?.label || "Todos os valores")}</span>
+        </summary>
         <div className="catalog-budget-options">
           <button type="button" aria-pressed={!budget} onClick={() => selectBudget('')}>{t("Todos os valores")}</button>
           {budgetOptions.map(option => (
@@ -339,7 +342,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
             </button>
           ))}
         </div>
-      </div>
+      </details>
 
       <div className="catalog-results-meta" aria-live="polite">
         <span>{filtered.length} {english ? (filtered.length === 1 ? 'piece found' : 'pieces found') : (filtered.length === 1 ? 'peça encontrada' : 'peças encontradas')}</span>
