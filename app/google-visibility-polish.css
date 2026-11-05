@@ -1076,3 +1076,87 @@ body .ago-home .ago-benefit-interactive {
     line-height: 1.35;
   }
 }
+
+/* Quiet, consistent finishing touches; retain the original product photographs. */
+.ago-link-arrow { display: inline-block; vertical-align: middle; flex-shrink: 0; }
+body .ago-home .product-card-copy,
+body .product-related-selection .product-card-copy {
+  display: grid;
+  grid-template-rows: minmax(3.7rem, auto) auto minmax(2.6em, auto);
+  gap: 8px !important;
+  padding-top: 16px;
+}
+body .ago-home .product-card .product-name,
+body .product-related-selection .product-card .product-name {
+  margin: 0;
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem) !important;
+  line-height: 1.3 !important;
+}
+body .ago-home .product-card .current-price,
+body .product-related-selection .product-card .current-price {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+body .ago-home .product-card .product-add,
+body .product-related-selection .product-card .product-add {
+  background: #efe2d1 !important;
+  color: #42291f !important;
+  border: 1px solid #c8ad96 !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+  min-height: 48px;
+}
+body .product-card .product-image-primary,
+body .product-card:hover .product-image-primary,
+body .product-card:has(.product-card-main:focus-visible) .product-image-primary {
+  filter: none !important;
+  transform: none !important;
+}
+body .product-card::after { display: none !important; }
+body .product-card:hover,
+body .product-card:has(.product-card-main:focus-visible) {
+  transform: none !important;
+  box-shadow: none !important;
+}
+body .product-card .product-add.is-added,
+body .product-card .product-add:focus-visible {
+  background: #42291f !important;
+  color: #fffaf3 !important;
+}
+body .product-card-main:focus-visible,
+body .ago-premium-text-link:focus-visible {
+  outline: 2px solid #784b36;
+  outline-offset: 5px;
+  border-radius: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  body .product-card .product-add:hover { background: #42291f !important; color: #fffaf3 !important; }
+}
+@media (max-width: 600px) {
+  body .ago-home .product-card-copy,
+  body .product-related-selection .product-card-copy {
+    grid-template-rows: minmax(4.5rem, auto) auto minmax(3.9em, auto);
+    gap: 6px !important;
+    padding-top: 12px;
+  }
+  body .ago-home .product-card .product-name,
+  body .product-related-selection .product-card .product-name {
+    font-size: 1.05rem !important;
+    line-height: 1.35 !important;
+  }
+  body .ago-home .product-card .product-add,
+  body .product-related-selection .product-card .product-add {
+    padding: 10px 8px !important;
+    font-size: .76rem !important;
+    border-radius: 12px !important;
+  }
+  body .ago-social-floaters { gap: 8px !important; }
+  body .ago-social-floaters .ago-social-button {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    min-height: 46px !important;
+    box-shadow: 0 3px 12px rgba(66, 41, 31, .12) !important;
+  }
+  body .ago-social-floaters .ago-social-button svg { width: 22px !important; height: 22px !important; }
+}

@@ -221,7 +221,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           <div className="site-container">
             <div className="ago-premium-section-head">
               <div><p className="eyebrow">Outras peças</p><h2 id="related-products-title">Para acompanhar sua escolha.</h2></div>
-              <Link href="/produtos" className="ago-premium-text-link">Ver coleção completa <span aria-hidden="true">↗</span></Link>
+              <Link href="/produtos" className="ago-premium-text-link">Ver coleção completa <span aria-hidden="true"><svg className="ago-link-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12" /></svg></span></Link>
             </div>
             <div className="ago-premium-product-grid product-related-grid">
               {related.map((relatedProduct) => <ProductCard key={relatedProduct.id} product={relatedProduct} listName="Produtos relacionados" />)}
