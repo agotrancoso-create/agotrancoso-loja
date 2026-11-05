@@ -992,7 +992,7 @@ body .ago-home .ago-benefit-interactive {
 .catalog-page .product-card-main { flex: 1; }
 .catalog-page .product-card-copy {
   display: grid;
-  grid-template-rows: minmax(2.7em, auto) auto minmax(2.6em, auto);
+  grid-template-rows: minmax(3.7rem, auto) auto minmax(2.6em, auto);
   gap: 8px;
   padding-top: 16px;
 }
@@ -1027,7 +1027,7 @@ body .ago-home .ago-benefit-interactive {
   .catalog-page .catalog-category-option { padding: 8px 12px; }
   .catalog-page .catalog-grid { gap: 26px 12px; }
   .catalog-page .product-card-copy {
-    grid-template-rows: minmax(4.05em, auto) auto minmax(3.9em, auto);
+    grid-template-rows: minmax(4.5rem, auto) auto minmax(3.9em, auto);
     gap: 6px;
     padding-top: 12px;
   }
