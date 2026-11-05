@@ -3,7 +3,7 @@
 /* A barra comercial precisa manter o separador também no celular. */
 @media (max-width: 600px) {
   .ago-topbar {
-    flex-wrap: nowrap !important;
+    flex-wrap: wrap !important;
     gap: 6px !important;
     padding: 6px 8px !important;
     font-size: clamp(9px, 2.6vw, 11px) !important;
@@ -11,7 +11,8 @@
   }
 
   .ago-topbar span {
-    white-space: nowrap;
+    white-space: normal;
+    text-align: center;
   }
 
   .ago-topbar i {
@@ -872,5 +873,45 @@ body .ago-home .ago-benefit-interactive {
     max-width: 100% !important;
     grid-column: auto !important;
     grid-row: auto !important;
+  }
+}
+
+/* Explicit map dimensions avoid percentage-height/aspect-ratio differences. */
+.ago-home .ago-banca-map-frame {
+  position: relative;
+  width: 100%;
+  height: 320px !important;
+  min-height: 280px !important;
+  aspect-ratio: auto !important;
+}
+.ago-home .ago-banca-map-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  border: 0;
+}
+@media (max-width: 900px) {
+  .ago-home .ago-banca-map-panel {
+    grid-template-columns: minmax(0, 1fr) !important;
+    min-width: 0;
+  }
+  .ago-home .ago-banca-map-frame { height: 300px !important; }
+}
+@media (max-width: 600px) {
+  .ago-cinematic-products-head,
+  .ago-premium-section-head {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .ago-cinematic-products-head > *,
+  .ago-premium-section-head > *,
+  .ago-banca-map-copy > * { min-width: 0; max-width: 100%; }
+  .ago-home .commerce-first-grid .product-add {
+    white-space: normal !important;
+    height: auto;
+    line-height: 1.35;
+    padding-block: 12px !important;
   }
 }
