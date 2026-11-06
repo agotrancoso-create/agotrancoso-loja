@@ -53,7 +53,9 @@ type FormState = {
 
 type Line = { item: CartItem; product: Product };
 type CheckoutStep = 1 | 2 | 3 | 4;
+type SedexQuote = { price: number; surcharge: number; deadline: number; token: string };
 type ShippingQuote = {
+  sedex?: SedexQuote | null;
   available?: boolean;
   options?: Array<{ deadline?: number | string | null; estimated?: boolean }>;
 };
@@ -65,6 +67,9 @@ export default function CheckoutPage() {
   const setAssisted = setInternational;
   const t = (message: string) => checkoutMessage(message, english);
 
+  const [sedex, setSedex] = useState<SedexQuote | null>(null);
+  const [shippingMethod, setShippingMethod] = useState<'PAC' | 'SEDEX'>('PAC');
+  const [quoteRefresh, setQuoteRefresh] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [stepError, setStepError] = useState<string | null>(null);
@@ -120,10 +125,12 @@ export default function CheckoutPage() {
   const discount = calculateCouponDiscount(subtotal, appliedCoupon);
   const discountedSubtotal = Math.max(0, subtotal - discount);
   const freeShipping = shouldOfferFreeShipping(subtotal);
-  const shippingValue = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
+  const shippingValue = shippingMethod === 'SEDEX' && sedex ? sedex.price : freeShipping ? 0 : FIXED_SHIPPING_PRICE;
   const total = discountedSubtotal + shippingValue;
 
   useEffect(() => {
+    setSedex(null);
+    setShippingMethod('PAC');
     const normalizedZip = form.zip.replace(/\D/g, '');
     if (normalizedZip.length !== 8 || !items.length) {
       setShippingDeadline(null);
@@ -146,6 +153,7 @@ export default function CheckoutPage() {
         });
         const data = (await response.json()) as ShippingQuote;
         if (controller.signal.aborted) return;
+        setSedex(response.ok ? data.sedex ?? null : null);
         const option = data.options?.[0];
         if (response.ok && data.available && option?.deadline !== null && option?.deadline !== undefined && option.deadline !== '') {
           setShippingDeadline(String(option.deadline));
@@ -168,7 +176,7 @@ export default function CheckoutPage() {
       window.clearTimeout(timer);
       controller.abort();
     };
-  }, [form.zip, items]);
+  }, [form.zip, items, quoteRefresh]);
 
   useEffect(() => {
     if (!hydrated || !marketingItems.length || checkoutTracked.current) return;
@@ -249,7 +257,7 @@ export default function CheckoutPage() {
       setStepError('Complete os dados de entrega para continuar.');
       return;
     }
-    trackAddShippingInfo(marketingItems, total, freeShipping ? 'Frete grátis' : 'Frete fixo');
+    trackAddShippingInfo(marketingItems, total, shippingMethod);
     markComplete(2);
     setStep(3);
   }
@@ -323,7 +331,9 @@ export default function CheckoutPage() {
           items,
           coupon: normalizeCoupon(appliedCoupon),
           shippingValue,
-          shippingName: freeShipping ? 'Frete grátis' : 'Frete fixo',
+          shippingMethod,
+          shippingQuote: shippingMethod === 'SEDEX' ? sedex?.token : undefined,
+          shippingName: shippingMethod,
           customer: { name: form.name, email: form.email, phone: form.phone, document: form.document, address: { street: form.street, number: form.number, complement: form.complement, neighborhood: form.neighborhood, city: form.city, state: form.state, zip: form.zip } },
         }),
       });
@@ -398,7 +408,14 @@ export default function CheckoutPage() {
                 <div className="checkout-field"><label htmlFor="neighborhood">Bairro</label><input className="checkout-input" id="neighborhood" {...fieldProps('neighborhood')} required name="neighborhood" value={form.neighborhood} onChange={change} />{fieldError('neighborhood')}</div>
                 <div className="checkout-fields-address"><div className="checkout-field"><label htmlFor="city">Cidade</label><input className="checkout-input" id="city" {...fieldProps('city')} required name="city" value={form.city} onChange={change} autoComplete="address-level2" />{fieldError('city')}</div><div className="checkout-field checkout-uf"><label htmlFor="state" data-no-translate="true">{english ? 'State' : 'UF'}</label><input className="checkout-input" id="state" {...fieldProps('state')} required name="state" maxLength={2} placeholder="BA" value={form.state} onChange={change} autoComplete="address-level1" />{fieldError('state')}</div></div>
                 <Link className="checkout-international-link" href="/envio-internacional">Fora do Brasil? Consulte o envio internacional.</Link>
-                <div className="checkout-shipping-note"><span data-no-translate="true">{freeShipping ? (english ? 'Free shipping on this order.' : 'Frete grátis neste pedido.') : <>{english ? 'Fixed shipping via Correios PAC: ' : 'Frete fixo via PAC dos Correios: '}<strong>R$ 39,90</strong>.</>}</span><span data-no-translate="true">{english ? 'Free shipping on R$ 500 or more in products.' : 'Frete grátis a partir de R$ 500 em produtos.'}</span>{shippingDeadlineLoading && <span data-no-translate="true">{english ? 'Checking delivery time…' : 'Consultando prazo…'}</span>}{!shippingDeadlineLoading && shippingDeadline && <span data-no-translate="true">{english ? (shippingDeadlineEstimated ? 'Store estimate' : 'Carrier estimate') : (shippingDeadlineEstimated ? 'Estimativa da loja' : 'Prazo estimado')}: {shippingDeadline} {english ? (shippingDeadline === '1' ? 'business day' : 'business days') : shippingDeadlineUnit}.</span>}{!shippingDeadlineLoading && shippingDeadline && shippingDeadlineEstimated && <small data-no-translate="true">{english ? 'Estimated range after dispatch, not confirmed by Correios. Confirm delivery time before purchasing.' : 'Faixa indicativa após a postagem, não consultada nos Correios. Confirme o prazo antes de comprar.'}</small>}</div>
+                {sedex && <fieldset className="checkout-shipping-options" data-no-translate="true">
+                  <legend>{english ? 'Delivery method' : 'Modalidade de entrega'}</legend>
+                  <label><input type="radio" name="shipping-method" checked={shippingMethod === 'PAC'} onChange={() => setShippingMethod('PAC')} /> PAC · {freeShipping ? (english ? 'Free' : 'Grátis') : formatBRL(FIXED_SHIPPING_PRICE)}</label>
+                  <label><input type="radio" name="shipping-method" checked={shippingMethod === 'SEDEX'} onChange={() => setShippingMethod('SEDEX')} /> SEDEX · {formatBRL(sedex.price)} <small>{english ? 'Additional' : 'Acréscimo'}: {formatBRL(sedex.surcharge)} · {sedex.deadline} {english ? 'business days after dispatch' : 'dias úteis após a postagem'}</small></label>
+                  <p>{english ? 'For SEDEX, you pay only the difference between the quoted PAC and SEDEX rates, added to your standard shipping charge.' : 'No SEDEX, você paga apenas a diferença entre as cotações de PAC e SEDEX, somada ao frete padrão do seu pedido.'}</p>
+                </fieldset>}
+                {form.zip.replace(/\D/g, '').length === 8 && <button type="button" className="text-link" disabled={shippingDeadlineLoading} onClick={() => setQuoteRefresh(value => value + 1)} data-no-translate="true">{english ? 'Refresh delivery quote' : 'Atualizar cotação de entrega'}</button>}
+                <div className="checkout-shipping-note"><span data-no-translate="true">{freeShipping ? (english ? 'Free PAC shipping on this order.' : 'Frete PAC grátis neste pedido.') : <>{english ? 'Fixed shipping via Correios PAC: ' : 'Frete fixo via PAC dos Correios: '}<strong>R$ 39,90</strong>.</>}</span><span data-no-translate="true">{english ? 'Free shipping on R$ 500 or more in products.' : 'Frete grátis a partir de R$ 500 em produtos.'}</span>{shippingDeadlineLoading && <span data-no-translate="true">{english ? 'Checking delivery time…' : 'Consultando prazo…'}</span>}{!shippingDeadlineLoading && shippingDeadline && <span data-no-translate="true">{english ? (shippingDeadlineEstimated ? 'PAC store estimate' : 'PAC carrier estimate') : (shippingDeadlineEstimated ? 'Estimativa PAC da loja' : 'Prazo estimado PAC')}: {shippingDeadline} {english ? (shippingDeadline === '1' ? 'business day' : 'business days') : shippingDeadlineUnit}.</span>}{!shippingDeadlineLoading && shippingDeadline && shippingDeadlineEstimated && <small data-no-translate="true">{english ? 'Estimated range after dispatch, not confirmed by Correios. Confirm delivery time before purchasing.' : 'Faixa indicativa após a postagem, não consultada nos Correios. Confirme o prazo antes de comprar.'}</small>}</div>
                 {shippingError && <p id="checkout-shipping-error" className="checkout-error" data-no-translate="true" role="alert">{t(shippingError)}</p>}{stepError && <p className="checkout-error" data-no-translate="true" role="alert">{t(stepError)}</p>}
                 <button type="button" className="checkout-next-step" onClick={goToBenefit}>Continuar para benefício</button>
               </div> : deliveryComplete ? <p className="checkout-stage-summary">{form.street}, {form.number} · {form.neighborhood} · {form.city}/{form.state}</p> : <p className="checkout-stage-locked">Conclua seus dados para liberar esta etapa.</p>}
@@ -430,7 +447,7 @@ export default function CheckoutPage() {
           <aside className="checkout-summary" aria-label="Resumo do pedido">
             <div className="ago-clean-summary-head"><p className="eyebrow">Resumo</p><h2>Seu pedido</h2></div>
             <div className="checkout-summary-items" aria-label="Suas peças">{lines.map(({ item, product }) => <div key={item.productId} className="checkout-summary-item"><div className="checkout-product-main"><div className="checkout-product-image"><Image src={product.images?.[0] || '/images/placeholder.svg'} alt={product.name} width={60} height={60} /></div><div><span className="checkout-product-name">{product.name}</span><span className="checkout-product-price">{item.quantity} × {formatBRL(getEffectivePrice(product))}</span></div></div><span className="checkout-line-total">{formatBRL(getEffectivePrice(product) * item.quantity)}</span></div>)}</div>
-            <div className="ago-clean-summary-bottom"><div className="checkout-summary-row"><span>Subtotal</span><strong>{formatBRL(subtotal)}</strong></div>{discount > 0 && <div className="checkout-summary-row checkout-discount-row"><span>1ª compra · 3% OFF</span><strong>- {formatBRL(discount)}</strong></div>}<div className="checkout-summary-row"><span data-no-translate="true">{english ? (assisted || freeShipping ? 'Shipping' : 'Shipping · Correios PAC') : (assisted || freeShipping ? 'Frete' : 'Frete · Correios PAC')}</span><strong data-no-translate="true">{assisted ? (english ? 'To be confirmed' : 'A confirmar') : shippingValue === 0 ? (english ? 'Free' : 'Grátis') : formatBRL(shippingValue)}</strong></div><div className="checkout-total"><span>{assisted ? (english ? 'Products total' : 'Total das peças') : 'Total'}</span><strong>{formatBRL(assisted ? subtotal : total)}</strong></div></div>
+            <div className="ago-clean-summary-bottom"><div className="checkout-summary-row"><span>Subtotal</span><strong>{formatBRL(subtotal)}</strong></div>{discount > 0 && <div className="checkout-summary-row checkout-discount-row"><span>1ª compra · 3% OFF</span><strong>- {formatBRL(discount)}</strong></div>}<div className="checkout-summary-row"><span data-no-translate="true">{shippingMethod === 'SEDEX' && !assisted ? (english ? 'Shipping · Correios SEDEX' : 'Frete · Correios SEDEX') : english ? (assisted || freeShipping ? 'Shipping' : 'Shipping · Correios PAC') : (assisted || freeShipping ? 'Frete' : 'Frete · Correios PAC')}</span><strong data-no-translate="true">{assisted ? (english ? 'To be confirmed' : 'A confirmar') : shippingValue === 0 ? (english ? 'Free' : 'Grátis') : formatBRL(shippingValue)}</strong></div><div className="checkout-total"><span>{assisted ? (english ? 'Products total' : 'Total das peças') : 'Total'}</span><strong>{formatBRL(assisted ? subtotal : total)}</strong></div></div>
           </aside>
         </div>
       </div>

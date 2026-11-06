@@ -1,3 +1,4 @@
+import { quoteSedex } from '@/lib/frenet-shipping';
 import { NextResponse } from 'next/server';
 import { calculateCartTotals } from '@/lib/products';
 import { getShippingPrice, shouldOfferFreeShipping, FIXED_SHIPPING_PRICE } from '@/lib/shipping';
@@ -32,12 +33,13 @@ export async function POST(req: Request) {
 
     const subtotal = totals.total;
     const freeShipping = shouldOfferFreeShipping(subtotal);
-    const deadlineQuote = await getShippingDeadlineQuote({ destinationCep, subtotal });
+    const [deadlineQuote, sedex] = await Promise.all([getShippingDeadlineQuote({ destinationCep, subtotal }), quoteSedex(items, destinationCep, subtotal)]);
 
     return NextResponse.json({
       configured: true,
       available: true,
       freeShipping,
+      sedex,
       options: [{
         name: freeShipping ? 'Frete grátis' : 'Frete fixo',
         price: getShippingPrice(subtotal),
