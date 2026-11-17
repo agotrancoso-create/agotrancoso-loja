@@ -45,6 +45,7 @@ export default function ProductCard({ product, priority = false, listName = 'Col
   const image = getAttentionCoverImage(product);
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
+  const consultation = product.displayOnly && !product.available;
   const freeShipping = shouldOfferFreeShipping(price);
   const imageAlt = english ? `${name} — handmade ceramic by Agô Trancoso` : productImageAlt(product);
   const marketingItem = { item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category };
@@ -59,12 +60,12 @@ export default function ProductCard({ product, priority = false, listName = 'Col
         <div className="product-image-wrap">
           <Image src={image} alt={imageAlt} fill quality={100} priority={priority} sizes="(max-width: 900px) 46vw, (max-width: 1400px) 30vw, 424px" className="product-image product-image-primary" />
           {hasPromo && <span className="product-badge">{english ? 'Sale' : 'Oferta'}</span>}
-          {!product.available && <span className="product-badge">{english ? 'Unavailable' : 'Indisponível'}</span>}
+          {!product.available && !product.displayOnly && <span className="product-badge">{english ? 'Unavailable' : 'Indisponível'}</span>}
         </div>
 
         <div className="product-card-copy">
           <h2 className="product-name">{name}</h2>
-          {hasPromo ? (
+          {consultation ? <p className="current-price">Preço sob consulta</p> : hasPromo ? (
             <div className="price-row"><span className="old-price">{formatBRL(product.price)}</span><span className="current-price">{formatBRL(price)}</span></div>
           ) : <p className="current-price">{formatBRL(price)}</p>}
           <p className="mt-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-[#765e52]">

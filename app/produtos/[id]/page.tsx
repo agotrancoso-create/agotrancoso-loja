@@ -104,6 +104,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const images = orderedImages.length ? orderedImages : ['/images/placeholder.svg'];
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
+  const consultation = product.displayOnly && !product.available;
   const nationalShippingPrice = getShippingPrice(price);
   const isIgrejinhaProduct = IGREJINHA_PRODUCT_IDS.has(product.id);
   const isDecorativeMiniature = product.id === 'miniatura-quadrado-trancoso';
@@ -193,11 +194,12 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               <p className="eyebrow">{isIgrejinhaProduct ? 'Igrejinha de Trancoso · Cerâmica artesanal' : 'Cerâmica artesanal'}</p>
               <h1 className="product-detail-title">{product.name}</h1>
 
-              {hasPromo ? (
+              {consultation ? <p className="product-current-price">Preço sob consulta</p> : hasPromo ? (
                 <div className="price-detail-row"><span className="product-old-price">{formatBRL(product.price)}</span><span className="product-current-price">{formatBRL(price)}</span></div>
               ) : <p className="product-current-price">{formatBRL(price)}</p>}
 
               <p className="product-description">{product.description}</p>
+              {product.variants?.length ? <section aria-label="Tamanhos disponíveis" style={{marginTop:"1rem"}}><strong>Escolha o tamanho</strong><div style={{display:"flex",gap:".6rem",flexWrap:"wrap",marginTop:".6rem"}}>{product.variants.map(v => <a key={v.name} href={whatsappLink(`Olá! Gostaria de saber o valor do Rabo de Baleia tamanho ${v.name}.`)} target="_blank" rel="noopener noreferrer" style={{border:"1px solid #b9a99b",borderRadius:"10px",padding:".65rem .9rem",textDecoration:"none"}}><strong>{v.name}</strong><small style={{display:"block"}}>{v.dimensions}</small></a>)}</div><small>Valores por tamanho sob consulta.</small></section> : null}
 
               <section className="product-decision-details" aria-labelledby="product-details-title">
                 <h2 id="product-details-title" className="product-detail-facts-title">Detalhes da peça</h2>
@@ -208,7 +210,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               </section>
 
               <div className="product-purchase">
-                <AddToCart product={product} />
+                {consultation ? <a href={whatsappLink(`Olá! Gostaria de saber o preço de ${product.name}.`)} target="_blank" rel="noopener noreferrer" className="product-primary-cta ago-bag-primary">Consultar pelo WhatsApp</a> : <AddToCart product={product} />}
                 <ProductShare name={product.name} url={productUrl} />
               </div>
             </div>

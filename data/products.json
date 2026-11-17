@@ -342,6 +342,75 @@
       "available": true,
       "stock": null,
       "imageAlt": "Ímã da Igrejinha de Trancoso"
+    },
+    {
+      "id": "rabo-de-baleia",
+      "name": "Rabo de Baleia em Cerâmica",
+      "description": "Escultura decorativa em cerâmica com a forma de um rabo de baleia. Uma peça para compor estantes, aparadores e outros espaços da casa. Disponível nos tamanhos P, M e G.",
+      "price": 0,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "decoracao",
+      "images": [
+        "/produtos/catalogo/rabo-de-baleia-g.jpg"
+      ],
+      "dimensions": "P: 5,5 × 5 × 10 cm · M: 7 × 6,5 × 12 cm · G: 8 × 8 × 16 cm",
+      "available": false,
+      "displayOnly": true,
+      "stock": 28,
+      "variants": [
+        {
+          "name": "P",
+          "dimensions": "5,5 × 5 × 10 cm",
+          "stock": 12
+        },
+        {
+          "name": "M",
+          "dimensions": "7 × 6,5 × 12 cm",
+          "stock": 8
+        },
+        {
+          "name": "G",
+          "dimensions": "8 × 8 × 16 cm",
+          "stock": 8
+        }
+      ],
+      "imageAlt": "Escultura decorativa em cerâmica em forma de rabo de baleia, tamanho G"
+    },
+    {
+      "id": "sagrada-familia",
+      "name": "Sagrada Família em Cerâmica",
+      "description": "Imagem da Sagrada Família em cerâmica, com José, Maria e o menino Jesus reunidos em uma só peça. Uma presença delicada para um espaço de devoção ou para presentear.",
+      "price": 0,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "fe-devocao",
+      "images": [
+        "/produtos/catalogo/sagrada-familia.jpg"
+      ],
+      "dimensions": "",
+      "available": false,
+      "displayOnly": true,
+      "stock": null,
+      "imageAlt": "Peça em cerâmica representando José, Maria e o menino Jesus, vista frontal e traseira"
+    },
+    {
+      "id": "cachimbo",
+      "name": "Cachimbo Decorativo em Cerâmica",
+      "description": "Peça decorativa em cerâmica no formato de cachimbo, com acabamento artesanal. Para compor uma coleção de objetos e lembranças.",
+      "price": 0,
+      "promotionalPrice": null,
+      "currency": "BRL",
+      "category": "decoracao",
+      "images": [
+        "/images/placeholder.svg"
+      ],
+      "dimensions": "Comprimento: 10 cm · Largura: 4 cm · Altura: 3,5 cm",
+      "available": false,
+      "displayOnly": true,
+      "stock": 3,
+      "weight": 36,
+      "imageAlt": "Foto do cachimbo ainda não enviada"
     }
   ]
 }
