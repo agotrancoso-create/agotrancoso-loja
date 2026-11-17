@@ -6,23 +6,26 @@ import { Product } from './types';
 export const ATTENTION_PRODUCT_ORDER = [
   'miniatura-quadrado-trancoso',
   'igreja-quadrado-m',
+  'rabo-de-baleia',
   'igrejinha-luminaria-trancoso',
+  'sagrada-familia',
   'casinha-luminaria',
   'igreja-quadrado-p',
+  'estatueta-iemanja',
   'casal-pretos-velhos',
   'mobile-trancoso',
   'ima-igrejinha-trancoso',
   'colar-igreja-quadrado',
-  'estatueta-iemanja',
   'cruzeiro-do-quadrado',
   'presepio-em-ceramica',
-  'igreja-quadrado-gg',
   'nossa-senhora-grande',
+  'igreja-quadrado-gg',
   'nossa-senhora-aparecida',
   'divino-espirito-santo',
   'rosario-trancoso',
   'terco-em-ceramica',
   'esfera-decorativa',
+  'cachimbo',
 ] as const;
 
 const attentionRank = new Map<string, number>(ATTENTION_PRODUCT_ORDER.map((id, index) => [id, index]));
@@ -44,6 +47,13 @@ export function sortProductsByAttention<T extends Product>(products: T[]): T[] {
  * a luminária menor agora utiliza a nova foto frontal enviada pela proprietária.
  */
 const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
+  'sagrada-familia': [
+    '/produtos/catalogo/sagrada-familia-capa.jpg',
+  ],
+  'rabo-de-baleia': [
+    '/produtos/catalogo/rabo-de-baleia-g.jpg',
+    '/produtos/catalogo/rabo-de-baleia-m.jpg',
+  ],
   'igreja-quadrado-p': [
     '/produtos/igrejinha-luminaria-trancoso.jpg',
     '/produtos/catalogo/igreja-quadrado-p-2.jpg',
@@ -116,6 +126,8 @@ export function getAttentionCoverImage(product: Product): string {
 }
 
 const RELATED_PRODUCTS: Record<string, string[]> = {
+  'sagrada-familia': ['presepio-em-ceramica', 'nossa-senhora-aparecida', 'divino-espirito-santo', 'terco-em-ceramica'],
+  'rabo-de-baleia': ['esfera-decorativa', 'casinha-luminaria', 'mobile-trancoso', 'miniatura-quadrado-trancoso'],
   'igreja-quadrado-p': ['miniatura-quadrado-trancoso', 'igrejinha-luminaria-trancoso', 'colar-igreja-quadrado', 'ima-igrejinha-trancoso'],
   'igreja-quadrado-m': ['miniatura-quadrado-trancoso', 'igrejinha-luminaria-trancoso', 'colar-igreja-quadrado', 'ima-igrejinha-trancoso'],
   'igreja-quadrado-gg': ['igrejinha-luminaria-trancoso', 'miniatura-quadrado-trancoso', 'mobile-trancoso', 'casinha-luminaria'],

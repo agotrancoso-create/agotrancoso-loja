@@ -110,6 +110,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const nationalShippingPrice = getShippingPrice(price);
   const isIgrejinhaProduct = IGREJINHA_PRODUCT_IDS.has(product.id);
   const isDecorativeMiniature = product.id === 'miniatura-quadrado-trancoso';
+  const isHangingSagradaFamilia = product.id === 'sagrada-familia';
   const productUrl = `${SITE_DOMAIN}/produtos/${product.id}`;
   const attentionProducts = sortProductsByAttention(getAvailableProducts());
 
@@ -127,6 +128,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const additionalProperty = [
     ...(product.dimensions ? [{ '@type': 'PropertyValue', name: 'Medidas', value: product.dimensions }] : []),
     ...(isDecorativeMiniature ? [{ '@type': 'PropertyValue', name: 'Uso', value: 'Pode ser pendurada na parede ou apoiada sobre móveis e superfícies' }] : []),
+    ...(isHangingSagradaFamilia ? [{ '@type': 'PropertyValue', name: 'Uso', value: 'Ganchinho na parte de trás para pendurar; pode também ser apoiada' }] : []),
   ];
 
   const structuredData = {
@@ -217,6 +219,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                 <dl className="product-premium-facts" aria-label="Informações da peça">
                   <div><dt>Medidas</dt><dd>{product.dimensions || <a href={whatsappLink(`Olá! Gostaria de confirmar as medidas de ${product.name}.`)} target="_blank" rel="noopener noreferrer" className="text-link">Consultar medidas</a>}</dd></div>
                   {isDecorativeMiniature && <div><dt>Uso</dt><dd>Para pendurar ou apoiar na decoração</dd></div>}
+                  {isHangingSagradaFamilia && <div><dt>Como usar</dt><dd>Possui ganchinho atrás para pendurar na parede. Também pode ser apoiada.</dd></div>}
                 </dl>
               </section>
 

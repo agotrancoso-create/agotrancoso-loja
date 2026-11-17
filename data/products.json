@@ -390,20 +390,19 @@
     {
       "id": "sagrada-familia",
       "name": "Sagrada Família em Cerâmica",
-      "description": "Imagem da Sagrada Família em cerâmica, com José, Maria e o menino Jesus reunidos em uma só peça. Uma presença delicada para um espaço de devoção ou para presentear.",
+      "description": "José, Maria e o Menino Jesus reunidos em uma peça de cerâmica. Com um ganchinho na parte de trás, a Sagrada Família pode ser pendurada na parede ou apoiada em uma prateleira ou nicho. Para compor um espaço de devoção ou presentear.",
       "price": 100,
       "promotionalPrice": null,
       "currency": "BRL",
       "category": "fe-devocao",
       "images": [
-        "/produtos/catalogo/sagrada-familia-capa.jpg",
-        "/produtos/catalogo/sagrada-familia.jpg"
+        "/produtos/catalogo/sagrada-familia-capa.jpg"
       ],
       "dimensions": "",
       "available": false,
       "displayOnly": true,
       "stock": null,
-      "imageAlt": "Peça em cerâmica representando José, Maria e o menino Jesus, vista frontal e traseira"
+      "imageAlt": "Sagrada Família em cerâmica: frente com José, Maria e o Menino Jesus e verso com ganchinho para pendurar"
     },
     {
       "id": "cachimbo",
