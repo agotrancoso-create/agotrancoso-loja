@@ -39,7 +39,7 @@ function normalizeStoredItems(parsed: unknown): CartItem[] {
     if (!Number.isInteger(quantity) || quantity < 1) continue;
 
     const current = merged.get(productId) ?? 0;
-    merged.set(productId, Math.min(99, current + quantity));
+    merged.set(productId, Math.min(99, product.stock == null ? 99 : product.stock, current + quantity));
   }
 
   return Array.from(merged, ([productId, quantity]) => ({ productId, quantity }));
@@ -115,12 +115,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const product = getProductById(productId);
     if (!product?.available || !Number.isInteger(quantity) || quantity < 1) return;
 
+    const maxQuantity = Math.min(99, product.stock == null ? 99 : product.stock);
     setItems((prev) => {
       const existing = prev.find((item) => item.productId === productId);
       if (existing) {
-        return prev.map((item) => item.productId === productId ? { ...item, quantity: Math.min(99, item.quantity + quantity) } : item);
+        return prev.map((item) => item.productId === productId ? { ...item, quantity: Math.min(maxQuantity, item.quantity + quantity) } : item);
       }
-      return [...prev, { productId, quantity: Math.min(99, quantity) }];
+      return [...prev, { productId, quantity: Math.min(maxQuantity, quantity) }];
     });
     setIsDrawerOpen(true);
   }, []);
@@ -134,7 +135,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       setItems((prev) => prev.filter((item) => item.productId !== productId));
       return;
     }
-    setItems((prev) => prev.map((item) => item.productId === productId ? { ...item, quantity: Math.min(99, quantity) } : item));
+    const product = getProductById(productId);
+    const maxQuantity = Math.min(99, product?.stock == null ? 99 : product.stock);
+    setItems((prev) => prev.map((item) => item.productId === productId ? { ...item, quantity: Math.min(maxQuantity, quantity) } : item));
   }, []);
 
   const clearCart = useCallback(() => {

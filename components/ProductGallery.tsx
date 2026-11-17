@@ -7,7 +7,7 @@ import PhotoLightbox from './PhotoLightbox';
 import { useRef, useState } from 'react';
 import { trackGalleryInteraction } from '@/lib/marketing-analytics';
 
-type ProductGalleryProps = { productId: string; name: string; images: string[] };
+type ProductGalleryProps = { productId: string; name: string; images: string[]; imageLabels?: string[]; selectedIndex?: number; onImageChange?: (index: number) => void; };
 
 function Chevron({ direction }: { direction: 'left' | 'right' }) {
   return (
@@ -26,12 +26,15 @@ function ZoomIcon() {
   );
 }
 
-export default function ProductGallery({ productId, name, images }: ProductGalleryProps) {
+export default function ProductGallery({ productId, name, images, imageLabels, selectedIndex, onImageChange }: ProductGalleryProps) {
   const english = useSiteEnglish();
   const displayName = english ? (cartEnglish[name] || name) : name;
   const t = (pt: string, en: string) => english ? en : pt;
   const safeImages = images.filter(Boolean).length ? images.filter(Boolean) : ['/images/placeholder.svg'];
-  const [active, setActive] = useState(0);
+  const [internalActive, setInternalActive] = useState(0);
+  const active = selectedIndex ?? internalActive;
+  const setActive = (index: number) => { setInternalActive(index); onImageChange?.(index); };
+  const currentLabel = imageLabels?.[active];
   const [expanded, setExpanded] = useState(false);
   const touchY = useRef(0);
   const swiped = useRef(false);
@@ -90,7 +93,7 @@ export default function ProductGallery({ productId, name, images }: ProductGalle
         >
           <Image
             src={safeImages[active]}
-            alt={english ? `${displayName}, photo ${active + 1} of ${safeImages.length}` : `${name}, foto ${active + 1} de ${safeImages.length}`}
+            alt={english ? `${displayName}, photo ${active + 1} of ${safeImages.length}${currentLabel ? `, ${currentLabel}` : ''}` : `${name}, foto ${active + 1} de ${safeImages.length}${currentLabel ? `, ${currentLabel}` : ''}`}
             fill
             priority={active === 0}
             quality={100}
@@ -126,16 +129,18 @@ export default function ProductGallery({ productId, name, images }: ProductGalle
               type="button"
               data-photo-index={index + 1}
               onClick={() => select(index)}
-              aria-label={`${t('Ver foto', 'View photo')} ${index + 1}`}
+              aria-label={`${t('Ver foto', 'View photo')} ${index + 1}${imageLabels?.[index] ? `: ${imageLabels[index]}` : ''}`}
               aria-current={active === index ? 'true' : undefined}
               className={`product-gallery-thumb${active === index ? ' is-active' : ''}`}
             >
               <Image src={src} alt="" fill quality={100} sizes="88px" aria-hidden="true" />
+              {imageLabels?.[index] && <span className="ago-photo-variant-thumb">{imageLabels[index].includes(' M ') ? 'M' : 'G'}</span>}
             </button>
           ))}
         </div>
       )}
 
+      {currentLabel && <p className="ago-photo-variant-caption" aria-live="polite">Foto exibida: <strong>{currentLabel}</strong></p>}
       {expanded && <PhotoLightbox productId={productId} name={name} images={safeImages} initialIndex={active} onClose={() => setExpanded(false)} />}
     </div>
   );

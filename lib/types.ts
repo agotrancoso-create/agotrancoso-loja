@@ -13,7 +13,7 @@ export type Product = {
   available: boolean;
   stock?: number | null;
   displayOnly?: boolean;
-  variants?: Array<{ name: string; dimensions: string; stock: number | null }>;
+  variants?: Array<{ name: string; heightCm: number; price: number; stock: number | null; dimensions: string; image?: string | null }>;
 
   // Dados logísticos reais.
   // null significa que o dado ainda não foi informado.

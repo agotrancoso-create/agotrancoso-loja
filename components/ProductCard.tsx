@@ -46,7 +46,8 @@ export default function ProductCard({ product, priority = false, listName = 'Col
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
   const consultation = product.displayOnly && !product.available;
-  const freeShipping = shouldOfferFreeShipping(price);
+  const startingPrice = product.variants?.length ? Math.min(...product.variants.map(v => v.price)) : null;
+  const freeShipping = shouldOfferFreeShipping(startingPrice ?? price);
   const imageAlt = english ? `${name} — handmade ceramic by Agô Trancoso` : productImageAlt(product);
   const marketingItem = { item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category };
 
@@ -65,7 +66,7 @@ export default function ProductCard({ product, priority = false, listName = 'Col
 
         <div className="product-card-copy">
           <h2 className="product-name">{name}</h2>
-          {consultation ? <p className="current-price">Preço sob consulta</p> : hasPromo ? (
+          {startingPrice != null ? <p className="current-price">A partir de {formatBRL(startingPrice)}</p> : consultation ? <p className="current-price">Preço sob consulta</p> : hasPromo ? (
             <div className="price-row"><span className="old-price">{formatBRL(product.price)}</span><span className="current-price">{formatBRL(price)}</span></div>
           ) : <p className="current-price">{formatBRL(price)}</p>}
           <p className="mt-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-[#765e52]">
@@ -74,7 +75,7 @@ export default function ProductCard({ product, priority = false, listName = 'Col
         </div>
       </Link>
 
-      {product.available && (
+      {product.variants?.length ? <Link href={`${english ? '/en' : ''}/produtos/${product.id}`} className="product-add ago-premium-add ago-bag-cta">Escolher tamanho</Link> : product.available && (
         <button
           type="button"
           onClick={() => {

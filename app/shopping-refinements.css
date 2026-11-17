@@ -104,3 +104,22 @@
 .checkout-page .checkout-progress-step { min-width:0; white-space:normal; }
 .checkout-page .checkout-coupon-section h3 { font-size:1rem; margin:0 0 8px; }
 .checkout-page .checkout-coupon-section { margin-bottom:24px; }
+
+/* Identificação fotográfica e seleção de tamanhos: página do Rabo de Baleia. */
+.ago-photo-variant-caption { margin: 10px 4px 0; font-size: .85rem; color: inherit; }
+.ago-photo-variant-caption strong { font-weight: 750; }
+.ago-photo-variant-thumb { position:absolute; z-index:2; left:5px; bottom:5px; border-radius:100px; background:#fdf8ef; color:#5a4434; font-size:12px; font-weight:800; padding:2px 8px; pointer-events:none; }
+.ago-whale-variants { margin-top:22px; border:0; padding:0; min-width:0; }
+.ago-whale-variants legend { font-size:.9rem; font-weight:750; margin-bottom:12px; }
+.ago-whale-variant-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.ago-whale-variant { min-width:0; padding:13px 11px; border-radius:12px; color:inherit; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.3); cursor:pointer; text-align:left; display:flex; flex-direction:column; gap:12px; justify-content:space-between; min-height:82px; }
+.ago-whale-variant.is-selected { border:2px solid #fff4dc; background:rgba(255,255,255,.15); padding:12px 10px; }
+.ago-whale-variant:focus-visible { outline:3px solid #fff4dc; outline-offset:3px; }
+.ago-whale-variant:disabled { opacity:.45; cursor:not-allowed; }
+.ago-whale-variant strong { display:flex; align-items:baseline; flex-wrap:wrap; gap:5px; }
+.ago-whale-size { font-size:.76rem; font-weight:500; }
+.ago-whale-variant-price { font-size:.82rem; font-weight:750; white-space:nowrap; }
+.ago-whale-photo-note { font-size:.8rem; line-height:1.5; margin-top:12px; }
+.ago-whale-contact { margin-top:14px; font-size:.82rem; }
+.ago-whale-contact a { text-decoration:underline; text-underline-offset:4px; }
+@media(max-width:420px){ .ago-whale-variant-grid{gap:6px}.ago-whale-variant{padding:10px 6px}.ago-whale-variant.is-selected{padding:9px 5px}.ago-whale-variant-price{font-size:.76rem} }

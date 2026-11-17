@@ -71,6 +71,7 @@ export default function AddToCart({ product }: { product: Product }) {
     return <div className="product-unavailable">{t('Peça indisponível no momento', 'This piece is currently unavailable')}</div>;
   }
 
+  const maximum = Math.min(99, product.stock == null ? 99 : product.stock);
   const selectionSubtotal = getEffectivePrice(product) * quantity;
   const shipping = getShippingPrice(selectionSubtotal);
   const formatBRL = (value: number) => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -135,7 +136,7 @@ export default function AddToCart({ product }: { product: Product }) {
         <div className="quantity-control" aria-label={t('Quantidade', 'Quantity')}>
           <button type="button" onClick={() => { clearQuote(); setQuantity((q) => Math.max(1, q - 1)); }} disabled={quantity <= 1} aria-label={t('Diminuir quantidade', 'Decrease quantity')}>−</button>
           <span aria-live="polite">{quantity}</span>
-          <button type="button" onClick={() => { clearQuote(); setQuantity((q) => Math.min(99, q + 1)); }} disabled={quantity >= 99} aria-label={t('Aumentar quantidade', 'Increase quantity')}>+</button>
+          <button type="button" onClick={() => { clearQuote(); setQuantity((q) => Math.min(maximum, q + 1)); }} disabled={quantity >= maximum} aria-label={t('Aumentar quantidade', 'Increase quantity')}>+</button>
         </div>
         <button
           type="button"

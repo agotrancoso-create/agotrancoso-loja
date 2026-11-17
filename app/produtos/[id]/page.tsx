@@ -12,6 +12,7 @@ import ProductGallery from '@/components/ProductGallery';
 import ProductViewTracker from '@/components/ProductViewTracker';
 import ProductCard from '@/components/ProductCard';
 import RecentlyViewed from '@/components/RecentlyViewed';
+import WhaleProductExperience from './WhaleProductExperience';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -145,7 +146,15 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         mainEntityOfPage: productUrl,
         seller: { '@id': `${SITE_DOMAIN}#organization` },
         ...(additionalProperty.length ? { additionalProperty } : {}),
-        offers: {
+        offers: product.variants?.length ? {
+          '@type': 'AggregateOffer',
+          priceCurrency: 'BRL',
+          lowPrice: Math.min(...product.variants.map(v => v.price)).toFixed(2),
+          highPrice: Math.max(...product.variants.map(v => v.price)).toFixed(2),
+          offerCount: product.variants.length,
+          availability: 'https://schema.org/InStock',
+          url: productUrl,
+        } : {
           '@type': 'Offer',
           url: productUrl,
           priceCurrency: 'BRL',
@@ -186,6 +195,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           <span aria-current="page">{product.name}</span>
         </nav>
 
+        {product.id === 'rabo-de-baleia' ? <WhaleProductExperience product={product} images={images} productUrl={productUrl} /> : (
         <div className="product-page-grid">
           <div className="product-gallery-column"><ProductGallery productId={product.id} name={product.name} images={images} /></div>
 
@@ -216,6 +226,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
             </div>
           </div>
         </div>
+        )}
       </div>
 
       {related.length > 0 && (

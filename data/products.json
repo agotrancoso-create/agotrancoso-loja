@@ -347,7 +347,7 @@
       "id": "rabo-de-baleia",
       "name": "Rabo de Baleia em Cerâmica",
       "description": "Escultura decorativa em cerâmica com a forma de um rabo de baleia. Uma peça para compor estantes, aparadores e outros espaços da casa. Disponível nos tamanhos P, M e G.",
-      "price": 0,
+      "price": 250,
       "promotionalPrice": null,
       "currency": "BRL",
       "category": "decoracao",
@@ -362,18 +362,27 @@
       "variants": [
         {
           "name": "P",
+          "heightCm": 10,
+          "price": 250,
+          "stock": 12,
           "dimensions": "5,5 × 5 × 10 cm",
-          "stock": 12
+          "image": null
         },
         {
           "name": "M",
+          "heightCm": 12,
+          "price": 330,
+          "stock": 8,
           "dimensions": "7 × 6,5 × 12 cm",
-          "stock": 8
+          "image": "/produtos/catalogo/rabo-de-baleia-m.jpg"
         },
         {
           "name": "G",
+          "heightCm": 16,
+          "price": 400,
+          "stock": 8,
           "dimensions": "8 × 8 × 16 cm",
-          "stock": 8
+          "image": "/produtos/catalogo/rabo-de-baleia-g.jpg"
         }
       ],
       "imageAlt": "Escultura decorativa em cerâmica em forma de rabo de baleia, tamanho G"
