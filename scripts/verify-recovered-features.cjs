@@ -52,7 +52,7 @@ assert.ok(products.includes('miniatura-quadrado-trancoso-7.avif'));
 assert.ok(products.includes('Comprimento: 19 cm · Altura com a cruz da igrejinha do meio: 6,5 cm'));
 
 // Pretos-Velhos: somente a foto 3 recebe reenquadramento especial e fica sem borda.
-assert.ok(products.includes('Casal de Pretos-Velhos em cerâmica artesanal da Agô Trancoso, Bahia'));
+assert.ok(products.includes('Casal de Pretos-Velhos em cerâmica disponível na Agô Trancoso'));
 assert.ok(pretos.includes('casal-pretos-velhos-3.jpg'));
 assert.ok(!pretos.includes('casal-pretos-velhos-1.jpg'));
 assert.ok(!pretos.includes('casal-pretos-velhos-2.jpg'));
