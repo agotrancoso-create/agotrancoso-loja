@@ -37,7 +37,7 @@ const PRODUCT_SEO: Record<string, { title: string; description: string }> = {
   },
   'igreja-quadrado-gg': {
     title: 'Igreja do Quadrado de Trancoso GG — Escultura Luminária em Cerâmica | Agô',
-    description: 'Escultura artesanal da Igreja do Quadrado de Trancoso na versão GG, que também funciona como luminária. Cerâmica modelada à mão na Agô Trancoso.',
+    description: 'Escultura artesanal da Igreja do Quadrado de Trancoso na versão GG, que também funciona como luminária. Disponível na Agô Trancoso.',
   },
   'igrejinha-luminaria-trancoso': {
     title: 'Igrejinha do Quadrado de Trancoso — Luminária de Cerâmica | Agô',

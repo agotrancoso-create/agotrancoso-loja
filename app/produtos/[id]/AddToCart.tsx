@@ -10,6 +10,7 @@ import CartIcon from '@/components/CartIcon';
 import { getEffectivePrice } from '@/lib/products';
 import { getShippingPrice } from '@/lib/shipping';
 import { whatsappLink } from '@/lib/config';
+import Link from 'next/link';
 
 type ShippingOption = {
   name: string;
@@ -126,6 +127,10 @@ export default function AddToCart({ product }: { product: Product }) {
 
   return (
     <div className="purchase-selection" data-no-translate="true">
+      <div className="product-availability">
+        <strong>{t('Disponível para compra', 'Available to purchase')}</strong>
+        <a href={whatsappLink(english ? `Hello! When can ${name} be dispatched?` : `Olá! Qual é o prazo de postagem de ${product.name}?`)} target="_blank" rel="noopener noreferrer">{t('Confirmar prazo de postagem', 'Confirm dispatch time')}</a>
+      </div>
       <div className="add-to-cart-control">
         <div className="quantity-control" aria-label={t('Quantidade', 'Quantity')}>
           <button type="button" onClick={() => { clearQuote(); setQuantity((q) => Math.max(1, q - 1)); }} disabled={quantity <= 1} aria-label={t('Diminuir quantidade', 'Decrease quantity')}>−</button>
@@ -153,12 +158,16 @@ export default function AddToCart({ product }: { product: Product }) {
         <span>{t('Frete internacional sob consulta', 'International shipping quoted separately')}</span>
         <small>{t('Frete e total final confirmados antes do pagamento.', 'Shipping and final total confirmed before payment.')}</small>
       </div> : <div className="purchase-selection-summary" aria-live="polite" aria-atomic="true">
-        <span>{quantity} {english ? (quantity === 1 ? 'piece' : 'pieces') : (quantity === 1 ? 'peça' : 'peças')}: {formatBRL(selectionSubtotal)} · {shipping === 0 ? t('Frete grátis', 'Free shipping in Brazil') : `${t('Frete PAC', 'PAC shipping in Brazil')}: ${formatBRL(shipping)}`}</span>
+        <span>{quantity} {english ? (quantity === 1 ? 'piece' : 'pieces') : (quantity === 1 ? 'peça' : 'peças')}: {formatBRL(selectionSubtotal)} · {shipping === 0 ? t('Frete grátis', 'Free shipping in Brazil') : `${t('Frete fixo PAC', 'Fixed PAC shipping in Brazil')}: ${formatBRL(shipping)}`}</span>
         <strong>{t('Esta seleção com frete', 'This selection with shipping')}: {formatBRL(selectionSubtotal + shipping)}</strong>
         <small>{t('Entrega no Brasil. O total da sacola é atualizado ao adicionar outras peças.', 'Delivery in Brazil. Your bag total updates as you add other pieces.')}</small>
       </div>}
 
       <p className="purchase-selection-help">{t('Compra sem cadastro · Pagamento seguro pela InfinitePay', 'No account required · Secure payment via InfinitePay')}</p>
+      <nav className="product-support-links" aria-label={t('Ajuda com sua compra', 'Help with your purchase')}>
+        <Link href={`${english ? '/en' : ''}/ajuda#entrega`}>{t('Entrega e pagamento', 'Delivery and payment')}</Link>
+        <Link href={`${english ? '/en' : ''}/ajuda#trocas`}>{t('Trocas e avarias', 'Returns and damage')}</Link>
+      </nav>
 
       {international ? <a className="text-link" href={english ? '/en/envio-internacional' : '/envio-internacional'}>{t('Consultar frete internacional', 'Request international shipping quote')}</a> : <form className="product-delivery-estimator" onSubmit={consultShipping} aria-label={t('Consultar envio pelo CEP', 'Check delivery to a Brazilian postal code')}>
         <label htmlFor={`shipping-cep-${product.id}`}>{t('Frete e prazo estimado para seu CEP', 'Shipping and estimated delivery time for your Brazilian postal code')}</label>

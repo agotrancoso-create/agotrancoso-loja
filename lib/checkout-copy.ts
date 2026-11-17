@@ -1,4 +1,18 @@
 const messages: Record<string, string> = {
+  'Aplique seu cupom na etapa Pagamento.': 'Apply your coupon in the Payment step.',
+  'Continuar para pagamento': 'Continue to payment',
+  'Cupom de desconto (opcional)': 'Discount code (optional)',
+  'Primeira compra? Aplique o cupom': 'First order? Apply code',
+  'A elegibilidade é validada pelo e-mail e telefone.': 'Eligibility is checked using your email and phone number.',
+  'O benefício está temporariamente indisponível. Você pode continuar sem cupom.': 'The discount is temporarily unavailable. You can continue without a coupon.',
+  'Cupom de desconto': 'Discount code',
+  'Cupom': 'Coupon',
+  'Validando…': 'Checking…',
+  'Aplicar': 'Apply',
+  'Remover cupom': 'Remove coupon',
+  'Conclua a entrega para revisar e pagar.': 'Complete delivery details to review and pay.',
+  'Aplique o cupom ou remova-o para pagar sem desconto.': 'Apply the coupon or remove it to pay without a discount.',
+
   'Use até 50 caracteres no complemento.': 'Use up to 50 characters for address details.',
   // Mensagens comuns do checkout
   'Preencha nome, e-mail, WhatsApp e CPF/CNPJ para continuar.': 'Enter your name, email, WhatsApp and CPF/CNPJ to continue.',

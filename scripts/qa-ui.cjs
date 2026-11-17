@@ -7,11 +7,12 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const products = require('../data/products.json').products;
 const widths = process.env.QA_WIDTHS ? process.env.QA_WIDTHS.split(',').map(Number) : [320,390,820,1440,1920];
 const artifacts = process.env.QA_ARTIFACTS || '/tmp/ago-qa';
-const base = 'http://127.0.0.1:3100';
+const port = Number(process.env.QA_PORT || 3100);
+const base = `http://127.0.0.1:${port}`;
 const results = { widths, routes: [], interactions: [], errors: [] };
 fs.mkdirSync(artifacts, { recursive: true });
 
-const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '--port', '3100'], { stdio: ['ignore', 'pipe', 'pipe'] });
+const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '--hostname', '127.0.0.1', '--port', String(port)], { stdio: ['ignore', 'pipe', 'pipe'] });
 let browser;
 
 async function waitForServer() {
@@ -107,10 +108,11 @@ async function run() {
         assert.notEqual(heroStyle.shadow, 'none');
       }
       if (route === '/produtos') {
+        await page.locator('.catalog-budget-disclosure summary').click();
         const budgets = page.getByRole('group', {name:'Faixa de preço', exact:true});
         await budgets.waitFor();
         assert.equal(await budgets.getByRole('button').count(), 8);
-        const priceButton = budgets.getByRole('button', {name:'Até R$ 150', exact:true});
+        const priceButton = budgets.getByRole('button', {name:/^Até R\$ 150 \(/});
         await priceButton.click();
         await page.getByText('3 peças encontradas', {exact:true}).waitFor();
         await waitForVisibleCatalogCards(3);
@@ -125,7 +127,7 @@ async function run() {
         await waitForVisibleCatalogCards(19);
         assert.equal(await budgets.getByRole('button', {name:'Todos os valores'}).getAttribute('aria-pressed'), 'true');
 
-        const premiumButton = budgets.getByRole('button', {name:'Acima de R$ 3.000', exact:true});
+        const premiumButton = budgets.getByRole('button', {name:/^Acima de R\$ 3\.000 \(/});
         await premiumButton.click();
         await page.getByText('1 peça encontrada', {exact:true}).waitFor();
         await waitForVisibleCatalogCards(1);
@@ -322,13 +324,13 @@ async function run() {
   assert.equal(await page.locator('#zip').getAttribute('aria-busy'), null);
   results.interactions.push('CEP change clears outdated street/neighborhood and lookup busy state');
   for (const [id, value] of Object.entries({ zip: '45818000', number: '10', street: 'Rua de Teste', neighborhood: 'Centro', city: 'Porto Seguro', state: 'BA' })) await page.locator('#' + id).fill(value);
-  await page.getByRole('button', { name: 'Continuar para benefício' }).first().click();
+  await page.getByRole('button', { name: 'Continuar para pagamento' }).first().click();
   const coupon = page.getByRole('textbox', { name: 'Cupom de desconto' }).first();
   await coupon.fill('AGO3');
   await page.getByRole('button', { name: 'Aplicar', exact: true }).first().click();
-  await page.getByRole('button', { name: 'Continuar com benefício' }).first().waitFor();
+  await page.locator('.checkout-coupon-message.success').waitFor();
   assert.ok((await page.locator('.checkout-total').first().innerText()).includes('485,00'));
-  await page.getByRole('button', { name: 'Continuar com benefício' }).first().click();
+  assert.equal(await page.locator('.checkout-progress-step').count(), 3);
 
   let checkoutPayload;
   await page.route('**/api/create-checkout', async route => {

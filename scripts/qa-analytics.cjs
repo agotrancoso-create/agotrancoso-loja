@@ -6,12 +6,12 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 
-const port = 3102;
+const port = Number(process.env.QA_PORT || 3102);
 const base = `http://127.0.0.1:${port}`;
 const artifacts = process.env.QA_ARTIFACTS || '/tmp/ago-qa';
 fs.mkdirSync(artifacts, { recursive: true });
 const report = { assertions: [], events: [] };
-const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '--port', String(port)], { stdio: ['ignore', 'pipe', 'pipe'] });
+const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '--hostname', '127.0.0.1', '--port', String(port)], { stdio: ['ignore', 'pipe', 'pipe'] });
 let browser;
 
 async function ready() {
@@ -229,13 +229,13 @@ async function run() {
   for (const [id, value] of Object.entries({ name: 'Pessoa Teste', email: 'qa-analytics@example.com', phone: '73999999999', document: '52998224725' })) await page.locator('#' + id).fill(value);
   await page.getByRole('button', { name: 'Continuar para entrega' }).first().click();
   for (const [id, value] of Object.entries({ zip: '45818000', number: '10', street: 'Rua Teste', neighborhood: 'Centro', city: 'Porto Seguro', state: 'BA' })) await page.locator('#' + id).fill(value);
-  await page.getByRole('button', { name: 'Continuar para benefício' }).first().click();
+  await page.getByRole('button', { name: 'Continuar para pagamento' }).first().click();
   await waitFor('add_shipping_info');
   const shipping = (await events('add_shipping_info')).at(-1);
   assert.match(shipping.ecommerce.shipping_tier, /Frete/);
   pass('add_shipping_info fires only after valid delivery data');
 
-  await page.getByRole('button', { name: 'Continuar sem cupom' }).first().click();
+  assert.equal(await page.locator('.checkout-progress-step').count(), 3);
   await page.route('**/api/create-checkout', route => route.fulfill({ status: 502, contentType: 'application/json', body: JSON.stringify({ error: 'QA stop before external payment' }) }));
   await page.getByRole('button', { name: 'Pagar com InfinitePay' }).first().click();
   await waitFor('add_payment_info');

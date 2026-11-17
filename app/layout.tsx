@@ -30,6 +30,7 @@ import './interactive-luxury.css';
 import './conversion-polish-2026.css';
 import './tropicalia-premium-polish.css';
 import './google-visibility-polish.css';
+import './shopping-refinements.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';

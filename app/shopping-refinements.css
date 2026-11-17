@@ -1,0 +1,106 @@
+/* Final mobile shopping layout. Keep the same two-column composition across
+   phone browsers without changing product photography, colours or branding. */
+@media (max-width: 900px) {
+  #pecas-em-destaque > .ago-premium-product-grid-featured,
+  .ago-home .ago-premium-discovery .ago-premium-discovery-grid,
+  .catalog-page .catalog-grid,
+  .product-related-selection .product-related-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: none !important;
+    grid-auto-flow: row !important;
+    grid-auto-columns: auto !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+    align-items: stretch;
+  }
+
+  #pecas-em-destaque > .ago-premium-product-grid-featured > .product-card,
+  .ago-home .ago-premium-discovery .ago-premium-discovery-grid > .ago-premium-discovery-card,
+  .catalog-page .catalog-grid > .product-card,
+  .product-related-selection .product-related-grid > .product-card {
+    box-sizing: border-box;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
+  .ago-home .commerce-first-grid .product-card-main,
+  .ago-home .commerce-first-grid .product-card-copy,
+  .catalog-page .product-card-main,
+  .catalog-page .product-card-copy,
+  .product-related-selection .product-card-main,
+  .product-related-selection .product-card-copy,
+  .ago-home .ago-premium-discovery-copy {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .ago-home .commerce-first-grid .product-name,
+  .catalog-page .catalog-grid .product-name,
+  .product-related-selection .product-name,
+  .ago-home .ago-premium-discovery-copy > span {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+
+  .ago-home .commerce-first-grid .product-add,
+  .catalog-page .catalog-grid .product-add,
+  .product-related-selection .product-add {
+    box-sizing: border-box;
+    min-width: 0 !important;
+    max-width: 100%;
+    height: auto !important;
+    min-height: 48px;
+    white-space: normal !important;
+    line-height: 1.35 !important;
+  }
+
+  .ago-home .commerce-first-grid .product-add > span:last-child,
+  .catalog-page .product-add > span:last-child,
+  .product-related-selection .product-add > span:last-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .product-page .product-info-column,
+  .product-page .product-buybox {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .product-page .product-detail-title {
+    font-size: clamp(1.85rem, 7.8vw, 2.65rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -.025em !important;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+  }
+}
+
+@media (max-width: 600px) {
+  .product-related-selection .product-related-grid {
+    gap: 26px 12px;
+  }
+
+  .product-related-selection .ago-premium-section-head {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .product-related-selection .ago-premium-section-head > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+/* Three checkout steps stay visible together, including at narrow widths. */
+.checkout-page .checkout-progress { display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; overflow:visible !important; }
+.checkout-page .checkout-progress-step { min-width:0; white-space:normal; }
+.checkout-page .checkout-coupon-section h3 { font-size:1rem; margin:0 0 8px; }
+.checkout-page .checkout-coupon-section { margin-bottom:24px; }

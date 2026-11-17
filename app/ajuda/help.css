@@ -1,0 +1,5 @@
+.shopping-help .help-topics { display:flex; flex-wrap:wrap; gap:8px 20px; margin:24px 0 36px; }
+.shopping-help a { color:#8E432C; text-decoration:underline; text-underline-offset:4px; }
+.shopping-help .help-topics a, .shopping-help .text-link { display:inline-flex; align-items:center; min-height:44px; }
+.shopping-help section { scroll-margin-top:190px; padding-block:12px; }
+.shopping-help a:focus-visible { outline:2px solid #8E432C; outline-offset:4px; }

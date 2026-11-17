@@ -1,4 +1,11 @@
 /* Product decision clarity: improve scanability without changing product descriptions. */
+.product-availability { display:flex; flex-wrap:wrap; align-items:center; gap:4px 16px; margin:0 0 12px; color:#2D201A; font-size:.82rem; line-height:1.5; }
+.product-availability a, .product-support-links a { display:inline-flex; align-items:center; min-height:44px; color:#8E432C; text-decoration:underline; text-underline-offset:4px; }
+.product-support-links { display:flex; flex-wrap:wrap; gap:4px 20px; font-size:.82rem; }
+.product-availability a:focus-visible, .product-support-links a:focus-visible { outline:2px solid #8E432C; outline-offset:3px; }
+@media (min-width:901px) {
+  .product-page .product-detail-title { font-size:clamp(2.1rem,3.4vw,3.4rem) !important; line-height:1.12 !important; }
+}
 .product-decision-details {
   margin-top: 24px;
 }

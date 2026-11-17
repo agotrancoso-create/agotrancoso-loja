@@ -52,7 +52,7 @@ type FormState = {
 };
 
 type Line = { item: CartItem; product: Product };
-type CheckoutStep = 1 | 2 | 3 | 4;
+type CheckoutStep = 1 | 2 | 3;
 type ShippingQuote = {
   available?: boolean;
   options?: Array<{ deadline?: number | string | null; estimated?: boolean }>;
@@ -77,7 +77,6 @@ export default function CheckoutPage() {
   const couponRequest = useRef(0);
   const checkoutTracked = useRef(false);
   const [appliedCoupon, setAppliedCoupon] = useState('');
-  const [benefitConfirmed, setBenefitConfirmed] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string,string>>({});
   const formRef = useRef<HTMLFormElement>(null);
   const [coupon, setCoupon] = useState('');
@@ -206,7 +205,7 @@ export default function CheckoutPage() {
     const { name, value } = event.target;
     if (name === 'email' || name === 'phone') {
       couponRequest.current += 1;
-      setAppliedCoupon(''); setBenefitConfirmed(false); setCouponChecking(false);
+      setAppliedCoupon(''); setCouponChecking(false);
       if (coupon) setCouponMessage('Confirme o cupom novamente após alterar seus dados.');
     }
     setForm((current) => ({
@@ -240,7 +239,7 @@ export default function CheckoutPage() {
     setStep(2);
   }
 
-  function goToBenefit() {
+  function goToPayment() {
     if (!customerComplete || !completedSteps.includes(1)) { setStep(1); return; }
     setStepError(null);
     setShippingError(null);
@@ -257,7 +256,6 @@ export default function CheckoutPage() {
   function editStep(next: CheckoutStep) {
     if (next >= 2 && (!customerComplete || !completedSteps.includes(1))) return;
     if (next >= 3 && (!deliveryComplete || !completedSteps.includes(2))) return;
-    if (next === 4 && !benefitConfirmed) return;
     setStepError(null);
     setShippingError(null);
     setFieldErrors({});
@@ -266,7 +264,7 @@ export default function CheckoutPage() {
 
   async function applyCoupon() {
     if (couponChecking) return;
-    setAppliedCoupon(''); setBenefitConfirmed(false);
+    setAppliedCoupon('');
     if (!benefitAvailable) { setCouponMessage('O benefício está temporariamente indisponível. Você pode continuar sem cupom.'); return; }
     const normalized = normalizeCoupon(coupon);
     setCoupon(normalized);
@@ -291,14 +289,12 @@ export default function CheckoutPage() {
     setStepError(null);
     setShippingError(null);
 
-    if (!hydrated || loading) return;
-    if (step !== 4) {
+    if (!hydrated || loading || couponChecking) return;
+    if (step !== 3) {
       if (step === 1) goToDelivery();
-      else if (step === 2) goToBenefit();
-      else applyCoupon();
+      else if (step === 2) goToPayment();
       return;
     }
-    if (!benefitConfirmed) { setStep(3); return; }
     if (assisted) return;
     if (!lines.length) { setError('Sua sacola está vazia.'); return; }
     if (!customerComplete) { setStep(1); setStepError('Complete seus dados antes de finalizar.'); return; }
@@ -308,6 +304,7 @@ export default function CheckoutPage() {
       setStepError('Complete a entrega antes de finalizar.');
       return;
     }
+    if (coupon && !appliedCoupon) { setCouponMessage('Aplique o cupom ou remova-o para pagar sem desconto.'); return; }
     if (appliedCoupon && !isFirstPurchaseCoupon(appliedCoupon)) { setStep(3); setCouponMessage('Confira o código do cupom antes de continuar.'); return; }
 
     markComplete(3);
@@ -339,7 +336,7 @@ export default function CheckoutPage() {
   if (!hydrated) return <div className="checkout-page checkout-loading" aria-busy="true"><div className="checkout-shell"><div className="checkout-loading-card"><p className="eyebrow">Agô Trancoso</p><h1 className="checkout-title">Preparando seu pedido…</h1><p>Carregando suas peças com segurança.</p></div></div></div>;
   if (!lines.length) return <div className="checkout-page checkout-empty"><div className="checkout-shell"><p className="eyebrow">{english ? 'Your bag' : 'Sua sacola'}</p><h1 className="checkout-title">{english ? 'Your bag is empty.' : 'Sua sacola está vazia.'}</h1><Link href={english ? '/en/produtos' : '/produtos'} className="text-link">{english ? 'Explore collection' : 'Explorar coleção'}</Link></div></div>;
 
-  const steps = [{ number: 1 as CheckoutStep, label: 'Seus dados' }, { number: 2 as CheckoutStep, label: 'Entrega' }, { number: 3 as CheckoutStep, label: 'Benefício' }, { number: 4 as CheckoutStep, label: 'Pagamento' }];
+  const steps = [{ number: 1 as CheckoutStep, label: 'Seus dados' }, { number: 2 as CheckoutStep, label: 'Entrega' }, { number: 3 as CheckoutStep, label: 'Pagamento' }];
 
   return (
     <div className="checkout-page">
@@ -358,7 +355,7 @@ export default function CheckoutPage() {
         {!assisted && <nav className="checkout-progress" aria-label="Etapas da compra">
           {steps.map(({ number, label }) => {
             const complete = completedSteps.includes(number);
-            const unlocked = number === 1 || (number === 2 && completedSteps.includes(1) && customerComplete) || (number === 3 && completedSteps.includes(2) && customerComplete && deliveryComplete) || (number === 4 && completedSteps.includes(2) && customerComplete && deliveryComplete && benefitConfirmed);
+            const unlocked = number === 1 || (number === 2 && completedSteps.includes(1) && customerComplete) || (number === 3 && completedSteps.includes(2) && customerComplete && deliveryComplete);
             return <button key={number} type="button" className={`checkout-progress-step${step === number ? ' is-active' : ''}${complete ? ' is-complete' : ''}`} onClick={() => editStep(number)} disabled={!unlocked} aria-current={step === number ? 'step' : undefined}><span>{complete ? '✓' : number}</span><strong>{label}</strong></button>;
           })}
         </nav>}
@@ -375,7 +372,7 @@ export default function CheckoutPage() {
               english ? 'Please confirm shipping and available payment options.' : 'Por favor, confirme o frete e as formas de pagamento disponíveis.',
             ].join('\n'))}>{english ? 'Ask about this order on WhatsApp' : 'Consultar este pedido no WhatsApp'}</a>
           </section> : <form ref={formRef} onSubmit={submit} className="checkout-form-panel checkout-stepped-form" noValidate>
-            {benefitAvailable && <div className="checkout-first-purchase"><strong>3% OFF na 1ª compra</strong><span>O cupom pode ser aplicado na etapa Benefício.</span></div>}
+            {benefitAvailable && <div className="checkout-first-purchase"><strong>3% OFF na 1ª compra</strong><span data-no-translate="true">{t('Aplique seu cupom na etapa Pagamento.')}</span></div>}
 
             <section className={`checkout-stage${step === 1 ? ' is-active' : ''}${completedSteps.includes(1) ? ' is-complete' : ''}`} aria-labelledby="checkout-customer-title">
               <div className="checkout-stage-head"><div><span>01</span><h2 tabIndex={-1} id="checkout-customer-title">Seus dados</h2></div>{step !== 1 && customerComplete && <button type="button" onClick={() => editStep(1)}>Editar</button>}</div>
@@ -400,30 +397,26 @@ export default function CheckoutPage() {
                 <Link className="checkout-international-link" href="/envio-internacional">Fora do Brasil? Consulte o envio internacional.</Link>
                 <div className="checkout-shipping-note"><span data-no-translate="true">{freeShipping ? (english ? 'Free shipping on this order.' : 'Frete grátis neste pedido.') : <>{english ? 'Fixed shipping via Correios PAC: ' : 'Frete fixo via PAC dos Correios: '}<strong>R$ 39,90</strong>.</>}</span><span data-no-translate="true">{english ? 'Free shipping on R$ 500 or more in products.' : 'Frete grátis a partir de R$ 500 em produtos.'}</span>{shippingDeadlineLoading && <span data-no-translate="true">{english ? 'Checking delivery time…' : 'Consultando prazo…'}</span>}{!shippingDeadlineLoading && shippingDeadline && <span data-no-translate="true">{english ? (shippingDeadlineEstimated ? 'Store estimate' : 'Carrier estimate') : (shippingDeadlineEstimated ? 'Estimativa da loja' : 'Prazo estimado')}: {shippingDeadline} {english ? (shippingDeadline === '1' ? 'business day' : 'business days') : shippingDeadlineUnit}.</span>}{!shippingDeadlineLoading && shippingDeadline && shippingDeadlineEstimated && <small data-no-translate="true">{english ? 'Estimated range after dispatch, not confirmed by Correios. Confirm delivery time before purchasing.' : 'Faixa indicativa após a postagem, não consultada nos Correios. Confirme o prazo antes de comprar.'}</small>}</div>
                 {shippingError && <p id="checkout-shipping-error" className="checkout-error" data-no-translate="true" role="alert">{t(shippingError)}</p>}{stepError && <p className="checkout-error" data-no-translate="true" role="alert">{t(stepError)}</p>}
-                <button type="button" className="checkout-next-step" onClick={goToBenefit}>Continuar para benefício</button>
+                <button type="button" className="checkout-next-step" onClick={goToPayment} data-no-translate="true">{t('Continuar para pagamento')}</button>
               </div> : deliveryComplete ? <p className="checkout-stage-summary">{form.street}, {form.number} · {form.neighborhood} · {form.city}/{form.state}</p> : <p className="checkout-stage-locked">Conclua seus dados para liberar esta etapa.</p>}
             </section>
 
-            <section className={`checkout-stage checkout-coupon-section${step === 3 ? ' is-active' : ''}`} aria-labelledby="checkout-coupon-title">
-              <div className="checkout-stage-head"><div><span>03</span><h2 tabIndex={-1} id="checkout-coupon-title">Seu benefício</h2></div>{step !== 3 && customerComplete && deliveryComplete && completedSteps.includes(2) && benefitConfirmed && <button type="button" onClick={() => editStep(3)}>Editar</button>}</div>
+            <section className={`checkout-stage${step === 3 ? ' is-active' : ''}`} aria-labelledby="checkout-payment-title">
+              <div className="checkout-stage-head"><div><span>03</span><h2 tabIndex={-1} id="checkout-payment-title">Pagamento</h2></div></div>
               {step === 3 ? <div className="checkout-stage-body">
-                <p className="checkout-benefit-copy">{benefitAvailable ? <>Se for sua primeira compra, aplique o cupom <strong>{FIRST_PURCHASE_COUPON}</strong>. A elegibilidade é validada pelo e-mail e telefone.</> : 'O benefício está temporariamente indisponível. Você pode continuar sem cupom.'}</p>
-                {benefitAvailable && <div className="checkout-coupon-row"><input disabled={couponChecking} className="checkout-input" aria-label="Cupom de desconto" value={coupon} onChange={(event) => { setCoupon(event.target.value.toUpperCase().replace(/\s/g, '').slice(0, 20)); setCouponMessage(null); setAppliedCoupon(''); setBenefitConfirmed(false); }} placeholder="Cupom" /><button type="button" disabled={couponChecking} onClick={applyCoupon}>{couponChecking ? 'Validando…' : 'Aplicar'}</button></div>}
-                {couponMessage && <p className={`checkout-coupon-message ${appliedCoupon ? 'success' : 'error'}`} data-no-translate="true" role="status">{t(couponMessage)}</p>}{error && <p className="checkout-error" data-no-translate="true" role="alert">{t(error)}</p>}
-                {appliedCoupon && <button type="button" className="checkout-next-step" onClick={() => { setBenefitConfirmed(true); markComplete(3); setStep(4); }}>Continuar com benefício</button>}
-                <button type="button" className="checkout-without-coupon" onClick={() => { couponRequest.current += 1; setCouponChecking(false); setCoupon(''); setAppliedCoupon(''); setCouponMessage(null); setBenefitConfirmed(true); markComplete(3); setStep(4); }}>Continuar sem cupom</button>
-              </div> : <p className="checkout-stage-locked">{benefitConfirmed ? (appliedCoupon ? `Cupom ${appliedCoupon} aplicado.` : 'Continuar sem cupom.') : 'Conclua a entrega para liberar esta etapa.'}</p>}
-            </section>
-
-            <section className={`checkout-stage${step === 4 ? ' is-active' : ''}`} aria-labelledby="checkout-payment-title">
-              <div className="checkout-stage-head"><div><span>04</span><h2 tabIndex={-1} id="checkout-payment-title">Pagamento</h2></div></div>
-              {step === 4 ? <div className="checkout-stage-body">
+                <div className="checkout-coupon-section" aria-labelledby="checkout-coupon-title" data-no-translate="true">
+                  <h3 id="checkout-coupon-title">{t('Cupom de desconto (opcional)')}</h3>
+                  <p className="checkout-benefit-copy">{benefitAvailable ? <>{t('Primeira compra? Aplique o cupom')} <strong>{FIRST_PURCHASE_COUPON}</strong>. {t('A elegibilidade é validada pelo e-mail e telefone.')}</> : t('O benefício está temporariamente indisponível. Você pode continuar sem cupom.')}</p>
+                  {benefitAvailable && <div className="checkout-coupon-row"><input disabled={couponChecking || loading} className="checkout-input" aria-label={t('Cupom de desconto')} value={coupon} onChange={(event) => { setCoupon(event.target.value.toUpperCase().replace(/\s/g, '').slice(0, 20)); setCouponMessage(null); setAppliedCoupon(''); }} onKeyDown={(event) => { if (event.key === 'Enter') { event.preventDefault(); void applyCoupon(); } }} placeholder={t('Cupom')} /><button type="button" disabled={couponChecking || loading} onClick={applyCoupon}>{couponChecking ? t('Validando…') : t('Aplicar')}</button></div>}
+                  {couponMessage && <p className={`checkout-coupon-message ${appliedCoupon ? 'success' : 'error'}`} role="status">{t(couponMessage)}</p>}
+                  {(coupon || appliedCoupon) && <button disabled={loading} type="button" className="checkout-without-coupon" onClick={() => { couponRequest.current += 1; setCouponChecking(false); setCoupon(''); setAppliedCoupon(''); setCouponMessage(null); }}>{t('Remover cupom')}</button>}
+                </div>
                 <p className="checkout-payment-copy">Revise seu pedido. Você será encaminhado ao ambiente seguro da InfinitePay para escolher a forma de pagamento e concluir a compra.</p>
                 <div className="checkout-payment-total"><span>Total</span><strong>{formatBRL(total)}</strong></div>
                 {error && <p className="checkout-error" data-no-translate="true" role="alert">{t(error)}</p>}
-                <button disabled={loading} type="submit" className="checkout-submit">{loading ? 'Preparando pagamento…' : 'Pagar com InfinitePay'}</button>
+                <button disabled={loading || couponChecking} type="submit" className="checkout-submit">{loading ? 'Preparando pagamento…' : 'Pagar com InfinitePay'}</button>
                 <p className="checkout-note">O pagamento será feito na próxima tela.</p>
-              </div> : <p className="checkout-stage-locked">Conclua a etapa de benefício para revisar e pagar.</p>}
+              </div> : <p className="checkout-stage-locked" data-no-translate="true">{t('Conclua a entrega para revisar e pagar.')}</p>}
             </section>
           </form>}
 

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import LocalizedText from '@/components/LocalizedText';
 import { INSTAGRAM_URL, INSTAGRAM_HANDLE, INTERNATIONAL_SHIPPING_PATH, whatsappLink } from '@/lib/config';
 
 const TIKTOK_URL = 'https://www.tiktok.com/@agotrancoso';
@@ -20,7 +21,7 @@ export default function Footer() {
           <div className="ago-footer-group"><h3>Fale com a gente</h3><nav aria-label="Contato e redes sociais"><a href={whatsappLink('Olá! Vim pelo site da Agô Trancoso.')} target="_blank" rel="noopener noreferrer">WhatsApp</a><a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">@{INSTAGRAM_HANDLE}</a><a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer">TikTok</a></nav></div>
           <div className="ago-footer-group ago-footer-visit-group"><h3>Visite</h3><p>Quadrado de Trancoso<br />Porto Seguro · Bahia</p><a href={MAPS_URL} target="_blank" rel="noopener noreferrer" data-google-ads-route="true" className="ago-footer-map-link">Abrir no Google Maps <span aria-hidden="true">↗</span></a><p>Enviamos para todo o Brasil. Frete grátis a partir de R$ 500 em produtos.</p><Link href={INTERNATIONAL_SHIPPING_PATH}>Envio internacional para mais de 200 países</Link></div>
         </div>
-        <div className="ago-footer-legal"><div><Link href="/termos">Termos de Uso</Link><Link href="/privacidade">Política de Privacidade</Link></div><span>© 2026 Agô Trancoso. Todos os direitos reservados.</span></div>
+        <div className="ago-footer-legal"><div><Link href="/ajuda"><LocalizedText pt="Entrega, trocas e atendimento" en="Delivery, returns and support" /></Link><Link href="/termos">Termos de Uso</Link><Link href="/privacidade">Política de Privacidade</Link></div><span>© 2026 Agô Trancoso. Todos os direitos reservados.</span></div>
       </div>
     </footer>
   );

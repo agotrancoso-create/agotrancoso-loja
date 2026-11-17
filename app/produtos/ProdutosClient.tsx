@@ -112,21 +112,27 @@ export default function ProdutosClient({ products, categories, initialFilters }:
 
   const attentionProducts = useMemo(() => sortProductsByAttention(products), [products]);
 
+  // Count the pieces available within the current search/category before
+  // applying a budget, so changing price ranges never shows stale totals.
+  const budgetProducts = useMemo(() => attentionProducts.filter((product) =>
+    product.available
+    && (category === 'todas' || product.category === category)
+    && (!normalize(query) || productSearchScore(product, query) > 0)
+  ), [attentionProducts, category, query]);
+  const budgetCounts = useMemo(() => new Map(budgetOptions.map(option => [
+    option.value,
+    budgetProducts.filter(product => matchesBudget(product, option.value)).length,
+  ])), [budgetProducts]);
+
   const filtered = useMemo(() => {
     const normalizedQuery = normalize(query);
-    const matches = attentionProducts.filter((product) => {
-      if (!product.available) return false;
-      if (!matchesBudget(product, budget)) return false;
-      if (normalizedQuery && !productSearchScore(product, query)) return false;
-      if (category !== 'todas' && product.category !== category) return false;
-      return true;
-    });
+    const matches = budgetProducts.filter(product => matchesBudget(product, budget));
 
     if (sort === 'price-asc') return [...matches].sort((a, b) => productPrice(a) - productPrice(b));
     if (sort === 'price-desc') return [...matches].sort((a, b) => productPrice(b) - productPrice(a));
     if (sort === 'name') return [...matches].sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
     return normalizedQuery ? [...matches].sort((a, b) => productSearchScore(b, query) - productSearchScore(a, query)) : matches;
-  }, [attentionProducts, query, category, sort, budget]);
+  }, [budgetProducts, query, sort, budget]);
 
   const selectedCategoryLabel = category === 'todas'
     ? 'Toda a coleção'
@@ -216,7 +222,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
     const nextBudget = readBudget(value);
     setBudget(nextBudget);
     updateUrl({ budget: nextBudget });
-    const matchingCount = products.filter(product => product.available && matchesBudget(product, nextBudget) && (category === 'todas' || product.category === category) && productSearchScore(product, query)).length;
+    const matchingCount = budgetProducts.filter(product => matchesBudget(product, nextBudget)).length;
     trackCatalogFilter('faixa_preco', budgetLabel(nextBudget), matchingCount);
   }
 
@@ -330,15 +336,15 @@ export default function ProdutosClient({ products, categories, initialFilters }:
       </div>
 
       <details className="catalog-budget-control catalog-budget-disclosure">
-        <summary id="catalog-budget-label">
-          <span>{t("Faixa de preço")}</span>
+        <summary>
+          <span id="catalog-budget-label">{t("Faixa de preço")}</span>
           <span>{t(budgetOptions.find(option => option.value === budget)?.label || "Todos os valores")}</span>
         </summary>
-        <div className="catalog-budget-options">
-          <button type="button" aria-pressed={!budget} onClick={() => selectBudget('')}>{t("Todos os valores")}</button>
+        <div className="catalog-budget-options" role="group" aria-labelledby="catalog-budget-label">
+          <button type="button" aria-pressed={!budget} onClick={() => selectBudget('')}>{t("Todos os valores")} ({budgetProducts.length})</button>
           {budgetOptions.map(option => (
             <button type="button" key={option.value} aria-pressed={budget === option.value} onClick={() => selectBudget(option.value)}>
-              {t(option.label)}
+              {t(option.label)} ({budgetCounts.get(option.value) ?? 0})
             </button>
           ))}
         </div>
@@ -354,6 +360,11 @@ export default function ProdutosClient({ products, categories, initialFilters }:
           <p className="eyebrow">{t("Nenhum resultado")}</p>
           <h2>{t("Essa busca não encontrou uma peça.")}</h2>
           <p>{t("Tente outro nome ou amplie a faixa de preço. Você também pode explorar toda a coleção.")}</p>
+          {budget && budgetProducts.length > 0 && (
+            <button type="button" className="button button-light" onClick={() => selectBudget('')}>
+              {english ? 'Remove price filter' : 'Remover filtro de preço'}
+            </button>
+          )}
           <button type="button" className="button button-dark" onClick={clearFilters}>{t("Ver toda a coleção")}</button>
         </div>
       ) : (
