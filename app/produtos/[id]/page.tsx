@@ -105,7 +105,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const images = orderedImages.length ? orderedImages : ['/images/placeholder.svg'];
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
-  const consultation = product.displayOnly && !product.available;
+  const consultation = product.displayOnly && !product.available && price <= 0;
+  const hasKnownPricePendingStock = product.displayOnly && !product.available && price > 0;
   const nationalShippingPrice = getShippingPrice(price);
   const isIgrejinhaProduct = IGREJINHA_PRODUCT_IDS.has(product.id);
   const isDecorativeMiniature = product.id === 'miniatura-quadrado-trancoso';
@@ -220,7 +221,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               </section>
 
               <div className="product-purchase">
-                {consultation ? <a href={whatsappLink(`Olá! Gostaria de saber o preço de ${product.name}.`)} target="_blank" rel="noopener noreferrer" className="product-primary-cta ago-bag-primary">Consultar pelo WhatsApp</a> : <AddToCart product={product} />}
+                {hasKnownPricePendingStock ? <a href={whatsappLink(`Olá! A Sagrada Família em Cerâmica está anunciada por ${formatBRL(price)}. Gostaria de confirmar a disponibilidade para comprar.`)} target="_blank" rel="noopener noreferrer" className="product-primary-cta ago-bag-primary">Consultar disponibilidade</a> : consultation ? <a href={whatsappLink(`Olá! Gostaria de saber o preço de ${product.name}.`)} target="_blank" rel="noopener noreferrer" className="product-primary-cta ago-bag-primary">Consultar pelo WhatsApp</a> : <AddToCart product={product} />}
                 <ProductShare name={product.name} url={productUrl} />
               </div>
             </div>

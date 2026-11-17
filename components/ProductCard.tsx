@@ -45,7 +45,7 @@ export default function ProductCard({ product, priority = false, listName = 'Col
   const image = getAttentionCoverImage(product);
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
   const price = getEffectivePrice(product);
-  const consultation = product.displayOnly && !product.available;
+  const consultation = product.displayOnly && !product.available && price <= 0;
   const startingPrice = product.variants?.length ? Math.min(...product.variants.map(v => v.price)) : null;
   const freeShipping = shouldOfferFreeShipping(startingPrice ?? price);
   const imageAlt = english ? `${name} — handmade ceramic by Agô Trancoso` : productImageAlt(product);
@@ -75,7 +75,7 @@ export default function ProductCard({ product, priority = false, listName = 'Col
         </div>
       </Link>
 
-      {product.variants?.length ? <Link href={`${english ? '/en' : ''}/produtos/${product.id}`} className="product-add ago-premium-add ago-bag-cta">Escolher tamanho</Link> : product.available && (
+      {product.variants?.length ? <Link href={`${english ? '/en' : ''}/produtos/${product.id}`} className="product-add ago-premium-add ago-bag-cta">Escolher tamanho</Link> : product.displayOnly && !product.available && price > 0 ? <Link href={`${english ? '/en' : ''}/produtos/${product.id}`} className="product-add ago-premium-add ago-bag-cta">Consultar disponibilidade</Link> : product.available && (
         <button
           type="button"
           onClick={() => {
