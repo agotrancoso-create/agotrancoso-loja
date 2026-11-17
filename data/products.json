@@ -400,16 +400,16 @@
         "/produtos/catalogo/sagrada-familia.jpg"
       ],
       "dimensions": "",
-      "available": true,
-      "displayOnly": false,
-      "stock": 160,
+      "available": false,
+      "displayOnly": true,
+      "stock": null,
       "imageAlt": "Peça em cerâmica representando José, Maria e o menino Jesus, vista frontal e traseira"
     },
     {
       "id": "cachimbo",
       "name": "Cachimbo Decorativo em Cerâmica",
       "description": "Peça decorativa em cerâmica no formato de cachimbo, com acabamento artesanal. Para compor uma coleção de objetos e lembranças.",
-      "price": 0,
+      "price": 160,
       "promotionalPrice": null,
       "currency": "BRL",
       "category": "decoracao",

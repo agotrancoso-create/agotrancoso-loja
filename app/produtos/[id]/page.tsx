@@ -221,7 +221,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               </section>
 
               <div className="product-purchase">
-                {hasKnownPricePendingStock ? <a href={whatsappLink(`Olá! A Sagrada Família em Cerâmica está anunciada por ${formatBRL(price)}. Gostaria de confirmar a disponibilidade para comprar.`)} target="_blank" rel="noopener noreferrer" className="product-primary-cta ago-bag-primary">Consultar disponibilidade</a> : consultation ? <a href={whatsappLink(`Olá! Gostaria de saber o preço de ${product.name}.`)} target="_blank" rel="noopener noreferrer" className="product-primary-cta ago-bag-primary">Consultar pelo WhatsApp</a> : <AddToCart product={product} />}
+                {hasKnownPricePendingStock ? <a href={whatsappLink(`Olá! Gostaria de comprar ${product.name}, anunciado por ${formatBRL(price)}. Pode confirmar a disponibilidade?`)} target="_blank" rel="noopener noreferrer" className="product-primary-cta ago-bag-primary">Consultar disponibilidade</a> : consultation ? <a href={whatsappLink(`Olá! Gostaria de saber o preço de ${product.name}.`)} target="_blank" rel="noopener noreferrer" className="product-primary-cta ago-bag-primary">Consultar pelo WhatsApp</a> : <AddToCart product={product} />}
                 <ProductShare name={product.name} url={productUrl} />
               </div>
             </div>
