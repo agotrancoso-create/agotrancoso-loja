@@ -13,6 +13,7 @@ import ProductViewTracker from '@/components/ProductViewTracker';
 import ProductCard from '@/components/ProductCard';
 import RecentlyViewed from '@/components/RecentlyViewed';
 import WhaleProductExperience from './WhaleProductExperience';
+import FamilyProductExperience from './FamilyProductExperience';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -128,7 +129,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const additionalProperty = [
     ...(product.dimensions ? [{ '@type': 'PropertyValue', name: 'Medidas', value: product.dimensions }] : []),
     ...(isDecorativeMiniature ? [{ '@type': 'PropertyValue', name: 'Uso', value: 'Pode ser pendurada na parede ou apoiada sobre móveis e superfícies' }] : []),
-    ...(isHangingSagradaFamilia ? [{ '@type': 'PropertyValue', name: 'Uso', value: 'Alça na parte posterior para pendurar na parede; a peça também pode ser apoiada' }] : []),
+    ...(isHangingSagradaFamilia ? [{ '@type': 'PropertyValue', name: 'Uso', value: 'Versão colorida: alça na parte posterior para pendurar na parede; também pode ser apoiada' }] : []),
   ];
 
   const structuredData = {
@@ -198,7 +199,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           <span aria-current="page">{product.name}</span>
         </nav>
 
-        {product.id === 'rabo-de-baleia' ? <WhaleProductExperience product={product} images={images} productUrl={productUrl} /> : (
+        {product.id === 'rabo-de-baleia' ? <WhaleProductExperience product={product} images={images} productUrl={productUrl} /> : product.id === 'sagrada-familia' ? <FamilyProductExperience product={product} images={images} productUrl={productUrl} /> : (
         <div className="product-page-grid">
           <div className="product-gallery-column"><ProductGallery productId={product.id} name={product.name} images={images} /></div>
 

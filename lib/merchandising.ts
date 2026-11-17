@@ -14,6 +14,7 @@ export const ATTENTION_PRODUCT_ORDER = [
   'ima-igrejinha-trancoso',
   'estatueta-iemanja',
   'esfera-decorativa',
+  'cachimbo',
   'casal-pretos-velhos',
   'colar-igreja-quadrado',
   'cruzeiro-do-quadrado',
@@ -25,7 +26,6 @@ export const ATTENTION_PRODUCT_ORDER = [
   'terco-em-ceramica',
   'rosario-trancoso',
   'igreja-quadrado-gg',
-  'cachimbo',
 ] as const;
 
 const attentionRank = new Map<string, number>(ATTENTION_PRODUCT_ORDER.map((id, index) => [id, index]));
@@ -47,8 +47,13 @@ export function sortProductsByAttention<T extends Product>(products: T[]): T[] {
  * a luminária menor agora utiliza a nova foto frontal enviada pela proprietária.
  */
 const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
+  'cachimbo': [
+    '/produtos/catalogo/cachimbo-perspectiva.jpg',
+    '/produtos/catalogo/cachimbo-perfil.jpg',
+  ],
   'sagrada-familia': [
     '/produtos/catalogo/sagrada-familia-capa.jpg',
+    '/produtos/catalogo/sagrada-familia-dourada.jpg',
   ],
   'rabo-de-baleia': [
     '/produtos/catalogo/rabo-de-baleia-g.jpg',

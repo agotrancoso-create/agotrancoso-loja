@@ -7,7 +7,7 @@ import PhotoLightbox from './PhotoLightbox';
 import { useRef, useState } from 'react';
 import { trackGalleryInteraction } from '@/lib/marketing-analytics';
 
-type ProductGalleryProps = { productId: string; name: string; images: string[]; imageLabels?: string[]; selectedIndex?: number; onImageChange?: (index: number) => void; };
+type ProductGalleryProps = { productId: string; name: string; images: string[]; imageLabels?: string[]; imageBadges?: string[]; selectedIndex?: number; onImageChange?: (index: number) => void; };
 
 function Chevron({ direction }: { direction: 'left' | 'right' }) {
   return (
@@ -26,7 +26,7 @@ function ZoomIcon() {
   );
 }
 
-export default function ProductGallery({ productId, name, images, imageLabels, selectedIndex, onImageChange }: ProductGalleryProps) {
+export default function ProductGallery({ productId, name, images, imageLabels, imageBadges, selectedIndex, onImageChange }: ProductGalleryProps) {
   const english = useSiteEnglish();
   const displayName = english ? (cartEnglish[name] || name) : name;
   const t = (pt: string, en: string) => english ? en : pt;
@@ -134,7 +134,7 @@ export default function ProductGallery({ productId, name, images, imageLabels, s
               className={`product-gallery-thumb${active === index ? ' is-active' : ''}`}
             >
               <Image src={src} alt="" fill quality={100} sizes="88px" aria-hidden="true" />
-              {imageLabels?.[index] && <span className="ago-photo-variant-thumb">{imageLabels[index].includes(' M ') ? 'M' : 'G'}</span>}
+              {imageLabels?.[index] && <span className="ago-photo-variant-thumb">{imageBadges?.[index] || (imageLabels[index].includes(' M ') ? 'M' : 'G')}</span>}
             </button>
           ))}
         </div>

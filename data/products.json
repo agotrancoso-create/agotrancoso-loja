@@ -390,37 +390,55 @@
     {
       "id": "sagrada-familia",
       "name": "Sagrada Família em Cerâmica",
-      "description": "Sagrada Família em cerâmica, com José, Maria e o Menino Jesus. A peça tem uma alça na parte de trás para pendurar na parede e também pode ser apoiada em prateleiras ou nichos.",
+      "description": "Sagrada Família em cerâmica, com José, Maria e o Menino Jesus. Disponível nos acabamentos colorido e dourado. A versão colorida possui uma alça na parte de trás para pendurar na parede e também pode ser apoiada em prateleiras ou nichos.",
       "price": 100,
       "promotionalPrice": null,
       "currency": "BRL",
       "category": "fe-devocao",
       "images": [
-        "/produtos/catalogo/sagrada-familia-capa.jpg"
+        "/produtos/catalogo/sagrada-familia-capa.jpg",
+        "/produtos/catalogo/sagrada-familia-dourada.jpg"
       ],
       "dimensions": "",
       "available": false,
       "displayOnly": true,
       "stock": null,
-      "imageAlt": "Sagrada Família em cerâmica com José, Maria e o Menino Jesus; verso com alça para pendurar na parede."
+      "imageAlt": "Sagrada Família em cerâmica: acabamento colorido e opção de acabamento dourado",
+      "finishes": [
+        {
+          "id": "colorida",
+          "name": "Colorida",
+          "price": 100,
+          "stock": null,
+          "image": "/produtos/catalogo/sagrada-familia-capa.jpg"
+        },
+        {
+          "id": "dourada",
+          "name": "Dourada",
+          "price": null,
+          "stock": null,
+          "image": "/produtos/catalogo/sagrada-familia-dourada.jpg"
+        }
+      ]
     },
     {
       "id": "cachimbo",
       "name": "Cachimbo Decorativo em Cerâmica",
-      "description": "Cachimbo decorativo em cerâmica, de formato compacto e 10 cm de comprimento. Para compor uma coleção de objetos ou pequenos arranjos de decoração.",
+      "description": "Cachimbo em cerâmica de tom terracota, com flores claras pintadas na superfície e acabamento branco na ponta. Mede 10 cm de comprimento. Disponível na Agô Trancoso.",
       "price": 160,
       "promotionalPrice": null,
       "currency": "BRL",
       "category": "decoracao",
       "images": [
-        "/images/placeholder.svg"
+        "/produtos/catalogo/cachimbo-perspectiva.jpg",
+        "/produtos/catalogo/cachimbo-perfil.jpg"
       ],
       "dimensions": "Comprimento: 10 cm · Largura: 4 cm · Altura: 3,5 cm",
-      "available": false,
-      "displayOnly": true,
+      "available": true,
+      "displayOnly": false,
       "stock": 3,
       "weight": 36,
-      "imageAlt": "Foto do cachimbo ainda não enviada"
+      "imageAlt": "Cachimbo de cerâmica terracota com flores brancas, fotografado em perspectiva"
     }
   ]
 }

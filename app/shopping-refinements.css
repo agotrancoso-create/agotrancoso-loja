@@ -123,3 +123,15 @@
 .ago-whale-contact { margin-top:14px; font-size:.82rem; }
 .ago-whale-contact a { text-decoration:underline; text-underline-offset:4px; }
 @media(max-width:420px){ .ago-whale-variant-grid{gap:6px}.ago-whale-variant{padding:10px 6px}.ago-whale-variant.is-selected{padding:9px 5px}.ago-whale-variant-price{font-size:.76rem} }
+
+/* Variações de acabamento: Sagrada Família em uma única página. */
+.ago-family-finishes { border:0; margin:24px 0 0; padding:0; min-width:0; }
+.ago-family-finishes legend { font-size:.9rem; font-weight:750; margin-bottom:12px; }
+.ago-family-finish-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.ago-family-finish { display:flex; flex-direction:column; gap:10px; text-align:left; padding:14px; min-height:78px; cursor:pointer; color:inherit; border:1px solid rgba(255,255,255,.28); background:rgba(255,255,255,.07); border-radius:12px; }
+.ago-family-finish strong {font-size:1rem}
+.ago-family-finish span {font-size:.83rem}
+.ago-family-finish.is-selected { background:rgba(255,255,255,.15); border:2px solid #fff4dc; padding:13px; }
+.ago-family-finish:hover { border-color:rgba(255,255,255,.75); }
+.ago-family-finish:focus-visible { outline:3px solid #fff4dc; outline-offset:3px; }
+@media(max-width:420px){ .ago-family-finish {padding:11px 9px}.ago-family-finish.is-selected{padding:10px 8px} }

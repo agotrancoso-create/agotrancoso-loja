@@ -47,8 +47,9 @@ export default function ProductCard({ product, priority = false, listName = 'Col
   const price = getEffectivePrice(product);
   const consultation = product.displayOnly && !product.available && price <= 0;
   const startingPrice = product.variants?.length ? Math.min(...product.variants.map(v => v.price)) : null;
+  const hasFinishes = Boolean(product.finishes?.length);
   const freeShipping = shouldOfferFreeShipping(startingPrice ?? price);
-  const imageAlt = english ? `${name} — handmade ceramic by Agô Trancoso` : productImageAlt(product);
+  const imageAlt = english ? `${name} — ceramic piece available at Agô Trancoso` : productImageAlt(product);
   const marketingItem = { item_id: product.id, item_name: product.name, price, quantity: 1, item_category: product.category };
 
   return (
@@ -66,7 +67,7 @@ export default function ProductCard({ product, priority = false, listName = 'Col
 
         <div className="product-card-copy">
           <h2 className="product-name">{name}</h2>
-          {startingPrice != null ? <p className="current-price">A partir de {formatBRL(startingPrice)}</p> : consultation ? <p className="current-price">Preço sob consulta</p> : hasPromo ? (
+          {hasFinishes ? <p className="current-price">Colorida: {formatBRL(price)}</p> : startingPrice != null ? <p className="current-price">A partir de {formatBRL(startingPrice)}</p> : consultation ? <p className="current-price">Preço sob consulta</p> : hasPromo ? (
             <div className="price-row"><span className="old-price">{formatBRL(product.price)}</span><span className="current-price">{formatBRL(price)}</span></div>
           ) : <p className="current-price">{formatBRL(price)}</p>}
           <p className="mt-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-[#765e52]">
@@ -75,7 +76,7 @@ export default function ProductCard({ product, priority = false, listName = 'Col
         </div>
       </Link>
 
-      {product.variants?.length ? <Link href={`${english ? '/en' : ''}/produtos/${product.id}`} className="product-add ago-premium-add ago-bag-cta">Escolher tamanho</Link> : product.displayOnly && !product.available && price > 0 ? <Link href={`${english ? '/en' : ''}/produtos/${product.id}`} className="product-add ago-premium-add ago-bag-cta">Consultar disponibilidade</Link> : product.available && (
+      {hasFinishes ? <Link href={`${english ? '/en' : ''}/produtos/${product.id}`} className="product-add ago-premium-add ago-bag-cta">{english ? 'Choose finish' : 'Escolher acabamento'}</Link> : product.variants?.length ? <Link href={`${english ? '/en' : ''}/produtos/${product.id}`} className="product-add ago-premium-add ago-bag-cta">Escolher tamanho</Link> : product.displayOnly && !product.available && price > 0 ? <Link href={`${english ? '/en' : ''}/produtos/${product.id}`} className="product-add ago-premium-add ago-bag-cta">Consultar disponibilidade</Link> : product.available && (
         <button
           type="button"
           onClick={() => {
