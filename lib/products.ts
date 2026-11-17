@@ -48,13 +48,13 @@ const PRODUCT_NAME_CORRECTIONS: Record<string, string> = {
 
 const PRODUCT_IMAGE_ALT_CORRECTIONS: Record<string, string> = {
   'miniatura-quadrado-trancoso': 'Miniatura do Quadrado de Trancoso em cerâmica para pendurar ou apoiar na decoração',
-  'casal-pretos-velhos': 'Casal de Pretos-Velhos em cerâmica artesanal da Agô Trancoso, Bahia',
+  'casal-pretos-velhos': 'Casal de Pretos-Velhos em cerâmica disponível na Agô Trancoso',
 };
 
 const PRODUCT_DIMENSIONS_CORRECTIONS: Record<string, string> = {
   'miniatura-quadrado-trancoso': 'Comprimento: 19 cm · Altura com a cruz da igrejinha do meio: 6,5 cm',
-  'igreja-quadrado-p': 'Altura: 3,5 cm · Largura: 4 cm',
-  'igreja-quadrado-m': 'Altura: 4,5 cm · Largura: 5 cm',
+  'igreja-quadrado-p': 'Comprimento: 3,5 cm · Largura: 4 cm · Altura: 5 cm',
+  'igreja-quadrado-m': 'Comprimento: 5,5 cm · Largura: 6 cm · Altura: 6 cm',
   'igrejinha-luminaria-trancoso': 'Altura: 6,5 cm · Largura: 7,5 cm',
   'igreja-quadrado-gg': 'Altura: 16 cm · Largura: 23 cm',
 };

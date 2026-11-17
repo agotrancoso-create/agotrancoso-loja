@@ -26,7 +26,7 @@
     {
       "id": "igreja-quadrado-p",
       "name": "Igreja do Quadrado (P)",
-      "description": "A Igreja de São João Batista em miniatura, feita em cerâmica e pintada à mão. Uma lembrança do Quadrado para decorar ou presentear.",
+      "description": "Miniatura em cerâmica da Igreja de São João Batista, no Quadrado de Trancoso. Uma lembrança da fachada da igrejinha para colocar na decoração ou presentear.",
       "price": 250,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -43,7 +43,7 @@
     {
       "id": "igreja-quadrado-m",
       "name": "Igreja do Quadrado (M)",
-      "description": "Miniatura em cerâmica da Igreja de São João Batista, no Quadrado de Trancoso. A versão M traz as formas da igreja para sua decoração.",
+      "description": "A Igreja de São João Batista, símbolo do Quadrado de Trancoso, em uma miniatura de cerâmica no tamanho M. Para trazer um pouco da paisagem do Quadrado à decoração.",
       "price": 460,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -59,7 +59,7 @@
     {
       "id": "igreja-quadrado-gg",
       "name": "Igreja do Quadrado (GG)",
-      "description": "Escultura em cerâmica modelada à mão, inspirada na Igreja de São João Batista. A versão GG também funciona como luminária.",
+      "description": "Escultura em cerâmica que representa a Igreja de São João Batista, no Quadrado de Trancoso. Na versão GG, a peça também funciona como luminária, reunindo decoração e iluminação.",
       "price": 8500,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -75,7 +75,7 @@
     {
       "id": "igrejinha-luminaria-trancoso",
       "name": "Igrejinha Luminária de Trancoso",
-      "description": "A Igrejinha do Quadrado em cerâmica, modelada à mão para iluminar a decoração. Pode receber vela LED ou vela pequena em seu interior.",
+      "description": "Luminária em cerâmica inspirada na Igreja de São João Batista, no Quadrado de Trancoso. Pode receber uma vela LED ou uma vela pequena em seu interior, iluminando os recortes da fachada.",
       "price": 680,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -91,7 +91,7 @@
     {
       "id": "casinha-luminaria",
       "name": "Casinha Luminária",
-      "description": "Casinha de cerâmica inspirada em Trancoso. Com vela rechaud ou LED, a luz passa pelas portas e janelas.",
+      "description": "Casinha em cerâmica inspirada no casario de Trancoso. Ao colocar uma vela LED ou rechaud no interior, a luz aparece pelas portas e janelas, destacando a arquitetura da peça.",
       "price": 450,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -110,7 +110,7 @@
     {
       "id": "miniatura-quadrado-trancoso",
       "name": "Miniatura do Quadrado de Trancoso para Pendurar",
-      "description": "O Quadrado em miniatura, com casinhas coloridas e igrejinha em cerâmica. Para pendurar na parede ou apoiar em uma prateleira.",
+      "description": "O Quadrado de Trancoso em miniatura: casinhas coloridas e a igrejinha reunidas em uma peça de cerâmica. Pode ser pendurada na parede ou apoiada sobre uma prateleira.",
       "price": 480,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -128,7 +128,7 @@
     {
       "id": "cruzeiro-do-quadrado",
       "name": "Cruzeiro do Quadrado",
-      "description": "Miniatura em cerâmica do cruzeiro do Centro Histórico de Trancoso. Uma referência à história e à fé presentes no Quadrado.",
+      "description": "Miniatura em cerâmica do cruzeiro do Quadrado de Trancoso. Uma referência ao conjunto histórico da vila, para compor a decoração com uma lembrança do lugar.",
       "price": 430,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -144,7 +144,7 @@
     {
       "id": "mobile-trancoso",
       "name": "Móbile Trancoso em Cerâmica",
-      "description": "Casinhas de cerâmica feitas à mão e suspensas em fio. Um móbile inspirado em Trancoso, com movimento suave ao toque da brisa.",
+      "description": "Móbile com pequenas casinhas de cerâmica suspensas por fios, inspirado no casario de Trancoso. Uma peça para pendurar, com movimento suave quando recebe a brisa.",
       "price": 1400,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -160,7 +160,7 @@
     {
       "id": "estatueta-iemanja",
       "name": "Estatueta Iemanjá em Cerâmica",
-      "description": "Escultura artesanal de Iemanjá em cerâmica. Para compor um altar ou um espaço de fé e devoção.",
+      "description": "Representação de Iemanjá em cerâmica. Uma imagem para compor um altar, uma prateleira ou outro espaço dedicado à fé e à devoção.",
       "price": 480,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -179,7 +179,7 @@
     {
       "id": "nossa-senhora-grande",
       "name": "Nossa Senhora Grande",
-      "description": "Imagem de Nossa Senhora em cerâmica, com detalhes nas vestes. Para capelas domésticas e espaços de devoção.",
+      "description": "Imagem de Nossa Senhora em cerâmica, com detalhes nas vestes. A versão grande pode compor um altar doméstico ou um ambiente dedicado à devoção.",
       "price": 3000,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -196,7 +196,7 @@
     {
       "id": "presepio-em-ceramica",
       "name": "Presépio em Cerâmica",
-      "description": "Cinco peças em cerâmica: Jesus, Maria, José, anjo e Estrela de Belém. Modeladas e pintadas à mão para compor a decoração de Natal.",
+      "description": "Presépio com cinco peças em cerâmica: Menino Jesus, Maria, José, anjo e Estrela de Belém. Para montar a cena do Natal sobre uma mesa, prateleira ou aparador.",
       "price": 950,
       "promotionalPrice": 600,
       "currency": "BRL",
@@ -212,7 +212,7 @@
     {
       "id": "casal-pretos-velhos",
       "name": "Casal de Pretos-Velhos em Cerâmica",
-      "description": "Casal de Pretos-Velhos em cerâmica, com vestimentas, banco e cachimbo modelados à mão. Uma representação ligada à sabedoria e à proteção.",
+      "description": "Representação de um casal de Pretos-Velhos em cerâmica, com vestimentas e elementos como banco e cachimbo. Uma peça ligada à tradição de fé, respeito e ancestralidade.",
       "price": 280,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -230,7 +230,7 @@
     {
       "id": "nossa-senhora-aparecida",
       "name": "Nossa Senhora Aparecida",
-      "description": "Miniatura em cerâmica de Nossa Senhora Aparecida, feita e pintada à mão. O manto azul recebe detalhes dourados.",
+      "description": "Imagem de Nossa Senhora Aparecida em cerâmica, com manto azul e detalhes dourados. Para um espaço de oração ou para presentear alguém de devoção à santa.",
       "price": 280,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -246,7 +246,7 @@
     {
       "id": "divino-espirito-santo",
       "name": "Divino Espírito Santo para Pendurar",
-      "description": "Placa circular de cerâmica com a pomba do Divino Espírito Santo em relevo. Para pendurar em paredes internas.",
+      "description": "Peça circular em cerâmica com a pomba do Divino Espírito Santo em relevo. Feita para pendurar em paredes internas, sozinha ou ao lado de outros objetos de devoção.",
       "price": 270,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -263,7 +263,7 @@
     {
       "id": "terco-em-ceramica",
       "name": "Terço em Cerâmica",
-      "description": "Terço artesanal com contas de cerâmica branca e cruz na ponta. Para devoção ou decoração de um espaço de fé.",
+      "description": "Terço com contas brancas de cerâmica e cruz na extremidade. Para acompanhar momentos de oração ou compor um espaço de fé.",
       "price": 290,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -279,7 +279,7 @@
     {
       "id": "rosario-trancoso",
       "name": "Rosário Trancoso em Cerâmica",
-      "description": "Rosário feito à mão com contas de cerâmica e medalhão da Igreja do Quadrado. Para compor um altar ou presentear.",
+      "description": "Rosário de contas de cerâmica com medalhão que representa a Igreja do Quadrado. Uma peça que aproxima a tradição devocional de uma lembrança de Trancoso.",
       "price": 1500,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -295,7 +295,7 @@
     {
       "id": "esfera-decorativa",
       "name": "Esfera Decorativa",
-      "description": "Esfera de cerâmica para compor a decoração sobre mesas ou suportes. Uma forma simples para combinar com outros objetos.",
+      "description": "Esfera de cerâmica com desenhos florais claros sobre superfície em tom terroso. Para compor mesas, aparadores e estantes, sozinha ou junto a outras peças de decoração.",
       "price": 120,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -312,7 +312,7 @@
     {
       "id": "colar-igreja-quadrado",
       "name": "Colar da Igreja do Quadrado",
-      "description": "Colar em cerâmica modelado à mão, inspirado na Igreja do Quadrado. Uma lembrança de Trancoso para usar.",
+      "description": "Colar com pingente em cerâmica inspirado na Igreja de São João Batista, no Quadrado de Trancoso. Uma lembrança do lugar para levar no dia a dia.",
       "price": 130,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -329,7 +329,7 @@
     {
       "id": "ima-igrejinha-trancoso",
       "name": "Ímã da Igrejinha de Trancoso",
-      "description": "Ímã de cerâmica da Igreja de São João Batista, pintado à mão. Uma pequena lembrança de Trancoso para presentear ou colecionar.",
+      "description": "Ímã em cerâmica com a fachada da Igreja de São João Batista, no Quadrado de Trancoso. Uma pequena lembrança para usar em superfícies metálicas ou presentear.",
       "price": 50,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -346,7 +346,7 @@
     {
       "id": "rabo-de-baleia",
       "name": "Rabo de Baleia em Cerâmica",
-      "description": "Escultura decorativa em cerâmica com a forma de um rabo de baleia. Uma peça para compor estantes, aparadores e outros espaços da casa. Disponível nos tamanhos P, M e G.",
+      "description": "Escultura decorativa em cerâmica com a forma de uma cauda de baleia. Disponível em três tamanhos, de 10 a 16 cm de altura, para compor estantes, aparadores e outros espaços da casa.",
       "price": 250,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -390,7 +390,7 @@
     {
       "id": "sagrada-familia",
       "name": "Sagrada Família em Cerâmica",
-      "description": "José, Maria e o Menino Jesus reunidos em uma peça de cerâmica. Com um ganchinho na parte de trás, a Sagrada Família pode ser pendurada na parede ou apoiada em uma prateleira ou nicho. Para compor um espaço de devoção ou presentear.",
+      "description": "Sagrada Família em cerâmica, com José, Maria e o Menino Jesus. A peça tem uma alça na parte de trás para pendurar na parede e também pode ser apoiada em prateleiras ou nichos.",
       "price": 100,
       "promotionalPrice": null,
       "currency": "BRL",
@@ -402,12 +402,12 @@
       "available": false,
       "displayOnly": true,
       "stock": null,
-      "imageAlt": "Sagrada Família em cerâmica: frente com José, Maria e o Menino Jesus e verso com ganchinho para pendurar"
+      "imageAlt": "Sagrada Família em cerâmica com José, Maria e o Menino Jesus; verso com alça para pendurar na parede."
     },
     {
       "id": "cachimbo",
       "name": "Cachimbo Decorativo em Cerâmica",
-      "description": "Peça decorativa em cerâmica no formato de cachimbo, com acabamento artesanal. Para compor uma coleção de objetos e lembranças.",
+      "description": "Cachimbo decorativo em cerâmica, de formato compacto e 10 cm de comprimento. Para compor uma coleção de objetos ou pequenos arranjos de decoração.",
       "price": 160,
       "promotionalPrice": null,
       "currency": "BRL",

@@ -128,7 +128,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const additionalProperty = [
     ...(product.dimensions ? [{ '@type': 'PropertyValue', name: 'Medidas', value: product.dimensions }] : []),
     ...(isDecorativeMiniature ? [{ '@type': 'PropertyValue', name: 'Uso', value: 'Pode ser pendurada na parede ou apoiada sobre móveis e superfícies' }] : []),
-    ...(isHangingSagradaFamilia ? [{ '@type': 'PropertyValue', name: 'Uso', value: 'Ganchinho na parte de trás para pendurar; pode também ser apoiada' }] : []),
+    ...(isHangingSagradaFamilia ? [{ '@type': 'PropertyValue', name: 'Uso', value: 'Alça na parte posterior para pendurar na parede; a peça também pode ser apoiada' }] : []),
   ];
 
   const structuredData = {
@@ -217,9 +217,9 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               <section className="product-decision-details" aria-labelledby="product-details-title">
                 <h2 id="product-details-title" className="product-detail-facts-title">Detalhes da peça</h2>
                 <dl className="product-premium-facts" aria-label="Informações da peça">
-                  <div><dt>Medidas</dt><dd>{product.dimensions || <a href={whatsappLink(`Olá! Gostaria de confirmar as medidas de ${product.name}.`)} target="_blank" rel="noopener noreferrer" className="text-link">Consultar medidas</a>}</dd></div>
+                  <div><dt>Medidas da peça</dt><dd>{product.dimensions || 'Medidas em atualização'}</dd></div>
                   {isDecorativeMiniature && <div><dt>Uso</dt><dd>Para pendurar ou apoiar na decoração</dd></div>}
-                  {isHangingSagradaFamilia && <div><dt>Como usar</dt><dd>Possui ganchinho atrás para pendurar na parede. Também pode ser apoiada.</dd></div>}
+                  {isHangingSagradaFamilia && <div><dt>Como usar</dt><dd>Possui alça na parte de trás para pendurar na parede. Também pode ser apoiada.</dd></div>}
                 </dl>
               </section>
 

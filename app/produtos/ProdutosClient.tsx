@@ -115,7 +115,7 @@ export default function ProdutosClient({ products, categories, initialFilters }:
   // Count the pieces available within the current search/category before
   // applying a budget, so changing price ranges never shows stale totals.
   const budgetProducts = useMemo(() => attentionProducts.filter((product) =>
-    (product.available || product.displayOnly)
+    (product.available || (product.displayOnly && product.images.some(image => image.startsWith('/produtos/'))))
     && (category === 'todas' || product.category === category)
     && (!normalize(query) || productSearchScore(product, query) > 0)
   ), [attentionProducts, category, query]);

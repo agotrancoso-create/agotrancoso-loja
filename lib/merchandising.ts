@@ -1,30 +1,30 @@
 import { Product } from './types';
 
-// Ordem editorial/comercial: primeiro entram as peças que identificam Trancoso
-// de imediato, depois alternamos luz, cor, figura humana e faixas de preço.
-// O objetivo é criar ritmo visual e facilitar decisão — sem ordenar só por preço.
+// Curadoria editorial da coleção: reconhecimento de Trancoso, contraste de silhuetas
+// e cores, alternância entre decoração e devoção, preços acessíveis entre peças maiores.
+// A ordem é uma hipótese de experiência de compra, não uma alegação de dados de conversão.
 export const ATTENTION_PRODUCT_ORDER = [
   'miniatura-quadrado-trancoso',
   'igreja-quadrado-m',
   'rabo-de-baleia',
-  'igrejinha-luminaria-trancoso',
   'sagrada-familia',
+  'igrejinha-luminaria-trancoso',
   'casinha-luminaria',
   'igreja-quadrado-p',
-  'estatueta-iemanja',
-  'casal-pretos-velhos',
-  'mobile-trancoso',
   'ima-igrejinha-trancoso',
+  'estatueta-iemanja',
+  'esfera-decorativa',
+  'casal-pretos-velhos',
   'colar-igreja-quadrado',
   'cruzeiro-do-quadrado',
   'presepio-em-ceramica',
-  'nossa-senhora-grande',
-  'igreja-quadrado-gg',
-  'nossa-senhora-aparecida',
   'divino-espirito-santo',
-  'rosario-trancoso',
+  'mobile-trancoso',
+  'nossa-senhora-aparecida',
+  'nossa-senhora-grande',
   'terco-em-ceramica',
-  'esfera-decorativa',
+  'rosario-trancoso',
+  'igreja-quadrado-gg',
   'cachimbo',
 ] as const;
 
