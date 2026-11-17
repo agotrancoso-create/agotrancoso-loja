@@ -352,7 +352,8 @@
       "currency": "BRL",
       "category": "decoracao",
       "images": [
-        "/produtos/catalogo/rabo-de-baleia-g.jpg"
+        "/produtos/catalogo/rabo-de-baleia-g.jpg",
+        "/produtos/catalogo/rabo-de-baleia-m.jpg"
       ],
       "dimensions": "P: 5,5 × 5 × 10 cm · M: 7 × 6,5 × 12 cm · G: 8 × 8 × 16 cm",
       "available": false,
