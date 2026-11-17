@@ -86,18 +86,38 @@ export function getProductById(id: string): Product | undefined {
   // IDs canônicos derivados garantem preço e tamanho consistentes também na API de pagamento.
   const base = products.find((product) => product.id === 'rabo-de-baleia');
   const variation = base?.variants?.find((v) => id === `${base.id}-${v.name.toLowerCase()}`);
-  if (!base || !variation) return undefined;
+  if (base && variation) {
+    return {
+      ...base, id,
+      name: `Rabo de Baleia ${variation.name} (${variation.heightCm} cm)`,
+      price: variation.price, promotionalPrice: null,
+      dimensions: variation.dimensions,
+      images: [variation.image || '/images/placeholder.svg'],
+      imageAlt: variation.image ? `Rabo de Baleia tamanho ${variation.name}` : 'Foto do tamanho P ainda não disponível',
+      available: variation.stock != null && variation.stock > 0,
+      displayOnly: false,
+      variants: undefined,
+      stock: variation.stock,
+    };
+  }
+
+  // Cada acabamento da Sagrada Família é um item próprio no carrinho/checkout.
+  // O preço e o estoque são sempre extraídos do catálogo confiável no servidor.
+  const family = products.find(product => product.id === 'sagrada-familia');
+  const finish = family?.finishes?.find(option => id === `${family.id}-${option.id}`);
+  if (!family || !finish || finish.price == null || finish.stock == null) return undefined;
   return {
-    ...base, id,
-    name: `Rabo de Baleia ${variation.name} (${variation.heightCm} cm)`,
-    price: variation.price, promotionalPrice: null,
-    dimensions: variation.dimensions,
-    images: [variation.image || '/images/placeholder.svg'],
-    imageAlt: variation.image ? `Rabo de Baleia tamanho ${variation.name}` : 'Foto do tamanho P ainda não disponível',
-    available: variation.stock != null && variation.stock > 0,
+    ...family,
+    id,
+    name: `Sagrada Família em Cerâmica — ${finish.name}`,
+    price: finish.price,
+    promotionalPrice: null,
+    stock: finish.stock,
+    available: finish.stock > 0,
     displayOnly: false,
-    variants: undefined,
-    stock: variation.stock,
+    finishes: undefined,
+    images: [finish.image],
+    imageAlt: `Sagrada Família em cerâmica, acabamento ${finish.name.toLowerCase()}`,
   };
 }
 

@@ -67,7 +67,7 @@ export default function ProductCard({ product, priority = false, listName = 'Col
 
         <div className="product-card-copy">
           <h2 className="product-name">{name}</h2>
-          {hasFinishes ? <p className="current-price">Colorida: {formatBRL(price)}</p> : startingPrice != null ? <p className="current-price">A partir de {formatBRL(startingPrice)}</p> : consultation ? <p className="current-price">Preço sob consulta</p> : hasPromo ? (
+          {hasFinishes ? <p className="current-price">{formatBRL(price)} · 2 acabamentos</p> : startingPrice != null ? <p className="current-price">A partir de {formatBRL(startingPrice)}</p> : consultation ? <p className="current-price">Preço sob consulta</p> : hasPromo ? (
             <div className="price-row"><span className="old-price">{formatBRL(product.price)}</span><span className="current-price">{formatBRL(price)}</span></div>
           ) : <p className="current-price">{formatBRL(price)}</p>}
           <p className="mt-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-[#765e52]">

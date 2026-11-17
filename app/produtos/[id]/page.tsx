@@ -150,13 +150,13 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         mainEntityOfPage: productUrl,
         seller: { '@id': `${SITE_DOMAIN}#organization` },
         ...(additionalProperty.length ? { additionalProperty } : {}),
-        offers: product.variants?.length ? {
+        offers: product.variants?.length || product.finishes?.length ? {
           '@type': 'AggregateOffer',
           priceCurrency: 'BRL',
-          lowPrice: Math.min(...product.variants.map(v => v.price)).toFixed(2),
-          highPrice: Math.max(...product.variants.map(v => v.price)).toFixed(2),
-          offerCount: product.variants.length,
-          availability: 'https://schema.org/InStock',
+          lowPrice: Math.min(...(product.variants?.map(v => v.price) ?? product.finishes?.map(v => v.price).filter((v): v is number => v !== null) ?? [price])).toFixed(2),
+          highPrice: Math.max(...(product.variants?.map(v => v.price) ?? product.finishes?.map(v => v.price).filter((v): v is number => v !== null) ?? [price])).toFixed(2),
+          offerCount: product.variants?.length ?? product.finishes?.length ?? 1,
+          availability: (product.variants?.some(v => (v.stock ?? 0) > 0) || product.finishes?.some(v => (v.stock ?? 0) > 0)) ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
           url: productUrl,
         } : {
           '@type': 'Offer',

@@ -402,21 +402,21 @@
       "dimensions": "",
       "available": false,
       "displayOnly": true,
-      "stock": null,
+      "stock": 45,
       "imageAlt": "Sagrada Família em cerâmica: acabamento colorido e opção de acabamento dourado",
       "finishes": [
         {
           "id": "colorida",
           "name": "Colorida",
           "price": 100,
-          "stock": null,
+          "stock": 30,
           "image": "/produtos/catalogo/sagrada-familia-capa.jpg"
         },
         {
           "id": "dourada",
           "name": "Dourada",
-          "price": null,
-          "stock": null,
+          "price": 100,
+          "stock": 15,
           "image": "/produtos/catalogo/sagrada-familia-dourada.jpg"
         }
       ]

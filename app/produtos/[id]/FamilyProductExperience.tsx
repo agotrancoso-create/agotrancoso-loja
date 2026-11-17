@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import type { Product } from '@/lib/types';
-import { whatsappLink } from '@/lib/config';
+import { getProductById } from '@/lib/products';
 import ProductGallery from '@/components/ProductGallery';
 import ProductShare from '@/components/ProductShare';
+import AddToCart from './AddToCart';
 
 function money(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -15,6 +16,7 @@ export default function FamilyProductExperience({ product, images, productUrl }:
   const [selectedId, setSelectedId] = useState('colorida');
   const [photoIndex, setPhotoIndex] = useState(0);
   const current = options.find(option => option.id === selectedId) ?? options[0];
+  const selectedProduct = current ? getProductById(`${product.id}-${current.id}`) : undefined;
   if (!current) return null;
 
   const labels = images.map(image => image.includes('dourada')
@@ -25,18 +27,14 @@ export default function FamilyProductExperience({ product, images, productUrl }:
   function chooseOption(id: string) {
     setSelectedId(id);
     const option = options.find(item => item.id === id);
-    const nextIndex = option ? images.indexOf(option.image) : -1;
-    if (nextIndex >= 0) setPhotoIndex(nextIndex);
+    const index = option ? images.indexOf(option.image) : -1;
+    if (index >= 0) setPhotoIndex(index);
   }
 
   function choosePhoto(index: number) {
     setPhotoIndex(index);
     setSelectedId(images[index]?.includes('dourada') ? 'dourada' : 'colorida');
   }
-
-  const message = current.price == null
-    ? 'Olá! Vi a Sagrada Família dourada no site da Agô. Qual é o valor e a disponibilidade desta versão?'
-    : `Olá! Gostaria de comprar a Sagrada Família colorida, anunciada por ${money(current.price)}. Pode confirmar a disponibilidade?`;
 
   return (
     <div className="product-page-grid" data-product-id="sagrada-familia">
@@ -68,6 +66,7 @@ export default function FamilyProductExperience({ product, images, productUrl }:
                   type="button"
                   onClick={() => chooseOption(option.id)}
                   aria-pressed={selectedId === option.id}
+                  disabled={option.stock === 0}
                   className={`ago-family-finish${selectedId === option.id ? ' is-selected' : ''}`}
                 >
                   <strong>{option.name}</strong>
@@ -80,20 +79,13 @@ export default function FamilyProductExperience({ product, images, productUrl }:
             <h2 id="family-details" className="product-detail-facts-title">Detalhes da peça</h2>
             <dl className="product-premium-facts">
               <div><dt>Acabamento</dt><dd>{current.name}</dd></div>
-              <div><dt>Medidas</dt><dd>Medidas em atualização</dd></div>
+              <div><dt>Medidas</dt><dd>{product.dimensions || 'Medidas em atualização'}</dd></div>
               <div><dt>Uso</dt><dd>{selectedId === 'colorida' ? 'Alça na parte de trás para pendurar; também pode ser apoiada.' : 'Modo de fixação da versão dourada a confirmar.'}</dd></div>
-              <div><dt>Disponibilidade</dt><dd>Confirme com a Agô</dd></div>
+              <div><dt>Estoque</dt><dd>{current.stock ?? 0} {current.stock === 1 ? 'unidade disponível' : 'unidades disponíveis'}</dd></div>
             </dl>
           </section>
           <div className="product-purchase">
-            <a
-              href={whatsappLink(message)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="product-primary-cta ago-bag-primary"
-            >
-              {current.price == null ? 'Consultar preço da versão dourada' : 'Consultar disponibilidade'}
-            </a>
+            {selectedProduct?.available ? <AddToCart key={selectedProduct.id} product={selectedProduct} /> : <div className="product-unavailable">Acabamento indisponível no momento.</div>}
             <ProductShare name={product.name} url={productUrl} />
           </div>
         </div>
