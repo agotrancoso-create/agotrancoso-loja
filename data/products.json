@@ -400,9 +400,9 @@
         "/produtos/catalogo/sagrada-familia.jpg"
       ],
       "dimensions": "",
-      "available": false,
-      "displayOnly": true,
-      "stock": null,
+      "available": true,
+      "displayOnly": false,
+      "stock": 160,
       "imageAlt": "Peça em cerâmica representando José, Maria e o menino Jesus, vista frontal e traseira"
     },
     {
