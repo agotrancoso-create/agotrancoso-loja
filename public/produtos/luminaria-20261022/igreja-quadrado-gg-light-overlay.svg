@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="960" viewBox="0 0 960 960">
+  <defs>
+    <radialGradient id="interior"><stop offset="0%" stop-color="#ffe3a4" stop-opacity=".17"/><stop offset="52%" stop-color="#ffcf73" stop-opacity=".14"/><stop offset="100%" stop-color="#ff9a31" stop-opacity="0"/></radialGradient>
+    <radialGradient id="windowGlow"><stop offset="0%" stop-color="#ffdc85" stop-opacity=".21"/><stop offset="78%" stop-color="#ffb340" stop-opacity=".12"/><stop offset="100%" stop-color="#ff9f20" stop-opacity="0"/></radialGradient>
+    <radialGradient id="floorGlow"><stop offset="0%" stop-color="#ffc46b" stop-opacity=".18"/><stop offset="55%" stop-color="#ffcd82" stop-opacity=".07"/><stop offset="100%" stop-color="#ffd5a2" stop-opacity="0"/></radialGradient>
+    <clipPath id="openings">
+      <path d="M109 526 Q116 530 125 531 L126 571 L109 579Z"/>
+      <path d="M217 534 L239 533 L237 603 L218 609Z"/>
+      <path d="M445 493 L468 503 L469 569 L451 577Z"/>
+      <path d="M686 552 Q688 526 702 522 Q718 522 728 534 L729 671 L686 690Z"/>
+    </clipPath>
+  </defs>
+  <!-- A fotografia original permanece intacta. O efeito só acrescenta luz. -->
+  <g clip-path="url(#openings)">
+    <ellipse cx="116" cy="554" rx="28" ry="46" fill="url(#windowGlow)"/>
+    <ellipse cx="231" cy="569" rx="30" ry="60" fill="url(#windowGlow)"/>
+    <ellipse cx="460" cy="528" rx="31" ry="67" fill="url(#windowGlow)"/>
+    <ellipse cx="704" cy="606" rx="55" ry="112" fill="url(#interior)"/>
+  </g>
+  <ellipse cx="718" cy="716" rx="95" ry="30" fill="url(#floorGlow)" opacity=".72"/>
+  <ellipse cx="231" cy="636" rx="42" ry="12" fill="url(#floorGlow)" opacity=".18"/>
+  <ellipse cx="116" cy="606" rx="32" ry="11" fill="url(#floorGlow)" opacity=".2"/>
+</svg>

@@ -4,6 +4,7 @@ import { useSiteEnglish } from '@/lib/use-site-english';
 import { cartEnglish } from '@/lib/cart-copy';
 import Link from 'next/link';
 import CartIcon from './CartIcon';
+import GGLampLightOverlay from './GGLampLightOverlay';
 import Image from '@/components/ProductImage';
 import { useEffect, useState } from 'react';
 import { Product } from '@/lib/types';
@@ -61,6 +62,7 @@ export default function ProductCard({ product, priority = false, listName = 'Col
       >
         <div className="product-image-wrap">
           <Image src={image} alt={imageAlt} fill quality={100} priority={priority} sizes="(max-width: 900px) 46vw, (max-width: 1400px) 30vw, 424px" className="product-image product-image-primary" />
+          {product.id === 'igreja-quadrado-gg' && <GGLampLightOverlay />}
           {hasPromo && <span className="product-badge">{english ? 'Sale' : 'Oferta'}</span>}
           {!product.available && !product.displayOnly && <span className="product-badge">{english ? 'Unavailable' : 'Indisponível'}</span>}
         </div>

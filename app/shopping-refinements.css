@@ -135,3 +135,20 @@
 .ago-family-finish:hover { border-color:rgba(255,255,255,.75); }
 .ago-family-finish:focus-visible { outline:3px solid #fff4dc; outline-offset:3px; }
 @media(max-width:420px){ .ago-family-finish {padding:11px 9px}.ago-family-finish.is-selected{padding:10px 8px} }
+
+/* GG: brilho suave vindo da porta e janelas, aplicado sobre a foto original.
+   Não substitui nenhum pixel da peça, telhado, paredes ou fundo.
+   A camada acompanha a imagem na capa, galeria e zoom sem bloquear cliques. */
+.ago-gg-light-overlay {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url('/produtos/luminaria-20261022/igreja-quadrado-gg-light-overlay.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}

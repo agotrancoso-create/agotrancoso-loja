@@ -4,6 +4,7 @@ import { useSiteEnglish } from '@/lib/use-site-english';
 import { cartEnglish } from '@/lib/cart-copy';
 import Image from '@/components/ProductImage';
 import PhotoLightbox from './PhotoLightbox';
+import GGLampLightOverlay from './GGLampLightOverlay';
 import { useRef, useState } from 'react';
 import { trackGalleryInteraction } from '@/lib/marketing-analytics';
 
@@ -100,6 +101,7 @@ export default function ProductGallery({ productId, name, images, imageLabels, i
             sizes="(max-width: 960px) 100vw, 960px"
             className="product-gallery-image"
           />
+          {productId === 'igreja-quadrado-gg' && safeImages[active].includes('igreja-quadrado-gg-natural') && <GGLampLightOverlay />}
           <span className="ago-gallery-zoom-hint"><ZoomIcon /><span>{t('Ampliar', 'Enlarge')}</span></span>
         </button>
 

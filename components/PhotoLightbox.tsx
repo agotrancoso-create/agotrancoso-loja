@@ -3,6 +3,7 @@
 import { useSiteEnglish } from '@/lib/use-site-english';
 import { cartEnglish } from '@/lib/cart-copy';
 import Image from '@/components/ProductImage';
+import GGLampLightOverlay from './GGLampLightOverlay';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { trackGalleryInteraction } from '@/lib/marketing-analytics';
 
@@ -133,6 +134,7 @@ export default function PhotoLightbox({ productId, name, images, initialIndex = 
         <div className="ago-photo-image-frame">
           <div className="ago-photo-image-shell" style={{ transform: `translate3d(${pan.x}px, ${pan.y}px, 0) scale(${scale})` }}>
             <Image src={zoomSource(images[active])} alt={english ? `${displayName}, photo ${active + 1} of ${images.length}` : `${name}, foto ${active + 1} de ${images.length}`} fill unoptimized quality={100} sizes="100vw" priority draggable={false} className="ago-photo-image" />
+            {productId === 'igreja-quadrado-gg' && images[active].includes('igreja-quadrado-gg-natural') && <GGLampLightOverlay />}
           </div>
         </div>
 
