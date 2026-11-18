@@ -5,6 +5,7 @@ import type { Product } from '@/lib/types';
 import { getProductById } from '@/lib/products';
 import { whatsappLink } from '@/lib/config';
 import ProductGallery from '@/components/ProductGallery';
+import ArtisanVariationNote from '@/components/ArtisanVariationNote';
 import ProductShare from '@/components/ProductShare';
 import AddToCart from './AddToCart';
 
@@ -53,6 +54,7 @@ export default function WhaleProductExperience({ product, images, productUrl }: 
           <h1 className="product-detail-title">{product.name}</h1>
           <p className="product-current-price" aria-live="polite">{money(selected.price)}</p>
           <p className="product-description">{product.description}</p>
+          <ArtisanVariationNote />
           <fieldset className="ago-whale-variants" aria-label="Escolha o tamanho do Rabo de Baleia">
             <legend>Escolha o tamanho</legend>
             <div className="ago-whale-variant-grid">

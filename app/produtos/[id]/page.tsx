@@ -1,4 +1,5 @@
 import ProductShare from '@/components/ProductShare';
+import ArtisanVariationNote from '@/components/ArtisanVariationNote';
 import '../../product-decision-clarity.css';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -213,6 +214,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               ) : <p className="product-current-price">{formatBRL(price)}</p>}
 
               <p className="product-description">{product.description}</p>
+          <ArtisanVariationNote />
               {product.variants?.length ? <section aria-label="Tamanhos disponíveis" style={{marginTop:"1rem"}}><strong>Escolha o tamanho</strong><div style={{display:"flex",gap:".6rem",flexWrap:"wrap",marginTop:".6rem"}}>{product.variants.map(v => <a key={v.name} href={whatsappLink(`Olá! Gostaria de saber o valor do Rabo de Baleia tamanho ${v.name}.`)} target="_blank" rel="noopener noreferrer" style={{border:"1px solid #b9a99b",borderRadius:"10px",padding:".65rem .9rem",textDecoration:"none"}}><strong>{v.name}</strong><small style={{display:"block"}}>{v.dimensions}</small></a>)}</div><small>Valores por tamanho sob consulta.</small></section> : null}
 
               <section className="product-decision-details" aria-labelledby="product-details-title">

@@ -152,3 +152,31 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
+
+/* Mensagem editorial sobre a natureza artesanal das peças, em todas as páginas de produto. */
+.ago-artisan-note {
+  margin: 16px 0 20px;
+  padding: 13px 16px 14px;
+  border-left: 2px solid #9b7b58;
+  border-radius: 0 12px 12px 0;
+  background: rgb(255 251 242 / 12%);
+  max-width: 66ch;
+}
+.ago-artisan-note-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.69rem;
+  font-weight: 750;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  line-height: 1.45;
+  color: #f3dfc1;
+}
+.ago-artisan-note p {
+  margin: 0;
+  font-size: clamp(0.83rem, 0.94vw, 0.91rem);
+  font-weight: 450;
+  line-height: 1.7;
+  color: inherit;
+  opacity: .93;
+}

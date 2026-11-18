@@ -4,6 +4,7 @@ import { useState } from 'react';
 import type { Product } from '@/lib/types';
 import { getProductById } from '@/lib/products';
 import ProductGallery from '@/components/ProductGallery';
+import ArtisanVariationNote from '@/components/ArtisanVariationNote';
 import ProductShare from '@/components/ProductShare';
 import AddToCart from './AddToCart';
 
@@ -57,6 +58,7 @@ export default function FamilyProductExperience({ product, images, productUrl }:
             {current.price != null ? money(current.price) : 'Preço a confirmar'}
           </p>
           <p className="product-description">{product.description}</p>
+          <ArtisanVariationNote />
           <fieldset className="ago-family-finishes">
             <legend>Escolha o acabamento</legend>
             <div className="ago-family-finish-grid">
