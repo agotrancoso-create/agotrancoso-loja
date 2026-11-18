@@ -20,10 +20,12 @@ export default function WhaleProductExperience({ product, images, productUrl }: 
   const variantProduct = getProductById(`${product.id}-${size.toLowerCase()}`);
   if (!selected || !variantProduct) return null;
 
-  const imageLabels = images.map(src => src.includes('rabo-de-baleia-m')
-    ? 'Rabo de Baleia M (12 cm)'
-    : 'Rabo de Baleia G (16 cm)');
-  const currentPhotoLabel = imageLabels[activePhoto];
+  const imageLabels = images.map(src => src.includes('rabo-de-baleia-p')
+    ? 'Rabo de Baleia P (10 cm)'
+    : src.includes('rabo-de-baleia-m')
+      ? 'Rabo de Baleia M (12 cm)'
+      : 'Rabo de Baleia G (16 cm)');
+  const imageBadges = imageLabels.map(label => label.includes(' P ') ? 'P' : label.includes(' M ') ? 'M' : 'G');
 
   function selectSize(nextSize: string) {
     setSize(nextSize);
@@ -36,14 +38,14 @@ export default function WhaleProductExperience({ product, images, productUrl }: 
 
   function selectPhoto(index: number) {
     setActivePhoto(index);
-    setSize(imageLabels[index]?.includes(' M ') ? 'M' : 'G');
+    setSize(imageLabels[index]?.includes(' P ') ? 'P' : imageLabels[index]?.includes(' M ') ? 'M' : 'G');
   }
 
   return (
     <div className="product-page-grid" data-product-id="rabo-de-baleia">
       <div className="product-gallery-column">
         <ProductGallery productId={product.id} name={product.name} images={images}
-          imageLabels={imageLabels} selectedIndex={activePhoto} onImageChange={selectPhoto} />
+          imageLabels={imageLabels} imageBadges={imageBadges} selectedIndex={activePhoto} onImageChange={selectPhoto} />
       </div>
       <div className="product-info-column">
         <div className="product-buybox">
@@ -67,9 +69,7 @@ export default function WhaleProductExperience({ product, images, productUrl }: 
               ))}
             </div>
             <p className="ago-whale-photo-note" aria-live="polite">
-              {size === 'P'
-                ? `Tamanho P selecionado. Ainda não temos foto dele. A foto exibida é do ${currentPhotoLabel}.`
-                : `Tamanho selecionado: ${size} (${selected.heightCm} cm). Foto correspondente ao tamanho ${size}.`}
+              { `Tamanho selecionado: ${size} (${selected.heightCm} cm). Foto correspondente ao tamanho ${size}.`}
             </p>
           </fieldset>
           <section className="product-decision-details" aria-labelledby="product-details-title">

@@ -58,6 +58,7 @@ const ATTENTION_IMAGE_ORDER: Record<string, string[]> = {
   'rabo-de-baleia': [
     '/produtos/catalogo/rabo-de-baleia-g.jpg',
     '/produtos/catalogo/rabo-de-baleia-m.jpg',
+    '/produtos/catalogo/rabo-de-baleia-p.jpg',
   ],
   'igreja-quadrado-p': [
     '/produtos/igrejinha-luminaria-trancoso.jpg',

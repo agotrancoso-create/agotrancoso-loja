@@ -353,7 +353,8 @@
       "category": "decoracao",
       "images": [
         "/produtos/catalogo/rabo-de-baleia-g.jpg",
-        "/produtos/catalogo/rabo-de-baleia-m.jpg"
+        "/produtos/catalogo/rabo-de-baleia-m.jpg",
+        "/produtos/catalogo/rabo-de-baleia-p.jpg"
       ],
       "dimensions": "P: 5,5 × 5 × 10 cm · M: 7 × 6,5 × 12 cm · G: 8 × 8 × 16 cm",
       "available": false,
@@ -366,7 +367,7 @@
           "price": 250,
           "stock": 12,
           "dimensions": "5,5 × 5 × 10 cm",
-          "image": null
+          "image": "/produtos/catalogo/rabo-de-baleia-p.jpg"
         },
         {
           "name": "M",
