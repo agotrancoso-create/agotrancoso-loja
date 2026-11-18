@@ -58,7 +58,6 @@ export default function FamilyProductExperience({ product, images, productUrl }:
             {current.price != null ? money(current.price) : 'Preço a confirmar'}
           </p>
           <p className="product-description">{product.description}</p>
-          <ArtisanVariationNote />
           <fieldset className="ago-family-finishes">
             <legend>Escolha o acabamento</legend>
             <div className="ago-family-finish-grid">
@@ -77,6 +76,12 @@ export default function FamilyProductExperience({ product, images, productUrl }:
               ))}
             </div>
           </fieldset>
+          <div className="product-purchase">
+            {selectedProduct?.available ? <AddToCart key={selectedProduct.id} product={selectedProduct} /> : <div className="product-unavailable">Acabamento indisponível no momento.</div>}
+          </div>
+          <details className="ago-product-info-disclosure">
+            <summary>Medidas e informações da peça</summary>
+            <div className="ago-product-info-body">
           <section className="product-decision-details" aria-labelledby="family-details">
             <h2 id="family-details" className="product-detail-facts-title">Detalhes da peça</h2>
             <dl className="product-premium-facts">
@@ -86,10 +91,10 @@ export default function FamilyProductExperience({ product, images, productUrl }:
               <div><dt>Estoque</dt><dd>{current.stock ?? 0} {current.stock === 1 ? 'unidade disponível' : 'unidades disponíveis'}</dd></div>
             </dl>
           </section>
-          <div className="product-purchase">
-            {selectedProduct?.available ? <AddToCart key={selectedProduct.id} product={selectedProduct} /> : <div className="product-unavailable">Acabamento indisponível no momento.</div>}
-            <ProductShare name={product.name} url={productUrl} />
-          </div>
+              <ArtisanVariationNote />
+              <ProductShare name={product.name} url={productUrl} />
+            </div>
+          </details>
         </div>
       </div>
     </div>

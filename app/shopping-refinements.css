@@ -181,3 +181,142 @@
   color: inherit;
   opacity: .93;
 }
+
+/* Página de produto: hierarquia enxuta para destacar fotografia, preço e compra.
+   Informações completas permanecem disponíveis por meio de disclosures nativos. */
+.product-page .product-current-price {
+  margin-top: 10px;
+  font-size: clamp(1.42rem, 2.1vw, 1.76rem);
+  line-height: 1.28;
+}
+.product-page .product-description {
+  margin-top: 11px;
+  max-width: 54ch;
+  font-size: clamp(.86rem, 1.05vw, .95rem);
+  line-height: 1.6 !important;
+}
+.product-page .product-purchase { margin-top: 20px; }
+.product-page .product-buybox > .eyebrow { margin-bottom: 7px; }
+.product-page .ago-stock-label {
+  margin: 0 0 11px;
+  font-size: .77rem;
+  line-height: 1.45;
+  font-weight: 700;
+  opacity: .87;
+}
+.product-page .purchase-selection-summary {
+  display: block;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  margin: 12px 0 7px;
+  padding: 0 !important;
+  color: inherit !important;
+  font-size: .8rem;
+  line-height: 1.6;
+  opacity: .85;
+}
+.product-page .purchase-selection-help {
+  color: inherit !important;
+  opacity: .79;
+  margin-top: 5px;
+  font-size: .75rem;
+  line-height: 1.5;
+}
+.product-page .ago-shipping-disclosure,
+.product-page .ago-purchase-support,
+.product-page .ago-product-info-disclosure {
+  margin: 13px 0 0;
+  border-top: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+}
+.product-page .ago-shipping-disclosure > summary,
+.product-page .ago-purchase-support > summary,
+.product-page .ago-product-info-disclosure > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  list-style: none;
+  min-height: 44px;
+  padding: 9px 0;
+  font-size: .79rem;
+  font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.product-page .ago-shipping-disclosure > summary::-webkit-details-marker,
+.product-page .ago-purchase-support > summary::-webkit-details-marker,
+.product-page .ago-product-info-disclosure > summary::-webkit-details-marker { display: none; }
+.product-page .ago-shipping-disclosure > summary::after,
+.product-page .ago-purchase-support > summary::after,
+.product-page .ago-product-info-disclosure > summary::after {
+  content: '+';
+  font: 500 1.22rem/1 var(--font-sans), Arial, sans-serif;
+  flex-shrink: 0;
+}
+.product-page .ago-shipping-disclosure[open] > summary::after,
+.product-page .ago-purchase-support[open] > summary::after,
+.product-page .ago-product-info-disclosure[open] > summary::after { content: '−'; }
+.product-page .ago-shipping-disclosure > summary:focus-visible,
+.product-page .ago-purchase-support > summary:focus-visible,
+.product-page .ago-product-info-disclosure > summary:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+.product-page .ago-shipping-disclosure .product-delivery-estimator {
+  margin: 2px 0 12px;
+  padding: 0;
+  border: 0;
+}
+.product-page .ago-product-info-disclosure {
+  margin-top: 19px;
+}
+.product-page .ago-product-info-body {
+  padding: 4px 0 13px;
+}
+.product-page .ago-product-info-body .product-decision-details {
+  margin-top: 0;
+}
+.product-page .ago-product-info-body .product-detail-facts-title {
+  font-size: 1rem;
+  margin-bottom: 9px;
+}
+.product-page .ago-product-info-body .ago-artisan-note {
+  background: transparent;
+  border: 0;
+  border-left: 2px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: 0;
+  margin: 12px 0 4px;
+  padding: 3px 0 3px 12px;
+  max-width: 58ch;
+}
+.product-page .ago-product-info-body .ago-artisan-note-label { font-size: .65rem; }
+.product-page .ago-product-info-body .ago-artisan-note p {
+  font-size: .79rem;
+  line-height: 1.65;
+}
+.product-page .ago-product-info-body .product-share,
+.product-page .ago-product-info-body .ago-whale-contact {
+  margin-top: 9px;
+}
+.product-page .ago-purchase-support .product-support-links {
+  padding: 0 0 12px;
+  gap: 0 14px;
+}
+.product-page .ago-purchase-support .product-support-links a {
+  color: inherit;
+  font-size: .77rem;
+  min-height: 44px;
+}
+.product-page .ago-whale-variants,
+.product-page .ago-family-finishes { margin-top: 16px; }
+.product-page .ago-whale-photo-note {
+  margin-top: 8px;
+  font-size: .75rem;
+  opacity: .82;
+}
+@media(max-width: 900px) {
+  .product-page .product-description { font-size: .9rem; }
+  .product-page .product-purchase { margin-top: 16px; }
+}

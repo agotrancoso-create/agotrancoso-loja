@@ -128,10 +128,7 @@ export default function AddToCart({ product }: { product: Product }) {
 
   return (
     <div className="purchase-selection" data-no-translate="true">
-      <div className="product-availability">
-        <strong>{t('Disponível para compra', 'Available to purchase')}</strong>
-        <a href={whatsappLink(english ? `Hello! When can ${name} be dispatched?` : `Olá! Qual é o prazo de postagem de ${product.name}?`)} target="_blank" rel="noopener noreferrer">{t('Confirmar prazo de postagem', 'Confirm dispatch time')}</a>
-      </div>
+      <p className="ago-stock-label">{t('Disponível para compra', 'Available to purchase')}</p>
       <div className="add-to-cart-control">
         <div className="quantity-control" aria-label={t('Quantidade', 'Quantity')}>
           <button type="button" onClick={() => { clearQuote(); setQuantity((q) => Math.max(1, q - 1)); }} disabled={quantity <= 1} aria-label={t('Diminuir quantidade', 'Decrease quantity')}>−</button>
@@ -154,23 +151,13 @@ export default function AddToCart({ product }: { product: Product }) {
         </button>
       </div>
 
-      {international ? <div className="purchase-selection-summary" aria-live="polite" aria-atomic="true">
-        <strong>{t('Total das peças', 'Products total')}: {formatBRL(selectionSubtotal)}</strong>
-        <span>{t('Frete internacional sob consulta', 'International shipping quoted separately')}</span>
-        <small>{t('Frete e total final confirmados antes do pagamento.', 'Shipping and final total confirmed before payment.')}</small>
-      </div> : <div className="purchase-selection-summary" aria-live="polite" aria-atomic="true">
-        <span>{quantity} {english ? (quantity === 1 ? 'piece' : 'pieces') : (quantity === 1 ? 'peça' : 'peças')}: {formatBRL(selectionSubtotal)} · {shipping === 0 ? t('Frete grátis', 'Free shipping in Brazil') : `${t('Frete fixo PAC', 'Fixed PAC shipping in Brazil')}: ${formatBRL(shipping)}`}</span>
-        <strong>{t('Esta seleção com frete', 'This selection with shipping')}: {formatBRL(selectionSubtotal + shipping)}</strong>
-        <small>{t('Entrega no Brasil. O total da sacola é atualizado ao adicionar outras peças.', 'Delivery in Brazil. Your bag total updates as you add other pieces.')}</small>
-      </div>}
+      <p className="purchase-selection-summary" aria-live="polite">
+        {international ? <>{t('Total das peças', 'Products total')}: {formatBRL(selectionSubtotal)} · {t('Frete internacional sob consulta', 'International shipping on request')}</> : <>{quantity} {t(quantity === 1 ? 'peça' : 'peças', quantity === 1 ? 'piece' : 'pieces')}: {formatBRL(selectionSubtotal)} · {shipping === 0 ? t('Frete grátis', 'Free shipping') : `${t('Frete estimado', 'Estimated shipping')}: ${formatBRL(shipping)}`}</>}
+      </p>
 
       <p className="purchase-selection-help">{t('Compra sem cadastro · Pagamento seguro pela InfinitePay', 'No account required · Secure payment via InfinitePay')}</p>
-      <nav className="product-support-links" aria-label={t('Ajuda com sua compra', 'Help with your purchase')}>
-        <Link href={`${english ? '/en' : ''}/ajuda#entrega`}>{t('Entrega e pagamento', 'Delivery and payment')}</Link>
-        <Link href={`${english ? '/en' : ''}/ajuda#trocas`}>{t('Trocas e avarias', 'Returns and damage')}</Link>
-      </nav>
 
-      {international ? <a className="text-link" href={english ? '/en/envio-internacional' : '/envio-internacional'}>{t('Consultar frete internacional', 'Request international shipping quote')}</a> : <form className="product-delivery-estimator" onSubmit={consultShipping} aria-label={t('Consultar envio pelo CEP', 'Check delivery to a Brazilian postal code')}>
+      {international ? <a className="text-link" href={english ? '/en/envio-internacional' : '/envio-internacional'}>{t('Consultar frete internacional', 'Request international shipping quote')}</a> : <details className="ago-shipping-disclosure"><summary>{t('Calcular frete e prazo', 'Check shipping and delivery')}</summary><form className="product-delivery-estimator" onSubmit={consultShipping} aria-label={t('Consultar envio pelo CEP', 'Check delivery to a Brazilian postal code')}>
         <label htmlFor={`shipping-cep-${product.id}`}>{t('Frete e prazo estimado para seu CEP', 'Shipping and estimated delivery time for your Brazilian postal code')}</label>
         <div className="product-delivery-estimator-row">
           <input
@@ -208,7 +195,15 @@ export default function AddToCart({ product }: { product: Product }) {
             </div>
           )}
         </div>
-      </form>}
+      </form></details>}
+      <details className="ago-purchase-support">
+        <summary>{t('Entrega, pagamento e trocas', 'Delivery, payment and returns')}</summary>
+        <nav className="product-support-links" aria-label={t('Ajuda com sua compra', 'Help with your purchase')}>
+          <Link href={`${english ? '/en' : ''}/ajuda#entrega`}>{t('Entrega e pagamento', 'Delivery and payment')}</Link>
+          <Link href={`${english ? '/en' : ''}/ajuda#trocas`}>{t('Trocas e avarias', 'Returns and damage')}</Link>
+          <a href={whatsappLink(english ? `Hello! When can ${name} be dispatched?` : `Olá! Qual é o prazo de postagem de ${product.name}?`)} target="_blank" rel="noopener noreferrer">{t('Confirmar prazo de postagem', 'Confirm dispatch time')}</a>
+        </nav>
+      </details>
     </div>
   );
 }

@@ -54,7 +54,6 @@ export default function WhaleProductExperience({ product, images, productUrl }: 
           <h1 className="product-detail-title">{product.name}</h1>
           <p className="product-current-price" aria-live="polite">{money(selected.price)}</p>
           <p className="product-description">{product.description}</p>
-          <ArtisanVariationNote />
           <fieldset className="ago-whale-variants" aria-label="Escolha o tamanho do Rabo de Baleia">
             <legend>Escolha o tamanho</legend>
             <div className="ago-whale-variant-grid">
@@ -70,10 +69,14 @@ export default function WhaleProductExperience({ product, images, productUrl }: 
                 </button>
               ))}
             </div>
-            <p className="ago-whale-photo-note" aria-live="polite">
-              { `Tamanho selecionado: ${size} (${selected.heightCm} cm). Foto correspondente ao tamanho ${size}.`}
-            </p>
+            <p className="ago-whale-photo-note" aria-live="polite">Foto correspondente ao tamanho {size}.</p>
           </fieldset>
+          <div className="product-purchase">
+            <AddToCart key={variantProduct.id} product={variantProduct} />
+          </div>
+          <details className="ago-product-info-disclosure">
+            <summary>Medidas e informações da peça</summary>
+            <div className="ago-product-info-body">
           <section className="product-decision-details" aria-labelledby="product-details-title">
             <h2 id="product-details-title" className="product-detail-facts-title">Detalhes da peça</h2>
             <dl className="product-premium-facts" aria-label="Informações da peça">
@@ -81,11 +84,11 @@ export default function WhaleProductExperience({ product, images, productUrl }: 
               <div><dt>Estoque</dt><dd>{selected.stock} {selected.stock === 1 ? 'unidade' : 'unidades'}</dd></div>
             </dl>
           </section>
-          <div className="product-purchase">
-            <AddToCart key={variantProduct.id} product={variantProduct} />
-            <ProductShare name={product.name} url={productUrl} />
-          </div>
+              <ArtisanVariationNote />
+              <ProductShare name={product.name} url={productUrl} />
           <p className="ago-whale-contact"><a href={whatsappLink(`Olá! Gostaria de saber mais sobre o Rabo de Baleia ${size} (${selected.heightCm} cm), ${money(selected.price)}.`)} target="_blank" rel="noopener noreferrer">Dúvidas sobre a peça? Fale com a Agô</a></p>
+            </div>
+          </details>
         </div>
       </div>
     </div>

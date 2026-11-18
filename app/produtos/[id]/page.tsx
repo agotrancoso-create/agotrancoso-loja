@@ -214,9 +214,15 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               ) : <p className="product-current-price">{formatBRL(price)}</p>}
 
               <p className="product-description">{product.description}</p>
-          <ArtisanVariationNote />
               {product.variants?.length ? <section aria-label="Tamanhos disponíveis" style={{marginTop:"1rem"}}><strong>Escolha o tamanho</strong><div style={{display:"flex",gap:".6rem",flexWrap:"wrap",marginTop:".6rem"}}>{product.variants.map(v => <a key={v.name} href={whatsappLink(`Olá! Gostaria de saber o valor do Rabo de Baleia tamanho ${v.name}.`)} target="_blank" rel="noopener noreferrer" style={{border:"1px solid #b9a99b",borderRadius:"10px",padding:".65rem .9rem",textDecoration:"none"}}><strong>{v.name}</strong><small style={{display:"block"}}>{v.dimensions}</small></a>)}</div><small>Valores por tamanho sob consulta.</small></section> : null}
 
+              <div className="product-purchase">
+                {hasKnownPricePendingStock ? <a href={whatsappLink(`Olá! Gostaria de comprar ${product.name}, anunciado por ${formatBRL(price)}. Pode confirmar a disponibilidade?`)} target="_blank" rel="noopener noreferrer" className="product-primary-cta ago-bag-primary">Consultar disponibilidade</a> : consultation ? <a href={whatsappLink(`Olá! Gostaria de saber o preço de ${product.name}.`)} target="_blank" rel="noopener noreferrer" className="product-primary-cta ago-bag-primary">Consultar pelo WhatsApp</a> : <AddToCart product={product} />}
+              </div>
+
+              <details className="ago-product-info-disclosure">
+                <summary>Medidas e informações da peça</summary>
+                <div className="ago-product-info-body">
               <section className="product-decision-details" aria-labelledby="product-details-title">
                 <h2 id="product-details-title" className="product-detail-facts-title">Detalhes da peça</h2>
                 <dl className="product-premium-facts" aria-label="Informações da peça">
@@ -225,11 +231,10 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                   {isHangingSagradaFamilia && <div><dt>Como usar</dt><dd>Possui alça na parte de trás para pendurar na parede. Também pode ser apoiada.</dd></div>}
                 </dl>
               </section>
-
-              <div className="product-purchase">
-                {hasKnownPricePendingStock ? <a href={whatsappLink(`Olá! Gostaria de comprar ${product.name}, anunciado por ${formatBRL(price)}. Pode confirmar a disponibilidade?`)} target="_blank" rel="noopener noreferrer" className="product-primary-cta ago-bag-primary">Consultar disponibilidade</a> : consultation ? <a href={whatsappLink(`Olá! Gostaria de saber o preço de ${product.name}.`)} target="_blank" rel="noopener noreferrer" className="product-primary-cta ago-bag-primary">Consultar pelo WhatsApp</a> : <AddToCart product={product} />}
-                <ProductShare name={product.name} url={productUrl} />
-              </div>
+                  <ArtisanVariationNote />
+                  <ProductShare name={product.name} url={productUrl} />
+                </div>
+              </details>
             </div>
           </div>
         </div>
