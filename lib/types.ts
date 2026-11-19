@@ -14,7 +14,7 @@ export type Product = {
   stock?: number | null;
   displayOnly?: boolean;
   variants?: Array<{ name: string; heightCm: number; price: number; stock: number | null; dimensions: string; image?: string | null }>;
-  finishes?: Array<{ id: string; name: string; price: number | null; stock: number | null; image: string }>;
+  finishes?: Array<{ id: string; name: string; color?: string; price: number | null; stock: number | null; image: string }>;
 
   // Dados logísticos reais.
   // null significa que o dado ainda não foi informado.

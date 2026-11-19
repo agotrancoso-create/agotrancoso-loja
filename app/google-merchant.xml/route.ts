@@ -1,4 +1,4 @@
-import { getAllProducts, getEffectivePrice } from '@/lib/products';
+import { getCatalogOffers, getEffectivePrice } from '@/lib/products';
 import { getAttentionOrderedImages } from '@/lib/merchandising';
 import { SITE_DOMAIN } from '@/lib/config';
 import { getShippingPrice } from '@/lib/shipping';
@@ -9,15 +9,15 @@ export const revalidate = 3600;
 const SHOPPING_COPY: Record<string, { title: string; description: string }> = {
   'igreja-quadrado-p': {
     title: 'Igrejinha do Quadrado de Trancoso P em Cerâmica Artesanal | Agô',
-    description: 'Igrejinha do Quadrado de Trancoso tamanho P, feita em cerâmica e pintada à mão. Miniatura da Igreja de São João Batista, com 3,5 cm de altura e 4 cm de largura. Peça decorativa artesanal para guardar uma lembrança do Quadrado de Trancoso, Bahia.',
+    description: 'Igrejinha do Quadrado de Trancoso tamanho P, feita em cerâmica e pintada à mão. Miniatura inspirada na Igreja de São João Batista, com a fachada da igrejinha do Quadrado. Peça decorativa artesanal para guardar uma lembrança do Quadrado de Trancoso, Bahia.',
   },
   'igreja-quadrado-m': {
     title: 'Igrejinha do Quadrado de Trancoso M em Cerâmica Artesanal | Agô',
-    description: 'Igrejinha do Quadrado de Trancoso tamanho M em cerâmica artesanal. Miniatura inspirada na fachada da Igreja de São João Batista, com 4,5 cm de altura e 5 cm de largura. Uma peça decorativa feita à mão na Agô Trancoso, no Quadrado de Trancoso, Bahia.',
+    description: 'Igrejinha do Quadrado de Trancoso tamanho M em cerâmica artesanal. A fachada reproduz a Igreja de São João Batista, no Quadrado de Trancoso, Bahia. Uma miniatura para apoiar em prateleiras e aparadores.',
   },
   'igreja-quadrado-gg': {
     title: 'Igreja do Quadrado de Trancoso GG — Escultura Luminária em Cerâmica | Agô',
-    description: 'Igreja do Quadrado de Trancoso na versão GG: escultura artesanal em cerâmica inspirada na Igreja de São João Batista. Mede 16 cm de altura e 23 cm de largura e também funciona como luminária. Peça de decoração de destaque feita à mão pela Agô Trancoso.',
+    description: 'Igreja do Quadrado de Trancoso na versão GG: escultura artesanal em cerâmica inspirada na Igreja de São João Batista. Mede 16 cm de altura e 23 cm de largura e também funciona como luminária. A fachada da igrejinha pode ser apreciada tanto com a luz acesa quanto apagada.',
   },
   'igrejinha-luminaria-trancoso': {
     title: 'Igrejinha do Quadrado de Trancoso — Luminária de Cerâmica | Agô',
@@ -49,11 +49,11 @@ const SHOPPING_SHORT_TITLES: Record<string, string> = {
 
 const SHOPPING_HIGHLIGHTS: Record<string, string[]> = {
   'igreja-quadrado-p': [
-    'Miniatura P modelada e pintada à mão, com 3,5 cm de altura.',
+    'Miniatura P modelada e pintada à mão.',
     'Fachada inspirada na Igreja de São João Batista de Trancoso.',
   ],
   'igreja-quadrado-m': [
-    'Miniatura M feita à mão, com 4,5 cm de altura.',
+    'Miniatura M em cerâmica artesanal.',
     'Fachada inspirada na Igreja de São João Batista de Trancoso.',
   ],
   'igreja-quadrado-gg': [
@@ -142,8 +142,8 @@ function googleProductCategory(product: { id: string; category: string }) {
 }
 
 export async function GET() {
-  const items = getAllProducts()
-    .map((product) => {
+  const items = getCatalogOffers()
+    .map(({ product, groupId, size, color }) => {
       const hasSale = product.promotionalPrice != null && product.promotionalPrice < product.price;
       const effectivePrice = getEffectivePrice(product);
       const shippingPrice = getShippingPrice(effectivePrice);
@@ -156,6 +156,8 @@ export async function GET() {
       const title = shoppingCopy?.title ?? product.name;
       const description = shoppingCopy?.description ?? product.description;
       const variant = IGREJA_VARIANTS[product.id];
+      const itemGroupId = groupId ?? variant?.itemGroupId;
+      const itemSize = size ?? variant?.size;
       const isIgrejinha = IGREJINHA_IDS.has(product.id);
       const category = googleProductCategory(product);
 
@@ -174,7 +176,6 @@ export async function GET() {
           <g:condition>new</g:condition>
           <g:price>${product.price.toFixed(2)} BRL</g:price>
           ${hasSale ? `<g:sale_price>${product.promotionalPrice!.toFixed(2)} BRL</g:sale_price>` : ''}
-          <g:brand>Agô Trancoso</g:brand>
           <g:identifier_exists>no</g:identifier_exists>
           <g:material>Cerâmica</g:material>
           <g:google_product_category>${category}</g:google_product_category>
@@ -184,7 +185,9 @@ export async function GET() {
             <g:attribute_name>Medidas</g:attribute_name>
             <g:attribute_value>${escapeXml(product.dimensions)}</g:attribute_value>
           </g:product_detail>` : ''}
-          ${variant ? `<g:item_group_id>${escapeXml(variant.itemGroupId)}</g:item_group_id>\n          <g:size>${escapeXml(variant.size)}</g:size>` : ''}
+          ${itemGroupId ? `<g:item_group_id>${escapeXml(itemGroupId)}</g:item_group_id>` : ''}
+          ${itemSize ? `<g:size>${escapeXml(itemSize)}</g:size>` : ''}
+          ${color ? `<g:color>${escapeXml(color)}</g:color>` : ''}
           ${isIgrejinha ? '<g:custom_label_0>Igrejinha do Quadrado de Trancoso</g:custom_label_0>' : ''}
           ${product.id === 'miniatura-quadrado-trancoso' ? '<g:custom_label_1>Decoração de parede</g:custom_label_1>' : ''}
           <g:shipping>

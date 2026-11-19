@@ -4,7 +4,7 @@ import '../../product-decision-clarity.css';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { getAllProducts, getAvailableProducts, getEffectivePrice, getProductById } from '@/lib/products';
+import { getCatalogPageIds, getAvailableProducts, getEffectivePrice, getProductById } from '@/lib/products';
 import { getAttentionOrderedImages, getRelatedProductIds, sortProductsByAttention } from '@/lib/merchandising';
 import { SITE_DOMAIN, whatsappLink } from '@/lib/config';
 import { getShippingPrice } from '@/lib/shipping';
@@ -61,7 +61,7 @@ const PRODUCT_SEO: Record<string, { title: string; description: string }> = {
 };
 
 export function generateStaticParams() {
-  return getAllProducts().map((product) => ({ id: product.id }));
+  return getCatalogPageIds().map(id => ({ id }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -145,7 +145,6 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         image: images.map((image) => `${SITE_DOMAIN}${image}`),
         sku: product.id,
         material: 'Cerâmica',
-        brand: { '@type': 'Brand', name: 'Agô Trancoso' },
         category: isIgrejinhaProduct ? 'Igrejinhas do Quadrado de Trancoso' : product.category,
         url: productUrl,
         mainEntityOfPage: productUrl,

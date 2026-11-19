@@ -409,6 +409,7 @@
         {
           "id": "colorida",
           "name": "Colorida",
+          "color": "Terracota/Branco/Preto",
           "price": 100,
           "stock": 30,
           "image": "/produtos/catalogo/sagrada-familia-capa.jpg"
@@ -416,6 +417,7 @@
         {
           "id": "dourada",
           "name": "Dourada",
+          "color": "Dourado",
           "price": 100,
           "stock": 15,
           "image": "/produtos/catalogo/sagrada-familia-dourada.jpg"

@@ -8,7 +8,7 @@ const ts=require('typescript');
 const resolve=Module._resolveFilename;
 Module._resolveFilename=function(request,...rest){return resolve.call(this,request.startsWith('@/')?path.join(process.cwd(),request.slice(2)):request,...rest);};
 require.extensions['.ts']=(m,f)=>m._compile(ts.transpileModule(fs.readFileSync(f,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,esModuleInterop:true,target:ts.ScriptTarget.ES2020}}).outputText,f);
-const {getAllProducts,getEffectivePrice}=require('../lib/products.ts');
+const {getAllProducts,getProductById,getEffectivePrice}=require('../lib/products.ts');
 const {getAttentionOrderedImages}=require('../lib/merchandising.ts');
 const {getShippingPrice}=require('../lib/shipping.ts');
 const domain='https://www.agotrancoso.com.br';
@@ -21,26 +21,31 @@ async function get(route){const r=await fetch(base+route,{headers:{'User-Agent':
  if(server) await new Promise((ok,no)=>{const timer=setTimeout(()=>no(new Error('Server timeout')),30000);server.stdout.on('data',d=>{if(d.toString().includes('Ready')){clearTimeout(timer);ok();}});server.on('exit',c=>no(new Error(`Server exit ${c}`)));});
  const xml=await get('/google-merchant.xml');
  const entries=xml.match(/<item>[\s\S]*?<\/item>/g)||[];
- const products=getAllProducts();assert.equal(entries.length,products.length);assert.equal(new Set(entries.map(e=>field(e,'id'))).size,products.length);
+ const all=getAllProducts();
+ const ids=all.flatMap(p=>p.variants?.length?p.variants.map(v=>p.id+'-'+v.name.toLowerCase()):p.finishes?.length?p.finishes.filter(f=>f.price!=null&&f.stock!=null).map(f=>p.id+'-'+f.id):[p.id]);
+ const products=ids.map(id=>{const p=getProductById(id);assert.ok(p,id);return p;});
+ const sitemap=await get('/sitemap.xml');
+ for(const id of new Set([...all.map(p=>p.id),...ids])) assert.ok(sitemap.includes('<loc>'+domain+'/produtos/'+id+'</loc>'),'sitemap: '+id);
+ assert.equal(entries.length,products.length);assert.equal(new Set(entries.map(e=>field(e,'id'))).size,products.length);
  const report=[];
  for(const p of products){
   const entry=entries.find(e=>field(e,'id')===p.id);assert.ok(entry,p.id);
   const url=`${domain}/produtos/${p.id}`;
   const effective=getEffectivePrice(p);
   const shipping=getShippingPrice(effective);
-  for(const key of ['title','description','image_link','brand','material','google_product_category','product_type']) assert.ok(field(entry,key),`${p.id}: ${key}`);
+  for(const key of ['title','description','image_link','material','google_product_category','product_type']) assert.ok(field(entry,key),`${p.id}: ${key}`);
   assert.equal(field(entry,'link'),url);assert.equal(field(entry,'mobile_link'),url);
   assert.equal(field(entry,'availability'),p.available?'in_stock':'out_of_stock');assert.equal(field(entry,'condition'),'new');
   assert.equal(field(entry,'price'),`${p.price.toFixed(2)} BRL`);
   assert.equal(field(entry,'sale_price'),p.promotionalPrice != null && p.promotionalPrice<p.price?`${p.promotionalPrice.toFixed(2)} BRL`:'');
-  assert.equal(field(entry,'brand'),'Agô Trancoso');assert.equal(field(entry,'material'),'Cerâmica');
+  assert.equal(field(entry,'material'),'Cerâmica');
   const shippingXml=entry.match(/<g:shipping>([\s\S]*?)<\/g:shipping>/)[1];
   assert.equal(field(shippingXml,'country'),'BR');assert.equal(field(shippingXml,'price'),`${shipping.toFixed(2)} BRL`);
   const page=await get(`/produtos/${p.id}`);
   const scripts=[...page.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map(m=>JSON.parse(m[1]));
   const product=scripts.flatMap(s=>s['@graph']||[s]).find(s=>s['@type']==='Product');assert.ok(product,p.id);
   assert.equal(product.name,p.name);assert.equal(product.description,p.description);assert.equal(product.sku,p.id);assert.equal(product.url,url);
-  assert.equal(product.brand.name,'Agô Trancoso');assert.equal(product.offers.priceCurrency,'BRL');assert.equal(Number(product.offers.price),effective);
+  assert.equal(product.offers.priceCurrency,'BRL');assert.equal(Number(product.offers.price),effective);
   assert.equal(product.offers.availability,`https://schema.org/${p.available?'InStock':'OutOfStock'}`);assert.equal(product.offers.itemCondition,'https://schema.org/NewCondition');assert.equal(product.offers.seller['@id'],`${domain}#organization`);
   assert.equal(Number(product.offers.shippingDetails.shippingRate.value),shipping);
   const images=getAttentionOrderedImages(p).map(image=>domain+image);
@@ -53,6 +58,17 @@ async function get(route){const r=await fetch(base+route,{headers:{'User-Agent':
   report.push({id:p.id,price:effective,availability:field(entry,'availability'),feedTitle:field(entry,'title'),pageName:product.name,ok:true});
  }
  const churchEntry=(id)=>{const entry=entries.find(e=>field(e,'id')===id);assert.ok(entry,id);return entry;};
+ for(const parent of all.filter(p=>p.variants?.length||p.finishes?.length)){
+  assert.ok(!entries.some(e=>field(e,'id')===parent.id),'selector must not be a separate offer: '+parent.id);
+  for(const v of parent.variants||[]){
+   const e=churchEntry(parent.id+'-'+v.name.toLowerCase());
+   assert.equal(field(e,'item_group_id'),parent.id);assert.equal(field(e,'size'),v.name);assert.equal(field(e,'image_link'),domain+v.image);
+  }
+  for(const f of (parent.finishes||[]).filter(f=>f.price!=null&&f.stock!=null)){
+   const e=churchEntry(parent.id+'-'+f.id);
+   assert.equal(field(e,'item_group_id'),parent.id);assert.equal(field(e,'color'),f.color);assert.equal(field(e,'image_link'),domain+f.image);
+  }
+ }
  const pChurch=churchEntry('igreja-quadrado-p');
  const mChurch=churchEntry('igreja-quadrado-m');
  const ggChurch=churchEntry('igreja-quadrado-gg');

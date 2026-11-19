@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { getAllProducts } from '@/lib/products';
+import { getCatalogPageIds } from '@/lib/products';
 import { SITE_DOMAIN } from '@/lib/config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -16,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/ajuda', priority: 0.7 },
     { path: '/envio-internacional', priority: 0.7 },
   ];
-  const productRoutes = getAllProducts().map((product) => `/produtos/${product.id}`);
+  const productRoutes = getCatalogPageIds().map(id => `/produtos/${id}`);
 
   return [
     ...staticRoutes.map(({ path, priority }) => ({

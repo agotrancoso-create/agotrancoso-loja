@@ -90,6 +90,7 @@ export function getProductById(id: string): Product | undefined {
     return {
       ...base, id,
       name: `Rabo de Baleia ${variation.name} (${variation.heightCm} cm)`,
+      description: `Escultura decorativa de cerâmica em forma de cauda de baleia, tamanho ${variation.name}, com ${variation.heightCm} cm de altura.`,
       price: variation.price, promotionalPrice: null,
       dimensions: variation.dimensions,
       images: [variation.image || '/images/placeholder.svg'],
@@ -110,6 +111,7 @@ export function getProductById(id: string): Product | undefined {
     ...family,
     id,
     name: `Sagrada Família em Cerâmica — ${finish.name}`,
+    description: `Sagrada Família em cerâmica no acabamento ${finish.name.toLowerCase()}, com José, Maria e o Menino Jesus.${finish.id === 'colorida' ? ' A alça no verso permite pendurar a peça na parede.' : ''}`,
     price: finish.price,
     promotionalPrice: null,
     stock: finish.stock,
@@ -119,6 +121,28 @@ export function getProductById(id: string): Product | undefined {
     images: [finish.image],
     imageAlt: `Sagrada Família em cerâmica, acabamento ${finish.name.toLowerCase()}`,
   };
+}
+
+type CatalogOffer = { product: Product; groupId?: string; size?: string; color?: string };
+
+// Cada link anunciado deve abrir a mesma peça que o checkout precifica.
+export function getCatalogOffers(products = getAllProducts()): CatalogOffer[] {
+  return products.flatMap<CatalogOffer>((parent) => {
+    const options = [
+      ...(parent.variants ?? []).map(v => ({ id: parent.id + '-' + v.name.toLowerCase(), size: v.name })),
+      ...(parent.finishes ?? []).map(f => ({ id: parent.id + '-' + f.id, color: f.color })),
+    ];
+    if (!options.length) return [{ product: parent }];
+    return options.flatMap(({ id, ...attributes }) => {
+      const product = getProductById(id);
+      return product ? [{ product, groupId: parent.id, ...attributes }] : [];
+    });
+  });
+}
+
+export function getCatalogPageIds(): string[] {
+  const parents = getAllProducts();
+  return Array.from(new Set([...parents.map(p => p.id), ...getCatalogOffers(parents).map(o => o.product.id)]));
 }
 
 export function getAvailableProducts(): Product[] {
