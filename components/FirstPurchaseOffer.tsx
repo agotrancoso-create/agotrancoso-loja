@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { useCart } from '@/context/CartContext';
 import { FIRST_PURCHASE_COUPON } from '@/lib/coupons';
 
 const STORAGE_SEEN = 'ago_primeira_compra_v3_vista';
@@ -15,6 +16,8 @@ function validEmail(value: string) {
 
 export default function FirstPurchaseOffer() {
   const pathname = usePathname();
+  const { hydrated, totalItems, isDrawerOpen } = useCart();
+  const browsingWithEmptyCart = hydrated && totalItems === 0 && !isDrawerOpen;
   const dialogRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
@@ -28,7 +31,9 @@ export default function FirstPurchaseOffer() {
   useEffect(() => {
     setOpen(false);
     const routePath = pathname?.replace(/^\/en(?=\/|$)/, '') || '/';
-    if (!pathname || ['/checkout', '/confirmacao', '/termos', '/privacidade'].some((route) => routePath.startsWith(route))) return;
+    // O cupom continua disponível no pagamento. O convite automático pertence
+    // apenas à página inicial, antes de o cliente começar a montar a sacola.
+    if (!pathname || routePath !== '/' || !browsingWithEmptyCart) return;
 
     let active = true;
     let timer: number | undefined;
@@ -76,7 +81,7 @@ export default function FirstPurchaseOffer() {
       active = false;
       closeListeners();
     };
-  }, [pathname]);
+  }, [pathname, browsingWithEmptyCart]);
 
   useEffect(() => {
     if (!open) return;
