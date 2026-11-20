@@ -1,6 +1,7 @@
 // HTTP checks: crawlers must receive products and sharing metadata without running JS.
 const { spawn } = require('node:child_process');
 const assert = require('node:assert/strict');
+const catalogProducts = require('../data/products.json');
 const base = 'http://127.0.0.1:3105';
 const INDEXNOW_KEY = '7c9f4d6a3e2b1c8f5a0d9e6b4c7f2a31';
 const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '-H', '127.0.0.1', '-p', '3105'], {stdio:['ignore','pipe','pipe']});
@@ -40,7 +41,7 @@ function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags
   assert.equal(indexNowKey,INDEXNOW_KEY,'IndexNow ownership key must be publicly verifiable');
 
   const catalog=await html('/produtos');
-  assert.equal((catalog.match(/<article\b/g)||[]).length,19,'Catalog must include 19 product cards in server HTML');
+  assert.equal((catalog.match(/<article\b/g)||[]).length,catalogProducts.length,`Catalog must include all ${catalogProducts.length} product cards in server HTML`);
   assert.ok(catalog.includes('href="/produtos/estatueta-iemanja"'));
   const filtered=await html('/produtos?ate=150&categoria=decoracao');
   assert.equal((filtered.match(/<article\b/g)||[]).length,1,'Server filters must match the client');
@@ -60,7 +61,7 @@ function meta(page, key){const tags=page.match(/<meta\b[^>]*>/g)||[];return tags
     const page=await html('/produtos/'+id);
     const scripts=[...page.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map(m=>JSON.parse(m[1]));
     const product=scripts.flatMap(data=>data['@graph']||[data]).find(data=>data['@type']==='Product');
-    assert.equal(product.brand.name, 'Agô Trancoso', 'Product brand must match Merchant feed');
+    assert.ok(!product.brand, 'Resold unbranded products must not claim Agô Trancoso as manufacturer or brand');
     assert.equal(product.offers.shippingDetails.shippingRate.value,'39.90',`Google shipping: ${id}`);
     assert.ok(page.includes('Adicionar à sacola'), `Purchase CTA must remain server-rendered: ${id}`);
     assert.ok(page.includes('Frete e prazo estimado para seu CEP'), `CEP estimator must remain visible: ${id}`);
