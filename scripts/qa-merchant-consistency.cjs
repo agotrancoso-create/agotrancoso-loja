@@ -43,7 +43,8 @@ async function get(route){const r=await fetch(base+route,{headers:{'User-Agent':
   assert.equal(field(entry,'product_weight'),knownNet?knownNet+' g':'',p.id+': net weight');
   const effective=getEffectivePrice(p);
   const shipping=getShippingPrice(effective);
-  for(const key of ['title','description','image_link','material','google_product_category','product_type']) assert.ok(field(entry,key),`${p.id}: ${key}`);
+  for(const key of ['title','short_title','description','image_link','material','google_product_category','product_type']) assert.ok(field(entry,key),`${p.id}: ${key}`);
+  assert.ok((entry.match(/<g:product_highlight>/g)||[]).length>=2,`${p.id}: product highlights`);
   assert.equal(field(entry,'link'),url);assert.equal(field(entry,'mobile_link'),url);
   assert.equal(field(entry,'availability'),p.available?'in_stock':'out_of_stock');assert.equal(field(entry,'condition'),'new');
   assert.equal(field(entry,'brand'),'');assert.equal(field(entry,'identifier_exists'),'no');
