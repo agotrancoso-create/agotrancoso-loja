@@ -99,6 +99,24 @@
   }
 }
 
+/* Editorial content below catalog cards needs a clear chapter break.
+   This keeps "Antes de escolher" from visually sticking to the last product row. */
+.catalog-page .commerce-first-grid + .catalog-buying-answer {
+  margin-top: clamp(64px, 7vw, 104px);
+}
+
+@media (max-width: 900px) {
+  .catalog-page .commerce-first-grid + .catalog-buying-answer {
+    margin-top: 52px;
+  }
+}
+
+@media (max-width: 600px) {
+  .catalog-page .commerce-first-grid + .catalog-buying-answer {
+    margin-top: 40px;
+  }
+}
+
 /* Three checkout steps stay visible together, including at narrow widths. */
 .checkout-page .checkout-progress { display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; overflow:visible !important; }
 .checkout-page .checkout-progress-step { min-width:0; white-space:normal; }
