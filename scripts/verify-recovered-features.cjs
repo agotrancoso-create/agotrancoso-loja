@@ -49,7 +49,8 @@ assert.match(miniatura.description, /pendurar na parede/i);
 assert.match(miniatura.description, /apoiar/i);
 assert.ok(products.includes('miniatura-quadrado-trancoso-6.avif'));
 assert.ok(products.includes('miniatura-quadrado-trancoso-7.avif'));
-assert.ok(products.includes('Comprimento: 19 cm · Altura com a cruz da igrejinha do meio: 6,5 cm'));
+require('./register-qa-typescript.cjs');
+assert.equal(require('../lib/products.ts').getProductById('miniatura-quadrado-trancoso').dimensions, 'Comprimento: 19 cm · Altura com a cruz da igrejinha do meio: 6,5 cm');
 
 // Pretos-Velhos: somente a foto 3 recebe reenquadramento especial e fica sem borda.
 assert.ok(products.includes('Casal de Pretos-Velhos em cerâmica disponível na Agô Trancoso'));

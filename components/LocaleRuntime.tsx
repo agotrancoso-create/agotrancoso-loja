@@ -140,6 +140,7 @@ const exact: Record<string, string> = {
   'Contato e redes sociais': 'Contact and social media',
   'Visite': 'Visit',
   'Enviamos para todo o Brasil. Frete grátis a partir de R$ 500 em produtos.': 'We ship throughout Brazil. Free shipping on R$ 500 or more in products.',
+  'Peso da peça sem embalagem': 'Weight without packaging',
   'Envio internacional para mais de 200 países': 'International shipping to more than 200 countries',
   'Termos de Uso': 'Terms of Use',
   'Política de Privacidade': 'Privacy Policy',

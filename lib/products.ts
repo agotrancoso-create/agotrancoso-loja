@@ -1,4 +1,5 @@
 import productsData from '@/data/products.json';
+import { pieceDimensionsText } from './catalog-measurements';
 import { Product, Category, CartItem } from './types';
 
 const RECOVERED_PRODUCT_GALLERIES: Record<string, string[]> = {
@@ -51,21 +52,13 @@ const PRODUCT_IMAGE_ALT_CORRECTIONS: Record<string, string> = {
   'casal-pretos-velhos': 'Casal de Pretos-Velhos em cerâmica disponível na Agô Trancoso',
 };
 
-const PRODUCT_DIMENSIONS_CORRECTIONS: Record<string, string> = {
-  'miniatura-quadrado-trancoso': 'Comprimento: 19 cm · Altura com a cruz da igrejinha do meio: 6,5 cm',
-  'igreja-quadrado-p': 'Comprimento: 3,5 cm · Largura: 4 cm · Altura: 5 cm',
-  'igreja-quadrado-m': 'Comprimento: 5,5 cm · Largura: 6 cm · Altura: 6 cm',
-  'igrejinha-luminaria-trancoso': 'Altura: 6,5 cm · Largura: 7,5 cm',
-  'igreja-quadrado-gg': 'Altura: 16 cm · Largura: 23 cm',
-};
-
 function normalizeProduct(product: Product): Product {
   const source = RECOVERED_PRODUCT_GALLERIES[product.id] ?? product.images ?? [];
   const images = Array.from(new Set(source.filter(Boolean)));
   return {
     ...product,
     name: PRODUCT_NAME_CORRECTIONS[product.id] ?? product.name,
-    dimensions: PRODUCT_DIMENSIONS_CORRECTIONS[product.id] ?? product.dimensions,
+    dimensions: pieceDimensionsText(product.id) ?? product.dimensions,
     images: images.length ? images : ['/images/placeholder.svg'],
     imageAlt: (PRODUCT_IMAGE_ALT_CORRECTIONS[product.id] ?? product.imageAlt) || product.name,
   };
@@ -92,7 +85,7 @@ export function getProductById(id: string): Product | undefined {
       name: `Rabo de Baleia ${variation.name} (${variation.heightCm} cm)`,
       description: `Escultura decorativa de cerâmica em forma de cauda de baleia, tamanho ${variation.name}, com ${variation.heightCm} cm de altura.`,
       price: variation.price, promotionalPrice: null,
-      dimensions: variation.dimensions,
+      dimensions: pieceDimensionsText(id) ?? variation.dimensions,
       images: [variation.image || '/images/placeholder.svg'],
       imageAlt: variation.image ? `Rabo de Baleia tamanho ${variation.name}` : 'Foto do tamanho P ainda não disponível',
       available: variation.stock != null && variation.stock > 0,

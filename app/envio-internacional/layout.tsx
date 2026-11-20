@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { SITE_DOMAIN } from '@/lib/config';
 
 const title = 'Envio internacional | International Shipping | Agô Trancoso';
-const description = 'Compre peças da Agô Trancoso para entrega fora do Brasil. International shipping quotes are available for customers abroad, with destination, cost and delivery estimate confirmed before payment.';
+const description = 'Consulte frete e prazo para receber peças da Agô Trancoso fora do Brasil. International shipping quotes are available for customers abroad, with destination, cost and delivery estimate confirmed before payment.';
 
 export const metadata: Metadata = {
   title: { absolute: title },

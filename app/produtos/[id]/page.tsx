@@ -1,5 +1,6 @@
 import ProductShare from '@/components/ProductShare';
 import ArtisanVariationNote from '@/components/ArtisanVariationNote';
+import { getPieceMeasurements, pieceSchema } from '@/lib/catalog-measurements';
 import '../../product-decision-clarity.css';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -103,6 +104,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const product = getProductById(id);
   if (!product) notFound();
 
+  const measurements = getPieceMeasurements(id);
   const orderedImages = getAttentionOrderedImages(product);
   const images = orderedImages.length ? orderedImages : ['/images/placeholder.svg'];
   const hasPromo = product.promotionalPrice != null && product.promotionalPrice < product.price;
@@ -145,6 +147,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         image: images.map((image) => `${SITE_DOMAIN}${image}`),
         sku: product.id,
         material: 'Cerâmica',
+        ...pieceSchema(product.id),
         category: isIgrejinhaProduct ? 'Igrejinhas do Quadrado de Trancoso' : product.category,
         url: productUrl,
         mainEntityOfPage: productUrl,
@@ -226,6 +229,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
                 <h2 id="product-details-title" className="product-detail-facts-title">Detalhes da peça</h2>
                 <dl className="product-premium-facts" aria-label="Informações da peça">
                   <div><dt>Medidas da peça</dt><dd>{product.dimensions || 'Medidas em atualização'}</dd></div>
+                  {measurements?.netWeightG != null && <div><dt>Peso da peça sem embalagem</dt><dd>{measurements.netWeightG} g</dd></div>}
                   {isDecorativeMiniature && <div><dt>Uso</dt><dd>Para pendurar ou apoiar na decoração</dd></div>}
                   {isHangingSagradaFamilia && <div><dt>Como usar</dt><dd>Possui alça na parte de trás para pendurar na parede. Também pode ser apoiada.</dd></div>}
                 </dl>

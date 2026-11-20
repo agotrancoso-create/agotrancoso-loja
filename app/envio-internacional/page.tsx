@@ -8,6 +8,7 @@ import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { getEffectivePrice, getProductById } from '@/lib/products';
 import { whatsappLink } from '@/lib/config';
+import { getParcelMeasurements } from '@/lib/catalog-measurements';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -15,25 +16,19 @@ function formatBRL(value: number) {
 
 type QuoteForm = {
   name: string;
-  email: string;
-  phone: string;
   country: string;
   city: string;
   region: string;
   postalCode: string;
-  address: string;
   notes: string;
 };
 
 const initialForm: QuoteForm = {
   name: '',
-  email: '',
-  phone: '',
   country: '',
   city: '',
   region: '',
   postalCode: '',
-  address: '',
   notes: '',
 };
 
@@ -79,38 +74,25 @@ export default function InternationalShippingPage() {
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (form.name.trim().length < 2) return setError('Informe seu nome / Enter your full name.');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) return setError('Informe um e-mail válido / Enter a valid email.');
-    if (form.phone.replace(/\D/g, '').length < 7) return setError('Informe seu telefone ou WhatsApp com código do país / Enter your phone or WhatsApp with country code.');
     if (form.country.trim().length < 2) return setError('Informe o país ou território de destino / Enter the destination country or territory.');
     if (form.city.trim().length < 2) return setError('Informe a cidade de destino / Enter the destination city.');
-    if (form.address.trim().length < 4) return setError('Informe o endereço de entrega / Enter the delivery address.');
 
+    const txt = (pt: string, en: string) => english ? en : pt;
     const products = lines.length
-      ? lines.map(({ item, product }) => `• ${item.quantity}x ${product.name} — ${formatBRL(getEffectivePrice(product) * item.quantity)}`).join('\n')
-      : '• Ainda não selecionei as peças';
-
+      ? lines.map(({ item, product }) => `• ${item.quantity} × ${product.name} — ${formatBRL(getEffectivePrice(product) * item.quantity)}`).join('\n')
+      : txt('Ainda não selecionei as peças.', 'I have not selected any pieces yet.');
+    const singleBox = lines.length === 1 && lines[0].item.quantity === 1 ? getParcelMeasurements(lines[0].product.id) : undefined;
     const message = [
-      'Olá! Gostaria de cotar um envio internacional da Agô Trancoso.',
-      '',
-      `Nome: ${form.name.trim()}`,
-      `E-mail: ${form.email.trim()}`,
-      `WhatsApp: ${form.phone.trim()}`,
-      `País/território: ${form.country.trim()}`,
-      `Cidade: ${form.city.trim()}`,
-      form.region.trim() ? `Estado/Província/Região: ${form.region.trim()}` : '',
-      form.postalCode.trim() ? `Código postal: ${form.postalCode.trim()}` : '',
-      `Endereço: ${form.address.trim()}`,
-      '',
-      'Peças:',
+      txt('Olá! Gostaria de cotar o envio internacional da Agô Trancoso.', 'Hello! I would like an international shipping quote from Agô Trancoso.'),
+      form.name.trim() ? `${txt('Nome', 'Name')}: ${form.name.trim()}` : '',
+      [form.city.trim(), form.region.trim(), form.postalCode.trim(), form.country.trim()].filter(Boolean).join(', '),
       products,
-      lines.length ? `Subtotal dos produtos: ${formatBRL(subtotal)}` : '',
-      '',
-      form.notes.trim() ? `Observações: ${form.notes.trim()}` : '',
-      'Quero confirmar valor, serviço disponível e prazo dos Correios antes do pagamento.',
+      lines.length ? `${txt('Subtotal das peças', 'Product subtotal')}: ${formatBRL(subtotal)}` : '',
+      singleBox ? `${txt('Embalagem de uma unidade', 'Single-item parcel')}: ${singleBox.lengthCm} × ${singleBox.widthCm} × ${singleBox.heightCm} cm · ${singleBox.grossWeightG} g` : '',
+      form.notes.trim(),
+      txt('Qual é o valor do frete e o prazo para esse destino?', 'What are the shipping cost and estimated delivery time for this destination?'),
     ].filter(Boolean).join('\n');
-
-    window.open(whatsappLink(message), '_blank', 'noopener,noreferrer');
+    window.location.assign(whatsappLink(message));
   }
 
   return (
@@ -132,30 +114,19 @@ export default function InternationalShippingPage() {
               <div className="checkout-stage-body">
                 <div className="checkout-shipping-note">
                   <span><strong>{t("Frete internacional cotado antes do pagamento · International shipping quoted before payment.")}</strong></span>
-                  <span>{t("Clientes com entrega fora do Brasil não precisam informar CPF/CNPJ. Customers receiving orders outside Brazil do not need a Brazilian CPF/CNPJ.")}</span>
+                  <span>{english ? 'For a quote, we only need the destination country and city. If the address has a postal code, include it for a more precise quote.' : 'Para pedir a cotação, basta informar o país e a cidade. Se o destino tiver código postal, inclua-o para uma cotação mais precisa.'}</span>
                   <span>{t("Como as peças têm tamanhos diferentes, confirmamos peso, embalagem, serviço disponível, prazo e eventuais restrições do destino antes de cobrar o frete.")}</span>
                 </div>
 
-                <div className="checkout-fields-two">
-                  <div className="checkout-field">
-                    <label htmlFor="intl-name">{t("Nome completo · Full name")}</label>
-                    <input id="intl-name" className="checkout-input" autoComplete="name" value={form.name} onChange={(e) => update('name', e.target.value)} placeholder={t("Seu nome / Your name")} />
-                  </div>
-                  <div className="checkout-field">
-                    <label htmlFor="intl-email">{t("E-mail · Email")}</label>
-                    <input id="intl-email" className="checkout-input" type="email" autoComplete="email" value={form.email} onChange={(e) => update('email', e.target.value)} placeholder="you@email.com" />
-                  </div>
-                </div>
-
                 <div className="checkout-field">
-                  <label htmlFor="intl-phone">{t("Telefone / WhatsApp · Phone / WhatsApp ")}<span>{t("(com código do país / with country code)")}</span></label>
-                  <input id="intl-phone" className="checkout-input" autoComplete="tel" inputMode="tel" value={form.phone} onChange={(e) => update('phone', e.target.value)} placeholder="+1 305 000 0000" />
+                  <label htmlFor="intl-name">{english ? 'Name (optional)' : 'Nome (opcional)'}</label>
+                  <input id="intl-name" className="checkout-input" autoComplete="given-name" value={form.name} onChange={(e) => update('name', e.target.value)} />
                 </div>
 
                 <div className="checkout-fields-two">
                   <div className="checkout-field">
                     <label htmlFor="intl-country">{t("País ou território · Country or territory")}</label>
-                    <input id="intl-country" className="checkout-input" list="international-country-suggestions" autoComplete="country-name" value={form.country} onChange={(e) => update('country', e.target.value)} placeholder={t("Ex.: Portugal / e.g. United States")} />
+                    <input id="intl-country" required className="checkout-input" list="international-country-suggestions" autoComplete="country-name" value={form.country} onChange={(e) => update('country', e.target.value)} placeholder={t("Ex.: Portugal / e.g. United States")} />
                     <datalist id="international-country-suggestions">
                       {suggestedCountries.map((country) => <option key={country} value={english ? country.split(" / ").pop() : country.split(" / ")[0]} />)}
                     </datalist>
@@ -163,7 +134,7 @@ export default function InternationalShippingPage() {
                   </div>
                   <div className="checkout-field">
                     <label htmlFor="intl-city">{t("Cidade · City")}</label>
-                    <input id="intl-city" className="checkout-input" autoComplete="address-level2" value={form.city} onChange={(e) => update('city', e.target.value)} placeholder={t("Cidade / City")} />
+                    <input id="intl-city" required className="checkout-input" autoComplete="address-level2" value={form.city} onChange={(e) => update('city', e.target.value)} placeholder={t("Cidade / City")} />
                   </div>
                 </div>
 
@@ -176,11 +147,6 @@ export default function InternationalShippingPage() {
                     <label htmlFor="intl-postal">{t("Código postal · Postal code ")}<span>{t("(se houver / if applicable)")}</span></label>
                     <input id="intl-postal" className="checkout-input" autoComplete="postal-code" value={form.postalCode} onChange={(e) => update('postalCode', e.target.value)} placeholder="Postal code" />
                   </div>
-                </div>
-
-                <div className="checkout-field">
-                  <label htmlFor="intl-address">{t("Endereço de entrega · Delivery address")}</label>
-                  <input id="intl-address" className="checkout-input" autoComplete="street-address" value={form.address} onChange={(e) => update('address', e.target.value)} placeholder={english ? 'Street address' : 'Rua, número, complemento'} />
                 </div>
 
                 <div className="checkout-field">

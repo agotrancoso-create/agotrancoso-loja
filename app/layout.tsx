@@ -107,6 +107,12 @@ const structuredData = {
       image: `${SITE_DOMAIN}${primarySearchImage}`,
       description: 'Loja de cerâmica artesanal no Quadrado de Trancoso, Bahia, com peças inspiradas na vila, na Igreja de São João Batista e em outras referências brasileiras.',
       foundingDate: '2016',
+      contactPoint: { '@type': 'ContactPoint', contactType: 'customer service', telephone: `+${WHATSAPP_NUMBER}`, url: `${SITE_DOMAIN}/contato` },
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy', applicableCountry: 'BR',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow', merchantReturnDays: 7,
+        returnFees: 'https://schema.org/FreeReturn', merchantReturnLink: `${SITE_DOMAIN}/devolucoes`,
+      },
       areaServed: { '@type': 'Country', name: 'Brasil' },
       telephone: `+${WHATSAPP_NUMBER}`,
       address: { '@type': 'PostalAddress', streetAddress: 'Quadrado de Trancoso', addressLocality: 'Trancoso', addressRegion: 'BA', addressCountry: 'BR' },

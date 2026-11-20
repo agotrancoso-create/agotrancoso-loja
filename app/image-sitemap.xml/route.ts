@@ -1,4 +1,4 @@
-import { getAllProducts } from '@/lib/products';
+import { getCatalogPageIds, getProductById } from '@/lib/products';
 import { SITE_DOMAIN } from '@/lib/config';
 
 export const dynamic = 'force-static';
@@ -28,12 +28,13 @@ function absoluteUrl(path: string) {
 }
 
 export async function GET() {
-  const products = getAllProducts().filter((product) => product.available && product.images?.length);
+  const products = getCatalogPageIds().map(getProductById)
+    .filter((p): p is NonNullable<typeof p> => !!p && p.images.some(image => image !== '/images/placeholder.svg'));
 
   const productEntries = products
     .map((product) => {
       const images = product.images
-        .filter(Boolean)
+        .filter(image => !!image && image !== '/images/placeholder.svg')
         .slice(0, 1000)
         .map((image) => `\n    <image:image>\n      <image:loc>${escapeXml(absoluteUrl(image))}</image:loc>\n    </image:image>`)
         .join('');

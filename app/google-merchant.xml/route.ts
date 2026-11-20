@@ -2,6 +2,7 @@ import { getCatalogOffers, getEffectivePrice } from '@/lib/products';
 import { getAttentionOrderedImages } from '@/lib/merchandising';
 import { SITE_DOMAIN } from '@/lib/config';
 import { getShippingPrice } from '@/lib/shipping';
+import { getPieceMeasurements, getParcelMeasurements } from '@/lib/catalog-measurements';
 
 export const dynamic = 'force-static';
 export const revalidate = 3600;
@@ -141,8 +142,24 @@ function googleProductCategory(product: { id: string; category: string }) {
   return 5609; // Casa e jardim > Decoração > Estatuetas
 }
 
+function measurementTags(id: string) {
+  const item = getPieceMeasurements(id);
+  const box = getParcelMeasurements(id);
+  const fields: [string, number | undefined, 'cm' | 'g'][] = [
+    ['product_length', item?.lengthCm, 'cm'], ['product_width', item?.widthCm, 'cm'],
+    ['product_height', item?.heightCm, 'cm'], ['product_weight', item?.netWeightG, 'g'],
+    ['shipping_length', box?.lengthCm, 'cm'], ['shipping_width', box?.widthCm, 'cm'],
+    ['shipping_height', box?.heightCm, 'cm'], ['shipping_weight', box?.grossWeightG, 'g'],
+  ];
+  return fields.filter(([, value]) => value != null)
+    .map(([tag, value, unit]) => `<g:${tag}>${value} ${unit}</g:${tag}>`).join('\n          ');
+}
+
 export async function GET() {
   const items = getCatalogOffers()
+    // Functional smoking pipes cannot be listed on Shopping (including free listings).
+    // Keep the item in the store; this exclusion is specific to the Google data source.
+    .filter(({ product }) => product.id !== 'cachimbo')
     .map(({ product, groupId, size, color }) => {
       const hasSale = product.promotionalPrice != null && product.promotionalPrice < product.price;
       const effectivePrice = getEffectivePrice(product);
@@ -178,6 +195,7 @@ export async function GET() {
           ${hasSale ? `<g:sale_price>${product.promotionalPrice!.toFixed(2)} BRL</g:sale_price>` : ''}
           <g:identifier_exists>no</g:identifier_exists>
           <g:material>Cerâmica</g:material>
+          ${measurementTags(product.id)}
           <g:google_product_category>${category}</g:google_product_category>
           <g:product_type>${escapeXml(productType(product.category))}</g:product_type>
           ${product.dimensions ? `<g:product_detail>

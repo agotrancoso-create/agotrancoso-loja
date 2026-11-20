@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/nossa-essencia', priority: 0.7 },
     { path: '/contato', priority: 0.7 },
     { path: '/ajuda', priority: 0.7 },
+    { path: '/devolucoes', priority: 0.6 },
     { path: '/envio-internacional', priority: 0.7 },
   ];
   const productRoutes = getCatalogPageIds().map(id => `/produtos/${id}`);
