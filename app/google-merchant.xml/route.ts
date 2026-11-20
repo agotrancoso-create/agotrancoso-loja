@@ -9,74 +9,143 @@ export const revalidate = 3600;
 
 const SHOPPING_COPY: Record<string, { title: string; description: string }> = {
   'igreja-quadrado-p': {
-    title: 'Igrejinha do Quadrado de Trancoso P em Cerâmica Artesanal | Agô',
-    description: 'Igrejinha do Quadrado de Trancoso tamanho P, feita em cerâmica e pintada à mão. Miniatura inspirada na Igreja de São João Batista, com a fachada da igrejinha do Quadrado. Peça decorativa artesanal para guardar uma lembrança do Quadrado de Trancoso, Bahia.',
+    title: 'Igrejinha do Quadrado de Trancoso P em Cerâmica | Agô',
+    description: 'Miniatura em cerâmica da Igreja de São João Batista, a Igrejinha do Quadrado de Trancoso, tamanho P. A peça reproduz a fachada branca e a cruz da igreja e funciona como lembrança decorativa para apoiar em prateleiras, nichos ou aparadores.',
   },
   'igreja-quadrado-m': {
-    title: 'Igrejinha do Quadrado de Trancoso M em Cerâmica Artesanal | Agô',
-    description: 'Igrejinha do Quadrado de Trancoso tamanho M em cerâmica artesanal. A fachada reproduz a Igreja de São João Batista, no Quadrado de Trancoso, Bahia. Uma miniatura para apoiar em prateleiras e aparadores.',
+    title: 'Igrejinha do Quadrado de Trancoso M em Cerâmica | Agô',
+    description: 'Miniatura em cerâmica da Igreja de São João Batista, no Quadrado de Trancoso, tamanho M. A peça traz a fachada da igrejinha como referência visual da vila e pode ser usada em prateleiras, nichos, aparadores ou como presente ligado a Trancoso.',
   },
   'igreja-quadrado-gg': {
-    title: 'Igreja do Quadrado de Trancoso GG — Escultura Luminária em Cerâmica | Agô',
-    description: 'Igreja do Quadrado de Trancoso na versão GG: escultura artesanal em cerâmica inspirada na Igreja de São João Batista. Mede 16 cm de altura e 23 cm de largura e também funciona como luminária. A fachada da igrejinha pode ser apreciada tanto com a luz acesa quanto apagada.',
+    title: 'Igreja do Quadrado de Trancoso GG — Luminária em Cerâmica | Agô',
+    description: 'Escultura em cerâmica da Igreja de São João Batista, no Quadrado de Trancoso, na versão GG. Mede 16 cm de altura e 23 cm de largura e também funciona como luminária, unindo a referência da igrejinha a uma peça de decoração e iluminação.',
   },
   'igrejinha-luminaria-trancoso': {
-    title: 'Igrejinha do Quadrado de Trancoso — Luminária de Cerâmica | Agô',
-    description: 'Igrejinha Luminária do Quadrado de Trancoso feita à mão em cerâmica, inspirada na Igreja de São João Batista. Com 6,5 cm de altura e 7,5 cm de largura, pode receber uma vela LED ou vela pequena em seu interior para iluminar a decoração.',
+    title: 'Igrejinha Luminária do Quadrado de Trancoso em Cerâmica | Agô',
+    description: 'Luminária em cerâmica inspirada na Igreja de São João Batista, no Quadrado de Trancoso. Mede 6,5 cm de altura e 7,5 cm de largura e pode receber vela LED ou vela pequena no interior, iluminando os recortes da fachada e criando luz decorativa.',
+  },
+  'casinha-luminaria': {
+    title: 'Casinha Luminária em Cerâmica Inspirada em Trancoso | Agô',
+    description: 'Casinha luminária em cerâmica inspirada no casario de Trancoso. A luz aparece pelas portas e janelas quando usada com vela LED ou rechaud.',
   },
   'miniatura-quadrado-trancoso': {
-    title: 'Miniatura do Quadrado de Trancoso para Pendurar | Agô',
-    description: 'Miniatura artesanal em cerâmica inspirada no Quadrado de Trancoso, Bahia. Peça colorida feita para pendurar na parede e levar uma referência do Quadrado para a decoração.',
+    title: 'Miniatura do Quadrado de Trancoso em Cerâmica para Pendurar | Agô',
+    description: 'Miniatura do Quadrado de Trancoso em cerâmica, com casinhas coloridas e igrejinha. Pode ser pendurada na parede ou apoiada em prateleiras e outros móveis.',
   },
-  'ima-igrejinha-trancoso': {
-    title: 'Ímã da Igrejinha do Quadrado de Trancoso em Cerâmica | Agô',
-    description: 'Ímã artesanal em cerâmica inspirado na Igreja de São João Batista, a Igrejinha do Quadrado de Trancoso. Peça pintada à mão e disponível na Agô Trancoso como lembrança da vila.',
+  'cruzeiro-do-quadrado': {
+    title: 'Cruzeiro do Quadrado de Trancoso em Cerâmica | Agô',
+    description: 'Miniatura em cerâmica do Cruzeiro do Quadrado de Trancoso, referência do conjunto histórico da vila. Peça decorativa disponível na Agô.',
+  },
+  'mobile-trancoso': {
+    title: 'Móbile de Casinhas de Trancoso em Cerâmica | Agô',
+    description: 'Móbile em cerâmica com pequenas casinhas inspiradas no casario de Trancoso. Peça decorativa para pendurar e criar movimento com a brisa.',
+  },
+  'estatueta-iemanja': {
+    title: 'Estatueta de Iemanjá em Cerâmica | Agô Trancoso',
+    description: 'Representação de Iemanjá em cerâmica para altar, prateleira ou espaço de fé e devoção. Disponível para compra online na Agô Trancoso.',
+  },
+  'nossa-senhora-grande': {
+    title: 'Nossa Senhora Grande em Cerâmica | Agô Trancoso',
+    description: 'Imagem grande de Nossa Senhora em cerâmica, com detalhes nas vestes. Peça para altar doméstico ou ambiente dedicado à devoção.',
+  },
+  'presepio-em-ceramica': {
+    title: 'Presépio em Cerâmica com 5 Peças | Agô Trancoso',
+    description: 'Presépio em cerâmica com cinco peças: Menino Jesus, Maria, José, anjo e Estrela de Belém. Conjunto para decoração de Natal em mesa, prateleira ou aparador.',
+  },
+  'casal-pretos-velhos': {
+    title: 'Casal de Pretos-Velhos em Cerâmica | Agô Trancoso',
+    description: 'Representação de um casal de Pretos-Velhos em cerâmica, com elementos da tradição de fé, respeito e ancestralidade. Disponível na Agô Trancoso.',
+  },
+  'nossa-senhora-aparecida': {
+    title: 'Nossa Senhora Aparecida em Cerâmica | Agô Trancoso',
+    description: 'Imagem de Nossa Senhora Aparecida em cerâmica, com manto azul e detalhes dourados. Para espaço de oração, altar ou presente de devoção.',
+  },
+  'divino-espirito-santo': {
+    title: 'Divino Espírito Santo de Parede em Cerâmica | Agô Trancoso',
+    description: 'Peça circular em cerâmica com a pomba do Divino Espírito Santo em relevo. Indicada para pendurar em paredes internas e compor espaços de fé.',
+  },
+  'terco-em-ceramica': {
+    title: 'Terço em Cerâmica com Contas Brancas | Agô Trancoso',
+    description: 'Terço com contas brancas de cerâmica e cruz na extremidade. Para momentos de oração ou para compor um espaço de fé e devoção.',
+  },
+  'rosario-trancoso': {
+    title: 'Rosário com Igreja do Quadrado de Trancoso em Cerâmica | Agô',
+    description: 'Rosário de contas de cerâmica com medalhão que representa a Igreja do Quadrado de Trancoso, unindo devoção e uma referência da vila.',
+  },
+  'esfera-decorativa': {
+    title: 'Esfera Decorativa em Cerâmica Terracota | Agô Trancoso',
+    description: 'Esfera decorativa em cerâmica de tom terroso com desenhos florais claros. Para compor mesas, aparadores e estantes, sozinha ou com outras peças.',
   },
   'colar-igreja-quadrado': {
     title: 'Colar da Igrejinha do Quadrado de Trancoso em Cerâmica | Agô',
-    description: 'Colar artesanal em cerâmica inspirado na fachada da Igreja de São João Batista do Quadrado de Trancoso. Peça modelada à mão e disponível na Agô Trancoso para usar ou presentear.',
+    description: 'Colar com pingente em cerâmica inspirado na Igreja de São João Batista, no Quadrado de Trancoso. Lembrança da vila para usar ou presentear.',
+  },
+  'ima-igrejinha-trancoso': {
+    title: 'Ímã da Igrejinha do Quadrado de Trancoso em Cerâmica | Agô',
+    description: 'Ímã em cerâmica com a fachada da Igreja de São João Batista, a Igrejinha do Quadrado de Trancoso. Pequena lembrança para usar ou presentear.',
+  },
+  'rabo-de-baleia': {
+    title: 'Rabo de Baleia Decorativo em Cerâmica P, M e G | Agô Trancoso',
+    description: 'Escultura decorativa em cerâmica em forma de cauda de baleia. Disponível nos tamanhos P, M e G, com alturas de 10, 12 e 16 cm.',
+  },
+  'sagrada-familia': {
+    title: 'Sagrada Família em Cerâmica Colorida ou Dourada | Agô',
+    description: 'Sagrada Família em cerâmica com José, Maria e Menino Jesus. Disponível nos acabamentos colorido e dourado; a versão colorida pode ser pendurada ou apoiada.',
+  },
+  'cachimbo': {
+    title: 'Cachimbo Decorativo em Cerâmica Terracota | Agô Trancoso',
+    description: 'Cachimbo decorativo em cerâmica terracota com flores claras pintadas na superfície. Mede 10 cm de comprimento e está disponível na Agô Trancoso.',
   },
 };
 
 const SHOPPING_SHORT_TITLES: Record<string, string> = {
-  'igreja-quadrado-p': 'Igrejinha do Quadrado de Trancoso P',
-  'igreja-quadrado-m': 'Igrejinha do Quadrado de Trancoso M',
-  'igreja-quadrado-gg': 'Igreja do Quadrado de Trancoso GG',
-  'igrejinha-luminaria-trancoso': 'Igrejinha Luminária do Quadrado de Trancoso',
-  'miniatura-quadrado-trancoso': 'Miniatura Quadrado de Trancoso',
-  'ima-igrejinha-trancoso': 'Ímã Igrejinha de Trancoso',
-  'colar-igreja-quadrado': 'Colar Igreja do Quadrado',
+  'igreja-quadrado-p': 'Igrejinha de Trancoso P',
+  'igreja-quadrado-m': 'Igrejinha de Trancoso M',
+  'igreja-quadrado-gg': 'Igreja de Trancoso GG Luminária',
+  'igrejinha-luminaria-trancoso': 'Igrejinha Luminária de Trancoso',
+  'casinha-luminaria': 'Casinha Luminária em Cerâmica',
+  'miniatura-quadrado-trancoso': 'Miniatura do Quadrado de Trancoso',
+  'cruzeiro-do-quadrado': 'Cruzeiro do Quadrado de Trancoso',
+  'mobile-trancoso': 'Móbile de Casinhas de Trancoso',
+  'estatueta-iemanja': 'Iemanjá em Cerâmica',
+  'nossa-senhora-grande': 'Nossa Senhora Grande em Cerâmica',
+  'presepio-em-ceramica': 'Presépio em Cerâmica 5 Peças',
+  'casal-pretos-velhos': 'Casal de Pretos-Velhos em Cerâmica',
+  'nossa-senhora-aparecida': 'Nossa Senhora Aparecida em Cerâmica',
+  'divino-espirito-santo': 'Divino Espírito Santo em Cerâmica',
+  'terco-em-ceramica': 'Terço em Cerâmica',
+  'rosario-trancoso': 'Rosário Trancoso em Cerâmica',
+  'esfera-decorativa': 'Esfera Decorativa em Cerâmica',
+  'colar-igreja-quadrado': 'Colar da Igreja do Quadrado',
+  'ima-igrejinha-trancoso': 'Ímã da Igrejinha de Trancoso',
+  'rabo-de-baleia': 'Rabo de Baleia em Cerâmica',
+  'sagrada-familia': 'Sagrada Família em Cerâmica',
+  'cachimbo': 'Cachimbo Decorativo em Cerâmica',
 };
 
 const SHOPPING_HIGHLIGHTS: Record<string, string[]> = {
-  'igreja-quadrado-p': [
-    'Miniatura P modelada e pintada à mão.',
-    'Fachada inspirada na Igreja de São João Batista de Trancoso.',
-  ],
-  'igreja-quadrado-m': [
-    'Miniatura M em cerâmica artesanal.',
-    'Fachada inspirada na Igreja de São João Batista de Trancoso.',
-  ],
-  'igreja-quadrado-gg': [
-    'Escultura GG em cerâmica com 16 cm de altura e 23 cm de largura.',
-    'Também funciona como luminária, além de escultura decorativa.',
-  ],
-  'igrejinha-luminaria-trancoso': [
-    'Luminária artesanal em cerâmica com 6,5 cm de altura.',
-    'Pode receber vela LED ou vela pequena no interior.',
-  ],
-  'miniatura-quadrado-trancoso': [
-    'Peça de cerâmica inspirada no Quadrado de Trancoso.',
-    'Criada para pendurar na parede.',
-  ],
-  'ima-igrejinha-trancoso': [
-    'Ímã artesanal de cerâmica pintado à mão.',
-    'Inspirado na fachada da Igreja de São João Batista de Trancoso.',
-  ],
-  'colar-igreja-quadrado': [
-    'Pingente de cerâmica modelado à mão.',
-    'Inspirado na fachada da Igreja do Quadrado de Trancoso.',
-  ],
+  'igreja-quadrado-p': ['Miniatura em cerâmica da Igrejinha do Quadrado de Trancoso.', 'Tamanho P para apoiar na decoração ou presentear.'],
+  'igreja-quadrado-m': ['Miniatura em cerâmica da Igrejinha do Quadrado de Trancoso.', 'Tamanho M para prateleiras, aparadores e nichos.'],
+  'igreja-quadrado-gg': ['Escultura em cerâmica com 16 cm de altura e 23 cm de largura.', 'Também funciona como luminária decorativa.'],
+  'igrejinha-luminaria-trancoso': ['Luminária em cerâmica com 6,5 cm de altura e 7,5 cm de largura.', 'Pode receber vela LED ou vela pequena no interior.'],
+  'casinha-luminaria': ['Casinha em cerâmica inspirada no casario de Trancoso.', 'A luz aparece pelas portas e janelas da peça.'],
+  'miniatura-quadrado-trancoso': ['Miniatura em cerâmica do Quadrado de Trancoso.', 'Pode ser pendurada na parede ou apoiada.'],
+  'cruzeiro-do-quadrado': ['Miniatura em cerâmica do Cruzeiro do Quadrado de Trancoso.', 'Referência do conjunto histórico da vila.'],
+  'mobile-trancoso': ['Móbile com pequenas casinhas de cerâmica.', 'Peça para pendurar e criar movimento com a brisa.'],
+  'estatueta-iemanja': ['Representação de Iemanjá em cerâmica.', 'Indicada para altar, prateleira ou espaço de devoção.'],
+  'nossa-senhora-grande': ['Imagem grande de Nossa Senhora em cerâmica.', 'Indicada para altar doméstico ou espaço de devoção.'],
+  'presepio-em-ceramica': ['Conjunto de presépio com cinco peças de cerâmica.', 'Inclui Menino Jesus, Maria, José, anjo e Estrela de Belém.'],
+  'casal-pretos-velhos': ['Casal de Pretos-Velhos representado em cerâmica.', 'Peça ligada à tradição de fé, respeito e ancestralidade.'],
+  'nossa-senhora-aparecida': ['Imagem de Nossa Senhora Aparecida em cerâmica.', 'Manto azul com detalhes dourados.'],
+  'divino-espirito-santo': ['Peça circular em cerâmica com pomba em relevo.', 'Feita para pendurar em paredes internas.'],
+  'terco-em-ceramica': ['Terço com contas brancas de cerâmica.', 'Cruz na extremidade para momentos de oração e devoção.'],
+  'rosario-trancoso': ['Rosário com contas de cerâmica.', 'Medalhão com referência à Igreja do Quadrado de Trancoso.'],
+  'esfera-decorativa': ['Esfera decorativa em cerâmica de tom terroso.', 'Desenhos florais claros para mesas, aparadores e estantes.'],
+  'colar-igreja-quadrado': ['Pingente em cerâmica inspirado na Igreja do Quadrado.', 'Lembrança de Trancoso para usar ou presentear.'],
+  'ima-igrejinha-trancoso': ['Ímã em cerâmica da Igrejinha do Quadrado de Trancoso.', 'Lembrança compacta para presentear.'],
+  'rabo-de-baleia': ['Escultura decorativa em cerâmica em forma de cauda de baleia.', 'Tamanhos P, M e G com 10, 12 e 16 cm de altura.'],
+  'sagrada-familia': ['Sagrada Família em cerâmica com José, Maria e Menino Jesus.', 'Disponível nos acabamentos colorido e dourado.'],
+  'cachimbo': ['Peça decorativa em cerâmica terracota.', 'Mede 10 cm de comprimento.'],
 };
 
 // IDs oficiais da taxonomia Google Product Category. Mantemos as classes
@@ -167,14 +236,30 @@ export async function GET() {
       const curatedImages = getAttentionOrderedImages(product);
       const mainImage = curatedImages[0] ? absoluteUrl(curatedImages[0]) : `${SITE_DOMAIN}/images/placeholder.svg`;
       const additionalImages = curatedImages.slice(1, 10);
-      const shoppingCopy = SHOPPING_COPY[product.id];
-      const shortTitle = SHOPPING_SHORT_TITLES[product.id];
-      const highlights = SHOPPING_HIGHLIGHTS[product.id] ?? [];
-      const title = shoppingCopy?.title ?? product.name;
-      const description = shoppingCopy?.description ?? product.description;
+      const shoppingKey = product.id.startsWith('rabo-de-baleia-')
+        ? 'rabo-de-baleia'
+        : product.id.startsWith('sagrada-familia-')
+          ? 'sagrada-familia'
+          : product.id;
+      const shoppingCopy = SHOPPING_COPY[shoppingKey];
+      const baseShortTitle = SHOPPING_SHORT_TITLES[shoppingKey];
+      const highlights = SHOPPING_HIGHLIGHTS[shoppingKey] ?? [];
       const variant = IGREJA_VARIANTS[product.id];
       const itemGroupId = groupId ?? variant?.itemGroupId;
       const itemSize = size ?? variant?.size;
+      const isWhaleVariant = product.id.startsWith('rabo-de-baleia-');
+      const isFamilyVariant = product.id.startsWith('sagrada-familia-');
+      const title = isWhaleVariant
+        ? `Rabo de Baleia em Cerâmica ${itemSize || ''} | Agô Trancoso`
+        : isFamilyVariant
+          ? `${product.name} | Agô Trancoso`
+          : shoppingCopy?.title ?? product.name;
+      const shortTitle = isWhaleVariant
+        ? `Rabo de Baleia ${itemSize || ''} em Cerâmica`
+        : isFamilyVariant
+          ? product.name.replace('Sagrada Família em Cerâmica — ', 'Sagrada Família ')
+          : baseShortTitle;
+      const description = (isWhaleVariant || isFamilyVariant) ? product.description : shoppingCopy?.description ?? product.description;
       const isIgrejinha = IGREJINHA_IDS.has(product.id);
       const category = googleProductCategory(product);
 
