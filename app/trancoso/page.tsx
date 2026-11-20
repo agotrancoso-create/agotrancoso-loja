@@ -8,8 +8,8 @@ import { SITE_DOMAIN } from '@/lib/config';
 const pageUrl = `${SITE_DOMAIN}/trancoso`;
 
 export const metadata: Metadata = {
-  title: { absolute: 'Cerâmica em Trancoso, Bahia | Agô no Quadrado' },
-  description: 'Cerâmica artesanal no Quadrado de Trancoso: igrejinhas, miniaturas, luminárias, decoração e lembranças inspiradas na vila. Compre online ou visite a Agô.',
+  title: { absolute: 'Artesanato e cerâmica em Trancoso, Bahia | Agô no Quadrado' },
+  description: 'Artesanato, cerâmica e decoração no Quadrado de Trancoso: igrejinhas, miniaturas, luminárias e lembranças selecionadas pela Agô. Compre online ou visite a banca.',
   alternates: { canonical: '/trancoso' },
   robots: {
     index: true,
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 },
   },
   openGraph: {
-    title: 'Cerâmica em Trancoso, Bahia | Agô no Quadrado',
+    title: 'Artesanato e cerâmica em Trancoso, Bahia | Agô no Quadrado',
     description: 'Cerâmica artesanal no Quadrado de Trancoso: peças inspiradas na vila, na Igrejinha e nas cores da Bahia.',
     url: '/trancoso',
     siteName: 'Agô Trancoso',
@@ -91,7 +91,7 @@ export default function TrancosoPage() {
         <header className="catalog-intro commerce-catalog-intro">
           <div>
             <p className="eyebrow">Trancoso · Bahia · Brasil</p>
-            <h1>Cerâmica artesanal no coração de Trancoso.</h1>
+            <h1>Artesanato e cerâmica no coração de Trancoso.</h1>
           </div>
           <p>A Agô reúne no Quadrado uma seleção de cerâmica artesanal inspirada nas cores, na arquitetura, na fé e nos símbolos que fazem parte de Trancoso.</p>
         </header>
