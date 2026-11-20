@@ -143,7 +143,7 @@ jobs:
 
           merchant_xml=$(curl --fail --silent --show-error http://127.0.0.1:3000/google-merchant.xml)
           item_count=$(printf '%s' "$merchant_xml" | grep -o '<item>' | wc -l | tr -d ' ')
-          expected_item_count=$(node -e "const products=require('./data/products.json'); const count=products.filter(p=>p.id!=='cachimbo').reduce((total,p)=>{if(p.variants?.length)return total+p.variants.length; const finishes=p.finishes?.filter(f=>f.price!=null&&f.stock!=null)||[]; return total+(finishes.length||1);},0); process.stdout.write(String(count));")
+          expected_item_count=$(node -e "const raw=require('./data/products.json'); const products=Array.isArray(raw)?raw:raw.products; const count=products.filter(p=>p.id!=='cachimbo').reduce((total,p)=>{if(p.variants?.length)return total+p.variants.length; const finishes=p.finishes?.filter(f=>f.price!=null&&f.stock!=null)||[]; return total+(finishes.length||1);},0); process.stdout.write(String(count));")
           test "$item_count" = "$expected_item_count"
           grep -q '<g:id>miniatura-quadrado-trancoso</g:id>' <<< "$merchant_xml"
           grep -q 'para Pendurar' <<< "$merchant_xml"
