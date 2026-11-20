@@ -25,7 +25,7 @@ function productImageAlt(product: Product) {
   if (product.id === 'igrejinha-luminaria-trancoso') return 'Igrejinha do Quadrado de Trancoso em cerâmica na versão luminária';
   if (product.id === 'ima-igrejinha-trancoso') return 'Ímã em cerâmica da Igrejinha do Quadrado de Trancoso';
   if (product.id === 'colar-igreja-quadrado') return 'Colar em cerâmica inspirado na Igrejinha do Quadrado de Trancoso';
-  if (product.id === 'casal-pretos-velhos') return 'Casal de Pretos-Velhos em cerâmica artesanal da Agô Trancoso, Bahia';
+  if (product.id === 'casal-pretos-velhos') return 'Casal de Pretos-Velhos em cerâmica disponível na Agô Trancoso';
   return product.imageAlt || `${product.name} em cerâmica disponível na Agô Trancoso`;
 }
 
