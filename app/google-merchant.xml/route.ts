@@ -10,19 +10,19 @@ export const revalidate = 3600;
 const SHOPPING_COPY: Record<string, { title: string; description: string }> = {
   'igreja-quadrado-p': {
     title: 'Igrejinha do Quadrado de Trancoso P em Cerâmica | Agô',
-    description: 'Miniatura em cerâmica da Igreja de São João Batista, a Igrejinha do Quadrado de Trancoso, tamanho P. Peça decorativa para apoiar e presentear, disponível na Agô Trancoso.',
+    description: 'Miniatura em cerâmica da Igreja de São João Batista, a Igrejinha do Quadrado de Trancoso, tamanho P. A peça reproduz a fachada branca e a cruz da igreja e funciona como lembrança decorativa para apoiar em prateleiras, nichos ou aparadores.',
   },
   'igreja-quadrado-m': {
     title: 'Igrejinha do Quadrado de Trancoso M em Cerâmica | Agô',
-    description: 'Miniatura em cerâmica da Igreja de São João Batista, no Quadrado de Trancoso, tamanho M. Uma referência da vila para prateleiras e aparadores.',
+    description: 'Miniatura em cerâmica da Igreja de São João Batista, no Quadrado de Trancoso, tamanho M. A peça traz a fachada da igrejinha como referência visual da vila e pode ser usada em prateleiras, nichos, aparadores ou como presente ligado a Trancoso.',
   },
   'igreja-quadrado-gg': {
     title: 'Igreja do Quadrado de Trancoso GG — Luminária em Cerâmica | Agô',
-    description: 'Escultura em cerâmica da Igreja do Quadrado de Trancoso na versão GG. Mede 16 cm de altura e 23 cm de largura e também funciona como luminária.',
+    description: 'Escultura em cerâmica da Igreja de São João Batista, no Quadrado de Trancoso, na versão GG. Mede 16 cm de altura e 23 cm de largura e também funciona como luminária, unindo a referência da igrejinha a uma peça de decoração e iluminação.',
   },
   'igrejinha-luminaria-trancoso': {
     title: 'Igrejinha Luminária do Quadrado de Trancoso em Cerâmica | Agô',
-    description: 'Luminária em cerâmica inspirada na Igreja de São João Batista, no Quadrado de Trancoso. Mede 6,5 cm de altura e 7,5 cm de largura e pode receber vela LED ou vela pequena.',
+    description: 'Luminária em cerâmica inspirada na Igreja de São João Batista, no Quadrado de Trancoso. Mede 6,5 cm de altura e 7,5 cm de largura e pode receber vela LED ou vela pequena no interior, iluminando os recortes da fachada e criando luz decorativa.',
   },
   'casinha-luminaria': {
     title: 'Casinha Luminária em Cerâmica Inspirada em Trancoso | Agô',
