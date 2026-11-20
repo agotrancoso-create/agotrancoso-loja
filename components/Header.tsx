@@ -20,7 +20,7 @@ const navItems = [
 ];
 
 const categoryItems = [
-  { href: '/produtos?categoria=trancoso', label: 'Trancoso' },
+  { href: '/artesanato-em-trancoso', label: 'Trancoso' },
   { href: '/igrejinha-de-trancoso', label: 'Igrejinhas' },
   { href: '/decoracao-em-ceramica', label: 'Decoração' },
   { href: '/produtos?categoria=fe-devocao', label: 'Fé & devoção' },
