@@ -3,12 +3,12 @@ import { getAllProducts, getAllCategories } from '@/lib/products';
 import ProdutosClient from './ProdutosClient';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Cerâmica e Artesanato em Trancoso | Coleção Agô Trancoso' },
-  description: 'Conheça a coleção da Agô Trancoso: igrejinhas do Quadrado, cerâmica artesanal, decoração, peças de fé e presentes feitos à mão em Trancoso, Bahia.',
+  title: { absolute: 'Artesanato, Cerâmica e Decoração em Trancoso | Agô' },
+  description: 'Conheça a seleção da Agô Trancoso: igrejinhas do Quadrado, cerâmica artesanal, decoração, peças de fé e presentes disponíveis no Quadrado de Trancoso e online.',
   alternates: { canonical: '/produtos' },
   openGraph: {
-    title: 'Cerâmica e Artesanato em Trancoso | Coleção Agô Trancoso',
-    description: 'Igrejinhas do Quadrado, cerâmica artesanal, decoração, fé e presentes feitos à mão em Trancoso, Bahia.',
+    title: 'Artesanato, Cerâmica e Decoração em Trancoso | Agô',
+    description: 'Igrejinhas do Quadrado, cerâmica artesanal, decoração, fé e presentes selecionados pela Agô, no Quadrado de Trancoso e online.',
     url: '/produtos',
     siteName: 'Agô Trancoso',
     locale: 'pt_BR',

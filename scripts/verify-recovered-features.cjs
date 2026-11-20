@@ -114,7 +114,7 @@ assert.ok(finalLastCss.includes('object-fit: contain !important'));
 // SEO/localidade e intenção comercial. Mantemos os sinais que já foram reconhecidos pelo Google.
 assert.ok(trancoso.includes('Cerâmica em Trancoso'));
 assert.ok(trancoso.includes('Artesanato em Trancoso'));
-assert.ok(home.includes('Cerâmica em Trancoso | Igrejinhas do Quadrado | Agô Trancoso'));
+assert.ok(home.includes('Artesanato e Cerâmica em Trancoso | Agô no Quadrado'));
 assert.ok(home.includes("SEARCH_HERO_IMAGE = '/ago-banca-compartilhar.jpg'"));
 assert.ok(fs.existsSync('public/ago-banca-compartilhar.jpg'), 'Sharing photo must be available to crawlers');
 assert.ok(footer.includes('href="/trancoso"'));

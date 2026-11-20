@@ -4,8 +4,8 @@ import Link from 'next/link';
 import styles from './Benefits.module.css';
 
 const benefits = [
-  { enTitle: 'Handmade', enText: 'Care in every detail.', title: 'Feito à mão', text: 'Cuidado em cada detalhe.', icon: 'craft', href: '/nossa-essencia', action: 'Conhecer o trabalho artesanal da Agô' },
-  { enTitle: 'Exclusive pieces', enText: 'Choices that celebrate craftsmanship.', title: 'Peças exclusivas', text: 'Escolhas que valorizam o artesanal.', icon: 'vase', href: '/produtos', action: 'Explorar as peças da coleção' },
+  { enTitle: 'Selected craftsmanship', enText: 'Pieces chosen with care.', title: 'Artesanato selecionado', text: 'Peças escolhidas com cuidado.', icon: 'craft', href: '/artesanato-em-trancoso', action: 'Conhecer a seleção artesanal da Agô' },
+  { enTitle: 'Selected pieces', enText: 'For decorating and gifting.', title: 'Peças escolhidas', text: 'Para decorar e presentear.', icon: 'vase', href: '/produtos', action: 'Explorar as peças da coleção' },
   { enTitle: 'Brazilian inspiration', enText: 'Colors and shapes from our homeland.', title: 'Inspiração brasileira', text: 'Cores e formas da nossa terra.', icon: 'brazil', href: '/artesanato-em-trancoso', action: 'Conhecer o artesanato inspirado em Trancoso' },
   { enTitle: 'Shipping across Brazil and abroad', enText: 'Receive your chosen piece wherever you are.', title: 'Envios para o Brasil e exterior', text: 'Receba sua escolha onde estiver.', icon: 'world', href: '/contato', action: 'Consultar a Agô sobre envios para o Brasil e exterior' },
 ] as const;

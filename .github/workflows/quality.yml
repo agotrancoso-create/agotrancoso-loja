@@ -143,10 +143,14 @@ jobs:
 
           merchant_xml=$(curl --fail --silent --show-error http://127.0.0.1:3000/google-merchant.xml)
           item_count=$(printf '%s' "$merchant_xml" | grep -o '<item>' | wc -l | tr -d ' ')
-          test "$item_count" = "19"
+          expected_item_count=$(node -e "const raw=require('./data/products.json'); const products=Array.isArray(raw)?raw:raw.products; const count=products.filter(p=>p.id!=='cachimbo').reduce((total,p)=>{if(p.variants?.length)return total+p.variants.length; const finishes=p.finishes?.filter(f=>f.price!=null&&f.stock!=null)||[]; return total+(finishes.length||1);},0); process.stdout.write(String(count));")
+          test "$item_count" = "$expected_item_count"
           grep -q '<g:id>miniatura-quadrado-trancoso</g:id>' <<< "$merchant_xml"
           grep -q 'para Pendurar' <<< "$merchant_xml"
-          grep -q '<g:brand>Agô Trancoso</g:brand>' <<< "$merchant_xml"
+          if grep -q '<g:brand>Agô Trancoso</g:brand>' <<< "$merchant_xml"; then
+            echo 'Resold products must not use Agô Trancoso as manufacturer/brand in Merchant feed'
+            exit 1
+          fi
           grep -q '<g:condition>new</g:condition>' <<< "$merchant_xml"
           grep -q '<g:identifier_exists>no</g:identifier_exists>' <<< "$merchant_xml"
           grep -q '<g:google_product_category>' <<< "$merchant_xml"

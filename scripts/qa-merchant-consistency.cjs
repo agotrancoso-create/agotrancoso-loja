@@ -46,6 +46,7 @@ async function get(route){const r=await fetch(base+route,{headers:{'User-Agent':
   for(const key of ['title','description','image_link','material','google_product_category','product_type']) assert.ok(field(entry,key),`${p.id}: ${key}`);
   assert.equal(field(entry,'link'),url);assert.equal(field(entry,'mobile_link'),url);
   assert.equal(field(entry,'availability'),p.available?'in_stock':'out_of_stock');assert.equal(field(entry,'condition'),'new');
+  assert.equal(field(entry,'brand'),'');assert.equal(field(entry,'identifier_exists'),'no');
   assert.equal(field(entry,'price'),`${p.price.toFixed(2)} BRL`);
   assert.equal(field(entry,'sale_price'),p.promotionalPrice != null && p.promotionalPrice<p.price?`${p.promotionalPrice.toFixed(2)} BRL`:'');
   assert.equal(field(entry,'material'),'Cerâmica');
