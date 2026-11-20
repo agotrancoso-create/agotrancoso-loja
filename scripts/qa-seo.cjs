@@ -1,7 +1,8 @@
 // HTTP checks: crawlers must receive products and sharing metadata without running JS.
 const { spawn } = require('node:child_process');
 const assert = require('node:assert/strict');
-const catalogProducts = require('../data/products.json');
+const catalogData = require('../data/products.json');
+const catalogProducts = Array.isArray(catalogData) ? catalogData : catalogData.products;
 const base = 'http://127.0.0.1:3105';
 const INDEXNOW_KEY = '7c9f4d6a3e2b1c8f5a0d9e6b4c7f2a31';
 const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '-H', '127.0.0.1', '-p', '3105'], {stdio:['ignore','pipe','pipe']});
