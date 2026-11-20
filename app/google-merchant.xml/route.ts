@@ -236,14 +236,30 @@ export async function GET() {
       const curatedImages = getAttentionOrderedImages(product);
       const mainImage = curatedImages[0] ? absoluteUrl(curatedImages[0]) : `${SITE_DOMAIN}/images/placeholder.svg`;
       const additionalImages = curatedImages.slice(1, 10);
-      const shoppingCopy = SHOPPING_COPY[product.id];
-      const shortTitle = SHOPPING_SHORT_TITLES[product.id];
-      const highlights = SHOPPING_HIGHLIGHTS[product.id] ?? [];
-      const title = shoppingCopy?.title ?? product.name;
-      const description = shoppingCopy?.description ?? product.description;
+      const shoppingKey = product.id.startsWith('rabo-de-baleia-')
+        ? 'rabo-de-baleia'
+        : product.id.startsWith('sagrada-familia-')
+          ? 'sagrada-familia'
+          : product.id;
+      const shoppingCopy = SHOPPING_COPY[shoppingKey];
+      const baseShortTitle = SHOPPING_SHORT_TITLES[shoppingKey];
+      const highlights = SHOPPING_HIGHLIGHTS[shoppingKey] ?? [];
       const variant = IGREJA_VARIANTS[product.id];
       const itemGroupId = groupId ?? variant?.itemGroupId;
       const itemSize = size ?? variant?.size;
+      const isWhaleVariant = product.id.startsWith('rabo-de-baleia-');
+      const isFamilyVariant = product.id.startsWith('sagrada-familia-');
+      const title = isWhaleVariant
+        ? `Rabo de Baleia em Cerâmica ${itemSize || ''} | Agô Trancoso`
+        : isFamilyVariant
+          ? `${product.name} | Agô Trancoso`
+          : shoppingCopy?.title ?? product.name;
+      const shortTitle = isWhaleVariant
+        ? `Rabo de Baleia ${itemSize || ''} em Cerâmica`
+        : isFamilyVariant
+          ? product.name.replace('Sagrada Família em Cerâmica — ', 'Sagrada Família ')
+          : baseShortTitle;
+      const description = (isWhaleVariant || isFamilyVariant) ? product.description : shoppingCopy?.description ?? product.description;
       const isIgrejinha = IGREJINHA_IDS.has(product.id);
       const category = googleProductCategory(product);
 
