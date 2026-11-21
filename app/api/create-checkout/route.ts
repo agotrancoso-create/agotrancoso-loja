@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { customerErrors, addressErrors } from '@/lib/checkout-validation';
 import { getProductById, getEffectivePrice, calculateCartTotals } from '@/lib/products';
 import { calculateCouponDiscount, isFirstPurchaseCoupon, normalizeCoupon } from '@/lib/coupons';
-import { getNationalShippingQuote } from '@/lib/national-shipping';
+import { getShippingPrice, shouldOfferFreeShipping, FIXED_SHIPPING_PRICE } from '@/lib/shipping';
 import { SITE_DOMAIN } from '@/lib/config';
 import { releaseFirstPurchaseReservation, reserveFirstPurchaseIdentity, registerPurchaseOrder } from '@/lib/first-purchase';
 import type { CartItem } from '@/lib/types';
@@ -86,20 +86,15 @@ export async function POST(req: Request) {
     const discountedUnits = buildDiscountedUnits(checkoutLines, discount);
     const discountedSubtotal = Number((subtotal - discount).toFixed(2));
 
+    const freeShipping = shouldOfferFreeShipping(subtotal);
+    const shippingValue = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
+    if (shippingValue !== getShippingPrice(subtotal)) return NextResponse.json({ error: 'Não foi possível validar o frete. Tente novamente.' }, { status: 422 });
+
     const destinationCep = cleanCep(address.zip);
     if (destinationCep.length !== 8) return NextResponse.json({ error: 'Informe um CEP válido para a entrega.' }, { status: 400 });
 
-    const shippingQuote = await getNationalShippingQuote({ destinationCep, items });
-    const shippingOption = shippingQuote.options?.[0];
-    if (!shippingQuote.available || !shippingOption) {
-      return NextResponse.json({ error: 'Não foi possível validar o frete. Tente novamente.' }, { status: 422 });
-    }
-
-    const shippingValue = Number(shippingOption.price.toFixed(2));
-    const shippingName = shippingOption.name || (shippingValue === 0 ? 'Frete grátis' : 'Frete de entrega do pedido');
-
     const checkoutItems: CheckoutUnit[] = [...discountedUnits];
-    if (shippingValue > 0) checkoutItems.push({ id: 'frete', name: shippingName, price: Math.round(shippingValue * 100), quantity: 1 });
+    if (shippingValue > 0) checkoutItems.push({ id: 'frete', name: 'Frete de entrega do pedido', price: Math.round(shippingValue * 100), quantity: 1 });
 
     const orderPrefix = firstPurchaseOrder ? 'AGO-FP' : 'AGO';
     const orderNsu = `${orderPrefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
@@ -179,7 +174,7 @@ export async function POST(req: Request) {
       }).catch((historyError) => console.error('Purchase history registration error:', historyError));
     }
 
-    return NextResponse.json({ orderId: orderNsu, checkoutUrl: data.url, subtotal, discount, discountedSubtotal, shippingValue, shippingName, shippingProvider: shippingOption.provider, shippingFallback: shippingOption.fallback, total: Number((discountedSubtotal + shippingValue).toFixed(2)) });
+    return NextResponse.json({ orderId: orderNsu, checkoutUrl: data.url, subtotal, discount, discountedSubtotal, shippingValue, total: Number((discountedSubtotal + shippingValue).toFixed(2)) });
   } catch (error) {
     if (reservedOrderNsu) await releaseFirstPurchaseReservation(reservedOrderNsu).catch((releaseError) => console.error('First purchase reservation release error:', releaseError));
     console.error('Checkout preparation error:', error);
