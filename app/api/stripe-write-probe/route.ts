@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createStripeCheckoutSession } from '@/lib/stripe-server';
 
-export async function POST(req: Request) {
+async function probe(req: Request) {
   if (process.env.VERCEL_ENV !== 'preview') {
     return NextResponse.json({ ok: false }, { status: 404 });
   }
@@ -37,3 +37,6 @@ export async function POST(req: Request) {
     }, { status: 502 });
   }
 }
+
+export const GET = probe;
+export const POST = probe;
