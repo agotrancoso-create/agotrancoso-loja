@@ -10,7 +10,6 @@ const productIds = [
   'igreja-quadrado-m',
   'igreja-quadrado-gg',
   'igrejinha-luminaria-trancoso',
-  'ima-igrejinha-trancoso',
   'colar-igreja-quadrado',
 ];
 
