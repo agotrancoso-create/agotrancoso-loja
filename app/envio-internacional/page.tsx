@@ -147,7 +147,7 @@ export default function InternationalShippingPage() {
         trackContact('international_shipping_quote_manual_needed');
       }
     } catch {
-      setQuote({ available: false, reason: 'manual_correios_quote' });
+      setQuote({ available: false, reason: 'manual_quote_required' });
     } finally {
       setQuoting(false);
     }
