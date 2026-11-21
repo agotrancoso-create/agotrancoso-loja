@@ -1,28 +1,58 @@
 import type { Metadata } from 'next';
 import { getAllProducts, getAllCategories } from '@/lib/products';
 import ProdutosClient from './ProdutosClient';
+import { englishCategories, englishProducts } from '@/lib/product-english';
+import { isEnglishRequest } from '@/lib/server-locale';
 
-export const metadata: Metadata = {
-  title: { absolute: 'Artesanato, Cerâmica e Decoração em Trancoso | Agô' },
-  description: 'Conheça a seleção da Agô Trancoso: igrejinhas do Quadrado, cerâmica artesanal, decoração, peças de fé e presentes disponíveis no Quadrado de Trancoso e online.',
-  alternates: { canonical: '/produtos' },
-  openGraph: {
-    title: 'Artesanato, Cerâmica e Decoração em Trancoso | Agô',
-    description: 'Igrejinhas do Quadrado, cerâmica artesanal, decoração, fé e presentes selecionados pela Agô, no Quadrado de Trancoso e online.',
-    url: '/produtos',
-    siteName: 'Agô Trancoso',
-    locale: 'pt_BR',
-    type: 'website',
-    images: [{ url: '/produtos/igrejinha-luminaria-trancoso.jpg', width: 960, height: 960, alt: 'Igrejinha do Quadrado de Trancoso em cerâmica' }],
-  },
-  twitter: { card: 'summary_large_image', title: 'Coleção de cerâmica | Agô Trancoso', description: 'Igrejinhas, decoração e presentes em cerâmica. Conheça a coleção e compre online.', images: ['/produtos/igrejinha-luminaria-trancoso.jpg'] },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const english = await isEnglishRequest();
+  if (english) {
+    return {
+      title: { absolute: 'Trancoso Ceramics, Décor & Keepsakes | Agô Trancoso' },
+      description: 'Explore Agô Trancoso’s selection of ceramic church miniatures, home décor, devotional pieces and keepsakes, with international shipping quotes available.',
+      alternates: {
+        canonical: '/en/produtos',
+        languages: { 'pt-BR': '/produtos', en: '/en/produtos', 'x-default': '/produtos' },
+      },
+      openGraph: {
+        title: 'Trancoso Ceramics, Décor & Keepsakes | Agô Trancoso',
+        description: 'Ceramic church miniatures, décor, devotional pieces and Trancoso keepsakes available online.',
+        url: '/en/produtos',
+        siteName: 'Agô Trancoso',
+        locale: 'en_US',
+        type: 'website',
+        images: [{ url: '/produtos/igrejinha-luminaria-trancoso.jpg', width: 960, height: 960, alt: 'Trancoso Quadrado Church ceramic miniature' }],
+      },
+    };
+  }
+  return {
+    title: { absolute: 'Artesanato, Cerâmica e Decoração em Trancoso | Agô' },
+    description: 'Conheça a seleção da Agô Trancoso: igrejinhas do Quadrado, cerâmica artesanal, decoração, peças de fé e presentes disponíveis no Quadrado de Trancoso e online.',
+    alternates: {
+      canonical: '/produtos',
+      languages: { 'pt-BR': '/produtos', en: '/en/produtos', 'x-default': '/produtos' },
+    },
+    openGraph: {
+      title: 'Artesanato, Cerâmica e Decoração em Trancoso | Agô',
+      description: 'Igrejinhas do Quadrado, cerâmica artesanal, decoração, fé e presentes selecionados pela Agô, no Quadrado de Trancoso e online.',
+      url: '/produtos',
+      siteName: 'Agô Trancoso',
+      locale: 'pt_BR',
+      type: 'website',
+      images: [{ url: '/produtos/igrejinha-luminaria-trancoso.jpg', width: 960, height: 960, alt: 'Igrejinha do Quadrado de Trancoso em cerâmica' }],
+    },
+    twitter: { card: 'summary_large_image', title: 'Coleção de cerâmica | Agô Trancoso', description: 'Igrejinhas, decoração e presentes em cerâmica. Conheça a coleção e compre online.', images: ['/produtos/igrejinha-luminaria-trancoso.jpg'] },
+  };
+}
 
 export default async function ProdutosPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const params = await searchParams;
+  const english = await isEnglishRequest();
   const first = (value: string | string[] | undefined) => typeof value === 'string' ? value : value?.[0] || '';
-  const products = getAllProducts();
-  const categories = getAllCategories();
+  const sourceProducts = getAllProducts();
+  const sourceCategories = getAllCategories();
+  const products = english ? englishProducts(sourceProducts) : sourceProducts;
+  const categories = english ? englishCategories(sourceCategories) : sourceCategories;
   const requestedCategory = first(params.categoria);
   const initialFilters = {
     query: first(params.busca),
@@ -36,8 +66,8 @@ export default async function ProdutosPage({ searchParams }: { searchParams: Pro
       <div className="site-container catalog-shell">
         <header className="catalog-intro">
           <div>
-            <p className="eyebrow">Coleção Agô</p>
-            <h1>Cerâmica para viver e guardar.</h1>
+            <p className="eyebrow">{english ? 'Agô Collection' : 'Coleção Agô'}</p>
+            <h1>{english ? 'Ceramics to live with and remember.' : 'Cerâmica para viver e guardar.'}</h1>
           </div>
         </header>
 
