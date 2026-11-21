@@ -184,9 +184,7 @@ export default function InternationalShippingPage() {
   const quoteFailureMessage = quote && !quote.available
     ? quote.reason === 'missing_measurements'
       ? (english ? 'This order needs a manual shipping quote because at least one piece does not yet have confirmed packed weight and dimensions.' : 'Este pedido precisa de cotação manual porque pelo menos uma peça ainda não tem peso e medidas da embalagem confirmados.')
-      : quote.reason === 'no_service'
-        ? (english ? 'No automatic international service was returned for this destination.' : 'Nenhum serviço internacional automático foi retornado para este destino.')
-        : quote.reason === 'manual_correios_quote'
+      : quote.reason === 'manual_correios_quote'
           ? (english ? 'To keep shipping as inexpensive as possible, this order will be quoted directly with Correios / Exporta Fácil before payment.' : 'Para manter o frete o mais barato possível, este pedido será cotado diretamente nos Correios / Exporta Fácil antes do pagamento.')
           : (english ? 'This order needs a confirmed Correios quote before payment.' : 'Este pedido precisa de uma cotação confirmada dos Correios antes do pagamento.')
     : null;
