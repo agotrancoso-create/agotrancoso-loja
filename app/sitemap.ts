@@ -9,6 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/igrejinha-de-trancoso', priority: 0.95 },
     { path: '/produtos', priority: 0.9 },
     { path: '/decoracao-em-ceramica', priority: 0.9 },
+    { path: '/luminarias-em-ceramica', priority: 0.82 },
+    { path: '/imagens-religiosas-em-ceramica', priority: 0.82 },
     { path: '/artesanato-em-trancoso', priority: 0.9 },
     { path: '/lembrancas-de-trancoso', priority: 0.9 },
     { path: '/nossa-essencia', priority: 0.7 },
