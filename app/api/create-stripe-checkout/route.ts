@@ -43,7 +43,7 @@ export async function POST(req: Request) {
 
     const quote = await getInternationalShippingQuote({ countryCode, postalCode, items });
     if (!quote.available || !quote.options.length) {
-      return NextResponse.json({ error: english ? 'International shipping is not available for this order.' : 'O frete internacional não está disponível para este pedido.' }, { status: 422 });
+      return NextResponse.json({ error: english ? 'This order needs a confirmed international shipping quote before payment.' : 'Este pedido precisa de uma cotação internacional confirmada antes do pagamento.' }, { status: 422 });
     }
 
     const shipping = quote.options.find(option => option.serviceCode === requestedServiceCode) ?? quote.options[0];
