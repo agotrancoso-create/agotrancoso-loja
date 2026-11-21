@@ -45,6 +45,25 @@ function googleProductCategory(product: { id: string; category: string }) {
   return 5609;
 }
 
+function englishDimensions(value: string) {
+  return value
+    .replace(/Comprimento:/g, 'Length:')
+    .replace(/Largura:/g, 'Width:')
+    .replace(/Altura com a cruz da igrejinha do meio:/g, 'Height including the center church cross:')
+    .replace(/Altura:/g, 'Height:')
+    .replace(/Peso:/g, 'Weight:');
+}
+
+function englishColor(value: string) {
+  return value
+    .replace(/Terracota/g, 'Terracotta')
+    .replace(/Branco/g, 'White')
+    .replace(/Preto/g, 'Black')
+    .replace(/Dourado/g, 'Gold')
+    .replace(/Dourada/g, 'Gold')
+    .replace(/Colorida/g, 'Multicolor');
+}
+
 function measurementTags(id: string) {
   const item = getPieceMeasurements(id);
   const box = getParcelMeasurements(id);
