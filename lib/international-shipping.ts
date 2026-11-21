@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { calculateCartTotals, getProductById } from '@/lib/products';
+import { getParcelMeasurements } from '@/lib/catalog-measurements';
 import { getShipFromCep } from '@/lib/shipping-deadline';
 import { getInternationalCountry } from '@/lib/international-countries';
 import type { CartItem } from '@/lib/types';
@@ -20,7 +21,8 @@ export type InternationalShippingQuote = {
   postalCode: string;
   originCep: string;
   options: InternationalShippingOption[];
-  reason?: 'invalid_destination' | 'invalid_cart';
+  estimatedWeightG?: number;
+  reason?: 'invalid_destination' | 'invalid_cart' | 'manual_quote_required';
 };
 
 type ShippingRegion = 'south_america' | 'north_america' | 'europe' | 'rest';
@@ -33,19 +35,59 @@ const EUROPE = new Set([
   'EE', 'LV', 'LT', 'LU', 'MT', 'CY',
 ]);
 
-// Tarifa comercial fixa da Agô enquanto nem todas as peças possuem peso e
-// dimensões de postagem confirmados. O custo real da postagem pode variar;
-// a diferença é risco operacional da loja, nunca uma cobrança surpresa ao cliente.
-const BASE_PRICE_BRL: Record<ShippingRegion, number> = {
-  south_america: 199,
-  north_america: 259,
-  europe: 289,
-  rest: 399,
+/**
+ * Fallback comercial da Agô enquanto nem todos os SKUs possuem peso/dimensões
+ * finais de postagem. O objetivo é usar o serviço internacional econômico
+ * disponível e cobrar uma tarifa previsível que cubra postagem, custo do
+ * pagamento e uma pequena margem de segurança operacional.
+ *
+ * Referência de 2026: uma simulação pública do Exporta Fácil Econômico para
+ * Portugal/500 g aparece em torno de R$ 210. Por isso o preço de loja para
+ * Europa/até 500 g fica em R$ 249, já absorvendo taxa do pagamento, embalagem
+ * e variação operacional.
+ */
+const RATE_BY_REGION: Record<ShippingRegion, {
+  upTo250G: number;
+  upTo500G: number;
+  extra500G: number;
+}> = {
+  south_america: { upTo250G: 139, upTo500G: 169, extra500G: 55 },
+  north_america: { upTo250G: 239, upTo500G: 269, extra500G: 70 },
+  europe: { upTo250G: 219, upTo500G: 249, extra500G: 70 },
+  rest: { upTo250G: 289, upTo500G: 329, extra500G: 90 },
 };
 
-const EXTRA_ITEM_BRL = 69;
-const BULKY_SURCHARGE_BRL = 120;
-const BULKY_PRODUCT_IDS = new Set(['igreja-quadrado-gg']);
+// Itens grandes sem pacote final confirmado não entram no checkout automático.
+// Isso protege a margem até a primeira medição real do volume embalado.
+const MANUAL_QUOTE_PRODUCTS = new Set([
+  'igreja-quadrado-gg',
+  'mobile-trancoso',
+  'nossa-senhora-grande',
+]);
+
+// Estimativa conservadora do peso já com proteção/embalagem para SKUs sem
+// pacote final confirmado. Conforme a Agô pesar cada SKU embalado, estes
+// valores devem ser substituídos por medidas reais em catalog-measurements.
+const ESTIMATED_PACKED_WEIGHT_G: Record<string, number> = {
+  'igrejinha-luminaria-trancoso': 500,
+  'casinha-luminaria': 600,
+  'miniatura-quadrado-trancoso': 700,
+  'cruzeiro-do-quadrado': 500,
+  'estatueta-iemanja': 750,
+  'presepio-em-ceramica': 900,
+  'casal-pretos-velhos': 600,
+  'nossa-senhora-aparecida': 450,
+  'divino-espirito-santo': 300,
+  'terco-em-ceramica': 350,
+  'rosario-trancoso': 500,
+  'esfera-decorativa': 250,
+  'colar-igreja-quadrado': 120,
+  'ima-igrejinha-trancoso': 100,
+  'sagrada-familia': 120,
+  'sagrada-familia-colorida': 120,
+  'sagrada-familia-dourada': 120,
+  'cachimbo': 120,
+};
 
 function cleanPostalCode(value: unknown) {
   return String(value ?? '').trim().replace(/\s+/g, ' ').slice(0, 24);
@@ -63,6 +105,27 @@ function regionLabel(region: ShippingRegion) {
   if (region === 'north_america') return 'América do Norte / North America';
   if (region === 'europe') return 'Europa / Europe';
   return 'Outros destinos / Other destinations';
+}
+
+function packedWeightForProduct(productId: string) {
+  const parcel = getParcelMeasurements(productId);
+  if (parcel?.grossWeightG) return parcel.grossWeightG;
+  return ESTIMATED_PACKED_WEIGHT_G[productId] ?? 500;
+}
+
+function estimateCartPackedWeight(items: CartItem[]) {
+  return items.reduce((sum, item) => {
+    const quantity = Math.max(0, Math.round(Number(item.quantity) || 0));
+    return sum + packedWeightForProduct(item.productId) * quantity;
+  }, 0);
+}
+
+function fixedRateFor(region: ShippingRegion, estimatedWeightG: number) {
+  const rate = RATE_BY_REGION[region];
+  if (estimatedWeightG <= 250) return rate.upTo250G;
+  if (estimatedWeightG <= 500) return rate.upTo500G;
+  const extraBands = Math.ceil((estimatedWeightG - 500) / 500);
+  return rate.upTo500G + extraBands * rate.extra500G;
 }
 
 export function isInternationalShippingProviderConfigured() {
@@ -88,15 +151,31 @@ export async function getInternationalShippingQuote(params: {
     return { configured: true, available: false, countryCode, postalCode, originCep, options: [], reason: 'invalid_cart' };
   }
 
-  const totalUnits = items.reduce((sum, item) => sum + Math.max(0, Math.round(Number(item.quantity) || 0)), 0);
-  const region = regionForCountry(countryCode);
-  const extraItems = Math.max(0, totalUnits - 1) * EXTRA_ITEM_BRL;
-  const hasBulkyItem = items.some((item) => {
+  const requiresManualQuote = items.some((item) => {
     const product = getProductById(item.productId);
-    return Boolean(product && BULKY_PRODUCT_IDS.has(product.id));
+    return Boolean(product && MANUAL_QUOTE_PRODUCTS.has(product.id));
   });
-  const bulkySurcharge = hasBulkyItem ? BULKY_SURCHARGE_BRL : 0;
-  const price = Number((BASE_PRICE_BRL[region] + extraItems + bulkySurcharge).toFixed(2));
+
+  const estimatedWeightG = estimateCartPackedWeight(items);
+
+  // Acima de 2 kg, o Econômico deixa de ser a referência principal. Sem peso e
+  // volume finais, uma tarifa fixa seria arriscada; cotação manual protege ambas
+  // as partes até que o catálogo tenha dados reais suficientes.
+  if (requiresManualQuote || estimatedWeightG > 2000) {
+    return {
+      configured: true,
+      available: false,
+      countryCode,
+      postalCode,
+      originCep,
+      options: [],
+      estimatedWeightG,
+      reason: 'manual_quote_required',
+    };
+  }
+
+  const region = regionForCountry(countryCode);
+  const price = Number(fixedRateFor(region, estimatedWeightG).toFixed(2));
 
   return {
     configured: true,
@@ -104,9 +183,10 @@ export async function getInternationalShippingQuote(params: {
     countryCode,
     postalCode,
     originCep,
+    estimatedWeightG,
     options: [{
-      serviceCode: `AGO_FIXED_${region.toUpperCase()}`,
-      name: `Frete fixo internacional · ${regionLabel(region)}`,
+      serviceCode: `AGO_FIXED_${region.toUpperCase()}_${Math.ceil(estimatedWeightG / 250)}`,
+      name: `Frete internacional fixo · ${regionLabel(region)}`,
       carrier: 'Agô Trancoso',
       price,
       deadlineDays: null,
