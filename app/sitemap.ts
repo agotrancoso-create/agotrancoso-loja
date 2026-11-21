@@ -15,9 +15,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/contato', priority: 0.7 },
     { path: '/ajuda', priority: 0.7 },
     { path: '/devolucoes', priority: 0.6 },
-    { path: '/envio-internacional', priority: 0.7 },
+    { path: '/envio-internacional', priority: 0.8 },
   ];
-  const productRoutes = getCatalogPageIds().map(id => `/produtos/${id}`);
+  const englishStaticRoutes = [
+    { path: '/en', priority: 0.95 },
+    { path: '/en/produtos', priority: 0.9 },
+    { path: '/en/trancoso', priority: 0.9 },
+    { path: '/en/igrejinha-de-trancoso', priority: 0.9 },
+    { path: '/en/decoracao-em-ceramica', priority: 0.85 },
+    { path: '/en/artesanato-em-trancoso', priority: 0.85 },
+    { path: '/en/lembrancas-de-trancoso', priority: 0.85 },
+    { path: '/en/nossa-essencia', priority: 0.65 },
+    { path: '/en/contato', priority: 0.65 },
+    { path: '/en/ajuda', priority: 0.6 },
+    { path: '/en/devolucoes', priority: 0.6 },
+    { path: '/en/envio-internacional', priority: 0.85 },
+  ];
+  const productIds = getCatalogPageIds();
 
   return [
     ...staticRoutes.map(({ path, priority }) => ({
@@ -25,10 +39,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly' as const,
       priority,
     })),
-    ...productRoutes.map((path) => ({
+    ...englishStaticRoutes.map(({ path, priority }) => ({
       url: `${SITE_DOMAIN}${path}`,
       changeFrequency: 'weekly' as const,
-      priority: 0.8,
+      priority,
     })),
+    ...productIds.flatMap((id) => [
+      {
+        url: `${SITE_DOMAIN}/produtos/${id}`,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${SITE_DOMAIN}/en/produtos/${id}`,
+        changeFrequency: 'weekly' as const,
+        priority: 0.78,
+      },
+    ]),
   ];
 }
