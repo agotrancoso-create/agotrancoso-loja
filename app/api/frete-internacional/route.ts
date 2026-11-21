@@ -10,19 +10,21 @@ export async function POST(req: Request) {
     const postalCode = String(body.postalCode || '').trim();
 
     const quote = await getInternationalShippingQuote({ countryCode, postalCode, items });
+    const invalid = quote.reason === 'invalid_destination' || quote.reason === 'invalid_cart';
 
     return NextResponse.json({
       ...quote,
       stripeConfigured: Boolean(process.env.STRIPE_SECRET_KEY?.trim()),
-    }, { status: quote.available ? 200 : 422 });
+      strategy: 'Correios / Minhas Exportações / Exporta Fácil — cotação confirmada antes do pagamento',
+    }, { status: invalid ? 400 : 200 });
   } catch (error) {
     console.error('International shipping quote error:', error);
     return NextResponse.json({
-      configured: Boolean(process.env.FRENET_TOKEN?.trim()),
+      configured: false,
       available: false,
       stripeConfigured: Boolean(process.env.STRIPE_SECRET_KEY?.trim()),
       options: [],
-      reason: 'provider_error',
-    }, { status: 502 });
+      reason: 'manual_correios_quote',
+    }, { status: 200 });
   }
 }
