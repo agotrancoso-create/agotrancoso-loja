@@ -163,7 +163,7 @@ export function trackAddShippingInfo(items: MarketingItem[], value: number, ship
 export function trackAddPaymentInfo(items: MarketingItem[], value: number, paymentType = 'InfinitePay') {
   track('add_payment_info', { currency: 'BRL', value: money(value), payment_type: paymentType, items });
 }
-type PurchaseInput = { transactionId: string; items?: MarketingItem[]; value: number; shipping?: number; coupon?: string };
+type PurchaseInput = { transactionId: string; items?: MarketingItem[]; value: number; shipping?: number; coupon?: string; currency?: string };
 const pendingPurchases = new Map<string, PurchaseInput>();
 const recordedPurchases = new Set<string>();
 let purchaseConsentListener = false;
@@ -181,9 +181,10 @@ export function trackPurchase(input: PurchaseInput) {
   if (typeof window === 'undefined') return;
   const transactionId = input.transactionId.trim();
   if (!/^AGO-/.test(transactionId) || !Number.isFinite(input.value) || input.value <= 0) return;
+  const currency = /^[A-Z]{3}$/.test(String(input.currency || '').toUpperCase()) ? String(input.currency).toUpperCase() : 'BRL';
   const payload = {
     transaction_id: transactionId,
-    currency: 'BRL',
+    currency,
     value: money(input.value),
     ...(input.shipping != null && Number.isFinite(input.shipping) && input.shipping >= 0 ? { shipping: money(input.shipping) } : {}),
     ...(input.coupon ? { coupon: input.coupon } : {}),
