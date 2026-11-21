@@ -53,9 +53,20 @@ type FormState = {
 
 type Line = { item: CartItem; product: Product };
 type CheckoutStep = 1 | 2 | 3;
+type ShippingOption = {
+  serviceId?: string;
+  name?: string;
+  provider?: string;
+  price?: number;
+  deadline?: number | string | null;
+  estimated?: boolean;
+  fallback?: boolean;
+};
+
 type ShippingQuote = {
   available?: boolean;
-  options?: Array<{ deadline?: number | string | null; estimated?: boolean }>;
+  options?: ShippingOption[];
+  provider?: string;
 };
 
 export default function CheckoutPage() {
@@ -72,6 +83,7 @@ export default function CheckoutPage() {
   const [shippingDeadline, setShippingDeadline] = useState<string | null>(null);
   const [shippingDeadlineEstimated, setShippingDeadlineEstimated] = useState(false);
   const [shippingDeadlineLoading, setShippingDeadlineLoading] = useState(false);
+  const [shippingOption, setShippingOption] = useState<ShippingOption | null>(null);
   const [benefitAvailable, setBenefitAvailable] = useState(false);
   const [couponChecking, setCouponChecking] = useState(false);
   const couponRequest = useRef(0);
@@ -119,7 +131,8 @@ export default function CheckoutPage() {
   const discount = calculateCouponDiscount(subtotal, appliedCoupon);
   const discountedSubtotal = Math.max(0, subtotal - discount);
   const freeShipping = shouldOfferFreeShipping(subtotal);
-  const shippingValue = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
+  const shippingValue = freeShipping ? 0 : (shippingOption?.price ?? FIXED_SHIPPING_PRICE);
+  const shippingName = freeShipping ? 'Frete grátis' : (shippingOption?.name || 'Frete fixo de segurança');
   const total = discountedSubtotal + shippingValue;
 
   useEffect(() => {
@@ -127,6 +140,7 @@ export default function CheckoutPage() {
     if (normalizedZip.length !== 8 || !items.length) {
       setShippingDeadline(null);
       setShippingDeadlineEstimated(false);
+      setShippingOption(null);
       setShippingDeadlineLoading(false);
       return;
     }
@@ -146,10 +160,18 @@ export default function CheckoutPage() {
         const data = (await response.json()) as ShippingQuote;
         if (controller.signal.aborted) return;
         const option = data.options?.[0];
-        if (response.ok && data.available && option?.deadline !== null && option?.deadline !== undefined && option.deadline !== '') {
-          setShippingDeadline(String(option.deadline));
-          setShippingDeadlineEstimated(option.estimated === true);
+        if (response.ok && data.available && option) {
+          setShippingOption(option);
+          if (option.deadline !== null && option.deadline !== undefined && option.deadline !== '') {
+            setShippingDeadline(String(option.deadline));
+            setShippingDeadlineEstimated(option.estimated === true);
+          } else {
+            setShippingDeadline(null);
+            setShippingDeadlineEstimated(false);
+          }
         } else {
+          setShippingOption(null);
+          setShippingOption(null);
           setShippingDeadline(null);
           setShippingDeadlineEstimated(false);
         }
@@ -248,7 +270,7 @@ export default function CheckoutPage() {
       setStepError('Complete os dados de entrega para continuar.');
       return;
     }
-    trackAddShippingInfo(marketingItems, total, freeShipping ? 'Frete grátis' : 'Frete fixo');
+    trackAddShippingInfo(marketingItems, total, shippingName);
     markComplete(2);
     setStep(3);
   }
@@ -319,8 +341,6 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           items,
           coupon: normalizeCoupon(appliedCoupon),
-          shippingValue,
-          shippingName: freeShipping ? 'Frete grátis' : 'Frete fixo',
           customer: { name: form.name, email: form.email, phone: form.phone, document: form.document, address: { street: form.street, number: form.number, complement: form.complement, neighborhood: form.neighborhood, city: form.city, state: form.state, zip: form.zip } },
         }),
       });
