@@ -1,8 +1,9 @@
-import { getCatalogOffers, getEffectivePrice } from '@/lib/products';
+import { getCatalogOffers } from '@/lib/products';
 import { getAttentionOrderedImages } from '@/lib/merchandising';
 import { SITE_DOMAIN } from '@/lib/config';
 import { getPieceMeasurements, getParcelMeasurements } from '@/lib/catalog-measurements';
 import { englishProductCopy, englishProductType } from '@/lib/product-english';
+import { getGoogleMerchantInternationalShipping } from '@/lib/google-shopping-international';
 
 export const dynamic = 'force-static';
 export const revalidate = 3600;
@@ -77,24 +78,41 @@ function measurementTags(id: string) {
     .map(([tag, value, unit]) => `<g:${tag}>${value} ${unit}</g:${tag}>`).join('\n          ');
 }
 
-export async function GET() {
-  const items = getCatalogOffers()
-    .filter(({ product }) => product.id !== 'cachimbo')
-    .map(({ product, groupId, size, color }) => {
-      const hasSale = product.promotionalPrice != null && product.promotionalPrice < product.price;
-      const curatedImages = getAttentionOrderedImages(product);
-      const mainImage = curatedImages[0] ? absoluteUrl(curatedImages[0]) : `${SITE_DOMAIN}/images/placeholder.svg`;
-      const additionalImages = curatedImages.slice(1, 10);
-      const copy = englishProductCopy(product.id, product.name, product.description);
-      const variant = IGREJA_VARIANTS[product.id];
-      const itemGroupId = groupId ?? variant?.itemGroupId;
-      const itemSize = size ?? variant?.size;
+function shippingTags(shipping: Awaited<ReturnType<typeof getGoogleMerchantInternationalShipping>>) {
+  return shipping.map((option) => `<g:shipping>
+            <g:country>${option.country}</g:country>
+            <g:service>${escapeXml(option.service)}</g:service>
+            <g:price>${option.price.toFixed(2)} BRL</g:price>
+          </g:shipping>`).join('\n          ');
+}
 
-      return `
+export async function GET() {
+  const offers = getCatalogOffers().filter(({ product }) => product.id !== 'cachimbo');
+
+  const builtItems = await Promise.all(offers.map(async ({ product, groupId, size, color }) => {
+    const shipping = await getGoogleMerchantInternationalShipping(product.id);
+
+    // Itens grandes que ainda exigem cotação manual não entram no feed
+    // internacional até terem embalagem/peso suficientes para compra online.
+    if (!shipping.length) return null;
+
+    const hasSale = product.promotionalPrice != null && product.promotionalPrice < product.price;
+    const curatedImages = getAttentionOrderedImages(product);
+    const mainImage = curatedImages[0] ? absoluteUrl(curatedImages[0]) : `${SITE_DOMAIN}/images/placeholder.svg`;
+    const additionalImages = curatedImages.slice(1, 10);
+    const copy = englishProductCopy(product.id, product.name, product.description);
+    const variant = IGREJA_VARIANTS[product.id];
+    const itemGroupId = groupId ?? variant?.itemGroupId;
+    const itemSize = size ?? variant?.size;
+
+    return `
         <item>
           <g:id>${escapeXml(product.id)}-en</g:id>
           <g:title>${escapeXml(copy.title ?? copy.name)}</g:title>
+          <g:short_title>${escapeXml(copy.name)}</g:short_title>
           <g:description>${escapeXml(copy.description)}</g:description>
+          <g:product_highlight>Ships internationally from Agô Trancoso in Brazil.</g:product_highlight>
+          <g:product_highlight>International shipping is shown before payment.</g:product_highlight>
           <g:link>${escapeXml(`${SITE_DOMAIN}/en/produtos/${product.id}`)}</g:link>
           <g:mobile_link>${escapeXml(`${SITE_DOMAIN}/en/produtos/${product.id}`)}</g:mobile_link>
           <g:image_link>${escapeXml(mainImage)}</g:image_link>
@@ -117,16 +135,18 @@ export async function GET() {
           ${itemSize ? `<g:size>${escapeXml(itemSize)}</g:size>` : ''}
           ${color ? `<g:color>${escapeXml(englishColor(color))}</g:color>` : ''}
           <g:custom_label_0>International English</g:custom_label_0>
+          ${shippingTags(shipping)}
         </item>`;
-    })
-    .join('\n');
+  }));
+
+  const items = builtItems.filter(Boolean).join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
   <channel>
-    <title>Agô Trancoso — International</title>
+    <title>Agô Trancoso — International English</title>
     <link>${escapeXml(`${SITE_DOMAIN}/en`)}</link>
-    <description>Trancoso ceramic décor, church miniatures, devotional pieces and keepsakes available from Agô Trancoso.</description>
+    <description>Trancoso-inspired ceramic décor, church miniatures, devotional pieces and keepsakes available from Agô Trancoso with international checkout.</description>
     ${items}
   </channel>
 </rss>`;
