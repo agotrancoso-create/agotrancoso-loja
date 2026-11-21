@@ -111,11 +111,11 @@ export async function GET() {
           ${product.dimensions ? `<g:product_detail>
             <g:section_name>Product details</g:section_name>
             <g:attribute_name>Dimensions</g:attribute_name>
-            <g:attribute_value>${escapeXml(product.dimensions)}</g:attribute_value>
+            <g:attribute_value>${escapeXml(englishDimensions(product.dimensions))}</g:attribute_value>
           </g:product_detail>` : ''}
           ${itemGroupId ? `<g:item_group_id>${escapeXml(itemGroupId)}-en</g:item_group_id>` : ''}
           ${itemSize ? `<g:size>${escapeXml(itemSize)}</g:size>` : ''}
-          ${color ? `<g:color>${escapeXml(color)}</g:color>` : ''}
+          ${color ? `<g:color>${escapeXml(englishColor(color))}</g:color>` : ''}
           <g:custom_label_0>International English</g:custom_label_0>
         </item>`;
     })
