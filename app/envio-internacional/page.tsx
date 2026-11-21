@@ -9,6 +9,7 @@ import { useCart } from '@/context/CartContext';
 import { getEffectivePrice, getProductById } from '@/lib/products';
 import { whatsappLink } from '@/lib/config';
 import { getParcelMeasurements } from '@/lib/catalog-measurements';
+import { trackContact } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -34,21 +35,45 @@ const initialForm: QuoteForm = {
 
 const suggestedCountries = [
   'Estados Unidos / United States',
-  'Portugal',
-  'França / France',
-  'Itália / Italy',
-  'Espanha / Spain',
+  'Canadá / Canada',
   'Reino Unido / United Kingdom',
+  'Portugal',
+  'Espanha / Spain',
+  'França / France',
   'Alemanha / Germany',
+  'Itália / Italy',
   'Países Baixos / Netherlands',
   'Suíça / Switzerland',
-  'Canadá / Canada',
+  'Áustria / Austria',
+  'Bélgica / Belgium',
+  'Irlanda / Ireland',
+  'Dinamarca / Denmark',
+  'Suécia / Sweden',
+  'Noruega / Norway',
+  'Finlândia / Finland',
+  'Polônia / Poland',
+  'República Tcheca / Czechia',
+  'Grécia / Greece',
+  'Hungria / Hungary',
+  'Romênia / Romania',
+  'Eslováquia / Slovakia',
+  'Austrália / Australia',
+  'Nova Zelândia / New Zealand',
+  'Japão / Japan',
+  'Coreia do Sul / South Korea',
+  'Singapura / Singapore',
+  'Hong Kong / Hong Kong SAR',
+  'Taiwan',
+  'Emirados Árabes Unidos / United Arab Emirates',
+  'Arábia Saudita / Saudi Arabia',
+  'Israel',
+  'África do Sul / South Africa',
   'México / Mexico',
   'Argentina',
   'Chile',
+  'Colômbia / Colombia',
+  'Peru',
   'Uruguai / Uruguay',
-  'Austrália / Australia',
-  'Japão / Japan',
 ] as const;
 
 export default function InternationalShippingPage() {
@@ -92,6 +117,7 @@ export default function InternationalShippingPage() {
       form.notes.trim(),
       txt('Qual é o valor do frete e o prazo para esse destino?', 'What are the shipping cost and estimated delivery time for this destination?'),
     ].filter(Boolean).join('\n');
+    trackContact('international_shipping_quote');
     window.location.assign(whatsappLink(message));
   }
 
@@ -114,7 +140,7 @@ export default function InternationalShippingPage() {
               <div className="checkout-stage-body">
                 <div className="checkout-shipping-note">
                   <span><strong>{t("Frete internacional cotado antes do pagamento · International shipping quoted before payment.")}</strong></span>
-                  <span>{english ? 'For a quote, we only need the destination country and city. If the address has a postal code, include it for a more precise quote.' : 'Para pedir a cotação, basta informar o país e a cidade. Se o destino tiver código postal, inclua-o para uma cotação mais precisa.'}</span>
+                  <span>{english ? 'For deliveries outside Brazil, no Brazilian CPF/CNPJ is required. For a quote, we only need the destination country and city; add the postal code when available.' : 'Para entregas fora do Brasil, não exigimos CPF/CNPJ brasileiro. Para a cotação, basta informar país e cidade; inclua o código postal quando houver.'}</span>
                   <span>{t("Como as peças têm tamanhos diferentes, confirmamos peso, embalagem, serviço disponível, prazo e eventuais restrições do destino antes de cobrar o frete.")}</span>
                 </div>
 
