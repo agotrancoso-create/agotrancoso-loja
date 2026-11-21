@@ -40,7 +40,7 @@ type QuoteResponse = {
   stripeConfigured?: boolean;
   options?: ShippingOption[];
   missingMeasurementProducts?: string[];
-  reason?: 'invalid_destination' | 'invalid_cart' | 'missing_measurements' | 'manual_correios_quote';
+  reason?: 'invalid_destination' | 'invalid_cart' | 'manual_quote_required';
 };
 
 const initialForm: QuoteForm = {
@@ -182,11 +182,9 @@ export default function InternationalShippingPage() {
   }
 
   const quoteFailureMessage = quote && !quote.available
-    ? quote.reason === 'missing_measurements'
-      ? (english ? 'This order needs a manual shipping quote because at least one piece does not yet have confirmed packed weight and dimensions.' : 'Este pedido precisa de cotação manual porque pelo menos uma peça ainda não tem peso e medidas da embalagem confirmados.')
-      : quote.reason === 'manual_correios_quote'
-          ? (english ? 'To keep shipping as inexpensive as possible, this order will be quoted directly with Correios / Exporta Fácil before payment.' : 'Para manter o frete o mais barato possível, este pedido será cotado diretamente nos Correios / Exporta Fácil antes do pagamento.')
-          : (english ? 'This order needs a confirmed Correios quote before payment.' : 'Este pedido precisa de uma cotação confirmada dos Correios antes do pagamento.')
+    ? quote.reason === 'manual_quote_required'
+      ? (english ? 'This order includes a large item or exceeds the safe automatic-shipping range. We confirm the real Correios price before payment so you are not overcharged.' : 'Este pedido inclui uma peça grande ou ultrapassa a faixa segura do frete automático. Confirmamos o valor real dos Correios antes do pagamento para não cobrar a mais.')
+      : (english ? 'This destination or cart could not be validated for international shipping.' : 'Não foi possível validar este destino ou pedido para envio internacional.')
     : null;
 
   return (
@@ -206,8 +204,8 @@ export default function InternationalShippingPage() {
               </div>
               <div className="checkout-stage-body">
                 <div className="checkout-shipping-note">
-                  <span><strong>{english ? 'International shipping from Trancoso with a fixed rate by destination region.' : 'Envio internacional a partir de Trancoso com tarifa fixa por região de destino.'}</strong></span>
-                  <span>{english ? 'The rate is shown before payment. The store handles posting after purchase; customs duties or destination taxes are not included.' : 'O valor aparece antes do pagamento. A loja cuida da postagem após a compra; tributos e taxas de importação do destino não estão incluídos.'}</span>
+                  <span><strong>{english ? 'International shipping from Trancoso with a fixed rate by destination region and estimated packed-weight band.' : 'Envio internacional a partir de Trancoso com tarifa fixa por região e faixa estimada de peso embalado.'}</strong></span>
+                  <span>{english ? 'The rate is shown before payment and is designed for orders up to 2 kg. Large or bulky orders are quoted manually. Customs duties or destination taxes are not included.' : 'O valor aparece antes do pagamento e foi desenhado para pedidos de até 2 kg. Pedidos grandes ou volumosos passam por cotação manual. Tributos e taxas de importação do destino não estão incluídos.'}</span>
                   <span>{english ? 'No Brazilian CPF/CNPJ is required from the buyer for this quote request.' : 'O comprador não precisa ter CPF/CNPJ brasileiro para solicitar a cotação.'}</span>
                 </div>
 
@@ -279,7 +277,7 @@ export default function InternationalShippingPage() {
                 ) : quoteFailureMessage ? (
                   <div className="checkout-shipping-note" style={{ marginTop: 18 }}>
                     <span><strong>{quoteFailureMessage}</strong></span>
-                    {quote?.missingMeasurementProducts?.length ? <span>{english ? 'Pieces needing confirmed parcel data: ' : 'Peças que precisam de dados de embalagem confirmados: '}{quote.missingMeasurementProducts.join(', ')}</span> : null}
+                    
                   </div>
                 ) : null}
 
