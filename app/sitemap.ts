@@ -11,7 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/decoracao-em-ceramica', priority: 0.9 },
     { path: '/artesanato-em-trancoso', priority: 0.9 },
     { path: '/lembrancas-de-trancoso', priority: 0.9 },
-    { path: '/pedidos-em-quantidade', priority: 0.75 },
     { path: '/nossa-essencia', priority: 0.7 },
     { path: '/contato', priority: 0.7 },
     { path: '/ajuda', priority: 0.7 },
