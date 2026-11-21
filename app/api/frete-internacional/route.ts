@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       ...quote,
       stripeConfigured: Boolean(process.env.STRIPE_SECRET_KEY?.trim()),
-      strategy: 'Tarifa fixa internacional da Agô por região; postagem realizada a partir de Trancoso.',
+      strategy: 'Tarifa fixa internacional da Agô por região e faixa estimada de peso; pedidos grandes passam por cotação manual.',
     }, { status: invalid ? 400 : 200 });
   } catch (error) {
     console.error('International shipping quote error:', error);
