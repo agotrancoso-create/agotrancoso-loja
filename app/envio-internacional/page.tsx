@@ -286,7 +286,7 @@ export default function InternationalShippingPage() {
                 <a className="checkout-next-step" target="_blank" rel="noopener noreferrer" href={manualQuoteUrl()} onClick={() => trackContact('international_shipping_quote_whatsapp')}>
                   {english ? 'Need help with this international order?' : 'Precisa de ajuda com este pedido internacional?'}
                 </a>
-                <p className="checkout-note">{english ? 'The international shipping amount shown is the store's fixed regional rate. Import duties, taxes or customs requirements may still be charged by destination authorities.' : 'O valor exibido é a tarifa fixa de envio internacional da loja para a região. Tributos, impostos ou exigências aduaneiras ainda podem ser cobrados pelas autoridades do país de destino.'}</p>
+                <p className="checkout-note">{english ? 'The international shipping amount shown is the store’s fixed regional rate. Import duties, taxes or customs requirements may still be charged by destination authorities.' : 'O valor exibido é a tarifa fixa de envio internacional da loja para a região. Tributos, impostos ou exigências aduaneiras ainda podem ser cobrados pelas autoridades do país de destino.'}</p>
               </div>
             </section>
           </form>
