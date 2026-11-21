@@ -195,7 +195,7 @@ export default function InternationalShippingPage() {
         <header className="ago-clean-checkout-head">
           <p className="eyebrow">{t('Do Quadrado para o mundo · From Trancoso to the world')}</p>
           <h1 id="international-page-title" className="checkout-title">{t('Envio internacional · International shipping')}</h1>
-          <p>{english ? 'Choose your pieces and destination. We confirm the lowest available Correios international service before charging you.' : 'Escolha suas peças e o destino. Confirmamos o serviço internacional dos Correios mais econômico disponível antes de qualquer cobrança.'}</p>
+          <p>{english ? 'Choose your pieces and destination. Your fixed international shipping rate appears before payment, so you can complete the order online.' : 'Escolha suas peças e o destino. O frete internacional fixo aparece antes do pagamento para você concluir a compra online.'}</p>
         </header>
 
         <div className="checkout-layout">
@@ -206,8 +206,8 @@ export default function InternationalShippingPage() {
               </div>
               <div className="checkout-stage-body">
                 <div className="checkout-shipping-note">
-                  <span><strong>{english ? 'Correios international shipping from Trancoso.' : 'Envio internacional pelos Correios a partir de Trancoso.'}</strong></span>
-                  <span>{english ? 'We confirm the real Exporta Fácil / Correios price and delivery estimate before payment, avoiding invented or padded shipping charges.' : 'Confirmamos o preço e o prazo reais do Exporta Fácil / Correios antes do pagamento, sem inventar ou inflar o frete.'}</span>
+                  <span><strong>{english ? 'International shipping from Trancoso with a fixed rate by destination region.' : 'Envio internacional a partir de Trancoso com tarifa fixa por região de destino.'}</strong></span>
+                  <span>{english ? 'The rate is shown before payment. The store handles posting after purchase; customs duties or destination taxes are not included.' : 'O valor aparece antes do pagamento. A loja cuida da postagem após a compra; tributos e taxas de importação do destino não estão incluídos.'}</span>
                   <span>{english ? 'No Brazilian CPF/CNPJ is required from the buyer for this quote request.' : 'O comprador não precisa ter CPF/CNPJ brasileiro para solicitar a cotação.'}</span>
                 </div>
 
@@ -253,7 +253,7 @@ export default function InternationalShippingPage() {
                 </div>
 
                 {error && <p className="checkout-error" role="alert">{error}</p>}
-                <button type="submit" className="checkout-submit" disabled={quoting}>{quoting ? (english ? 'Preparing quote…' : 'Preparando cotação…') : (english ? 'Prepare Correios international quote' : 'Preparar cotação internacional pelos Correios')}</button>
+                <button type="submit" className="checkout-submit" disabled={quoting}>{quoting ? (english ? 'Preparing quote…' : 'Preparando cotação…') : (english ? 'Calculate international shipping' : 'Calcular frete internacional')}</button>
 
                 {quote?.available && quote.options?.length ? (
                   <div className="checkout-shipping-note" style={{ marginTop: 18 }}>
@@ -273,7 +273,7 @@ export default function InternationalShippingPage() {
                         {paying ? (english ? 'Opening secure checkout…' : 'Abrindo checkout seguro…') : (english ? 'Pay securely with Stripe' : 'Pagar com segurança pela Stripe')}
                       </button>
                     ) : (
-                      <p className="checkout-note">{english ? 'Secure online international payment is being activated. You can already request this quoted order manually.' : 'O pagamento internacional online está em ativação. Você já pode confirmar esta cotação manualmente.'}</p>
+                      <p className="checkout-note">{english ? 'Secure international payment is being activated. Your shipping rate is ready; payment will open here as soon as the live Stripe account is connected.' : 'O pagamento internacional está em ativação. Seu frete já está calculado; o pagamento será liberado aqui assim que a conta Stripe de produção estiver conectada.'}</p>
                     )}
                   </div>
                 ) : quoteFailureMessage ? (
@@ -284,9 +284,9 @@ export default function InternationalShippingPage() {
                 ) : null}
 
                 <a className="checkout-next-step" target="_blank" rel="noopener noreferrer" href={manualQuoteUrl()} onClick={() => trackContact('international_shipping_quote_whatsapp')}>
-                  {english ? 'Send this order for a Correios quote' : 'Enviar este pedido para cotação nos Correios'}
+                  {english ? 'Need help with this international order?' : 'Precisa de ajuda com este pedido internacional?'}
                 </a>
-                <p className="checkout-note">{english ? 'We do not add an international shipping platform fee. Import duties, taxes or customs requirements may still be charged by destination authorities.' : 'A Agô não acrescenta taxa de plataforma ao frete internacional. Tributos, impostos ou exigências aduaneiras ainda podem ser cobrados pelas autoridades do país de destino.'}</p>
+                <p className="checkout-note">{english ? 'The international shipping amount shown is the store's fixed regional rate. Import duties, taxes or customs requirements may still be charged by destination authorities.' : 'O valor exibido é a tarifa fixa de envio internacional da loja para a região. Tributos, impostos ou exigências aduaneiras ainda podem ser cobrados pelas autoridades do país de destino.'}</p>
               </div>
             </section>
           </form>
