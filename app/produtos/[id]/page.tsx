@@ -16,6 +16,8 @@ import ProductCard from '@/components/ProductCard';
 import RecentlyViewed from '@/components/RecentlyViewed';
 import WhaleProductExperience from './WhaleProductExperience';
 import FamilyProductExperience from './FamilyProductExperience';
+import { englishProduct, englishProductCopy } from '@/lib/product-english';
+import { isEnglishRequest } from '@/lib/server-locale';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -129,24 +131,35 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const product = getProductById(id);
   if (!product) return {};
+  const english = await isEnglishRequest();
 
   const images = getAttentionOrderedImages(product);
   const shareImage = images.find(image => /\.(jpe?g|png)$/i.test(image)) || images[0];
-  const seo = PRODUCT_SEO[product.id] ?? {
+  const baseSeo = PRODUCT_SEO[product.id] ?? {
     title: `${product.name} | Agô Trancoso`,
     description: product.description,
   };
+  const englishCopy = englishProductCopy(product.id, product.name, product.description);
+  const seo = english ? { title: englishCopy.title ?? `${englishCopy.name} | Agô Trancoso`, description: englishCopy.description } : baseSeo;
+  const canonicalPath = english ? `/en/produtos/${product.id}` : `/produtos/${product.id}`;
 
   return {
     title: { absolute: seo.title },
     description: seo.description,
-    alternates: { canonical: `/produtos/${product.id}` },
+    alternates: {
+      canonical: canonicalPath,
+      languages: {
+        'pt-BR': `/produtos/${product.id}`,
+        en: `/en/produtos/${product.id}`,
+        'x-default': `/produtos/${product.id}`,
+      },
+    },
     openGraph: {
       title: seo.title,
       description: seo.description,
-      url: `/produtos/${product.id}`,
+      url: canonicalPath,
       siteName: 'Agô Trancoso',
-      locale: 'pt_BR',
+      locale: english ? 'en_US' : 'pt_BR',
       type: 'website',
       images: shareImage ? [{url: shareImage, alt: `${product.name} disponível na Agô Trancoso`, width: 960, height: 960}] : undefined,
     },
@@ -161,8 +174,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const product = getProductById(id);
-  if (!product) notFound();
+  const sourceProduct = getProductById(id);
+  if (!sourceProduct) notFound();
+  const english = await isEnglishRequest();
+  const product = english ? englishProduct(sourceProduct) : sourceProduct;
+  const t = (pt: string, en: string) => english ? en : pt;
 
   const measurements = getPieceMeasurements(id);
   const orderedImages = getAttentionOrderedImages(product);
@@ -175,7 +191,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const isIgrejinhaProduct = IGREJINHA_PRODUCT_IDS.has(product.id);
   const isDecorativeMiniature = product.id === 'miniatura-quadrado-trancoso';
   const isHangingSagradaFamilia = product.id === 'sagrada-familia';
-  const productUrl = `${SITE_DOMAIN}/produtos/${product.id}`;
+  const productUrl = `${SITE_DOMAIN}${english ? '/en' : ''}/produtos/${product.id}`;
   const attentionProducts = sortProductsByAttention(getAvailableProducts());
 
   const relatedIds = getRelatedProductIds(product.id);
@@ -255,10 +271,10 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
       <ProductViewTracker product={product} />
 
       <div className="site-container product-page-shell">
-        <nav className="product-breadcrumb" aria-label="Navegação estrutural">
-          <Link href="/produtos">Coleção</Link>
+        <nav className="product-breadcrumb" aria-label={t('Navegação estrutural', 'Breadcrumb')}>
+          <Link href={english ? '/en/produtos' : '/produtos'}>{t('Coleção', 'Collection')}</Link>
           <span aria-hidden="true">/</span>
-          {isIgrejinhaProduct && <><Link href="/igrejinha-de-trancoso">Igrejinha de Trancoso</Link><span aria-hidden="true">/</span></>}
+          {isIgrejinhaProduct && <><Link href={english ? '/en/igrejinha-de-trancoso' : '/igrejinha-de-trancoso'}>{t('Igrejinha de Trancoso', 'Trancoso Church')}</Link><span aria-hidden="true">/</span></>}
           <span aria-current="page">{product.name}</span>
         </nav>
 
@@ -268,7 +284,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
           <div className="product-info-column">
             <div className="product-buybox">
-              <p className="eyebrow">{isIgrejinhaProduct ? 'Igrejinha de Trancoso · Cerâmica artesanal' : 'Cerâmica artesanal'}</p>
+              <p className="eyebrow">{isIgrejinhaProduct ? t('Igrejinha de Trancoso · Cerâmica artesanal', 'Trancoso church · Ceramic piece') : t('Cerâmica artesanal', 'Ceramic piece')}</p>
               <h1 className="product-detail-title">{product.name}</h1>
 
               {consultation ? <p className="product-current-price">Preço sob consulta</p> : hasPromo ? (
@@ -283,13 +299,13 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               </div>
 
               <details className="ago-product-info-disclosure">
-                <summary>Medidas e informações da peça</summary>
+                <summary>{t('Medidas e informações da peça', 'Dimensions and product information')}</summary>
                 <div className="ago-product-info-body">
               <section className="product-decision-details" aria-labelledby="product-details-title">
-                <h2 id="product-details-title" className="product-detail-facts-title">Detalhes da peça</h2>
+                <h2 id="product-details-title" className="product-detail-facts-title">{t('Detalhes da peça', 'Product details')}</h2>
                 <dl className="product-premium-facts" aria-label="Informações da peça">
-                  <div><dt>Medidas da peça</dt><dd>{product.dimensions || 'Medidas em atualização'}</dd></div>
-                  {measurements?.netWeightG != null && <div><dt>Peso da peça sem embalagem</dt><dd>{measurements.netWeightG} g</dd></div>}
+                  <div><dt>{t('Medidas da peça', 'Product dimensions')}</dt><dd>{product.dimensions || t('Medidas em atualização', 'Dimensions being updated')}</dd></div>
+                  {measurements?.netWeightG != null && <div><dt>{t('Peso da peça sem embalagem', 'Product weight without packaging')}</dt><dd>{measurements.netWeightG} g</dd></div>}
                   {isDecorativeMiniature && <div><dt>Uso</dt><dd>Para pendurar ou apoiar na decoração</dd></div>}
                   {isHangingSagradaFamilia && <div><dt>Como usar</dt><dd>Possui alça na parte de trás para pendurar na parede. Também pode ser apoiada.</dd></div>}
                 </dl>
@@ -308,8 +324,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         <section className="product-related-selection" aria-labelledby="related-products-title">
           <div className="site-container">
             <div className="ago-premium-section-head">
-              <div><p className="eyebrow">Outras peças</p><h2 id="related-products-title">Para acompanhar sua escolha.</h2></div>
-              <Link href="/produtos" className="ago-premium-text-link">Ver coleção completa <span aria-hidden="true"><svg className="ago-link-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12" /></svg></span></Link>
+              <div><p className="eyebrow">{t('Outras peças', 'More pieces')}</p><h2 id="related-products-title">{t('Para acompanhar sua escolha.', 'You may also like.')}</h2></div>
+              <Link href={english ? '/en/produtos' : '/produtos'} className="ago-premium-text-link">{t('Ver coleção completa', 'View full collection')} <span aria-hidden="true"><svg className="ago-link-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12" /></svg></span></Link>
             </div>
             <div className="ago-premium-product-grid product-related-grid">
               {related.map((relatedProduct) => <ProductCard key={relatedProduct.id} product={relatedProduct} listName="Produtos relacionados" />)}
