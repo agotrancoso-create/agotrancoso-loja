@@ -40,7 +40,7 @@ type QuoteResponse = {
   stripeConfigured?: boolean;
   options?: ShippingOption[];
   missingMeasurementProducts?: string[];
-  reason?: string;
+  reason?: 'invalid_destination' | 'invalid_cart' | 'missing_measurements' | 'manual_correios_quote';
 };
 
 const initialForm: QuoteForm = {
@@ -186,9 +186,9 @@ export default function InternationalShippingPage() {
       ? (english ? 'This order needs a manual shipping quote because at least one piece does not yet have confirmed packed weight and dimensions.' : 'Este pedido precisa de cotação manual porque pelo menos uma peça ainda não tem peso e medidas da embalagem confirmados.')
       : quote.reason === 'no_service'
         ? (english ? 'No automatic international service was returned for this destination.' : 'Nenhum serviço internacional automático foi retornado para este destino.')
-        : quote.reason === 'provider_not_configured'
-          ? (english ? 'Automatic international shipping is not configured yet.' : 'A cotação automática internacional ainda não está configurada.')
-          : (english ? 'We could not confirm an automatic shipping rate for this destination.' : 'Não conseguimos confirmar um frete automático para este destino.')
+        : quote.reason === 'manual_correios_quote'
+          ? (english ? 'To keep shipping as inexpensive as possible, this order will be quoted directly with Correios / Exporta Fácil before payment.' : 'Para manter o frete o mais barato possível, este pedido será cotado diretamente nos Correios / Exporta Fácil antes do pagamento.')
+          : (english ? 'This order needs a confirmed Correios quote before payment.' : 'Este pedido precisa de uma cotação confirmada dos Correios antes do pagamento.')
     : null;
 
   return (
@@ -197,7 +197,7 @@ export default function InternationalShippingPage() {
         <header className="ago-clean-checkout-head">
           <p className="eyebrow">{t('Do Quadrado para o mundo · From Trancoso to the world')}</p>
           <h1 id="international-page-title" className="checkout-title">{t('Envio internacional · International shipping')}</h1>
-          <p>{english ? 'Choose your pieces and destination. When a real carrier rate is available, you can continue directly to secure Stripe payment.' : 'Escolha suas peças e o destino. Quando houver uma cotação real de transportadora, você pode seguir direto para o pagamento seguro pela Stripe.'}</p>
+          <p>{english ? 'Choose your pieces and destination. We confirm the lowest available Correios international service before charging you.' : 'Escolha suas peças e o destino. Confirmamos o serviço internacional dos Correios mais econômico disponível antes de qualquer cobrança.'}</p>
         </header>
 
         <div className="checkout-layout">
@@ -208,9 +208,9 @@ export default function InternationalShippingPage() {
               </div>
               <div className="checkout-stage-body">
                 <div className="checkout-shipping-note">
-                  <span><strong>{english ? 'Real shipping rate before payment.' : 'Frete real confirmado antes do pagamento.'}</strong></span>
-                  <span>{english ? 'No Brazilian CPF/CNPJ is required for an international order. Automatic checkout is offered only when the carrier returns a valid rate.' : 'Pedidos internacionais não exigem CPF/CNPJ brasileiro. O checkout automático só é liberado quando a transportadora retorna um valor válido.'}</span>
-                  <span>{english ? 'If an automatic rate is unavailable, you can request a manual quote without losing your bag.' : 'Se a cotação automática não estiver disponível, você pode pedir uma cotação manual sem perder sua sacola.'}</span>
+                  <span><strong>{english ? 'Correios international shipping from Trancoso.' : 'Envio internacional pelos Correios a partir de Trancoso.'}</strong></span>
+                  <span>{english ? 'We confirm the real Exporta Fácil / Correios price and delivery estimate before payment, avoiding invented or padded shipping charges.' : 'Confirmamos o preço e o prazo reais do Exporta Fácil / Correios antes do pagamento, sem inventar ou inflar o frete.'}</span>
+                  <span>{english ? 'No Brazilian CPF/CNPJ is required from the buyer for this quote request.' : 'O comprador não precisa ter CPF/CNPJ brasileiro para solicitar a cotação.'}</span>
                 </div>
 
                 <div className="checkout-fields-two">
@@ -255,7 +255,7 @@ export default function InternationalShippingPage() {
                 </div>
 
                 {error && <p className="checkout-error" role="alert">{error}</p>}
-                <button type="submit" className="checkout-submit" disabled={quoting}>{quoting ? (english ? 'Calculating…' : 'Calculando…') : (english ? 'Calculate international shipping' : 'Calcular frete internacional')}</button>
+                <button type="submit" className="checkout-submit" disabled={quoting}>{quoting ? (english ? 'Preparing quote…' : 'Preparando cotação…') : (english ? 'Prepare Correios international quote' : 'Preparar cotação internacional pelos Correios')}</button>
 
                 {quote?.available && quote.options?.length ? (
                   <div className="checkout-shipping-note" style={{ marginTop: 18 }}>
@@ -286,9 +286,9 @@ export default function InternationalShippingPage() {
                 ) : null}
 
                 <a className="checkout-next-step" target="_blank" rel="noopener noreferrer" href={manualQuoteUrl()} onClick={() => trackContact('international_shipping_quote_whatsapp')}>
-                  {english ? 'Request or confirm quote on WhatsApp' : 'Solicitar ou confirmar cotação no WhatsApp'}
+                  {english ? 'Send this order for a Correios quote' : 'Enviar este pedido para cotação nos Correios'}
                 </a>
-                <p className="checkout-note">{english ? 'Import duties, taxes or customs requirements may vary by destination and are not invented or estimated by the site.' : 'Impostos, taxas ou exigências aduaneiras variam conforme o destino e não são inventados ou estimados pelo site.'}</p>
+                <p className="checkout-note">{english ? 'We do not add an international shipping platform fee. Import duties, taxes or customs requirements may still be charged by destination authorities.' : 'A Agô não acrescenta taxa de plataforma ao frete internacional. Tributos, impostos ou exigências aduaneiras ainda podem ser cobrados pelas autoridades do país de destino.'}</p>
               </div>
             </section>
           </form>
