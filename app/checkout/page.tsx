@@ -53,20 +53,9 @@ type FormState = {
 
 type Line = { item: CartItem; product: Product };
 type CheckoutStep = 1 | 2 | 3;
-type ShippingOption = {
-  serviceId?: string;
-  name?: string;
-  provider?: string;
-  price?: number;
-  deadline?: number | string | null;
-  estimated?: boolean;
-  fallback?: boolean;
-};
-
 type ShippingQuote = {
   available?: boolean;
-  options?: ShippingOption[];
-  provider?: string;
+  options?: Array<{ deadline?: number | string | null; estimated?: boolean }>;
 };
 
 export default function CheckoutPage() {
@@ -83,7 +72,6 @@ export default function CheckoutPage() {
   const [shippingDeadline, setShippingDeadline] = useState<string | null>(null);
   const [shippingDeadlineEstimated, setShippingDeadlineEstimated] = useState(false);
   const [shippingDeadlineLoading, setShippingDeadlineLoading] = useState(false);
-  const [shippingOption, setShippingOption] = useState<ShippingOption | null>(null);
   const [benefitAvailable, setBenefitAvailable] = useState(false);
   const [couponChecking, setCouponChecking] = useState(false);
   const couponRequest = useRef(0);
@@ -131,8 +119,7 @@ export default function CheckoutPage() {
   const discount = calculateCouponDiscount(subtotal, appliedCoupon);
   const discountedSubtotal = Math.max(0, subtotal - discount);
   const freeShipping = shouldOfferFreeShipping(subtotal);
-  const shippingValue = freeShipping ? 0 : (shippingOption?.price ?? FIXED_SHIPPING_PRICE);
-  const shippingName = freeShipping ? 'Frete grátis' : (shippingOption?.name || 'Frete fixo de segurança');
+  const shippingValue = freeShipping ? 0 : FIXED_SHIPPING_PRICE;
   const total = discountedSubtotal + shippingValue;
 
   useEffect(() => {
@@ -140,7 +127,6 @@ export default function CheckoutPage() {
     if (normalizedZip.length !== 8 || !items.length) {
       setShippingDeadline(null);
       setShippingDeadlineEstimated(false);
-      setShippingOption(null);
       setShippingDeadlineLoading(false);
       return;
     }
@@ -160,23 +146,15 @@ export default function CheckoutPage() {
         const data = (await response.json()) as ShippingQuote;
         if (controller.signal.aborted) return;
         const option = data.options?.[0];
-        if (response.ok && data.available && option) {
-          setShippingOption(option);
-          if (option.deadline !== null && option.deadline !== undefined && option.deadline !== '') {
-            setShippingDeadline(String(option.deadline));
-            setShippingDeadlineEstimated(option.estimated === true);
-          } else {
-            setShippingDeadline(null);
-            setShippingDeadlineEstimated(false);
-          }
+        if (response.ok && data.available && option?.deadline !== null && option?.deadline !== undefined && option.deadline !== '') {
+          setShippingDeadline(String(option.deadline));
+          setShippingDeadlineEstimated(option.estimated === true);
         } else {
-          setShippingOption(null);
           setShippingDeadline(null);
           setShippingDeadlineEstimated(false);
         }
       } catch {
         if (!controller.signal.aborted) {
-          setShippingOption(null);
           setShippingDeadline(null);
           setShippingDeadlineEstimated(false);
         }
@@ -270,7 +248,7 @@ export default function CheckoutPage() {
       setStepError('Complete os dados de entrega para continuar.');
       return;
     }
-    trackAddShippingInfo(marketingItems, total, shippingName);
+    trackAddShippingInfo(marketingItems, total, freeShipping ? 'Frete grátis' : 'Frete fixo');
     markComplete(2);
     setStep(3);
   }
@@ -341,6 +319,8 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           items,
           coupon: normalizeCoupon(appliedCoupon),
+          shippingValue,
+          shippingName: freeShipping ? 'Frete grátis' : 'Frete fixo',
           customer: { name: form.name, email: form.email, phone: form.phone, document: form.document, address: { street: form.street, number: form.number, complement: form.complement, neighborhood: form.neighborhood, city: form.city, state: form.state, zip: form.zip } },
         }),
       });
@@ -415,20 +395,7 @@ export default function CheckoutPage() {
                 <div className="checkout-field"><label htmlFor="neighborhood">Bairro</label><input className="checkout-input" id="neighborhood" {...fieldProps('neighborhood')} required name="neighborhood" value={form.neighborhood} onChange={change} />{fieldError('neighborhood')}</div>
                 <div className="checkout-fields-address"><div className="checkout-field"><label htmlFor="city">Cidade</label><input className="checkout-input" id="city" {...fieldProps('city')} required name="city" value={form.city} onChange={change} autoComplete="address-level2" />{fieldError('city')}</div><div className="checkout-field checkout-uf"><label htmlFor="state" data-no-translate="true">{english ? 'State' : 'UF'}</label><input className="checkout-input" id="state" {...fieldProps('state')} required name="state" maxLength={2} placeholder="BA" value={form.state} onChange={change} autoComplete="address-level1" />{fieldError('state')}</div></div>
                 <Link className="checkout-international-link" href="/envio-internacional">Fora do Brasil? Consulte o envio internacional.</Link>
-                <div className="checkout-shipping-note">
-                  <span data-no-translate="true">
-                    {freeShipping
-                      ? (english ? 'Free shipping on this order.' : 'Frete grátis neste pedido.')
-                      : shippingDeadlineLoading
-                        ? (english ? 'Finding the lowest Correios rate…' : 'Buscando o menor frete dos Correios…')
-                        : <>{english ? 'Shipping: ' : 'Frete: '}<strong>{formatBRL(shippingValue)}</strong>{shippingOption?.name ? <> · {shippingOption.name}</> : null}.</>}
-                  </span>
-                  {!freeShipping && shippingOption?.provider === 'Frenet' && !shippingOption?.fallback && <span data-no-translate="true">{english ? 'Lowest eligible Correios rate returned by Frenet for this cart and ZIP code.' : 'Menor tarifa elegível dos Correios retornada pela Frenet para esta sacola e CEP.'}</span>}
-                  {!freeShipping && shippingOption?.fallback && <small data-no-translate="true">{english ? 'Automatic carrier pricing was unavailable, so the store safety rate was applied.' : 'A cotação automática da transportadora não estava disponível; por isso foi aplicada a tarifa fixa de segurança.'}</small>}
-                  <span data-no-translate="true">{english ? 'Free shipping on R$ 500 or more in products.' : 'Frete grátis a partir de R$ 500 em produtos.'}</span>
-                  {!shippingDeadlineLoading && shippingDeadline && <span data-no-translate="true">{english ? (shippingDeadlineEstimated ? 'Store estimate' : 'Carrier estimate') : (shippingDeadlineEstimated ? 'Estimativa da loja' : 'Prazo estimado')}: {shippingDeadline} {english ? (shippingDeadline === '1' ? 'business day' : 'business days') : shippingDeadlineUnit}.</span>}
-                  {!shippingDeadlineLoading && shippingDeadline && shippingDeadlineEstimated && <small data-no-translate="true">{english ? 'Estimated range after dispatch, not confirmed by Correios. Confirm delivery time before purchasing.' : 'Faixa indicativa após a postagem, não consultada nos Correios. Confirme o prazo antes de comprar.'}</small>}
-                </div>
+                <div className="checkout-shipping-note"><span data-no-translate="true">{freeShipping ? (english ? 'Free shipping on this order.' : 'Frete grátis neste pedido.') : <>{english ? 'Fixed shipping via Correios PAC: ' : 'Frete fixo via PAC dos Correios: '}<strong>R$ 39,90</strong>.</>}</span><span data-no-translate="true">{english ? 'Free shipping on R$ 500 or more in products.' : 'Frete grátis a partir de R$ 500 em produtos.'}</span>{shippingDeadlineLoading && <span data-no-translate="true">{english ? 'Checking delivery time…' : 'Consultando prazo…'}</span>}{!shippingDeadlineLoading && shippingDeadline && <span data-no-translate="true">{english ? (shippingDeadlineEstimated ? 'Store estimate' : 'Carrier estimate') : (shippingDeadlineEstimated ? 'Estimativa da loja' : 'Prazo estimado')}: {shippingDeadline} {english ? (shippingDeadline === '1' ? 'business day' : 'business days') : shippingDeadlineUnit}.</span>}{!shippingDeadlineLoading && shippingDeadline && shippingDeadlineEstimated && <small data-no-translate="true">{english ? 'Estimated range after dispatch, not confirmed by Correios. Confirm delivery time before purchasing.' : 'Faixa indicativa após a postagem, não consultada nos Correios. Confirme o prazo antes de comprar.'}</small>}</div>
                 {shippingError && <p id="checkout-shipping-error" className="checkout-error" data-no-translate="true" role="alert">{t(shippingError)}</p>}{stepError && <p className="checkout-error" data-no-translate="true" role="alert">{t(stepError)}</p>}
                 <button type="button" className="checkout-next-step" onClick={goToPayment} data-no-translate="true">{t('Continuar para pagamento')}</button>
               </div> : deliveryComplete ? <p className="checkout-stage-summary">{form.street}, {form.number} · {form.neighborhood} · {form.city}/{form.state}</p> : <p className="checkout-stage-locked">Conclua seus dados para liberar esta etapa.</p>}
@@ -456,7 +423,7 @@ export default function CheckoutPage() {
           <aside className="checkout-summary" aria-label="Resumo do pedido">
             <div className="ago-clean-summary-head"><p className="eyebrow">Resumo</p><h2>Seu pedido</h2></div>
             <div className="checkout-summary-items" aria-label="Suas peças">{lines.map(({ item, product }) => <div key={item.productId} className="checkout-summary-item"><div className="checkout-product-main"><div className="checkout-product-image"><Image src={product.images?.[0] || '/images/placeholder.svg'} alt={product.name} width={60} height={60} /></div><div><span className="checkout-product-name">{product.name}</span><span className="checkout-product-price">{item.quantity} × {formatBRL(getEffectivePrice(product))}</span></div></div><span className="checkout-line-total">{formatBRL(getEffectivePrice(product) * item.quantity)}</span></div>)}</div>
-            <div className="ago-clean-summary-bottom"><div className="checkout-summary-row"><span>Subtotal</span><strong>{formatBRL(subtotal)}</strong></div>{discount > 0 && <div className="checkout-summary-row checkout-discount-row"><span>1ª compra · 3% OFF</span><strong>- {formatBRL(discount)}</strong></div>}<div className="checkout-summary-row"><span data-no-translate="true">{assisted ? (english ? 'Shipping' : 'Frete') : freeShipping ? (english ? 'Shipping' : 'Frete') : (shippingOption?.name || (english ? 'Shipping' : 'Frete'))}</span><strong data-no-translate="true">{assisted ? (english ? 'To be confirmed' : 'A confirmar') : shippingValue === 0 ? (english ? 'Free' : 'Grátis') : formatBRL(shippingValue)}</strong></div><div className="checkout-total"><span>{assisted ? (english ? 'Products total' : 'Total das peças') : 'Total'}</span><strong>{formatBRL(assisted ? subtotal : total)}</strong></div></div>
+            <div className="ago-clean-summary-bottom"><div className="checkout-summary-row"><span>Subtotal</span><strong>{formatBRL(subtotal)}</strong></div>{discount > 0 && <div className="checkout-summary-row checkout-discount-row"><span>1ª compra · 3% OFF</span><strong>- {formatBRL(discount)}</strong></div>}<div className="checkout-summary-row"><span data-no-translate="true">{english ? (assisted || freeShipping ? 'Shipping' : 'Shipping · Correios PAC') : (assisted || freeShipping ? 'Frete' : 'Frete · Correios PAC')}</span><strong data-no-translate="true">{assisted ? (english ? 'To be confirmed' : 'A confirmar') : shippingValue === 0 ? (english ? 'Free' : 'Grátis') : formatBRL(shippingValue)}</strong></div><div className="checkout-total"><span>{assisted ? (english ? 'Products total' : 'Total das peças') : 'Total'}</span><strong>{formatBRL(assisted ? subtotal : total)}</strong></div></div>
           </aside>
         </div>
       </div>
