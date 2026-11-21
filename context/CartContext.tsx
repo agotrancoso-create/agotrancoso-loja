@@ -64,7 +64,18 @@ function normalizeRecoveryItems(raw: string | null): CartItem[] {
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [international, setInternational] = useState(false);
-  useEffect(() => { try { setInternational(localStorage.getItem('ago_international') === 'true'); } catch {} }, []);
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('ago_international');
+      if (stored === 'true' || stored === 'false') {
+        setInternational(stored === 'true');
+        return;
+      }
+      // A versão em inglês é a principal landing page do Google Shopping
+      // internacional; novos visitantes entram com destino Exterior por padrão.
+      setInternational(window.location.pathname === '/en' || window.location.pathname.startsWith('/en/'));
+    } catch {}
+  }, []);
   const updateInternational = useCallback((value: boolean) => {
     setInternational(value);
     try { localStorage.setItem('ago_international', String(value)); } catch {}
