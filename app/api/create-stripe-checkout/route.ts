@@ -43,7 +43,7 @@ export async function POST(req: Request) {
 
     const quote = await getInternationalShippingQuote({ countryCode, postalCode, items });
     if (!quote.available || !quote.options.length) {
-      return NextResponse.json({ error: english ? 'Automatic shipping is not available for this order. Request a manual quote.' : 'O frete automático não está disponível para este pedido. Solicite uma cotação manual.' }, { status: 422 });
+      return NextResponse.json({ error: english ? 'International shipping is not available for this order.' : 'O frete internacional não está disponível para este pedido.' }, { status: 422 });
     }
 
     const shipping = quote.options.find(option => option.serviceCode === requestedServiceCode) ?? quote.options[0];
@@ -121,8 +121,8 @@ export async function POST(req: Request) {
       custom_text: {
         shipping_address: {
           message: english
-            ? 'International shipping is calculated for this destination. Import duties or local taxes, when applicable, may be charged by destination authorities.'
-            : 'O frete internacional foi calculado para este destino. Tributos ou taxas locais de importação, quando aplicáveis, podem ser cobrados pelas autoridades do país de destino.',
+            ? 'A fixed international shipping rate for this destination region is included in your order. Import duties or local taxes, when applicable, may be charged by destination authorities.'
+            : 'Uma tarifa fixa de envio internacional para esta região está incluída no pedido. Tributos ou taxas locais de importação, quando aplicáveis, podem ser cobrados pelas autoridades do país de destino.',
         },
       },
       metadata: {
@@ -156,6 +156,6 @@ export async function POST(req: Request) {
     console.error('Stripe international checkout error:', error);
     const message = error instanceof Error ? error.message : '';
     if (message === 'STRIPE_NOT_CONFIGURED') return NextResponse.json({ error: 'O pagamento internacional online ainda está sendo ativado.' }, { status: 503 });
-    return NextResponse.json({ error: 'Não foi possível iniciar o pagamento internacional. Tente novamente ou solicite uma cotação assistida.' }, { status: 500 });
+    return NextResponse.json({ error: 'Não foi possível iniciar o pagamento internacional. Tente novamente.' }, { status: 500 });
   }
 }
