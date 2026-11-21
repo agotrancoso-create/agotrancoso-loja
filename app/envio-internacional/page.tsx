@@ -9,7 +9,8 @@ import { useCart } from '@/context/CartContext';
 import { getEffectivePrice, getProductById } from '@/lib/products';
 import { whatsappLink } from '@/lib/config';
 import { getParcelMeasurements } from '@/lib/catalog-measurements';
-import { trackContact } from '@/lib/marketing-analytics';
+import { INTERNATIONAL_COUNTRIES, getInternationalCountry } from '@/lib/international-countries';
+import { trackAddPaymentInfo, trackContact, type MarketingItem } from '@/lib/marketing-analytics';
 
 function formatBRL(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -17,210 +18,308 @@ function formatBRL(value: number) {
 
 type QuoteForm = {
   name: string;
-  country: string;
+  email: string;
+  countryCode: string;
   city: string;
   region: string;
   postalCode: string;
   notes: string;
 };
 
+type ShippingOption = {
+  serviceCode: string;
+  name: string;
+  carrier: string;
+  price: number;
+  deadlineDays: number | null;
+};
+
+type QuoteResponse = {
+  configured?: boolean;
+  available?: boolean;
+  stripeConfigured?: boolean;
+  options?: ShippingOption[];
+  missingMeasurementProducts?: string[];
+  reason?: string;
+};
+
 const initialForm: QuoteForm = {
   name: '',
-  country: '',
+  email: '',
+  countryCode: '',
   city: '',
   region: '',
   postalCode: '',
   notes: '',
 };
 
-const suggestedCountries = [
-  'Estados Unidos / United States',
-  'Canadá / Canada',
-  'Reino Unido / United Kingdom',
-  'Portugal',
-  'Espanha / Spain',
-  'França / France',
-  'Alemanha / Germany',
-  'Itália / Italy',
-  'Países Baixos / Netherlands',
-  'Suíça / Switzerland',
-  'Áustria / Austria',
-  'Bélgica / Belgium',
-  'Irlanda / Ireland',
-  'Dinamarca / Denmark',
-  'Suécia / Sweden',
-  'Noruega / Norway',
-  'Finlândia / Finland',
-  'Polônia / Poland',
-  'República Tcheca / Czechia',
-  'Grécia / Greece',
-  'Hungria / Hungary',
-  'Romênia / Romania',
-  'Eslováquia / Slovakia',
-  'Austrália / Australia',
-  'Nova Zelândia / New Zealand',
-  'Japão / Japan',
-  'Coreia do Sul / South Korea',
-  'Singapura / Singapore',
-  'Hong Kong / Hong Kong SAR',
-  'Taiwan',
-  'Emirados Árabes Unidos / United Arab Emirates',
-  'Arábia Saudita / Saudi Arabia',
-  'Israel',
-  'África do Sul / South Africa',
-  'México / Mexico',
-  'Argentina',
-  'Chile',
-  'Colômbia / Colombia',
-  'Peru',
-  'Uruguai / Uruguay',
-] as const;
-
 export default function InternationalShippingPage() {
   const english = useSiteEnglish();
   const t = (text: string) => english ? (internationalEnglish[text] ?? cartEnglish[text] ?? text) : text;
   const { items, hydrated, setInternational } = useCart();
   useEffect(() => { setInternational(true); }, [setInternational]);
+
   const [form, setForm] = useState<QuoteForm>(initialForm);
   const [error, setError] = useState<string | null>(null);
+  const [quote, setQuote] = useState<QuoteResponse | null>(null);
+  const [selectedServiceCode, setSelectedServiceCode] = useState('');
+  const [quoting, setQuoting] = useState(false);
+  const [paying, setPaying] = useState(false);
 
   const lines = useMemo(() => items.flatMap((item) => {
     const product = getProductById(item.productId);
     return product ? [{ item, product }] : [];
   }), [items]);
 
+  const marketingItems = useMemo<MarketingItem[]>(() => lines.map(({ item, product }) => ({
+    item_id: product.id,
+    item_name: product.name,
+    price: getEffectivePrice(product),
+    quantity: item.quantity,
+    item_category: product.category,
+  })), [lines]);
+
   const subtotal = lines.reduce((sum, { item, product }) => sum + getEffectivePrice(product) * item.quantity, 0);
+  const selectedOption = quote?.options?.find(option => option.serviceCode === selectedServiceCode) ?? quote?.options?.[0];
+  const grandTotal = subtotal + (selectedOption?.price || 0);
+  const country = getInternationalCountry(form.countryCode);
 
   function update(name: keyof QuoteForm, value: string) {
     setForm((current) => ({ ...current, [name]: value }));
     setError(null);
+    setQuote(null);
+    setSelectedServiceCode('');
   }
 
-  function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    if (form.country.trim().length < 2) return setError('Informe o país ou território de destino / Enter the destination country or territory.');
-    if (form.city.trim().length < 2) return setError('Informe a cidade de destino / Enter the destination city.');
-
+  function manualQuoteUrl() {
     const txt = (pt: string, en: string) => english ? en : pt;
     const products = lines.length
       ? lines.map(({ item, product }) => `• ${item.quantity} × ${product.name} — ${formatBRL(getEffectivePrice(product) * item.quantity)}`).join('\n')
       : txt('Ainda não selecionei as peças.', 'I have not selected any pieces yet.');
     const singleBox = lines.length === 1 && lines[0].item.quantity === 1 ? getParcelMeasurements(lines[0].product.id) : undefined;
+    const destination = [
+      form.city.trim(),
+      form.region.trim(),
+      form.postalCode.trim(),
+      country ? (english ? country.en : country.pt) : '',
+    ].filter(Boolean).join(', ');
     const message = [
       txt('Olá! Gostaria de cotar o envio internacional da Agô Trancoso.', 'Hello! I would like an international shipping quote from Agô Trancoso.'),
       form.name.trim() ? `${txt('Nome', 'Name')}: ${form.name.trim()}` : '',
-      [form.city.trim(), form.region.trim(), form.postalCode.trim(), form.country.trim()].filter(Boolean).join(', '),
+      form.email.trim() ? `E-mail: ${form.email.trim()}` : '',
+      destination,
       products,
       lines.length ? `${txt('Subtotal das peças', 'Product subtotal')}: ${formatBRL(subtotal)}` : '',
       singleBox ? `${txt('Embalagem de uma unidade', 'Single-item parcel')}: ${singleBox.lengthCm} × ${singleBox.widthCm} × ${singleBox.heightCm} cm · ${singleBox.grossWeightG} g` : '',
       form.notes.trim(),
       txt('Qual é o valor do frete e o prazo para esse destino?', 'What are the shipping cost and estimated delivery time for this destination?'),
     ].filter(Boolean).join('\n');
-    trackContact('international_shipping_quote');
-    window.location.assign(whatsappLink(message));
+    return whatsappLink(message);
   }
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(null);
+    setQuote(null);
+
+    if (!lines.length) return setError(english ? 'Add at least one piece to your bag before calculating shipping.' : 'Adicione pelo menos uma peça à sacola antes de calcular o frete.');
+    if (!country) return setError(english ? 'Choose the destination country.' : 'Escolha o país de destino.');
+    if (form.city.trim().length < 2) return setError(english ? 'Enter the destination city.' : 'Informe a cidade de destino.');
+    if (form.postalCode.trim().length < 2) return setError(english ? 'Enter the destination postal code to calculate shipping automatically.' : 'Informe o código postal do destino para calcular o frete automaticamente.');
+
+    setQuoting(true);
+    try {
+      const response = await fetch('/api/frete-internacional', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items,
+          countryCode: form.countryCode,
+          postalCode: form.postalCode,
+        }),
+      });
+      const data = (await response.json()) as QuoteResponse;
+      setQuote(data);
+      if (data.available && data.options?.length) {
+        setSelectedServiceCode(data.options[0].serviceCode);
+        trackContact('international_shipping_quote_auto');
+      } else {
+        trackContact('international_shipping_quote_manual_needed');
+      }
+    } catch {
+      setQuote({ available: false, reason: 'provider_error' });
+    } finally {
+      setQuoting(false);
+    }
+  }
+
+  async function startPayment() {
+    if (!selectedOption || !quote?.stripeConfigured) return;
+    setPaying(true);
+    setError(null);
+    trackAddPaymentInfo(marketingItems, grandTotal, 'Stripe');
+
+    try {
+      const response = await fetch('/api/create-stripe-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items,
+          countryCode: form.countryCode,
+          postalCode: form.postalCode,
+          serviceCode: selectedOption.serviceCode,
+          email: form.email,
+          english,
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.checkoutUrl) throw new Error(data.error || (english ? 'Could not start payment.' : 'Não foi possível iniciar o pagamento.'));
+      window.location.assign(data.checkoutUrl);
+    } catch (paymentError) {
+      setError(paymentError instanceof Error ? paymentError.message : (english ? 'Could not start payment.' : 'Não foi possível iniciar o pagamento.'));
+      setPaying(false);
+    }
+  }
+
+  const quoteFailureMessage = quote && !quote.available
+    ? quote.reason === 'missing_measurements'
+      ? (english ? 'This order needs a manual shipping quote because at least one piece does not yet have confirmed packed weight and dimensions.' : 'Este pedido precisa de cotação manual porque pelo menos uma peça ainda não tem peso e medidas da embalagem confirmados.')
+      : quote.reason === 'no_service'
+        ? (english ? 'No automatic international service was returned for this destination.' : 'Nenhum serviço internacional automático foi retornado para este destino.')
+        : quote.reason === 'provider_not_configured'
+          ? (english ? 'Automatic international shipping is not configured yet.' : 'A cotação automática internacional ainda não está configurada.')
+          : (english ? 'We could not confirm an automatic shipping rate for this destination.' : 'Não conseguimos confirmar um frete automático para este destino.')
+    : null;
 
   return (
     <section data-no-translate="true" className="checkout-page" aria-labelledby="international-page-title">
       <div className="checkout-shell">
         <header className="ago-clean-checkout-head">
-          <p className="eyebrow">{t("Do Quadrado para o mundo · From Trancoso to the world")}</p>
-          <h1 id="international-page-title" className="checkout-title">{t("Envio internacional · International shipping")}</h1>
-          <p>{t("Escolha suas peças e informe o país de destino. Confirmamos a disponibilidade do serviço, o frete e o prazo antes do pagamento.")}</p>
-
+          <p className="eyebrow">{t('Do Quadrado para o mundo · From Trancoso to the world')}</p>
+          <h1 id="international-page-title" className="checkout-title">{t('Envio internacional · International shipping')}</h1>
+          <p>{english ? 'Choose your pieces and destination. When a real carrier rate is available, you can continue directly to secure Stripe payment.' : 'Escolha suas peças e o destino. Quando houver uma cotação real de transportadora, você pode seguir direto para o pagamento seguro pela Stripe.'}</p>
         </header>
 
         <div className="checkout-layout">
           <form className="checkout-form-panel" onSubmit={submit} noValidate>
             <section className="checkout-stage is-active" aria-labelledby="international-title">
               <div className="checkout-stage-head">
-                <div><span>01</span><h2 id="international-title">{t("Destino · Destination")}</h2></div>
+                <div><span>01</span><h2 id="international-title">{t('Destino · Destination')}</h2></div>
               </div>
               <div className="checkout-stage-body">
                 <div className="checkout-shipping-note">
-                  <span><strong>{t("Frete internacional cotado antes do pagamento · International shipping quoted before payment.")}</strong></span>
-                  <span>{english ? 'For deliveries outside Brazil, no Brazilian CPF/CNPJ is required. For a quote, we only need the destination country and city; add the postal code when available.' : 'Para entregas fora do Brasil, não exigimos CPF/CNPJ brasileiro. Para a cotação, basta informar país e cidade; inclua o código postal quando houver.'}</span>
-                  <span>{t("Como as peças têm tamanhos diferentes, confirmamos peso, embalagem, serviço disponível, prazo e eventuais restrições do destino antes de cobrar o frete.")}</span>
-                </div>
-
-                <div className="checkout-field">
-                  <label htmlFor="intl-name">{english ? 'Name (optional)' : 'Nome (opcional)'}</label>
-                  <input id="intl-name" className="checkout-input" autoComplete="given-name" value={form.name} onChange={(e) => update('name', e.target.value)} />
+                  <span><strong>{english ? 'Real shipping rate before payment.' : 'Frete real confirmado antes do pagamento.'}</strong></span>
+                  <span>{english ? 'No Brazilian CPF/CNPJ is required for an international order. Automatic checkout is offered only when the carrier returns a valid rate.' : 'Pedidos internacionais não exigem CPF/CNPJ brasileiro. O checkout automático só é liberado quando a transportadora retorna um valor válido.'}</span>
+                  <span>{english ? 'If an automatic rate is unavailable, you can request a manual quote without losing your bag.' : 'Se a cotação automática não estiver disponível, você pode pedir uma cotação manual sem perder sua sacola.'}</span>
                 </div>
 
                 <div className="checkout-fields-two">
                   <div className="checkout-field">
-                    <label htmlFor="intl-country">{t("País ou território · Country or territory")}</label>
-                    <input id="intl-country" required className="checkout-input" list="international-country-suggestions" autoComplete="country-name" value={form.country} onChange={(e) => update('country', e.target.value)} placeholder={t("Ex.: Portugal / e.g. United States")} />
-                    <datalist id="international-country-suggestions">
-                      {suggestedCountries.map((country) => <option key={country} value={english ? country.split(" / ").pop() : country.split(" / ")[0]} />)}
-                    </datalist>
-                    <p className="checkout-field-help">{t("Você pode informar qualquer país ou território. A disponibilidade do envio é confirmada antes do pagamento.")}</p>
+                    <label htmlFor="intl-name">{english ? 'Name (optional)' : 'Nome (opcional)'}</label>
+                    <input id="intl-name" className="checkout-input" autoComplete="name" value={form.name} onChange={(e) => update('name', e.target.value)} />
                   </div>
                   <div className="checkout-field">
-                    <label htmlFor="intl-city">{t("Cidade · City")}</label>
-                    <input id="intl-city" required className="checkout-input" autoComplete="address-level2" value={form.city} onChange={(e) => update('city', e.target.value)} placeholder={t("Cidade / City")} />
+                    <label htmlFor="intl-email">E-mail <span>{english ? '(optional, to prefill Stripe)' : '(opcional, para preencher a Stripe)'}</span></label>
+                    <input id="intl-email" className="checkout-input" type="email" autoComplete="email" value={form.email} onChange={(e) => update('email', e.target.value)} placeholder="you@example.com" />
                   </div>
                 </div>
 
                 <div className="checkout-fields-two">
                   <div className="checkout-field">
-                    <label htmlFor="intl-region">{t("Estado / Província / Região · State / Province / Region ")}<span>{t("(se houver / if applicable)")}</span></label>
+                    <label htmlFor="intl-country">{t('País ou território · Country or territory')}</label>
+                    <select id="intl-country" required className="checkout-input" autoComplete="country" value={form.countryCode} onChange={(e) => update('countryCode', e.target.value)}>
+                      <option value="">{english ? 'Select a country' : 'Selecione um país'}</option>
+                      {INTERNATIONAL_COUNTRIES.map((item) => <option key={item.code} value={item.code}>{english ? item.en : item.pt}</option>)}
+                    </select>
+                  </div>
+                  <div className="checkout-field">
+                    <label htmlFor="intl-city">{t('Cidade · City')}</label>
+                    <input id="intl-city" required className="checkout-input" autoComplete="address-level2" value={form.city} onChange={(e) => update('city', e.target.value)} placeholder={t('Cidade / City')} />
+                  </div>
+                </div>
+
+                <div className="checkout-fields-two">
+                  <div className="checkout-field">
+                    <label htmlFor="intl-region">{english ? 'State / Province / Region' : 'Estado / Província / Região'} <span>{english ? '(if applicable)' : '(se houver)'}</span></label>
                     <input id="intl-region" className="checkout-input" autoComplete="address-level1" value={form.region} onChange={(e) => update('region', e.target.value)} />
                   </div>
                   <div className="checkout-field">
-                    <label htmlFor="intl-postal">{t("Código postal · Postal code ")}<span>{t("(se houver / if applicable)")}</span></label>
-                    <input id="intl-postal" className="checkout-input" autoComplete="postal-code" value={form.postalCode} onChange={(e) => update('postalCode', e.target.value)} placeholder="Postal code" />
+                    <label htmlFor="intl-postal">{english ? 'Postal code' : 'Código postal'}</label>
+                    <input id="intl-postal" required className="checkout-input" autoComplete="postal-code" value={form.postalCode} onChange={(e) => update('postalCode', e.target.value)} placeholder="Postal code" />
                   </div>
                 </div>
 
                 <div className="checkout-field">
-                  <label htmlFor="intl-notes">{t("Observações · Notes ")}<span>{t("(opcional / optional)")}</span></label>
-                  <textarea id="intl-notes" className="checkout-input" value={form.notes} onChange={(e) => update('notes', e.target.value)} placeholder={t("Informações importantes para a entrega / Delivery notes")} rows={4} style={{ minHeight: 112, resize: 'vertical' }} />
+                  <label htmlFor="intl-notes">{english ? 'Delivery notes' : 'Observações de entrega'} <span>{english ? '(optional)' : '(opcional)'}</span></label>
+                  <textarea id="intl-notes" className="checkout-input" value={form.notes} onChange={(e) => update('notes', e.target.value)} rows={3} style={{ minHeight: 96, resize: 'vertical' }} />
                 </div>
 
-                {error && <p className="checkout-error" role="alert">{t(error)}</p>}
-                <button type="submit" className="checkout-submit">{t("Solicitar cotação · Request shipping quote")}</button>
-                <p className="checkout-note">{t("Você não paga o frete nesta etapa. Primeiro confirmamos o valor real do envio. · You do not pay shipping at this stage. We confirm the actual shipping cost first.")}</p>
+                {error && <p className="checkout-error" role="alert">{error}</p>}
+                <button type="submit" className="checkout-submit" disabled={quoting}>{quoting ? (english ? 'Calculating…' : 'Calculando…') : (english ? 'Calculate international shipping' : 'Calcular frete internacional')}</button>
+
+                {quote?.available && quote.options?.length ? (
+                  <div className="checkout-shipping-note" style={{ marginTop: 18 }}>
+                    <span><strong>{english ? 'Available shipping options' : 'Opções de frete disponíveis'}</strong></span>
+                    {quote.options.map(option => (
+                      <label key={option.serviceCode} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', cursor: 'pointer' }}>
+                        <input type="radio" name="international-shipping-option" checked={selectedServiceCode === option.serviceCode} onChange={() => setSelectedServiceCode(option.serviceCode)} />
+                        <span>
+                          <strong>{option.carrier} · {option.name}</strong><br />
+                          {formatBRL(option.price)}{option.deadlineDays ? ` · ${option.deadlineDays} ${english ? 'business days' : 'dias úteis'}` : ''}
+                        </span>
+                      </label>
+                    ))}
+
+                    {quote.stripeConfigured ? (
+                      <button type="button" className="checkout-submit" onClick={startPayment} disabled={paying || !selectedOption}>
+                        {paying ? (english ? 'Opening secure checkout…' : 'Abrindo checkout seguro…') : (english ? 'Pay securely with Stripe' : 'Pagar com segurança pela Stripe')}
+                      </button>
+                    ) : (
+                      <p className="checkout-note">{english ? 'Secure online international payment is being activated. You can already request this quoted order manually.' : 'O pagamento internacional online está em ativação. Você já pode confirmar esta cotação manualmente.'}</p>
+                    )}
+                  </div>
+                ) : quoteFailureMessage ? (
+                  <div className="checkout-shipping-note" style={{ marginTop: 18 }}>
+                    <span><strong>{quoteFailureMessage}</strong></span>
+                    {quote?.missingMeasurementProducts?.length ? <span>{english ? 'Pieces needing confirmed parcel data: ' : 'Peças que precisam de dados de embalagem confirmados: '}{quote.missingMeasurementProducts.join(', ')}</span> : null}
+                  </div>
+                ) : null}
+
+                <a className="checkout-next-step" target="_blank" rel="noopener noreferrer" href={manualQuoteUrl()} onClick={() => trackContact('international_shipping_quote_whatsapp')}>
+                  {english ? 'Request or confirm quote on WhatsApp' : 'Solicitar ou confirmar cotação no WhatsApp'}
+                </a>
+                <p className="checkout-note">{english ? 'Import duties, taxes or customs requirements may vary by destination and are not invented or estimated by the site.' : 'Impostos, taxas ou exigências aduaneiras variam conforme o destino e não são inventados ou estimados pelo site.'}</p>
               </div>
             </section>
           </form>
 
-          <aside className="checkout-summary" aria-label={t("Resumo da cotação internacional / International quote summary")}>
-            <div className="ago-clean-summary-head"><p className="eyebrow">{t("Sua seleção · Your selection")}</p><h2>{t(lines.length ? 'Peças na sacola · Pieces in your bag' : 'Escolha suas peças · Choose your pieces')}</h2></div>
+          <aside className="checkout-summary" aria-label={english ? 'International order summary' : 'Resumo do pedido internacional'}>
+            <div className="ago-clean-summary-head"><p className="eyebrow">{english ? 'Your selection' : 'Sua seleção'}</p><h2>{lines.length ? (english ? 'Pieces in your bag' : 'Peças na sacola') : (english ? 'Choose your pieces' : 'Escolha suas peças')}</h2></div>
             {hydrated && lines.length ? (
               <>
                 <div className="checkout-summary-items">
                   {lines.map(({ item, product }) => (
                     <div key={item.productId} className="checkout-summary-item">
-                      <div className="checkout-product-main"><div><span className="checkout-product-name">{t(product.name)}</span><span className="checkout-product-price">{item.quantity} × {formatBRL(getEffectivePrice(product))}</span></div></div>
+                      <div className="checkout-product-main"><div><span className="checkout-product-name">{product.name}</span><span className="checkout-product-price">{item.quantity} × {formatBRL(getEffectivePrice(product))}</span></div></div>
                       <span className="checkout-line-total">{formatBRL(getEffectivePrice(product) * item.quantity)}</span>
                     </div>
                   ))}
                 </div>
                 <div className="ago-clean-summary-bottom">
-                  <div className="checkout-summary-row"><span>{t("Produtos · Products")}</span><strong>{formatBRL(subtotal)}</strong></div>
-                  <div className="checkout-summary-row"><span>{t("Frete internacional · International shipping")}</span><strong>{t("A cotar · To quote")}</strong></div>
-                  <p className="checkout-note">{t("Impostos, taxas ou exigências da alfândega de destino podem variar conforme o país. Customs duties, taxes or import requirements may vary by destination.")}</p>
+                  <div className="checkout-summary-row"><span>{english ? 'Products' : 'Produtos'}</span><strong>{formatBRL(subtotal)}</strong></div>
+                  <div className="checkout-summary-row"><span>{english ? 'International shipping' : 'Frete internacional'}</span><strong>{selectedOption ? formatBRL(selectedOption.price) : (english ? 'To calculate' : 'A calcular')}</strong></div>
+                  {selectedOption && <div className="checkout-summary-row checkout-summary-total"><span>Total</span><strong>{formatBRL(grandTotal)}</strong></div>}
+                  <p className="checkout-note">{english ? 'Stripe can show eligible buyers a localized currency at checkout through Adaptive Pricing. The catalog price remains based in BRL.' : 'A Stripe pode mostrar a compradores elegíveis a moeda local no checkout por meio do Adaptive Pricing. O preço-base do catálogo continua em BRL.'}</p>
                 </div>
               </>
             ) : (
               <div className="ago-clean-summary-bottom">
-                <p>{t("Você pode consultar o destino agora ou adicionar suas peças antes. · You can check your destination now or add your pieces first.")}</p>
-                <Link href={english ? "/en/produtos" : "/produtos"} className="checkout-next-step">{t("Explorar coleção · Shop the collection")}</Link>
+                <p>{english ? 'Add your pieces before calculating shipping.' : 'Adicione suas peças antes de calcular o frete.'}</p>
+                <Link href={english ? '/en/produtos' : '/produtos'} className="checkout-next-step">{english ? 'Shop the collection' : 'Explorar coleção'}</Link>
               </div>
             )}
           </aside>
         </div>
-
-        <section style={{ marginTop: 28 }} aria-label={t("Como funciona o envio internacional / How international shipping works")}>
-          <div className="checkout-shipping-note">
-            <span><strong>{t("Como funciona:")}</strong>{t(" escolha as peças → informe o destino → receba a cotação → confirme o pagamento → enviamos a encomenda.")}</span>
-
-            <span>{t("O serviço disponível depende do país, do peso, das dimensões, do conteúdo e das regras aduaneiras do destino.")}</span>
-          </div>
-        </section>
       </div>
     </section>
   );
