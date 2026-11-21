@@ -49,6 +49,7 @@ import CartDrawer from '@/components/CartDrawer';
 import SocialFloaters from '@/components/SocialFloaters';
 import FirstPurchaseOffer from '@/components/FirstPurchaseOffer';
 import { SITE_DOMAIN, WHATSAPP_NUMBER } from '@/lib/config';
+import { isEnglishRequest } from '@/lib/server-locale';
 
 const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-sans' });
 const cormorant = Cormorant_Garamond({ subsets: ['latin'], display: 'swap', variable: '--font-display', weight: ['500', '600', '700'] });
@@ -155,9 +156,10 @@ const versionGuardScript = `
 })();
 `;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const english = await isEnglishRequest();
   return (
-    <html lang="pt-BR" className={`${manrope.variable} ${cormorant.variable}`} data-build-version={buildVersion || undefined} suppressHydrationWarning>
+    <html lang={english ? 'en' : 'pt-BR'} className={`${manrope.variable} ${cormorant.variable}`} data-build-version={buildVersion || undefined} suppressHydrationWarning>
       <body>
         <GoogleTag />
         <a href="#conteudo-principal" className="ago-skip-link">Ir para o conteúdo</a>
