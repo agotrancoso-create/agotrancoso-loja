@@ -50,7 +50,7 @@ export async function POST(req: Request) {
         currency,
         source: 'stripe',
         email,
-        items: items.map((item) => ({
+        items: items.map((item: { item_id: string; item_name: string; price: number; quantity: number }) => ({
           id: item.item_id,
           name: item.item_name,
           price: item.price,
