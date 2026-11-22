@@ -8,6 +8,7 @@ declare global {
     gtag?: (...args: unknown[]) => void;
     fbq?: (...args: unknown[]) => void;
     _learnq?: Array<unknown>;
+    __agoPinterestPendingEvents?: Array<[string, Record<string, unknown>]>;
   }
 }
 
@@ -88,6 +89,31 @@ function klaviyoTrack(event: string, ecommerce?: Record<string, unknown>) {
   }]);
 }
 
+// Queue early product/purchase events until the consent-gated Pinterest base tag
+// has initialized. Nothing is queued when the visitor refuses analytics.
+function pinterestTrack(name: string, payload: Record<string, unknown> = {}) {
+  if (typeof window === 'undefined' || readPrivacyConsent() !== 'all') return;
+  if (!/^\d{6,24}$/.test(process.env.NEXT_PUBLIC_PINTEREST_TAG_ID || '')) return;
+  if (window.__agoPinterestTagInitialized && typeof window.pintrk === 'function') {
+    window.pintrk('track', name, payload);
+    return;
+  }
+  window.__agoPinterestPendingEvents = [
+    ...(window.__agoPinterestPendingEvents || []).slice(-14),
+    [name, payload],
+  ];
+}
+
+function pinterestLineItems(items: Array<Record<string, unknown>>) {
+  return items.map((item) => ({
+    product_id: String(item.item_id || ''),
+    product_name: String(item.item_name || ''),
+    product_price: Number(item.price || 0),
+    product_quantity: Number(item.quantity || 1),
+    ...(item.item_category ? { product_category: String(item.item_category) } : {}),
+  })).filter((item) => Boolean(item.product_id));
+}
+
 function track(event: string, ecommerce?: Record<string, unknown>) {
   pushDataLayer(event, ecommerce);
   if (typeof window === 'undefined' || readPrivacyConsent() !== 'all') return;
@@ -99,6 +125,22 @@ function track(event: string, ecommerce?: Record<string, unknown>) {
     window.gtag('event', event, { ...(ecommerce || {}), send_to: GA4_ID });
   }
   klaviyoTrack(event, ecommerce);
+
+  {
+    const { payload, items } = metaPayload(ecommerce);
+    const shared = {
+      currency: String(payload.currency || 'BRL'),
+      value: Number(payload.value || 0),
+      order_quantity: items.reduce((sum, item) => sum + Number(item.quantity || 0), 0),
+      line_items: pinterestLineItems(items),
+    };
+    if (event === 'view_item') pinterestTrack('PageVisit', shared);
+    else if (event === 'add_to_cart') pinterestTrack('AddToCart', shared);
+    else if (event === 'begin_checkout') pinterestTrack('InitiateCheckout', shared);
+    else if (event === 'add_payment_info') pinterestTrack('AddPaymentInfo', shared);
+    else if (event === 'search' && typeof payload.search_term === 'string') pinterestTrack('Search', { search_query: payload.search_term });
+    else if (event === 'contact') pinterestTrack('Contact');
+  }
 
   if (typeof window.fbq === 'function') {
     const { payload, items, contents } = metaPayload(ecommerce);
@@ -216,6 +258,19 @@ export function trackPurchase(input: PurchaseInput) {
     recordOnce(`ago_purchase_meta_v1_${transactionId}`, () => {
       const { items, contents } = metaPayload(payload);
       window.fbq!('track', 'Purchase', { content_ids: items.map(item => item.item_id), content_type: 'product', contents, value: payload.value, currency: 'BRL' }, { eventID: transactionId });
+    });
+  }
+  if (/^\d{6,24}$/.test(process.env.NEXT_PUBLIC_PINTEREST_TAG_ID || '')) {
+    recordOnce(`ago_purchase_pinterest_v1_${transactionId}`, () => {
+      const { items } = metaPayload(payload);
+      pinterestTrack('Checkout', {
+        event_id: transactionId,
+        order_id: transactionId,
+        currency,
+        value: Math.max(0.01, money(input.value - (input.shipping || 0))),
+        order_quantity: items.reduce((sum, item) => sum + Number(item.quantity || 0), 0),
+        line_items: pinterestLineItems(items),
+      });
     });
   }
   recordOnce(`ago_purchase_crm_v1_${transactionId}`, () => klaviyoTrack('purchase', payload));
