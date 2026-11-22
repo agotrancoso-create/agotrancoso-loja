@@ -2,6 +2,7 @@
 
 export const CONSENT_STORAGE_KEY = 'ago_privacy_consent_v1';
 export const CONSENT_EVENT = 'ago:privacy-consent';
+export const OPEN_CONSENT_EVENT = 'ago:open-privacy-preferences';
 export type PrivacyConsent = 'all' | 'essential';
 
 export function readPrivacyConsent(): PrivacyConsent | null {
