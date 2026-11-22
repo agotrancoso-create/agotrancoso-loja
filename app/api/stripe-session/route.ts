@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, after } from 'next/server';
+import { sendPinterestConfirmedPurchase } from '@/lib/pinterest-server';
 import { retrieveStripeCheckoutLineItems, retrieveStripeCheckoutSession } from '@/lib/stripe-server';
 
 function safeSessionId(value: unknown) {
@@ -37,6 +38,28 @@ export async function POST(req: Request) {
     const amountTotal = Number(session.amount_total);
     const shippingAmount = Number(session.total_details?.amount_shipping || 0);
     const currency = String(session.currency || 'brl').toUpperCase();
+
+    // Conversion occurs only for sessions Stripe marks paid and for visitors
+    // who opted in to marketing analytics. No browser-supplied prices are trusted.
+    if (paid && /^AGO-/.test(orderId) && Number.isFinite(amountTotal) && amountTotal > 0 && body?.analyticsConsent === true) {
+      const email = String(session?.customer_details?.email || session?.customer_email || '').trim();
+      after(() => sendPinterestConfirmedPurchase({
+        orderId,
+        total: amountTotal / 100,
+        shipping: Number.isFinite(shippingAmount) ? shippingAmount / 100 : 0,
+        currency,
+        source: 'stripe',
+        email,
+        items: items.map((item) => ({
+          id: item.item_id,
+          name: item.item_name,
+          price: item.price,
+          quantity: item.quantity,
+        })),
+        clientIp: req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip'),
+        userAgent: req.headers.get('user-agent'),
+      }));
+    }
 
     return NextResponse.json({
       paid,
