@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { INSTAGRAM_URL, whatsappLink } from '@/lib/config';
 import { trackPurchase, type MarketingItem } from '@/lib/marketing-analytics';
+import { readPrivacyConsent } from '@/lib/privacy-consent';
 
 type PaymentStatus = 'checking' | 'confirmed' | 'unconfirmed' | 'unavailable' | 'missing';
 
@@ -48,7 +49,7 @@ export default function ConfirmacaoClient() {
     fetch('/api/verify-payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ orderNsu: orderId, transactionNsu, slug }),
+      body: JSON.stringify({ orderNsu: orderId, transactionNsu, slug, analyticsConsent: readPrivacyConsent() === 'all' }),
       cache: 'no-store',
     }).then(async response => {
       if (!response.ok) throw new Error('Verification unavailable');
