@@ -3,7 +3,7 @@
 import { useSiteEnglish } from '@/lib/use-site-english';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { readPrivacyConsent, writePrivacyConsent } from '@/lib/privacy-consent';
+import { OPEN_CONSENT_EVENT, readPrivacyConsent, writePrivacyConsent } from '@/lib/privacy-consent';
 
 export default function ConsentManager() {
   const english = useSiteEnglish();
@@ -11,6 +11,9 @@ export default function ConsentManager() {
 
   useEffect(() => {
     setVisible(readPrivacyConsent() === null);
+    const reopen = () => setVisible(true);
+    window.addEventListener(OPEN_CONSENT_EVENT, reopen);
+    return () => window.removeEventListener(OPEN_CONSENT_EVENT, reopen);
   }, []);
 
   if (!visible) return null;
