@@ -38,6 +38,7 @@ function initializePinterestTag(id: string) {
   }
 
   window.pintrk('load', id);
+  window.pintrk('setconsent', true);
   window.pintrk('page');
   window.__agoPinterestTagInitialized = true;
 }
@@ -60,10 +61,13 @@ export default function PinterestTag() {
       if (!allowed) {
         lastPage.current = '';
         window.__agoPinterestPendingEvents = [];
+        // Pinterest should stop tracking and remove its cookies after opt-out.
+        window.pintrk?.('setconsent', false);
       }
       return;
     }
     initializePinterestTag(tagId);
+    window.pintrk?.('setconsent', true);
     if (readPrivacyConsent() === 'all' && window.__agoPinterestPendingEvents?.length) {
       const pending = window.__agoPinterestPendingEvents.splice(0);
       for (const [name, data] of pending) window.pintrk?.('track', name, data);
