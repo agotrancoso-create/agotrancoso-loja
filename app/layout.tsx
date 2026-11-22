@@ -65,7 +65,10 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1, them
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_DOMAIN),
-  verification: { google: process.env.GOOGLE_SITE_VERIFICATION?.trim() || undefined },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION?.trim() || undefined,
+    other: { 'p:domain_verify': '6b47dd00d906e0be41cbb05157abbf57' },
+  },
   manifest: '/manifest.webmanifest',
   icons: { icon: '/logo.png', shortcut: '/logo.png', apple: '/logo.png' },
   title: {
