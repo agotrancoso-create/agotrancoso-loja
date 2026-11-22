@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { useSiteEnglish } from '@/lib/use-site-english';
 import { trackPurchase, type MarketingItem } from '@/lib/marketing-analytics';
+import { readPrivacyConsent } from '@/lib/privacy-consent';
 
 type Verification = {
   paid: boolean;
@@ -39,7 +40,7 @@ export default function ConfirmacaoStripeClient() {
     fetch('/api/stripe-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sessionId }),
+      body: JSON.stringify({ sessionId, analyticsConsent: readPrivacyConsent() === 'all' }),
       cache: 'no-store',
     })
       .then(async response => {
