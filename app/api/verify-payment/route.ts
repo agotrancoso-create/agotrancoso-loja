@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, after } from 'next/server';
+import { sendPinterestConfirmedPurchase } from '@/lib/pinterest-server';
 import { getFirstPurchaseOrder } from '@/lib/first-purchase';
 
 const INFINITEPAY_HANDLE = process.env.INFINITEPAY_HANDLE || 'ago-trancoso';
@@ -57,6 +58,28 @@ export async function POST(req: Request) {
         })),
       } : {}),
     };
+
+    // Never report a merely-created checkout. This executes only after
+    // InfinitePay confirms the payment amount and the browser opted into analytics.
+    if (body?.analyticsConsent === true) {
+      after(() => sendPinterestConfirmedPurchase({
+        orderId: orderNsu,
+        total: purchase.value,
+        shipping: purchase.shipping,
+        currency: 'BRL',
+        source: 'infinitepay',
+        items: snapshot?.items.map((item) => ({
+          id: item.itemId,
+          name: item.itemName,
+          price: item.unitPriceCents / 100,
+          quantity: item.quantity,
+          ...(item.itemCategory ? { category: item.itemCategory } : {}),
+        })) || [],
+        hashedEmail: order?.emailKey.split(':').pop(),
+        clientIp: req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip'),
+        userAgent: req.headers.get('user-agent'),
+      }));
+    }
 
     return NextResponse.json({ confirmed: true, purchase }, { headers: noStore });
   } catch (error) {
