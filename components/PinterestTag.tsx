@@ -57,10 +57,17 @@ export default function PinterestTag() {
 
   useEffect(() => {
     if (!allowed || !/^\d{6,24}$/.test(tagId) || !pathname) {
-      if (!allowed) lastPage.current = '';
+      if (!allowed) {
+        lastPage.current = '';
+        window.__agoPinterestPendingEvents = [];
+      }
       return;
     }
     initializePinterestTag(tagId);
+    if (readPrivacyConsent() === 'all' && window.__agoPinterestPendingEvents?.length) {
+      const pending = window.__agoPinterestPendingEvents.splice(0);
+      for (const [name, data] of pending) window.pintrk?.('track', name, data);
+    }
 
     // Product page events are sent with product IDs in trackViewItem, which is
     // needed for Pinterest dynamic retargeting. Never emit a duplicate PageVisit.
