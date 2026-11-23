@@ -3,6 +3,8 @@
 from pathlib import Path
 from PIL import Image, ImageOps, ImageDraw, ImageFont
 import json, subprocess, tempfile, wave
+import imageio_ffmpeg
+FFMPEG=imageio_ffmpeg.get_ffmpeg_exe()
 import numpy as np
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -98,14 +100,14 @@ def render(p,n,work):
         slide(imgs[i%len(imgs)],p['name'],hooks[i],i,jpg)
         mp4=tmp/f'part{i}.mp4'
         vf="scale=768:1366,zoompan=z='min(zoom+0.0005,1.045)':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:s=720x1280:fps=20,format=yuv420p"
-        subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-loop','1','-framerate','20','-i',str(jpg),'-vf',vf,'-t','2.75','-c:v','libx264','-preset','ultrafast','-crf','29','-pix_fmt','yuv420p','-an',str(mp4)],check=True)
+        subprocess.run([FFMPEG,'-hide_banner','-loglevel','error','-y','-loop','1','-framerate','20','-i',str(jpg),'-vf',vf,'-t','2.75','-c:v','libx264','-preset','ultrafast','-crf','29','-pix_fmt','yuv420p','-an',str(mp4)],check=True)
         clips.append(mp4)
     listing=tmp/'list.txt'
     listing.write_text(''.join("file '"+str(x.resolve())+"'\n" for x in clips))
     audio=tmp/'audio.wav';wav(audio,n)
     OUT.mkdir(exist_ok=True,parents=True)
     target=OUT/(p['id']+'.mp4')
-    subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-f','concat','-safe','0','-i',str(listing),'-i',str(audio),'-c:v','copy','-c:a','aac','-b:a','96k','-shortest','-movflags','+faststart',str(target)],check=True)
+    subprocess.run([FFMPEG,'-hide_banner','-loglevel','error','-y','-f','concat','-safe','0','-i',str(listing),'-i',str(audio),'-c:v','copy','-c:a','aac','-b:a','96k','-shortest','-movflags','+faststart',str(target)],check=True)
     print('CRIADO',target,target.stat().st_size,flush=True)
     return True
 def main():
