@@ -1,0 +1,49 @@
+name: Criar videos reais da Ago para TikTok
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/ago_tiktok_batch.py
+      - .github/workflows/ago-tiktok-batch.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ago-videos-tiktok
+  cancel-in-progress: false
+
+jobs:
+  videos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Carregar fotos reais da loja
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Instalar ferramentas de edicao
+        run: |
+          python -m pip install --disable-pip-version-check pillow numpy
+          ffmpeg -version | head -n 1
+      - name: Criar videos verticais sem IA generativa
+        run: python scripts/ago_tiktok_batch.py
+      - name: Conferir videos gerados
+        run: |
+          count=$(find public/videos/tiktok -name '*.mp4' | wc -l)
+          echo "Videos gerados: $count"
+          test "$count" -ge 20
+      - name: Guardar videos no repositorio
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/videos/tiktok/
+          if ! git diff --cached --quiet; then
+            git commit -m "Salvar videos originais do catalogo para posts diários"
+            git push
+          fi
