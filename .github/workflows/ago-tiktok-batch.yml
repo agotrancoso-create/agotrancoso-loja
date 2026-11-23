@@ -30,6 +30,8 @@ jobs:
       - name: Instalar ferramentas de edicao
         run: |
           python -m pip install --disable-pip-version-check pillow numpy
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
           ffmpeg -version | head -n 1
       - name: Criar videos verticais sem IA generativa
         run: python scripts/ago_tiktok_batch.py
