@@ -45,3 +45,30 @@ def safe_frame(photo, name, hook, index):
 base.frame=safe_frame
 if __name__ == "__main__":
     base.main()
+    # Quadros realmente extraídos do MP4 para conferir legibilidade em telas pequenas.
+    import subprocess
+    from tempfile import TemporaryDirectory
+    from PIL import Image, ImageDraw, ImageFont
+    movie = base.OUT / "casinha-luminaria-retencao.mp4"
+    montage = Image.new("RGB", (3*280,520), (246,243,236))
+    with TemporaryDirectory() as td:
+        for i, second in enumerate((0.8,4.0,8.7)):
+            thumb=base.Path(td)/f"frame{i}.png"
+            subprocess.run([base.FFMPEG,"-hide_banner","-loglevel","error","-y","-ss",str(second),"-i",str(movie),"-frames:v","1",str(thumb)],check=True)
+            frame=Image.open(thumb).convert("RGB").resize((270,480),Image.Resampling.LANCZOS)
+            overlay=Image.new("RGBA",(270,480),(0,0,0,0))
+            d=ImageDraw.Draw(overlay)
+            # Simulação conservadora dos controles que ficam por cima do vídeo TikTok.
+            d.rectangle((0,415,270,480),fill=(35,26,22,105))
+            d.rectangle((236,248,270,480),fill=(35,26,22,100))
+            d.rectangle((0,0,270,27),fill=(35,26,22,90))
+            d.text((242,275),"♥",fill=(255,255,255,230),font=ImageFont.truetype(base.FONT,21))
+            d.text((243,321),"●",fill=(255,255,255,230),font=ImageFont.truetype(base.FONT,19))
+            d.text((242,370),"↗",fill=(255,255,255,230),font=ImageFont.truetype(base.FONT,19))
+            frame=Image.alpha_composite(frame.convert("RGBA"),overlay).convert("RGB")
+            montage.paste(frame,(i*280+5,5))
+            d2=ImageDraw.Draw(montage)
+            d2.text((i*280+14,488),f"Quadro {i+1}",fill=(45,32,26),font=ImageFont.truetype(base.FONT,17))
+    preview = base.OUT / "previa-celular-casinha.jpg"
+    montage.save(preview,quality=92)
+    print("PREVIA_CELULAR",preview,flush=True)
