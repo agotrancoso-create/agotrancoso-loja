@@ -1,7 +1,9 @@
 import './contact-polish.css';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { whatsappLink, INSTAGRAM_URL, INSTAGRAM_HANDLE, SITE_DOMAIN } from '@/lib/config';
+import { whatsappLink, INSTAGRAM_URL, INSTAGRAM_HANDLE, SITE_DOMAIN, WHATSAPP_NUMBER } from '@/lib/config';
+
+const publicWhatsAppNumber = WHATSAPP_NUMBER.replace(/^55(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
 
 const mapsUrl = 'https://www.google.com/maps/place/Ag%C3%B4+Trancoso/@-16.5895579,-39.0958675,17z/data=!3m1!4b1!4m6!3m5!1s0x7369d0ea9a6df93a:0xe2f24a89022d4d4f!8m2!3d-16.5895579!4d-39.0958675!16s%2Fg%2F11zfrzkcvk?entry=ttu&g_ep=EgoyMDI2MDkxMy4wIKXMDSoASAFQAw%3D%3D';
 
@@ -49,6 +51,14 @@ export default function ContatoPage() {
 
           <section className="contact-actions" aria-label="Canais de contato">
             <div className="contact-links">
+              <div className="info-panel">
+                <p className="eyebrow">Contato oficial da loja</p>
+                <h2>Agô Trancoso</h2>
+                <p>Atendimento ao cliente pelo WhatsApp: <a href={whatsappLink('Olá! Gostaria de falar com a Agô Trancoso.')} target="_blank" rel="noopener noreferrer"><strong>{publicWhatsAppNumber}</strong></a></p>
+                <p>Localização da loja: Praça São João Batista, Quadrado de Trancoso, Porto Seguro, Bahia, Brasil.</p>
+                <p>Para dúvidas sobre pedidos, envio, trocas e devoluções, fale diretamente com a Agô pelos canais oficiais.</p>
+                <p><Link href="/devolucoes">Política de trocas e devoluções</Link> · <Link href="/ajuda">Entrega e atendimento</Link></p>
+              </div>
               <a href={whatsappLink('Olá! Vim pelo site da Agô Trancoso.')} target="_blank" rel="noopener noreferrer" className="info-link" aria-label="Falar com a Agô Trancoso pelo WhatsApp"><span>Falar no WhatsApp</span><span aria-hidden="true">↗</span></a>
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="info-link" aria-label="Abrir Instagram da Agô Trancoso"><span>@{INSTAGRAM_HANDLE} no Instagram</span><span aria-hidden="true">↗</span></a>
               <a href={mapsUrl} target="_blank" rel="noopener noreferrer" data-google-ads-route="true" className="info-link" aria-label="Abrir localização no Google Maps"><span>Abrir no Google Maps</span><span aria-hidden="true">↗</span></a>
