@@ -1,42 +1,38 @@
-# Agô Trancoso — substituição da vitrine Produtos do Google Negócio
+# Agô Trancoso — atualização da seção Produtos do Google Negócio
 
-Fonte: [Catálogo completo de 22 itens](./catalogo-completo-ago-22.csv), extraído de `data/products.json` e atualizado com a confirmação de pronta-entrega em 24/11/2026.
+## Fonte oficial revisada em 24/11/2026
 
-## Objetivo
+- [22 produtos da coleção](./catalogo-completo-ago-22.csv): nome, descrição fiel, preço, foto real, categoria, endereço e outras informações disponíveis no site
+- [25 opções individuais de compra](./produtos-opcoes-individuais-25.csv): 20 peças com produto único + 3 tamanhos de Rabo de Baleia + 2 acabamentos de Sagrada Família, cada um com preço e foto correspondentes
+- Fonte principal: `data/products.json`, repositório `agotrancoso-create/agotrancoso-loja`
 
-Substituir os itens anteriores da seção **Produtos** do Perfil da Empresa no Google pela seleção atual do site `https://www.agotrancoso.com.br`.
+**A loja confirmou que todos os produtos do catálogo estão disponíveis**, incluindo Rabo de Baleia, Nossa Senhora Grande, Nossa Senhora Aparecida e Sagrada Família.
 
-**Esta pasta é material de preparação. Os produtos do Google ainda não foram alterados.**
+**Regra de comunicação:** NÃO acrescentar “pronta-entrega”, “entrega imediata”, “últimas unidades”, “feito à mão pela Agô” nem “produzido na Bahia” em nomes, descrições, publicações, artes ou legendas. Não inventar promoções, descontos, avaliações ou características.
 
-## Controle de qualidade e segurança
+## Situação atual
 
-1. Abrir o Perfil da Empresa correto da Agô Trancoso, logado como administrador.
-2. Abrir `Editar produtos` e identificar se os itens são cadastrados manualmente ou vieram do Merchant Center. Se forem importados do Merchant Center, administrar pela fonte correta; não desconectar Merchant Center sem revisão.
-3. Registrar nome, foto e preço de todos os itens antigos antes de excluir.
-4. Excluir SOMENTE os produtos da vitrine manual antiga e somente depois de confirmar o inventário que será usado na substituição.
-5. Incluir os 21 itens atualmente marcados `available=true`, usando nome, descrição, preço, categoria, imagem original e link direto da linha correspondente do CSV. A confirmação de pronta-entrega foi expressa para Rabo de Baleia, Nossa Senhora Grande e Nossa Senhora Aparecida. Checar a disponibilidade física na banca; marcar como pendente ou não publicar se não puder verificar.
-6. **Rabo de Baleia em Cerâmica**, **Nossa Senhora Grande** e **Nossa Senhora Aparecida** têm pronta-entrega confirmada pela loja. O Rabo de Baleia possui opções P, M e G com preços próprios; mantenha as variantes e não venda a versão P como se tivesse o preço das outras. **Sagrada Família em Cerâmica** continua com `available=false` no catálogo do site, embora haja quantidades internas; não apresentá-la como pronta-entrega até confirmação da loja.
-7. Não gerar imagens por IA nem alterar pintura, textura, cor, forma ou proporções. Usar apenas arquivos na coluna `Imagem original principal`, com imagens adicionais originais somente quando apropriado.
-8. Não inventar medidas, peso, promoção, estoque, fabricação própria ou origem baiana das peças. Campos não preenchidos no catálogo permanecem sem informação.
-9. A seção de Produtos do Google é separada das publicações/atualizações do Google Negócio feitas no Metricool. Agendar publicações no Metricool não adiciona itens à vitrine.
-10. Ao concluir, abrir o Perfil da Empresa como visitante, verificar cada item, preço, foto, descrição e botão de compra. Entregar relatório com número de itens publicados e eventuais pendências. Não afirmar sucesso antes de verificar as alterações no Google.
+Os arquivos do catálogo foram preparados e revisados. **NÃO foram realizadas exclusões nem inclusões na seção Produtos do Google Business Profile** por falta de ferramenta conectada com permissão de edição dessa seção. O Metricool conectado permite POSTS e fotos, e isso NÃO equivale a produtos da vitrine.
 
-## Grupos sugeridos
+## Como executar a substituição no ChatGPT Work (navegador)
 
-- Igrejinhas e luminárias
-- Lembranças de Trancoso
-- Decoração em cerâmica
-- Fé e devoção
-- Presentes e acessórios
+1. Abrir o Perfil da Empresa oficial da Agô Trancoso, selecionar a ficha correta e acessar `Produtos` / `Editar produtos`.
+2. Inventariar os produtos atualmente mostrados para não apagar registros de outra origem. Verificar se a lista vem do editor manual ou do Merchant Center. Não desconectar o Merchant Center.
+3. Retirar os cadastros manuais antigos conforme solicitado pela proprietária, preservando qualquer estrutura que dependa do Merchant Center.
+4. Cadastrar os 22 produtos da coleção, com todas as informações disponíveis na planilha. Quando houver suporte a variações individuais na vitrine, usar as 25 opções do segundo CSV para assegurar preço e imagem específicos de cada tamanho/acabamento.
+5. Para o **Rabo de Baleia**: P (10 cm) R$ 250; M (12 cm) R$ 330; G (16 cm) R$ 400. Fotos diferentes para cada tamanho, sem passar um único preço como preço de todas as opções.
+6. Para a **Sagrada Família**: Colorida R$ 100; Dourada R$ 100. Ambas as opções disponíveis segundo confirmação da loja.
+7. Para **Nossa Senhora Grande** R$ 3.000 e **Nossa Senhora Aparecida** R$ 280, manter os nomes e fotos corretos.
+8. Usar SOMENTE imagens originais do site; não transformar as peças com IA, alterar cor, textura, pintura, forma ou formato.
+9. Não inventar medidas, pesos ou dados que estejam em branco. O site tem informações mais detalhadas para alguns itens do que para outros.
+10. Concluir verificando a exibição como visitante e conferindo todos os preços, fotos, links e disponibilidade. Relatar o que foi realmente publicado, pendências e itens sob revisão.
 
-## Como executar
+**Observação importante:** o produto denominado *Cachimbo Decorativo em Cerâmica* deve ser verificado à luz das políticas do Google sobre itens associados a tabaco antes de ser anunciado. Não descrevê-lo como objeto para fumar; o catálogo o apresenta como decoração.
 
-No **ChatGPT Work**, abrir o catálogo CSV acima, acessar o site do Google Business Profile, navegar ao editor `Produtos`, comparar os itens antigos com o CSV, remover os cadastros manuais antigos conforme o pedido da proprietária e cadastrar os novos itens individualmente.
+## Não confundir funcionalidades
 
-Segundo a Ajuda do Google, o Editor de Produtos gerencia produtos manualmente um de cada vez; o upload em massa de perfis empresariais não equivale ao upload de produtos.
+- **Metricool > Google Negócio > Criar publicação:** adiciona atualizações/fotos no perfil
+- **Google Business Profile > Produtos:** gerencia a vitrine com nome, imagem, preço, categoria, descrição e ação de compra
+- **Merchant Center:** catálogo comercial e integração que podem alimentar superfícies Google Shopping, dependendo da elegibilidade e configurações
 
-Referências:
-- https://support.google.com/business/answer/9124203
-- https://support.google.com/business/answer/9934993
-
-**Importante:** esta instrução não executa a edição. É preciso acesso autorizado à interface do Google Business Profile.
+A exclusão da vitrine antiga e a inclusão das peças só estão concluídas quando a conta Google confirmar as mudanças. Não considerar este guia como evidência de execução.
