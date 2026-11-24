@@ -1,5 +1,4 @@
 import { getCatalogOffers, getEffectivePrice } from '@/lib/products';
-import { getAttentionOrderedImages } from '@/lib/merchandising';
 import { SITE_DOMAIN } from '@/lib/config';
 
 export const dynamic = 'force-static';
@@ -32,6 +31,34 @@ const TYPES: Record<string, string> = {
   presentes: 'Presentes e lembranças > Cerâmica',
 };
 
+/** Imagens principais reais 1000x1500 para aprovação do catálogo pelo Pinterest. */
+const PINTEREST_HERO: Record<string, string> = {
+  'igrejinha-luminaria-trancoso': '/pinterest/pins-v2/02-igrejinha-luminaria-trancoso.jpg',
+  'casinha-luminaria': '/pinterest/pins-v2/03-casinha-luminaria.jpg',
+  'ima-igrejinha-trancoso': '/pinterest/pins-v2/04-ima-igrejinha-trancoso.jpg',
+  'esfera-decorativa': '/pinterest/pins-v2/06-esfera-decorativa.jpg',
+  'igreja-quadrado-p': '/pinterest/pins-v2/07-igreja-quadrado-p.jpg',
+  'colar-igreja-quadrado': '/pinterest/pins-v2/08-colar-igreja-quadrado.jpg',
+  'miniatura-quadrado-trancoso': '/pinterest/pins-v2/09-miniatura-quadrado-trancoso.jpg',
+  'estatueta-iemanja': '/pinterest/pins-v2/10-estatueta-iemanja.jpg',
+  'presepio-em-ceramica': '/pinterest/pins-v2/11-presepio-em-ceramica.jpg',
+  'mobile-trancoso': '/pinterest/pins-v2/12-mobile-trancoso.jpg',
+  'igreja-quadrado-m': '/pinterest/pins-v2/13-igreja-quadrado-m.jpg',
+  'nossa-senhora-aparecida': '/pinterest/pins-v2/14-nossa-senhora-aparecida.jpg',
+  'cruzeiro-do-quadrado': '/pinterest/pins-v2/15-cruzeiro-do-quadrado.jpg',
+  'divino-espirito-santo': '/pinterest/pins-v2/16-divino-espirito-santo.jpg',
+  'casal-pretos-velhos': '/pinterest/pins-v2/17-casal-pretos-velhos.jpg',
+  'rosario-trancoso': '/pinterest/pins-v2/18-rosario-trancoso.jpg',
+  'nossa-senhora-grande': '/pinterest/pins-v2/19-nossa-senhora-grande.jpg',
+  'terco-em-ceramica': '/pinterest/pins-v2/20-terco-em-ceramica.jpg',
+  'igreja-quadrado-gg': '/pinterest/pins-v2/21-igreja-quadrado-gg.jpg',
+  'rabo-de-baleia-p': '/pinterest/catalog-variants/rabo-de-baleia-p.jpg',
+  'rabo-de-baleia-m': '/pinterest/catalog-variants/rabo-de-baleia-m.jpg',
+  'rabo-de-baleia-g': '/pinterest/catalog-variants/rabo-de-baleia-g.jpg',
+  'sagrada-familia-colorida': '/pinterest/catalog-variants/sagrada-familia-colorida.jpg',
+  'sagrada-familia-dourada': '/pinterest/catalog-variants/sagrada-familia-dourada.jpg',
+};
+
 const GOOGLE_CATEGORIES: Record<string, number> = {
   'colar-igreja-quadrado': 196,
   'ima-igrejinha-trancoso': 5876,
@@ -55,10 +82,13 @@ export async function GET() {
     // Exclude products without a valid canonical photo or purchasing price.
     .filter(({ product }) => product.id !== 'cachimbo' && !product.displayOnly)
     .map(({ product, groupId, size, color }) => {
-      const curated = getAttentionOrderedImages(product).filter(
-        (src) => Boolean(src) && !src.includes('/placeholder.')
-      );
-      if (!curated.length) return '';
+      const hero = PINTEREST_HERO[product.id];
+      // O Pinterest exige imagem principal no formato retrato (min. 1000x1500).
+      // Use apenas fotos fiéis aos produtos, sem conteúdo gerado.
+      if (!hero) return '';
+      const additional = (product.images || []).filter(
+        (src) => Boolean(src) && /\\.(jpe?g|png)$/i.test(src) && !src.includes('/placeholder.')
+      ).slice(0, 9);
       const price = product.price;
       const effectivePrice = getEffectivePrice(product);
       if (!Number.isFinite(price) || price <= 0 || !Number.isFinite(effectivePrice) || effectivePrice <= 0) return '';
@@ -80,8 +110,8 @@ export async function GET() {
           <g:title>${escapeXml(product.name)}</g:title>
           <g:description>${escapeXml(description)}</g:description>
           <g:link>${escapeXml(detailUrl)}</g:link>
-          <g:image_link>${escapeXml(absoluteUrl(curated[0]))}</g:image_link>
-          ${curated.slice(1, 10).map((src) => `<g:additional_image_link>${escapeXml(absoluteUrl(src))}</g:additional_image_link>`).join('')}
+          <g:image_link>${escapeXml(absoluteUrl(hero))}</g:image_link>
+          ${additional.map((src) => `<g:additional_image_link>${escapeXml(absoluteUrl(src))}</g:additional_image_link>`).join('')}
           <g:price>${price.toFixed(2)} BRL</g:price>
           ${hasSale ? `<g:sale_price>${product.promotionalPrice!.toFixed(2)} BRL</g:sale_price>` : ''}
           <g:availability>${product.available && (product.stock == null || product.stock > 0) ? 'in stock' : 'out of stock'}</g:availability>
