@@ -34,6 +34,7 @@ import './shopping-refinements.css';
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Manrope } from 'next/font/google';
 import MarketingAnalytics from '@/components/MarketingAnalytics';
+import MetricoolWebTracker from '@/components/MetricoolWebTracker';
 import PinterestTag from '@/components/PinterestTag';
 import GoogleTag from '@/components/GoogleTag';
 import KlaviyoOnsite from '@/components/KlaviyoOnsite';
@@ -168,6 +169,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <GoogleTag />
         <a href="#conteudo-principal" className="ago-skip-link">Ir para o conteúdo</a>
         <MarketingAnalytics />
+        <MetricoolWebTracker />
         <PinterestTag />
         <KlaviyoOnsite />
         <WebVitalsReporter />
