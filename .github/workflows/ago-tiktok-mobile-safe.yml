@@ -29,7 +29,7 @@ jobs:
       - name: Check eight video files
         run: |
           count=$(find public/videos/tiktok/celular/ -maxdepth 1 -name '*.mp4' | wc -l)
-          test "$count" -eq 8
+          test "$count" -eq 9
       - name: Save media without changing scheduled posts
         run: |
           git config user.name "github-actions[bot]"
