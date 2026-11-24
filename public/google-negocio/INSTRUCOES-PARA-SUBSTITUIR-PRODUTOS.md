@@ -1,6 +1,6 @@
 # Agô Trancoso — substituição da vitrine Produtos do Google Negócio
 
-Fonte: [Catálogo completo de 22 itens](./catalogo-completo-ago-22.csv), extraído de `data/products.json` em 24/11/2026.
+Fonte: [Catálogo completo de 22 itens](./catalogo-completo-ago-22.csv), extraído de `data/products.json` e atualizado com a confirmação de pronta-entrega em 24/11/2026.
 
 ## Objetivo
 
@@ -14,8 +14,8 @@ Substituir os itens anteriores da seção **Produtos** do Perfil da Empresa no G
 2. Abrir `Editar produtos` e identificar se os itens são cadastrados manualmente ou vieram do Merchant Center. Se forem importados do Merchant Center, administrar pela fonte correta; não desconectar Merchant Center sem revisão.
 3. Registrar nome, foto e preço de todos os itens antigos antes de excluir.
 4. Excluir SOMENTE os produtos da vitrine manual antiga e somente depois de confirmar o inventário que será usado na substituição.
-5. Incluir os 20 itens atualmente marcados `available=true`, usando nome, descrição, preço, categoria, imagem original e link direto da linha correspondente do CSV. Checar a disponibilidade física na banca; marcar como pendente ou não publicar se não puder verificar.
-6. Dois produtos têm `available=false` no catálogo do site: **Rabo de Baleia em Cerâmica** e **Sagrada Família em Cerâmica**. O arquivo contém variantes e estoques internos positivos para ambos, o que é inconsistente com o indicador de disponibilidade. Não afirmar pronta-entrega nem publicar como disponíveis até reconciliação de estoque.
+5. Incluir os 21 itens atualmente marcados `available=true`, usando nome, descrição, preço, categoria, imagem original e link direto da linha correspondente do CSV. A confirmação de pronta-entrega foi expressa para Rabo de Baleia, Nossa Senhora Grande e Nossa Senhora Aparecida. Checar a disponibilidade física na banca; marcar como pendente ou não publicar se não puder verificar.
+6. **Rabo de Baleia em Cerâmica**, **Nossa Senhora Grande** e **Nossa Senhora Aparecida** têm pronta-entrega confirmada pela loja. O Rabo de Baleia possui opções P, M e G com preços próprios; mantenha as variantes e não venda a versão P como se tivesse o preço das outras. **Sagrada Família em Cerâmica** continua com `available=false` no catálogo do site, embora haja quantidades internas; não apresentá-la como pronta-entrega até confirmação da loja.
 7. Não gerar imagens por IA nem alterar pintura, textura, cor, forma ou proporções. Usar apenas arquivos na coluna `Imagem original principal`, com imagens adicionais originais somente quando apropriado.
 8. Não inventar medidas, peso, promoção, estoque, fabricação própria ou origem baiana das peças. Campos não preenchidos no catálogo permanecem sem informação.
 9. A seção de Produtos do Google é separada das publicações/atualizações do Google Negócio feitas no Metricool. Agendar publicações no Metricool não adiciona itens à vitrine.
