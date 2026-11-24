@@ -8,6 +8,11 @@ Nenhuma imagem de produto é gerada com IA. As fotografias são originais.
 import ago_tiktok_retencao as base
 
 base.OUT = base.ROOT / "public/videos/tiktok/celular"
+base.SPECS.append((
+    "casal-pretos-velhos", "Casal de Pretos-Velhos",
+    "REPARA NESSA DUPLA", "OLHA OS DETALHES",
+    "PEÇAS EM CERÂMICA", "ONDE VOCÊ COLOCARIA?"
+))
 
 def safe_frame(photo, name, hook, index):
     src = base.ImageOps.exif_transpose(base.Image.open(photo)).convert("RGB")
