@@ -1,0 +1,41 @@
+name: TikTok Agô — enquadramento seguro celular
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/ago_tiktok_mobile_safe.py
+      - .github/workflows/ago-tiktok-mobile-safe.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ago-tiktok-mobile-safe
+  cancel-in-progress: false
+jobs:
+  render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install media dependencies
+        run: python -m pip install --disable-pip-version-check pillow numpy imageio-ffmpeg
+      - name: Produce mobile-safe versions
+        run: python scripts/ago_tiktok_mobile_safe.py
+      - name: Check eight video files
+        run: |
+          count=$(find public/videos/tiktok/celular/ -maxdepth 1 -name '*.mp4' | wc -l)
+          test "$count" -eq 8
+      - name: Save media without changing scheduled posts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/videos/tiktok/celular/
+          if ! git diff --cached --quiet; then
+            git commit -m "Adicionar oito videos adaptados para interface do celular"
+            git push
+          fi
