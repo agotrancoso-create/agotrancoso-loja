@@ -87,7 +87,7 @@ export async function GET() {
       // Use apenas fotos fiéis aos produtos, sem conteúdo gerado.
       if (!hero) return '';
       const additional = (product.images || []).filter(
-        (src) => Boolean(src) && /\\.(jpe?g|png)$/i.test(src) && !src.includes('/placeholder.')
+        (src) => Boolean(src) && /\.(jpe?g|png)$/i.test(src) && !src.includes('/placeholder.')
       ).slice(0, 9);
       const price = product.price;
       const effectivePrice = getEffectivePrice(product);
