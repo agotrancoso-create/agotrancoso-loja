@@ -401,7 +401,7 @@
         "/produtos/catalogo/sagrada-familia-dourada.jpg"
       ],
       "dimensions": "",
-      "available": false,
+      "available": true,
       "displayOnly": true,
       "stock": 45,
       "imageAlt": "Sagrada Família em cerâmica: acabamento colorido e opção de acabamento dourado",
