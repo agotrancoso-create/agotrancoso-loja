@@ -1,10 +1,21 @@
 import { getCatalogOffers } from '@/lib/products';
 import { SITE_DOMAIN } from '@/lib/config';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 
 export const dynamic = 'force-static';
 
 const csv = (value: string | number) => '"' + String(value).replace(/"/g, '""') + '"';
 const url = (path: string) => new URL(path, SITE_DOMAIN).href;
+
+// O prebuild já conserva a imagem original, byte a byte, em /public/zoom.
+// Usamos essa cópia SEM processamento para o feed Meta. Se uma foto nova
+// ainda não tiver master, utilizamos o arquivo existente sem quebrar o feed.
+function unmodifiedImageUrl(path: string): string {
+  const originalPath = '/zoom' + path;
+  const originalFile = join(process.cwd(), 'public', 'zoom', path.replace(/^\\/+/, ''));
+  return url(existsSync(originalFile) ? originalPath : path);
+}
 
 // A curadoria afeta SOMENTE o feed da Meta. A galeria, os arquivos e a ordem do site
 // permanecem intactos. Uma foto só pode aparecer se pertencer à galeria dessa oferta.
@@ -68,7 +79,7 @@ function imagesForMeta(product: { id: string; images: string[] }): string[] {
     ...preferred.filter(path => eligible.includes(path)),
     ...eligible,
   ];
-  return Array.from(new Set(ordered)).map(url);
+  return Array.from(new Set(ordered)).map(unmodifiedImageUrl);
 }
 
 export function GET() {
