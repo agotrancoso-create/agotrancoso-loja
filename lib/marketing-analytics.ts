@@ -1,6 +1,7 @@
 'use client';
 
 import { CONSENT_EVENT, readPrivacyConsent } from './privacy-consent';
+import { getCatalogOffers } from './products';
 
 declare global {
   interface Window {
@@ -144,9 +145,12 @@ function track(event: string, ecommerce?: Record<string, unknown>) {
 
   if (typeof window.fbq === 'function') {
     const { payload, items, contents } = metaPayload(ecommerce);
+    // A parent product page uses item_group_id; concrete cart/checkout items use id.
+    const groupView = event === 'view_item' && items.length === 1 &&
+      getCatalogOffers().some(offer => offer.groupId === items[0].item_id);
     const shared = {
       content_ids: items.map((item) => item.item_id),
-      content_type: 'product',
+      content_type: groupView ? 'product_group' : 'product',
       contents,
       value: payload.value,
       currency: payload.currency || 'BRL',
