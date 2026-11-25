@@ -7,7 +7,7 @@ const csv = (value: string | number) => '"' + String(value).replace(/"/g, '""') 
 const url = (path: string) => new URL(path, SITE_DOMAIN).href;
 
 export function GET() {
-  const headers = ['id', 'title', 'description', 'availability', 'condition', 'price', 'link', 'image_link', 'brand', 'item_group_id', 'size', 'color', 'sale_price'];
+  const headers = ['id', 'title', 'description', 'availability', 'condition', 'price', 'link', 'image_link', 'brand', 'item_group_id', 'size', 'color', 'sale_price', 'custom_label_0'];
   const rows = getCatalogOffers().flatMap(({ product: p, groupId, size, color }) => {
     const image = p.images.find(i => i && !i.includes('placeholder') && /\.(jpg|jpeg|png|webp)(\?|$)/i.test(i));
     if (p.displayOnly || !image || !Number.isFinite(p.price) || p.price <= 0) return [];
@@ -16,7 +16,7 @@ export function GET() {
       ? p.promotionalPrice.toFixed(2) + ' BRL' : '';
     return [[p.id, p.name, p.description, available ? 'in stock' : 'out of stock', 'new',
       p.price.toFixed(2) + ' BRL', url('/produtos/' + encodeURIComponent(p.id)), url(image),
-      'Agô Trancoso', groupId ?? '', size ?? '', color ?? '', sale]];
+      'Agô Trancoso', groupId ?? '', size ?? '', color ?? '', sale, 'ago-site-automatico']];
   });
   return new Response([headers, ...rows].map(row => row.map(csv).join(',')).join('\r\n') + '\r\n', {
     headers: { 'Content-Type': 'text/csv; charset=utf-8', 'Cache-Control': 'public, max-age=300' },
