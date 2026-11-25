@@ -13,7 +13,7 @@ const url = (path: string) => new URL(path, SITE_DOMAIN).href;
 // ainda não tiver master, utilizamos o arquivo existente sem quebrar o feed.
 function unmodifiedImageUrl(path: string): string {
   const originalPath = '/zoom' + path;
-  const originalFile = join(process.cwd(), 'public', 'zoom', path.replace(/^\\/+/, ''));
+  const originalFile = join(process.cwd(), 'public', 'zoom', path.startsWith('/') ? path.slice(1) : path);
   return url(existsSync(originalFile) ? originalPath : path);
 }
 
